@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "baseBranch": "main",
+    "commitId": "abc1234",
+    "timestamp": "2026-04-11T10:00:00Z"
+  },
+  "testMappings": {
+    "OwnerControllerTests#testShowOwner": {
+      "classes": [
+        "org.example.controller.OwnerController",
+        "org.example.model.Owner"
+      ],
+      "methods": [
+        "org.example.controller.OwnerController#showOwner",
+        "org.example.model.Owner#getName"
+      ]
+    },
+    "PetControllerTests#testCreatePet": {
+      "classes": [
+        "org.example.controller.PetController",
+        "org.example.model.Pet"
+      ],
+      "methods": [
+        "org.example.controller.PetController#createPet",
+        "org.example.model.Pet#setName"
+      ]
+    },
+    "VetControllerTests#testShowVets": {
+      "classes": [
+        "org.example.controller.VetController",
+        "org.example.model.Vet"
+      ],
+      "methods": [
+        "org.example.controller.VetController#showVetList",
+        "org.example.model.Vet#getSpecialties"
+      ]
+    }
+  }
+}

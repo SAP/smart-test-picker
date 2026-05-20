@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<report name="smart-report">
+    <sessioninfo id="MyTest#testSomething" start="1700000000000" dump="1700000001000"/>
+    <package name="org/example/service">
+        <class name="org/example/service/UserService" sourcefilename="UserService.java">
+            <method name="updateAddress" desc="(Ljava/lang/String;)V" line="10">
+                <counter type="INSTRUCTION" missed="0" covered="5"/>
+                <counter type="LINE" missed="0" covered="2"/>
+            </method>
+            <method name="deleteUser" desc="(J)V" line="20">
+                <counter type="INSTRUCTION" missed="8" covered="0"/>
+                <counter type="LINE" missed="3" covered="0"/>
+            </method>
+        </class>
+    </package>
+    <package name="org/example/repository">
+        <class name="org/example/repository/UserRepository" sourcefilename="UserRepository.java">
+            <method name="save" desc="(Ljava/lang/Object;)V" line="5">
+                <counter type="INSTRUCTION" missed="0" covered="3"/>
+                <counter type="LINE" missed="0" covered="1"/>
+            </method>
+            <method name="findById" desc="(J)Ljava/lang/Object;" line="15">
+                <counter type="INSTRUCTION" missed="0" covered="7"/>
+                <counter type="LINE" missed="0" covered="3"/>
+            </method>
+        </class>
+    </package>
+</report>

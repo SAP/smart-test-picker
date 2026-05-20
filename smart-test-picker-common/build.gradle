@@ -1,0 +1,42 @@
+// SPDX-FileCopyrightText: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+// SPDX-License-Identifier: Apache-2.0
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+group = 'io.github.ljubisap'
+version = '0.1.11'
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.1'
+    implementation 'org.glassfish.jaxb:jaxb-runtime:3.0.2'
+    implementation 'org.jacoco:org.jacoco.core:0.8.13'
+    implementation 'org.jacoco:org.jacoco.report:0.8.13'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+// Java 17 target — must match smart-test-picker-maven which requires Java 17
+// due to ASM limitation in maven-plugin-development plugin.
+// Does not affect smart-test-picker (Gradle plugin) which can run on any JDK 17+.
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
+}

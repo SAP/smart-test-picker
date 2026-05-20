@@ -1,0 +1,50 @@
+// SPDX-FileCopyrightText: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+// SPDX-License-Identifier: Apache-2.0
+plugins {
+    id 'base'
+    id 'jacoco'
+}
+
+subprojects {
+    repositories {
+        mavenCentral()
+    }
+
+    apply plugin: 'jacoco'
+
+    jacoco {
+        toolVersion = '0.8.13'
+    }
+
+    afterEvaluate {
+        tasks.withType(Test) {
+            finalizedBy tasks.named('jacocoTestReport')
+        }
+
+        tasks.withType(JacocoReport) {
+            reports {
+                html.required = true
+                xml.required = true
+            }
+        }
+    }
+}
+
+tasks.register('jacocoAggregatedReport', JacocoReport) {
+    subprojects.each { subproject ->
+        subproject.plugins.withId('java') {
+            dependsOn subproject.tasks.withType(JacocoReport)
+            additionalSourceDirs.from(subproject.sourceSets.main.allSource)
+            sourceDirectories.from(subproject.sourceSets.main.allSource)
+            classDirectories.from(subproject.sourceSets.main.output)
+            executionData.from(subproject.fileTree(dir: "${subproject.layout.buildDirectory.get()}/jacoco", include: '*.exec'))
+        }
+    }
+
+    reports {
+        html.required = true
+        html.outputLocation = layout.buildDirectory.dir('reports/jacoco/aggregated/html')
+        xml.required = true
+        xml.outputLocation = layout.buildDirectory.file('reports/jacoco/aggregated/jacoco.xml')
+    }
+}

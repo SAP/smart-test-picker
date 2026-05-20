@@ -1,0 +1,4 @@
+// SPDX-FileCopyrightText: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+// SPDX-License-Identifier: Apache-2.0
+rootProject.name = 'smart-test-picker-working'
+include 'smart-test-picker-core', 'smart-test-picker-common', 'smart-test-picker', 'smart-test-picker-maven', 'smart-test-picker-cli'

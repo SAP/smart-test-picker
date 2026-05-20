@@ -1,0 +1,54 @@
+// SPDX-FileCopyrightText: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+// SPDX-License-Identifier: Apache-2.0
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id 'de.benediktritter.maven-plugin-development' version '0.4.3'
+}
+
+group = 'io.github.ljubisap'
+version = '0.1.11'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation project(':smart-test-picker-common')
+    implementation 'com.google.code.gson:gson:2.10.1'
+
+    compileOnly 'org.apache.maven:maven-plugin-api:3.9.6'
+    compileOnly 'org.apache.maven.plugin-tools:maven-plugin-annotations:3.11.0'
+    compileOnly 'org.apache.maven:maven-core:3.9.6'
+    implementation 'org.apache.maven.shared:maven-invoker:3.3.0'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+// Java 17 target required — de.benediktritter.maven-plugin-development
+// uses ASM that does not support Java 21 bytecode.
+// All other modules can use Java 21 freely.
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+mavenPlugin {
+    helpMojoPackage = 'io.github.ljubisap.smarttestpicker.maven'
+}
+
+publishing {
+    publications {
+        mavenPlugin(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
+}

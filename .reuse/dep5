@@ -1,0 +1,43 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Smart Test Picker
+Upstream-Contact: https://github.com/SAP/smart-test-picker/issues
+
+Files: *.gradle
+Copyright: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+License: Apache-2.0
+
+Files: settings.gradle
+Copyright: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+License: Apache-2.0
+
+Files: gradlew*
+Copyright: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+License: Apache-2.0
+
+Files: gradle/**
+Copyright: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+License: Apache-2.0
+
+Files: .gitignore
+Copyright: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+License: Apache-2.0
+
+Files: README.md
+Copyright: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+License: Apache-2.0
+
+Files: */README.md
+Copyright: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+License: Apache-2.0
+
+Files: *.xml
+Copyright: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+License: Apache-2.0
+
+Files: *.properties
+Copyright: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+License: Apache-2.0
+
+Files: NOTICE
+Copyright: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+License: Apache-2.0
