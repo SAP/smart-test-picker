@@ -30,7 +30,7 @@ import picocli.CommandLine.Command;
 		name = "smart-test-picker",
 		description = "Regression test selection via per-test runtime coverage",
 		mixinStandardHelpOptions = true,
-		version = "0.1.11",
+		version = "0.1.0",
 		subcommands = {
 				ExecToXmlCommand.class,
 				GenerateMapCommand.class,

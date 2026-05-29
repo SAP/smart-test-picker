@@ -8,7 +8,7 @@ Maven plugin providing mojo implementations for the coverage pipeline.
 <plugin>
     <groupId>io.github.ljubisap</groupId>
     <artifactId>smart-test-picker-maven</artifactId>
-    <version>0.1.11</version>
+    <version>0.1.0</version>
 </plugin>
 ```
 
@@ -33,7 +33,7 @@ The merge is typically bound to the last module in the reactor using the `isLast
 <plugin>
     <groupId>io.github.ljubisap</groupId>
     <artifactId>smart-test-picker-maven</artifactId>
-    <version>0.1.11</version>
+    <version>0.1.0</version>
     <executions>
         <execution>
             <id>generate-map</id>
