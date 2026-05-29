@@ -156,7 +156,7 @@ class SourceCoverageGeneratorTest
 
 		assertTrue(result.getCoveragePercentages().containsKey("com.example.Foo"));
 		double pct = result.getCoveragePercentages().get("com.example.Foo");
-		assertEquals(66.6, pct, 0.5, "2 of 3 lines covered = ~66.7%");
+		assertEquals(50.0, pct, 0.1, "ci=5 of total instructions=10 -> 50%");
 	}
 
 	@Test
@@ -205,7 +205,7 @@ class SourceCoverageGeneratorTest
 		// After merge: both lines should show as covered → 100%
 		assertTrue(result.getCoveragePercentages().containsKey("com.example.Foo"));
 		double pct = result.getCoveragePercentages().get("com.example.Foo");
-		assertEquals(100.0, pct, 0.1, "Merged coverage: both lines covered by at least one test");
+		assertEquals(87.5, pct, 0.1, "Merged coverage: line10 ci=3/3, line11 ci=4/5 -> 7/8=87.5%");
 	}
 
 	private void writeXml(File file, String packageName, String sourceFileName) throws IOException
