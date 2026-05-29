@@ -1,3 +1,4 @@
+[![CI](https://github.com/SAP/smart-test-picker/actions/workflows/ci.yml/badge.svg)](https://github.com/SAP/smart-test-picker/actions/workflows/ci.yml)
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP/smart-test-picker)](https://api.reuse.software/info/github.com/SAP/smart-test-picker)
 ![Java](https://img.shields.io/badge/Java-17%2B-blue)
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)
