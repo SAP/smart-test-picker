@@ -2,6 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 package io.github.ljubisap.smarttestpicker;
 
+import javax.inject.Inject;
+
+import org.gradle.api.Action;
+import org.gradle.api.model.ObjectFactory;
 import org.gradle.api.provider.ListProperty;
 import org.gradle.api.provider.Property;
 
@@ -34,6 +38,14 @@ import org.gradle.api.provider.Property;
  */
 public abstract class SmartTestPickerExtension
 {
+
+	private final RemoteStoreExtension remoteStore;
+
+	@Inject
+	public SmartTestPickerExtension(ObjectFactory objects)
+	{
+		this.remoteStore = objects.newInstance(RemoteStoreExtension.class);
+	}
 
 	/**
 	 * The base branch used for change detection (e.g. "main", "develop").
@@ -77,11 +89,13 @@ public abstract class SmartTestPickerExtension
 	 */
 	public abstract ListProperty<String> getFullSuiteTriggers();
 
-	// Remote store is not yet implemented — disabled to avoid Gradle 9.x
-	// incompatibility with nested abstract managed types.
-	// public abstract RemoteStoreExtension getRemoteStore();
-	// public void remoteStore(Action<? super RemoteStoreExtension> action)
-	// {
-	//     action.execute(getRemoteStore());
-	// }
+	public RemoteStoreExtension getRemoteStore()
+	{
+		return remoteStore;
+	}
+
+	public void remoteStore(Action<? super RemoteStoreExtension> action)
+	{
+		action.execute(remoteStore);
+	}
 }

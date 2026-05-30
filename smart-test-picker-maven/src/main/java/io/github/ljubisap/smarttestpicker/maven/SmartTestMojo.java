@@ -38,6 +38,7 @@ import io.github.ljubisap.smarttestpicker.mapper.ClassCoverageMetrics;
 import io.github.ljubisap.smarttestpicker.mapper.CoverageMap;
 import io.github.ljubisap.smarttestpicker.mapper.CoverageMapMetadata;
 import io.github.ljubisap.smarttestpicker.selector.SelectionOutput;
+import io.github.ljubisap.smarttestpicker.store.RemoteStoreClient;
 
 
 /**
@@ -73,6 +74,15 @@ public class SmartTestMojo extends AbstractMojo
 	@Parameter(defaultValue = "false", property = "smartTestPicker.classLevelSelection")
 	private boolean classLevelSelection;
 
+	@Parameter(property = "smartTestPicker.remoteUrl")
+	private String remoteUrl;
+
+	@Parameter(property = "smartTestPicker.remoteUser")
+	private String remoteUser;
+
+	@Parameter(property = "smartTestPicker.remotePassword")
+	private String remotePassword;
+
 	@Parameter(property = "spring.profiles.active")
 	private String springProfiles;
 
@@ -87,6 +97,32 @@ public class SmartTestMojo extends AbstractMojo
 
 		// Step 1: Select tests from baseline coverage map
 		File coverageMapFile = new File(rootTarget, "test-coverage-map.json");
+
+		// Pull from remote store if configured and local map doesn't exist
+		if (!coverageMapFile.exists() && remoteUrl != null && !remoteUrl.isEmpty())
+		{
+			getLog().info("[SmartTestPicker] Pulling coverage map from remote: " + remoteUrl);
+			try
+			{
+				RemoteStoreClient client = new RemoteStoreClient(remoteUrl, remoteUser, remotePassword);
+				byte[] data = client.pull("main");
+				if (data != null)
+				{
+					rootTarget.mkdirs();
+					Files.write(coverageMapFile.toPath(), data);
+					getLog().info("[SmartTestPicker] Pulled coverage map (" + data.length + " bytes)");
+				}
+				else
+				{
+					getLog().warn("[SmartTestPicker] No remote coverage map found");
+				}
+			}
+			catch (IOException e)
+			{
+				getLog().warn("[SmartTestPicker] Failed to pull remote map: " + e.getMessage());
+			}
+		}
+
 		if (!coverageMapFile.exists())
 		{
 			getLog().error("[SmartTestPicker] No baseline coverage map found at: "
