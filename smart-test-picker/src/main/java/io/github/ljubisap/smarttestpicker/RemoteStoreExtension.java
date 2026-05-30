@@ -2,7 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 package io.github.ljubisap.smarttestpicker;
 
+import javax.inject.Inject;
+
 import org.gradle.api.Action;
+import org.gradle.api.model.ObjectFactory;
 import org.gradle.api.provider.Property;
 
 
@@ -26,6 +29,14 @@ import org.gradle.api.provider.Property;
 public abstract class RemoteStoreExtension
 {
 
+	private final RemoteStoreCredentials credentials;
+
+	@Inject
+	public RemoteStoreExtension(ObjectFactory objects)
+	{
+		this.credentials = objects.newInstance(RemoteStoreCredentials.class);
+	}
+
 	/**
 	 * Base URL of the remote store (e.g. Nexus raw repository URL).
 	 * Maps are stored at {@code {url}/{baseBranch}/test-coverage-map.json}.
@@ -41,7 +52,10 @@ public abstract class RemoteStoreExtension
 	/**
 	 * HTTP Basic Auth credentials for the remote store.
 	 */
-	public abstract RemoteStoreCredentials getCredentials();
+	public RemoteStoreCredentials getCredentials()
+	{
+		return credentials;
+	}
 
 	/**
 	 * Configures the credentials using a closure/action.

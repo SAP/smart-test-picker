@@ -152,9 +152,7 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 			task.useJUnitPlatform();
 		});
 
-		// Remote store tasks — disabled until remote store feature is implemented
-		// (nested abstract managed types are incompatible with Gradle 9.x)
-		/*
+		// Remote store tasks — pull/push coverage maps from a remote HTTP store
 		project.getTasks().register("pullCoverageMap", PullCoverageMapTask.class, task -> {
 			task.setGroup("verification");
 			task.setDescription("Pulls coverage map from remote store");
@@ -178,7 +176,6 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 			task.onlyIf(t -> ext.getRemoteStore().getUrl().isPresent()
 					&& ext.getRemoteStore().getPush().getOrElse(false));
 		});
-		*/
 
 		// Apply test filters at configuration time (afterEvaluate) — reads selected-tests.json
 		// which must exist from a prior ./gradlew selectTests invocation
