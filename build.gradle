@@ -27,6 +27,37 @@ subprojects {
                 xml.required = true
             }
         }
+
+        plugins.withId('maven-publish') {
+            publishing {
+                publications.configureEach { pub ->
+                    if (pub instanceof MavenPublication) {
+                        pub.pom {
+                            url = 'https://github.com/SAP/smart-test-picker'
+                            licenses {
+                                license {
+                                    name = 'Apache License, Version 2.0'
+                                    url = 'https://www.apache.org/licenses/LICENSE-2.0'
+                                }
+                            }
+                            developers {
+                                developer {
+                                    id = 'ljubisap'
+                                    name = 'Ljubisa Punosevac'
+                                    email = 'ljubisa.punosevac@sap.com'
+                                    organization = 'SAP SE'
+                                    organizationUrl = 'https://www.sap.com'
+                                }
+                            }
+                            scm {
+                                connection = 'scm:git:https://github.com/SAP/smart-test-picker.git'
+                                url = 'https://github.com/SAP/smart-test-picker'
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

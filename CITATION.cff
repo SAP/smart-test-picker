@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+title: "Smart Test Picker"
+message: "If you use this software, please cite it using these metadata."
+type: software
+authors:
+  - family-names: "Punosevac"
+    given-names: "Ljubisa"
+    affiliation: "SAP SE"
+repository-code: "https://github.com/SAP/smart-test-picker"
+abstract: >
+  Smart Test Picker is a Gradle and Maven plugin that performs
+  regression test selection by mapping per-test runtime coverage
+  (collected via JaCoCo) against Git diffs to identify the minimal
+  set of tests affected by a code change.
+keywords:
+  - regression-testing
+  - test-selection
+  - jacoco
+  - gradle-plugin
+  - junit5
+  - code-coverage
+license: Apache-2.0

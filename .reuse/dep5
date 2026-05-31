@@ -41,3 +41,15 @@ License: Apache-2.0
 Files: NOTICE
 Copyright: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
 License: Apache-2.0
+
+Files: MAINTAINERS.md
+Copyright: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+License: Apache-2.0
+
+Files: CITATION.cff
+Copyright: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+License: Apache-2.0
+
+Files: .github/CODEOWNERS
+Copyright: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+License: Apache-2.0
