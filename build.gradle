@@ -43,8 +43,22 @@ subprojects {
                             developers {
                                 developer {
                                     id = 'ljubisap'
-                                    name = 'Ljubisa Punosevac'
+                                    name = 'Ljubiša Punoševac'
                                     email = 'ljubisa.punosevac@sap.com'
+                                    organization = 'SAP SE'
+                                    organizationUrl = 'https://www.sap.com'
+                                }
+                                developer {
+                                    id = 'uroslates'
+                                    name = 'Uroš Lates'
+                                    email = 'uros.lates@sap.com'
+                                    organization = 'SAP SE'
+                                    organizationUrl = 'https://www.sap.com'
+                                }
+                                developer {
+                                    id = 'ivanaveljkovic1'
+                                    name = 'Ivana Veljković'
+                                    email = 'ivana.veljkovic@sap.com'
                                     organization = 'SAP SE'
                                     organizationUrl = 'https://www.sap.com'
                                 }
