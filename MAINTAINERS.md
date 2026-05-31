@@ -4,8 +4,9 @@ This document lists the active maintainers of Smart Test Picker.
 
 | Name | GitHub | Email | Role |
 |------|--------|-------|------|
-| Ljubisa Punosevac | @ljubisap | ljubisa.punosevac@sap.com | Lead maintainer, original author |
-| TBD | TBD | TBD | Maintainer |
+| Ljubiša Punoševac | @ljubisap | ljubisa.punosevac@sap.com | Lead maintainer, original author |
+| Uroš Lates | @uroslates | uros.lates@sap.com | Maintainer |
+| Ivana Veljković | @ivanaveljkovic1 | ivana.veljkovic@sap.com | Maintainer |
 
 ## Maintainer responsibilities
 - Review and merge pull requests
