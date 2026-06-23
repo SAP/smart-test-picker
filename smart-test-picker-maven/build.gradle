@@ -6,7 +6,7 @@ plugins {
     id 'de.benediktritter.maven-plugin-development' version '0.4.3'
 }
 
-group = 'io.github.ljubisap'
+group = 'com.sap.oss.smart-test-picker'
 version = '0.1.0'
 
 repositories {
@@ -39,7 +39,7 @@ java {
 }
 
 mavenPlugin {
-    helpMojoPackage = 'io.github.ljubisap.smarttestpicker.maven'
+    helpMojoPackage = 'com.sap.oss.smarttestpicker.maven'
 }
 
 publishing {

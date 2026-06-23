@@ -5,7 +5,7 @@ plugins {
     id 'maven-publish'
 }
 
-group = 'io.github.ljubisap'
+group = 'com.sap.oss.smart-test-picker'
 version = '0.1.0'
 
 repositories {
