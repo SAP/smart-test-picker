@@ -45,7 +45,7 @@ Developer changes code
 ```groovy
 // build.gradle
 plugins {
-    id 'io.github.ljubisap.smart-test-picker' version '0.1.0'
+    id 'com.sap.oss.smart-test-picker' version '0.1.0'
 }
 
 // Optional configuration
@@ -71,7 +71,7 @@ open build/reports/smart-test-picker/index.html
 
 ```xml
 <plugin>
-    <groupId>io.github.ljubisap</groupId>
+    <groupId>com.sap.oss.smart-test-picker</groupId>
     <artifactId>smart-test-picker-maven</artifactId>
     <version>0.1.0</version>
 </plugin>
@@ -82,7 +82,7 @@ open build/reports/smart-test-picker/index.html
 mvn verify -Psmart-test-picker
 
 # Phase 2 (on feature branch): one-command smart test run
-mvn io.github.ljubisap:smart-test-picker-maven:0.1.0:smart-test
+mvn com.sap.oss.smart-test-picker:smart-test-picker-maven:0.1.0:smart-test
 
 # View report
 open target/reports/smart-test-picker/index.html

@@ -18,7 +18,7 @@ The extension is auto-registered via `META-INF/services/org.junit.jupiter.api.ex
 To enable, add the core module as a test dependency:
 
 ```groovy
-testRuntimeOnly 'io.github.ljubisap:smart-test-picker-core:0.1.0'
+testRuntimeOnly 'com.sap.oss.smart-test-picker:smart-test-picker-core:0.1.0'
 ```
 
 ## JaCoCo Agent Interaction

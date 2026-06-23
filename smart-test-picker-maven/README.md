@@ -6,7 +6,7 @@ Maven plugin providing mojo implementations for the coverage pipeline.
 
 ```xml
 <plugin>
-    <groupId>io.github.ljubisap</groupId>
+    <groupId>com.sap.oss.smart-test-picker</groupId>
     <artifactId>smart-test-picker-maven</artifactId>
     <version>0.1.0</version>
 </plugin>
@@ -31,7 +31,7 @@ The merge is typically bound to the last module in the reactor using the `isLast
 
 ```xml
 <plugin>
-    <groupId>io.github.ljubisap</groupId>
+    <groupId>com.sap.oss.smart-test-picker</groupId>
     <artifactId>smart-test-picker-maven</artifactId>
     <version>0.1.0</version>
     <executions>
