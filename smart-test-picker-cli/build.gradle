@@ -6,7 +6,7 @@ plugins {
     id 'com.gradleup.shadow' version '8.3.6'
 }
 
-group = 'io.github.ljubisap'
+group = 'com.sap.oss.smart-test-picker'
 version = '0.1.0'
 
 dependencies {
@@ -23,7 +23,7 @@ test {
 }
 
 application {
-    mainClass = 'io.github.ljubisap.smarttestpicker.cli.SmartTestPickerCli'
+    mainClass = 'com.sap.oss.smarttestpicker.cli.SmartTestPickerCli'
 }
 
 java {
