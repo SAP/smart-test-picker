@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
 // SPDX-License-Identifier: Apache-2.0
-package io.github.ljubisap.smarttestpicker;
+package com.sap.oss.smarttestpicker;
 
 import java.io.IOException;
 
@@ -17,7 +17,7 @@ import org.gradle.api.tasks.PathSensitive;
 import org.gradle.api.tasks.PathSensitivity;
 import org.gradle.api.tasks.TaskAction;
 
-import io.github.ljubisap.smarttestpicker.engine.ReportEngine;
+import com.sap.oss.smarttestpicker.engine.ReportEngine;
 
 
 /**

@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
 // SPDX-License-Identifier: Apache-2.0
-package io.github.ljubisap.smarttestpicker.engine;
+package com.sap.oss.smarttestpicker.engine;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,9 +14,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import io.github.ljubisap.smarttestpicker.change.GitChangeDetector;
-import io.github.ljubisap.smarttestpicker.mapper.CoverageMap;
-import io.github.ljubisap.smarttestpicker.mapper.CoverageMapMetadata;
+import com.sap.oss.smarttestpicker.change.GitChangeDetector;
+import com.sap.oss.smarttestpicker.mapper.CoverageMap;
+import com.sap.oss.smarttestpicker.mapper.CoverageMapMetadata;
 
 import static org.junit.jupiter.api.Assertions.*;
 

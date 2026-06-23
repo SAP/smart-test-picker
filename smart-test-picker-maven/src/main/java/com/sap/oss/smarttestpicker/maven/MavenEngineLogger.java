@@ -1,10 +1,10 @@
 // SPDX-FileCopyrightText: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
 // SPDX-License-Identifier: Apache-2.0
-package io.github.ljubisap.smarttestpicker.maven;
+package com.sap.oss.smarttestpicker.maven;
 
 import org.apache.maven.plugin.logging.Log;
 
-import io.github.ljubisap.smarttestpicker.engine.EngineLogger;
+import com.sap.oss.smarttestpicker.engine.EngineLogger;
 
 
 /**

@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
 // SPDX-License-Identifier: Apache-2.0
-package io.github.ljubisap.smarttestpicker;
+package com.sap.oss.smarttestpicker;
 
 import org.gradle.api.Project;
 import org.gradle.testfixtures.ProjectBuilder;
@@ -20,7 +20,7 @@ class SmartTestPickerExtensionTest
 	void setUp()
 	{
 		project = ProjectBuilder.builder().build();
-		project.getPluginManager().apply("io.github.ljubisap.smart-test-picker");
+		project.getPluginManager().apply("com.sap.oss.smart-test-picker");
 		extension = project.getExtensions().getByType(SmartTestPickerExtension.class);
 	}
 

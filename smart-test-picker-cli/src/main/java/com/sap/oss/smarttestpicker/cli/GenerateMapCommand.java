@@ -1,12 +1,12 @@
 // SPDX-FileCopyrightText: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
 // SPDX-License-Identifier: Apache-2.0
-package io.github.ljubisap.smarttestpicker.cli;
+package com.sap.oss.smarttestpicker.cli;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.Callable;
 
-import io.github.ljubisap.smarttestpicker.engine.CoverageMapEngine;
+import com.sap.oss.smarttestpicker.engine.CoverageMapEngine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
@@ -27,7 +27,7 @@ import picocli.CommandLine.Option;
  * </ul>
  *
  * @see CoverageMapEngine
- * @see io.github.ljubisap.smarttestpicker.mapper.IndexedCoverageMap
+ * @see com.sap.oss.smarttestpicker.mapper.IndexedCoverageMap
  */
 @Command(
 		name = "generate-map",

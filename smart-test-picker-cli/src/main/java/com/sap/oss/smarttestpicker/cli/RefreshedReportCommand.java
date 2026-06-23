@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
 // SPDX-License-Identifier: Apache-2.0
-package io.github.ljubisap.smarttestpicker.cli;
+package com.sap.oss.smarttestpicker.cli;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,10 +18,10 @@ import java.util.concurrent.Callable;
 
 import com.google.gson.GsonBuilder;
 
-import io.github.ljubisap.smarttestpicker.engine.ExecToXmlEngine;
-import io.github.ljubisap.smarttestpicker.engine.ReportEngine;
-import io.github.ljubisap.smarttestpicker.engine.TestSelectionEngine;
-import io.github.ljubisap.smarttestpicker.selector.SelectionOutput;
+import com.sap.oss.smarttestpicker.engine.ExecToXmlEngine;
+import com.sap.oss.smarttestpicker.engine.ReportEngine;
+import com.sap.oss.smarttestpicker.engine.TestSelectionEngine;
+import com.sap.oss.smarttestpicker.selector.SelectionOutput;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 

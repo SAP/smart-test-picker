@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
 // SPDX-License-Identifier: Apache-2.0
-package io.github.ljubisap.smarttestpicker.engine;
+package com.sap.oss.smarttestpicker.engine;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,13 +12,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import io.github.ljubisap.smarttestpicker.change.GitChangeDetector;
-import io.github.ljubisap.smarttestpicker.mapper.CoverageMap;
-import io.github.ljubisap.smarttestpicker.mapper.CoverageMapMetadata;
-import io.github.ljubisap.smarttestpicker.mapper.CoverageMapReader;
-import io.github.ljubisap.smarttestpicker.selector.SelectionOutput;
-import io.github.ljubisap.smarttestpicker.selector.SelectionResult;
-import io.github.ljubisap.smarttestpicker.selector.TestSelector;
+import com.sap.oss.smarttestpicker.change.GitChangeDetector;
+import com.sap.oss.smarttestpicker.mapper.CoverageMap;
+import com.sap.oss.smarttestpicker.mapper.CoverageMapMetadata;
+import com.sap.oss.smarttestpicker.mapper.CoverageMapReader;
+import com.sap.oss.smarttestpicker.selector.SelectionOutput;
+import com.sap.oss.smarttestpicker.selector.SelectionResult;
+import com.sap.oss.smarttestpicker.selector.TestSelector;
 
 
 /**

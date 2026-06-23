@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
 // SPDX-License-Identifier: Apache-2.0
-package io.github.ljubisap.smarttestpicker.cli;
+package com.sap.oss.smarttestpicker.cli;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import io.github.ljubisap.smarttestpicker.engine.ExecToXmlEngine;
+import com.sap.oss.smarttestpicker.engine.ExecToXmlEngine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
@@ -16,7 +16,7 @@ import picocli.CommandLine.Option;
 /**
  * CLI subcommand that converts per-test JaCoCo {@code .exec} files into XML reports.
  *
- * <p>Wraps {@link io.github.ljubisap.smarttestpicker.engine.ExecToXmlEngine} with
+ * <p>Wraps {@link com.sap.oss.smarttestpicker.engine.ExecToXmlEngine} with
  * picocli option parsing. Supports custom platform auto-discovery
  * of compiled classes directories via {@code --platform-home}.</p>
  *
@@ -28,7 +28,7 @@ import picocli.CommandLine.Option;
  *     --platform-home /path/to/platform
  * }</pre>
  *
- * @see io.github.ljubisap.smarttestpicker.engine.ExecToXmlEngine
+ * @see com.sap.oss.smarttestpicker.engine.ExecToXmlEngine
  */
 @Command(
 		name = "exec-to-xml",

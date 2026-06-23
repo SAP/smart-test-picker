@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
 // SPDX-License-Identifier: Apache-2.0
-package io.github.ljubisap.smarttestpicker.mapper;
+package com.sap.oss.smarttestpicker.mapper;
 
 import java.util.List;
 import java.util.Map;
@@ -30,7 +30,7 @@ import java.util.Map;
  * 5755 tests with 6206 unique classes).</p>
  *
  * @see CoverageMapReader
- * @see io.github.ljubisap.smarttestpicker.engine.CoverageMapEngine
+ * @see com.sap.oss.smarttestpicker.engine.CoverageMapEngine
  */
 public class IndexedCoverageMap
 {

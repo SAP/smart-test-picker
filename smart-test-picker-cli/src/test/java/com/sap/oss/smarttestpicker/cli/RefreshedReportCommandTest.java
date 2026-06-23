@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
 // SPDX-License-Identifier: Apache-2.0
-package io.github.ljubisap.smarttestpicker.cli;
+package com.sap.oss.smarttestpicker.cli;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -16,7 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import io.github.ljubisap.smarttestpicker.selector.SelectionOutput;
+import com.sap.oss.smarttestpicker.selector.SelectionOutput;
 import picocli.CommandLine;
 
 import static org.junit.jupiter.api.Assertions.*;

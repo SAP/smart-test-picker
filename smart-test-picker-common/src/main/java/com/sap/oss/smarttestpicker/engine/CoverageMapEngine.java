@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
 // SPDX-License-Identifier: Apache-2.0
-package io.github.ljubisap.smarttestpicker.engine;
+package com.sap.oss.smarttestpicker.engine;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,13 +20,13 @@ import java.util.zip.GZIPOutputStream;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import io.github.ljubisap.smarttestpicker.change.GitChangeDetector;
-import io.github.ljubisap.smarttestpicker.mapper.ClassCoverageMetrics;
-import io.github.ljubisap.smarttestpicker.mapper.CoverageMap;
-import io.github.ljubisap.smarttestpicker.mapper.CoverageMapMetadata;
-import io.github.ljubisap.smarttestpicker.mapper.CoverageMapperJaxb;
-import io.github.ljubisap.smarttestpicker.mapper.IndexedCoverageMap;
-import io.github.ljubisap.smarttestpicker.mapper.TestClassFilter;
+import com.sap.oss.smarttestpicker.change.GitChangeDetector;
+import com.sap.oss.smarttestpicker.mapper.ClassCoverageMetrics;
+import com.sap.oss.smarttestpicker.mapper.CoverageMap;
+import com.sap.oss.smarttestpicker.mapper.CoverageMapMetadata;
+import com.sap.oss.smarttestpicker.mapper.CoverageMapperJaxb;
+import com.sap.oss.smarttestpicker.mapper.IndexedCoverageMap;
+import com.sap.oss.smarttestpicker.mapper.TestClassFilter;
 
 
 /**
@@ -43,8 +43,8 @@ import io.github.ljubisap.smarttestpicker.mapper.TestClassFilter;
  * <p>Extracted from the Gradle {@code GenerateTestCoverageJsonTask} to be reusable
  * across Gradle, Maven, and CLI.</p>
  *
- * @see io.github.ljubisap.smarttestpicker.mapper.CoverageMap
- * @see io.github.ljubisap.smarttestpicker.mapper.IndexedCoverageMap
+ * @see com.sap.oss.smarttestpicker.mapper.CoverageMap
+ * @see com.sap.oss.smarttestpicker.mapper.IndexedCoverageMap
  */
 public class CoverageMapEngine
 {

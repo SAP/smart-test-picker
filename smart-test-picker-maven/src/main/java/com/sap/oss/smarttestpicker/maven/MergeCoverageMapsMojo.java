@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
 // SPDX-License-Identifier: Apache-2.0
-package io.github.ljubisap.smarttestpicker.maven;
+package com.sap.oss.smarttestpicker.maven;
 
 import java.io.File;
 import java.io.FileReader;
@@ -20,9 +20,9 @@ import org.apache.maven.project.MavenProject;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import io.github.ljubisap.smarttestpicker.mapper.ClassCoverageMetrics;
-import io.github.ljubisap.smarttestpicker.mapper.CoverageMap;
-import io.github.ljubisap.smarttestpicker.mapper.CoverageMapMetadata;
+import com.sap.oss.smarttestpicker.mapper.ClassCoverageMetrics;
+import com.sap.oss.smarttestpicker.mapper.CoverageMap;
+import com.sap.oss.smarttestpicker.mapper.CoverageMapMetadata;
 
 
 /**

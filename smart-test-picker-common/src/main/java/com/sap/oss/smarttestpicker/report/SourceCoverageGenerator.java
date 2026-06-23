@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
 // SPDX-License-Identifier: Apache-2.0
-package io.github.ljubisap.smarttestpicker.report;
+package com.sap.oss.smarttestpicker.report;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,11 +30,11 @@ import org.jacoco.core.analysis.ISourceFileCoverage;
 import org.jacoco.core.tools.ExecFileLoader;
 import org.xml.sax.InputSource;
 
-import io.github.ljubisap.smarttestpicker.jacoco.JacocoLine;
-import io.github.ljubisap.smarttestpicker.jacoco.JacocoPackage;
-import io.github.ljubisap.smarttestpicker.jacoco.JacocoReport;
-import io.github.ljubisap.smarttestpicker.jacoco.JacocoSourceFile;
-import io.github.ljubisap.smarttestpicker.mapper.CoverageMapperJaxb;
+import com.sap.oss.smarttestpicker.jacoco.JacocoLine;
+import com.sap.oss.smarttestpicker.jacoco.JacocoPackage;
+import com.sap.oss.smarttestpicker.jacoco.JacocoReport;
+import com.sap.oss.smarttestpicker.jacoco.JacocoSourceFile;
+import com.sap.oss.smarttestpicker.mapper.CoverageMapperJaxb;
 import jakarta.xml.bind.Unmarshaller;
 
 

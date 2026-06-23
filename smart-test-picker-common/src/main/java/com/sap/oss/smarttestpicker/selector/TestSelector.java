@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
 // SPDX-License-Identifier: Apache-2.0
-package io.github.ljubisap.smarttestpicker.selector;
+package com.sap.oss.smarttestpicker.selector;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,15 +9,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import io.github.ljubisap.smarttestpicker.mapper.CoverageMap;
-import io.github.ljubisap.smarttestpicker.mapper.CoverageMapReader;
+import com.sap.oss.smarttestpicker.mapper.CoverageMap;
+import com.sap.oss.smarttestpicker.mapper.CoverageMapReader;
 
 
 /**
  * Selects which tests to run based on code changes and a coverage map.
  *
  * <p>This is the core test selection engine. Given a set of changed classes and/or methods
- * (from {@link io.github.ljubisap.smarttestpicker.change.GitChangeDetector}) and a coverage
+ * (from {@link com.sap.oss.smarttestpicker.change.GitChangeDetector}) and a coverage
  * map JSON file, it determines which tests are impacted by the changes.</p>
  *
  * <p>Selection strategy:</p>
@@ -30,7 +30,7 @@ import io.github.ljubisap.smarttestpicker.mapper.CoverageMapReader;
  * </ul>
  *
  * @see SelectionResult
- * @see io.github.ljubisap.smarttestpicker.mapper.CoverageMap
+ * @see com.sap.oss.smarttestpicker.mapper.CoverageMap
  */
 public class TestSelector
 {

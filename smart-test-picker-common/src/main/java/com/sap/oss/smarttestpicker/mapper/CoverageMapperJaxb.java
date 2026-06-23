@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
 // SPDX-License-Identifier: Apache-2.0
-package io.github.ljubisap.smarttestpicker.mapper;
+package com.sap.oss.smarttestpicker.mapper;
 
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.sax.SAXSource;
@@ -19,14 +19,14 @@ import java.util.Set;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
-import io.github.ljubisap.smarttestpicker.jacoco.JacocoClass;
-import io.github.ljubisap.smarttestpicker.jacoco.JacocoCounter;
-import io.github.ljubisap.smarttestpicker.jacoco.JacocoLine;
-import io.github.ljubisap.smarttestpicker.jacoco.JacocoMethod;
-import io.github.ljubisap.smarttestpicker.jacoco.JacocoPackage;
-import io.github.ljubisap.smarttestpicker.jacoco.JacocoReport;
-import io.github.ljubisap.smarttestpicker.jacoco.JacocoSessionInfo;
-import io.github.ljubisap.smarttestpicker.jacoco.JacocoSourceFile;
+import com.sap.oss.smarttestpicker.jacoco.JacocoClass;
+import com.sap.oss.smarttestpicker.jacoco.JacocoCounter;
+import com.sap.oss.smarttestpicker.jacoco.JacocoLine;
+import com.sap.oss.smarttestpicker.jacoco.JacocoMethod;
+import com.sap.oss.smarttestpicker.jacoco.JacocoPackage;
+import com.sap.oss.smarttestpicker.jacoco.JacocoReport;
+import com.sap.oss.smarttestpicker.jacoco.JacocoSessionInfo;
+import com.sap.oss.smarttestpicker.jacoco.JacocoSourceFile;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Unmarshaller;
 

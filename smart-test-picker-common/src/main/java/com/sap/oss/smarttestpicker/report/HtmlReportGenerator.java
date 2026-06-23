@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
 // SPDX-License-Identifier: Apache-2.0
-package io.github.ljubisap.smarttestpicker.report;
+package com.sap.oss.smarttestpicker.report;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import io.github.ljubisap.smarttestpicker.mapper.ClassCoverageMetrics;
+import com.sap.oss.smarttestpicker.mapper.ClassCoverageMetrics;
 
 
 /**

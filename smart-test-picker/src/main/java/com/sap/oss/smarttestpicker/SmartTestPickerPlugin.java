@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2024-2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
 // SPDX-License-Identifier: Apache-2.0
-package io.github.ljubisap.smarttestpicker;
+package com.sap.oss.smarttestpicker;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,9 +16,9 @@ import org.gradle.api.tasks.testing.Test;
 
 import com.google.gson.Gson;
 
-import io.github.ljubisap.smarttestpicker.engine.ExecToXmlEngine;
-import io.github.ljubisap.smarttestpicker.mapper.CoverageMap;
-import io.github.ljubisap.smarttestpicker.selector.SelectionOutput;
+import com.sap.oss.smarttestpicker.engine.ExecToXmlEngine;
+import com.sap.oss.smarttestpicker.mapper.CoverageMap;
+import com.sap.oss.smarttestpicker.selector.SelectionOutput;
 
 
 /**
@@ -38,7 +38,7 @@ import io.github.ljubisap.smarttestpicker.selector.SelectionOutput;
  *   <li>{@code generateSmartTestMapping} — convenience task that chains test + report + JSON generation</li>
  * </ul>
  *
- * <p>Plugin ID: {@code io.github.ljubisap.smart-test-picker}</p>
+ * <p>Plugin ID: {@code com.sap.oss.smart-test-picker}</p>
  *
  * @see SmartTestPickerExtension
  */
@@ -318,7 +318,7 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 		Set<String> knownTestClasses = new HashSet<>();
 		try
 		{
-			CoverageMap coverageMap = io.github.ljubisap.smarttestpicker.mapper.CoverageMapReader.load(coverageMapFile);
+			CoverageMap coverageMap = com.sap.oss.smarttestpicker.mapper.CoverageMapReader.load(coverageMapFile);
 			if (coverageMap != null && coverageMap.getTestMappings() != null)
 			{
 				for (String testName : coverageMap.getTestMappings().keySet())
