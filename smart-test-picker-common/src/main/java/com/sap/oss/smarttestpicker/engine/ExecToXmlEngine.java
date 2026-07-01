@@ -2,12 +2,15 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.engine;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -30,8 +33,12 @@ import org.jacoco.report.xml.XMLFormatter;
  * Report generation is parallelized across multiple threads for performance.</p>
  *
  * <p>Supports both single-directory and multi-directory class analysis — the latter
- * is needed for platforms like SAP Commerce where compiled classes are spread across
- * multiple extension directories.</p>
+ * is needed for platforms where compiled classes are spread across
+ * multiple directories.</p>
+ *
+ * <p>Class bytecode is preloaded into memory once and reused across all exec files,
+ * eliminating repeated disk I/O which is the primary bottleneck when processing
+ * thousands of exec files.</p>
  */
 public class ExecToXmlEngine
 {
@@ -70,6 +77,10 @@ public class ExecToXmlEngine
 	 * Scans the exec directory for matching {@code .exec} files and generates
 	 * a per-test XML report for each.
 	 *
+	 * <p>Class bytecode is preloaded into memory before processing begins.
+	 * This trades memory (one copy of all class bytes) for dramatically reduced
+	 * disk I/O when processing many exec files.</p>
+	 *
 	 * @param execDir     directory containing {@code .exec} files
 	 * @param classesDirs compiled production classes directories (one or more)
 	 * @param sourceDir   source directory for source file references (nullable)
@@ -97,8 +108,16 @@ public class ExecToXmlEngine
 		}
 
 		int threadCount = Math.max(1, Math.min(threads, execFiles.length));
+
+		// Preload all class bytecode into memory once to avoid repeated disk reads.
+		long preloadStart = System.currentTimeMillis();
+		Map<String, byte[]> classCache = preloadClassFiles(classesDirs);
+		long preloadElapsed = System.currentTimeMillis() - preloadStart;
+
 		logger.info("[SmartTestPicker] Generating XML reports for {} exec files using {} threads across {} classes directories",
 				execFiles.length, threadCount, classesDirs.size());
+		logger.info("[SmartTestPicker] Preloaded {} class files ({}MB) in {}ms",
+				classCache.size(), classCache.values().stream().mapToLong(b -> b.length).sum() / (1024 * 1024), preloadElapsed);
 
 		AtomicInteger generated = new AtomicInteger();
 		AtomicInteger skipped = new AtomicInteger();
@@ -113,7 +132,7 @@ public class ExecToXmlEngine
 				File xmlOut = new File(reportDir, name + ".xml");
 				try
 				{
-					boolean hasContent = generateReport(execFile, classesDirs, sourceDir, xmlOut, logger);
+					boolean hasContent = generateReport(execFile, classCache, sourceDir, xmlOut);
 					if (hasContent)
 					{
 						generated.incrementAndGet();
@@ -157,35 +176,57 @@ public class ExecToXmlEngine
 	}
 
 	/**
-	 * Generates a JaCoCo XML report from a single {@code .exec} file.
-	 * Only classes with at least one covered line are included in the output.
+	 * Preloads all {@code .class} files from the given directories into memory.
 	 *
-	 * @return true if the report was written (had covered classes), false if skipped
+	 * @param classesDirs directories to scan for .class files
+	 * @return map of relative class path (e.g. "com/example/Foo.class") to bytecode
 	 */
-	private boolean generateReport(File execFile, List<File> classesDirs, File sourceDir,
-			File xmlOut, EngineLogger logger) throws IOException
+	private Map<String, byte[]> preloadClassFiles(List<File> classesDirs) throws IOException
 	{
-		ExecFileLoader loader = new ExecFileLoader();
-		loader.load(execFile);
-
-		CoverageBuilder coverageBuilder = new CoverageBuilder();
-		Analyzer analyzer = new Analyzer(loader.getExecutionDataStore(), coverageBuilder);
-
+		Map<String, byte[]> cache = new HashMap<>();
 		for (File classesDir : classesDirs)
 		{
+			if (!classesDir.isDirectory())
+			{
+				continue;
+			}
 			Files.walk(classesDir.toPath())
 					.filter(p -> p.toString().endsWith(".class"))
 					.forEach(classFilePath -> {
-						try (var inputStream = Files.newInputStream(classFilePath))
+						try
 						{
 							String relPath = classesDir.toPath().relativize(classFilePath).toString();
-							analyzer.analyzeClass(inputStream, relPath);
+							cache.put(relPath, Files.readAllBytes(classFilePath));
 						}
 						catch (IOException e)
 						{
 							// silently skip unreadable classes
 						}
 					});
+		}
+		return cache;
+	}
+
+	/**
+	 * Generates a JaCoCo XML report from a single {@code .exec} file using
+	 * preloaded class bytecode from memory.
+	 * Only classes with at least one covered line are included in the output.
+	 *
+	 * @return true if the report was written (had covered classes), false if skipped
+	 */
+	private boolean generateReport(File execFile, Map<String, byte[]> classCache,
+			File sourceDir, File xmlOut) throws IOException
+	{
+		ExecFileLoader loader = new ExecFileLoader();
+		loader.load(execFile);
+
+		// First pass: analyze all cached classes to find which have coverage
+		CoverageBuilder coverageBuilder = new CoverageBuilder();
+		Analyzer analyzer = new Analyzer(loader.getExecutionDataStore(), coverageBuilder);
+
+		for (Map.Entry<String, byte[]> entry : classCache.entrySet())
+		{
+			analyzer.analyzeClass(new ByteArrayInputStream(entry.getValue()), entry.getKey());
 		}
 
 		var filteredClasses = coverageBuilder.getClasses().stream()
@@ -197,25 +238,17 @@ public class ExecToXmlEngine
 			return false;
 		}
 
-		// Two-pass analysis: JaCoCo's CoverageBuilder accumulates all analyzed classes and
-		// cannot remove them after the fact. First pass analyzes everything to find which
-		// classes have covered lines, then second pass re-analyzes only those classes to
-		// produce a filtered XML report without zero-coverage noise.
+		// Second pass: re-analyze only covered classes for a clean XML report
+		// without zero-coverage noise.
 		CoverageBuilder filteredBuilder = new CoverageBuilder();
 		for (var cls : filteredClasses)
 		{
-			File classFile = findClassFile(classesDirs, cls.getName());
-			if (classFile != null)
+			String classPath = cls.getName() + ".class";
+			byte[] classBytes = classCache.get(classPath);
+			if (classBytes != null)
 			{
-				try (var inputStream = Files.newInputStream(classFile.toPath()))
-				{
-					Analyzer reAnalyzer = new Analyzer(loader.getExecutionDataStore(), filteredBuilder);
-					reAnalyzer.analyzeClass(inputStream, cls.getName() + ".class");
-				}
-				catch (IOException e)
-				{
-					logger.warn("[SmartTestPicker] Failed to re-analyze class: {}", cls.getName());
-				}
+				Analyzer reAnalyzer = new Analyzer(loader.getExecutionDataStore(), filteredBuilder);
+				reAnalyzer.analyzeClass(new ByteArrayInputStream(classBytes), classPath);
 			}
 		}
 
@@ -233,17 +266,4 @@ public class ExecToXmlEngine
 		return true;
 	}
 
-	private File findClassFile(List<File> classesDirs, String className)
-	{
-		String relativePath = className + ".class";
-		for (File dir : classesDirs)
-		{
-			File candidate = new File(dir, relativePath);
-			if (candidate.exists())
-			{
-				return candidate;
-			}
-		}
-		return null;
-	}
 }
