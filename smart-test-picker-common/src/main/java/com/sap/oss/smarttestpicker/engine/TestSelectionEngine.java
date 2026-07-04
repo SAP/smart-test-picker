@@ -117,6 +117,9 @@ public class TestSelectionEngine
 
 		CoverageMapMetadata metadata = coverageMap.getMetadata();
 		String commitId = metadata.getCommitId();
+		logger.info("[SmartTestPicker] Map metadata: commitId={}, branch={}, timestamp={}",
+				commitId != null ? commitId.substring(0, Math.min(7, commitId.length())) : "null",
+				metadata.getBaseBranch(), metadata.getTimestamp());
 
 		// Validate commitId
 		if (commitId == null || commitId.isEmpty())
@@ -136,6 +139,7 @@ public class TestSelectionEngine
 
 		// Check commit distance
 		int distance = git.getCommitDistance(commitId);
+		logger.info("[SmartTestPicker] Commit distance from map: {} (max allowed: {})", distance, maxCommitDistance);
 		if (distance > maxCommitDistance)
 		{
 			logger.warn("[SmartTestPicker] Commit distance {} exceeds max {} — mapping is too stale", distance, maxCommitDistance);
@@ -162,19 +166,29 @@ public class TestSelectionEngine
 		git.ensureJavaDiffDriver();
 
 		// Get changed classes and methods
+		logger.info("[SmartTestPicker] Detecting changes: git diff {}..HEAD", commitId.substring(0, 7));
 		Set<String> changedClasses = git.getChangedClasses(commitId);
 		Set<String> changedMethods = git.getChangedMethods(commitId);
-		logger.info("[SmartTestPicker] Changed classes since {}: {}", commitId.substring(0, 7), changedClasses);
+		logger.info("[SmartTestPicker] Changed classes ({}): {}", changedClasses.size(), changedClasses);
 		if (!changedMethods.isEmpty())
 		{
-			logger.info("[SmartTestPicker] Changed methods: {}", changedMethods);
+			logger.info("[SmartTestPicker] Changed methods ({}): {}", changedMethods.size(), changedMethods);
+		}
+		else
+		{
+			logger.info("[SmartTestPicker] No method-level info available (missing *.java diff=java in .gitattributes?)");
 		}
 
 		// Detect new test classes
 		Map<String, String> unmappedTests = newTestDetector.detect(coverageMap, git, commitId, testClassesDirs, testSourceDirs, logger);
+		if (!unmappedTests.isEmpty())
+		{
+			logger.info("[SmartTestPicker] Unmapped/new test classes (always run): {}", unmappedTests.size());
+		}
 
 		if (changedClasses.isEmpty() && changedMethods.isEmpty())
 		{
+			logger.info("[SmartTestPicker] No production code changes detected -> NONE");
 			SelectionOutput out = new SelectionOutput("NONE", "No production code changes detected",
 					List.of(), unmappedTests);
 			out.setChangedClasses(List.of());
@@ -183,10 +197,11 @@ public class TestSelectionEngine
 
 		// Select tests
 		TestSelector selector = new TestSelector();
-		SelectionResult result = selector.selectTests(coverageMapFile, changedClasses, changedMethods);
+		SelectionResult result = selector.selectTests(coverageMapFile, changedClasses, changedMethods, logger);
 
 		if (result.isFullSuiteRequired())
 		{
+			logger.info("[SmartTestPicker] Result: FULL_SUITE (reason: {})", result.getReason());
 			SelectionOutput out = new SelectionOutput("FULL_SUITE", result.getReason(), List.of(), unmappedTests);
 			out.setChangedClasses(new ArrayList<>(changedClasses));
 			return out;
@@ -195,6 +210,8 @@ public class TestSelectionEngine
 		List<String> selected = new ArrayList<>(result.getSelectedTests());
 		String reason = selected.size() + " tests selected out of "
 				+ coverageMap.getTestMappings().size() + " total";
+		logger.info("[SmartTestPicker] Result: SELECTED {} tests (+ {} unmapped always-run)",
+				selected.size(), unmappedTests.size());
 		SelectionOutput out = new SelectionOutput("SELECTED", reason, selected, unmappedTests);
 		out.setChangedClasses(new ArrayList<>(changedClasses));
 		return out;
