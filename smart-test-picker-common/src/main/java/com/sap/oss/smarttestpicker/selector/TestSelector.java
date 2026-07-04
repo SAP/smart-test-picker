@@ -4,6 +4,7 @@ package com.sap.oss.smarttestpicker.selector;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,8 @@ import com.sap.oss.smarttestpicker.mapper.CoverageMapReader;
  * <ul>
  *   <li>If method-level info is available for a changed class, only tests covering those
  *       specific methods are selected (precise matching)</li>
+ *   <li>If method-level matching yields zero hits for a class that IS in the coverage map
+ *       at class level, selection escalates to class-level for that class (safety fallback)</li>
  *   <li>If no method-level info is available (e.g. git couldn't determine which methods changed),
  *       all tests covering the changed class are selected (class-level fallback)</li>
  *   <li>If the coverage map is missing, invalid, or has no metadata, the full test suite is run</li>
@@ -36,12 +39,22 @@ import com.sap.oss.smarttestpicker.mapper.CoverageMapReader;
 public class TestSelector
 {
 
+	private static final EngineLogger NOOP_LOGGER = new EngineLogger()
+	{
+		@Override
+		public void info(String msg, Object... args) {}
+
+		@Override
+		public void warn(String msg, Object... args) {}
+	};
+
 	/**
 	 * Select tests based on changed classes and/or methods and coverage map.
 	 * <p>
 	 * When method-level info is available for a class (i.e. changedMethods contains entries
-	 * for that class), only method-level matching is used for that class. Class-level fallback
-	 * is only applied for changed classes where no method-level info could be extracted from the diff.
+	 * for that class), only method-level matching is used initially. If method-level matching
+	 * produces zero hits for a class, selection escalates to class-level for safety - the
+	 * changed method may be called indirectly or may not appear in the coverage map.
 	 */
 	public SelectionResult selectTests(File coverageMapFile, Set<String> changedClasses,
 			Set<String> changedMethods, EngineLogger logger)
@@ -85,8 +98,6 @@ public class TestSelector
 		}
 
 		// Determine which classes have method-level info from the diff.
-		// For these classes, we use ONLY method-level matching (more precise).
-		// For classes without method-level info, we fall back to class-level matching.
 		Set<String> classesWithMethodInfo = new HashSet<>();
 		for (String method : changedMethods)
 		{
@@ -111,6 +122,14 @@ public class TestSelector
 		int methodMatchCount = 0;
 		int classMatchCount = 0;
 
+		// Track which classesWithMethodInfo actually got method-level hits
+		Map<String, Integer> methodHitsPerClass = new HashMap<>();
+		for (String cls : classesWithMethodInfo)
+		{
+			methodHitsPerClass.put(cls, 0);
+		}
+
+		// First pass: method-level and class-level matching
 		for (Map.Entry<String, Map<String, List<String>>> entry : coverageMap.getTestMappings().entrySet())
 		{
 			String testName = entry.getKey();
@@ -128,6 +147,13 @@ public class TestSelector
 						{
 							selectedTests.add(testName);
 							methodMatchCount++;
+							// Track which class got a hit
+							int hashIdx = coveredMethod.indexOf('#');
+							if (hashIdx > 0)
+							{
+								String cls = coveredMethod.substring(0, hashIdx);
+								methodHitsPerClass.computeIfPresent(cls, (k, v) -> v + 1);
+							}
 							logger.debug("[SmartTestPicker]   {} -> selected (method-level: covers {})",
 									testName, coveredMethod);
 							break;
@@ -136,7 +162,7 @@ public class TestSelector
 				}
 			}
 
-			// Class-level fallback — only for classes where method detection was not possible
+			// Class-level fallback for classes without method info
 			if (!selectedTests.contains(testName) && !classLevelOnlyClasses.isEmpty())
 			{
 				List<String> coveredClasses = coverage.get("classes");
@@ -157,27 +183,65 @@ public class TestSelector
 			}
 		}
 
+		// Safety fallback: escalate to class-level for classes where method-level
+		// matching produced zero hits. A changed method not in the coverage map
+		// cannot be proven safe - selecting class-level tests is conservative but correct.
+		Set<String> escalatedClasses = new HashSet<>();
+		for (Map.Entry<String, Integer> entry : methodHitsPerClass.entrySet())
+		{
+			if (entry.getValue() == 0)
+			{
+				escalatedClasses.add(entry.getKey());
+			}
+		}
+
+		int escalatedCount = 0;
+		if (!escalatedClasses.isEmpty())
+		{
+			logger.info("[SmartTestPicker]   Method-level produced 0 hits for: {} -> escalating to class-level",
+					escalatedClasses);
+
+			for (Map.Entry<String, Map<String, List<String>>> entry : coverageMap.getTestMappings().entrySet())
+			{
+				String testName = entry.getKey();
+				if (selectedTests.contains(testName))
+				{
+					continue;
+				}
+				Map<String, List<String>> coverage = entry.getValue();
+				List<String> coveredClasses = coverage.get("classes");
+				if (coveredClasses != null)
+				{
+					for (String coveredClass : coveredClasses)
+					{
+						if (escalatedClasses.contains(coveredClass))
+						{
+							selectedTests.add(testName);
+							escalatedCount++;
+							break;
+						}
+					}
+				}
+			}
+
+			logger.info("[SmartTestPicker]   Escalation added {} tests via class-level for: {}",
+					escalatedCount, escalatedClasses);
+		}
+
 		int total = coverageMap.getTestMappings().size();
 		double reduction = total > 0 ? (1.0 - (double) selectedTests.size() / total) * 100 : 0;
-		logger.info("[SmartTestPicker] Selection complete: {} of {} tests selected ({} method-level, {} class-level, {}% reduction)",
-				selectedTests.size(), total, methodMatchCount, classMatchCount, String.format("%.1f", reduction));
+		logger.info("[SmartTestPicker] Selection complete: {} of {} tests selected ({} method-level, {} class-level, {} escalated, {}% reduction)",
+				selectedTests.size(), total, methodMatchCount, classMatchCount, escalatedCount, String.format("%.1f", reduction));
 
 		return SelectionResult.selected(selectedTests);
 	}
 
 	/**
-	 * Select tests (without logger — backward compatible, uses no-op logger).
+	 * Select tests (without logger - backward compatible).
 	 */
 	public SelectionResult selectTests(File coverageMapFile, Set<String> changedClasses, Set<String> changedMethods)
 	{
-		return selectTests(coverageMapFile, changedClasses, changedMethods, new EngineLogger()
-		{
-			@Override
-			public void info(String msg, Object... args) {}
-
-			@Override
-			public void warn(String msg, Object... args) {}
-		});
+		return selectTests(coverageMapFile, changedClasses, changedMethods, NOOP_LOGGER);
 	}
 
 	/**
@@ -190,10 +254,6 @@ public class TestSelector
 
 	/**
 	 * Loads and deserializes a coverage map JSON file.
-	 *
-	 * @param file the JSON file containing the coverage map
-	 * @param logger engine logger
-	 * @return the parsed {@link CoverageMap}, or {@code null} if parsing fails
 	 */
 	CoverageMap loadCoverageMap(File file, EngineLogger logger)
 	{
@@ -208,18 +268,8 @@ public class TestSelector
 		}
 	}
 
-	/**
-	 * @deprecated Use {@link #loadCoverageMap(File, EngineLogger)} instead.
-	 */
 	CoverageMap loadCoverageMap(File file)
 	{
-		return loadCoverageMap(file, new EngineLogger()
-		{
-			@Override
-			public void info(String msg, Object... args) {}
-
-			@Override
-			public void warn(String msg, Object... args) {}
-		});
+		return loadCoverageMap(file, NOOP_LOGGER);
 	}
 }
