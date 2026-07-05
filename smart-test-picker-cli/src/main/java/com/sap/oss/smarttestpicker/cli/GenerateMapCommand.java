@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.concurrent.Callable;
 
 import com.sap.oss.smarttestpicker.engine.CoverageMapEngine;
+import com.sap.oss.smarttestpicker.store.CoverageMapResolver;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
@@ -18,16 +19,12 @@ import picocli.CommandLine.Option;
  * records which classes and methods each test covers, along with git metadata
  * (commitId, baseBranch, timestamp) for change detection.</p>
  *
- * <p>Supports three output formats:</p>
- * <ul>
- *   <li>Plain JSON (default) -- human-readable, with pretty printing</li>
- *   <li>Indexed JSON ({@code --indexed}) -- deduplicated class/method strings with
- *       integer references, typically 10-15x smaller</li>
- *   <li>Gzip ({@code --gzip}) -- additional compression, combinable with indexed format</li>
- * </ul>
+ * <p>When {@code --cache} is specified, the generated map is also written to the
+ * local cache at {@code ~/.gradle/smart-test-picker/PROJECT_NAME/local-coverage-map.json}
+ * so that {@code select-tests} and {@code query} can resolve it automatically.</p>
  *
  * @see CoverageMapEngine
- * @see com.sap.oss.smarttestpicker.mapper.IndexedCoverageMap
+ * @see CoverageMapResolver
  */
 @Command(
 		name = "generate-map",
@@ -61,6 +58,10 @@ public class GenerateMapCommand implements Callable<Integer>
 			description = "Compress output with gzip")
 	private boolean gzip;
 
+	@Option(names = "--cache",
+			description = "Also write to local cache (~/.gradle/smart-test-picker/PROJECT_NAME/local-coverage-map.json)")
+	private boolean cache;
+
 	@Override
 	public Integer call()
 	{
@@ -82,10 +83,20 @@ public class GenerateMapCommand implements Callable<Integer>
 		logger.info("Base branch:     {}", baseBranch);
 		logger.info("Indexed:         {}", indexed);
 		logger.info("Gzip:            {}", gzip);
+		logger.info("Cache:           {}", cache);
 
 		try
 		{
 			new CoverageMapEngine().generate(xmlDir, output, baseBranch, projectDir, logger, indexed, gzip);
+
+			if (cache)
+			{
+				CoverageMapResolver resolver = new CoverageMapResolver(projectDir, logger);
+				File cacheFile = resolver.getLocalMapPath();
+				new CoverageMapEngine().generate(xmlDir, cacheFile, baseBranch, projectDir, logger, indexed, gzip);
+				logger.info("[SmartTestPicker] Cached local map: {}", cacheFile.getAbsolutePath());
+			}
+
 			return 0;
 		}
 		catch (IOException e)
