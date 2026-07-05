@@ -11,6 +11,7 @@ import java.util.concurrent.Callable;
 
 import com.sap.oss.smarttestpicker.mapper.CoverageMap;
 import com.sap.oss.smarttestpicker.mapper.CoverageMapReader;
+import com.sap.oss.smarttestpicker.store.CoverageMapResolver;
 import picocli.CommandLine.ArgGroup;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -18,6 +19,10 @@ import picocli.CommandLine.Option;
 
 /**
  * CLI subcommand for querying a coverage map interactively.
+ *
+ * <p>The coverage map can be provided explicitly via {@code --map}, or resolved
+ * automatically from the local cache using the {@code --prefer-map} mode
+ * (same behavior as {@code select-tests}).</p>
  *
  * <p>Provides multiple query modes for debugging and exploring test coverage data:</p>
  * <ul>
@@ -28,10 +33,8 @@ import picocli.CommandLine.Option;
  *   <li>{@code --stats} -- display aggregate statistics (totals, min/max/avg coverage)</li>
  * </ul>
  *
- * <p>Reads all three coverage map formats transparently: plain JSON, indexed JSON,
- * and gzip-compressed files.</p>
- *
  * @see CoverageMapReader
+ * @see CoverageMapResolver
  */
 @Command(
 		name = "query",
@@ -41,9 +44,17 @@ import picocli.CommandLine.Option;
 public class QueryCommand implements Callable<Integer>
 {
 
-	@Option(names = "--map", required = true,
-			description = "Coverage map JSON file")
+	@Option(names = "--map",
+			description = "Coverage map JSON file. If not provided, resolves from local cache.")
 	private File mapFile;
+
+	@Option(names = "--prefer-map", defaultValue = "nearest",
+			description = "Map selection mode when using cache: nearest, remote, local (default: nearest)")
+	private String preferMap;
+
+	@Option(names = "--project-dir",
+			description = "Project root directory (default: current dir)")
+	private File projectDir;
 
 	@ArgGroup(exclusive = true, multiplicity = "1")
 	private QueryMode queryMode;
@@ -74,7 +85,27 @@ public class QueryCommand implements Callable<Integer>
 	@Override
 	public Integer call()
 	{
-		if (!mapFile.exists())
+		if (projectDir == null)
+		{
+			projectDir = new File(System.getProperty("user.dir"));
+		}
+
+		ConsoleLogger logger = new ConsoleLogger();
+
+		// Resolve map: explicit --map takes precedence over cache
+		if (mapFile == null)
+		{
+			CoverageMapResolver.PreferMode mode = parsePreferMode(preferMap);
+			CoverageMapResolver resolver = new CoverageMapResolver(projectDir, logger);
+			mapFile = resolver.resolve(mode);
+
+			if (mapFile == null)
+			{
+				System.err.println("No coverage map available. Use --map or run 'pull-map' first.");
+				return 1;
+			}
+		}
+		else if (!mapFile.exists())
 		{
 			System.err.println("Error: coverage map not found: " + mapFile);
 			return 1;
@@ -117,6 +148,20 @@ public class QueryCommand implements Callable<Integer>
 		else
 		{
 			return queryByGrep(map, queryMode.grep);
+		}
+	}
+
+	private CoverageMapResolver.PreferMode parsePreferMode(String value)
+	{
+		switch (value.toLowerCase())
+		{
+			case "remote":
+				return CoverageMapResolver.PreferMode.REMOTE;
+			case "local":
+				return CoverageMapResolver.PreferMode.LOCAL;
+			case "nearest":
+			default:
+				return CoverageMapResolver.PreferMode.NEAREST;
 		}
 	}
 
