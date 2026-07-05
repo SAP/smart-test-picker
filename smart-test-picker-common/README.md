@@ -72,10 +72,25 @@ Typical reduction: 944 MB to 67 MB (indexed) or 12 MB (indexed + gzip) for 5755 
 `TestSelector` implements the dual-granularity selection algorithm:
 
 1. Method-level match: if changed methods are known, select only tests covering those methods
-2. Class-level fallback: for classes without method-level info, select all covering tests
+2. Safety fallback: if method-level produces zero hits for a class (method not in map), escalates to class-level for that class
+3. Class-level fallback: for classes without method-level info, select all covering tests
 
 `SelectionResult` wraps the outcome (FULL_SUITE, SELECTED, or NONE).
 `SelectionOutput` is the JSON model for `selected-tests.json`.
+
+## Remote Store and Local Cache (`store/`)
+
+`RemoteStoreClient` handles HTTP PUT/GET for pushing and pulling coverage maps to a remote store (Nexus, Artifactory, S3, etc.).
+
+`CoverageMapResolver` manages the local file-system cache at `~/.gradle/smart-test-picker/PROJECT_NAME/`:
+
+- `remote-coverage-map.json` -- pulled from CI
+- `local-coverage-map.json` -- generated locally
+
+Three selection modes (`PreferMode`):
+- `NEAREST` -- picks the map closer to HEAD by commit distance, prefers remote when equal
+- `REMOTE` -- always picks remote, falls back to local
+- `LOCAL` -- always picks local, falls back to remote
 
 ## Change Detection (`change/`)
 
