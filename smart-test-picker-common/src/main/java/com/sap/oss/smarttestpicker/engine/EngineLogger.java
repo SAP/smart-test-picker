@@ -13,6 +13,18 @@ public interface EngineLogger
 {
 
 	/**
+	 * Logs a debug-level message. Used for detailed decision tracing that helps
+	 * understand why the tool made a specific choice.
+	 *
+	 * @param msg  message with SLF4J-style {@code {}} placeholders
+	 * @param args values to substitute for each {@code {}} in order
+	 */
+	default void debug(String msg, Object... args)
+	{
+		// Default no-op — consumers opt in by overriding
+	}
+
+	/**
 	 * @param msg  message with SLF4J-style {@code {}} placeholders
 	 * @param args values to substitute for each {@code {}} in order
 	 */

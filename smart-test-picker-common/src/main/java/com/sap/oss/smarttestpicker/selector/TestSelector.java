@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.sap.oss.smarttestpicker.engine.EngineLogger;
 import com.sap.oss.smarttestpicker.mapper.CoverageMap;
 import com.sap.oss.smarttestpicker.mapper.CoverageMapReader;
 
@@ -42,31 +43,44 @@ public class TestSelector
 	 * for that class), only method-level matching is used for that class. Class-level fallback
 	 * is only applied for changed classes where no method-level info could be extracted from the diff.
 	 */
-	public SelectionResult selectTests(File coverageMapFile, Set<String> changedClasses, Set<String> changedMethods)
+	public SelectionResult selectTests(File coverageMapFile, Set<String> changedClasses,
+			Set<String> changedMethods, EngineLogger logger)
 	{
 		if (coverageMapFile == null || !coverageMapFile.exists())
 		{
+			logger.info("[SmartTestPicker] Coverage map file not found -> FULL_SUITE");
 			return SelectionResult.fullSuite("Coverage map file not found");
 		}
 
-		CoverageMap coverageMap = loadCoverageMap(coverageMapFile);
+		logger.info("[SmartTestPicker] Loading coverage map: {}", coverageMapFile.getAbsolutePath());
+		CoverageMap coverageMap = loadCoverageMap(coverageMapFile, logger);
 		if (coverageMap == null)
 		{
+			logger.info("[SmartTestPicker] Failed to parse coverage map -> FULL_SUITE");
 			return SelectionResult.fullSuite("Failed to parse coverage map");
 		}
 
 		if (coverageMap.getMetadata() == null)
 		{
+			logger.info("[SmartTestPicker] Coverage map has no metadata -> FULL_SUITE");
 			return SelectionResult.fullSuite("Coverage map has no metadata");
 		}
 
 		if (coverageMap.getTestMappings() == null || coverageMap.getTestMappings().isEmpty())
 		{
+			logger.info("[SmartTestPicker] Coverage map has no test mappings -> FULL_SUITE");
 			return SelectionResult.fullSuite("Coverage map has no test mappings");
 		}
 
+		logger.info("[SmartTestPicker] Coverage map loaded: {} tests, commitId={}",
+				coverageMap.getTestMappings().size(),
+				coverageMap.getMetadata().getCommitId() != null
+						? coverageMap.getMetadata().getCommitId().substring(0, Math.min(7, coverageMap.getMetadata().getCommitId().length()))
+						: "null");
+
 		if (changedClasses.isEmpty() && changedMethods.isEmpty())
 		{
+			logger.info("[SmartTestPicker] No changed classes or methods -> selecting 0 tests");
 			return SelectionResult.selected(Set.of());
 		}
 
@@ -87,7 +101,15 @@ public class TestSelector
 		Set<String> classLevelOnlyClasses = new HashSet<>(changedClasses);
 		classLevelOnlyClasses.removeAll(classesWithMethodInfo);
 
+		logger.info("[SmartTestPicker] Selection strategy:");
+		logger.info("[SmartTestPicker]   Method-level matching: {} classes ({})",
+				classesWithMethodInfo.size(), classesWithMethodInfo);
+		logger.info("[SmartTestPicker]   Class-level fallback: {} classes ({})",
+				classLevelOnlyClasses.size(), classLevelOnlyClasses);
+
 		Set<String> selectedTests = new HashSet<>();
+		int methodMatchCount = 0;
+		int classMatchCount = 0;
 
 		for (Map.Entry<String, Map<String, List<String>>> entry : coverageMap.getTestMappings().entrySet())
 		{
@@ -105,6 +127,9 @@ public class TestSelector
 						if (changedMethods.contains(coveredMethod))
 						{
 							selectedTests.add(testName);
+							methodMatchCount++;
+							logger.debug("[SmartTestPicker]   {} -> selected (method-level: covers {})",
+									testName, coveredMethod);
 							break;
 						}
 					}
@@ -122,6 +147,9 @@ public class TestSelector
 						if (classLevelOnlyClasses.contains(coveredClass))
 						{
 							selectedTests.add(testName);
+							classMatchCount++;
+							logger.debug("[SmartTestPicker]   {} -> selected (class-level: covers {})",
+									testName, coveredClass);
 							break;
 						}
 					}
@@ -129,7 +157,27 @@ public class TestSelector
 			}
 		}
 
+		int total = coverageMap.getTestMappings().size();
+		double reduction = total > 0 ? (1.0 - (double) selectedTests.size() / total) * 100 : 0;
+		logger.info("[SmartTestPicker] Selection complete: {} of {} tests selected ({} method-level, {} class-level, {}% reduction)",
+				selectedTests.size(), total, methodMatchCount, classMatchCount, String.format("%.1f", reduction));
+
 		return SelectionResult.selected(selectedTests);
+	}
+
+	/**
+	 * Select tests (without logger — backward compatible, uses no-op logger).
+	 */
+	public SelectionResult selectTests(File coverageMapFile, Set<String> changedClasses, Set<String> changedMethods)
+	{
+		return selectTests(coverageMapFile, changedClasses, changedMethods, new EngineLogger()
+		{
+			@Override
+			public void info(String msg, Object... args) {}
+
+			@Override
+			public void warn(String msg, Object... args) {}
+		});
 	}
 
 	/**
@@ -144,9 +192,10 @@ public class TestSelector
 	 * Loads and deserializes a coverage map JSON file.
 	 *
 	 * @param file the JSON file containing the coverage map
+	 * @param logger engine logger
 	 * @return the parsed {@link CoverageMap}, or {@code null} if parsing fails
 	 */
-	CoverageMap loadCoverageMap(File file)
+	CoverageMap loadCoverageMap(File file, EngineLogger logger)
 	{
 		try
 		{
@@ -154,7 +203,23 @@ public class TestSelector
 		}
 		catch (IOException e)
 		{
+			logger.warn("[SmartTestPicker] Failed to load coverage map {}: {}", file, e.getMessage());
 			return null;
 		}
+	}
+
+	/**
+	 * @deprecated Use {@link #loadCoverageMap(File, EngineLogger)} instead.
+	 */
+	CoverageMap loadCoverageMap(File file)
+	{
+		return loadCoverageMap(file, new EngineLogger()
+		{
+			@Override
+			public void info(String msg, Object... args) {}
+
+			@Override
+			public void warn(String msg, Object... args) {}
+		});
 	}
 }
