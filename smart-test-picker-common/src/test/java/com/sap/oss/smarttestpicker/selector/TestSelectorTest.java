@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 /**
- * Tests for {@link TestSelector} — verifies test selection logic against a fixture
+ * Tests for {@link TestSelector} - verifies test selection logic against a fixture
  * coverage map with three test entries (OwnerController, PetController, VetController).
  *
  * <p>Covers class-level matching, method-level matching, combined matching,
@@ -180,6 +180,61 @@ class TestSelectorTest
 		assertFalse(result.getSelectedTests().contains("PetControllerTests#testCreatePet"));
 		assertFalse(result.getSelectedTests().contains("VetControllerTests#testShowVets"));
 		assertEquals(1, result.getSelectedTests().size());
+	}
+
+	@Test
+	void methodLevelZeroHitsEscalatesToClassLevel()
+	{
+		File mapFile = getFixture("coverage-map-with-metadata.json");
+		// OwnerController#toString is NOT in any test's method coverage.
+		// Method-level matching will produce 0 hits for OwnerController.
+		// Fallback should escalate to class-level and select all tests covering OwnerController.
+		Set<String> changedClasses = Set.of("org.example.controller.OwnerController");
+		Set<String> changedMethods = Set.of("org.example.controller.OwnerController#toString");
+
+		TestSelector selector = new TestSelector();
+		SelectionResult result = selector.selectTests(mapFile, changedClasses, changedMethods);
+
+		assertFalse(result.isFullSuiteRequired());
+		// OwnerControllerTests covers OwnerController at class level - should be selected via escalation
+		assertTrue(result.getSelectedTests().contains("OwnerControllerTests#testShowOwner"),
+				"Expected class-level fallback to select OwnerControllerTests");
+		// Other tests don't cover OwnerController
+		assertFalse(result.getSelectedTests().contains("PetControllerTests#testCreatePet"));
+		assertFalse(result.getSelectedTests().contains("VetControllerTests#testShowVets"));
+	}
+
+	@Test
+	void methodLevelPartialHitsDoesNotEscalate()
+	{
+		File mapFile = getFixture("coverage-map-with-metadata.json");
+		// showOwner IS in coverage map - method-level match will find it.
+		// No escalation needed because we got a hit.
+		Set<String> changedClasses = Set.of("org.example.controller.OwnerController");
+		Set<String> changedMethods = Set.of("org.example.controller.OwnerController#showOwner");
+
+		TestSelector selector = new TestSelector();
+		SelectionResult result = selector.selectTests(mapFile, changedClasses, changedMethods);
+
+		assertFalse(result.isFullSuiteRequired());
+		assertTrue(result.getSelectedTests().contains("OwnerControllerTests#testShowOwner"));
+		assertEquals(1, result.getSelectedTests().size());
+	}
+
+	@Test
+	void methodLevelZeroHitsForUnknownClassDoesNotEscalate()
+	{
+		File mapFile = getFixture("coverage-map-with-metadata.json");
+		// SomeUtility is NOT in the coverage map at all (neither class nor method level).
+		// Even after escalation to class-level, no test covers it - result is 0 tests.
+		Set<String> changedClasses = Set.of("org.example.util.SomeUtility");
+		Set<String> changedMethods = Set.of("org.example.util.SomeUtility#doSomething");
+
+		TestSelector selector = new TestSelector();
+		SelectionResult result = selector.selectTests(mapFile, changedClasses, changedMethods);
+
+		assertFalse(result.isFullSuiteRequired());
+		assertTrue(result.getSelectedTests().isEmpty());
 	}
 
 	private File getFixture(String name)
