@@ -15,6 +15,7 @@ import com.google.gson.GsonBuilder;
 
 import com.sap.oss.smarttestpicker.engine.TestSelectionEngine;
 import com.sap.oss.smarttestpicker.selector.SelectionOutput;
+import com.sap.oss.smarttestpicker.store.CoverageMapResolver;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
@@ -25,14 +26,18 @@ import picocli.CommandLine.Option;
  * <p>Reads a coverage map and uses git diff to determine which tests need to run.
  * Delegates to {@link TestSelectionEngine} for the full 8-step selection flow.</p>
  *
+ * <p>The coverage map can be provided explicitly via {@code --map}, or resolved
+ * automatically from the local cache using the {@code --prefer-map} mode.</p>
+ *
  * <p>Supports three output formats:</p>
  * <ul>
- *   <li>{@code json} (default) -- standard SelectionOutput JSON, compatible with Gradle/Maven plugins</li>
- *   <li>{@code txt} -- one test per line, for shell scripts</li>
- *   <li>{@code ant} -- grouped by class with method filtering syntax (ClassName#method1+method2)</li>
+ *   <li>{@code json} (default) - standard SelectionOutput JSON, compatible with Gradle/Maven plugins</li>
+ *   <li>{@code txt} - one test per line, for shell scripts</li>
+ *   <li>{@code ant} - grouped by class with method filtering syntax (ClassName#method1+method2)</li>
  * </ul>
  *
  * @see TestSelectionEngine
+ * @see CoverageMapResolver
  */
 @Command(
 		name = "select-tests",
@@ -42,9 +47,13 @@ import picocli.CommandLine.Option;
 public class SelectTestsCommand implements Callable<Integer>
 {
 
-	@Option(names = "--map", required = true,
-			description = "Coverage map file (JSON, indexed, or gzip)")
+	@Option(names = "--map",
+			description = "Coverage map file (JSON, indexed, or gzip). If not provided, resolves from local cache.")
 	private File mapFile;
+
+	@Option(names = "--prefer-map", defaultValue = "nearest",
+			description = "Map selection mode when using cache: nearest, remote, local (default: nearest)")
+	private String preferMap;
 
 	@Option(names = "--project-dir",
 			description = "Project root directory for git commands (default: current dir)")
@@ -73,24 +82,42 @@ public class SelectTestsCommand implements Callable<Integer>
 	@Override
 	public Integer call()
 	{
-		if (!mapFile.exists())
-		{
-			System.err.println("Error: coverage map not found: " + mapFile);
-			return 1;
-		}
-
 		if (projectDir == null)
 		{
 			projectDir = new File(System.getProperty("user.dir"));
 		}
 
-		// Use a non-existent dir if not provided -- NewTestDetector returns empty map
+		ConsoleLogger logger = new ConsoleLogger();
+
+		// Resolve coverage map: explicit --map takes precedence over cache
+		if (mapFile == null)
+		{
+			CoverageMapResolver.PreferMode mode = parsePreferMode(preferMap);
+			CoverageMapResolver resolver = new CoverageMapResolver(projectDir, logger);
+			mapFile = resolver.resolve(mode);
+
+			if (mapFile == null)
+			{
+				logger.warn("No coverage map available. Run 'pull-map' or 'generate-map --cache' first.");
+				return 1;
+			}
+		}
+		else
+		{
+			if (!mapFile.exists())
+			{
+				System.err.println("Error: coverage map not found: " + mapFile);
+				return 1;
+			}
+			logger.info("[SmartTestPicker] Using explicit map: {}", mapFile.getAbsolutePath());
+		}
+
+		// Use a non-existent dir if not provided - NewTestDetector returns empty map
 		if (testClassesDir == null)
 		{
 			testClassesDir = new File(projectDir, "build/classes/java/test");
 		}
 
-		ConsoleLogger logger = new ConsoleLogger();
 		logger.info("Coverage map:      {}", mapFile.getAbsolutePath());
 		logger.info("Project dir:       {}", projectDir.getAbsolutePath());
 		logger.info("Output:            {}", output.getAbsolutePath());
@@ -123,6 +150,20 @@ public class SelectTestsCommand implements Callable<Integer>
 		{
 			System.err.println("Error writing output: " + e.getMessage());
 			return 1;
+		}
+	}
+
+	private CoverageMapResolver.PreferMode parsePreferMode(String value)
+	{
+		switch (value.toLowerCase())
+		{
+			case "remote":
+				return CoverageMapResolver.PreferMode.REMOTE;
+			case "local":
+				return CoverageMapResolver.PreferMode.LOCAL;
+			case "nearest":
+			default:
+				return CoverageMapResolver.PreferMode.NEAREST;
 		}
 	}
 

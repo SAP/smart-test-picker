@@ -60,7 +60,15 @@ smart-test-picker generate-map \
 
 Selects tests impacted by code changes using the coverage map and git diff. Delegates to the 8-step selection flow in `TestSelectionEngine`.
 
+The coverage map can be provided explicitly via `--map`, or resolved automatically from the local cache (`~/.gradle/smart-test-picker/PROJECT_NAME/`). When using the cache, `--prefer-map` controls which map is preferred.
+
 ```bash
+# Using local cache (recommended for developers)
+smart-test-picker select-tests \
+    --project-dir /path/to/project \
+    --output /path/to/selected-tests.json
+
+# Explicit map file
 smart-test-picker select-tests \
     --map /path/to/coverage-map.json.gz \
     --project-dir /path/to/project \
@@ -74,13 +82,20 @@ smart-test-picker select-tests \
 
 | Option | Required | Description |
 |--------|----------|-------------|
-| `--map` | Yes | Coverage map file (JSON, indexed, or gzip) |
+| `--map` | No | Coverage map file (JSON, indexed, or gzip). If not provided, resolves from local cache. |
+| `--prefer-map` | No | Map selection mode when using cache: `nearest` (default), `remote`, `local` |
 | `--project-dir` | No | Project root for git commands (default: current dir) |
 | `--output` | Yes | Output file for selected tests |
 | `--format` | No | Output format: `json` (default), `txt`, `ant` |
 | `--max-commit-distance` | No | Max commits before map is stale (default: 500) |
 | `--full-suite-trigger` | No | Glob pattern that forces full suite (repeatable) |
 | `--test-classes-dir` | No | Compiled test classes directory for new test detection |
+
+**Map selection modes (`--prefer-map`):**
+
+- `nearest` (default) -- picks the cached map whose commitId is closest to HEAD. If both maps have equal distance, prefers remote (more complete, CI-generated).
+- `remote` -- always uses the remote map. Falls back to local if remote is missing.
+- `local` -- always uses the local map. Falls back to remote if local is missing.
 
 **Output formats:**
 
@@ -162,9 +177,17 @@ The query command reads all three map formats (plain, indexed, gzip) transparent
 
 ### pull-map
 
-Pulls a coverage map from a remote HTTP store.
+Pulls a coverage map from a remote HTTP store and saves it to the local cache at `~/.gradle/smart-test-picker/PROJECT_NAME/remote-coverage-map.json` (default) or a custom location via `--output`.
 
 ```bash
+# Default: saves to local cache
+smart-test-picker pull-map \
+    --url https://my-server.example.com/coverage-store \
+    --branch main \
+    --project-dir /path/to/project \
+    --user admin --password secret
+
+# Custom output location
 smart-test-picker pull-map \
     --url https://my-server.example.com/coverage-store \
     --branch main \
@@ -178,7 +201,8 @@ smart-test-picker pull-map \
 |--------|----------|-------------|
 | `--url` | Yes | Remote store base URL |
 | `--branch` | No | Base branch name (default: main) |
-| `--output` | Yes | Output file path |
+| `--output` | No | Output file path (default: local cache) |
+| `--project-dir` | No | Project root directory (default: current dir) |
 | `--user` | No | HTTP Basic Auth username |
 | `--password` | No | HTTP Basic Auth password |
 
@@ -238,6 +262,31 @@ smart-test-picker refreshed-report \
 3. Run selected tests via `ant unittests` with method-level filtering
 4. Convert per-test `.exec` files to XML reports (only for selected tests)
 5. Generate HTML dashboard with line-level source coverage for changed classes
+
+## Local Coverage Map Cache
+
+The CLI maintains a local cache of coverage maps at `~/.gradle/smart-test-picker/PROJECT_NAME/` with two slots:
+
+```
+~/.gradle/smart-test-picker/
+  myproject/
+    remote-coverage-map.json    <- pulled from CI via pull-map
+    local-coverage-map.json     <- generated locally via generate-map --cache
+```
+
+**PROJECT_NAME** is derived from the project directory basename.
+
+**Typical developer workflow:**
+
+```bash
+# One-time setup: pull baseline map from CI
+smart-test-picker pull-map --url https://ci-server/coverage-store --project-dir .
+
+# Daily use: select tests (auto-resolves from cache)
+smart-test-picker select-tests --project-dir . --output selected.json
+```
+
+The `select-tests` command automatically resolves the map from cache when `--map` is not provided. Use `--prefer-map` to control which map is preferred when both exist.
 
 ## End-to-End Pipeline
 
