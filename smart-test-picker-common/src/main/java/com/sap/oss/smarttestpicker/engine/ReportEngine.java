@@ -139,7 +139,7 @@ public class ReportEngine
 		String html = generator.generate(data);
 
 		// Write output
-		outputFile.getParentFile().mkdirs();
+		FileUtils.ensureParentDirExists(outputFile);
 		try (FileWriter writer = new FileWriter(outputFile))
 		{
 			writer.write(html);
@@ -280,7 +280,7 @@ public class ReportEngine
 		String html = generator.generate(data);
 
 		// Write output
-		outputFile.getParentFile().mkdirs();
+		FileUtils.ensureParentDirExists(outputFile);
 		try (FileWriter writer = new FileWriter(outputFile))
 		{
 			writer.write(html);

@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.cli;
 
+import com.sap.oss.smarttestpicker.engine.FileUtils;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
@@ -220,7 +222,7 @@ public class MergeMapsCommand implements Callable<Integer>
 
 	private Writer createWriter() throws Exception
 	{
-		output.getParentFile().mkdirs();
+		FileUtils.ensureParentDirExists(output);
 		if (gzip || output.getName().endsWith(".gz"))
 		{
 			return new OutputStreamWriter(

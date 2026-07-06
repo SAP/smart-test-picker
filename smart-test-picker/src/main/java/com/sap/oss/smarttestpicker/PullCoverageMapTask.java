@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker;
 
+import com.sap.oss.smarttestpicker.engine.FileUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -58,7 +60,7 @@ public abstract class PullCoverageMapTask extends DefaultTask
 		if (data != null)
 		{
 			File output = getOutputFile().getAsFile().get();
-			output.getParentFile().mkdirs();
+			FileUtils.ensureParentDirExists(output);
 			Files.write(output.toPath(), data);
 			getLogger().lifecycle("[SmartTestPicker] Pulled coverage map from {} ({} bytes)",
 					url, data.length);

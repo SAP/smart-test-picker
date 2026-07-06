@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.cli;
 
+import com.sap.oss.smarttestpicker.engine.FileUtils;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -169,7 +171,7 @@ public class SelectTestsCommand implements Callable<Integer>
 
 	private void writeOutput(SelectionOutput result) throws IOException
 	{
-		output.getParentFile().mkdirs();
+		FileUtils.ensureParentDirExists(output);
 
 		switch (format.toLowerCase())
 		{

@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.maven;
 
+import com.sap.oss.smarttestpicker.engine.FileUtils;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -772,7 +774,7 @@ public class SmartTestMojo extends AbstractMojo
 
 	private void writeJson(File file, Object data) throws MojoExecutionException
 	{
-		file.getParentFile().mkdirs();
+		FileUtils.ensureParentDirExists(file);
 		try (FileWriter writer = new FileWriter(file))
 		{
 			gson.toJson(data, writer);
