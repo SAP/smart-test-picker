@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.cli;
 
+import com.sap.oss.smarttestpicker.engine.FileUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -79,7 +81,7 @@ public class PullMapCommand implements Runnable
 
 			if (data != null)
 			{
-				targetFile.getParentFile().mkdirs();
+				FileUtils.ensureParentDirExists(targetFile);
 				Files.write(targetFile.toPath(), data);
 				logger.info("[SmartTestPicker] Pulled coverage map: {} ({} bytes)", targetFile, data.length);
 			}

@@ -192,7 +192,7 @@ public class CoverageMapEngine
 
 	private Writer createWriter(File file, boolean gzip) throws IOException
 	{
-		file.getParentFile().mkdirs();
+		FileUtils.ensureParentDirExists(file);
 		if (gzip || file.getName().endsWith(".gz"))
 		{
 			return new OutputStreamWriter(

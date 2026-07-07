@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.maven;
 
+import com.sap.oss.smarttestpicker.engine.FileUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -42,7 +44,7 @@ public class SmartTestFilter
 		{
 			List<String> defaultPatterns = List.of(
 					"**/*Test.java", "**/*Tests.java", "**/*TestCase.java");
-			includesFile.getParentFile().mkdirs();
+			FileUtils.ensureParentDirExists(includesFile);
 			Files.write(includesFile.toPath(), defaultPatterns);
 			return;
 		}
@@ -91,7 +93,7 @@ public class SmartTestFilter
 			}
 		}
 
-		includesFile.getParentFile().mkdirs();
+			FileUtils.ensureParentDirExists(includesFile);
 		Files.write(includesFile.toPath(), lines);
 	}
 }

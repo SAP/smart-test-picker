@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.maven;
 
+import com.sap.oss.smarttestpicker.engine.FileUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -55,7 +57,7 @@ public class PullCoverageMapMojo extends AbstractMojo
 
 			if (data != null)
 			{
-				outputFile.getParentFile().mkdirs();
+				FileUtils.ensureParentDirExists(outputFile);
 				Files.write(outputFile.toPath(), data);
 				getLog().info("[SmartTestPicker] Pulled coverage map (" + data.length + " bytes) -> "
 						+ outputFile.getAbsolutePath());

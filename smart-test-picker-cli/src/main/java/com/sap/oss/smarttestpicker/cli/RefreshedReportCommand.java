@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.cli;
 
+import com.sap.oss.smarttestpicker.engine.FileUtils;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FilenameFilter;
@@ -284,7 +286,7 @@ public class RefreshedReportCommand implements Callable<Integer>
 
 	private void writeSelectedTests(SelectionOutput selection, File file) throws IOException
 	{
-		file.getParentFile().mkdirs();
+		FileUtils.ensureParentDirExists(file);
 		try (FileWriter writer = new FileWriter(file))
 		{
 			new GsonBuilder().setPrettyPrinting().create().toJson(selection, writer);

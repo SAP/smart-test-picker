@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.maven;
 
+import com.sap.oss.smarttestpicker.engine.FileUtils;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -200,7 +202,7 @@ public class RootGenerateReportMojo extends AbstractMojo
 		}
 
 		File outputFile = new File(rootTarget, "test-coverage-map.json");
-		outputFile.getParentFile().mkdirs();
+		FileUtils.ensureParentDirExists(outputFile);
 		try (FileWriter writer = new FileWriter(outputFile))
 		{
 			gson.toJson(merged, writer);
