@@ -16,6 +16,14 @@ dependencies {
     compileOnly 'org.junit.platform:junit-platform-launcher:1.9.3'
     compileOnly 'org.junit.platform:junit-platform-engine:1.9.3'
     compileOnly 'org.junit.jupiter:junit-jupiter-api:5.9.3'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+    testImplementation 'org.junit.platform:junit-platform-launcher:1.9.3'
+    testImplementation 'org.junit.platform:junit-platform-engine:1.9.3'
+}
+
+test {
+    useJUnitPlatform()
 }
 
 java {
