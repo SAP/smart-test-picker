@@ -5,7 +5,6 @@ package com.sap.oss.smarttestpicker;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -110,10 +109,11 @@ public class TestLifecycleExtension implements BeforeTestExecutionCallback, Afte
 			return;
 		}
 
-		String testClass = context.getTestClass().map(Class::getSimpleName).orElse("UnknownClass");
+		String simpleClass = context.getTestClass().map(Class::getSimpleName).orElse("UnknownClass");
+		String fullClass = context.getTestClass().map(Class::getName).orElse("UnknownClass");
 		String testMethod = context.getTestMethod().map(method -> method.getName()).orElse("UnknownMethod");
 
-		sessionId = testClass + "#" + testMethod;
+		sessionId = JacocoPerTestListener.buildSessionId(simpleClass, testMethod, fullClass);
 		setJaCoCoSession(sessionId);
 
 		if (isMetricsEnabled())
@@ -369,7 +369,17 @@ public class TestLifecycleExtension implements BeforeTestExecutionCallback, Afte
 
 			if (Files.exists(execFile))
 			{
-				Files.copy(execFile, sessionFile, StandardCopyOption.REPLACE_EXISTING);
+				// Append to existing session file to merge coverage from multiple
+				// invocations of the same test (e.g. parameterized test invocations).
+				// JaCoCo exec format supports concatenation — ExecFileLoader merges
+				// all blocks via OR on probes when reading.
+				try (var in = Files.newInputStream(execFile);
+					 var out = Files.newOutputStream(sessionFile,
+							 java.nio.file.StandardOpenOption.CREATE,
+							 java.nio.file.StandardOpenOption.APPEND))
+				{
+					in.transferTo(out);
+				}
 				Files.deleteIfExists(execFile);
 			}
 			else

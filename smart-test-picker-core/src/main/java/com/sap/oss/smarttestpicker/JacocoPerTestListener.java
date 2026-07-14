@@ -5,7 +5,6 @@ package com.sap.oss.smarttestpicker;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -161,7 +160,17 @@ public class JacocoPerTestListener implements TestExecutionListener
 
 			if (Files.exists(execFile))
 			{
-				Files.copy(execFile, sessionFile, StandardCopyOption.REPLACE_EXISTING);
+				// Append to existing session file to merge coverage from multiple
+				// invocations of the same test (e.g. parameterized test invocations).
+				// JaCoCo exec format supports concatenation — ExecFileLoader merges
+				// all blocks via OR on probes when reading.
+				try (var in = Files.newInputStream(execFile);
+					 var out = Files.newOutputStream(sessionFile,
+							 java.nio.file.StandardOpenOption.CREATE,
+							 java.nio.file.StandardOpenOption.APPEND))
+				{
+					in.transferTo(out);
+				}
 				Files.deleteIfExists(execFile);
 			}
 		}
