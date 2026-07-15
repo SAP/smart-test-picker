@@ -65,3 +65,33 @@ Common parameters across mojos:
 | `maxCommitDistance` | `500` | Maximum commits before map is stale |
 | `coverageMapFile` | `${project.build.directory}/test-coverage-map.json` | Coverage map path |
 | `selectedTestsFile` | `${project.build.directory}/selected-tests.json` | Selection output path |
+
+## Per-Test Coverage Collection (JaCoCo)
+
+The Maven plugin requires `smart-test-picker-core` as a test dependency for per-test coverage. On projects using JUnit Platform 6.x or Surefire 3.x, enable Jupiter extension auto-detection in surefire:
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>com.sap.oss.smart-test-picker</groupId>
+        <artifactId>smart-test-picker-core</artifactId>
+        <version>0.1.0</version>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
+
+<build>
+    <plugins>
+        <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+                <properties>
+                    <configurationParameters>
+                        junit.jupiter.extensions.autodetection.enabled = true
+                    </configurationParameters>
+                </properties>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
