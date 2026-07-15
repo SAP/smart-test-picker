@@ -5,7 +5,6 @@ package com.sap.oss.smarttestpicker;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -94,10 +93,30 @@ public class JacocoPerTestListener implements TestExecutionListener
 		if (source instanceof MethodSource)
 		{
 			MethodSource ms = (MethodSource) source;
-			String className = ms.getJavaClass().getSimpleName();
-			return className + "#" + ms.getMethodName();
+			return buildSessionId(ms.getJavaClass().getSimpleName(), ms.getMethodName(), ms.getClassName());
 		}
 		return id.getDisplayName();
+	}
+
+	/**
+	 * Builds a unique session ID from test class and method names.
+	 * Format: {@code SimpleClass#methodName_<hash>} where hash is derived from the FQN
+	 * to disambiguate tests with the same simple class name in different packages.
+	 *
+	 * @param simpleClassName simple class name (e.g. "FooTest")
+	 * @param methodName      test method name (e.g. "testSomething")
+	 * @param fullClassName   fully qualified class name (e.g. "com.example.FooTest")
+	 * @return unique session ID (e.g. "FooTest#testSomething_a7f3b2c")
+	 */
+	static String buildSessionId(String simpleClassName, String methodName, String fullClassName)
+	{
+		String fqn = fullClassName + "#" + methodName;
+		String hash = Integer.toHexString(fqn.hashCode() & 0x7fffffff);
+		while (hash.length() < 7)
+		{
+			hash = "0" + hash;
+		}
+		return simpleClassName + "#" + methodName + "_" + hash.substring(0, 7);
 	}
 
 	private void setJaCoCoSession(String sessionId)
@@ -141,7 +160,17 @@ public class JacocoPerTestListener implements TestExecutionListener
 
 			if (Files.exists(execFile))
 			{
-				Files.copy(execFile, sessionFile, StandardCopyOption.REPLACE_EXISTING);
+				// Append to existing session file to merge coverage from multiple
+				// invocations of the same test (e.g. parameterized test invocations).
+				// JaCoCo exec format supports concatenation — ExecFileLoader merges
+				// all blocks via OR on probes when reading.
+				try (var in = Files.newInputStream(execFile);
+					 var out = Files.newOutputStream(sessionFile,
+							 java.nio.file.StandardOpenOption.CREATE,
+							 java.nio.file.StandardOpenOption.APPEND))
+				{
+					in.transferTo(out);
+				}
 				Files.deleteIfExists(execFile);
 			}
 		}
