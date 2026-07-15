@@ -102,6 +102,14 @@ public class TestLifecycleExtension implements BeforeTestExecutionCallback, Afte
 	@Override
 	public void beforeTestExecution(ExtensionContext context)
 	{
+		// If TestExecutionListener (JacocoPerTestListener) is already active,
+		// skip to avoid duplicate per-test coverage processing.
+		// This happens on Gradle where both mechanisms are loaded.
+		if (JacocoPerTestListener.active)
+		{
+			return;
+		}
+
 		String testClass = context.getTestClass().map(Class::getSimpleName).orElse("UnknownClass");
 		String testMethod = context.getTestMethod().map(method -> method.getName()).orElse("UnknownMethod");
 
@@ -126,6 +134,11 @@ public class TestLifecycleExtension implements BeforeTestExecutionCallback, Afte
 	@Override
 	public void afterTestExecution(ExtensionContext context)
 	{
+		if (JacocoPerTestListener.active)
+		{
+			return;
+		}
+
 		dumpJaCoCoData();
 		saveJaCoCoSessionData(sessionId);
 

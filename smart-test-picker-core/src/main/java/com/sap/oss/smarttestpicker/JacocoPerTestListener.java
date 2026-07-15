@@ -28,6 +28,14 @@ public class JacocoPerTestListener implements TestExecutionListener
 
 	private static final String METRICS_ENABLED_PROPERTY = "smarttestpicker.metrics.enabled";
 
+	/**
+	 * Flag indicating that this listener is active and handling per-test coverage.
+	 * Used by {@link TestLifecycleExtension} to avoid duplicate processing when
+	 * both mechanisms are registered (e.g. on Gradle where TestExecutionListener
+	 * ServiceLoader works correctly).
+	 */
+	static volatile boolean active = false;
+
 	private static final List<TestMetricEntry> metrics = new CopyOnWriteArrayList<>();
 	private static volatile boolean shutdownHookRegistered = false;
 
@@ -42,6 +50,7 @@ public class JacocoPerTestListener implements TestExecutionListener
 			return;
 		}
 
+		active = true;
 		String sessionId = extractSessionId(id);
 		currentSessionId.set(sessionId);
 		setJaCoCoSession(sessionId);

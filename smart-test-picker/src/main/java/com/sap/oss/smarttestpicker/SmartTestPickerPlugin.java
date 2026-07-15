@@ -101,7 +101,9 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 		Configuration jacocoAgent = project.getConfigurations().findByName("jacocoAgent");
 		if (jacocoAgent != null)
 		{
+			File execDir = new File(project.getLayout().getBuildDirectory().getAsFile().get(), "jacoco");
 			project.getTasks().withType(Test.class).configureEach(test -> {
+				test.systemProperty("stp.exec.dir", execDir.getAbsolutePath());
 				test.finalizedBy("generateSmartReports");
 			});
 		}
