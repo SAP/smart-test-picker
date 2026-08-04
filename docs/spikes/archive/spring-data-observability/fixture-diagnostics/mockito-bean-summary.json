@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "spring-data-observability-mock-1",
+  "mockitoBeanIsMock": true,
+  "existingInvocationListenerCount": 1,
+  "existingInvocationListenerTypes": "org.springframework.test.context.bean.override.mockito.MockReset$ResetInvocationListener",
+  "invocationsAfterStubbing": 0,
+  "invocationsAfterApplication": 1,
+  "invocationsAfterVerification": 1,
+  "invocationsAfterReset": 0,
+  "customMockCreationEvents": 1
+}

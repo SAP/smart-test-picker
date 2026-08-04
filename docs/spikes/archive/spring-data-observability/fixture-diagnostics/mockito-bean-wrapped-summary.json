@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "spring-data-observability-mock-wrapper-1",
+  "injectedFieldIsMock": true,
+  "stubbingWorked": true,
+  "applicationInvocationWorked": true,
+  "verificationWorked": true,
+  "resetWorked": true
+}

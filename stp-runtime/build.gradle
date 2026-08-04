@@ -1,0 +1,23 @@
+// SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+// SPDX-License-Identifier: Apache-2.0
+plugins {
+    id 'java-library'
+}
+
+description = 'Experimental runtime event model for Smart Test Picker spikes'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+// Intentionally no maven-publish plugin: this experimental module is not published.
+

@@ -1,0 +1,325 @@
+{
+  "schemaVersion": "spring-data-petclinic-performance-1",
+  "summary": {
+    "baseline": {
+      "samplesSeconds": [
+        9.497,
+        9.436,
+        10.099,
+        9.501,
+        9.29
+      ],
+      "medianSeconds": 9.497,
+      "p95Seconds": 10.099,
+      "medianOverheadPercent": 0.0
+    },
+    "asm-only": {
+      "samplesSeconds": [
+        9.5,
+        10.376,
+        10.542,
+        9.503,
+        9.752
+      ],
+      "medianSeconds": 9.752,
+      "p95Seconds": 10.542,
+      "medianOverheadPercent": 2.69
+    },
+    "adapter-only": {
+      "samplesSeconds": [
+        9.734,
+        9.812,
+        10.281,
+        9.322,
+        9.333
+      ],
+      "medianSeconds": 9.734,
+      "p95Seconds": 10.281,
+      "medianOverheadPercent": 2.5
+    },
+    "asm-plus-adapter": {
+      "samplesSeconds": [
+        10.604,
+        9.588,
+        9.46,
+        9.944,
+        15.434
+      ],
+      "medianSeconds": 9.944,
+      "p95Seconds": 15.434,
+      "medianOverheadPercent": 4.71
+    }
+  },
+  "runs": [
+    {
+      "configuration": "baseline",
+      "sample": "warmup",
+      "measured": false,
+      "durationSeconds": 9.471
+    },
+    {
+      "configuration": "baseline",
+      "sample": "1",
+      "measured": true,
+      "durationSeconds": 9.497
+    },
+    {
+      "configuration": "baseline",
+      "sample": "2",
+      "measured": true,
+      "durationSeconds": 9.436
+    },
+    {
+      "configuration": "baseline",
+      "sample": "3",
+      "measured": true,
+      "durationSeconds": 10.099
+    },
+    {
+      "configuration": "baseline",
+      "sample": "4",
+      "measured": true,
+      "durationSeconds": 9.501
+    },
+    {
+      "configuration": "baseline",
+      "sample": "5",
+      "measured": true,
+      "durationSeconds": 9.29
+    },
+    {
+      "configuration": "asm-only",
+      "sample": "warmup",
+      "measured": false,
+      "durationSeconds": 9.351,
+      "transformerNanos": 67908926,
+      "classesTransformed": 19,
+      "methodsInstrumented": 91,
+      "rawMethodHits": 10,
+      "uniqueMethodHits": 10,
+      "repositoryFacts": 0,
+      "jsonBytes": 23924
+    },
+    {
+      "configuration": "asm-only",
+      "sample": "1",
+      "measured": true,
+      "durationSeconds": 9.5,
+      "transformerNanos": 68450383,
+      "classesTransformed": 19,
+      "methodsInstrumented": 91,
+      "rawMethodHits": 10,
+      "uniqueMethodHits": 10,
+      "repositoryFacts": 0,
+      "jsonBytes": 23909
+    },
+    {
+      "configuration": "asm-only",
+      "sample": "2",
+      "measured": true,
+      "durationSeconds": 10.376,
+      "transformerNanos": 67038082,
+      "classesTransformed": 19,
+      "methodsInstrumented": 91,
+      "rawMethodHits": 10,
+      "uniqueMethodHits": 10,
+      "repositoryFacts": 0,
+      "jsonBytes": 23909
+    },
+    {
+      "configuration": "asm-only",
+      "sample": "3",
+      "measured": true,
+      "durationSeconds": 10.542,
+      "transformerNanos": 69055307,
+      "classesTransformed": 19,
+      "methodsInstrumented": 91,
+      "rawMethodHits": 10,
+      "uniqueMethodHits": 10,
+      "repositoryFacts": 0,
+      "jsonBytes": 23909
+    },
+    {
+      "configuration": "asm-only",
+      "sample": "4",
+      "measured": true,
+      "durationSeconds": 9.503,
+      "transformerNanos": 69174802,
+      "classesTransformed": 19,
+      "methodsInstrumented": 91,
+      "rawMethodHits": 10,
+      "uniqueMethodHits": 10,
+      "repositoryFacts": 0,
+      "jsonBytes": 23909
+    },
+    {
+      "configuration": "asm-only",
+      "sample": "5",
+      "measured": true,
+      "durationSeconds": 9.752,
+      "transformerNanos": 69072672,
+      "classesTransformed": 19,
+      "methodsInstrumented": 91,
+      "rawMethodHits": 10,
+      "uniqueMethodHits": 10,
+      "repositoryFacts": 0,
+      "jsonBytes": 23909
+    },
+    {
+      "configuration": "adapter-only",
+      "sample": "warmup",
+      "measured": false,
+      "durationSeconds": 10.771,
+      "transformerNanos": 18775070,
+      "classesTransformed": 0,
+      "methodsInstrumented": 0,
+      "rawMethodHits": 0,
+      "uniqueMethodHits": 0,
+      "repositoryFacts": 5,
+      "jsonBytes": 4312
+    },
+    {
+      "configuration": "adapter-only",
+      "sample": "1",
+      "measured": true,
+      "durationSeconds": 9.734,
+      "transformerNanos": 16856434,
+      "classesTransformed": 0,
+      "methodsInstrumented": 0,
+      "rawMethodHits": 0,
+      "uniqueMethodHits": 0,
+      "repositoryFacts": 5,
+      "jsonBytes": 4297
+    },
+    {
+      "configuration": "adapter-only",
+      "sample": "2",
+      "measured": true,
+      "durationSeconds": 9.812,
+      "transformerNanos": 20546437,
+      "classesTransformed": 0,
+      "methodsInstrumented": 0,
+      "rawMethodHits": 0,
+      "uniqueMethodHits": 0,
+      "repositoryFacts": 5,
+      "jsonBytes": 4297
+    },
+    {
+      "configuration": "adapter-only",
+      "sample": "3",
+      "measured": true,
+      "durationSeconds": 10.281,
+      "transformerNanos": 19004502,
+      "classesTransformed": 0,
+      "methodsInstrumented": 0,
+      "rawMethodHits": 0,
+      "uniqueMethodHits": 0,
+      "repositoryFacts": 5,
+      "jsonBytes": 4297
+    },
+    {
+      "configuration": "adapter-only",
+      "sample": "4",
+      "measured": true,
+      "durationSeconds": 9.322,
+      "transformerNanos": 18013059,
+      "classesTransformed": 0,
+      "methodsInstrumented": 0,
+      "rawMethodHits": 0,
+      "uniqueMethodHits": 0,
+      "repositoryFacts": 5,
+      "jsonBytes": 4297
+    },
+    {
+      "configuration": "adapter-only",
+      "sample": "5",
+      "measured": true,
+      "durationSeconds": 9.333,
+      "transformerNanos": 17660682,
+      "classesTransformed": 0,
+      "methodsInstrumented": 0,
+      "rawMethodHits": 0,
+      "uniqueMethodHits": 0,
+      "repositoryFacts": 5,
+      "jsonBytes": 4297
+    },
+    {
+      "configuration": "asm-plus-adapter",
+      "sample": "warmup",
+      "measured": false,
+      "durationSeconds": 9.878,
+      "transformerNanos": 67642669,
+      "classesTransformed": 19,
+      "methodsInstrumented": 91,
+      "rawMethodHits": 10,
+      "uniqueMethodHits": 10,
+      "repositoryFacts": 5,
+      "jsonBytes": 25200
+    },
+    {
+      "configuration": "asm-plus-adapter",
+      "sample": "1",
+      "measured": true,
+      "durationSeconds": 10.604,
+      "transformerNanos": 69084153,
+      "classesTransformed": 19,
+      "methodsInstrumented": 91,
+      "rawMethodHits": 10,
+      "uniqueMethodHits": 10,
+      "repositoryFacts": 5,
+      "jsonBytes": 25185
+    },
+    {
+      "configuration": "asm-plus-adapter",
+      "sample": "2",
+      "measured": true,
+      "durationSeconds": 9.588,
+      "transformerNanos": 69106490,
+      "classesTransformed": 19,
+      "methodsInstrumented": 91,
+      "rawMethodHits": 10,
+      "uniqueMethodHits": 10,
+      "repositoryFacts": 5,
+      "jsonBytes": 25185
+    },
+    {
+      "configuration": "asm-plus-adapter",
+      "sample": "3",
+      "measured": true,
+      "durationSeconds": 9.46,
+      "transformerNanos": 70880649,
+      "classesTransformed": 19,
+      "methodsInstrumented": 91,
+      "rawMethodHits": 10,
+      "uniqueMethodHits": 10,
+      "repositoryFacts": 5,
+      "jsonBytes": 25185
+    },
+    {
+      "configuration": "asm-plus-adapter",
+      "sample": "4",
+      "measured": true,
+      "durationSeconds": 9.944,
+      "transformerNanos": 66499794,
+      "classesTransformed": 19,
+      "methodsInstrumented": 91,
+      "rawMethodHits": 10,
+      "uniqueMethodHits": 10,
+      "repositoryFacts": 5,
+      "jsonBytes": 25185
+    },
+    {
+      "configuration": "asm-plus-adapter",
+      "sample": "5",
+      "measured": true,
+      "durationSeconds": 15.434,
+      "transformerNanos": 68089275,
+      "classesTransformed": 19,
+      "methodsInstrumented": 91,
+      "rawMethodHits": 10,
+      "uniqueMethodHits": 10,
+      "repositoryFacts": 5,
+      "jsonBytes": 25185
+    }
+  ]
+}

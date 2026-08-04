@@ -1,0 +1,160 @@
+{
+  "schemaVersion": "spring-data-e2e-normalized-1",
+  "runtimeSchemaVersion": "spike-2",
+  "tests": {
+    "cachedSuccessfulGraph": {
+      "testId": "[engine:junit-jupiter]/[class:example.springdatae2e.tests.SpringDataRuntimeE2eTest]/[method:cachedSuccessfulGraph()]",
+      "methods": [
+        {
+          "method": "example.springdatae2e.app.SampleRepositoryImpl#findCachedByName(Ljava/lang/String;)Ljava/util/List;",
+          "evidenceSource": "ASM_METHOD_ENTRY",
+          "certainty": "OBSERVED",
+          "count": 1
+        },
+        {
+          "method": "example.springdatae2e.app.SampleService#cachedLookupTwice()V",
+          "evidenceSource": "ASM_METHOD_ENTRY",
+          "certainty": "OBSERVED",
+          "count": 1
+        }
+      ],
+      "repositories": [
+        {
+          "repositoryKind": "SPRING_DATA_PROXY",
+          "repositoryInterface": "example.springdatae2e.app.SampleRepository",
+          "beanName": "sampleRepository",
+          "methodName": "findCachedByName",
+          "jvmDescriptor": "(Ljava/lang/String;)Ljava/util/List;",
+          "domainType": "example.springdatae2e.app.SampleEntity",
+          "outcome": "SUCCEEDED",
+          "evidenceSource": "SPRING_DATA",
+          "certainty": "OBSERVED",
+          "count": 2
+        }
+      ],
+      "lateEvents": [
+
+      ]
+    },
+    "failedRepositoryPreservesThrowable": {
+      "testId": "[engine:junit-jupiter]/[class:example.springdatae2e.tests.SpringDataRuntimeE2eTest]/[method:failedRepositoryPreservesThrowable()]",
+      "methods": [
+        {
+          "method": "example.springdatae2e.app.SampleRepositoryImpl#failExactly()V",
+          "evidenceSource": "ASM_METHOD_ENTRY",
+          "certainty": "OBSERVED",
+          "count": 1
+        },
+        {
+          "method": "example.springdatae2e.app.SampleService#failRepository()V",
+          "evidenceSource": "ASM_METHOD_ENTRY",
+          "certainty": "OBSERVED",
+          "count": 1
+        }
+      ],
+      "repositories": [
+        {
+          "repositoryKind": "SPRING_DATA_PROXY",
+          "repositoryInterface": "example.springdatae2e.app.SampleRepository",
+          "beanName": "sampleRepository",
+          "methodName": "failExactly",
+          "jvmDescriptor": "()V",
+          "domainType": "example.springdatae2e.app.SampleEntity",
+          "outcome": "FAILED",
+          "evidenceSource": "SPRING_DATA",
+          "certainty": "OBSERVED",
+          "count": 1
+        }
+      ],
+      "lateEvents": [
+
+      ]
+    },
+    "sequentialAlpha": {
+      "testId": "[engine:junit-jupiter]/[class:example.springdatae2e.tests.SpringDataRuntimeE2eTest]/[method:sequentialAlpha()]",
+      "methods": [
+        {
+          "method": "example.springdatae2e.app.SampleRepositoryImpl#findAlpha()Ljava/util/List;",
+          "evidenceSource": "ASM_METHOD_ENTRY",
+          "certainty": "OBSERVED",
+          "count": 1
+        },
+        {
+          "method": "example.springdatae2e.app.SampleService#alpha()V",
+          "evidenceSource": "ASM_METHOD_ENTRY",
+          "certainty": "OBSERVED",
+          "count": 1
+        }
+      ],
+      "repositories": [
+        {
+          "repositoryKind": "SPRING_DATA_PROXY",
+          "repositoryInterface": "example.springdatae2e.app.SampleRepository",
+          "beanName": "sampleRepository",
+          "methodName": "findAlpha",
+          "jvmDescriptor": "()Ljava/util/List;",
+          "domainType": "example.springdatae2e.app.SampleEntity",
+          "outcome": "SUCCEEDED",
+          "evidenceSource": "SPRING_DATA",
+          "certainty": "OBSERVED",
+          "count": 1
+        }
+      ],
+      "lateEvents": [
+
+      ]
+    },
+    "sequentialBeta": {
+      "testId": "[engine:junit-jupiter]/[class:example.springdatae2e.tests.SpringDataRuntimeE2eTest]/[method:sequentialBeta()]",
+      "methods": [
+        {
+          "method": "example.springdatae2e.app.SampleRepositoryImpl#findBeta()Ljava/util/List;",
+          "evidenceSource": "ASM_METHOD_ENTRY",
+          "certainty": "OBSERVED",
+          "count": 1
+        },
+        {
+          "method": "example.springdatae2e.app.SampleService#beta()V",
+          "evidenceSource": "ASM_METHOD_ENTRY",
+          "certainty": "OBSERVED",
+          "count": 1
+        }
+      ],
+      "repositories": [
+        {
+          "repositoryKind": "SPRING_DATA_PROXY",
+          "repositoryInterface": "example.springdatae2e.app.SampleRepository",
+          "beanName": "sampleRepository",
+          "methodName": "findBeta",
+          "jvmDescriptor": "()Ljava/util/List;",
+          "domainType": "example.springdatae2e.app.SampleEntity",
+          "outcome": "SUCCEEDED",
+          "evidenceSource": "SPRING_DATA",
+          "certainty": "OBSERVED",
+          "count": 1
+        }
+      ],
+      "lateEvents": [
+
+      ]
+    }
+  },
+  "startupEvents": [
+    {
+      "reason": "NO_ACTIVE_TEST",
+      "eventType": "METHOD",
+      "eventIdentity": "example.springdatae2e.app.FixtureSeed#run([Ljava/lang/String;)V",
+      "evidenceSource": "ASM_METHOD_ENTRY",
+      "certainty": "OBSERVED",
+      "count": 1
+    },
+    {
+      "reason": "NO_ACTIVE_TEST",
+      "eventType": "REPOSITORY",
+      "eventIdentity": "example.springdatae2e.app.SampleRepository#save(Ljava/lang/Object;)Ljava/lang/Object;",
+      "evidenceSource": "SPRING_DATA",
+      "certainty": "OBSERVED",
+      "count": 1
+    }
+  ]
+}

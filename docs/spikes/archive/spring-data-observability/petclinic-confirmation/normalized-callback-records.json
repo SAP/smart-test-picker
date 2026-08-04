@@ -1,0 +1,193 @@
+{
+  "schemaVersion": "spring-data-petclinic-confirmation-normalized-1",
+  "cases": {
+    "listener-owner": [
+      {
+        "sequence": 1,
+        "hookName": "RepositoryMethodInvocationListener",
+        "phase": "AFTER",
+        "repositoryInterface": "org.springframework.samples.petclinic.owner.OwnerRepository",
+        "declaringClass": "org.springframework.samples.petclinic.owner.OwnerRepository",
+        "methodName": "findByLastNameStartingWith",
+        "jvmDescriptor": "(Ljava/lang/String;Lorg/springframework/data/domain/Pageable;)Lorg/springframework/data/domain/Page;",
+        "domainType": "org.springframework.samples.petclinic.owner.Owner",
+        "resultState": "SUCCESS",
+        "exceptionType": null,
+        "transactionActive": true,
+        "beanName": "ownerRepository",
+        "proxyOrAdvisorType": "RepositoryFactorySupport.addInvocationListener"
+      },
+      {
+        "sequence": 2,
+        "hookName": "RepositoryMethodInvocationListener",
+        "phase": "AFTER",
+        "repositoryInterface": "org.springframework.samples.petclinic.owner.OwnerRepository",
+        "declaringClass": "org.springframework.data.repository.CrudRepository",
+        "methodName": "save",
+        "jvmDescriptor": "(Ljava/lang/Object;)Ljava/lang/Object;",
+        "domainType": "org.springframework.samples.petclinic.owner.Owner",
+        "resultState": "SUCCESS",
+        "exceptionType": null,
+        "transactionActive": true,
+        "beanName": "ownerRepository",
+        "proxyOrAdvisorType": "RepositoryFactorySupport.addInvocationListener"
+      },
+      {
+        "sequence": 3,
+        "hookName": "RepositoryMethodInvocationListener",
+        "phase": "AFTER",
+        "repositoryInterface": "org.springframework.samples.petclinic.owner.OwnerRepository",
+        "declaringClass": "org.springframework.samples.petclinic.owner.OwnerRepository",
+        "methodName": "findByLastNameStartingWith",
+        "jvmDescriptor": "(Ljava/lang/String;Lorg/springframework/data/domain/Pageable;)Lorg/springframework/data/domain/Page;",
+        "domainType": "org.springframework.samples.petclinic.owner.Owner",
+        "resultState": "SUCCESS",
+        "exceptionType": null,
+        "transactionActive": true,
+        "beanName": "ownerRepository",
+        "proxyOrAdvisorType": "RepositoryFactorySupport.addInvocationListener"
+      }
+    ],
+    "advice-owner": [
+      {
+        "sequence": 1,
+        "hookName": "repository-proxy-advice",
+        "phase": "BEFORE",
+        "repositoryInterface": "org.springframework.samples.petclinic.owner.OwnerRepository",
+        "declaringClass": "org.springframework.samples.petclinic.owner.OwnerRepository",
+        "methodName": "findByLastNameStartingWith",
+        "jvmDescriptor": "(Ljava/lang/String;Lorg/springframework/data/domain/Pageable;)Lorg/springframework/data/domain/Page;",
+        "domainType": "org.springframework.samples.petclinic.owner.Owner",
+        "resultState": "RUNNING",
+        "exceptionType": null,
+        "transactionActive": true,
+        "beanName": "ownerRepository",
+        "proxyOrAdvisorType": "RepositoryProxyPostProcessor"
+      },
+      {
+        "sequence": 2,
+        "hookName": "repository-proxy-advice",
+        "phase": "AFTER",
+        "repositoryInterface": "org.springframework.samples.petclinic.owner.OwnerRepository",
+        "declaringClass": "org.springframework.samples.petclinic.owner.OwnerRepository",
+        "methodName": "findByLastNameStartingWith",
+        "jvmDescriptor": "(Ljava/lang/String;Lorg/springframework/data/domain/Pageable;)Lorg/springframework/data/domain/Page;",
+        "domainType": "org.springframework.samples.petclinic.owner.Owner",
+        "resultState": "SUCCESS",
+        "exceptionType": null,
+        "transactionActive": true,
+        "beanName": "ownerRepository",
+        "proxyOrAdvisorType": "RepositoryProxyPostProcessor"
+      },
+      {
+        "sequence": 3,
+        "hookName": "repository-proxy-advice",
+        "phase": "BEFORE",
+        "repositoryInterface": "org.springframework.samples.petclinic.owner.OwnerRepository",
+        "declaringClass": "org.springframework.data.repository.CrudRepository",
+        "methodName": "save",
+        "jvmDescriptor": "(Ljava/lang/Object;)Ljava/lang/Object;",
+        "domainType": "org.springframework.samples.petclinic.owner.Owner",
+        "resultState": "RUNNING",
+        "exceptionType": null,
+        "transactionActive": true,
+        "beanName": "ownerRepository",
+        "proxyOrAdvisorType": "RepositoryProxyPostProcessor"
+      },
+      {
+        "sequence": 4,
+        "hookName": "repository-proxy-advice",
+        "phase": "AFTER",
+        "repositoryInterface": "org.springframework.samples.petclinic.owner.OwnerRepository",
+        "declaringClass": "org.springframework.data.repository.CrudRepository",
+        "methodName": "save",
+        "jvmDescriptor": "(Ljava/lang/Object;)Ljava/lang/Object;",
+        "domainType": "org.springframework.samples.petclinic.owner.Owner",
+        "resultState": "SUCCESS",
+        "exceptionType": null,
+        "transactionActive": true,
+        "beanName": "ownerRepository",
+        "proxyOrAdvisorType": "RepositoryProxyPostProcessor"
+      },
+      {
+        "sequence": 5,
+        "hookName": "repository-proxy-advice",
+        "phase": "BEFORE",
+        "repositoryInterface": "org.springframework.samples.petclinic.owner.OwnerRepository",
+        "declaringClass": "org.springframework.samples.petclinic.owner.OwnerRepository",
+        "methodName": "findByLastNameStartingWith",
+        "jvmDescriptor": "(Ljava/lang/String;Lorg/springframework/data/domain/Pageable;)Lorg/springframework/data/domain/Page;",
+        "domainType": "org.springframework.samples.petclinic.owner.Owner",
+        "resultState": "RUNNING",
+        "exceptionType": null,
+        "transactionActive": true,
+        "beanName": "ownerRepository",
+        "proxyOrAdvisorType": "RepositoryProxyPostProcessor"
+      },
+      {
+        "sequence": 6,
+        "hookName": "repository-proxy-advice",
+        "phase": "AFTER",
+        "repositoryInterface": "org.springframework.samples.petclinic.owner.OwnerRepository",
+        "declaringClass": "org.springframework.samples.petclinic.owner.OwnerRepository",
+        "methodName": "findByLastNameStartingWith",
+        "jvmDescriptor": "(Ljava/lang/String;Lorg/springframework/data/domain/Pageable;)Lorg/springframework/data/domain/Page;",
+        "domainType": "org.springframework.samples.petclinic.owner.Owner",
+        "resultState": "SUCCESS",
+        "exceptionType": null,
+        "transactionActive": true,
+        "beanName": "ownerRepository",
+        "proxyOrAdvisorType": "RepositoryProxyPostProcessor"
+      }
+    ],
+    "listener-vet": [
+      {
+        "sequence": 1,
+        "hookName": "RepositoryMethodInvocationListener",
+        "phase": "AFTER",
+        "repositoryInterface": "org.springframework.samples.petclinic.vet.VetRepository",
+        "declaringClass": "org.springframework.samples.petclinic.vet.VetRepository",
+        "methodName": "findAll",
+        "jvmDescriptor": "()Ljava/util/Collection;",
+        "domainType": "org.springframework.samples.petclinic.vet.Vet",
+        "resultState": "SUCCESS",
+        "exceptionType": null,
+        "transactionActive": true,
+        "beanName": "vetRepository",
+        "proxyOrAdvisorType": "RepositoryFactorySupport.addInvocationListener"
+      }
+    ],
+    "advice-vet": [
+      {
+        "sequence": 1,
+        "hookName": "repository-proxy-advice",
+        "phase": "BEFORE",
+        "repositoryInterface": "org.springframework.samples.petclinic.vet.VetRepository",
+        "declaringClass": "org.springframework.samples.petclinic.vet.VetRepository",
+        "methodName": "findAll",
+        "jvmDescriptor": "()Ljava/util/Collection;",
+        "domainType": "org.springframework.samples.petclinic.vet.Vet",
+        "resultState": "RUNNING",
+        "exceptionType": null,
+        "transactionActive": false,
+        "beanName": "vetRepository",
+        "proxyOrAdvisorType": "RepositoryProxyPostProcessor"
+      },
+      {
+        "sequence": 2,
+        "hookName": "repository-proxy-advice",
+        "phase": "AFTER",
+        "repositoryInterface": "org.springframework.samples.petclinic.vet.VetRepository",
+        "declaringClass": "org.springframework.samples.petclinic.vet.VetRepository",
+        "methodName": "findAll",
+        "jvmDescriptor": "()Ljava/util/Collection;",
+        "domainType": "org.springframework.samples.petclinic.vet.Vet",
+        "resultState": "SUCCESS",
+        "exceptionType": null,
+        "transactionActive": false,
+        "beanName": "vetRepository",
+        "proxyOrAdvisorType": "RepositoryProxyPostProcessor"
+      }
+    ]
+  }
+}

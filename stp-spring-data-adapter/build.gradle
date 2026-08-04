@@ -1,0 +1,38 @@
+// SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+// SPDX-License-Identifier: Apache-2.0
+plugins {
+    id 'java-library'
+}
+
+description = 'Experimental, unpublished Spring Data runtime adapter shell'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+dependencies {
+    implementation project(':stp-runtime')
+    compileOnly 'org.springframework:spring-context:7.0.8'
+    compileOnly 'org.springframework:spring-beans:7.0.8'
+    compileOnly 'org.springframework:spring-aop:7.0.8'
+    compileOnly 'org.springframework.data:spring-data-commons:4.1.0'
+
+	 testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+	 testImplementation 'org.springframework:spring-context:7.0.8'
+	 testImplementation 'org.springframework:spring-beans:7.0.8'
+	 testImplementation 'org.springframework:spring-aop:7.0.8'
+	 testImplementation 'org.springframework.data:spring-data-commons:4.1.0'
+    // Required only by the disposable real RepositoryFactorySupport test fixture.
+    testImplementation 'org.springframework:spring-tx:7.0.8'
+}
+
+test {
+    useJUnitPlatform()
+    dependsOn tasks.named('jar')
+    doFirst {
+        systemProperty 'stp.spring-data-adapter.jar', tasks.named('jar').get().archiveFile.get().asFile.absolutePath
+    }
+}
+
+// Experimental only: intentionally no maven-publish plugin.

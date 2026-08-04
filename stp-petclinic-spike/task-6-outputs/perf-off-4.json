@@ -1,0 +1,112 @@
+{
+  "schemaVersion": "agent-shell-1",
+  "runId": "perf-off-4",
+  "jvmId": "pid-69489",
+  "configuration": {
+    "output": "/Users/D061177/work/moje/asm-poc/smart-test-picker/stp-petclinic-spike/task-6-outputs/perf-off-4.json",
+    "includes": ["org.springframework.samples.petclinic."],
+    "excludes": ["com.sap.oss.smarttestpicker.", "jakarta.", "java.", "javax.", "jdk.", "net.bytebuddy.", "org.hibernate.", "org.jacoco.", "org.junit.", "org.mockito.", "org.springframework.", "sun."],
+    "debug": false,
+    "instrumentation": "off"
+  },
+  "metrics": {
+    "classesSeen": 16714,
+    "classesIncluded": 52,
+    "classesExcluded": 13942,
+    "classesIgnored": 2720,
+    "transformationErrors": 0,
+    "transformerTotalNanos": 21313653,
+    "agentStartNanos": 2283967833618625,
+    "classLoaderPresent": 15097,
+    "classLoaderMissing": 1617,
+    "protectionDomainPresent": 14884,
+    "protectionDomainMissing": 1830,
+    "classesTransformed": 0,
+    "methodsConsidered": 0,
+    "methodsInstrumented": 0,
+    "methodsSkipped": 0,
+    "alreadyInstrumentedClasses": 0,
+    "methodIdCollisions": 0,
+    "rawMethodHits": 0,
+    "uniqueMethodHits": 0
+  },
+  "methodIdAlgorithm": "fnv1a64-v1",
+  "methodCatalog": [],
+  "methodHits": [],
+  "agentErrors": [],
+  "bytecodeModified": false,
+  "runtimeEvents": {
+    "schemaVersion": "spike-1",
+    "runId": "perf-off-4",
+    "jvmId": "pid-69489",
+    "tests": [
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.PetClinicIntegrationTests]/[method:findAll()]",
+        "displayName": "findAll()",
+        "testClass": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+        "testMethod": "findAll",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 0,
+          "uniqueMethodHits": 0
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.owner.OwnerControllerTests]/[method:processCreationFormSuccess()]",
+        "displayName": "processCreationFormSuccess()",
+        "testClass": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+        "testMethod": "processCreationFormSuccess",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 0,
+          "uniqueMethodHits": 0
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.service.ClinicServiceTests]/[method:shouldInsertOwner()]",
+        "displayName": "shouldInsertOwner()",
+        "testClass": "org.springframework.samples.petclinic.service.ClinicServiceTests",
+        "testMethod": "shouldInsertOwner",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 0,
+          "uniqueMethodHits": 0
+        }
+      }
+    ],
+    "unattributedEvents": []
+  }
+}

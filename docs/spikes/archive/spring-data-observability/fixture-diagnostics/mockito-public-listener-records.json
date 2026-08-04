@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "spring-data-observability-raw-1",
+  "records": [
+    {
+      "sequence": 1,
+      "hookName": "Mockito.InvocationListener[STUBBING]",
+      "phase": "AFTER",
+      "repositoryInterface": "com.sap.oss.smarttestpicker.spike.springdata.SampleRepository",
+      "declaringClass": "com.sap.oss.smarttestpicker.spike.springdata.SampleRepository",
+      "methodName": "findByName",
+      "jvmDescriptor": "(Ljava/lang/String;)Ljava/util/List;",
+      "domainType": "com.sap.oss.smarttestpicker.spike.springdata.SampleEntity",
+      "resultState": "SUCCESS",
+      "exceptionType": null,
+      "transactionActive": false,
+      "cacheInvocationNumber": null,
+      "beanName": "sampleRepository",
+      "proxyOrAdvisorType": "MockSettings.invocationListeners"
+    },
+    {
+      "sequence": 2,
+      "hookName": "Mockito.InvocationListener[APPLICATION]",
+      "phase": "AFTER",
+      "repositoryInterface": "com.sap.oss.smarttestpicker.spike.springdata.SampleRepository",
+      "declaringClass": "com.sap.oss.smarttestpicker.spike.springdata.SampleRepository",
+      "methodName": "findByName",
+      "jvmDescriptor": "(Ljava/lang/String;)Ljava/util/List;",
+      "domainType": "com.sap.oss.smarttestpicker.spike.springdata.SampleEntity",
+      "resultState": "SUCCESS",
+      "exceptionType": null,
+      "transactionActive": false,
+      "cacheInvocationNumber": null,
+      "beanName": "sampleRepository",
+      "proxyOrAdvisorType": "MockSettings.invocationListeners"
+    },
+    {
+      "sequence": 3,
+      "hookName": "Mockito.InvocationListener[VERIFICATION]",
+      "phase": "AFTER",
+      "repositoryInterface": "com.sap.oss.smarttestpicker.spike.springdata.SampleRepository",
+      "declaringClass": "com.sap.oss.smarttestpicker.spike.springdata.SampleRepository",
+      "methodName": "findByName",
+      "jvmDescriptor": "(Ljava/lang/String;)Ljava/util/List;",
+      "domainType": "com.sap.oss.smarttestpicker.spike.springdata.SampleEntity",
+      "resultState": "SUCCESS",
+      "exceptionType": null,
+      "transactionActive": false,
+      "cacheInvocationNumber": null,
+      "beanName": "sampleRepository",
+      "proxyOrAdvisorType": "MockSettings.invocationListeners"
+    }
+  ]
+}

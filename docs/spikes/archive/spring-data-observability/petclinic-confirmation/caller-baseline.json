@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "spring-repository-caller-boundary-1",
+  "mode": "caller-baseline",
+  "callbacks": [
+  ],
+  "snapshots": [
+    {
+      "stage": "after-singletons",
+      "exposedClass": "jdk.proxy2.$Proxy200",
+      "exposedInterfaces": ["org.springframework.aop.framework.Advised", "org.springframework.core.DecoratingProxy", "org.springframework.data.repository.Repository", "org.springframework.samples.petclinic.vet.VetRepository", "org.springframework.transaction.interceptor.TransactionalProxy"],
+      "sameLookupIdentity": true,
+      "injectedIsExposedBean": true,
+      "layers": [
+        {
+          "depth": 0,
+          "proxyClass": "jdk.proxy2.$Proxy200",
+          "advisors": ["org.springframework.cache.interceptor.CacheInterceptor"],
+          "targetClass": "jdk.proxy2.$Proxy200"
+        },
+        {
+          "depth": 1,
+          "proxyClass": "jdk.proxy2.$Proxy200",
+          "advisors": ["org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor", "org.springframework.dao.support.PersistenceExceptionTranslationInterceptor", "org.springframework.transaction.interceptor.TransactionInterceptor", "org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor", "org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor"],
+          "targetClass": "org.springframework.data.jpa.repository.support.SimpleJpaRepository"
+        }
+      ]
+    }
+  ]
+}
