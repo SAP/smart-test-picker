@@ -1,0 +1,29 @@
+// SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+// SPDX-License-Identifier: Apache-2.0
+plugins {
+    id 'java-library'
+}
+
+description = 'Experimental JUnit Platform adapter for stp-runtime'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+dependencies {
+    api project(':stp-runtime')
+    api 'org.junit.platform:junit-platform-launcher:1.9.3'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.9.3'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
+}
+
+test {
+    useJUnitPlatform()
+    // Fixture suites are launched explicitly by StpRuntimeTestExecutionListenerTest.
+    exclude '**/*FixtureSuite.class', '**/*FixtureSuite$*.class'
+}
+
+// Experimental only: intentionally no maven-publish plugin.

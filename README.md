@@ -145,6 +145,25 @@ This avoids over-selection (running every test that touches a class) while maint
 ./gradlew publishToMavenLocal
 ```
 
+## Experimental Spring Data observation
+
+The unpublished Spring Data adapter can enrich the spike runtime JSON with
+same-thread, caller-level repository dependencies. It is separate from, and is
+not used by, current regression-test selection. See the narrow compatibility
+and setup contract in [docs/spring-data-adapter.md](docs/spring-data-adapter.md).
+
+Contributors can reproduce the complete internal fixture with one command:
+
+```bash
+./gradlew :stp-spring-data-e2e-fixture:validateE2eFixture
+```
+
+The pinned external PetClinic acceptance is reproduced separately with:
+
+```bash
+ruby stp-petclinic-spike/spring-data-acceptance/run_acceptance.rb
+```
+
 ## Support, Feedback, Contributing
 
 This project is open to feature requests/suggestions, bug reports etc. via [GitHub issues](https://github.com/SAP/smart-test-picker/issues). Contribution and feedback are encouraged and always welcome. For more information about how to contribute, the project structure, as well as additional contribution information, see our [Contribution Guidelines](CONTRIBUTING.md).

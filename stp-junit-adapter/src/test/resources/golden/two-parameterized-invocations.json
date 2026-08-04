@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "spike-2",
+  "runId": "run-1",
+  "jvmId": "jvm-1",
+  "tests": [
+    {
+      "testId": "[engine:junit-jupiter]/[class:com.sap.oss.smarttestpicker.junit.ParameterizedFixtureSuite]/[test-template:parameterized(java.lang.String)]/[test-template-invocation:#1]",
+      "displayName": "value=alpha",
+      "testClass": "com.sap.oss.smarttestpicker.junit.ParameterizedFixtureSuite",
+      "testMethod": "parameterized",
+      "engineId": "junit-jupiter",
+      "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+      "methods": [
+        {"methodId":null,"method":"fixture.Target#parameterized()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+      ],
+      "springBeans": [],
+      "endpoints": [],
+      "repositories": [],
+      "entities": [],
+      "tables": {
+        "mapped": [],
+        "observed": []
+      },
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 1,
+        "uniqueMethodHits": 1
+      }
+    },
+    {
+      "testId": "[engine:junit-jupiter]/[class:com.sap.oss.smarttestpicker.junit.ParameterizedFixtureSuite]/[test-template:parameterized(java.lang.String)]/[test-template-invocation:#2]",
+      "displayName": "value=beta",
+      "testClass": "com.sap.oss.smarttestpicker.junit.ParameterizedFixtureSuite",
+      "testMethod": "parameterized",
+      "engineId": "junit-jupiter",
+      "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+      "methods": [
+        {"methodId":null,"method":"fixture.Target#parameterized()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+      ],
+      "springBeans": [],
+      "endpoints": [],
+      "repositories": [],
+      "entities": [],
+      "tables": {
+        "mapped": [],
+        "observed": []
+      },
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 1,
+        "uniqueMethodHits": 1
+      }
+    }
+  ],
+  "unattributedEvents": []
+}

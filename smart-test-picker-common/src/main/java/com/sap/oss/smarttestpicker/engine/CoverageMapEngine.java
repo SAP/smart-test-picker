@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
-import java.util.TreeMap;
 import java.util.zip.GZIPOutputStream;
 
 import com.google.gson.Gson;
@@ -151,7 +150,7 @@ public class CoverageMapEngine
 		}
 
 		// Phase 3: Convert each test's string lists to integer reference lists.
-		Map<String, IndexedCoverageMap.TestCoverageRef> indexedMappings = new TreeMap<>();
+		Map<String, IndexedCoverageMap.TestCoverageRef> indexedMappings = new HashMap<>();
 		for (Map.Entry<String, Map<String, List<String>>> entry : testCoverage.entrySet())
 		{
 			Map<String, List<String>> coverage = entry.getValue();

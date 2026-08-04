@@ -54,3 +54,5 @@ _site/
 CLAUDE.md
 paper-notes/
 jira-epic-smart-test-picker.md
+.DS_Store
+stp-petclinic-spike/spring-data-acceptance/raw/

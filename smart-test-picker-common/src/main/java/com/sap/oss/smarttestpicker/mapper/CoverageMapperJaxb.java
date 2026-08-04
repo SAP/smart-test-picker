@@ -10,11 +10,11 @@ import java.io.FileInputStream;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
@@ -51,7 +51,7 @@ public class CoverageMapperJaxb
 	private final File reportsDir;
 
 	/** Per-class aggregated coverage metrics, populated during mapping. */
-	private Map<String, ClassCoverageMetrics> classMetrics = new TreeMap<>();
+	private Map<String, ClassCoverageMetrics> classMetrics = new HashMap<>();
 
 	/**
 	 * Creates a mapper for the given reports directory.
@@ -101,7 +101,7 @@ public class CoverageMapperJaxb
 	 */
 	public Map<String, Map<String, List<String>>> generateTestCoverageMapping()
 	{
-		Map<String, Map<String, List<String>>> testMap = new TreeMap<>();
+		Map<String, Map<String, List<String>>> testMap = new HashMap<>();
 
 		File[] xmlFiles = reportsDir.listFiles((dir, name) -> name.endsWith(".xml"));
 		if (xmlFiles == null)
@@ -158,7 +158,7 @@ public class CoverageMapperJaxb
 			List<String> sortedMethods = new ArrayList<>(coveredMethods);
 			Collections.sort(sortedMethods);
 
-			Map<String, List<String>> coverage = new TreeMap<>();
+			Map<String, List<String>> coverage = new HashMap<>();
 			coverage.put("classes", sortedClasses);
 			coverage.put("methods", sortedMethods);
 

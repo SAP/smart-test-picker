@@ -1,0 +1,60 @@
+// SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+// SPDX-License-Identifier: Apache-2.0
+plugins {
+    id 'java-library'
+    id 'com.gradleup.shadow' version '8.3.6'
+}
+
+description = 'Experimental no-op Java agent shell for the PetClinic spike'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+dependencies {
+    implementation project(':stp-runtime')
+    compileOnly project(':stp-junit-adapter')
+    implementation 'org.ow2.asm:asm:9.8'
+    implementation 'org.ow2.asm:asm-tree:9.8'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+    testImplementation project(':stp-junit-adapter')
+    testImplementation 'org.ow2.asm:asm-util:9.8'
+}
+
+tasks.named('shadowJar') {
+    dependsOn project(':stp-junit-adapter').tasks.named('classes')
+    archiveFileName = 'stp-agent-experimental.jar'
+    destinationDirectory = layout.buildDirectory.dir('libs')
+    archiveClassifier = ''
+    relocate 'org.objectweb.asm', 'com.sap.oss.smarttestpicker.internal.asm'
+    from(project(':stp-junit-adapter').sourceSets.main.output) {
+        include 'com/sap/oss/smarttestpicker/junit/**'
+        include 'META-INF/services/org.junit.platform.launcher.TestExecutionListener'
+    }
+    exclude 'META-INF/*.SF', 'META-INF/*.RSA', 'META-INF/*.DSA',
+            'META-INF/gradle/**', '**/*Test.class'
+    manifest {
+        attributes(
+                'Premain-Class': 'com.sap.oss.smarttestpicker.agent.StpAgent',
+                'Can-Redefine-Classes': 'false',
+                'Can-Retransform-Classes': 'false'
+        )
+    }
+}
+
+tasks.register('agentJar') {
+    group = 'build'
+    description = 'Builds the experimental shaded Java agent JAR.'
+    dependsOn tasks.named('shadowJar')
+}
+
+test {
+    useJUnitPlatform()
+    dependsOn tasks.named('agentJar')
+    doFirst {
+        systemProperty 'stp.agent.jar', tasks.named('shadowJar').get().archiveFile.get().asFile.absolutePath
+    }
+}
+
+// Experimental only: intentionally no maven-publish plugin.
