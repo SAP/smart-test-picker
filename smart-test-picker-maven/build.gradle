@@ -3,7 +3,7 @@
 plugins {
     id 'java'
     id 'maven-publish'
-    id 'de.benediktritter.maven-plugin-development' version '0.4.3'
+    id 'org.gradlex.maven-plugin-development' version '1.0.3'
 }
 
 group = 'com.sap.oss.smart-test-picker'
@@ -30,9 +30,7 @@ test {
     useJUnitPlatform()
 }
 
-// Java 17 target required — de.benediktritter.maven-plugin-development
-// uses ASM that does not support Java 21 bytecode.
-// All other modules can use Java 21 freely.
+// Keep published bytecode compatible with the project's Java 17 baseline.
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
