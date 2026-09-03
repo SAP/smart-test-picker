@@ -11,6 +11,13 @@ The main types are `CoverageMap`, `CoverageMapRevision`, `TestIdentity`, `TestCo
 `CollectionSummary`, `Completeness`, `TestOutcome`,
 `GeneratorProvenance`, `MapStatistics`, `CoverageFragment`, and `MethodCoverageReference`.
 
+`TestIdentity` is the structured pair of a fully-qualified JVM binary class name and the exact
+declared runtime method name. Method names are not restricted to Java source identifiers: legal
+JUnit/JVM-language names such as Kotlin backtick names containing spaces are preserved verbatim.
+The textual form separates the class from the method at the first `#`; `#` remains legal inside
+the method suffix because it is not legal in the class-name portion. Empty names, ISO control
+characters, and the JVM-unqualified-name forbidden characters `.`, `;`, `[`, and `/` are rejected.
+
 ## Setup is first-class
 
 Static initialization, `@BeforeAll`, inherited setup, nested setup, and cached framework contexts do
@@ -51,6 +58,9 @@ This contract does not implement fragment merging or a map builder (5c/5d), runt
 test discovery (5c), setup-scope or unmapped-test selection policy (5b), storage/publication (5d),
 Jenkins orchestration (5d), or arbitrary base/head revision handling (5e). It also does not alter
 Gradle or Maven adapters.
+
+Implementation findings and POC-proven boundaries for 5c and 5d are tracked in
+[`coverage-map-follow-ups.md`](coverage-map-follow-ups.md).
 
 ## Version impact
 

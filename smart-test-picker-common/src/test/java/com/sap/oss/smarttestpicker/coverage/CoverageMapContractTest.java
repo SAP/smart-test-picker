@@ -62,6 +62,52 @@ class CoverageMapContractTest
 		assertThrows(IllegalArgumentException.class, () -> TestIdentity.parse("FooTest#test"));
 	}
 
+	@Test void testIdentityLosslesslySupportsJvmAndKotlinMethodNames()
+	{
+		List<String> names = List.of(
+				"testSomething",
+				"Register reflection hints for Kotlin data class",
+				"multiple  spaces",
+				"punctuation!?+-=():,'\"@%^&*|~`{}<>",
+				"foo#bar");
+		for (String name : names)
+		{
+			TestIdentity identity = new TestIdentity("com.foo.MyTests", name);
+			assertEquals(identity, TestIdentity.parse(identity.toString()));
+			assertEquals(identity.hashCode(), TestIdentity.parse(identity.toString()).hashCode());
+		}
+
+		TestIdentity springCore = TestIdentity.parse("org.springframework.aot.hint.BindingReflectionHintsRegistrarKotlinTests#Register reflection hints for Kotlin data class");
+		assertEquals("Register reflection hints for Kotlin data class", springCore.methodName());
+		assertEquals(2, Set.of(new TestIdentity("com.foo.MyTests", "foo bar"),
+				new TestIdentity("com.foo.MyTests", "foo_bar")).size());
+		assertThrows(IllegalArgumentException.class, () -> new TestIdentity("com.foo.MyTests", ""));
+		assertThrows(IllegalArgumentException.class, () -> new TestIdentity("com.foo.MyTests", "line\nbreak"));
+		for (String forbidden : List.of("has.dot", "has;semicolon", "has[bracket", "has/slash"))
+			assertThrows(IllegalArgumentException.class, () -> new TestIdentity("com.foo.MyTests", forbidden));
+	}
+
+	@Test void extendedTestIdentitiesRoundTripThroughFragmentAndCoverageMap()
+	{
+		TestIdentity kotlin = new TestIdentity("com.foo.MyTests", "Register reflection hints for Kotlin data class");
+		TestIdentity punctuation = new TestIdentity("com.foo.OuterTests$Nested", "foo#bar !?");
+		Map<TestIdentity, TestCoverage> tests = Map.of(kotlin, covered("com.foo.Service"),
+				punctuation, covered("com.foo.Other"));
+
+		CoverageFragment fragment = new CoverageFragment(1, new CoverageMapRevision("abc123"),
+				new ShardId("0"), tests, List.of(), List.of(), true);
+		CoverageFragment decodedFragment = new CoverageFragmentCodec().deserialize(
+				new CoverageFragmentCodec().serialize(fragment));
+		assertEquals(tests, decodedFragment.tests());
+
+		CoverageMap original = map(tests, List.of(), List.of());
+		CoverageMapCodec codec = new CoverageMapCodec();
+		byte[] serialized = codec.serialize(original);
+		CoverageMap decodedMap = codec.deserialize(serialized);
+		assertEquals(tests, decodedMap.tests());
+		assertArrayEquals(serialized, codec.serialize(decodedMap));
+	}
+
 	@Test void constructedMapIsImmutable()
 	{
 		Map<TestIdentity, TestCoverage> mutable = new HashMap<>(); mutable.put(FOO, covered("com.foo.Service"));

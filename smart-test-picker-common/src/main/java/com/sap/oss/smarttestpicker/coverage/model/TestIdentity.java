@@ -9,13 +9,12 @@ import java.util.regex.Pattern;
 public record TestIdentity(String className, String methodName) implements Comparable<TestIdentity>
 {
 	private static final Pattern CLASS_NAME = Pattern.compile("[\\p{javaJavaIdentifierStart}][\\p{javaJavaIdentifierPart}]*(?:[.$][\\p{javaJavaIdentifierStart}][\\p{javaJavaIdentifierPart}]*)+");
-	private static final Pattern METHOD_NAME = Pattern.compile("[\\p{javaJavaIdentifierStart}][\\p{javaJavaIdentifierPart}]*");
 
 	public TestIdentity
 	{
 		if (className == null || !CLASS_NAME.matcher(className).matches())
 			throw new IllegalArgumentException("Malformed test class name: " + className);
-		if (methodName == null || !METHOD_NAME.matcher(methodName).matches())
+		if (methodName == null || methodName.isEmpty() || methodName.codePoints().anyMatch(TestIdentity::invalidMethodCharacter))
 			throw new IllegalArgumentException("Malformed test method name: " + methodName);
 	}
 
@@ -23,11 +22,20 @@ public record TestIdentity(String className, String methodName) implements Compa
 	{
 		Objects.requireNonNull(value, "value");
 		int separator = value.indexOf('#');
-		if (separator <= 0 || separator != value.lastIndexOf('#') || separator == value.length() - 1)
+		if (separator <= 0 || separator == value.length() - 1)
 			throw new IllegalArgumentException("Malformed test identity: " + value);
 		return new TestIdentity(value.substring(0, separator), value.substring(separator + 1));
 	}
 
+	private static boolean invalidMethodCharacter(int character)
+	{
+		return Character.isISOControl(character) || character == '.' || character == ';' || character == '[' || character == '/';
+	}
+
 	@Override public String toString() { return className + "#" + methodName; }
-	@Override public int compareTo(TestIdentity other) { return toString().compareTo(other.toString()); }
+	@Override public int compareTo(TestIdentity other)
+	{
+		int byClass = className.compareTo(other.className);
+		return byClass != 0 ? byClass : methodName.compareTo(other.methodName);
+	}
 }
