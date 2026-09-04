@@ -74,7 +74,8 @@ final class AgentOutputWriter {
 		number(json, 2, "alreadyInstrumentedClasses", metrics.alreadyInstrumentedClasses(), true);
 		number(json, 2, "methodIdCollisions", metrics.methodIdCollisions(), true);
 		number(json, 2, "rawMethodHits", metrics.rawMethodHits(), true);
-		number(json, 2, "uniqueMethodHits", metrics.uniqueMethodHits(), false);
+		number(json, 2, "uniqueMethodHits", metrics.uniqueMethodHits(), true);
+		number(json, 2, "runtimeRecordingNanos", metrics.runtimeRecordingNanos(), false);
 		json.append("  },\n");
 		field(json, 1, "methodIdAlgorithm", Fnv1a64MethodIdHasher.ALGORITHM, true);
 		writeCatalog(json, catalog);

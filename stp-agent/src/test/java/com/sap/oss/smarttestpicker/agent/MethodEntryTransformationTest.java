@@ -5,6 +5,7 @@ package com.sap.oss.smarttestpicker.agent;
 import com.sap.oss.smarttestpicker.runtime.RuntimeHooks;
 import com.sap.oss.smarttestpicker.runtime.model.MethodIdentity;
 import example.instrumented.Calculator;
+import example.instrumented.ApplicationMethodKinds;
 import example.instrumented.InstrumentedFixtureMain;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -15,6 +16,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Proxy;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -74,10 +77,47 @@ class MethodEntryTransformationTest {
 			assertEquals(11L, type.getMethod("add", long.class, long.class).invoke(calculator, 4L, 7L));
 			assertEquals(12, type.getMethod("scale", int.class, int.class).invoke(null, 3, 4));
 		}
-		// int add + private adjust + long add + static scale
-		assertEquals(4, hits.sum());
+		// constructor + int add + private adjust + long add + static scale
+		assertEquals(5, hits.sum());
 		assertTrue(transformation.catalog.snapshot().values().stream().flatMap(List::stream)
 				.anyMatch(method -> method.methodName().equals("adjust")));
+	}
+
+	@Test
+	void transformsConstructorsStaticInitializersLambdaBodiesAndCompilerGeneratedRecordMethods() throws Exception {
+		Transformation transformation = transform(ApplicationMethodKinds.class);
+		String diagnostics = verificationDiagnostics(transformation.bytes);
+		assertEquals("", diagnostics);
+		List<String> keys = transformation.catalog.snapshot().values().stream().flatMap(List::stream)
+				.map(MethodIdentity::canonicalKey).toList();
+		assertTrue(keys.stream().anyMatch(key -> key.contains("#<init>(I)V")));
+		assertTrue(keys.stream().anyMatch(key -> key.contains("#<clinit>()V")));
+		assertTrue(keys.stream().anyMatch(key -> key.contains("#lambda$lambda$0(I)I")));
+		Transformation recordTransformation = transform(ApplicationMethodKinds.SampleRecord.class);
+		assertEquals("", verificationDiagnostics(recordTransformation.bytes));
+		assertTrue(recordTransformation.catalog.snapshot().values().stream().flatMap(List::stream)
+				.map(MethodIdentity::canonicalKey)
+				.anyMatch(key -> key.contains("$SampleRecord#equals(Ljava/lang/Object;)Z")));
+	}
+
+	@Test
+	void transformsDefaultAndPrivateInterfaceMethods() throws Exception {
+		Transformation transformation = transform(ApplicationMethodKinds.Defaults.class);
+		assertEquals("", verificationDiagnostics(transformation.bytes));
+		List<String> keys = transformation.catalog.snapshot().values().stream().flatMap(List::stream)
+				.map(MethodIdentity::canonicalKey).toList();
+		assertTrue(keys.stream().anyMatch(key -> key.contains("#publicDefault(I)I")));
+		assertTrue(keys.stream().anyMatch(key -> key.contains("#privateDefault(I)I")));
+		assertEquals(2, transformation.metrics.snapshot().methodsInstrumented());
+		LongAdder hits = new LongAdder();
+		try (RuntimeHooks.Registration ignored = RuntimeHooks.install(id -> hits.increment())) {
+			Class<?> type = new DefiningLoader().define(ApplicationMethodKinds.Defaults.class.getName(),
+					transformation.bytes);
+			Object proxy = Proxy.newProxyInstance(type.getClassLoader(), new Class<?>[] { type },
+					(instance, method, arguments) -> InvocationHandler.invokeDefault(instance, method, arguments));
+			assertEquals(7, type.getMethod("publicDefault", int.class).invoke(proxy, 3));
+		}
+		assertEquals(2, hits.sum());
 	}
 
 	@Test
@@ -134,10 +174,7 @@ class MethodEntryTransformationTest {
 	@Test
 	void transformedOutputPassesAsmVerification() throws Exception {
 		Transformation transformation = transformCalculator();
-		StringWriter diagnostics = new StringWriter();
-		CheckClassAdapter.verify(new ClassReader(transformation.bytes), getClass().getClassLoader(), false,
-				new PrintWriter(diagnostics));
-		assertEquals("", diagnostics.toString());
+		assertEquals("", verificationDiagnostics(transformation.bytes));
 	}
 
 	@Test
@@ -152,7 +189,7 @@ class MethodEntryTransformationTest {
 		String firstJson = Files.readString(first);
 		String secondJson = Files.readString(second);
 		assertTrue(firstJson.contains("\"classesTransformed\": 3"));
-		assertTrue(firstJson.contains("\"methodsInstrumented\": 12"));
+		assertTrue(firstJson.contains("\"methodsInstrumented\": 15"));
 		assertTrue(firstJson.contains("\"reason\":\"NO_ACTIVE_TEST\""));
 		assertTrue(firstJson.contains("example.instrumented.Calculator#add(II)I"));
 		assertTrue(firstJson.contains("example.instrumented.GreetingService#greet(Ljava/lang/String;)Ljava/lang/String;"));
@@ -179,11 +216,21 @@ class MethodEntryTransformationTest {
 	}
 
 	private Transformation transformCalculator() throws Exception {
+		return transform(Calculator.class);
+	}
+
+	private Transformation transform(Class<?> type) throws Exception {
 		Transformation transformation = transformation();
 		byte[] transformed = transformation.transformer.transform(getClass().getClassLoader(),
-				Calculator.class.getName().replace('.', '/'), null, getClass().getProtectionDomain(),
-				classBytes(Calculator.class));
+				type.getName().replace('.', '/'), null, getClass().getProtectionDomain(), classBytes(type));
 		return transformation.withBytes(transformed);
+	}
+
+	private String verificationDiagnostics(byte[] bytes) {
+		StringWriter diagnostics = new StringWriter();
+		CheckClassAdapter.verify(new ClassReader(bytes), getClass().getClassLoader(), false,
+				new PrintWriter(diagnostics));
+		return diagnostics.toString();
 	}
 
 	private Transformation transformation() {
@@ -211,6 +258,7 @@ class MethodEntryTransformationTest {
 		return json.replaceAll("\"jvmId\": \"pid-[0-9]+\"", "\"jvmId\": \"pid-X\"")
 				.replaceAll("\"transformerTotalNanos\": [0-9]+", "\"transformerTotalNanos\": X")
 				.replaceAll("\"agentStartNanos\": [0-9]+", "\"agentStartNanos\": X")
+				.replaceAll("\"runtimeRecordingNanos\": [0-9]+", "\"runtimeRecordingNanos\": X")
 				.replaceAll("\"output\": \"[^\"]+\"", "\"output\": \"OUTPUT\"");
 	}
 

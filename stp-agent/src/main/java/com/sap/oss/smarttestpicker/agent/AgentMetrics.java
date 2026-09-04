@@ -25,6 +25,7 @@ final class AgentMetrics {
 	private final LongAdder alreadyInstrumentedClasses = new LongAdder();
 	private final LongAdder methodIdCollisions = new LongAdder();
 	private final LongAdder rawMethodHits = new LongAdder();
+	private final LongAdder runtimeRecordingNanos = new LongAdder();
 	private final Set<Long> uniqueMethodHits = ConcurrentHashMap.newKeySet();
 
 	public AgentMetrics(long agentStartNanos) {
@@ -52,19 +53,22 @@ final class AgentMetrics {
 		rawMethodHits.increment();
 		uniqueMethodHits.add(methodId);
 	}
+	void addRuntimeRecordingNanos(long nanos) { runtimeRecordingNanos.add(nanos); }
 
 	public Snapshot snapshot() {
 		return new Snapshot(classesSeen.sum(), classesIncluded.sum(), classesExcluded.sum(), classesIgnored.sum(),
 				transformationErrors.sum(), transformerTotalNanos.sum(), agentStartNanos, classLoaderPresent.sum(),
 				classLoaderMissing.sum(), protectionDomainPresent.sum(), protectionDomainMissing.sum(),
 				classesTransformed.sum(), methodsConsidered.sum(), methodsInstrumented.sum(), methodsSkipped.sum(),
-				alreadyInstrumentedClasses.sum(), methodIdCollisions.sum(), rawMethodHits.sum(), uniqueMethodHits.size());
+				alreadyInstrumentedClasses.sum(), methodIdCollisions.sum(), rawMethodHits.sum(), uniqueMethodHits.size(),
+				runtimeRecordingNanos.sum());
 	}
 
 	public record Snapshot(long classesSeen, long classesIncluded, long classesExcluded, long classesIgnored,
 			long transformationErrors, long transformerTotalNanos, long agentStartNanos, long classLoaderPresent,
 			long classLoaderMissing, long protectionDomainPresent, long protectionDomainMissing,
 			long classesTransformed, long methodsConsidered, long methodsInstrumented, long methodsSkipped,
-			long alreadyInstrumentedClasses, long methodIdCollisions, long rawMethodHits, long uniqueMethodHits) {
+			long alreadyInstrumentedClasses, long methodIdCollisions, long rawMethodHits, long uniqueMethodHits,
+			long runtimeRecordingNanos) {
 	}
 }
