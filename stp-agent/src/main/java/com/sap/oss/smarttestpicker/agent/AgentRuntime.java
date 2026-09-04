@@ -82,14 +82,19 @@ final class AgentRuntime {
 	}
 
 	private void methodHit(long methodId) {
-		metrics.methodHit(methodId);
-		hits.computeIfAbsent(methodId, ignored -> new LongAdder()).increment();
-		List<MethodIdentity> methods = catalog.resolve(methodId);
-		if (methods.size() == 1) {
-			runtimeContext.record(new MethodHitEvent(methodId, methods.get(0), METHOD_ENTRY_EVIDENCE));
-		} else {
-			runtimeContext.aggregator().recordUnattributed(new UnattributedEvent(UnattributedReason.UNKNOWN_CONTEXT,
-					"METHOD_ID_COLLISION", Long.toUnsignedString(methodId), METHOD_ENTRY_EVIDENCE));
+		long started = System.nanoTime();
+		try {
+			metrics.methodHit(methodId);
+			hits.computeIfAbsent(methodId, ignored -> new LongAdder()).increment();
+			List<MethodIdentity> methods = catalog.resolve(methodId);
+			if (methods.size() == 1) {
+				runtimeContext.record(new MethodHitEvent(methodId, methods.get(0), METHOD_ENTRY_EVIDENCE));
+			} else {
+				runtimeContext.aggregator().recordUnattributed(new UnattributedEvent(UnattributedReason.UNKNOWN_CONTEXT,
+						"METHOD_ID_COLLISION", Long.toUnsignedString(methodId), METHOD_ENTRY_EVIDENCE));
+			}
+		} finally {
+			metrics.addRuntimeRecordingNanos(System.nanoTime() - started);
 		}
 	}
 

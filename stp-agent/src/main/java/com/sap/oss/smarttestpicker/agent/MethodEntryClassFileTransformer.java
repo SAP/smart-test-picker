@@ -90,7 +90,7 @@ final class MethodEntryClassFileTransformer implements ClassFileTransformer {
 		ClassReader reader = new ClassReader(original);
 		ClassNode node = new ClassNode(Opcodes.ASM9);
 		reader.accept(node, 0);
-		if ((node.access & (Opcodes.ACC_INTERFACE | Opcodes.ACC_ANNOTATION)) != 0) {
+		if ((node.access & Opcodes.ACC_ANNOTATION) != 0) {
 			node.methods.forEach(ignored -> {
 				metrics.methodConsidered();
 				metrics.methodSkipped();
@@ -106,7 +106,7 @@ final class MethodEntryClassFileTransformer implements ClassFileTransformer {
 		int instrumented = 0;
 		for (MethodNode method : node.methods) {
 			metrics.methodConsidered();
-			if (method.name.equals("<init>") || method.name.equals("<clinit>") || method.name.equals("$jacocoInit")
+			if (method.name.equals("$jacocoInit")
 					|| (method.access & (Opcodes.ACC_ABSTRACT | Opcodes.ACC_NATIVE)) != 0) {
 				metrics.methodSkipped();
 				continue;
@@ -126,8 +126,9 @@ final class MethodEntryClassFileTransformer implements ClassFileTransformer {
 			instrumented++;
 		}
 		if (instrumented == 0) return null;
-		node.fields.add(new FieldNode(Opcodes.ACC_PRIVATE | Opcodes.ACC_STATIC | Opcodes.ACC_FINAL
-				| Opcodes.ACC_SYNTHETIC, MARKER_FIELD, "Z", null, Boolean.TRUE));
+		int markerAccess = Opcodes.ACC_STATIC | Opcodes.ACC_FINAL | Opcodes.ACC_SYNTHETIC;
+		markerAccess |= (node.access & Opcodes.ACC_INTERFACE) != 0 ? Opcodes.ACC_PUBLIC : Opcodes.ACC_PRIVATE;
+		node.fields.add(new FieldNode(markerAccess, MARKER_FIELD, "Z", null, Boolean.TRUE));
 		ClassWriter writer = new ClassWriter(reader, ClassWriter.COMPUTE_MAXS);
 		node.accept(writer);
 		metrics.classTransformed();
