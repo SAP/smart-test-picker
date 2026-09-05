@@ -12,7 +12,18 @@ import com.sap.oss.smarttestpicker.runtime.model.TestIdentity;
 import com.sap.oss.smarttestpicker.runtime.model.TestResult;
 import org.junit.jupiter.api.Test;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RuntimeContextServiceTest {
@@ -65,6 +76,129 @@ class RuntimeContextServiceTest {
 		assertTrue(global.contains("Target#unrelatedThread()V"));
 	}
 
+	@Test
+	void wrappedTasksCaptureSubmissionContextWithoutLeakingAcrossReusedWorker() throws Exception {
+		RuntimeContextService service = service();
+		ExecutorService worker = Executors.newSingleThreadExecutor();
+		try {
+			TestIdentity first = test("first");
+			service.beginTest(first);
+			worker.submit(service.wrap(() -> service.record(method("firstTask")))).get();
+			service.endTest(first, SUCCESS);
+
+			TestIdentity second = test("second");
+			service.beginTest(second);
+			worker.submit(service.wrap(() -> service.record(method("secondTask")))).get();
+			service.endTest(second, SUCCESS);
+			worker.submit(service.wrap(() -> service.record(method("unrelatedTask")))).get();
+
+			String json = JSON.serialize(service.aggregator());
+			assertTrue(testSection(json, "first").contains("firstTask"));
+			assertFalse(testSection(json, "first").contains("secondTask"));
+			assertTrue(testSection(json, "second").contains("secondTask"));
+			assertFalse(testSection(json, "second").contains("unrelatedTask"));
+			assertTrue(globalSection(json).contains("unrelatedTask"));
+		} finally {
+			worker.shutdownNow();
+		}
+	}
+
+	@Test
+	void nestedSubmissionCapturesThePropagatedParentContext() throws Exception {
+		RuntimeContextService service = service();
+		ExecutorService worker = Executors.newFixedThreadPool(2);
+		try {
+			TestIdentity identity = test("nested");
+			service.beginTest(identity);
+			Future<?> outer = worker.submit(service.wrap(() -> {
+				service.record(method("outer"));
+				try {
+					worker.submit(service.wrap(() -> service.record(method("inner")))).get();
+				} catch (Exception failure) {
+					throw new AssertionError(failure);
+				}
+			}));
+			outer.get();
+			service.endTest(identity, SUCCESS);
+			String section = testSection(JSON.serialize(service.aggregator()), "nested");
+			assertTrue(section.contains("outer"));
+			assertTrue(section.contains("inner"));
+		} finally {
+			worker.shutdownNow();
+		}
+	}
+
+	@Test
+	void delayedCallableKeepsSubmittingTestAndPreservesResult() throws Exception {
+		RuntimeContextService service = service();
+		ExecutorService worker = Executors.newSingleThreadExecutor();
+		CountDownLatch release = new CountDownLatch(1);
+		try {
+			worker.submit((Callable<Void>) () -> {
+				release.await();
+				return null;
+			});
+			TestIdentity identity = test("delayed");
+			service.beginTest(identity);
+			Object result = new Object();
+			Future<Object> future = worker.submit(service.wrap((Callable<Object>) () -> {
+				service.record(method("afterEnd"));
+				return result;
+			}));
+			service.endTest(identity, SUCCESS);
+			release.countDown();
+			assertSame(result, future.get(5, TimeUnit.SECONDS));
+			assertTrue(testSection(JSON.serialize(service.aggregator()), "delayed").contains("afterEnd"));
+		} finally {
+			release.countDown();
+			worker.shutdownNow();
+		}
+	}
+
+	@Test
+	void failingTaskRestoresWorkerAndPreservesExceptionIdentity() throws Exception {
+		RuntimeContextService service = service();
+		ExecutorService worker = Executors.newSingleThreadExecutor();
+		try {
+			TestIdentity identity = test("failure");
+			service.beginTest(identity);
+			IllegalStateException expected = new IllegalStateException("boom");
+			Future<?> future = worker.submit(service.wrap(() -> {
+				service.record(method("beforeFailure"));
+				throw expected;
+			}));
+			ExecutionException actual = assertThrows(ExecutionException.class, future::get);
+			assertSame(expected, actual.getCause());
+			service.endTest(identity, SUCCESS);
+			worker.submit(service.wrap(() -> service.record(method("afterFailure")))).get();
+			String json = JSON.serialize(service.aggregator());
+			assertTrue(testSection(json, "failure").contains("beforeFailure"));
+			assertTrue(globalSection(json).contains("afterFailure"));
+		} finally {
+			worker.shutdownNow();
+		}
+	}
+
+	@Test
+	void wrappedTaskRestoresAnExistingWorkerContext() throws Exception {
+		RuntimeContextService service = service();
+		TestIdentity captured = test("captured");
+		service.beginTest(captured);
+		Runnable wrapped = service.wrap(() -> service.record(method("capturedTask")));
+		service.endTest(captured, SUCCESS);
+
+		TestIdentity worker = test("worker");
+		service.beginTest(worker);
+		wrapped.run();
+		assertEquals(worker, service.currentTest().orElseThrow());
+		service.record(method("workerAfterRestore"));
+		service.endTest(worker, SUCCESS);
+
+		String json = JSON.serialize(service.aggregator());
+		assertTrue(testSection(json, "captured").contains("capturedTask"));
+		assertTrue(testSection(json, "worker").contains("workerAfterRestore"));
+	}
+
 	private static RuntimeContextService service() {
 		return new RuntimeContextService(new RuntimeEventAggregator("run-1", "jvm-1"));
 	}
@@ -82,5 +216,9 @@ class RuntimeContextServiceTest {
 		int start = json.indexOf("\"testId\": \"" + testId + "\"");
 		int next = json.indexOf("\"testId\": \"", start + 1);
 		return json.substring(start, next < 0 ? json.indexOf("\n  ],", start) : next);
+	}
+
+	private static String globalSection(String json) {
+		return json.substring(json.lastIndexOf("\"unattributedEvents\""));
 	}
 }
