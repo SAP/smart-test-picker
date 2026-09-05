@@ -1,0 +1,1031 @@
+{
+  "schemaVersion": "agent-shell-1",
+  "runId": "asm-fixed-1",
+  "jvmId": "pid-42040",
+  "configuration": {
+    "output": "/Users/d061177/work/asm-poc/codex-worktree/stp-petclinic-spike/round5/evidence/asm-fixed-1-raw.json",
+    "includes": ["org.springframework.samples.petclinic."],
+    "excludes": ["com.sap.oss.smarttestpicker.", "jakarta.", "java.", "javax.", "jdk.", "net.bytebuddy.", "org.hibernate.", "org.jacoco.", "org.junit.", "org.mockito.", "org.springframework.", "sun."],
+    "debug": false,
+    "instrumentation": "on"
+  },
+  "metrics": {
+    "classesSeen": 14073,
+    "classesIncluded": 22,
+    "classesExcluded": 12007,
+    "classesIgnored": 2044,
+    "transformationErrors": 0,
+    "transformerTotalNanos": 25365758,
+    "agentStartNanos": 79192487348083,
+    "classLoaderPresent": 12634,
+    "classLoaderMissing": 1439,
+    "protectionDomainPresent": 12379,
+    "protectionDomainMissing": 1694,
+    "classesTransformed": 15,
+    "methodsConsidered": 69,
+    "methodsInstrumented": 64,
+    "methodsSkipped": 5,
+    "alreadyInstrumentedClasses": 0,
+    "methodIdCollisions": 0,
+    "rawMethodHits": 584,
+    "uniqueMethodHits": 47,
+    "runtimeRecordingNanos": 8872277
+  },
+  "methodIdAlgorithm": "fnv1a64-v1",
+  "methodCatalog": [
+    {"methodId":"43234950471067983","canonicalKeys":["org.springframework.samples.petclinic.PetClinicRuntimeHints#registerHints(Lorg/springframework/aot/hint/RuntimeHints;Ljava/lang/ClassLoader;)V"]},
+    {"methodId":"278315529760388049","canonicalKeys":["org.springframework.samples.petclinic.model.BaseEntity#isNew()Z"]},
+    {"methodId":"874944447424675212","canonicalKeys":["org.springframework.samples.petclinic.owner.Owner#getTelephone()Ljava/lang/String;"]},
+    {"methodId":"1000290910352929355","canonicalKeys":["org.springframework.samples.petclinic.model.Person#setLastName(Ljava/lang/String;)V"]},
+    {"methodId":"1005759849503114409","canonicalKeys":["org.springframework.samples.petclinic.model.NamedEntity#<init>()V"]},
+    {"methodId":"1130306210692170288","canonicalKeys":["org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V"]},
+    {"methodId":"1130808991853178862","canonicalKeys":["org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;"]},
+    {"methodId":"1745949159609456096","canonicalKeys":["org.springframework.samples.petclinic.owner.PetType#<init>()V"]},
+    {"methodId":"2008822385161384144","canonicalKeys":["org.springframework.samples.petclinic.owner.PetTypeFormatter#print(Ljava/lang/Object;Ljava/util/Locale;)Ljava/lang/String;"]},
+    {"methodId":"2013393256103440956","canonicalKeys":["org.springframework.samples.petclinic.owner.Owner#toString()Ljava/lang/String;"]},
+    {"methodId":"2059054034799799278","canonicalKeys":["org.springframework.samples.petclinic.owner.Owner#getPet(Ljava/lang/String;Z)Lorg/springframework/samples/petclinic/owner/Pet;"]},
+    {"methodId":"2466980662821176403","canonicalKeys":["org.springframework.samples.petclinic.owner.Visit#getDate()Ljava/time/LocalDate;"]},
+    {"methodId":"3036637376038864999","canonicalKeys":["org.springframework.samples.petclinic.owner.Visit#setDate(Ljava/time/LocalDate;)V"]},
+    {"methodId":"3141608738315017255","canonicalKeys":["org.springframework.samples.petclinic.PetClinicRuntimeHints#<init>()V"]},
+    {"methodId":"3517559244799350945","canonicalKeys":["org.springframework.samples.petclinic.model.NamedEntity#toString()Ljava/lang/String;"]},
+    {"methodId":"3687787263526529906","canonicalKeys":["org.springframework.samples.petclinic.vet.Vet#<init>()V"]},
+    {"methodId":"3705527707965688239","canonicalKeys":["org.springframework.samples.petclinic.owner.PetValidator#supports(Ljava/lang/Class;)Z"]},
+    {"methodId":"3988880037675390143","canonicalKeys":["org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;"]},
+    {"methodId":"4078280533613163605","canonicalKeys":["org.springframework.samples.petclinic.vet.Specialty#<init>()V"]},
+    {"methodId":"4106115110272691848","canonicalKeys":["org.springframework.samples.petclinic.PetClinicRuntimeHints#lambda$registerHints$2(Lorg/springframework/aot/hint/TypeHint$Builder;)V"]},
+    {"methodId":"4513752704245536669","canonicalKeys":["org.springframework.samples.petclinic.vet.Vet#addSpecialty(Lorg/springframework/samples/petclinic/vet/Specialty;)V"]},
+    {"methodId":"4528473174783938043","canonicalKeys":["org.springframework.samples.petclinic.owner.Pet#setType(Lorg/springframework/samples/petclinic/owner/PetType;)V"]},
+    {"methodId":"4553973159241234405","canonicalKeys":["org.springframework.samples.petclinic.owner.Pet#addVisit(Lorg/springframework/samples/petclinic/owner/Visit;)V"]},
+    {"methodId":"4655498631473042024","canonicalKeys":["org.springframework.samples.petclinic.owner.Owner#getAddress()Ljava/lang/String;"]},
+    {"methodId":"4678833797871076031","canonicalKeys":["org.springframework.samples.petclinic.owner.Pet#getType()Lorg/springframework/samples/petclinic/owner/PetType;"]},
+    {"methodId":"5490813690164684815","canonicalKeys":["org.springframework.samples.petclinic.model.BaseEntity#setId(Ljava/lang/Integer;)V"]},
+    {"methodId":"5591979962112165633","canonicalKeys":["org.springframework.samples.petclinic.owner.Owner#getCity()Ljava/lang/String;"]},
+    {"methodId":"5595992386697384024","canonicalKeys":["org.springframework.samples.petclinic.owner.PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Ljava/lang/Object;"]},
+    {"methodId":"5793986600954077596","canonicalKeys":["org.springframework.samples.petclinic.model.Person#<init>()V"]},
+    {"methodId":"5811564449166368048","canonicalKeys":["org.springframework.samples.petclinic.system.CrashController#<init>()V"]},
+    {"methodId":"5827673233009856031","canonicalKeys":["org.springframework.samples.petclinic.model.BaseEntity#<init>()V"]},
+    {"methodId":"6011974298628029707","canonicalKeys":["org.springframework.samples.petclinic.model.Person#getLastName()Ljava/lang/String;"]},
+    {"methodId":"6065441267297580604","canonicalKeys":["org.springframework.samples.petclinic.owner.Visit#setDescription(Ljava/lang/String;)V"]},
+    {"methodId":"6387756474133845688","canonicalKeys":["org.springframework.samples.petclinic.owner.Pet#<init>()V"]},
+    {"methodId":"6489430709466358336","canonicalKeys":["org.springframework.samples.petclinic.owner.Owner#getPet(Ljava/lang/String;)Lorg/springframework/samples/petclinic/owner/Pet;"]},
+    {"methodId":"6491468038725137607","canonicalKeys":["org.springframework.samples.petclinic.model.Person#getFirstName()Ljava/lang/String;"]},
+    {"methodId":"6803560352752984405","canonicalKeys":["org.springframework.samples.petclinic.owner.Owner#getPet(Ljava/lang/Integer;)Lorg/springframework/samples/petclinic/owner/Pet;"]},
+    {"methodId":"8056643249034964223","canonicalKeys":["org.springframework.samples.petclinic.owner.Pet#getVisits()Ljava/util/Collection;"]},
+    {"methodId":"8120564507755196225","canonicalKeys":["org.springframework.samples.petclinic.PetClinicRuntimeHints#lambda$registerHints$1(Lorg/springframework/aot/hint/TypeHint$Builder;)V"]},
+    {"methodId":"8145849598130301080","canonicalKeys":["org.springframework.samples.petclinic.vet.Vet#getSpecialtiesInternal()Ljava/util/Set;"]},
+    {"methodId":"8171544542197706407","canonicalKeys":["org.springframework.samples.petclinic.owner.PetValidator#validate(Ljava/lang/Object;Lorg/springframework/validation/Errors;)V"]},
+    {"methodId":"8216520936169939686","canonicalKeys":["org.springframework.samples.petclinic.owner.Owner#setTelephone(Ljava/lang/String;)V"]},
+    {"methodId":"8264357173411472662","canonicalKeys":["org.springframework.samples.petclinic.owner.Owner#<init>()V"]},
+    {"methodId":"8449451137667841326","canonicalKeys":["org.springframework.samples.petclinic.owner.Visit#<init>()V"]},
+    {"methodId":"9040050556510757230","canonicalKeys":["org.springframework.samples.petclinic.vet.Vet#getNrOfSpecialties()I"]},
+    {"methodId":"9301032157431257548","canonicalKeys":["org.springframework.samples.petclinic.owner.Pet#getBirthDate()Ljava/time/LocalDate;"]},
+    {"methodId":"10203984197846855130","canonicalKeys":["org.springframework.samples.petclinic.owner.Pet#setBirthDate(Ljava/time/LocalDate;)V"]},
+    {"methodId":"10558940677533432089","canonicalKeys":["org.springframework.samples.petclinic.owner.Owner#setCity(Ljava/lang/String;)V"]},
+    {"methodId":"10779780545397578217","canonicalKeys":["org.springframework.samples.petclinic.PetClinicApplication#<init>()V"]},
+    {"methodId":"11807558014710276734","canonicalKeys":["org.springframework.samples.petclinic.owner.PetValidator#<init>()V"]},
+    {"methodId":"11900252889385593902","canonicalKeys":["org.springframework.samples.petclinic.PetClinicRuntimeHints#lambda$registerHints$0(Lorg/springframework/aot/hint/TypeHint$Builder;)V"]},
+    {"methodId":"12007507766669563043","canonicalKeys":["org.springframework.samples.petclinic.owner.PetTypeFormatter#<init>(Lorg/springframework/samples/petclinic/owner/PetTypeRepository;)V"]},
+    {"methodId":"12037884202868491030","canonicalKeys":["org.springframework.samples.petclinic.owner.OwnerRepository#findById(Ljava/lang/Object;)Ljava/util/Optional;"]},
+    {"methodId":"12157639640650889951","canonicalKeys":["org.springframework.samples.petclinic.system.CrashController#triggerException()Ljava/lang/String;"]},
+    {"methodId":"13162012572328210603","canonicalKeys":["org.springframework.samples.petclinic.vet.Vet#getSpecialties()Ljava/util/List;"]},
+    {"methodId":"13633668386788209122","canonicalKeys":["org.springframework.samples.petclinic.owner.Owner#setAddress(Ljava/lang/String;)V"]},
+    {"methodId":"14110448089254152607","canonicalKeys":["org.springframework.samples.petclinic.model.Person#setFirstName(Ljava/lang/String;)V"]},
+    {"methodId":"14778200231917891559","canonicalKeys":["org.springframework.samples.petclinic.owner.PetTypeFormatter#print(Lorg/springframework/samples/petclinic/owner/PetType;Ljava/util/Locale;)Ljava/lang/String;"]},
+    {"methodId":"15874902705867238263","canonicalKeys":["org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;"]},
+    {"methodId":"16556629183541161203","canonicalKeys":["org.springframework.samples.petclinic.owner.Owner#addPet(Lorg/springframework/samples/petclinic/owner/Pet;)V"]},
+    {"methodId":"16662504872548960157","canonicalKeys":["org.springframework.samples.petclinic.owner.PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Lorg/springframework/samples/petclinic/owner/PetType;"]},
+    {"methodId":"17016832949090128402","canonicalKeys":["org.springframework.samples.petclinic.owner.Owner#addVisit(Ljava/lang/Integer;Lorg/springframework/samples/petclinic/owner/Visit;)V"]},
+    {"methodId":"17218866926452953893","canonicalKeys":["org.springframework.samples.petclinic.PetClinicApplication#main([Ljava/lang/String;)V"]},
+    {"methodId":"17253061312544559122","canonicalKeys":["org.springframework.samples.petclinic.owner.Visit#getDescription()Ljava/lang/String;"]}
+  ],
+  "methodHits": [
+    {"methodId":"278315529760388049","count":19,"canonicalKeys":["org.springframework.samples.petclinic.model.BaseEntity#isNew()Z"]},
+    {"methodId":"1000290910352929355","count":5,"canonicalKeys":["org.springframework.samples.petclinic.model.Person#setLastName(Ljava/lang/String;)V"]},
+    {"methodId":"1005759849503114409","count":79,"canonicalKeys":["org.springframework.samples.petclinic.model.NamedEntity#<init>()V"]},
+    {"methodId":"1130306210692170288","count":18,"canonicalKeys":["org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V"]},
+    {"methodId":"1130808991853178862","count":28,"canonicalKeys":["org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;"]},
+    {"methodId":"1745949159609456096","count":43,"canonicalKeys":["org.springframework.samples.petclinic.owner.PetType#<init>()V"]},
+    {"methodId":"2059054034799799278","count":3,"canonicalKeys":["org.springframework.samples.petclinic.owner.Owner#getPet(Ljava/lang/String;Z)Lorg/springframework/samples/petclinic/owner/Pet;"]},
+    {"methodId":"2466980662821176403","count":1,"canonicalKeys":["org.springframework.samples.petclinic.owner.Visit#getDate()Ljava/time/LocalDate;"]},
+    {"methodId":"3687787263526529906","count":8,"canonicalKeys":["org.springframework.samples.petclinic.vet.Vet#<init>()V"]},
+    {"methodId":"3705527707965688239","count":2,"canonicalKeys":["org.springframework.samples.petclinic.owner.PetValidator#supports(Ljava/lang/Class;)Z"]},
+    {"methodId":"3988880037675390143","count":19,"canonicalKeys":["org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;"]},
+    {"methodId":"4078280533613163605","count":4,"canonicalKeys":["org.springframework.samples.petclinic.vet.Specialty#<init>()V"]},
+    {"methodId":"4528473174783938043","count":9,"canonicalKeys":["org.springframework.samples.petclinic.owner.Pet#setType(Lorg/springframework/samples/petclinic/owner/PetType;)V"]},
+    {"methodId":"4553973159241234405","count":1,"canonicalKeys":["org.springframework.samples.petclinic.owner.Pet#addVisit(Lorg/springframework/samples/petclinic/owner/Visit;)V"]},
+    {"methodId":"4678833797871076031","count":6,"canonicalKeys":["org.springframework.samples.petclinic.owner.Pet#getType()Lorg/springframework/samples/petclinic/owner/PetType;"]},
+    {"methodId":"5490813690164684815","count":1,"canonicalKeys":["org.springframework.samples.petclinic.model.BaseEntity#setId(Ljava/lang/Integer;)V"]},
+    {"methodId":"5793986600954077596","count":23,"canonicalKeys":["org.springframework.samples.petclinic.model.Person#<init>()V"]},
+    {"methodId":"5811564449166368048","count":1,"canonicalKeys":["org.springframework.samples.petclinic.system.CrashController#<init>()V"]},
+    {"methodId":"5827673233009856031","count":121,"canonicalKeys":["org.springframework.samples.petclinic.model.BaseEntity#<init>()V"]},
+    {"methodId":"6011974298628029707","count":6,"canonicalKeys":["org.springframework.samples.petclinic.model.Person#getLastName()Ljava/lang/String;"]},
+    {"methodId":"6065441267297580604","count":1,"canonicalKeys":["org.springframework.samples.petclinic.owner.Visit#setDescription(Ljava/lang/String;)V"]},
+    {"methodId":"6387756474133845688","count":32,"canonicalKeys":["org.springframework.samples.petclinic.owner.Pet#<init>()V"]},
+    {"methodId":"6489430709466358336","count":3,"canonicalKeys":["org.springframework.samples.petclinic.owner.Owner#getPet(Ljava/lang/String;)Lorg/springframework/samples/petclinic/owner/Pet;"]},
+    {"methodId":"6491468038725137607","count":2,"canonicalKeys":["org.springframework.samples.petclinic.model.Person#getFirstName()Ljava/lang/String;"]},
+    {"methodId":"6803560352752984405","count":5,"canonicalKeys":["org.springframework.samples.petclinic.owner.Owner#getPet(Ljava/lang/Integer;)Lorg/springframework/samples/petclinic/owner/Pet;"]},
+    {"methodId":"8056643249034964223","count":4,"canonicalKeys":["org.springframework.samples.petclinic.owner.Pet#getVisits()Ljava/util/Collection;"]},
+    {"methodId":"8145849598130301080","count":3,"canonicalKeys":["org.springframework.samples.petclinic.vet.Vet#getSpecialtiesInternal()Ljava/util/Set;"]},
+    {"methodId":"8171544542197706407","count":4,"canonicalKeys":["org.springframework.samples.petclinic.owner.PetValidator#validate(Ljava/lang/Object;Lorg/springframework/validation/Errors;)V"]},
+    {"methodId":"8216520936169939686","count":1,"canonicalKeys":["org.springframework.samples.petclinic.owner.Owner#setTelephone(Ljava/lang/String;)V"]},
+    {"methodId":"8264357173411472662","count":13,"canonicalKeys":["org.springframework.samples.petclinic.owner.Owner#<init>()V"]},
+    {"methodId":"8449451137667841326","count":19,"canonicalKeys":["org.springframework.samples.petclinic.owner.Visit#<init>()V"]},
+    {"methodId":"9040050556510757230","count":1,"canonicalKeys":["org.springframework.samples.petclinic.vet.Vet#getNrOfSpecialties()I"]},
+    {"methodId":"9301032157431257548","count":4,"canonicalKeys":["org.springframework.samples.petclinic.owner.Pet#getBirthDate()Ljava/time/LocalDate;"]},
+    {"methodId":"10203984197846855130","count":9,"canonicalKeys":["org.springframework.samples.petclinic.owner.Pet#setBirthDate(Ljava/time/LocalDate;)V"]},
+    {"methodId":"10558940677533432089","count":1,"canonicalKeys":["org.springframework.samples.petclinic.owner.Owner#setCity(Ljava/lang/String;)V"]},
+    {"methodId":"10779780545397578217","count":1,"canonicalKeys":["org.springframework.samples.petclinic.PetClinicApplication#<init>()V"]},
+    {"methodId":"11807558014710276734","count":6,"canonicalKeys":["org.springframework.samples.petclinic.owner.PetValidator#<init>()V"]},
+    {"methodId":"12007507766669563043","count":3,"canonicalKeys":["org.springframework.samples.petclinic.owner.PetTypeFormatter#<init>(Lorg/springframework/samples/petclinic/owner/PetTypeRepository;)V"]},
+    {"methodId":"12157639640650889951","count":1,"canonicalKeys":["org.springframework.samples.petclinic.system.CrashController#triggerException()Ljava/lang/String;"]},
+    {"methodId":"13162012572328210603","count":2,"canonicalKeys":["org.springframework.samples.petclinic.vet.Vet#getSpecialties()Ljava/util/List;"]},
+    {"methodId":"13633668386788209122","count":1,"canonicalKeys":["org.springframework.samples.petclinic.owner.Owner#setAddress(Ljava/lang/String;)V"]},
+    {"methodId":"14110448089254152607","count":4,"canonicalKeys":["org.springframework.samples.petclinic.model.Person#setFirstName(Ljava/lang/String;)V"]},
+    {"methodId":"14778200231917891559","count":1,"canonicalKeys":["org.springframework.samples.petclinic.owner.PetTypeFormatter#print(Lorg/springframework/samples/petclinic/owner/PetType;Ljava/util/Locale;)Ljava/lang/String;"]},
+    {"methodId":"15874902705867238263","count":58,"canonicalKeys":["org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;"]},
+    {"methodId":"16556629183541161203","count":5,"canonicalKeys":["org.springframework.samples.petclinic.owner.Owner#addPet(Lorg/springframework/samples/petclinic/owner/Pet;)V"]},
+    {"methodId":"16662504872548960157","count":2,"canonicalKeys":["org.springframework.samples.petclinic.owner.PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Lorg/springframework/samples/petclinic/owner/PetType;"]},
+    {"methodId":"17016832949090128402","count":1,"canonicalKeys":["org.springframework.samples.petclinic.owner.Owner#addVisit(Ljava/lang/Integer;Lorg/springframework/samples/petclinic/owner/Visit;)V"]}
+  ],
+  "agentErrors": ["executor-attribution-unsupported:org.h2.mvstore.MVStore:java.util.concurrent.CompletableFuture.runAsync(Ljava/lang/Runnable;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;", "executor-attribution-unsupported:org.springframework.beans.factory.support.DefaultListableBeanFactory:java.util.concurrent.CompletableFuture.runAsync(Ljava/lang/Runnable;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;", "executor-attribution-unsupported:org.springframework.context.support.DefaultLifecycleProcessor:java.util.concurrent.CompletableFuture.runAsync(Ljava/lang/Runnable;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;", "executor-attribution-unsupported:org.springframework.core.task.AsyncTaskExecutor:java.util.concurrent.CompletableFuture.runAsync(Ljava/lang/Runnable;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;"],
+  "bytecodeModified": true,
+  "runtimeEvents": {
+    "schemaVersion": "spike-2",
+    "runId": "asm-fixed-1",
+    "jvmId": "pid-42040",
+    "tests": [
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.model.ValidatorTests]/[method:shouldNotValidateWhenFirstNameEmpty()]",
+        "displayName": "shouldNotValidateWhenFirstNameEmpty()",
+        "testClass": "org.springframework.samples.petclinic.model.ValidatorTests",
+        "testMethod": "shouldNotValidateWhenFirstNameEmpty",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [
+          {"methodId":"5827673233009856031","method":"org.springframework.samples.petclinic.model.BaseEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"5793986600954077596","method":"org.springframework.samples.petclinic.model.Person#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"14110448089254152607","method":"org.springframework.samples.petclinic.model.Person#setFirstName(Ljava/lang/String;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1000290910352929355","method":"org.springframework.samples.petclinic.model.Person#setLastName(Ljava/lang/String;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+        ],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 4,
+          "uniqueMethodHits": 4
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.model.ValidatorTests]/[method:shouldNotValidateWhenLastNameEmpty()]",
+        "displayName": "shouldNotValidateWhenLastNameEmpty()",
+        "testClass": "org.springframework.samples.petclinic.model.ValidatorTests",
+        "testMethod": "shouldNotValidateWhenLastNameEmpty",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [
+          {"methodId":"5827673233009856031","method":"org.springframework.samples.petclinic.model.BaseEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"5793986600954077596","method":"org.springframework.samples.petclinic.model.Person#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"14110448089254152607","method":"org.springframework.samples.petclinic.model.Person#setFirstName(Ljava/lang/String;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1000290910352929355","method":"org.springframework.samples.petclinic.model.Person#setLastName(Ljava/lang/String;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+        ],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 4,
+          "uniqueMethodHits": 4
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.owner.PetTypeFormatterTests]/[method:shouldParse()]",
+        "displayName": "shouldParse()",
+        "testClass": "org.springframework.samples.petclinic.owner.PetTypeFormatterTests",
+        "testMethod": "shouldParse",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [
+          {"methodId":"5827673233009856031","method":"org.springframework.samples.petclinic.model.BaseEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"1005759849503114409","method":"org.springframework.samples.petclinic.model.NamedEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"1130808991853178862","method":"org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":3},
+          {"methodId":"1130306210692170288","method":"org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"1745949159609456096","method":"org.springframework.samples.petclinic.owner.PetType#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"12007507766669563043","method":"org.springframework.samples.petclinic.owner.PetTypeFormatter#<init>(Lorg/springframework/samples/petclinic/owner/PetTypeRepository;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"16662504872548960157","method":"org.springframework.samples.petclinic.owner.PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Lorg/springframework/samples/petclinic/owner/PetType;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+        ],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 13,
+          "uniqueMethodHits": 7
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.owner.PetTypeFormatterTests]/[method:shouldThrowParseException()]",
+        "displayName": "shouldThrowParseException()",
+        "testClass": "org.springframework.samples.petclinic.owner.PetTypeFormatterTests",
+        "testMethod": "shouldThrowParseException",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [
+          {"methodId":"5827673233009856031","method":"org.springframework.samples.petclinic.model.BaseEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"1005759849503114409","method":"org.springframework.samples.petclinic.model.NamedEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"1130808991853178862","method":"org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"1130306210692170288","method":"org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"1745949159609456096","method":"org.springframework.samples.petclinic.owner.PetType#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"12007507766669563043","method":"org.springframework.samples.petclinic.owner.PetTypeFormatter#<init>(Lorg/springframework/samples/petclinic/owner/PetTypeRepository;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"16662504872548960157","method":"org.springframework.samples.petclinic.owner.PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Lorg/springframework/samples/petclinic/owner/PetType;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+        ],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 12,
+          "uniqueMethodHits": 7
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.owner.PetTypeFormatterTests]/[method:testPrint()]",
+        "displayName": "testPrint()",
+        "testClass": "org.springframework.samples.petclinic.owner.PetTypeFormatterTests",
+        "testMethod": "testPrint",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [
+          {"methodId":"5827673233009856031","method":"org.springframework.samples.petclinic.model.BaseEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1005759849503114409","method":"org.springframework.samples.petclinic.model.NamedEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1130808991853178862","method":"org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1130306210692170288","method":"org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1745949159609456096","method":"org.springframework.samples.petclinic.owner.PetType#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"12007507766669563043","method":"org.springframework.samples.petclinic.owner.PetTypeFormatter#<init>(Lorg/springframework/samples/petclinic/owner/PetTypeRepository;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"14778200231917891559","method":"org.springframework.samples.petclinic.owner.PetTypeFormatter#print(Lorg/springframework/samples/petclinic/owner/PetType;Ljava/util/Locale;)Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+        ],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 7,
+          "uniqueMethodHits": 7
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.owner.PetValidatorTests]/[method:doesNotSupportNonPetClass()]",
+        "displayName": "doesNotSupportNonPetClass()",
+        "testClass": "org.springframework.samples.petclinic.owner.PetValidatorTests",
+        "testMethod": "doesNotSupportNonPetClass",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [
+          {"methodId":"5827673233009856031","method":"org.springframework.samples.petclinic.model.BaseEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"1005759849503114409","method":"org.springframework.samples.petclinic.model.NamedEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"6387756474133845688","method":"org.springframework.samples.petclinic.owner.Pet#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1745949159609456096","method":"org.springframework.samples.petclinic.owner.PetType#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"11807558014710276734","method":"org.springframework.samples.petclinic.owner.PetValidator#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"3705527707965688239","method":"org.springframework.samples.petclinic.owner.PetValidator#supports(Ljava/lang/Class;)Z","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+        ],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 8,
+          "uniqueMethodHits": 6
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.owner.PetValidatorTests]/[method:supportsPetClass()]",
+        "displayName": "supportsPetClass()",
+        "testClass": "org.springframework.samples.petclinic.owner.PetValidatorTests",
+        "testMethod": "supportsPetClass",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [
+          {"methodId":"5827673233009856031","method":"org.springframework.samples.petclinic.model.BaseEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"1005759849503114409","method":"org.springframework.samples.petclinic.model.NamedEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"6387756474133845688","method":"org.springframework.samples.petclinic.owner.Pet#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1745949159609456096","method":"org.springframework.samples.petclinic.owner.PetType#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"11807558014710276734","method":"org.springframework.samples.petclinic.owner.PetValidator#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"3705527707965688239","method":"org.springframework.samples.petclinic.owner.PetValidator#supports(Ljava/lang/Class;)Z","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+        ],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 8,
+          "uniqueMethodHits": 6
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.owner.PetValidatorTests]/[method:validate()]",
+        "displayName": "validate()",
+        "testClass": "org.springframework.samples.petclinic.owner.PetValidatorTests",
+        "testMethod": "validate",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [
+          {"methodId":"5827673233009856031","method":"org.springframework.samples.petclinic.model.BaseEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"278315529760388049","method":"org.springframework.samples.petclinic.model.BaseEntity#isNew()Z","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1005759849503114409","method":"org.springframework.samples.petclinic.model.NamedEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"1130808991853178862","method":"org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1130306210692170288","method":"org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"6387756474133845688","method":"org.springframework.samples.petclinic.owner.Pet#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"9301032157431257548","method":"org.springframework.samples.petclinic.owner.Pet#getBirthDate()Ljava/time/LocalDate;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"4678833797871076031","method":"org.springframework.samples.petclinic.owner.Pet#getType()Lorg/springframework/samples/petclinic/owner/PetType;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"10203984197846855130","method":"org.springframework.samples.petclinic.owner.Pet#setBirthDate(Ljava/time/LocalDate;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"4528473174783938043","method":"org.springframework.samples.petclinic.owner.Pet#setType(Lorg/springframework/samples/petclinic/owner/PetType;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1745949159609456096","method":"org.springframework.samples.petclinic.owner.PetType#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"11807558014710276734","method":"org.springframework.samples.petclinic.owner.PetValidator#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"8171544542197706407","method":"org.springframework.samples.petclinic.owner.PetValidator#validate(Ljava/lang/Object;Lorg/springframework/validation/Errors;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+        ],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 16,
+          "uniqueMethodHits": 13
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.owner.PetValidatorTests]/[nested-class:ValidateHasErrors]/[method:validateWithInvalidBirthDate()]",
+        "displayName": "validateWithInvalidBirthDate()",
+        "testClass": "org.springframework.samples.petclinic.owner.PetValidatorTests$ValidateHasErrors",
+        "testMethod": "validateWithInvalidBirthDate",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [
+          {"methodId":"5827673233009856031","method":"org.springframework.samples.petclinic.model.BaseEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"278315529760388049","method":"org.springframework.samples.petclinic.model.BaseEntity#isNew()Z","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1005759849503114409","method":"org.springframework.samples.petclinic.model.NamedEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"1130808991853178862","method":"org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1130306210692170288","method":"org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"6387756474133845688","method":"org.springframework.samples.petclinic.owner.Pet#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"9301032157431257548","method":"org.springframework.samples.petclinic.owner.Pet#getBirthDate()Ljava/time/LocalDate;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"4678833797871076031","method":"org.springframework.samples.petclinic.owner.Pet#getType()Lorg/springframework/samples/petclinic/owner/PetType;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"10203984197846855130","method":"org.springframework.samples.petclinic.owner.Pet#setBirthDate(Ljava/time/LocalDate;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"4528473174783938043","method":"org.springframework.samples.petclinic.owner.Pet#setType(Lorg/springframework/samples/petclinic/owner/PetType;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1745949159609456096","method":"org.springframework.samples.petclinic.owner.PetType#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"11807558014710276734","method":"org.springframework.samples.petclinic.owner.PetValidator#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"8171544542197706407","method":"org.springframework.samples.petclinic.owner.PetValidator#validate(Ljava/lang/Object;Lorg/springframework/validation/Errors;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+        ],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [
+          {"reason":"LATE_EVENT","eventType":"METHOD","eventIdentity":"org.springframework.samples.petclinic.PetClinicApplication#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"reason":"LATE_EVENT","eventType":"METHOD","eventIdentity":"org.springframework.samples.petclinic.model.BaseEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":6},
+          {"reason":"LATE_EVENT","eventType":"METHOD","eventIdentity":"org.springframework.samples.petclinic.model.NamedEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":3},
+          {"reason":"LATE_EVENT","eventType":"METHOD","eventIdentity":"org.springframework.samples.petclinic.model.Person#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"reason":"LATE_EVENT","eventType":"METHOD","eventIdentity":"org.springframework.samples.petclinic.owner.Owner#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"reason":"LATE_EVENT","eventType":"METHOD","eventIdentity":"org.springframework.samples.petclinic.owner.Pet#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"reason":"LATE_EVENT","eventType":"METHOD","eventIdentity":"org.springframework.samples.petclinic.owner.PetType#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"reason":"LATE_EVENT","eventType":"METHOD","eventIdentity":"org.springframework.samples.petclinic.owner.Visit#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"reason":"LATE_EVENT","eventType":"METHOD","eventIdentity":"org.springframework.samples.petclinic.vet.Specialty#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"reason":"LATE_EVENT","eventType":"METHOD","eventIdentity":"org.springframework.samples.petclinic.vet.Vet#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+        ],
+        "metrics": {
+          "rawMethodHits": 16,
+          "uniqueMethodHits": 13
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.owner.PetValidatorTests]/[nested-class:ValidateHasErrors]/[method:validateWithInvalidPetName()]",
+        "displayName": "validateWithInvalidPetName()",
+        "testClass": "org.springframework.samples.petclinic.owner.PetValidatorTests$ValidateHasErrors",
+        "testMethod": "validateWithInvalidPetName",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [
+          {"methodId":"5827673233009856031","method":"org.springframework.samples.petclinic.model.BaseEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"278315529760388049","method":"org.springframework.samples.petclinic.model.BaseEntity#isNew()Z","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1005759849503114409","method":"org.springframework.samples.petclinic.model.NamedEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"1130808991853178862","method":"org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1130306210692170288","method":"org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"6387756474133845688","method":"org.springframework.samples.petclinic.owner.Pet#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"9301032157431257548","method":"org.springframework.samples.petclinic.owner.Pet#getBirthDate()Ljava/time/LocalDate;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"4678833797871076031","method":"org.springframework.samples.petclinic.owner.Pet#getType()Lorg/springframework/samples/petclinic/owner/PetType;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"10203984197846855130","method":"org.springframework.samples.petclinic.owner.Pet#setBirthDate(Ljava/time/LocalDate;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"4528473174783938043","method":"org.springframework.samples.petclinic.owner.Pet#setType(Lorg/springframework/samples/petclinic/owner/PetType;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1745949159609456096","method":"org.springframework.samples.petclinic.owner.PetType#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"11807558014710276734","method":"org.springframework.samples.petclinic.owner.PetValidator#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"8171544542197706407","method":"org.springframework.samples.petclinic.owner.PetValidator#validate(Ljava/lang/Object;Lorg/springframework/validation/Errors;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+        ],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 16,
+          "uniqueMethodHits": 13
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.owner.PetValidatorTests]/[nested-class:ValidateHasErrors]/[method:validateWithInvalidPetType()]",
+        "displayName": "validateWithInvalidPetType()",
+        "testClass": "org.springframework.samples.petclinic.owner.PetValidatorTests$ValidateHasErrors",
+        "testMethod": "validateWithInvalidPetType",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [
+          {"methodId":"5827673233009856031","method":"org.springframework.samples.petclinic.model.BaseEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"278315529760388049","method":"org.springframework.samples.petclinic.model.BaseEntity#isNew()Z","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1005759849503114409","method":"org.springframework.samples.petclinic.model.NamedEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"1130808991853178862","method":"org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1130306210692170288","method":"org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"6387756474133845688","method":"org.springframework.samples.petclinic.owner.Pet#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"9301032157431257548","method":"org.springframework.samples.petclinic.owner.Pet#getBirthDate()Ljava/time/LocalDate;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"4678833797871076031","method":"org.springframework.samples.petclinic.owner.Pet#getType()Lorg/springframework/samples/petclinic/owner/PetType;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"10203984197846855130","method":"org.springframework.samples.petclinic.owner.Pet#setBirthDate(Ljava/time/LocalDate;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"4528473174783938043","method":"org.springframework.samples.petclinic.owner.Pet#setType(Lorg/springframework/samples/petclinic/owner/PetType;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1745949159609456096","method":"org.springframework.samples.petclinic.owner.PetType#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"11807558014710276734","method":"org.springframework.samples.petclinic.owner.PetValidator#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"8171544542197706407","method":"org.springframework.samples.petclinic.owner.PetValidator#validate(Ljava/lang/Object;Lorg/springframework/validation/Errors;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+        ],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 15,
+          "uniqueMethodHits": 13
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.service.ClinicServiceTests]/[method:shouldAddNewVisitForPet()]",
+        "displayName": "shouldAddNewVisitForPet()",
+        "testClass": "org.springframework.samples.petclinic.service.ClinicServiceTests",
+        "testMethod": "shouldAddNewVisitForPet",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [
+          {"methodId":"5827673233009856031","method":"org.springframework.samples.petclinic.model.BaseEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":10},
+          {"methodId":"15874902705867238263","method":"org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":8},
+          {"methodId":"278315529760388049","method":"org.springframework.samples.petclinic.model.BaseEntity#isNew()Z","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":4},
+          {"methodId":"1005759849503114409","method":"org.springframework.samples.petclinic.model.NamedEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":3},
+          {"methodId":"5793986600954077596","method":"org.springframework.samples.petclinic.model.Person#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"8264357173411472662","method":"org.springframework.samples.petclinic.owner.Owner#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"17016832949090128402","method":"org.springframework.samples.petclinic.owner.Owner#addVisit(Ljava/lang/Integer;Lorg/springframework/samples/petclinic/owner/Visit;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"6803560352752984405","method":"org.springframework.samples.petclinic.owner.Owner#getPet(Ljava/lang/Integer;)Lorg/springframework/samples/petclinic/owner/Pet;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"3988880037675390143","method":"org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"6387756474133845688","method":"org.springframework.samples.petclinic.owner.Pet#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"4553973159241234405","method":"org.springframework.samples.petclinic.owner.Pet#addVisit(Lorg/springframework/samples/petclinic/owner/Visit;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"8056643249034964223","method":"org.springframework.samples.petclinic.owner.Pet#getVisits()Ljava/util/Collection;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":3},
+          {"methodId":"1745949159609456096","method":"org.springframework.samples.petclinic.owner.PetType#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"8449451137667841326","method":"org.springframework.samples.petclinic.owner.Visit#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":6},
+          {"methodId":"6065441267297580604","method":"org.springframework.samples.petclinic.owner.Visit#setDescription(Ljava/lang/String;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+        ],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 46,
+          "uniqueMethodHits": 15
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.service.ClinicServiceTests]/[method:shouldAllowSamePetNameForDifferentOwners()]",
+        "displayName": "shouldAllowSamePetNameForDifferentOwners()",
+        "testClass": "org.springframework.samples.petclinic.service.ClinicServiceTests",
+        "testMethod": "shouldAllowSamePetNameForDifferentOwners",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [
+          {"methodId":"5827673233009856031","method":"org.springframework.samples.petclinic.model.BaseEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":14},
+          {"methodId":"15874902705867238263","method":"org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":4},
+          {"methodId":"278315529760388049","method":"org.springframework.samples.petclinic.model.BaseEntity#isNew()Z","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"1005759849503114409","method":"org.springframework.samples.petclinic.model.NamedEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":12},
+          {"methodId":"1130808991853178862","method":"org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":4},
+          {"methodId":"1130306210692170288","method":"org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"5793986600954077596","method":"org.springframework.samples.petclinic.model.Person#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"8264357173411472662","method":"org.springframework.samples.petclinic.owner.Owner#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"16556629183541161203","method":"org.springframework.samples.petclinic.owner.Owner#addPet(Lorg/springframework/samples/petclinic/owner/Pet;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"6489430709466358336","method":"org.springframework.samples.petclinic.owner.Owner#getPet(Ljava/lang/String;)Lorg/springframework/samples/petclinic/owner/Pet;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"2059054034799799278","method":"org.springframework.samples.petclinic.owner.Owner#getPet(Ljava/lang/String;Z)Lorg/springframework/samples/petclinic/owner/Pet;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"3988880037675390143","method":"org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":4},
+          {"methodId":"6387756474133845688","method":"org.springframework.samples.petclinic.owner.Pet#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":6},
+          {"methodId":"10203984197846855130","method":"org.springframework.samples.petclinic.owner.Pet#setBirthDate(Ljava/time/LocalDate;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"4528473174783938043","method":"org.springframework.samples.petclinic.owner.Pet#setType(Lorg/springframework/samples/petclinic/owner/PetType;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"1745949159609456096","method":"org.springframework.samples.petclinic.owner.PetType#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":6}
+        ],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [
+          {"reason":"LATE_EVENT","eventType":"METHOD","eventIdentity":"org.springframework.samples.petclinic.system.CrashController#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+        ],
+        "metrics": {
+          "rawMethodHits": 68,
+          "uniqueMethodHits": 16
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.service.ClinicServiceTests]/[method:shouldFailToInsertDuplicatePetNameForSameOwner()]",
+        "displayName": "shouldFailToInsertDuplicatePetNameForSameOwner()",
+        "testClass": "org.springframework.samples.petclinic.service.ClinicServiceTests",
+        "testMethod": "shouldFailToInsertDuplicatePetNameForSameOwner",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [
+          {"methodId":"5827673233009856031","method":"org.springframework.samples.petclinic.model.BaseEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":12},
+          {"methodId":"15874902705867238263","method":"org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":8},
+          {"methodId":"278315529760388049","method":"org.springframework.samples.petclinic.model.BaseEntity#isNew()Z","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"1005759849503114409","method":"org.springframework.samples.petclinic.model.NamedEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":11},
+          {"methodId":"1130306210692170288","method":"org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"5793986600954077596","method":"org.springframework.samples.petclinic.model.Person#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"8264357173411472662","method":"org.springframework.samples.petclinic.owner.Owner#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"16556629183541161203","method":"org.springframework.samples.petclinic.owner.Owner#addPet(Lorg/springframework/samples/petclinic/owner/Pet;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"3988880037675390143","method":"org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"6387756474133845688","method":"org.springframework.samples.petclinic.owner.Pet#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":5},
+          {"methodId":"10203984197846855130","method":"org.springframework.samples.petclinic.owner.Pet#setBirthDate(Ljava/time/LocalDate;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"4528473174783938043","method":"org.springframework.samples.petclinic.owner.Pet#setType(Lorg/springframework/samples/petclinic/owner/PetType;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"1745949159609456096","method":"org.springframework.samples.petclinic.owner.PetType#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":6}
+        ],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 56,
+          "uniqueMethodHits": 13
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.service.ClinicServiceTests]/[method:shouldFindAllPetTypes()]",
+        "displayName": "shouldFindAllPetTypes()",
+        "testClass": "org.springframework.samples.petclinic.service.ClinicServiceTests",
+        "testMethod": "shouldFindAllPetTypes",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [
+          {"methodId":"5827673233009856031","method":"org.springframework.samples.petclinic.model.BaseEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":6},
+          {"methodId":"15874902705867238263","method":"org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":16},
+          {"methodId":"1005759849503114409","method":"org.springframework.samples.petclinic.model.NamedEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":6},
+          {"methodId":"1130808991853178862","method":"org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"1745949159609456096","method":"org.springframework.samples.petclinic.owner.PetType#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":6}
+        ],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 36,
+          "uniqueMethodHits": 5
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.service.ClinicServiceTests]/[method:shouldFindOwnersByLastName()]",
+        "displayName": "shouldFindOwnersByLastName()",
+        "testClass": "org.springframework.samples.petclinic.service.ClinicServiceTests",
+        "testMethod": "shouldFindOwnersByLastName",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [
+          {"methodId":"5827673233009856031","method":"org.springframework.samples.petclinic.model.BaseEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":6},
+          {"methodId":"1005759849503114409","method":"org.springframework.samples.petclinic.model.NamedEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":4},
+          {"methodId":"5793986600954077596","method":"org.springframework.samples.petclinic.model.Person#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"8264357173411472662","method":"org.springframework.samples.petclinic.owner.Owner#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"6387756474133845688","method":"org.springframework.samples.petclinic.owner.Pet#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"1745949159609456096","method":"org.springframework.samples.petclinic.owner.PetType#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2}
+        ],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 18,
+          "uniqueMethodHits": 6
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.service.ClinicServiceTests]/[method:shouldFindSingleOwnerWithPet()]",
+        "displayName": "shouldFindSingleOwnerWithPet()",
+        "testClass": "org.springframework.samples.petclinic.service.ClinicServiceTests",
+        "testMethod": "shouldFindSingleOwnerWithPet",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [
+          {"methodId":"5827673233009856031","method":"org.springframework.samples.petclinic.model.BaseEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":3},
+          {"methodId":"1005759849503114409","method":"org.springframework.samples.petclinic.model.NamedEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"1130808991853178862","method":"org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"5793986600954077596","method":"org.springframework.samples.petclinic.model.Person#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"6011974298628029707","method":"org.springframework.samples.petclinic.model.Person#getLastName()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"8264357173411472662","method":"org.springframework.samples.petclinic.owner.Owner#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"3988880037675390143","method":"org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":3},
+          {"methodId":"6387756474133845688","method":"org.springframework.samples.petclinic.owner.Pet#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"4678833797871076031","method":"org.springframework.samples.petclinic.owner.Pet#getType()Lorg/springframework/samples/petclinic/owner/PetType;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"1745949159609456096","method":"org.springframework.samples.petclinic.owner.PetType#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+        ],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 16,
+          "uniqueMethodHits": 10
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.service.ClinicServiceTests]/[method:shouldFindVets()]",
+        "displayName": "shouldFindVets()",
+        "testClass": "org.springframework.samples.petclinic.service.ClinicServiceTests",
+        "testMethod": "shouldFindVets",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [
+          {"methodId":"5827673233009856031","method":"org.springframework.samples.petclinic.model.BaseEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":9},
+          {"methodId":"15874902705867238263","method":"org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":6},
+          {"methodId":"1005759849503114409","method":"org.springframework.samples.petclinic.model.NamedEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":3},
+          {"methodId":"1130808991853178862","method":"org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":6},
+          {"methodId":"5793986600954077596","method":"org.springframework.samples.petclinic.model.Person#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":6},
+          {"methodId":"6011974298628029707","method":"org.springframework.samples.petclinic.model.Person#getLastName()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"4078280533613163605","method":"org.springframework.samples.petclinic.vet.Specialty#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":3},
+          {"methodId":"3687787263526529906","method":"org.springframework.samples.petclinic.vet.Vet#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":6},
+          {"methodId":"9040050556510757230","method":"org.springframework.samples.petclinic.vet.Vet#getNrOfSpecialties()I","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"13162012572328210603","method":"org.springframework.samples.petclinic.vet.Vet#getSpecialties()Ljava/util/List;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"8145849598130301080","method":"org.springframework.samples.petclinic.vet.Vet#getSpecialtiesInternal()Ljava/util/Set;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":3}
+        ],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 46,
+          "uniqueMethodHits": 11
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.service.ClinicServiceTests]/[method:shouldFindVisitsByPetId()]",
+        "displayName": "shouldFindVisitsByPetId()",
+        "testClass": "org.springframework.samples.petclinic.service.ClinicServiceTests",
+        "testMethod": "shouldFindVisitsByPetId",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [
+          {"methodId":"5827673233009856031","method":"org.springframework.samples.petclinic.model.BaseEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":8},
+          {"methodId":"15874902705867238263","method":"org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"278315529760388049","method":"org.springframework.samples.petclinic.model.BaseEntity#isNew()Z","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"1005759849503114409","method":"org.springframework.samples.petclinic.model.NamedEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":3},
+          {"methodId":"5793986600954077596","method":"org.springframework.samples.petclinic.model.Person#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"8264357173411472662","method":"org.springframework.samples.petclinic.owner.Owner#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"6803560352752984405","method":"org.springframework.samples.petclinic.owner.Owner#getPet(Ljava/lang/Integer;)Lorg/springframework/samples/petclinic/owner/Pet;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"3988880037675390143","method":"org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"6387756474133845688","method":"org.springframework.samples.petclinic.owner.Pet#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"8056643249034964223","method":"org.springframework.samples.petclinic.owner.Pet#getVisits()Ljava/util/Collection;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1745949159609456096","method":"org.springframework.samples.petclinic.owner.PetType#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"8449451137667841326","method":"org.springframework.samples.petclinic.owner.Visit#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":4},
+          {"methodId":"2466980662821176403","method":"org.springframework.samples.petclinic.owner.Visit#getDate()Ljava/time/LocalDate;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+        ],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 28,
+          "uniqueMethodHits": 13
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.service.ClinicServiceTests]/[method:shouldInsertOwner()]",
+        "displayName": "shouldInsertOwner()",
+        "testClass": "org.springframework.samples.petclinic.service.ClinicServiceTests",
+        "testMethod": "shouldInsertOwner",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [
+          {"methodId":"5827673233009856031","method":"org.springframework.samples.petclinic.model.BaseEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"15874902705867238263","method":"org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"5793986600954077596","method":"org.springframework.samples.petclinic.model.Person#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"14110448089254152607","method":"org.springframework.samples.petclinic.model.Person#setFirstName(Ljava/lang/String;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1000290910352929355","method":"org.springframework.samples.petclinic.model.Person#setLastName(Ljava/lang/String;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"8264357173411472662","method":"org.springframework.samples.petclinic.owner.Owner#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"13633668386788209122","method":"org.springframework.samples.petclinic.owner.Owner#setAddress(Ljava/lang/String;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"10558940677533432089","method":"org.springframework.samples.petclinic.owner.Owner#setCity(Ljava/lang/String;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"8216520936169939686","method":"org.springframework.samples.petclinic.owner.Owner#setTelephone(Ljava/lang/String;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+        ],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 9,
+          "uniqueMethodHits": 9
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.service.ClinicServiceTests]/[method:shouldInsertPetIntoDatabaseAndGenerateId()]",
+        "displayName": "shouldInsertPetIntoDatabaseAndGenerateId()",
+        "testClass": "org.springframework.samples.petclinic.service.ClinicServiceTests",
+        "testMethod": "shouldInsertPetIntoDatabaseAndGenerateId",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [
+          {"methodId":"5827673233009856031","method":"org.springframework.samples.petclinic.model.BaseEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":15},
+          {"methodId":"15874902705867238263","method":"org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":7},
+          {"methodId":"278315529760388049","method":"org.springframework.samples.petclinic.model.BaseEntity#isNew()Z","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1005759849503114409","method":"org.springframework.samples.petclinic.model.NamedEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":10},
+          {"methodId":"1130808991853178862","method":"org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":3},
+          {"methodId":"1130306210692170288","method":"org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"5793986600954077596","method":"org.springframework.samples.petclinic.model.Person#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"8264357173411472662","method":"org.springframework.samples.petclinic.owner.Owner#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"16556629183541161203","method":"org.springframework.samples.petclinic.owner.Owner#addPet(Lorg/springframework/samples/petclinic/owner/Pet;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"6489430709466358336","method":"org.springframework.samples.petclinic.owner.Owner#getPet(Ljava/lang/String;)Lorg/springframework/samples/petclinic/owner/Pet;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"2059054034799799278","method":"org.springframework.samples.petclinic.owner.Owner#getPet(Ljava/lang/String;Z)Lorg/springframework/samples/petclinic/owner/Pet;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"3988880037675390143","method":"org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":5},
+          {"methodId":"6387756474133845688","method":"org.springframework.samples.petclinic.owner.Pet#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":4},
+          {"methodId":"10203984197846855130","method":"org.springframework.samples.petclinic.owner.Pet#setBirthDate(Ljava/time/LocalDate;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"4528473174783938043","method":"org.springframework.samples.petclinic.owner.Pet#setType(Lorg/springframework/samples/petclinic/owner/PetType;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1745949159609456096","method":"org.springframework.samples.petclinic.owner.PetType#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":6},
+          {"methodId":"8449451137667841326","method":"org.springframework.samples.petclinic.owner.Visit#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":4}
+        ],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 63,
+          "uniqueMethodHits": 17
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.service.ClinicServiceTests]/[method:shouldUpdateOwner()]",
+        "displayName": "shouldUpdateOwner()",
+        "testClass": "org.springframework.samples.petclinic.service.ClinicServiceTests",
+        "testMethod": "shouldUpdateOwner",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [
+          {"methodId":"5827673233009856031","method":"org.springframework.samples.petclinic.model.BaseEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":3},
+          {"methodId":"1005759849503114409","method":"org.springframework.samples.petclinic.model.NamedEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"5793986600954077596","method":"org.springframework.samples.petclinic.model.Person#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"6011974298628029707","method":"org.springframework.samples.petclinic.model.Person#getLastName()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"1000290910352929355","method":"org.springframework.samples.petclinic.model.Person#setLastName(Ljava/lang/String;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"8264357173411472662","method":"org.springframework.samples.petclinic.owner.Owner#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"6387756474133845688","method":"org.springframework.samples.petclinic.owner.Pet#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1745949159609456096","method":"org.springframework.samples.petclinic.owner.PetType#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+        ],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 12,
+          "uniqueMethodHits": 8
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.service.ClinicServiceTests]/[method:shouldUpdatePetName()]",
+        "displayName": "shouldUpdatePetName()",
+        "testClass": "org.springframework.samples.petclinic.service.ClinicServiceTests",
+        "testMethod": "shouldUpdatePetName",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [
+          {"methodId":"5827673233009856031","method":"org.springframework.samples.petclinic.model.BaseEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":8},
+          {"methodId":"15874902705867238263","method":"org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":4},
+          {"methodId":"278315529760388049","method":"org.springframework.samples.petclinic.model.BaseEntity#isNew()Z","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":4},
+          {"methodId":"1005759849503114409","method":"org.springframework.samples.petclinic.model.NamedEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":3},
+          {"methodId":"1130808991853178862","method":"org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"1130306210692170288","method":"org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"5793986600954077596","method":"org.springframework.samples.petclinic.model.Person#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"8264357173411472662","method":"org.springframework.samples.petclinic.owner.Owner#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"6803560352752984405","method":"org.springframework.samples.petclinic.owner.Owner#getPet(Ljava/lang/Integer;)Lorg/springframework/samples/petclinic/owner/Pet;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"3988880037675390143","method":"org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"6387756474133845688","method":"org.springframework.samples.petclinic.owner.Pet#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"1745949159609456096","method":"org.springframework.samples.petclinic.owner.PetType#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"8449451137667841326","method":"org.springframework.samples.petclinic.owner.Visit#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":4}
+        ],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 35,
+          "uniqueMethodHits": 13
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.system.CrashControllerTests]/[method:triggerException()]",
+        "displayName": "triggerException()",
+        "testClass": "org.springframework.samples.petclinic.system.CrashControllerTests",
+        "testMethod": "triggerException",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [
+          {"methodId":"12157639640650889951","method":"org.springframework.samples.petclinic.system.CrashController#triggerException()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+        ],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 1,
+          "uniqueMethodHits": 1
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.system.I18nPropertiesSyncTest]/[method:checkI18nPropertyFilesAreInSync()]",
+        "displayName": "checkI18nPropertyFilesAreInSync()",
+        "testClass": "org.springframework.samples.petclinic.system.I18nPropertiesSyncTest",
+        "testMethod": "checkI18nPropertyFilesAreInSync",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 0,
+          "uniqueMethodHits": 0
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.system.I18nPropertiesSyncTest]/[method:checkNonInternationalizedStrings()]",
+        "displayName": "checkNonInternationalizedStrings()",
+        "testClass": "org.springframework.samples.petclinic.system.I18nPropertiesSyncTest",
+        "testMethod": "checkNonInternationalizedStrings",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 0,
+          "uniqueMethodHits": 0
+        }
+      },
+      {
+        "testId": "[engine:junit-jupiter]/[class:org.springframework.samples.petclinic.vet.VetTests]/[method:serialization()]",
+        "displayName": "serialization()",
+        "testClass": "org.springframework.samples.petclinic.vet.VetTests",
+        "testMethod": "serialization",
+        "engineId": "junit-jupiter",
+        "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+        "methods": [
+          {"methodId":"5827673233009856031","method":"org.springframework.samples.petclinic.model.BaseEntity#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"15874902705867238263","method":"org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"5490813690164684815","method":"org.springframework.samples.petclinic.model.BaseEntity#setId(Ljava/lang/Integer;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"5793986600954077596","method":"org.springframework.samples.petclinic.model.Person#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"6491468038725137607","method":"org.springframework.samples.petclinic.model.Person#getFirstName()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"6011974298628029707","method":"org.springframework.samples.petclinic.model.Person#getLastName()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":2},
+          {"methodId":"14110448089254152607","method":"org.springframework.samples.petclinic.model.Person#setFirstName(Ljava/lang/String;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"1000290910352929355","method":"org.springframework.samples.petclinic.model.Person#setLastName(Ljava/lang/String;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+          {"methodId":"3687787263526529906","method":"org.springframework.samples.petclinic.vet.Vet#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+        ],
+        "springBeans": [],
+        "endpoints": [],
+        "repositories": [],
+        "entities": [],
+        "tables": {
+          "mapped": [],
+          "observed": []
+        },
+        "unattributedEvents": [],
+        "metrics": {
+          "rawMethodHits": 12,
+          "uniqueMethodHits": 9
+        }
+      }
+    ],
+    "unattributedEvents": []
+  }
+}

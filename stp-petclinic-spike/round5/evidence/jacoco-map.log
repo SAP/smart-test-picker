@@ -1,0 +1,15 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------< org.springframework.samples:spring-petclinic >------------
+[INFO] Building petclinic 4.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- smart-test-picker:0.1.0:generate-coverage-map (default-cli) @ spring-petclinic ---
+[INFO] Generated test coverage map: /private/tmp/stp-round2-petclinic/target/test-coverage-map.json (25 tests, commitId: 88e37c15cf6fc8490b01bc3e8e2c800cec1ac272)
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.345 s
+[INFO] Finished at: 2026-09-05T09:41:12+03:00
+[INFO] ------------------------------------------------------------------------

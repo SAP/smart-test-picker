@@ -1,0 +1,606 @@
+{
+  "metadata": {
+    "baseBranch": "main",
+    "commitId": "88e37c15cf6fc8490b01bc3e8e2c800cec1ac272",
+    "timestamp": "2026-09-05T06:41:12.697320Z"
+  },
+  "testMappings": {
+    "ClinicServiceTests#shouldAddNewVisitForPet_5c9a63c": {
+      "methods": [
+        "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.BaseEntity#getId",
+        "org.springframework.samples.petclinic.model.BaseEntity#isNew",
+        "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.Person#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Owner#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Owner#addVisit",
+        "org.springframework.samples.petclinic.owner.Owner#getPet",
+        "org.springframework.samples.petclinic.owner.Owner#getPets",
+        "org.springframework.samples.petclinic.owner.Pet#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Pet#addVisit",
+        "org.springframework.samples.petclinic.owner.Pet#getVisits",
+        "org.springframework.samples.petclinic.owner.PetType#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Visit#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Visit#setDescription"
+      ],
+      "classes": [
+        "org.springframework.samples.petclinic.model.BaseEntity",
+        "org.springframework.samples.petclinic.model.NamedEntity",
+        "org.springframework.samples.petclinic.model.Person",
+        "org.springframework.samples.petclinic.owner.Owner",
+        "org.springframework.samples.petclinic.owner.Pet",
+        "org.springframework.samples.petclinic.owner.PetType",
+        "org.springframework.samples.petclinic.owner.Visit"
+      ]
+    },
+    "ClinicServiceTests#shouldAllowSamePetNameForDifferentOwners_191d5e8": {
+      "methods": [
+        "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.BaseEntity#getId",
+        "org.springframework.samples.petclinic.model.BaseEntity#isNew",
+        "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.NamedEntity#getName",
+        "org.springframework.samples.petclinic.model.NamedEntity#setName",
+        "org.springframework.samples.petclinic.model.Person#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Owner#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Owner#addPet",
+        "org.springframework.samples.petclinic.owner.Owner#getPet",
+        "org.springframework.samples.petclinic.owner.Owner#getPets",
+        "org.springframework.samples.petclinic.owner.Pet#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Pet#setBirthDate",
+        "org.springframework.samples.petclinic.owner.Pet#setType",
+        "org.springframework.samples.petclinic.owner.PetType#\u003cinit\u003e"
+      ],
+      "classes": [
+        "org.springframework.samples.petclinic.model.BaseEntity",
+        "org.springframework.samples.petclinic.model.NamedEntity",
+        "org.springframework.samples.petclinic.model.Person",
+        "org.springframework.samples.petclinic.owner.Owner",
+        "org.springframework.samples.petclinic.owner.Pet",
+        "org.springframework.samples.petclinic.owner.PetType"
+      ]
+    },
+    "ClinicServiceTests#shouldUpdateOwner_45d5b0b": {
+      "methods": [
+        "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.Person#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.Person#getLastName",
+        "org.springframework.samples.petclinic.model.Person#setLastName",
+        "org.springframework.samples.petclinic.owner.Owner#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Pet#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.PetType#\u003cinit\u003e"
+      ],
+      "classes": [
+        "org.springframework.samples.petclinic.model.BaseEntity",
+        "org.springframework.samples.petclinic.model.NamedEntity",
+        "org.springframework.samples.petclinic.model.Person",
+        "org.springframework.samples.petclinic.owner.Owner",
+        "org.springframework.samples.petclinic.owner.Pet",
+        "org.springframework.samples.petclinic.owner.PetType"
+      ]
+    },
+    "ClinicServiceTests#shouldFindSingleOwnerWithPet_69da6eb": {
+      "methods": [
+        "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.NamedEntity#getName",
+        "org.springframework.samples.petclinic.model.Person#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.Person#getLastName",
+        "org.springframework.samples.petclinic.owner.Owner#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Owner#getPets",
+        "org.springframework.samples.petclinic.owner.Pet#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Pet#getType",
+        "org.springframework.samples.petclinic.owner.PetType#\u003cinit\u003e"
+      ],
+      "classes": [
+        "org.springframework.samples.petclinic.model.BaseEntity",
+        "org.springframework.samples.petclinic.model.NamedEntity",
+        "org.springframework.samples.petclinic.model.Person",
+        "org.springframework.samples.petclinic.owner.Owner",
+        "org.springframework.samples.petclinic.owner.Pet",
+        "org.springframework.samples.petclinic.owner.PetType"
+      ]
+    },
+    "ClinicServiceTests#shouldFindOwnersByLastName_2b73b1c": {
+      "methods": [
+        "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.Person#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Owner#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Pet#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.PetType#\u003cinit\u003e"
+      ],
+      "classes": [
+        "org.springframework.samples.petclinic.model.BaseEntity",
+        "org.springframework.samples.petclinic.model.NamedEntity",
+        "org.springframework.samples.petclinic.model.Person",
+        "org.springframework.samples.petclinic.owner.Owner",
+        "org.springframework.samples.petclinic.owner.Pet",
+        "org.springframework.samples.petclinic.owner.PetType"
+      ]
+    },
+    "PetTypeFormatterTests#testPrint_7cc082b": {
+      "methods": [
+        "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.NamedEntity#getName",
+        "org.springframework.samples.petclinic.model.NamedEntity#setName",
+        "org.springframework.samples.petclinic.owner.PetType#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.PetTypeFormatter#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.PetTypeFormatter#print"
+      ],
+      "classes": [
+        "org.springframework.samples.petclinic.model.BaseEntity",
+        "org.springframework.samples.petclinic.model.NamedEntity",
+        "org.springframework.samples.petclinic.owner.PetType",
+        "org.springframework.samples.petclinic.owner.PetTypeFormatter"
+      ]
+    },
+    "ClinicServiceTests#shouldFindVisitsByPetId_5f4fe36": {
+      "methods": [
+        "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.BaseEntity#getId",
+        "org.springframework.samples.petclinic.model.BaseEntity#isNew",
+        "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.Person#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Owner#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Owner#getPet",
+        "org.springframework.samples.petclinic.owner.Owner#getPets",
+        "org.springframework.samples.petclinic.owner.Pet#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Pet#getVisits",
+        "org.springframework.samples.petclinic.owner.PetType#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Visit#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Visit#getDate"
+      ],
+      "classes": [
+        "org.springframework.samples.petclinic.model.BaseEntity",
+        "org.springframework.samples.petclinic.model.NamedEntity",
+        "org.springframework.samples.petclinic.model.Person",
+        "org.springframework.samples.petclinic.owner.Owner",
+        "org.springframework.samples.petclinic.owner.Pet",
+        "org.springframework.samples.petclinic.owner.PetType",
+        "org.springframework.samples.petclinic.owner.Visit"
+      ]
+    },
+    "CrashControllerTests#triggerException_46cd141": {
+      "methods": [
+        "org.springframework.samples.petclinic.system.CrashController#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.system.CrashController#triggerException"
+      ],
+      "classes": [
+        "org.springframework.samples.petclinic.system.CrashController"
+      ]
+    },
+    "ValidatorTests#shouldNotValidateWhenFirstNameEmpty_190f5f0": {
+      "methods": [
+        "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.Person#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.Person#setFirstName",
+        "org.springframework.samples.petclinic.model.Person#setLastName"
+      ],
+      "classes": [
+        "org.springframework.samples.petclinic.model.BaseEntity",
+        "org.springframework.samples.petclinic.model.Person"
+      ]
+    },
+    "PetValidatorTests#doesNotSupportNonPetClass_3366708": {
+      "methods": [
+        "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Pet#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.PetType#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.PetValidator#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.PetValidator#supports"
+      ],
+      "classes": [
+        "org.springframework.samples.petclinic.model.BaseEntity",
+        "org.springframework.samples.petclinic.model.NamedEntity",
+        "org.springframework.samples.petclinic.owner.Pet",
+        "org.springframework.samples.petclinic.owner.PetType",
+        "org.springframework.samples.petclinic.owner.PetValidator"
+      ]
+    },
+    "PetTypeFormatterTests#shouldThrowParseException_4b692a2": {
+      "methods": [
+        "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.NamedEntity#getName",
+        "org.springframework.samples.petclinic.model.NamedEntity#setName",
+        "org.springframework.samples.petclinic.owner.PetType#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.PetTypeFormatter#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.PetTypeFormatter#parse"
+      ],
+      "classes": [
+        "org.springframework.samples.petclinic.model.BaseEntity",
+        "org.springframework.samples.petclinic.model.NamedEntity",
+        "org.springframework.samples.petclinic.owner.PetType",
+        "org.springframework.samples.petclinic.owner.PetTypeFormatter"
+      ]
+    },
+    "ValidateHasErrors#validateWithInvalidBirthDate_3da9692": {
+      "methods": [
+        "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.BaseEntity#isNew",
+        "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.NamedEntity#getName",
+        "org.springframework.samples.petclinic.model.NamedEntity#setName",
+        "org.springframework.samples.petclinic.owner.Pet#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Pet#getBirthDate",
+        "org.springframework.samples.petclinic.owner.Pet#getType",
+        "org.springframework.samples.petclinic.owner.Pet#setBirthDate",
+        "org.springframework.samples.petclinic.owner.Pet#setType",
+        "org.springframework.samples.petclinic.owner.PetType#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.PetValidator#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.PetValidator#validate"
+      ],
+      "classes": [
+        "org.springframework.samples.petclinic.model.BaseEntity",
+        "org.springframework.samples.petclinic.model.NamedEntity",
+        "org.springframework.samples.petclinic.owner.Pet",
+        "org.springframework.samples.petclinic.owner.PetType",
+        "org.springframework.samples.petclinic.owner.PetValidator"
+      ]
+    },
+    "ClinicServiceTests#shouldFindVets_4dc1d5b": {
+      "methods": [
+        "org.springframework.samples.petclinic.PetClinicApplication#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.BaseEntity#getId",
+        "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.NamedEntity#getName",
+        "org.springframework.samples.petclinic.model.Person#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.Person#getLastName",
+        "org.springframework.samples.petclinic.owner.Owner#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Pet#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.PetType#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Visit#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.vet.Specialty#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.vet.Vet#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.vet.Vet#getNrOfSpecialties",
+        "org.springframework.samples.petclinic.vet.Vet#getSpecialties",
+        "org.springframework.samples.petclinic.vet.Vet#getSpecialtiesInternal"
+      ],
+      "classes": [
+        "org.springframework.samples.petclinic.PetClinicApplication",
+        "org.springframework.samples.petclinic.model.BaseEntity",
+        "org.springframework.samples.petclinic.model.NamedEntity",
+        "org.springframework.samples.petclinic.model.Person",
+        "org.springframework.samples.petclinic.owner.Owner",
+        "org.springframework.samples.petclinic.owner.Pet",
+        "org.springframework.samples.petclinic.owner.PetType",
+        "org.springframework.samples.petclinic.owner.Visit",
+        "org.springframework.samples.petclinic.vet.Specialty",
+        "org.springframework.samples.petclinic.vet.Vet"
+      ]
+    },
+    "ClinicServiceTests#shouldFindAllPetTypes_3da5702": {
+      "methods": [
+        "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.BaseEntity#getId",
+        "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.NamedEntity#getName",
+        "org.springframework.samples.petclinic.owner.PetType#\u003cinit\u003e"
+      ],
+      "classes": [
+        "org.springframework.samples.petclinic.model.BaseEntity",
+        "org.springframework.samples.petclinic.model.NamedEntity",
+        "org.springframework.samples.petclinic.owner.PetType"
+      ]
+    },
+    "ValidatorTests#shouldNotValidateWhenLastNameEmpty_172862b": {
+      "methods": [
+        "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.Person#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.Person#setFirstName",
+        "org.springframework.samples.petclinic.model.Person#setLastName"
+      ],
+      "classes": [
+        "org.springframework.samples.petclinic.model.BaseEntity",
+        "org.springframework.samples.petclinic.model.Person"
+      ]
+    },
+    "ClinicServiceTests#shouldInsertPetIntoDatabaseAndGenerateId_4b9e40d": {
+      "methods": [
+        "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.BaseEntity#getId",
+        "org.springframework.samples.petclinic.model.BaseEntity#isNew",
+        "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.NamedEntity#getName",
+        "org.springframework.samples.petclinic.model.NamedEntity#setName",
+        "org.springframework.samples.petclinic.model.Person#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Owner#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Owner#addPet",
+        "org.springframework.samples.petclinic.owner.Owner#getPet",
+        "org.springframework.samples.petclinic.owner.Owner#getPets",
+        "org.springframework.samples.petclinic.owner.Pet#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Pet#setBirthDate",
+        "org.springframework.samples.petclinic.owner.Pet#setType",
+        "org.springframework.samples.petclinic.owner.PetType#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Visit#\u003cinit\u003e"
+      ],
+      "classes": [
+        "org.springframework.samples.petclinic.model.BaseEntity",
+        "org.springframework.samples.petclinic.model.NamedEntity",
+        "org.springframework.samples.petclinic.model.Person",
+        "org.springframework.samples.petclinic.owner.Owner",
+        "org.springframework.samples.petclinic.owner.Pet",
+        "org.springframework.samples.petclinic.owner.PetType",
+        "org.springframework.samples.petclinic.owner.Visit"
+      ]
+    },
+    "ClinicServiceTests#shouldUpdatePetName_3da53a0": {
+      "methods": [
+        "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.BaseEntity#getId",
+        "org.springframework.samples.petclinic.model.BaseEntity#isNew",
+        "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.NamedEntity#getName",
+        "org.springframework.samples.petclinic.model.NamedEntity#setName",
+        "org.springframework.samples.petclinic.model.Person#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Owner#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Owner#getPet",
+        "org.springframework.samples.petclinic.owner.Owner#getPets",
+        "org.springframework.samples.petclinic.owner.Pet#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.PetType#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Visit#\u003cinit\u003e"
+      ],
+      "classes": [
+        "org.springframework.samples.petclinic.model.BaseEntity",
+        "org.springframework.samples.petclinic.model.NamedEntity",
+        "org.springframework.samples.petclinic.model.Person",
+        "org.springframework.samples.petclinic.owner.Owner",
+        "org.springframework.samples.petclinic.owner.Pet",
+        "org.springframework.samples.petclinic.owner.PetType",
+        "org.springframework.samples.petclinic.owner.Visit"
+      ]
+    },
+    "PetTypeFormatterTests#shouldParse_5d56427": {
+      "methods": [
+        "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.NamedEntity#getName",
+        "org.springframework.samples.petclinic.model.NamedEntity#setName",
+        "org.springframework.samples.petclinic.owner.PetType#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.PetTypeFormatter#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.PetTypeFormatter#parse"
+      ],
+      "classes": [
+        "org.springframework.samples.petclinic.model.BaseEntity",
+        "org.springframework.samples.petclinic.model.NamedEntity",
+        "org.springframework.samples.petclinic.owner.PetType",
+        "org.springframework.samples.petclinic.owner.PetTypeFormatter"
+      ]
+    },
+    "PetValidatorTests#validate_7452285": {
+      "methods": [
+        "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.BaseEntity#isNew",
+        "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.NamedEntity#getName",
+        "org.springframework.samples.petclinic.model.NamedEntity#setName",
+        "org.springframework.samples.petclinic.owner.Pet#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Pet#getBirthDate",
+        "org.springframework.samples.petclinic.owner.Pet#getType",
+        "org.springframework.samples.petclinic.owner.Pet#setBirthDate",
+        "org.springframework.samples.petclinic.owner.Pet#setType",
+        "org.springframework.samples.petclinic.owner.PetType#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.PetValidator#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.PetValidator#validate"
+      ],
+      "classes": [
+        "org.springframework.samples.petclinic.model.BaseEntity",
+        "org.springframework.samples.petclinic.model.NamedEntity",
+        "org.springframework.samples.petclinic.owner.Pet",
+        "org.springframework.samples.petclinic.owner.PetType",
+        "org.springframework.samples.petclinic.owner.PetValidator"
+      ]
+    },
+    "ValidateHasErrors#validateWithInvalidPetType_7154785": {
+      "methods": [
+        "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.BaseEntity#isNew",
+        "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.NamedEntity#getName",
+        "org.springframework.samples.petclinic.model.NamedEntity#setName",
+        "org.springframework.samples.petclinic.owner.Pet#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Pet#getBirthDate",
+        "org.springframework.samples.petclinic.owner.Pet#getType",
+        "org.springframework.samples.petclinic.owner.Pet#setBirthDate",
+        "org.springframework.samples.petclinic.owner.Pet#setType",
+        "org.springframework.samples.petclinic.owner.PetType#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.PetValidator#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.PetValidator#validate"
+      ],
+      "classes": [
+        "org.springframework.samples.petclinic.model.BaseEntity",
+        "org.springframework.samples.petclinic.model.NamedEntity",
+        "org.springframework.samples.petclinic.owner.Pet",
+        "org.springframework.samples.petclinic.owner.PetType",
+        "org.springframework.samples.petclinic.owner.PetValidator"
+      ]
+    },
+    "ClinicServiceTests#shouldFailToInsertDuplicatePetNameForSameOwner_1422d7e": {
+      "methods": [
+        "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.BaseEntity#getId",
+        "org.springframework.samples.petclinic.model.BaseEntity#isNew",
+        "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.NamedEntity#setName",
+        "org.springframework.samples.petclinic.model.Person#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Owner#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Owner#addPet",
+        "org.springframework.samples.petclinic.owner.Owner#getPets",
+        "org.springframework.samples.petclinic.owner.Pet#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Pet#setBirthDate",
+        "org.springframework.samples.petclinic.owner.Pet#setType",
+        "org.springframework.samples.petclinic.owner.PetType#\u003cinit\u003e"
+      ],
+      "classes": [
+        "org.springframework.samples.petclinic.model.BaseEntity",
+        "org.springframework.samples.petclinic.model.NamedEntity",
+        "org.springframework.samples.petclinic.model.Person",
+        "org.springframework.samples.petclinic.owner.Owner",
+        "org.springframework.samples.petclinic.owner.Pet",
+        "org.springframework.samples.petclinic.owner.PetType"
+      ]
+    },
+    "ClinicServiceTests#shouldInsertOwner_61dddcc": {
+      "methods": [
+        "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.BaseEntity#getId",
+        "org.springframework.samples.petclinic.model.Person#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.Person#setFirstName",
+        "org.springframework.samples.petclinic.model.Person#setLastName",
+        "org.springframework.samples.petclinic.owner.Owner#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Owner#setAddress",
+        "org.springframework.samples.petclinic.owner.Owner#setCity",
+        "org.springframework.samples.petclinic.owner.Owner#setTelephone"
+      ],
+      "classes": [
+        "org.springframework.samples.petclinic.model.BaseEntity",
+        "org.springframework.samples.petclinic.model.Person",
+        "org.springframework.samples.petclinic.owner.Owner"
+      ]
+    },
+    "PetValidatorTests#supportsPetClass_1f881a8": {
+      "methods": [
+        "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Pet#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.PetType#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.PetValidator#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.PetValidator#supports"
+      ],
+      "classes": [
+        "org.springframework.samples.petclinic.model.BaseEntity",
+        "org.springframework.samples.petclinic.model.NamedEntity",
+        "org.springframework.samples.petclinic.owner.Pet",
+        "org.springframework.samples.petclinic.owner.PetType",
+        "org.springframework.samples.petclinic.owner.PetValidator"
+      ]
+    },
+    "ValidateHasErrors#validateWithInvalidPetName_715163a": {
+      "methods": [
+        "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.BaseEntity#isNew",
+        "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.NamedEntity#getName",
+        "org.springframework.samples.petclinic.model.NamedEntity#setName",
+        "org.springframework.samples.petclinic.owner.Pet#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.Pet#getBirthDate",
+        "org.springframework.samples.petclinic.owner.Pet#getType",
+        "org.springframework.samples.petclinic.owner.Pet#setBirthDate",
+        "org.springframework.samples.petclinic.owner.Pet#setType",
+        "org.springframework.samples.petclinic.owner.PetType#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.PetValidator#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.owner.PetValidator#validate"
+      ],
+      "classes": [
+        "org.springframework.samples.petclinic.model.BaseEntity",
+        "org.springframework.samples.petclinic.model.NamedEntity",
+        "org.springframework.samples.petclinic.owner.Pet",
+        "org.springframework.samples.petclinic.owner.PetType",
+        "org.springframework.samples.petclinic.owner.PetValidator"
+      ]
+    },
+    "VetTests#serialization_74494b0": {
+      "methods": [
+        "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.BaseEntity#getId",
+        "org.springframework.samples.petclinic.model.BaseEntity#setId",
+        "org.springframework.samples.petclinic.model.Person#\u003cinit\u003e",
+        "org.springframework.samples.petclinic.model.Person#getFirstName",
+        "org.springframework.samples.petclinic.model.Person#getLastName",
+        "org.springframework.samples.petclinic.model.Person#setFirstName",
+        "org.springframework.samples.petclinic.model.Person#setLastName",
+        "org.springframework.samples.petclinic.vet.Vet#\u003cinit\u003e"
+      ],
+      "classes": [
+        "org.springframework.samples.petclinic.model.BaseEntity",
+        "org.springframework.samples.petclinic.model.Person",
+        "org.springframework.samples.petclinic.vet.Vet"
+      ]
+    }
+  },
+  "classMetrics": {
+    "org.springframework.samples.petclinic.owner.Pet": {
+      "lineMissed": 3,
+      "lineCovered": 8,
+      "branchMissed": 0,
+      "branchCovered": 0
+    },
+    "org.springframework.samples.petclinic.model.BaseEntity": {
+      "lineMissed": 1,
+      "lineCovered": 4,
+      "branchMissed": 1,
+      "branchCovered": 1
+    },
+    "org.springframework.samples.petclinic.PetClinicApplication": {
+      "lineMissed": 2,
+      "lineCovered": 1,
+      "branchMissed": 0,
+      "branchCovered": 0
+    },
+    "org.springframework.samples.petclinic.system.CrashController": {
+      "lineMissed": 0,
+      "lineCovered": 2,
+      "branchMissed": 0,
+      "branchCovered": 0
+    },
+    "org.springframework.samples.petclinic.model.NamedEntity": {
+      "lineMissed": 2,
+      "lineCovered": 4,
+      "branchMissed": 2,
+      "branchCovered": 0
+    },
+    "org.springframework.samples.petclinic.vet.Specialty": {
+      "lineMissed": 0,
+      "lineCovered": 1,
+      "branchMissed": 0,
+      "branchCovered": 0
+    },
+    "org.springframework.samples.petclinic.owner.Visit": {
+      "lineMissed": 4,
+      "lineCovered": 5,
+      "branchMissed": 0,
+      "branchCovered": 0
+    },
+    "org.springframework.samples.petclinic.owner.Owner": {
+      "lineMissed": 29,
+      "lineCovered": 15,
+      "branchMissed": 12,
+      "branchCovered": 6
+    },
+    "org.springframework.samples.petclinic.owner.PetType": {
+      "lineMissed": 0,
+      "lineCovered": 1,
+      "branchMissed": 0,
+      "branchCovered": 0
+    },
+    "org.springframework.samples.petclinic.model.Person": {
+      "lineMissed": 0,
+      "lineCovered": 7,
+      "branchMissed": 0,
+      "branchCovered": 0
+    },
+    "org.springframework.samples.petclinic.owner.PetTypeFormatter": {
+      "lineMissed": 3,
+      "lineCovered": 8,
+      "branchMissed": 3,
+      "branchCovered": 3
+    },
+    "org.springframework.samples.petclinic.owner.PetValidator": {
+      "lineMissed": 3,
+      "lineCovered": 8,
+      "branchMissed": 4,
+      "branchCovered": 4
+    },
+    "org.springframework.samples.petclinic.vet.Vet": {
+      "lineMissed": 3,
+      "lineCovered": 7,
+      "branchMissed": 1,
+      "branchCovered": 1
+    }
+  }
+}

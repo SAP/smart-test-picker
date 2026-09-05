@@ -1,0 +1,832 @@
+{
+  "schemaVersion": "stp-asm-round5-normalized-map-1",
+  "runId": "asm-fixed-2",
+  "tests": {
+    "org.springframework.samples.petclinic.model.ValidatorTests#shouldNotValidateWhenFirstNameEmpty": [
+      "org.springframework.samples.petclinic.model.BaseEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.Person#<init>()V",
+      "org.springframework.samples.petclinic.model.Person#setFirstName(Ljava/lang/String;)V",
+      "org.springframework.samples.petclinic.model.Person#setLastName(Ljava/lang/String;)V"
+    ],
+    "org.springframework.samples.petclinic.model.ValidatorTests#shouldNotValidateWhenLastNameEmpty": [
+      "org.springframework.samples.petclinic.model.BaseEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.Person#<init>()V",
+      "org.springframework.samples.petclinic.model.Person#setFirstName(Ljava/lang/String;)V",
+      "org.springframework.samples.petclinic.model.Person#setLastName(Ljava/lang/String;)V"
+    ],
+    "org.springframework.samples.petclinic.owner.PetTypeFormatterTests#shouldParse": [
+      "org.springframework.samples.petclinic.model.BaseEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.NamedEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;",
+      "org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V",
+      "org.springframework.samples.petclinic.owner.PetType#<init>()V",
+      "org.springframework.samples.petclinic.owner.PetTypeFormatter#<init>(Lorg/springframework/samples/petclinic/owner/PetTypeRepository;)V",
+      "org.springframework.samples.petclinic.owner.PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Lorg/springframework/samples/petclinic/owner/PetType;"
+    ],
+    "org.springframework.samples.petclinic.owner.PetTypeFormatterTests#shouldThrowParseException": [
+      "org.springframework.samples.petclinic.model.BaseEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.NamedEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;",
+      "org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V",
+      "org.springframework.samples.petclinic.owner.PetType#<init>()V",
+      "org.springframework.samples.petclinic.owner.PetTypeFormatter#<init>(Lorg/springframework/samples/petclinic/owner/PetTypeRepository;)V",
+      "org.springframework.samples.petclinic.owner.PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Lorg/springframework/samples/petclinic/owner/PetType;"
+    ],
+    "org.springframework.samples.petclinic.owner.PetTypeFormatterTests#testPrint": [
+      "org.springframework.samples.petclinic.model.BaseEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.NamedEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;",
+      "org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V",
+      "org.springframework.samples.petclinic.owner.PetType#<init>()V",
+      "org.springframework.samples.petclinic.owner.PetTypeFormatter#<init>(Lorg/springframework/samples/petclinic/owner/PetTypeRepository;)V",
+      "org.springframework.samples.petclinic.owner.PetTypeFormatter#print(Lorg/springframework/samples/petclinic/owner/PetType;Ljava/util/Locale;)Ljava/lang/String;"
+    ],
+    "org.springframework.samples.petclinic.owner.PetValidatorTests#doesNotSupportNonPetClass": [
+      "org.springframework.samples.petclinic.model.BaseEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.NamedEntity#<init>()V",
+      "org.springframework.samples.petclinic.owner.Pet#<init>()V",
+      "org.springframework.samples.petclinic.owner.PetType#<init>()V",
+      "org.springframework.samples.petclinic.owner.PetValidator#<init>()V",
+      "org.springframework.samples.petclinic.owner.PetValidator#supports(Ljava/lang/Class;)Z"
+    ],
+    "org.springframework.samples.petclinic.owner.PetValidatorTests#supportsPetClass": [
+      "org.springframework.samples.petclinic.model.BaseEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.NamedEntity#<init>()V",
+      "org.springframework.samples.petclinic.owner.Pet#<init>()V",
+      "org.springframework.samples.petclinic.owner.PetType#<init>()V",
+      "org.springframework.samples.petclinic.owner.PetValidator#<init>()V",
+      "org.springframework.samples.petclinic.owner.PetValidator#supports(Ljava/lang/Class;)Z"
+    ],
+    "org.springframework.samples.petclinic.owner.PetValidatorTests#validate": [
+      "org.springframework.samples.petclinic.model.BaseEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.BaseEntity#isNew()Z",
+      "org.springframework.samples.petclinic.model.NamedEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;",
+      "org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V",
+      "org.springframework.samples.petclinic.owner.Pet#<init>()V",
+      "org.springframework.samples.petclinic.owner.Pet#getBirthDate()Ljava/time/LocalDate;",
+      "org.springframework.samples.petclinic.owner.Pet#getType()Lorg/springframework/samples/petclinic/owner/PetType;",
+      "org.springframework.samples.petclinic.owner.Pet#setBirthDate(Ljava/time/LocalDate;)V",
+      "org.springframework.samples.petclinic.owner.Pet#setType(Lorg/springframework/samples/petclinic/owner/PetType;)V",
+      "org.springframework.samples.petclinic.owner.PetType#<init>()V",
+      "org.springframework.samples.petclinic.owner.PetValidator#<init>()V",
+      "org.springframework.samples.petclinic.owner.PetValidator#validate(Ljava/lang/Object;Lorg/springframework/validation/Errors;)V"
+    ],
+    "org.springframework.samples.petclinic.owner.PetValidatorTests$ValidateHasErrors#validateWithInvalidBirthDate": [
+      "org.springframework.samples.petclinic.model.BaseEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.BaseEntity#isNew()Z",
+      "org.springframework.samples.petclinic.model.NamedEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;",
+      "org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V",
+      "org.springframework.samples.petclinic.owner.Pet#<init>()V",
+      "org.springframework.samples.petclinic.owner.Pet#getBirthDate()Ljava/time/LocalDate;",
+      "org.springframework.samples.petclinic.owner.Pet#getType()Lorg/springframework/samples/petclinic/owner/PetType;",
+      "org.springframework.samples.petclinic.owner.Pet#setBirthDate(Ljava/time/LocalDate;)V",
+      "org.springframework.samples.petclinic.owner.Pet#setType(Lorg/springframework/samples/petclinic/owner/PetType;)V",
+      "org.springframework.samples.petclinic.owner.PetType#<init>()V",
+      "org.springframework.samples.petclinic.owner.PetValidator#<init>()V",
+      "org.springframework.samples.petclinic.owner.PetValidator#validate(Ljava/lang/Object;Lorg/springframework/validation/Errors;)V"
+    ],
+    "org.springframework.samples.petclinic.owner.PetValidatorTests$ValidateHasErrors#validateWithInvalidPetName": [
+      "org.springframework.samples.petclinic.model.BaseEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.BaseEntity#isNew()Z",
+      "org.springframework.samples.petclinic.model.NamedEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;",
+      "org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V",
+      "org.springframework.samples.petclinic.owner.Pet#<init>()V",
+      "org.springframework.samples.petclinic.owner.Pet#getBirthDate()Ljava/time/LocalDate;",
+      "org.springframework.samples.petclinic.owner.Pet#getType()Lorg/springframework/samples/petclinic/owner/PetType;",
+      "org.springframework.samples.petclinic.owner.Pet#setBirthDate(Ljava/time/LocalDate;)V",
+      "org.springframework.samples.petclinic.owner.Pet#setType(Lorg/springframework/samples/petclinic/owner/PetType;)V",
+      "org.springframework.samples.petclinic.owner.PetType#<init>()V",
+      "org.springframework.samples.petclinic.owner.PetValidator#<init>()V",
+      "org.springframework.samples.petclinic.owner.PetValidator#validate(Ljava/lang/Object;Lorg/springframework/validation/Errors;)V"
+    ],
+    "org.springframework.samples.petclinic.owner.PetValidatorTests$ValidateHasErrors#validateWithInvalidPetType": [
+      "org.springframework.samples.petclinic.model.BaseEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.BaseEntity#isNew()Z",
+      "org.springframework.samples.petclinic.model.NamedEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;",
+      "org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V",
+      "org.springframework.samples.petclinic.owner.Pet#<init>()V",
+      "org.springframework.samples.petclinic.owner.Pet#getBirthDate()Ljava/time/LocalDate;",
+      "org.springframework.samples.petclinic.owner.Pet#getType()Lorg/springframework/samples/petclinic/owner/PetType;",
+      "org.springframework.samples.petclinic.owner.Pet#setBirthDate(Ljava/time/LocalDate;)V",
+      "org.springframework.samples.petclinic.owner.Pet#setType(Lorg/springframework/samples/petclinic/owner/PetType;)V",
+      "org.springframework.samples.petclinic.owner.PetType#<init>()V",
+      "org.springframework.samples.petclinic.owner.PetValidator#<init>()V",
+      "org.springframework.samples.petclinic.owner.PetValidator#validate(Ljava/lang/Object;Lorg/springframework/validation/Errors;)V"
+    ],
+    "org.springframework.samples.petclinic.service.ClinicServiceTests#shouldAddNewVisitForPet": [
+      "org.springframework.samples.petclinic.model.BaseEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;",
+      "org.springframework.samples.petclinic.model.BaseEntity#isNew()Z",
+      "org.springframework.samples.petclinic.model.NamedEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.Person#<init>()V",
+      "org.springframework.samples.petclinic.owner.Owner#<init>()V",
+      "org.springframework.samples.petclinic.owner.Owner#addVisit(Ljava/lang/Integer;Lorg/springframework/samples/petclinic/owner/Visit;)V",
+      "org.springframework.samples.petclinic.owner.Owner#getPet(Ljava/lang/Integer;)Lorg/springframework/samples/petclinic/owner/Pet;",
+      "org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;",
+      "org.springframework.samples.petclinic.owner.Pet#<init>()V",
+      "org.springframework.samples.petclinic.owner.Pet#addVisit(Lorg/springframework/samples/petclinic/owner/Visit;)V",
+      "org.springframework.samples.petclinic.owner.Pet#getVisits()Ljava/util/Collection;",
+      "org.springframework.samples.petclinic.owner.PetType#<init>()V",
+      "org.springframework.samples.petclinic.owner.Visit#<init>()V",
+      "org.springframework.samples.petclinic.owner.Visit#setDescription(Ljava/lang/String;)V"
+    ],
+    "org.springframework.samples.petclinic.service.ClinicServiceTests#shouldAllowSamePetNameForDifferentOwners": [
+      "org.springframework.samples.petclinic.model.BaseEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;",
+      "org.springframework.samples.petclinic.model.BaseEntity#isNew()Z",
+      "org.springframework.samples.petclinic.model.NamedEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;",
+      "org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V",
+      "org.springframework.samples.petclinic.model.Person#<init>()V",
+      "org.springframework.samples.petclinic.owner.Owner#<init>()V",
+      "org.springframework.samples.petclinic.owner.Owner#addPet(Lorg/springframework/samples/petclinic/owner/Pet;)V",
+      "org.springframework.samples.petclinic.owner.Owner#getPet(Ljava/lang/String;)Lorg/springframework/samples/petclinic/owner/Pet;",
+      "org.springframework.samples.petclinic.owner.Owner#getPet(Ljava/lang/String;Z)Lorg/springframework/samples/petclinic/owner/Pet;",
+      "org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;",
+      "org.springframework.samples.petclinic.owner.Pet#<init>()V",
+      "org.springframework.samples.petclinic.owner.Pet#setBirthDate(Ljava/time/LocalDate;)V",
+      "org.springframework.samples.petclinic.owner.Pet#setType(Lorg/springframework/samples/petclinic/owner/PetType;)V",
+      "org.springframework.samples.petclinic.owner.PetType#<init>()V"
+    ],
+    "org.springframework.samples.petclinic.service.ClinicServiceTests#shouldFailToInsertDuplicatePetNameForSameOwner": [
+      "org.springframework.samples.petclinic.model.BaseEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;",
+      "org.springframework.samples.petclinic.model.BaseEntity#isNew()Z",
+      "org.springframework.samples.petclinic.model.NamedEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V",
+      "org.springframework.samples.petclinic.model.Person#<init>()V",
+      "org.springframework.samples.petclinic.owner.Owner#<init>()V",
+      "org.springframework.samples.petclinic.owner.Owner#addPet(Lorg/springframework/samples/petclinic/owner/Pet;)V",
+      "org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;",
+      "org.springframework.samples.petclinic.owner.Pet#<init>()V",
+      "org.springframework.samples.petclinic.owner.Pet#setBirthDate(Ljava/time/LocalDate;)V",
+      "org.springframework.samples.petclinic.owner.Pet#setType(Lorg/springframework/samples/petclinic/owner/PetType;)V",
+      "org.springframework.samples.petclinic.owner.PetType#<init>()V"
+    ],
+    "org.springframework.samples.petclinic.service.ClinicServiceTests#shouldFindAllPetTypes": [
+      "org.springframework.samples.petclinic.model.BaseEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;",
+      "org.springframework.samples.petclinic.model.NamedEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;",
+      "org.springframework.samples.petclinic.owner.PetType#<init>()V"
+    ],
+    "org.springframework.samples.petclinic.service.ClinicServiceTests#shouldFindOwnersByLastName": [
+      "org.springframework.samples.petclinic.model.BaseEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.NamedEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.Person#<init>()V",
+      "org.springframework.samples.petclinic.owner.Owner#<init>()V",
+      "org.springframework.samples.petclinic.owner.Pet#<init>()V",
+      "org.springframework.samples.petclinic.owner.PetType#<init>()V"
+    ],
+    "org.springframework.samples.petclinic.service.ClinicServiceTests#shouldFindSingleOwnerWithPet": [
+      "org.springframework.samples.petclinic.model.BaseEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.NamedEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;",
+      "org.springframework.samples.petclinic.model.Person#<init>()V",
+      "org.springframework.samples.petclinic.model.Person#getLastName()Ljava/lang/String;",
+      "org.springframework.samples.petclinic.owner.Owner#<init>()V",
+      "org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;",
+      "org.springframework.samples.petclinic.owner.Pet#<init>()V",
+      "org.springframework.samples.petclinic.owner.Pet#getType()Lorg/springframework/samples/petclinic/owner/PetType;",
+      "org.springframework.samples.petclinic.owner.PetType#<init>()V"
+    ],
+    "org.springframework.samples.petclinic.service.ClinicServiceTests#shouldFindVets": [
+      "org.springframework.samples.petclinic.model.BaseEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;",
+      "org.springframework.samples.petclinic.model.NamedEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;",
+      "org.springframework.samples.petclinic.model.Person#<init>()V",
+      "org.springframework.samples.petclinic.model.Person#getLastName()Ljava/lang/String;",
+      "org.springframework.samples.petclinic.vet.Specialty#<init>()V",
+      "org.springframework.samples.petclinic.vet.Vet#<init>()V",
+      "org.springframework.samples.petclinic.vet.Vet#getNrOfSpecialties()I",
+      "org.springframework.samples.petclinic.vet.Vet#getSpecialties()Ljava/util/List;",
+      "org.springframework.samples.petclinic.vet.Vet#getSpecialtiesInternal()Ljava/util/Set;"
+    ],
+    "org.springframework.samples.petclinic.service.ClinicServiceTests#shouldFindVisitsByPetId": [
+      "org.springframework.samples.petclinic.model.BaseEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;",
+      "org.springframework.samples.petclinic.model.BaseEntity#isNew()Z",
+      "org.springframework.samples.petclinic.model.NamedEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.Person#<init>()V",
+      "org.springframework.samples.petclinic.owner.Owner#<init>()V",
+      "org.springframework.samples.petclinic.owner.Owner#getPet(Ljava/lang/Integer;)Lorg/springframework/samples/petclinic/owner/Pet;",
+      "org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;",
+      "org.springframework.samples.petclinic.owner.Pet#<init>()V",
+      "org.springframework.samples.petclinic.owner.Pet#getVisits()Ljava/util/Collection;",
+      "org.springframework.samples.petclinic.owner.PetType#<init>()V",
+      "org.springframework.samples.petclinic.owner.Visit#<init>()V",
+      "org.springframework.samples.petclinic.owner.Visit#getDate()Ljava/time/LocalDate;"
+    ],
+    "org.springframework.samples.petclinic.service.ClinicServiceTests#shouldInsertOwner": [
+      "org.springframework.samples.petclinic.model.BaseEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;",
+      "org.springframework.samples.petclinic.model.Person#<init>()V",
+      "org.springframework.samples.petclinic.model.Person#setFirstName(Ljava/lang/String;)V",
+      "org.springframework.samples.petclinic.model.Person#setLastName(Ljava/lang/String;)V",
+      "org.springframework.samples.petclinic.owner.Owner#<init>()V",
+      "org.springframework.samples.petclinic.owner.Owner#setAddress(Ljava/lang/String;)V",
+      "org.springframework.samples.petclinic.owner.Owner#setCity(Ljava/lang/String;)V",
+      "org.springframework.samples.petclinic.owner.Owner#setTelephone(Ljava/lang/String;)V"
+    ],
+    "org.springframework.samples.petclinic.service.ClinicServiceTests#shouldInsertPetIntoDatabaseAndGenerateId": [
+      "org.springframework.samples.petclinic.model.BaseEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;",
+      "org.springframework.samples.petclinic.model.BaseEntity#isNew()Z",
+      "org.springframework.samples.petclinic.model.NamedEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;",
+      "org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V",
+      "org.springframework.samples.petclinic.model.Person#<init>()V",
+      "org.springframework.samples.petclinic.owner.Owner#<init>()V",
+      "org.springframework.samples.petclinic.owner.Owner#addPet(Lorg/springframework/samples/petclinic/owner/Pet;)V",
+      "org.springframework.samples.petclinic.owner.Owner#getPet(Ljava/lang/String;)Lorg/springframework/samples/petclinic/owner/Pet;",
+      "org.springframework.samples.petclinic.owner.Owner#getPet(Ljava/lang/String;Z)Lorg/springframework/samples/petclinic/owner/Pet;",
+      "org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;",
+      "org.springframework.samples.petclinic.owner.Pet#<init>()V",
+      "org.springframework.samples.petclinic.owner.Pet#setBirthDate(Ljava/time/LocalDate;)V",
+      "org.springframework.samples.petclinic.owner.Pet#setType(Lorg/springframework/samples/petclinic/owner/PetType;)V",
+      "org.springframework.samples.petclinic.owner.PetType#<init>()V",
+      "org.springframework.samples.petclinic.owner.Visit#<init>()V"
+    ],
+    "org.springframework.samples.petclinic.service.ClinicServiceTests#shouldUpdateOwner": [
+      "org.springframework.samples.petclinic.model.BaseEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.NamedEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.Person#<init>()V",
+      "org.springframework.samples.petclinic.model.Person#getLastName()Ljava/lang/String;",
+      "org.springframework.samples.petclinic.model.Person#setLastName(Ljava/lang/String;)V",
+      "org.springframework.samples.petclinic.owner.Owner#<init>()V",
+      "org.springframework.samples.petclinic.owner.Pet#<init>()V",
+      "org.springframework.samples.petclinic.owner.PetType#<init>()V"
+    ],
+    "org.springframework.samples.petclinic.service.ClinicServiceTests#shouldUpdatePetName": [
+      "org.springframework.samples.petclinic.model.BaseEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;",
+      "org.springframework.samples.petclinic.model.BaseEntity#isNew()Z",
+      "org.springframework.samples.petclinic.model.NamedEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;",
+      "org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V",
+      "org.springframework.samples.petclinic.model.Person#<init>()V",
+      "org.springframework.samples.petclinic.owner.Owner#<init>()V",
+      "org.springframework.samples.petclinic.owner.Owner#getPet(Ljava/lang/Integer;)Lorg/springframework/samples/petclinic/owner/Pet;",
+      "org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;",
+      "org.springframework.samples.petclinic.owner.Pet#<init>()V",
+      "org.springframework.samples.petclinic.owner.PetType#<init>()V",
+      "org.springframework.samples.petclinic.owner.Visit#<init>()V"
+    ],
+    "org.springframework.samples.petclinic.system.CrashControllerTests#triggerException": [
+      "org.springframework.samples.petclinic.system.CrashController#triggerException()Ljava/lang/String;"
+    ],
+    "org.springframework.samples.petclinic.system.I18nPropertiesSyncTest#checkI18nPropertyFilesAreInSync": [
+
+    ],
+    "org.springframework.samples.petclinic.system.I18nPropertiesSyncTest#checkNonInternationalizedStrings": [
+
+    ],
+    "org.springframework.samples.petclinic.vet.VetTests#serialization": [
+      "org.springframework.samples.petclinic.model.BaseEntity#<init>()V",
+      "org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;",
+      "org.springframework.samples.petclinic.model.BaseEntity#setId(Ljava/lang/Integer;)V",
+      "org.springframework.samples.petclinic.model.Person#<init>()V",
+      "org.springframework.samples.petclinic.model.Person#getFirstName()Ljava/lang/String;",
+      "org.springframework.samples.petclinic.model.Person#getLastName()Ljava/lang/String;",
+      "org.springframework.samples.petclinic.model.Person#setFirstName(Ljava/lang/String;)V",
+      "org.springframework.samples.petclinic.model.Person#setLastName(Ljava/lang/String;)V",
+      "org.springframework.samples.petclinic.vet.Vet#<init>()V"
+    ]
+  },
+  "globalMethodHits": [
+    {
+      "methodId": "278315529760388049",
+      "count": 19,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.model.BaseEntity#isNew()Z"
+      ]
+    },
+    {
+      "methodId": "1000290910352929355",
+      "count": 5,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.model.Person#setLastName(Ljava/lang/String;)V"
+      ]
+    },
+    {
+      "methodId": "1005759849503114409",
+      "count": 79,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.model.NamedEntity#<init>()V"
+      ]
+    },
+    {
+      "methodId": "1130306210692170288",
+      "count": 18,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V"
+      ]
+    },
+    {
+      "methodId": "1130808991853178862",
+      "count": 28,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;"
+      ]
+    },
+    {
+      "methodId": "1745949159609456096",
+      "count": 43,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.PetType#<init>()V"
+      ]
+    },
+    {
+      "methodId": "2059054034799799278",
+      "count": 3,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.Owner#getPet(Ljava/lang/String;Z)Lorg/springframework/samples/petclinic/owner/Pet;"
+      ]
+    },
+    {
+      "methodId": "2466980662821176403",
+      "count": 1,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.Visit#getDate()Ljava/time/LocalDate;"
+      ]
+    },
+    {
+      "methodId": "3687787263526529906",
+      "count": 8,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.vet.Vet#<init>()V"
+      ]
+    },
+    {
+      "methodId": "3705527707965688239",
+      "count": 2,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.PetValidator#supports(Ljava/lang/Class;)Z"
+      ]
+    },
+    {
+      "methodId": "3988880037675390143",
+      "count": 19,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;"
+      ]
+    },
+    {
+      "methodId": "4078280533613163605",
+      "count": 4,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.vet.Specialty#<init>()V"
+      ]
+    },
+    {
+      "methodId": "4528473174783938043",
+      "count": 9,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.Pet#setType(Lorg/springframework/samples/petclinic/owner/PetType;)V"
+      ]
+    },
+    {
+      "methodId": "4553973159241234405",
+      "count": 1,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.Pet#addVisit(Lorg/springframework/samples/petclinic/owner/Visit;)V"
+      ]
+    },
+    {
+      "methodId": "4678833797871076031",
+      "count": 6,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.Pet#getType()Lorg/springframework/samples/petclinic/owner/PetType;"
+      ]
+    },
+    {
+      "methodId": "5490813690164684815",
+      "count": 1,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.model.BaseEntity#setId(Ljava/lang/Integer;)V"
+      ]
+    },
+    {
+      "methodId": "5793986600954077596",
+      "count": 23,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.model.Person#<init>()V"
+      ]
+    },
+    {
+      "methodId": "5811564449166368048",
+      "count": 1,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.system.CrashController#<init>()V"
+      ]
+    },
+    {
+      "methodId": "5827673233009856031",
+      "count": 121,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.model.BaseEntity#<init>()V"
+      ]
+    },
+    {
+      "methodId": "6011974298628029707",
+      "count": 6,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.model.Person#getLastName()Ljava/lang/String;"
+      ]
+    },
+    {
+      "methodId": "6065441267297580604",
+      "count": 1,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.Visit#setDescription(Ljava/lang/String;)V"
+      ]
+    },
+    {
+      "methodId": "6387756474133845688",
+      "count": 32,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.Pet#<init>()V"
+      ]
+    },
+    {
+      "methodId": "6489430709466358336",
+      "count": 3,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.Owner#getPet(Ljava/lang/String;)Lorg/springframework/samples/petclinic/owner/Pet;"
+      ]
+    },
+    {
+      "methodId": "6491468038725137607",
+      "count": 2,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.model.Person#getFirstName()Ljava/lang/String;"
+      ]
+    },
+    {
+      "methodId": "6803560352752984405",
+      "count": 5,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.Owner#getPet(Ljava/lang/Integer;)Lorg/springframework/samples/petclinic/owner/Pet;"
+      ]
+    },
+    {
+      "methodId": "8056643249034964223",
+      "count": 4,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.Pet#getVisits()Ljava/util/Collection;"
+      ]
+    },
+    {
+      "methodId": "8145849598130301080",
+      "count": 3,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.vet.Vet#getSpecialtiesInternal()Ljava/util/Set;"
+      ]
+    },
+    {
+      "methodId": "8171544542197706407",
+      "count": 4,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.PetValidator#validate(Ljava/lang/Object;Lorg/springframework/validation/Errors;)V"
+      ]
+    },
+    {
+      "methodId": "8216520936169939686",
+      "count": 1,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.Owner#setTelephone(Ljava/lang/String;)V"
+      ]
+    },
+    {
+      "methodId": "8264357173411472662",
+      "count": 13,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.Owner#<init>()V"
+      ]
+    },
+    {
+      "methodId": "8449451137667841326",
+      "count": 19,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.Visit#<init>()V"
+      ]
+    },
+    {
+      "methodId": "9040050556510757230",
+      "count": 1,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.vet.Vet#getNrOfSpecialties()I"
+      ]
+    },
+    {
+      "methodId": "9301032157431257548",
+      "count": 4,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.Pet#getBirthDate()Ljava/time/LocalDate;"
+      ]
+    },
+    {
+      "methodId": "10203984197846855130",
+      "count": 9,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.Pet#setBirthDate(Ljava/time/LocalDate;)V"
+      ]
+    },
+    {
+      "methodId": "10558940677533432089",
+      "count": 1,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.Owner#setCity(Ljava/lang/String;)V"
+      ]
+    },
+    {
+      "methodId": "10779780545397578217",
+      "count": 1,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.PetClinicApplication#<init>()V"
+      ]
+    },
+    {
+      "methodId": "11807558014710276734",
+      "count": 6,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.PetValidator#<init>()V"
+      ]
+    },
+    {
+      "methodId": "12007507766669563043",
+      "count": 3,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.PetTypeFormatter#<init>(Lorg/springframework/samples/petclinic/owner/PetTypeRepository;)V"
+      ]
+    },
+    {
+      "methodId": "12157639640650889951",
+      "count": 1,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.system.CrashController#triggerException()Ljava/lang/String;"
+      ]
+    },
+    {
+      "methodId": "13162012572328210603",
+      "count": 2,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.vet.Vet#getSpecialties()Ljava/util/List;"
+      ]
+    },
+    {
+      "methodId": "13633668386788209122",
+      "count": 1,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.Owner#setAddress(Ljava/lang/String;)V"
+      ]
+    },
+    {
+      "methodId": "14110448089254152607",
+      "count": 4,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.model.Person#setFirstName(Ljava/lang/String;)V"
+      ]
+    },
+    {
+      "methodId": "14778200231917891559",
+      "count": 1,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.PetTypeFormatter#print(Lorg/springframework/samples/petclinic/owner/PetType;Ljava/util/Locale;)Ljava/lang/String;"
+      ]
+    },
+    {
+      "methodId": "15874902705867238263",
+      "count": 58,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;"
+      ]
+    },
+    {
+      "methodId": "16556629183541161203",
+      "count": 5,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.Owner#addPet(Lorg/springframework/samples/petclinic/owner/Pet;)V"
+      ]
+    },
+    {
+      "methodId": "16662504872548960157",
+      "count": 2,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Lorg/springframework/samples/petclinic/owner/PetType;"
+      ]
+    },
+    {
+      "methodId": "17016832949090128402",
+      "count": 1,
+      "canonicalKeys": [
+        "org.springframework.samples.petclinic.owner.Owner#addVisit(Ljava/lang/Integer;Lorg/springframework/samples/petclinic/owner/Visit;)V"
+      ]
+    }
+  ],
+  "unattributedEvents": [
+
+  ],
+  "testDiagnostics": {
+    "org.springframework.samples.petclinic.model.ValidatorTests#shouldNotValidateWhenFirstNameEmpty": [
+
+    ],
+    "org.springframework.samples.petclinic.model.ValidatorTests#shouldNotValidateWhenLastNameEmpty": [
+
+    ],
+    "org.springframework.samples.petclinic.owner.PetTypeFormatterTests#shouldParse": [
+
+    ],
+    "org.springframework.samples.petclinic.owner.PetTypeFormatterTests#shouldThrowParseException": [
+
+    ],
+    "org.springframework.samples.petclinic.owner.PetTypeFormatterTests#testPrint": [
+
+    ],
+    "org.springframework.samples.petclinic.owner.PetValidatorTests#doesNotSupportNonPetClass": [
+
+    ],
+    "org.springframework.samples.petclinic.owner.PetValidatorTests#supportsPetClass": [
+
+    ],
+    "org.springframework.samples.petclinic.owner.PetValidatorTests#validate": [
+
+    ],
+    "org.springframework.samples.petclinic.owner.PetValidatorTests$ValidateHasErrors#validateWithInvalidBirthDate": [
+      {
+        "reason": "LATE_EVENT",
+        "eventType": "METHOD",
+        "eventIdentity": "org.springframework.samples.petclinic.PetClinicApplication#<init>()V",
+        "evidenceSource": "ASM_METHOD_ENTRY",
+        "certainty": "OBSERVED",
+        "count": 1
+      },
+      {
+        "reason": "LATE_EVENT",
+        "eventType": "METHOD",
+        "eventIdentity": "org.springframework.samples.petclinic.model.BaseEntity#<init>()V",
+        "evidenceSource": "ASM_METHOD_ENTRY",
+        "certainty": "OBSERVED",
+        "count": 6
+      },
+      {
+        "reason": "LATE_EVENT",
+        "eventType": "METHOD",
+        "eventIdentity": "org.springframework.samples.petclinic.model.NamedEntity#<init>()V",
+        "evidenceSource": "ASM_METHOD_ENTRY",
+        "certainty": "OBSERVED",
+        "count": 3
+      },
+      {
+        "reason": "LATE_EVENT",
+        "eventType": "METHOD",
+        "eventIdentity": "org.springframework.samples.petclinic.model.Person#<init>()V",
+        "evidenceSource": "ASM_METHOD_ENTRY",
+        "certainty": "OBSERVED",
+        "count": 2
+      },
+      {
+        "reason": "LATE_EVENT",
+        "eventType": "METHOD",
+        "eventIdentity": "org.springframework.samples.petclinic.owner.Owner#<init>()V",
+        "evidenceSource": "ASM_METHOD_ENTRY",
+        "certainty": "OBSERVED",
+        "count": 1
+      },
+      {
+        "reason": "LATE_EVENT",
+        "eventType": "METHOD",
+        "eventIdentity": "org.springframework.samples.petclinic.owner.Pet#<init>()V",
+        "evidenceSource": "ASM_METHOD_ENTRY",
+        "certainty": "OBSERVED",
+        "count": 1
+      },
+      {
+        "reason": "LATE_EVENT",
+        "eventType": "METHOD",
+        "eventIdentity": "org.springframework.samples.petclinic.owner.PetType#<init>()V",
+        "evidenceSource": "ASM_METHOD_ENTRY",
+        "certainty": "OBSERVED",
+        "count": 1
+      },
+      {
+        "reason": "LATE_EVENT",
+        "eventType": "METHOD",
+        "eventIdentity": "org.springframework.samples.petclinic.owner.Visit#<init>()V",
+        "evidenceSource": "ASM_METHOD_ENTRY",
+        "certainty": "OBSERVED",
+        "count": 1
+      },
+      {
+        "reason": "LATE_EVENT",
+        "eventType": "METHOD",
+        "eventIdentity": "org.springframework.samples.petclinic.vet.Specialty#<init>()V",
+        "evidenceSource": "ASM_METHOD_ENTRY",
+        "certainty": "OBSERVED",
+        "count": 1
+      },
+      {
+        "reason": "LATE_EVENT",
+        "eventType": "METHOD",
+        "eventIdentity": "org.springframework.samples.petclinic.vet.Vet#<init>()V",
+        "evidenceSource": "ASM_METHOD_ENTRY",
+        "certainty": "OBSERVED",
+        "count": 1
+      }
+    ],
+    "org.springframework.samples.petclinic.owner.PetValidatorTests$ValidateHasErrors#validateWithInvalidPetName": [
+
+    ],
+    "org.springframework.samples.petclinic.owner.PetValidatorTests$ValidateHasErrors#validateWithInvalidPetType": [
+
+    ],
+    "org.springframework.samples.petclinic.service.ClinicServiceTests#shouldAddNewVisitForPet": [
+
+    ],
+    "org.springframework.samples.petclinic.service.ClinicServiceTests#shouldAllowSamePetNameForDifferentOwners": [
+      {
+        "reason": "LATE_EVENT",
+        "eventType": "METHOD",
+        "eventIdentity": "org.springframework.samples.petclinic.system.CrashController#<init>()V",
+        "evidenceSource": "ASM_METHOD_ENTRY",
+        "certainty": "OBSERVED",
+        "count": 1
+      }
+    ],
+    "org.springframework.samples.petclinic.service.ClinicServiceTests#shouldFailToInsertDuplicatePetNameForSameOwner": [
+
+    ],
+    "org.springframework.samples.petclinic.service.ClinicServiceTests#shouldFindAllPetTypes": [
+
+    ],
+    "org.springframework.samples.petclinic.service.ClinicServiceTests#shouldFindOwnersByLastName": [
+
+    ],
+    "org.springframework.samples.petclinic.service.ClinicServiceTests#shouldFindSingleOwnerWithPet": [
+
+    ],
+    "org.springframework.samples.petclinic.service.ClinicServiceTests#shouldFindVets": [
+
+    ],
+    "org.springframework.samples.petclinic.service.ClinicServiceTests#shouldFindVisitsByPetId": [
+
+    ],
+    "org.springframework.samples.petclinic.service.ClinicServiceTests#shouldInsertOwner": [
+
+    ],
+    "org.springframework.samples.petclinic.service.ClinicServiceTests#shouldInsertPetIntoDatabaseAndGenerateId": [
+
+    ],
+    "org.springframework.samples.petclinic.service.ClinicServiceTests#shouldUpdateOwner": [
+
+    ],
+    "org.springframework.samples.petclinic.service.ClinicServiceTests#shouldUpdatePetName": [
+
+    ],
+    "org.springframework.samples.petclinic.system.CrashControllerTests#triggerException": [
+
+    ],
+    "org.springframework.samples.petclinic.system.I18nPropertiesSyncTest#checkI18nPropertyFilesAreInSync": [
+
+    ],
+    "org.springframework.samples.petclinic.system.I18nPropertiesSyncTest#checkNonInternationalizedStrings": [
+
+    ],
+    "org.springframework.samples.petclinic.vet.VetTests#serialization": [
+
+    ]
+  },
+  "agentErrors": [
+    "executor-attribution-unsupported:org.h2.mvstore.MVStore:java.util.concurrent.CompletableFuture.runAsync(Ljava/lang/Runnable;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;",
+    "executor-attribution-unsupported:org.springframework.beans.factory.support.DefaultListableBeanFactory:java.util.concurrent.CompletableFuture.runAsync(Ljava/lang/Runnable;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;",
+    "executor-attribution-unsupported:org.springframework.context.support.DefaultLifecycleProcessor:java.util.concurrent.CompletableFuture.runAsync(Ljava/lang/Runnable;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;",
+    "executor-attribution-unsupported:org.springframework.core.task.AsyncTaskExecutor:java.util.concurrent.CompletableFuture.runAsync(Ljava/lang/Runnable;Ljava/util/concurrent/Executor;)Ljava/util/concurrent/CompletableFuture;"
+  ],
+  "metrics": {
+    "classesSeen": 14073,
+    "classesIncluded": 22,
+    "classesExcluded": 12007,
+    "classesIgnored": 2044,
+    "transformationErrors": 0,
+    "transformerTotalNanos": 21387263,
+    "agentStartNanos": 79196456616250,
+    "classLoaderPresent": 12634,
+    "classLoaderMissing": 1439,
+    "protectionDomainPresent": 12379,
+    "protectionDomainMissing": 1694,
+    "classesTransformed": 15,
+    "methodsConsidered": 69,
+    "methodsInstrumented": 64,
+    "methodsSkipped": 5,
+    "alreadyInstrumentedClasses": 0,
+    "methodIdCollisions": 0,
+    "rawMethodHits": 584,
+    "uniqueMethodHits": 47,
+    "runtimeRecordingNanos": 6003571
+  }
+}

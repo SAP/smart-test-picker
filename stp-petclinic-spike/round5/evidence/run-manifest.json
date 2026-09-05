@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "stp-asm-round5-runs-1",
+  "petClinicCommit": "88e37c15cf6fc8490b01bc3e8e2c800cec1ac272",
+  "javaVersion": "openjdk version \"17.0.19\" 2026-04-21",
+  "selectors": [
+    "org.springframework.samples.petclinic.model.ValidatorTests",
+    "org.springframework.samples.petclinic.owner.PetTypeFormatterTests",
+    "org.springframework.samples.petclinic.owner.PetValidatorTests",
+    "org.springframework.samples.petclinic.owner.PetValidatorTests$ValidateHasErrors",
+    "org.springframework.samples.petclinic.service.ClinicServiceTests",
+    "org.springframework.samples.petclinic.system.CrashControllerTests",
+    "org.springframework.samples.petclinic.system.I18nPropertiesSyncTest",
+    "org.springframework.samples.petclinic.vet.VetTests"
+  ],
+  "runs": [
+    {
+      "name": "inventory-baseline",
+      "kind": "no-agent",
+      "order": "alphabetical",
+      "durationSeconds": 8.932935
+    },
+    {
+      "name": "asm-full-inventory",
+      "kind": "asm-safety-probe",
+      "order": "alphabetical",
+      "success": false,
+      "durationSeconds": 4.950983,
+      "outputBytes": 261042
+    },
+    {
+      "name": "mapped-inventory-baseline",
+      "kind": "no-agent",
+      "order": "alphabetical",
+      "durationSeconds": 3.191008
+    },
+    {
+      "name": "asm-fixed-1",
+      "kind": "asm",
+      "order": "alphabetical",
+      "durationSeconds": 3.966658,
+      "outputBytes": 93135
+    },
+    {
+      "name": "asm-fixed-2",
+      "kind": "asm",
+      "order": "alphabetical",
+      "durationSeconds": 3.751539,
+      "outputBytes": 93135
+    },
+    {
+      "name": "asm-fixed-3",
+      "kind": "asm",
+      "order": "alphabetical",
+      "durationSeconds": 4.055733,
+      "outputBytes": 93135
+    },
+    {
+      "name": "asm-reverse-1",
+      "kind": "asm",
+      "order": "reversealphabetical",
+      "durationSeconds": 3.597887,
+      "outputBytes": 93141
+    },
+    {
+      "name": "jacoco-stp",
+      "kind": "jacoco",
+      "order": "alphabetical",
+      "durationSeconds": 4.886472,
+      "outputBytes": 31935
+    }
+  ]
+}
