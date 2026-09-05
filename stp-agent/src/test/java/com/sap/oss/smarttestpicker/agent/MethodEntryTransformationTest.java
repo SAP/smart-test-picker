@@ -204,6 +204,8 @@ class MethodEntryTransformationTest {
 		assertEquals(0, run.exitCode, run.output);
 		assertTrue(run.output.contains("executor-propagation-fixture-ok"));
 		String json = Files.readString(output);
+		assertTrue(json.contains("executor-attribution-unsupported:example.fixture.ExecutorPropagationFixtureMain:"
+				+ "java.util.concurrent.CompletableFuture.runAsync"));
 		assertTestHasOnly(json, "single", "single");
 		assertTestHasOnly(json, "reuse-a", "reusedA");
 		assertTestHasOnly(json, "reuse-b", "reusedB");
@@ -211,12 +213,17 @@ class MethodEntryTransformationTest {
 		assertTestHasOnly(json, "callable", "callable");
 		assertTestHasOnly(json, "nested", "nestedOuter", "nestedInner");
 		assertTestHasOnly(json, "failure", "failing");
+		assertTestHasOnly(json, "direct-thread-pool", "directThreadPool");
+		assertTestHasOnly(json, "custom-interface", "customInterface");
+		assertTestHasOnly(json, "custom-implementation", "customImplementation");
+		assertFalse(testSection(json, "completable-future").contains("AsyncApplication#completableFuture()V"));
 		String delayed = testSection(json, "delayed");
 		assertTrue(delayed.contains("\"reason\":\"LATE_EVENT\""));
 		assertTrue(delayed.contains("AsyncApplication#delayed()V"));
 		String global = json.substring(json.lastIndexOf("\"unattributedEvents\""));
 		assertTrue(global.contains("AsyncApplication#unrelated()V"));
 		assertTrue(global.contains("AsyncApplication#afterFailure()V"));
+		assertTrue(global.contains("AsyncApplication#completableFuture()V"));
 	}
 
 	@Test
@@ -285,7 +292,8 @@ class MethodEntryTransformationTest {
 		String section = testSection(json, testId);
 		for (String methodName : methodNames) assertTrue(section.contains("AsyncApplication#" + methodName));
 		for (String other : List.of("single", "reusedA", "reusedB", "fixedOne", "fixedTwo", "callable",
-				"nestedOuter", "nestedInner", "failing", "delayed", "unrelated", "afterFailure")) {
+				"nestedOuter", "nestedInner", "failing", "delayed", "unrelated", "afterFailure",
+				"directThreadPool", "customInterface", "customImplementation", "completableFuture")) {
 			boolean expected = java.util.Arrays.asList(methodNames).contains(other);
 			assertEquals(expected, section.contains("AsyncApplication#" + other), testId + " -> " + other);
 		}

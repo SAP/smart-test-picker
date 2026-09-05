@@ -9,12 +9,17 @@ import com.sap.oss.smarttestpicker.runtime.model.TestResult;
 import example.instrumented.AsyncApplication;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.RejectedExecutionException;
 
 public final class ExecutorPropagationFixtureMain {
 	private static final TestResult SUCCESS = new TestResult(TestExecutionStatus.SUCCESSFUL, null, null);
@@ -26,6 +31,9 @@ public final class ExecutorPropagationFixtureMain {
 		AsyncApplication application = new AsyncApplication();
 		ExecutorService single = Executors.newSingleThreadExecutor();
 		ExecutorService fixed = Executors.newFixedThreadPool(2);
+		ThreadPoolExecutor direct = new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS,
+				new LinkedBlockingQueue<>());
+		CustomExecutor custom = new CustomExecutor();
 		try {
 			run(context, test("single"), () -> single.submit(application::single).get());
 			run(context, test("reuse-a"), () -> single.submit(application::reusedA).get());
@@ -36,8 +44,8 @@ public final class ExecutorPropagationFixtureMain {
 				one.get();
 				two.get();
 			});
-			run(context, test("callable"), () -> check("callable-result".equals(
-					single.submit((Callable<String>) application::callable).get()), "callable result"));
+			run(context, test("callable"), () -> check(AsyncApplication.CALLABLE_RESULT ==
+					single.submit((Callable<String>) application::callable).get(), "callable result identity"));
 			run(context, test("nested"), () -> fixed.submit(() -> {
 				application.nestedOuter();
 				try {
@@ -51,6 +59,26 @@ public final class ExecutorPropagationFixtureMain {
 				ExecutionException failure = expect(ExecutionException.class, failed::get);
 				check(failure.getCause() == AsyncApplication.Failure.INSTANCE, "exception identity");
 			});
+			run(context, test("direct-thread-pool"), () -> direct.submit(application::directThreadPool).get());
+			NarrowExecutor narrow = custom;
+			run(context, test("custom-interface"), () -> {
+				CountDownLatch done = new CountDownLatch(1);
+				narrow.execute(() -> { application.customInterface(); done.countDown(); });
+				check(done.await(5, TimeUnit.SECONDS), "custom interface completion");
+			});
+			run(context, test("custom-implementation"), () -> {
+				CountDownLatch done = new CountDownLatch(1);
+				custom.execute(() -> { application.customImplementation(); done.countDown(); });
+				check(done.await(5, TimeUnit.SECONDS), "custom implementation completion");
+			});
+			run(context, test("completable-future"), () ->
+					CompletableFuture.runAsync(application::completableFuture, direct).get());
+
+			ThreadPoolExecutor rejecting = new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS,
+					new LinkedBlockingQueue<>());
+			rejecting.shutdown();
+			run(context, test("rejected"), () ->
+					expect(RejectedExecutionException.class, () -> rejecting.execute(application::single)));
 
 			CountDownLatch release = new CountDownLatch(1);
 			Future<?> blocker = single.submit((Callable<Void>) () -> { release.await(); return null; });
@@ -74,9 +102,19 @@ public final class ExecutorPropagationFixtureMain {
 		} finally {
 			single.shutdownNow();
 			fixed.shutdownNow();
+			direct.shutdownNow();
+			custom.shutdown();
 			single.awaitTermination(5, TimeUnit.SECONDS);
 			fixed.awaitTermination(5, TimeUnit.SECONDS);
 		}
+	}
+
+	private interface NarrowExecutor extends Executor { }
+
+	private static final class CustomExecutor implements NarrowExecutor {
+		private final ExecutorService delegate = Executors.newSingleThreadExecutor();
+		@Override public void execute(Runnable command) { delegate.execute(command); }
+		void shutdown() { delegate.shutdownNow(); }
 	}
 
 	private static void run(com.sap.oss.smarttestpicker.runtime.RuntimeContextService context,
