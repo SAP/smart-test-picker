@@ -7,6 +7,7 @@ import com.sap.oss.smarttestpicker.runtime.model.MethodIdentity;
 import example.instrumented.Calculator;
 import example.instrumented.ApplicationMethodKinds;
 import example.instrumented.InstrumentedFixtureMain;
+import example.fixture.ExecutorPropagationFixtureMain;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 import org.objectweb.asm.ClassReader;
@@ -197,6 +198,28 @@ class MethodEntryTransformationTest {
 	}
 
 	@Test
+	void executorCallSitesPropagateExactSubmittingTestWithoutPoolLeakage() throws Exception {
+		Path output = temporaryDirectory.resolve("executor.json");
+		ProcessResult run = runFixture(output, ExecutorPropagationFixtureMain.class);
+		assertEquals(0, run.exitCode, run.output);
+		assertTrue(run.output.contains("executor-propagation-fixture-ok"));
+		String json = Files.readString(output);
+		assertTestHasOnly(json, "single", "single");
+		assertTestHasOnly(json, "reuse-a", "reusedA");
+		assertTestHasOnly(json, "reuse-b", "reusedB");
+		assertTestHasOnly(json, "fixed", "fixedOne", "fixedTwo");
+		assertTestHasOnly(json, "callable", "callable");
+		assertTestHasOnly(json, "nested", "nestedOuter", "nestedInner");
+		assertTestHasOnly(json, "failure", "failing");
+		String delayed = testSection(json, "delayed");
+		assertTrue(delayed.contains("\"reason\":\"LATE_EVENT\""));
+		assertTrue(delayed.contains("AsyncApplication#delayed()V"));
+		String global = json.substring(json.lastIndexOf("\"unattributedEvents\""));
+		assertTrue(global.contains("AsyncApplication#unrelated()V"));
+		assertTrue(global.contains("AsyncApplication#afterFailure()V"));
+	}
+
+	@Test
 	void agentJarRelocatesAsmAndDoesNotExposeOriginalPackageOrAsmInPublicApi() throws Exception {
 		try (JarFile jar = new JarFile(agentJar().toFile())) {
 			assertTrue(jar.stream().anyMatch(entry -> entry.getName()
@@ -244,14 +267,35 @@ class MethodEntryTransformationTest {
 	}
 
 	private ProcessResult runFixture(Path output) throws Exception {
+		return runFixture(output, InstrumentedFixtureMain.class);
+	}
+
+	private ProcessResult runFixture(Path output, Class<?> mainClass) throws Exception {
 		String java = Path.of(System.getProperty("java.home"), "bin", "java").toString();
-		String testClasses = Path.of(InstrumentedFixtureMain.class.getProtectionDomain().getCodeSource().getLocation()
+		String testClasses = Path.of(mainClass.getProtectionDomain().getCodeSource().getLocation()
 				.toURI()).toString();
 		String args = "output=" + output + ";includes=example.instrumented.;runId=fixture-run;debug=false;instrumentation=on";
 		Process process = new ProcessBuilder(java, "-Xverify:all", "-javaagent:" + agentJar() + "=" + args,
-				"-cp", testClasses, InstrumentedFixtureMain.class.getName()).redirectErrorStream(true).start();
+				"-cp", testClasses, mainClass.getName()).redirectErrorStream(true).start();
 		String processOutput = new String(process.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
 		return new ProcessResult(process.waitFor(), processOutput);
+	}
+
+	private static void assertTestHasOnly(String json, String testId, String... methodNames) {
+		String section = testSection(json, testId);
+		for (String methodName : methodNames) assertTrue(section.contains("AsyncApplication#" + methodName));
+		for (String other : List.of("single", "reusedA", "reusedB", "fixedOne", "fixedTwo", "callable",
+				"nestedOuter", "nestedInner", "failing", "delayed", "unrelated", "afterFailure")) {
+			boolean expected = java.util.Arrays.asList(methodNames).contains(other);
+			assertEquals(expected, section.contains("AsyncApplication#" + other), testId + " -> " + other);
+		}
+	}
+
+	private static String testSection(String json, String testId) {
+		int start = json.indexOf("\"testId\": \"" + testId + "\"");
+		assertTrue(start >= 0, "missing test " + testId);
+		int next = json.indexOf("\"testId\": \"", start + 1);
+		return json.substring(start, next < 0 ? json.indexOf("\"unattributedEvents\"", start) : next);
 	}
 
 	private static String normalizeVolatileMetrics(String json) {

@@ -9,10 +9,11 @@ import com.sap.oss.smarttestpicker.runtime.model.UnattributedReason;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.Callable;
 
 /**
- * Explicit same-thread attribution scope. This class deliberately performs no
- * executor, reactive, request, or other cross-thread propagation.
+ * Explicit attribution scope. Cross-thread use is limited to snapshots installed
+ * around wrapped executor tasks; reactive and request propagation are not implied.
  */
 public final class RuntimeContextService {
 	private final RuntimeEventAggregator aggregator;
@@ -51,6 +52,53 @@ public final class RuntimeContextService {
 
 	public Optional<TestIdentity> currentTest() {
 		return Optional.ofNullable(current.get());
+	}
+
+	/** Captures the active test at submission and restores the worker's state after execution. */
+	public Runnable wrap(Runnable task) {
+		Objects.requireNonNull(task, "task");
+		TestIdentity captured = current.get();
+		return captured == null ? task : () -> runWith(captured, task);
+	}
+
+	/** Captures the active test at submission and restores the worker's state after execution. */
+	public <V> Callable<V> wrap(Callable<V> task) {
+		Objects.requireNonNull(task, "task");
+		TestIdentity captured = current.get();
+		return captured == null ? task : () -> callWith(captured, task);
+	}
+
+	private void runWith(TestIdentity captured, Runnable task) {
+		TestIdentity previous = installCaptured(captured);
+		TestIdentity previousFinished = lastFinished.get();
+		lastFinished.remove();
+		try {
+			task.run();
+		} finally {
+			restore(previous, previousFinished);
+		}
+	}
+
+	private <V> V callWith(TestIdentity captured, Callable<V> task) throws Exception {
+		TestIdentity previous = installCaptured(captured);
+		TestIdentity previousFinished = lastFinished.get();
+		lastFinished.remove();
+		try {
+			return task.call();
+		} finally {
+			restore(previous, previousFinished);
+		}
+	}
+
+	private TestIdentity installCaptured(TestIdentity captured) {
+		TestIdentity previous = current.get();
+		current.set(captured);
+		return previous;
+	}
+
+	private void restore(TestIdentity previous, TestIdentity previousFinished) {
+		if (previous == null) current.remove(); else current.set(previous);
+		if (previousFinished == null) lastFinished.remove(); else lastFinished.set(previousFinished);
 	}
 
 	public void record(RuntimeEvent event) {

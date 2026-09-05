@@ -3,6 +3,7 @@
 package com.sap.oss.smarttestpicker.runtime;
 
 import java.util.Objects;
+import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.LongConsumer;
 
@@ -29,6 +30,24 @@ public final class RuntimeHooks {
 		}
 	}
 
+	public static Runnable wrap(Runnable task) {
+		if (task == null) return null;
+		try {
+			return RuntimeContextRegistry.current().map(service -> service.wrap(task)).orElse(task);
+		} catch (Throwable ignored) {
+			return task;
+		}
+	}
+
+	public static <V> Callable<V> wrap(Callable<V> task) {
+		if (task == null) return null;
+		try {
+			return RuntimeContextRegistry.current().map(service -> service.wrap(task)).orElse(task);
+		} catch (Throwable ignored) {
+			return task;
+		}
+	}
+
 	public static final class Registration implements AutoCloseable {
 		private final LongConsumer installed;
 		private boolean closed;
@@ -46,4 +65,3 @@ public final class RuntimeHooks {
 		}
 	}
 }
-
