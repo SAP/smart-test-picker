@@ -3,14 +3,5 @@
 package com.sap.oss.smarttestpicker.runtime.model;
 
 public enum EvidenceSource {
-	ASM_METHOD_ENTRY,
-	JUNIT_PLATFORM,
-	SPRING_BEAN,
-	SPRING_MVC,
-	SPRING_DATA,
-	JPA_METADATA,
-	HIBERNATE_EVENT,
-	HIBERNATE_SQL,
-	STATIC_MAPPING
+	ASM_METHOD_ENTRY
 }
-

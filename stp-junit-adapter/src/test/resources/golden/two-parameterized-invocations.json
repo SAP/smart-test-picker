@@ -13,14 +13,6 @@
       "methods": [
         {"methodId":null,"method":"fixture.Target#parameterized()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
       ],
-      "springBeans": [],
-      "endpoints": [],
-      "repositories": [],
-      "entities": [],
-      "tables": {
-        "mapped": [],
-        "observed": []
-      },
       "unattributedEvents": [],
       "metrics": {
         "rawMethodHits": 1,
@@ -37,14 +29,6 @@
       "methods": [
         {"methodId":null,"method":"fixture.Target#parameterized()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
       ],
-      "springBeans": [],
-      "endpoints": [],
-      "repositories": [],
-      "entities": [],
-      "tables": {
-        "mapped": [],
-        "observed": []
-      },
       "unattributedEvents": [],
       "metrics": {
         "rawMethodHits": 1,

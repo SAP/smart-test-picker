@@ -2,13 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.runtime;
 
-import com.sap.oss.smarttestpicker.runtime.model.EndpointEvent;
-import com.sap.oss.smarttestpicker.runtime.model.EntityEvent;
 import com.sap.oss.smarttestpicker.runtime.model.MethodHitEvent;
-import com.sap.oss.smarttestpicker.runtime.model.RepositoryInvocationEvent;
 import com.sap.oss.smarttestpicker.runtime.model.RuntimeEvent;
-import com.sap.oss.smarttestpicker.runtime.model.SpringBeanEvent;
-import com.sap.oss.smarttestpicker.runtime.model.TableEvent;
 import com.sap.oss.smarttestpicker.runtime.model.TestIdentity;
 import com.sap.oss.smarttestpicker.runtime.model.TestResult;
 import com.sap.oss.smarttestpicker.runtime.model.UnattributedEvent;
@@ -129,22 +124,12 @@ public final class RuntimeEventAggregator {
 		final TestIdentity identity;
 		final TestResult result;
 		final Map<MethodHitEvent, Integer> methods;
-		final Map<SpringBeanEvent, Integer> springBeans;
-		final Map<EndpointEvent, Integer> endpoints;
-		final Map<RepositoryInvocationEvent, Integer> repositories;
-		final Map<EntityEvent, Integer> entities;
-		final Map<TableEvent, Integer> tables;
 		final Map<UnattributedEvent, Integer> unattributed;
 
 		TestBucketSnapshot(TestBucket bucket) {
 			identity = bucket.identity;
 			result = bucket.result;
 			methods = copy(bucket.methods);
-			springBeans = copy(bucket.springBeans);
-			endpoints = copy(bucket.endpoints);
-			repositories = copy(bucket.repositories);
-			entities = copy(bucket.entities);
-			tables = copy(bucket.tables);
 			unattributed = copy(bucket.unattributed);
 		}
 
@@ -156,11 +141,6 @@ public final class RuntimeEventAggregator {
 	private static final class TestBucket {
 		private final TestIdentity identity;
 		private final Map<MethodHitEvent, Integer> methods = new LinkedHashMap<>();
-		private final Map<SpringBeanEvent, Integer> springBeans = new LinkedHashMap<>();
-		private final Map<EndpointEvent, Integer> endpoints = new LinkedHashMap<>();
-		private final Map<RepositoryInvocationEvent, Integer> repositories = new LinkedHashMap<>();
-		private final Map<EntityEvent, Integer> entities = new LinkedHashMap<>();
-		private final Map<TableEvent, Integer> tables = new LinkedHashMap<>();
 		private final Map<UnattributedEvent, Integer> unattributed = new LinkedHashMap<>();
 		private boolean finished;
 		private TestResult result;
@@ -171,11 +151,6 @@ public final class RuntimeEventAggregator {
 
 		private void add(RuntimeEvent event) {
 			if (event instanceof MethodHitEvent value) methods.merge(value, 1, Integer::sum);
-			else if (event instanceof SpringBeanEvent value) springBeans.merge(value, 1, Integer::sum);
-			else if (event instanceof EndpointEvent value) endpoints.merge(value, 1, Integer::sum);
-			else if (event instanceof RepositoryInvocationEvent value) repositories.merge(value, 1, Integer::sum);
-			else if (event instanceof EntityEvent value) entities.merge(value, 1, Integer::sum);
-			else if (event instanceof TableEvent value) tables.merge(value, 1, Integer::sum);
 			else if (event instanceof UnattributedEvent value) addUnattributed(value);
 		}
 

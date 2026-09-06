@@ -93,10 +93,3 @@ tasks.register('jacocoAggregatedReport', JacocoReport) {
         xml.outputLocation = layout.buildDirectory.file('reports/jacoco/aggregated/jacoco.xml')
     }
 }
-
-tasks.register('validateSpringDataObservation') {
-    group = 'verification'
-    description = 'Validates the experimental shared runtime, JUnit, agent, Spring Data adapter, and E2E fixture.'
-    dependsOn ':stp-runtime:test', ':stp-junit-adapter:test', ':stp-agent:test',
-            ':stp-spring-data-adapter:test', ':stp-spring-data-e2e-fixture:validateE2eFixture'
-}

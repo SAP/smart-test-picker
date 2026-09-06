@@ -5,7 +5,7 @@ plugins {
     id 'com.gradleup.shadow' version '8.3.6'
 }
 
-description = 'Experimental no-op Java agent shell for the PetClinic spike'
+description = 'STP ASM mapping agent'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -24,7 +24,7 @@ dependencies {
 
 tasks.named('shadowJar') {
     dependsOn project(':stp-junit-adapter').tasks.named('classes')
-    archiveFileName = 'stp-agent-experimental.jar'
+    archiveFileName = 'stp-agent.jar'
     destinationDirectory = layout.buildDirectory.dir('libs')
     archiveClassifier = ''
     relocate 'org.objectweb.asm', 'com.sap.oss.smarttestpicker.internal.asm'
@@ -45,7 +45,7 @@ tasks.named('shadowJar') {
 
 tasks.register('agentJar') {
     group = 'build'
-    description = 'Builds the experimental shaded Java agent JAR.'
+    description = 'Builds the shaded STP ASM mapping agent JAR.'
     dependsOn tasks.named('shadowJar')
 }
 
@@ -57,4 +57,4 @@ test {
     }
 }
 
-// Experimental only: intentionally no maven-publish plugin.
+// The agent is currently consumed from the build; release publication is follow-up work.

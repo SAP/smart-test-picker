@@ -105,6 +105,9 @@ smart-test-picker-common/     Shared engine (no build-tool dependency)
 smart-test-picker/            Gradle plugin
 smart-test-picker-maven/      Maven plugin
 smart-test-picker-cli/        Standalone CLI (picocli + shadowJar)
+stp-agent/                    STP ASM mapping agent
+stp-runtime/                  Internal framework-neutral ASM runtime
+stp-junit-adapter/            Internal JUnit lifecycle listener
 ```
 
 | Module | Description | README |
@@ -114,6 +117,7 @@ smart-test-picker-cli/        Standalone CLI (picocli + shadowJar)
 | [smart-test-picker](smart-test-picker/) | Gradle plugin with tasks for the full pipeline | [README](smart-test-picker/README.md) |
 | [smart-test-picker-maven](smart-test-picker-maven/) | Maven plugin with mojos for multi-module projects | [README](smart-test-picker-maven/README.md) |
 | [smart-test-picker-cli](smart-test-picker-cli/) | Standalone CLI for non-Gradle/Maven environments | [README](smart-test-picker-cli/README.md) |
+| [stp-agent](stp-agent/) | STP ASM mapping agent (migration foundation; not yet wired into build tools) | [README](stp-agent/README.md) |
 
 ## Selection Algorithm
 
@@ -143,25 +147,6 @@ This avoids over-selection (running every test that touches a class) while maint
 
 # Publish to local Maven repository (for testing)
 ./gradlew publishToMavenLocal
-```
-
-## Experimental Spring Data observation
-
-The unpublished Spring Data adapter can enrich the spike runtime JSON with
-same-thread, caller-level repository dependencies. It is separate from, and is
-not used by, current regression-test selection. See the narrow compatibility
-and setup contract in [docs/spring-data-adapter.md](docs/spring-data-adapter.md).
-
-Contributors can reproduce the complete internal fixture with one command:
-
-```bash
-./gradlew :stp-spring-data-e2e-fixture:validateE2eFixture
-```
-
-The pinned external PetClinic acceptance is reproduced separately with:
-
-```bash
-ruby stp-petclinic-spike/spring-data-acceptance/run_acceptance.rb
 ```
 
 ## Support, Feedback, Contributing
