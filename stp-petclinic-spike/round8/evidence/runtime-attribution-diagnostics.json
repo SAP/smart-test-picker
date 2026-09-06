@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "stp-asm-round8-runtime-attribution-diagnostics-1",
+  "asmRun1": {
+    "contextDebugRecords": 41,
+    "captureRecords": 41,
+    "capturesWithActiveTest": 0,
+    "attachRecords": 0,
+    "restoreCleanupRecords": 0,
+    "observedPropagatedMechanisms": [],
+    "productionHitsMovedToTestIdentity": [],
+    "falseAttributionsRemovedByPropagation": [],
+    "lateEventsFromPropagatedWork": 0,
+    "lateEventsTotal": 19,
+    "noActiveTestCount": 0,
+    "unknownContextCount": 0
+  },
+  "asmRun2": {
+    "contextDebugRecords": 41,
+    "captureRecords": 41,
+    "capturesWithActiveTest": 0,
+    "attachRecords": 0,
+    "restoreCleanupRecords": 0,
+    "observedPropagatedMechanisms": [],
+    "productionHitsMovedToTestIdentity": [],
+    "falseAttributionsRemovedByPropagation": [],
+    "lateEventsFromPropagatedWork": 0,
+    "lateEventsTotal": 19,
+    "noActiveTestCount": 0,
+    "unknownContextCount": 0
+  },
+  "interpretation": "The capture hook was reached only without an active logical test context. No wrapper was created or attached, so no supported propagation mechanism was exercised under a TestIdentity. Task types or dependencies alone are not used to infer a mechanism. The 19 late events are same-thread setup/initialization events and have no matching attach evidence."
+}

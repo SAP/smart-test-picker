@@ -1,0 +1,175 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------< org.springframework.samples:spring-petclinic >------------
+[INFO] Building petclinic 4.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-cli) @ spring-petclinic ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[stp-agent] mode=method-entry; runId=round8-asm-run-1
+[stp-context] capture task=org.apache.maven.surefire.booter.spi.AbstractMasterProcessChannelProcessorFactory$1@724af044 test=none thread=main
+[stp-context] capture task=org.apache.maven.surefire.booter.ForkedBooter$8@5f341870 test=none thread=main
+[INFO] Running org.springframework.samples.petclinic.model.ValidatorTests
+18:44:30.070 [main] INFO org.hibernate.validator.internal.util.Version -- HV000001: Hibernate Validator 9.1.0.Final
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.158 s -- in org.springframework.samples.petclinic.model.ValidatorTests
+[INFO] Running org.springframework.samples.petclinic.owner.PetTypeFormatterTests
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.451 s -- in org.springframework.samples.petclinic.owner.PetTypeFormatterTests
+[INFO] Running org.springframework.samples.petclinic.owner.PetValidatorTests
+[INFO] Running org.springframework.samples.petclinic.owner.PetValidatorTests$ValidateHasErrors
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.006 s -- in org.springframework.samples.petclinic.owner.PetValidatorTests$ValidateHasErrors
+[INFO] Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016 s -- in org.springframework.samples.petclinic.owner.PetValidatorTests
+[INFO] Running org.springframework.samples.petclinic.service.ClinicServiceTests
+18:44:30.703 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.service.ClinicServiceTests]: ClinicServiceTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+18:44:30.785 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.service.ClinicServiceTests
+18:44:30.786 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.service.ClinicServiceTests]: ClinicServiceTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+18:44:30.796 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.service.ClinicServiceTests
+18:44:30.827 [main] INFO org.springframework.boot.devtools.restart.RestartApplicationListener -- Restart disabled due to context in which it is running
+[stp-context] capture task=org.springframework.boot.SpringApplicationShutdownHook@49e479da test=none thread=main
+[stp-context] capture task=org.springframework.boot.autoconfigure.preinitialize.BackgroundPreinitializingApplicationListener$Runner@76af34b5 test=none thread=main
+
+
+              |\      _,,,--,,_
+             /,`.-'`'   ._  \-;;,_
+  _______ __|,4-  ) )_   .;.(__`'-'__     ___ __    _ ___ _______
+ |       | '---''(_/._)-'(_\_)   |   |   |   |  |  | |   |       |
+ |    _  |    ___|_     _|       |   |   |   |   |_| |   |       | __ _ _
+ |   |_| |   |___  |   | |       |   |   |   |       |   |       | \ \ \ \
+ |    ___|    ___| |   | |      _|   |___|   |  _    |   |      _|  \ \ \ \
+ |   |   |   |___  |   | |     |_|       |   | | |   |   |     |_    ) ) ) )
+ |___|   |_______| |___| |_______|_______|___|_|  |__|___|_______|  / / / /
+ ==================================================================/_/_/_/
+
+:: Built with Spring Boot :: 4.1.0
+
+
+2026-09-05T18:44:30.954+03:00  INFO 50496 --- [           main] o.s.s.p.service.ClinicServiceTests       : Starting ClinicServiceTests using Java 17.0.19 with PID 50496 (started by d061177 in /private/tmp/stp-round2-petclinic)
+2026-09-05T18:44:30.955+03:00  INFO 50496 --- [           main] o.s.s.p.service.ClinicServiceTests       : No active profile set, falling back to 1 default profile: "default"
+[stp-context] capture task=org.springframework.boot.autoconfigure.condition.OnClassCondition$ThreadedOutcomesResolver$$Lambda$1255/0x00000070015cc000@359865a2 test=none thread=main
+2026-09-05T18:44:31.072+03:00  INFO 50496 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-05T18:44:31.093+03:00  INFO 50496 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 17 ms. Found 3 JPA repository interfaces.
+2026-09-05T18:44:31.149+03:00  INFO 50496 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+[stp-context] capture task=com.mysql.cj.jdbc.AbandonedConnectionCleanupThread@47c5cbf2 test=none thread=main
+[stp-context] capture task=java.util.concurrent.ThreadPoolExecutor$Worker@1031c1a0 test=none thread=main
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$MaxLifetimeTask@3211cc84 test=none thread=main
+[stp-context] capture task=java.util.concurrent.ThreadPoolExecutor$Worker@3d2eb7fa test=none thread=main
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$KeepaliveTask@2ab7f649 test=none thread=main
+2026-09-05T18:44:31.249+03:00  INFO 50496 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:24cca7c1-8a95-4e44-a4f1-d241935b751a user=SA
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$HouseKeeper@17dbca0a test=none thread=main
+2026-09-05T18:44:31.250+03:00  INFO 50496 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+[stp-context] capture task=org.h2.util.MathUtils$$Lambda$1441/0x00000070016ca3c8@6a299b9d test=none thread=main
+2026-09-05T18:44:31.312+03:00  INFO 50496 --- [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-09-05T18:44:31.334+03:00  INFO 50496 --- [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.1.Final
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator@7fb19f54 test=none thread=HikariPool-1:housekeeper
+[stp-context] capture task=java.util.concurrent.ThreadPoolExecutor$Worker@7b8e147a test=none thread=HikariPool-1:housekeeper
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator@7fb19f54 test=none thread=HikariPool-1:housekeeper
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator@7fb19f54 test=none thread=HikariPool-1:housekeeper
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator@7fb19f54 test=none thread=HikariPool-1:housekeeper
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator@7fb19f54 test=none thread=HikariPool-1:housekeeper
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator@7fb19f54 test=none thread=HikariPool-1:housekeeper
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator@7fb19f54 test=none thread=HikariPool-1:housekeeper
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator@7fb19f54 test=none thread=HikariPool-1:housekeeper
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator@7fb19f54 test=none thread=HikariPool-1:housekeeper
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$MaxLifetimeTask@1e2aab83 test=none thread=HikariPool-1:connection-adder
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$KeepaliveTask@1a152c9e test=none thread=HikariPool-1:connection-adder
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$MaxLifetimeTask@253f4f83 test=none thread=HikariPool-1:connection-adder
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$KeepaliveTask@6e029e14 test=none thread=HikariPool-1:connection-adder
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$MaxLifetimeTask@3f385ef7 test=none thread=HikariPool-1:connection-adder
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$KeepaliveTask@60245dc4 test=none thread=HikariPool-1:connection-adder
+2026-09-05T18:44:31.430+03:00  INFO 50496 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$MaxLifetimeTask@46c4a4a7 test=none thread=HikariPool-1:connection-adder
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$KeepaliveTask@3b76856e test=none thread=HikariPool-1:connection-adder
+2026-09-05T18:44:31.466+03:00  INFO 50496 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:24cca7c1-8a95-4e44-a4f1-d241935b751a]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: 24CCA7C1-8A95-4E44-A4F1-D241935B751A/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$MaxLifetimeTask@743b4a1 test=none thread=HikariPool-1:connection-adder
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$KeepaliveTask@64c1d972 test=none thread=HikariPool-1:connection-adder
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$MaxLifetimeTask@63c84e57 test=none thread=HikariPool-1:connection-adder
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$KeepaliveTask@79b41833 test=none thread=HikariPool-1:connection-adder
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$MaxLifetimeTask@1b6b66e1 test=none thread=HikariPool-1:connection-adder
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$KeepaliveTask@2aafb406 test=none thread=HikariPool-1:connection-adder
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$MaxLifetimeTask@514929fc test=none thread=HikariPool-1:connection-adder
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$KeepaliveTask@11d5015a test=none thread=HikariPool-1:connection-adder
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$MaxLifetimeTask@2a0b4253 test=none thread=HikariPool-1:connection-adder
+[stp-context] capture task=com.zaxxer.hikari.pool.HikariPool$KeepaliveTask@32958827 test=none thread=HikariPool-1:connection-adder
+2026-09-05T18:44:31.835+03:00  INFO 50496 --- [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-09-05T18:44:31.838+03:00  INFO 50496 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-05T18:44:31.871+03:00  INFO 50496 --- [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-09-05T18:44:32.096+03:00  INFO 50496 --- [           main] o.s.s.p.service.ClinicServiceTests       : Started ClinicServiceTests in 1.273 seconds (process running for 2.391)
+Hibernate: select v1_0.id,v1_0.first_name,v1_0.last_name from vets v1_0
+Hibernate: select s1_0.vet_id,s1_1.id,s1_1.name from vet_specialties s1_0 join specialties s1_1 on s1_1.id=s1_0.specialty_id where s1_0.vet_id in (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone from owners o1_0 where o1_0.last_name like ? escape '\'
+Hibernate: select p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from pets p1_0 left join types t1_0 on t1_0.id=p1_0.type_id where p1_0.owner_id in (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) order by p1_0.name
+Hibernate: select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id in (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) order by v1_0.visit_date
+Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone from owners o1_0 where o1_0.last_name like ? escape '\'
+Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone,p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from owners o1_0 left join pets p1_0 on o1_0.id=p1_0.owner_id left join types t1_0 on t1_0.id=p1_0.type_id where o1_0.id=? order by p1_0.name
+Hibernate: select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id=? order by v1_0.visit_date
+Hibernate: select pt1_0.id,pt1_0.name from types pt1_0 order by pt1_0.name
+Hibernate: insert into pets (birth_date,name,type_id,id) values (?,?,?,default)
+Hibernate: update pets set owner_id=? where id=?
+Hibernate: insert into pets (birth_date,name,type_id,id) values (?,?,?,default)
+Hibernate: update pets set owner_id=? where id=?
+2026-09-05T18:44:32.212+03:00  WARN 50496 --- [           main] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 23505, SQLState: 23505
+2026-09-05T18:44:32.212+03:00  WARN 50496 --- [           main] org.hibernate.orm.jdbc.error             : Unique index or primary key violation: "PUBLIC.UNIQUE_OWNER_PET_NAME INDEX PUBLIC.UNIQUE_OWNER_PET_NAME_INDEX_2 ON PUBLIC.PETS(OWNER_ID NULLS FIRST, NAME NULLS FIRST) VALUES ( /* key:14 */ 1, CAST('DuplicatePetName' AS VARCHAR_IGNORECASE(16)))"; SQL statement:
+update pets set owner_id=? where id=? [23505-240]
+Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone,p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from owners o1_0 left join pets p1_0 on o1_0.id=p1_0.owner_id left join types t1_0 on t1_0.id=p1_0.type_id where o1_0.id=? order by p1_0.name
+Hibernate: select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id in (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) order by v1_0.visit_date
+Hibernate: insert into visits (visit_date,description,id) values (?,?,default)
+Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone,p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from owners o1_0 left join pets p1_0 on o1_0.id=p1_0.owner_id left join types t1_0 on t1_0.id=p1_0.type_id where o1_0.id=? order by p1_0.name
+Hibernate: select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id=? order by v1_0.visit_date
+Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone,p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from owners o1_0 left join pets p1_0 on o1_0.id=p1_0.owner_id left join types t1_0 on t1_0.id=p1_0.type_id where o1_0.id=? order by p1_0.name
+Hibernate: select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id in (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) order by v1_0.visit_date
+Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone,p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from owners o1_0 left join pets p1_0 on o1_0.id=p1_0.owner_id left join types t1_0 on t1_0.id=p1_0.type_id where o1_0.id=? order by p1_0.name
+Hibernate: select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id in (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) order by v1_0.visit_date
+Hibernate: select pt1_0.id,pt1_0.name from types pt1_0 order by pt1_0.name
+Hibernate: insert into pets (birth_date,name,type_id,id) values (?,?,?,default)
+Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone from owners o1_0 where o1_0.last_name like ? escape '\'
+Hibernate: insert into owners (address,city,first_name,last_name,telephone,id) values (?,?,?,?,?,default)
+Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone from owners o1_0 where o1_0.last_name like ? escape '\'
+Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone,p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from owners o1_0 left join pets p1_0 on o1_0.id=p1_0.owner_id left join types t1_0 on t1_0.id=p1_0.type_id where o1_0.id=? order by p1_0.name
+Hibernate: select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id=? order by v1_0.visit_date
+Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone,p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from owners o1_0 left join pets p1_0 on o1_0.id=p1_0.owner_id left join types t1_0 on t1_0.id=p1_0.type_id where o1_0.id=? order by p1_0.name
+Hibernate: select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id in (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) order by v1_0.visit_date
+Hibernate: select pt1_0.id,pt1_0.name from types pt1_0 order by pt1_0.name
+Hibernate: select pt1_0.id,pt1_0.name from types pt1_0 order by pt1_0.name
+Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone,p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from owners o1_0 left join pets p1_0 on o1_0.id=p1_0.owner_id left join types t1_0 on t1_0.id=p1_0.type_id where o1_0.id=? order by p1_0.name
+Hibernate: select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id=? order by v1_0.visit_date
+Hibernate: insert into pets (birth_date,name,type_id,id) values (?,?,?,default)
+Hibernate: update pets set owner_id=? where id=?
+Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone,p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from owners o1_0 left join pets p1_0 on o1_0.id=p1_0.owner_id left join types t1_0 on t1_0.id=p1_0.type_id where o1_0.id=? order by p1_0.name
+Hibernate: select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id=? order by v1_0.visit_date
+Hibernate: insert into pets (birth_date,name,type_id,id) values (?,?,?,default)
+Hibernate: update pets set owner_id=? where id=?
+[INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.595 s -- in org.springframework.samples.petclinic.service.ClinicServiceTests
+[INFO] Running org.springframework.samples.petclinic.system.CrashControllerTests
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 s -- in org.springframework.samples.petclinic.system.CrashControllerTests
+[INFO] Running org.springframework.samples.petclinic.system.I18nPropertiesSyncTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 s -- in org.springframework.samples.petclinic.system.I18nPropertiesSyncTest
+[INFO] Running org.springframework.samples.petclinic.vet.VetTests
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 s -- in org.springframework.samples.petclinic.vet.VetTests
+[stp-context] capture task=org.apache.maven.surefire.booter.ForkedBooter$7@107302a5 test=none thread=main
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 27, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.034 s
+[INFO] Finished at: 2026-09-05T18:44:32+03:00
+[INFO] ------------------------------------------------------------------------

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "stp-asm-round8-changed-edge-classification-1",
+  "referenceOnly": {
+    "org.springframework.samples.petclinic.service.ClinicServiceTests#shouldFindVets": {
+      "org.springframework.samples.petclinic.PetClinicApplication#<init>()V": "SETUP_OR_INITIALIZATION",
+      "org.springframework.samples.petclinic.owner.Owner#<init>()V": "SETUP_OR_INITIALIZATION",
+      "org.springframework.samples.petclinic.owner.Pet#<init>()V": "SETUP_OR_INITIALIZATION",
+      "org.springframework.samples.petclinic.owner.PetType#<init>()V": "SETUP_OR_INITIALIZATION",
+      "org.springframework.samples.petclinic.owner.Visit#<init>()V": "SETUP_OR_INITIALIZATION"
+    },
+    "org.springframework.samples.petclinic.system.CrashControllerTests#triggerException": {
+      "org.springframework.samples.petclinic.system.CrashController#<init>()V": "SETUP_OR_INITIALIZATION"
+    }
+  },
+  "asmOnly": {},
+  "evidence": "Each method is a constructor observed by ASM as LATE_EVENT during Spring/JPA context transition after an earlier test. The JaCoCo reference reset-at-test-finish semantics carry these between-test probes into the next completed session. Both ASM runs reproduce the same quarantine. Runtime logs contain no active-context capture or attach, excluding ASYNC_CONTEXT_PROPAGATION for these edges."
+}
