@@ -8,6 +8,7 @@ import java.util.Set;
 
 import com.sap.oss.smarttestpicker.coverage.CoverageMapContract;
 import com.sap.oss.smarttestpicker.coverage.model.CoverageMap;
+import com.sap.oss.smarttestpicker.coverage.model.CoverageFragment;
 import com.sap.oss.smarttestpicker.coverage.model.CoverageMapLifecycleState;
 import com.sap.oss.smarttestpicker.coverage.model.ShardId;
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
@@ -59,6 +60,34 @@ public final class CoverageMapValidator
 		if (map.lifecycleState() != CoverageMapLifecycleState.PUBLISHED)
 			errors.add(error(ValidationCategory.INVALID_STRUCTURE, ValidationCode.LIFECYCLE_NOT_PUBLISHED,
 				"Only PUBLISHED maps may be selector input"));
+		return new ValidationResult(errors);
+	}
+
+	public static ValidationResult validate(CoverageFragment fragment)
+	{
+		ArrayList<ValidationError> errors = new ArrayList<>();
+		if (fragment.schemaVersion() != CoverageMapContract.SCHEMA_VERSION)
+			errors.add(error(ValidationCategory.INCOMPATIBLE_SCHEMA,
+				fragment.schemaVersion() > CoverageMapContract.SCHEMA_VERSION ? ValidationCode.HIGHER_SCHEMA_VERSION : ValidationCode.SCHEMA_VERSION_MISMATCH,
+				"Unsupported coverage-fragment schema version: " + fragment.schemaVersion()));
+		if (fragment.revision() == null)
+			errors.add(error(ValidationCategory.INVALID_STRUCTURE, ValidationCode.MISSING_REVISION, "revision is required"));
+		if (fragment.shardId() == null)
+			errors.add(error(ValidationCategory.INVALID_STRUCTURE, ValidationCode.MISSING_SHARD_ID, "shardId is required"));
+		Set<TestIdentity> unmapped = new HashSet<>();
+		fragment.unmapped().forEach(entry -> {
+			if (!unmapped.add(entry.test())) errors.add(error(ValidationCategory.INVALID_STRUCTURE,
+					ValidationCode.DUPLICATE_TEST_IDENTITY, "Duplicate unmapped test: " + entry.test()));
+		});
+		Set<TestIdentity> overlap = new HashSet<>(fragment.tests().keySet());
+		overlap.retainAll(unmapped);
+		if (!overlap.isEmpty()) errors.add(error(ValidationCategory.INVALID_STRUCTURE,
+				ValidationCode.TEST_MAPPED_AND_UNMAPPED, "Tests cannot be both mapped and unmapped: " + overlap));
+		Set<String> scopeIds = new HashSet<>();
+		fragment.setupScopes().forEach(scope -> {
+			if (!scopeIds.add(scope.id())) errors.add(error(ValidationCategory.INVALID_STRUCTURE,
+					ValidationCode.DUPLICATE_SETUP_SCOPE_ID, "Duplicate setup scope: " + scope.id()));
+		});
 		return new ValidationResult(errors);
 	}
 

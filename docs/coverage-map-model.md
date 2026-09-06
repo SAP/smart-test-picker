@@ -11,8 +11,9 @@ The main types are `CoverageMap`, `CoverageMapRevision`, `TestIdentity`, `TestCo
 `CollectionSummary`, `Completeness`, `TestOutcome`,
 `GeneratorProvenance`, `MapStatistics`, `CoverageFragment`, and `MethodCoverageReference`.
 
-`TestIdentity` is the structured pair of a fully-qualified JVM binary class name and the exact
-declared runtime method name. Method names are not restricted to Java source identifiers: legal
+`MethodIdentity` is the descriptor-aware structured triple used by schema v2. `TestIdentity` contains
+a fully-qualified JVM binary class name, exact declared runtime method name, and JUnit parameter-type
+signature so overloaded runnable methods remain distinct. Method names are not restricted to Java source identifiers: legal
 JUnit/JVM-language names such as Kotlin backtick names containing spaces are preserved verbatim.
 The textual form separates the class from the method at the first `#`; `#` remains legal inside
 the method suffix because it is not legal in the class-name portion. Empty names, ISO control
@@ -64,7 +65,7 @@ Implementation findings and POC-proven boundaries for 5c and 5d are tracked in
 
 ## Version impact
 
-Schema v1 is not compatible with legacy maps. Legacy test keys use `SimpleClass#method_7hexHash`,
+Schema v2 is not compatible with legacy maps or schema v1. Legacy test keys use `SimpleClass#method_7hexHash`,
 from which the FQN cannot be reconstructed, so maps must be regenerated. The semantic selector API
 need not change in Task 5a and the existing CLI output schema remains unchanged; future v1 reader
 adoption will be an explicit integration step. Because Core and CLI artifact content changes, the

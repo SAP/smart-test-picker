@@ -1,7 +1,8 @@
-# Coverage map schema v1
+# Coverage map schema v2
 
-Schema v1 extends STP's existing indexed JSON format. It is the first frozen coverage-map
-contract; legacy maps without `schemaVersion` remain readable only through the legacy reader
+Schema v1 was the first frozen coverage-map contract. Schema v2 preserves exact JVM descriptors
+for inline method coverage and distinguishes overloaded declared JUnit methods. It otherwise extends
+the indexed JSON format. Legacy maps without `schemaVersion` remain readable only through the legacy reader
 and cannot be converted because their hashed simple-name test identities do not contain the
 original fully-qualified class name.
 
@@ -16,7 +17,7 @@ The first implementation writes class and method coverage in one artifact:
 
 ```json
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "revision": "abc123",
   "generatedAt": "2026-08-30T10:00:00Z",
   "generator": {
@@ -26,7 +27,7 @@ The first implementation writes class and method coverage in one artifact:
     "jdkVersion": "17"
   },
   "classIndex": ["com.foo.ConfigService", "com.foo.OrderService"],
-  "methodIndex": ["com.foo.OrderService#placeOrder"],
+  "methodIndex": ["com.foo.OrderService#placeOrder(Lcom/foo/Order;)V"],
   "containerIndex": ["com.foo.BarTest", "com.foo.FooTest"],
   "testIndex": ["com.foo.BarTest#slow", "com.foo.FooTest#a"],
   "tests": [
@@ -68,7 +69,8 @@ because their FQNs otherwise recur in mappings, unmapped entries, and both compl
 
 ## Test identity
 
-The logical identity is `fully.qualified.BinaryClass#declaredMethod`. Nested classes use JVM
+The logical identity is `fully.qualified.BinaryClass#declaredMethod(parameterTypes)` when JUnit
+reports a non-empty parameter signature, and retains `Class#method` for an empty parameter list. Nested classes use JVM
 binary naming, for example `com.foo.OuterTest$Inner#nestedTest`, matching the names accepted by
 build-tool filters. All invocations of one declared method collapse into one identity:
 
@@ -77,7 +79,7 @@ build-tool filters. All invocations of one declared method collapse into one ide
 * `@TestFactory` and its dynamic tests are combined under the factory method.
 
 Whether a runtime can always recover the declaring factory method when a dynamic test lacks a
-usable `MethodSource` remains an open 5c question. Schema v1 does not introduce invocation IDs.
+usable `MethodSource` remains an open 5c question. Schema v2 does not introduce invocation IDs.
 
 ## Setup scopes
 
@@ -85,8 +87,15 @@ A setup scope independently relates covered production classes to one or more af
 containers. This represents nested, inherited, framework, and shared-context setup without
 assigning coverage to whichever test happened to initialize it first. Supported enum values are
 `CONTAINER`, `NESTED_CONTAINER`, `INHERITED_SETUP`, `SHARED_CONTEXT`, and `FRAMEWORK_SETUP`.
-Only `CONTAINER` is currently expected to be producible. The other values are schema placeholders,
-not claims of collector capability. Covered classes and containers reference shared tables.
+`CONTAINER` and `NESTED_CONTAINER` are currently producible from bounded JUnit lifecycle ownership.
+The other values are reserved and are not claims of collector capability. Covered classes and
+containers reference shared tables.
+
+## Version boundary
+
+Schema v1 descriptor-less method strings and schema v2 exact method identities are not semantically
+equivalent. Automatic v1 conversion is not supported, and neither current nor legacy JaCoCo data is
+assigned guessed descriptors. The legacy/current JaCoCo production path is unchanged for now.
 
 ## Test outcome, unmapped tests, and collection status
 
@@ -126,7 +135,7 @@ and verifies the exact bytes inside that boundary.
 
 ## Reserved separable method coverage
 
-Schema v1 reserves an optional checksum-covered descriptor:
+Schema v2 retains the optional checksum-covered descriptor:
 
 ```json
 "methodCoverage": {
@@ -144,13 +153,13 @@ is not equivalent to a map that deliberately contains no method descriptor.
 
 ```json
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "revision": "abc123",
   "shardId": "07",
   "tests": {
     "com.foo.FooTest#a": {
       "classes": ["com.foo.OrderService"],
-      "methods": ["com.foo.OrderService#placeOrder"],
+      "methods": ["com.foo.OrderService#placeOrder(Lcom/foo/Order;)V"],
       "outcome": "PASS",
       "collectionStatus": "COLLECTED_WITH_COVERAGE"
     }

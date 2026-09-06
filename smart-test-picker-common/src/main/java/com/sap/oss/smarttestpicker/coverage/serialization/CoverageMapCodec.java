@@ -27,6 +27,7 @@ import com.sap.oss.smarttestpicker.coverage.model.CoverageMapRevision;
 import com.sap.oss.smarttestpicker.coverage.model.GeneratorProvenance;
 import com.sap.oss.smarttestpicker.coverage.model.MapStatistics;
 import com.sap.oss.smarttestpicker.coverage.model.MethodCoverageReference;
+import com.sap.oss.smarttestpicker.coverage.model.MethodIdentity;
 import com.sap.oss.smarttestpicker.coverage.model.SetupScope;
 import com.sap.oss.smarttestpicker.coverage.model.SetupScopeType;
 import com.sap.oss.smarttestpicker.coverage.model.ShardId;
@@ -42,7 +43,7 @@ import com.sap.oss.smarttestpicker.coverage.validation.ValidationCategory;
 import com.sap.oss.smarttestpicker.coverage.validation.ValidationCode;
 import com.sap.oss.smarttestpicker.coverage.validation.ValidationResult;
 
-/** Deterministic schema-v1 indexed serializer/deserializer. */
+/** Deterministic schema-v2 indexed serializer/deserializer. */
 public final class CoverageMapCodec
 {
 	private static final Gson GSON = new Gson();
@@ -94,7 +95,7 @@ public final class CoverageMapCodec
 
 	private JsonObject toJson(CoverageMap map)
 	{
-		TreeSet<String> classes = new TreeSet<>(); TreeSet<String> methods = new TreeSet<>();
+		TreeSet<String> classes = new TreeSet<>(); TreeSet<MethodIdentity> methods = new TreeSet<>();
 		TreeSet<String> containers = new TreeSet<>(); TreeSet<TestIdentity> identities = new TreeSet<>();
 		identities.addAll(map.tests().keySet());
 		map.unmapped().forEach(entry -> identities.add(entry.test()));
@@ -102,22 +103,24 @@ public final class CoverageMapCodec
 		map.tests().values().forEach(coverage -> { classes.addAll(coverage.coveredClasses()); methods.addAll(coverage.coveredMethods()); });
 		map.setupScopes().forEach(scope -> { classes.addAll(scope.coveredClasses()); scope.affectedContainers().forEach(c -> containers.add(c.binaryName())); });
 
-		List<String> classTable = List.copyOf(classes), methodTable = List.copyOf(methods), containerTable = List.copyOf(containers);
+		List<String> classTable = List.copyOf(classes), containerTable = List.copyOf(containers);
+		List<MethodIdentity> methodTable = List.copyOf(methods);
 		List<TestIdentity> testTable = List.copyOf(identities);
-		Map<String, Integer> classIds = ids(classTable), methodIds = ids(methodTable), containerIds = ids(containerTable);
+		Map<String, Integer> classIds = ids(classTable), containerIds = ids(containerTable);
+		Map<MethodIdentity, Integer> methodIds = ids(methodTable);
 		Map<TestIdentity, Integer> testIds = new LinkedHashMap<>(); for (int i = 0; i < testTable.size(); i++) testIds.put(testTable.get(i), i);
 
 		JsonObject root = new JsonObject();
 		root.addProperty("schemaVersion", map.schemaVersion()); root.addProperty("revision", map.revision().value());
 		root.addProperty("generatedAt", map.generatedAt().toString()); root.add("generator", GSON.toJsonTree(map.generator()));
-		root.add("classIndex", strings(classTable)); root.add("methodIndex", strings(methodTable));
+		root.add("classIndex", strings(classTable)); root.add("methodIndex", strings(methodTable.stream().map(MethodIdentity::toString).toList()));
 		root.add("containerIndex", strings(containerTable)); root.add("testIndex", strings(testTable.stream().map(TestIdentity::toString).toList()));
 
 		JsonArray tests = new JsonArray();
 		map.tests().entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(entry -> {
 			JsonObject value = new JsonObject(); value.addProperty("test", testIds.get(entry.getKey()));
 			value.add("classes", indexes(entry.getValue().coveredClasses(), classIds));
-			value.add("methods", indexes(entry.getValue().coveredMethods(), methodIds));
+			value.add("methods", methodIndexes(entry.getValue().coveredMethods(), methodIds));
 			value.addProperty("outcome", entry.getValue().outcome().name());
 			value.addProperty("collectionStatus", entry.getValue().collectionStatus().name()); tests.add(value);
 		}); root.add("tests", tests);
@@ -144,7 +147,8 @@ public final class CoverageMapCodec
 
 	private CoverageMap fromJson(JsonObject root)
 	{
-		List<String> classes = stringList(root, "classIndex"), methods = stringList(root, "methodIndex"), containers = stringList(root, "containerIndex");
+		List<String> classes = stringList(root, "classIndex"), containers = stringList(root, "containerIndex");
+		List<MethodIdentity> methods = stringList(root, "methodIndex").stream().map(MethodIdentity::parse).toList();
 		List<TestIdentity> identities = stringList(root, "testIndex").stream().map(TestIdentity::parse).toList();
 		Map<TestIdentity, TestCoverage> tests = new LinkedHashMap<>();
 		for (JsonElement element : root.getAsJsonArray("tests"))
@@ -152,7 +156,7 @@ public final class CoverageMapCodec
 			JsonObject value = element.getAsJsonObject(); TestIdentity identity = identities.get(requiredInt(value, "test"));
 			if (tests.containsKey(identity)) throw invalid(ValidationCategory.INVALID_STRUCTURE, ValidationCode.DUPLICATE_TEST_IDENTITY, "Duplicate test: " + identity);
 			Set<String> coveredClasses = resolve(value.getAsJsonArray("classes"), classes);
-			Set<String> coveredMethods = resolve(value.getAsJsonArray("methods"), methods);
+			Set<MethodIdentity> coveredMethods = resolveTyped(value.getAsJsonArray("methods"), methods);
 			tests.put(identity, new TestCoverage(coveredClasses, coveredMethods,
 					TestOutcome.valueOf(requiredString(value, "outcome")),
 					CollectionStatus.valueOf(requiredString(value, "collectionStatus"))));
@@ -213,9 +217,19 @@ public final class CoverageMapCodec
 	}
 	private static JsonArray strings(List<String> values) { JsonArray result = new JsonArray(); values.forEach(result::add); return result; }
 	private static JsonArray indexes(Set<String> values, Map<String, Integer> ids) { JsonArray result = new JsonArray(); values.stream().sorted().forEach(value -> result.add(ids.get(value))); return result; }
+	private static JsonArray methodIndexes(Set<MethodIdentity> values, Map<MethodIdentity, Integer> ids) { JsonArray result = new JsonArray(); values.stream().sorted().forEach(value -> result.add(ids.get(value))); return result; }
 	private static JsonArray testIndexes(Set<TestIdentity> values, Map<TestIdentity, Integer> ids) { JsonArray result = new JsonArray(); values.stream().sorted().forEach(value -> result.add(ids.get(value))); return result; }
 	private static List<String> stringList(JsonObject object, String name) { List<String> result = new ArrayList<>(); object.getAsJsonArray(name).forEach(value -> result.add(value.getAsString())); return result; }
 	private static Set<String> resolve(JsonArray indexes, List<String> table) { TreeSet<String> result = new TreeSet<>(); indexes.forEach(index -> result.add(table.get(index.getAsInt()))); return result; }
+	private static <T extends Comparable<? super T>> Set<T> resolveTyped(JsonArray indexes, List<T> table) {
+		TreeSet<T> result = new TreeSet<>();
+		for (JsonElement index : indexes) {
+			T value = table.get(index.getAsInt());
+			if (!result.add(value)) throw invalid(ValidationCategory.INVALID_STRUCTURE,
+					ValidationCode.DUPLICATE_METHOD_IDENTITY, "Duplicate covered method: " + value);
+		}
+		return result;
+	}
 	private static Set<TestIdentity> testSet(JsonObject object, String name, List<TestIdentity> table) { TreeSet<TestIdentity> result = new TreeSet<>(); object.getAsJsonArray(name).forEach(index -> result.add(table.get(index.getAsInt()))); return result; }
 	private static Set<ShardId> shards(JsonObject object, String name) { TreeSet<ShardId> result = new TreeSet<>(); object.getAsJsonArray(name).forEach(value -> result.add(new ShardId(value.getAsString()))); return result; }
 	private static int requiredInt(JsonObject object, String name) { return object.get(name).getAsInt(); }
