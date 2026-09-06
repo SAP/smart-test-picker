@@ -1,0 +1,13 @@
+// SPDX-License-Identifier: Apache-2.0
+
+gradle.afterProject { project, state ->
+	if (project.path == ':spring-core') {
+		project.tasks.named('test').configure {
+			def agentJar = System.getenv('ROUND16_AGENT_JAR')
+			def agentArgs = System.getenv('ROUND16_AGENT_ARGS')
+			if (!agentJar || !agentArgs) throw new GradleException('ROUND16_AGENT_JAR and ROUND16_AGENT_ARGS are required')
+			jvmArgs "-javaagent:${agentJar}=${agentArgs}"
+			testLogging.showStandardStreams = true
+		}
+	}
+}

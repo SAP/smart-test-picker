@@ -1,0 +1,79 @@
+{
+  "ASYNC_CONTEXT": {
+    "classes affected": 0,
+    "edges": 0,
+    "production methods affected": 0,
+    "tests affected": 0
+  },
+  "EXECUTION_ORDER": {
+    "classes affected": 0,
+    "edges": 0,
+    "production methods affected": 0,
+    "tests affected": 0
+  },
+  "JDK_REFLECTION_ORDER": {
+    "classes affected": 1,
+    "edges": 1,
+    "production methods affected": 1,
+    "tests affected": 1
+  },
+  "LATE_EXECUTION": {
+    "classes affected": 0,
+    "edges": 0,
+    "production methods affected": 0,
+    "tests affected": 0
+  },
+  "OTHER_PROVEN_RUNTIME_CAUSE": {
+    "classes affected": 0,
+    "edges": 0,
+    "production methods affected": 0,
+    "tests affected": 0
+  },
+  "SHARED_JVM_STATE": {
+    "classes affected": 0,
+    "edges": 0,
+    "production methods affected": 0,
+    "tests affected": 0
+  },
+  "SPRING_ORDER_SENSITIVE_CONTROL_FLOW": {
+    "classes affected": 0,
+    "edges": 0,
+    "production methods affected": 0,
+    "tests affected": 0
+  },
+  "STABLE_IN_ROUND16": {
+    "classes affected": 3,
+    "edges": 78,
+    "production methods affected": 6,
+    "tests affected": 33
+  },
+  "STATIC_INITIALIZATION": {
+    "classes affected": 0,
+    "edges": 0,
+    "production methods affected": 0,
+    "tests affected": 0
+  },
+  "UNKNOWN": {
+    "classes affected": 9,
+    "edges": 113,
+    "production methods affected": 17,
+    "tests affected": 33
+  },
+  "fullMapRepeatability": {
+    "acceptedRuns": 5,
+    "logicalTestIdentities": 3638,
+    "mappedIdentities": 3629,
+    "stableEdges": 149374,
+    "totalDistinctPerTestMethodEdges": 150291,
+    "unstableEdges": 917,
+    "unstablePercentage": 0.61015
+  },
+  "input edges": 192,
+  "round10Comparison": {
+    "directlyComparable": false,
+    "note": "Subject and launch configuration match, but five-run sampling has more opportunities to expose movement than ROUND 10's three-run sampling; no improvement/regression claim is made.",
+    "stableEdges": 149705,
+    "unstableEdges": 221,
+    "unstablePercentage": 0.147406
+  }
+}

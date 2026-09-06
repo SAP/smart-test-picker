@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "stp-asm-round16-runs-1",
+  "springCommit": "99a366baf6640b275d08dde60f05da719139bb6a",
+  "task": ":spring-core:test",
+  "gradle": "8.14.2",
+  "jdk": "OpenJDK 21.0.11 (Homebrew arm64)",
+  "topology": "normal single spring-core test task; fresh worker JVM per invocation",
+  "acceptedRuns": 5,
+  "acceptedRunIds": [
+    "round16-full-run-1",
+    "round16-full-run-2",
+    "round16-full-run-3",
+    "round16-full-run-4",
+    "round16-full-run-5"
+  ],
+  "results": ["BUILD SUCCESSFUL", "BUILD SUCCESSFUL", "BUILD SUCCESSFUL", "BUILD SUCCESSFUL", "BUILD SUCCESSFUL"],
+  "configuration": {
+    "includes": ["org.springframework."],
+    "explicitExcludes": [
+      "org.springframework.jcl.",
+      "org.springframework.core.testfixture.",
+      "org.springframework.javapoet.",
+      "org.springframework.objenesis."
+    ],
+    "debug": true,
+    "instrumentation": "on",
+    "roundSpecificCausalDiagnostics": false
+  },
+  "transformationErrorsPerRun": [0, 0, 0, 0, 0],
+  "springSourceModified": false,
+  "normalMapSemanticsModified": false
+}
