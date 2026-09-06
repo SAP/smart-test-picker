@@ -5,6 +5,7 @@ package com.sap.oss.smarttestpicker.agent;
 import com.sap.oss.smarttestpicker.runtime.model.MethodIdentity;
 
 import java.io.IOException;
+import java.io.BufferedWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -32,6 +33,22 @@ final class AgentOutputWriter {
 	static void write(Path output, String json) throws IOException {
 		Files.writeString(output, json, StandardCharsets.UTF_8, StandardOpenOption.CREATE,
 				StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);
+	}
+
+	static void write(Path output, String runId, String jvmId, AgentConfiguration configuration,
+			AgentMetrics.Snapshot metrics, List<String> errors, Map<Long, List<MethodIdentity>> catalog,
+			Map<Long, Long> hits, String runtimeJson) throws IOException {
+		String shell = json(runId, jvmId, configuration, metrics, errors, catalog, hits, null);
+		String marker = "  \"runtimeEvents\": null\n}";
+		int markerIndex = shell.lastIndexOf(marker);
+		if (markerIndex < 0) throw new IllegalStateException("runtime event marker missing");
+		try (BufferedWriter writer = Files.newBufferedWriter(output, StandardCharsets.UTF_8,
+				StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE)) {
+			writer.write(shell, 0, markerIndex);
+			writer.write("  \"runtimeEvents\": ");
+			writer.write(runtimeJson == null ? "null" : runtimeJson.stripTrailing());
+			writer.write("\n}\n");
+		}
 	}
 
 	static String json(String runId, String jvmId, AgentConfiguration configuration, AgentMetrics.Snapshot metrics,

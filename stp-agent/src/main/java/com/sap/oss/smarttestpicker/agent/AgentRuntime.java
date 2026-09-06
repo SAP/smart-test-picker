@@ -35,6 +35,13 @@ final class AgentRuntime {
 	private final MethodCatalog catalog;
 	private final RuntimeContextService runtimeContext;
 	private final Map<Long, LongAdder> hits = new ConcurrentHashMap<>();
+	private final CausalTraceRecorder causalTrace;
+	private final Round13TraceRecorder round13Trace;
+	private final RuntimeHooks.Round13Registration round13Registration;
+	private final Round14TraceRecorder round14Trace;
+	private final RuntimeHooks.Round14Registration round14Registration;
+	private final Round15TraceRecorder round15Trace;
+	private final RuntimeHooks.Round15Registration round15Registration;
 	@SuppressWarnings("unused")
 	private final RuntimeHooks.Registration hookRegistration;
 	private final RuntimeContextRegistry.Registration contextRegistration;
@@ -44,7 +51,12 @@ final class AgentRuntime {
 		this.metrics = metrics;
 		this.jvmId = jvmId;
 		this.catalog = new MethodCatalog(new Fnv1a64MethodIdHasher(), metrics, errors::add);
-		this.runtimeContext = new RuntimeContextService(new RuntimeEventAggregator(configuration.runId(), jvmId));
+		this.causalTrace = CausalTraceRecorder.fromSystemProperties();
+		this.round13Trace = Round13TraceRecorder.fromSystemProperties();
+		this.round14Trace = Round14TraceRecorder.fromSystemProperties();
+		this.round15Trace = Round15TraceRecorder.fromSystemProperties();
+		this.runtimeContext = new RuntimeContextService(
+				new RuntimeEventAggregator(configuration.runId(), jvmId), configuration.debug());
 		RuntimeContextRegistry.Registration registry = null;
 		RuntimeHooks.Registration hooks = null;
 		try {
@@ -58,6 +70,9 @@ final class AgentRuntime {
 		}
 		this.contextRegistration = registry;
 		this.hookRegistration = hooks;
+		this.round13Registration = round13Trace.enabled() ? RuntimeHooks.installRound13(round13Trace) : null;
+		this.round14Registration = round14Trace.enabled() ? RuntimeHooks.installRound14(round14Trace) : null;
+		this.round15Registration = round15Trace.enabled() ? RuntimeHooks.installRound15(round15Trace) : null;
 	}
 
 	static AgentRuntime install(AgentConfiguration configuration, AgentMetrics metrics) {
@@ -88,6 +103,7 @@ final class AgentRuntime {
 			hits.computeIfAbsent(methodId, ignored -> new LongAdder()).increment();
 			List<MethodIdentity> methods = catalog.resolve(methodId);
 			if (methods.size() == 1) {
+				causalTrace.hit(methods.get(0), runtimeContext);
 				runtimeContext.record(new MethodHitEvent(methodId, methods.get(0), METHOD_ENTRY_EVIDENCE));
 			} else {
 				runtimeContext.aggregator().recordUnattributed(new UnattributedEvent(UnattributedReason.UNKNOWN_CONTEXT,
@@ -102,14 +118,17 @@ final class AgentRuntime {
 		Map<Long, Long> hitSnapshot = new java.util.TreeMap<>(Long::compareUnsigned);
 		hits.forEach((id, count) -> hitSnapshot.put(id, count.sum()));
 		String runtimeJson = new RuntimeJsonSerializer().serialize(runtimeContext.aggregator());
-		String json = AgentOutputWriter.json(configuration.runId(), jvmId, configuration, metrics.snapshot(), errors,
-				catalog.snapshot(), hitSnapshot, runtimeJson);
 		try {
-			AgentOutputWriter.write(configuration.output(), json);
+			AgentOutputWriter.write(configuration.output(), configuration.runId(), jvmId, configuration,
+					metrics.snapshot(), errors, catalog.snapshot(), hitSnapshot, runtimeJson);
 		} catch (IOException failure) {
 			errors.add(failure.getClass().getName() + ": " + String.valueOf(failure.getMessage()));
 			System.err.println("[stp-agent] failed to write output: " + failure.getClass().getSimpleName());
 		} finally {
+			try { causalTrace.write(); } catch (IOException failure) { errors.add(failure.toString()); }
+			try { round13Trace.write(); } catch (IOException failure) { errors.add(failure.toString()); }
+			try { round14Trace.write(); } catch (IOException failure) { errors.add(failure.toString()); }
+			try { round15Trace.write(); } catch (IOException failure) { errors.add(failure.toString()); }
 			closeRegistrations();
 		}
 	}
@@ -119,6 +138,9 @@ final class AgentRuntime {
 	}
 
 	private void closeRegistrations() {
+		if (round15Registration != null) round15Registration.close();
+		if (round14Registration != null) round14Registration.close();
+		if (round13Registration != null) round13Registration.close();
 		contextRegistration.close();
 		hookRegistration.close();
 		INSTALLED.compareAndSet(this, null);
