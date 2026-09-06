@@ -155,8 +155,8 @@ class JGraphTCoverageMapV1IntegrationTest
 			catch (IllegalArgumentException invalid) { unresolved.add(entry.getKey()); continue; }
 			JsonObject coverage = entry.getValue().getAsJsonObject();
 			Set<String> coveredClasses = strings(coverage.getAsJsonArray("classes"));
-			Set<String> coveredMethods = strings(coverage.getAsJsonArray("methods"));
-			TestCoverage previous = converted.put(identity, new TestCoverage(coveredClasses, coveredMethods, TestOutcome.PASS,
+			// Legacy JaCoCo method strings have no trustworthy JVM descriptor. Preserve class coverage only.
+			TestCoverage previous = converted.put(identity, new TestCoverage(coveredClasses, Set.of(), TestOutcome.PASS,
 					coveredClasses.isEmpty() ? CollectionStatus.COLLECTED_EMPTY : CollectionStatus.COLLECTED_WITH_COVERAGE));
 			assertNull(previous, "legacy keys collided after logical identity reconstruction: " + identity);
 		}
@@ -245,10 +245,10 @@ class JGraphTCoverageMapV1IntegrationTest
 	private static void assertInRange(int value, int size) { assertTrue(value >= 0 && value < size, () -> value + " outside dictionary size " + size); }
 	private static Set<String> strings(JsonArray values) { Set<String> result = new TreeSet<>(); values.forEach(v -> result.add(v.getAsString())); return result; }
 	private static Set<String> classes(Map<TestIdentity, TestCoverage> tests) { return values(tests, TestCoverage::coveredClasses); }
-	private static Set<String> methods(Map<TestIdentity, TestCoverage> tests) { return values(tests, TestCoverage::coveredMethods); }
+	private static Set<String> methods(Map<TestIdentity, TestCoverage> tests) { Set<String> result = new TreeSet<>(); tests.values().forEach(v -> v.coveredMethods().forEach(method -> result.add(method.toString()))); return result; }
 	private static Set<String> values(Map<TestIdentity, TestCoverage> tests, Function<TestCoverage, Set<String>> getter) { Set<String> result = new TreeSet<>(); tests.values().forEach(v -> result.addAll(getter.apply(v))); return result; }
 	private static Set<String> classEdges(Map<TestIdentity, TestCoverage> tests) { return edges(tests, TestCoverage::coveredClasses); }
-	private static Set<String> methodEdges(Map<TestIdentity, TestCoverage> tests) { return edges(tests, TestCoverage::coveredMethods); }
+	private static Set<String> methodEdges(Map<TestIdentity, TestCoverage> tests) { Set<String> result = new HashSet<>(); tests.forEach((test, coverage) -> coverage.coveredMethods().forEach(target -> result.add(test + " -> " + target))); return result; }
 	private static Set<String> edges(Map<TestIdentity, TestCoverage> tests, Function<TestCoverage, Set<String>> getter) { Set<String> result = new HashSet<>(); tests.forEach((test, coverage) -> getter.apply(coverage).forEach(target -> result.add(test + " -> " + target))); return result; }
 
 	private static JsonObject readGzipJson(Path path) throws IOException { try (Reader reader = new java.io.InputStreamReader(new GZIPInputStream(Files.newInputStream(path)), StandardCharsets.UTF_8)) { return JsonParser.parseReader(reader).getAsJsonObject(); } }

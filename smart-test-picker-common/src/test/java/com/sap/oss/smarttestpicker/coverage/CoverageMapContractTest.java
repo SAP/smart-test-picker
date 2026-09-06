@@ -23,6 +23,7 @@ import com.sap.oss.smarttestpicker.coverage.model.CoverageMapRevision;
 import com.sap.oss.smarttestpicker.coverage.model.GeneratorProvenance;
 import com.sap.oss.smarttestpicker.coverage.model.MapStatistics;
 import com.sap.oss.smarttestpicker.coverage.model.MethodCoverageReference;
+import com.sap.oss.smarttestpicker.coverage.model.MethodIdentity;
 import com.sap.oss.smarttestpicker.coverage.model.SetupScope;
 import com.sap.oss.smarttestpicker.coverage.model.SetupScopeType;
 import com.sap.oss.smarttestpicker.coverage.model.ShardId;
@@ -52,7 +53,7 @@ class CoverageMapContractTest
 
 	@Test void contractVersionsHaveOneCoreAuthority()
 	{
-		assertEquals(1, CoverageMapContract.SCHEMA_VERSION);
+		assertEquals(2, CoverageMapContract.SCHEMA_VERSION);
 		assertEquals(1, ExecutionPlanContract.VERSION);
 	}
 
@@ -60,6 +61,20 @@ class CoverageMapContractTest
 	{
 		assertEquals("com.foo.OuterTest$Inner#nestedTest", BAZ.toString());
 		assertThrows(IllegalArgumentException.class, () -> TestIdentity.parse("FooTest#test"));
+	}
+
+	@Test void methodIdentityValidatesParsesSortsAndKeepsOverloadsDistinct()
+	{
+		MethodIdentity noArgs = method("com.foo.Service#doIt()V");
+		MethodIdentity stringArg = method("com.foo.Service#doIt(Ljava/lang/String;)V");
+		assertEquals("com.foo.Service#doIt()V", noArgs.toString());
+		assertEquals(2, new java.util.TreeSet<>(Set.of(noArgs, stringArg)).size());
+		assertEquals(method("com.foo.Type#<init>(Ljava/lang/String;)V"),
+				new MethodIdentity("com.foo.Type", "<init>", "(Ljava/lang/String;)V"));
+		assertEquals(method("com.foo.Type#<clinit>()V"), new MethodIdentity("com.foo.Type", "<clinit>", "()V"));
+		for (String malformed : List.of("com.foo.Service#doIt", "com.foo.Service#doIt(V)V",
+				"com.foo.Service#doIt(Ljava.lang.String;)V", "com.foo.Service#bad/name()V"))
+			assertThrows(IllegalArgumentException.class, () -> MethodIdentity.parse(malformed));
 	}
 
 	@Test void testIdentityLosslesslySupportsJvmAndKotlinMethodNames()
@@ -94,7 +109,7 @@ class CoverageMapContractTest
 		Map<TestIdentity, TestCoverage> tests = Map.of(kotlin, covered("com.foo.Service"),
 				punctuation, covered("com.foo.Other"));
 
-		CoverageFragment fragment = new CoverageFragment(1, new CoverageMapRevision("abc123"),
+		CoverageFragment fragment = new CoverageFragment(CoverageMapContract.SCHEMA_VERSION, new CoverageMapRevision("abc123"),
 				new ShardId("0"), tests, List.of(), List.of(), true);
 		CoverageFragment decodedFragment = new CoverageFragmentCodec().deserialize(
 				new CoverageFragmentCodec().serialize(fragment));
@@ -153,7 +168,7 @@ class CoverageMapContractTest
 
 	@Test void higherSchemaFailsBeforePartialParsing()
 	{
-		byte[] bytes = new CoverageMapCodec().serialize(sampleMap()); String json = new String(bytes, StandardCharsets.UTF_8).replace("\"schemaVersion\":1", "\"schemaVersion\":2");
+		byte[] bytes = new CoverageMapCodec().serialize(sampleMap()); String json = new String(bytes, StandardCharsets.UTF_8).replace("\"schemaVersion\":2", "\"schemaVersion\":3");
 		CoverageMapValidationException error = assertThrows(CoverageMapValidationException.class, () -> new CoverageMapCodec().deserialize(json.getBytes(StandardCharsets.UTF_8)));
 		assertEquals(ValidationCode.HIGHER_SCHEMA_VERSION, error.getError().code()); assertEquals(ValidationCategory.INCOMPATIBLE_SCHEMA, error.getError().category());
 	}
@@ -236,7 +251,7 @@ class CoverageMapContractTest
 	@Test void failedTestOutcomeDoesNotDiscardValidCoverageOrChangeCompleteness()
 	{
 		TestCoverage failedWithCoverage = new TestCoverage(Set.of("com.foo.Service"),
-				Set.of("com.foo.Service#run"), TestOutcome.FAIL, CollectionStatus.COLLECTED_WITH_COVERAGE);
+				Set.of(method("com.foo.Service#run()V")), TestOutcome.FAIL, CollectionStatus.COLLECTED_WITH_COVERAGE);
 		TestCoverage failedWithEmptyCollection = new TestCoverage(Set.of(), Set.of(), TestOutcome.FAIL,
 				CollectionStatus.COLLECTED_EMPTY);
 		CoverageMap roundTripped = new CoverageMapCodec().deserialize(new CoverageMapCodec().serialize(
@@ -262,8 +277,35 @@ class CoverageMapContractTest
 		CoverageFragment fragment = new CoverageFragment(CoverageMapContract.SCHEMA_VERSION, new CoverageMapRevision("abc123"), new ShardId("07"), Map.of(FOO, covered("com.foo.Service")), List.of(new UnmappedTest(BAR, UnmappedReason.COLLECTION_FAILED)), List.of(scope("scope-1", Set.of(new TestContainer("com.foo.FooTest"), new TestContainer("com.foo.BarTest")))), false);
 		CoverageFragment decoded = new CoverageFragmentCodec().deserialize(new CoverageFragmentCodec().serialize(fragment));
 		assertFalse(decoded.collectionCompleted()); assertEquals(fragment.revision(), decoded.revision()); assertEquals(UnmappedReason.COLLECTION_FAILED, decoded.unmapped().get(0).reason()); assertEquals(2, decoded.setupScopes().get(0).affectedContainers().size());
-		CoverageFragment other = new CoverageFragment(1, new CoverageMapRevision("other"), new ShardId("08"), Map.of(), List.of(), List.of(), true);
+		CoverageFragment other = new CoverageFragment(CoverageMapContract.SCHEMA_VERSION, new CoverageMapRevision("other"), new ShardId("08"), Map.of(), List.of(), List.of(), true);
 		assertFalse(fragment.hasSameRevision(other));
+	}
+
+	@Test void fragmentValidatorRejectsMissingBindingOverlapDuplicatesAndMalformedMethods()
+	{
+		CoverageFragment missing = new CoverageFragment(CoverageMapContract.SCHEMA_VERSION, null, null, Map.of(), List.of(), List.of(), false);
+		assertTrue(CoverageMapValidator.validate(missing).has(ValidationCode.MISSING_REVISION));
+		assertTrue(CoverageMapValidator.validate(missing).has(ValidationCode.MISSING_SHARD_ID));
+
+		CoverageFragment overlap = new CoverageFragment(CoverageMapContract.SCHEMA_VERSION, new CoverageMapRevision("r"), new ShardId("s"),
+				Map.of(FOO, covered("com.foo.Service")), List.of(new UnmappedTest(FOO, UnmappedReason.COLLECTION_FAILED),
+				new UnmappedTest(FOO, UnmappedReason.COLLECTION_FAILED)), List.of(), false);
+		assertTrue(CoverageMapValidator.validate(overlap).has(ValidationCode.TEST_MAPPED_AND_UNMAPPED));
+		assertTrue(CoverageMapValidator.validate(overlap).has(ValidationCode.DUPLICATE_TEST_IDENTITY));
+
+		assertThrows(IllegalArgumentException.class, () -> MethodIdentity.parse("not-a-method"));
+		assertThrows(CoverageMapValidationException.class, () -> new CoverageFragmentCodec().serialize(overlap));
+	}
+
+	@Test void fragmentCodecRejectsDuplicateWireTestIdentity()
+	{
+		String coverage = "{\"classes\":[],\"methods\":[],\"outcome\":\"PASS\",\"collectionStatus\":\"COLLECTED_EMPTY\"}";
+		String json = "{\"schemaVersion\":2,\"revision\":\"r\",\"shardId\":\"s\",\"tests\":{"
+				+ "\"com.foo.FooTest#a\":" + coverage + ",\"com.foo.FooTest#a\":" + coverage
+				+ "},\"unmapped\":[],\"setupScopes\":[],\"collection\":{\"completed\":true}}";
+		CoverageMapValidationException failure = assertThrows(CoverageMapValidationException.class,
+				() -> new CoverageFragmentCodec().deserialize(json.getBytes(StandardCharsets.UTF_8)));
+		assertEquals(ValidationCode.DUPLICATE_TEST_IDENTITY, failure.getError().code());
 	}
 
 	@Test void separableMethodCoverageDescriptorRoundTrips()
@@ -279,17 +321,18 @@ class CoverageMapContractTest
 		Set<TestIdentity> reported = new java.util.HashSet<>(tests.keySet()); unmapped.forEach(value -> reported.add(value.test()));
 		Completeness completeness = Completeness.from(expectation(reported, Set.of(new ShardId("01"))),
 				new CollectionSummary(reported, List.of(new ShardId("01")), Set.of()));
-		return new CoverageMap(1, new CoverageMapRevision("abc123"), Instant.parse("2026-08-30T10:00:00Z"), new GeneratorProvenance("0.2.0", "0.1.0", "0.8.15", "17"), tests, unmapped, scopes, completeness, new MapStatistics(reported.size(), tests.size(), unmapped.size(), scopes.size(), 1, 1), CoverageMapLifecycleState.PUBLISHED, null);
+		return new CoverageMap(CoverageMapContract.SCHEMA_VERSION, new CoverageMapRevision("abc123"), Instant.parse("2026-08-30T10:00:00Z"), new GeneratorProvenance("0.2.0", "0.1.0", "0.8.15", "17"), tests, unmapped, scopes, completeness, new MapStatistics(reported.size(), tests.size(), unmapped.size(), scopes.size(), 1, 1), CoverageMapLifecycleState.PUBLISHED, null);
 	}
 	private static CoverageMap withCompleteness(Completeness value)
 	{
-		return new CoverageMap(1, new CoverageMapRevision("abc123"), Instant.parse("2026-08-30T10:00:00Z"), new GeneratorProvenance("0.2.0", "0.1.0", "0.8.15", "17"), Map.of(FOO, covered("com.foo.Service")), List.of(), List.of(), value, new MapStatistics(1, 1, 0, 0, 1, 1), CoverageMapLifecycleState.PUBLISHED, null);
+		return new CoverageMap(CoverageMapContract.SCHEMA_VERSION, new CoverageMapRevision("abc123"), Instant.parse("2026-08-30T10:00:00Z"), new GeneratorProvenance("0.2.0", "0.1.0", "0.8.15", "17"), Map.of(FOO, covered("com.foo.Service")), List.of(), List.of(), value, new MapStatistics(1, 1, 0, 0, 1, 1), CoverageMapLifecycleState.PUBLISHED, null);
 	}
 	private static CollectionExpectation expectation(Set<TestIdentity> tests, Set<ShardId> shards)
 	{
 		return new CollectionExpectation(new TestInventory(new CoverageMapRevision("abc123"), tests), shards);
 	}
-	private static TestCoverage covered(String cls) { return new TestCoverage(Set.of(cls), Set.of(cls + "#run"), TestOutcome.PASS, CollectionStatus.COLLECTED_WITH_COVERAGE); }
+	private static TestCoverage covered(String cls) { return new TestCoverage(Set.of(cls), Set.of(method(cls + "#run()V")), TestOutcome.PASS, CollectionStatus.COLLECTED_WITH_COVERAGE); }
+	private static MethodIdentity method(String value) { return MethodIdentity.parse(value); }
 	private static SetupScope scope(String id, Set<TestContainer> containers) { return new SetupScope(id, SetupScopeType.CONTAINER, Set.of("com.foo.Config"), containers); }
 	private static String checksum(byte[] json) { return JsonParser.parseString(new String(json, StandardCharsets.UTF_8)).getAsJsonObject().get("checksum").getAsString(); }
 }

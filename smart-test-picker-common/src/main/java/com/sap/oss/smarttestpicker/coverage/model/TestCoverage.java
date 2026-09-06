@@ -5,7 +5,7 @@ package com.sap.oss.smarttestpicker.coverage.model;
 import java.util.Set;
 import java.util.TreeSet;
 
-public record TestCoverage(Set<String> coveredClasses, Set<String> coveredMethods, TestOutcome outcome,
+public record TestCoverage(Set<String> coveredClasses, Set<MethodIdentity> coveredMethods, TestOutcome outcome,
 		CollectionStatus collectionStatus)
 {
 	public TestCoverage
