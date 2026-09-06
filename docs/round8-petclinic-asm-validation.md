@@ -163,8 +163,8 @@ All paths below are under `stp-petclinic-spike/round8/evidence/`:
 
 * `reference-map.json`, `reference-method-map.json`, `reference-inventory.json`
 * `asm-run-1-map.json`, `asm-run-2-map.json`
-* `asm-run-1-runtime.log`, `asm-run-2-runtime.log`
-* `asm-run-1-surefire-reports/`, `asm-run-2-surefire-reports/`
+* `asm-run-1-runtime.log`, `asm-run-2-runtime.log` (removed during ROUND 18 as duplicated generated console output; see `docs/removed-research-artifacts.md`)
+* `asm-run-1-surefire-reports/`, `asm-run-2-surefire-reports/` (removed during ROUND 18 as reproducible generated reports; the runner recreates them)
 * `semantic-diff-reference-vs-asm.json`
 * `semantic-diff-asm-run-1-vs-run-2.json`
 * `semantic-comparison-full.json`
