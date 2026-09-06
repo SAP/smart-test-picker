@@ -5,7 +5,11 @@ package com.sap.oss.smarttestpicker.runtime.model;
 import java.util.Objects;
 
 public record TestIdentity(String platformUniqueId, String displayName, String testClass, String testMethod,
-		String engineId, String runId, String jvmId) implements Comparable<TestIdentity> {
+		String testMethodParameterTypes, String engineId, String runId, String jvmId) implements Comparable<TestIdentity> {
+	public TestIdentity(String platformUniqueId, String displayName, String testClass, String testMethod,
+			String engineId, String runId, String jvmId) {
+		this(platformUniqueId, displayName, testClass, testMethod, null, engineId, runId, jvmId);
+	}
 	public TestIdentity {
 		requireText(platformUniqueId, "platformUniqueId");
 		requireText(runId, "runId");
@@ -38,4 +42,3 @@ public record TestIdentity(String platformUniqueId, String displayName, String t
 		}
 	}
 }
-

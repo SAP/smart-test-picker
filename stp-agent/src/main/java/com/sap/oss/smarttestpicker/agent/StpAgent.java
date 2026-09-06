@@ -13,6 +13,7 @@ public final class StpAgent {
 		if (instrumentation == null) throw new NullPointerException("instrumentation");
 		AgentConfiguration configuration = AgentConfiguration.parse(agentArgs);
 		AgentOutputWriter.validate(configuration.output());
+		if (configuration.fragmentOutput() != null) AgentOutputWriter.validate(configuration.fragmentOutput());
 		AgentMetrics metrics = new AgentMetrics(started);
 		AgentRuntime runtime = AgentRuntime.install(configuration, metrics);
 		try {

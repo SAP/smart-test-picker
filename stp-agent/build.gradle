@@ -18,6 +18,8 @@ dependencies {
     implementation 'org.ow2.asm:asm:9.8'
     implementation 'org.ow2.asm:asm-tree:9.8'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
+    testImplementation 'org.apiguardian:apiguardian-api:1.1.2'
     testImplementation project(':stp-junit-adapter')
     testImplementation 'org.ow2.asm:asm-util:9.8'
 }
@@ -33,7 +35,7 @@ tasks.named('shadowJar') {
         include 'META-INF/services/org.junit.platform.launcher.TestExecutionListener'
     }
     exclude 'META-INF/*.SF', 'META-INF/*.RSA', 'META-INF/*.DSA',
-            'META-INF/gradle/**', '**/*Test.class'
+            'META-INF/gradle/**'
     manifest {
         attributes(
                 'Premain-Class': 'com.sap.oss.smarttestpicker.agent.StpAgent',
@@ -51,6 +53,7 @@ tasks.register('agentJar') {
 
 test {
     useJUnitPlatform()
+    exclude '**/AgentCoverageFragmentFixtureMain$FragmentSuite.class'
     dependsOn tasks.named('agentJar')
     doFirst {
         systemProperty 'stp.agent.jar', tasks.named('shadowJar').get().archiveFile.get().asFile.absolutePath

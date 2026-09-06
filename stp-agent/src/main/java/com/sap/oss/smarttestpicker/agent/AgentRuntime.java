@@ -7,6 +7,10 @@ import com.sap.oss.smarttestpicker.runtime.RuntimeContextRegistry;
 import com.sap.oss.smarttestpicker.runtime.RuntimeEventAggregator;
 import com.sap.oss.smarttestpicker.runtime.RuntimeHooks;
 import com.sap.oss.smarttestpicker.runtime.RuntimeJsonSerializer;
+import com.sap.oss.smarttestpicker.runtime.AsmCoverageFragmentProjector;
+import com.sap.oss.smarttestpicker.runtime.CollectorIntegrity;
+import com.sap.oss.smarttestpicker.runtime.FragmentProjectionConfig;
+import com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec;
 import com.sap.oss.smarttestpicker.runtime.model.Certainty;
 import com.sap.oss.smarttestpicker.runtime.model.Evidence;
 import com.sap.oss.smarttestpicker.runtime.model.EvidenceSource;
@@ -102,7 +106,14 @@ final class AgentRuntime {
 	void writeOutput() {
 		Map<Long, Long> hitSnapshot = new java.util.TreeMap<>(Long::compareUnsigned);
 		hits.forEach((id, count) -> hitSnapshot.put(id, count.sum()));
-		String runtimeJson = new RuntimeJsonSerializer().serialize(runtimeContext.aggregator());
+		String runtimeJson;
+		try {
+			runtimeJson = new RuntimeJsonSerializer().serialize(runtimeContext.aggregator());
+		} catch (Throwable failure) {
+			runtimeJson = null;
+			errors.add("runtime-serialization-failure:" + failure.getClass().getName());
+		}
+		writeFragmentIfConfigured();
 		try {
 			AgentOutputWriter.write(configuration.output(), configuration.runId(), jvmId, configuration,
 					metrics.snapshot(), errors, catalog.snapshot(), hitSnapshot, runtimeJson);
@@ -111,6 +122,24 @@ final class AgentRuntime {
 			System.err.println("[stp-agent] failed to write output: " + failure.getClass().getSimpleName());
 		} finally {
 			closeRegistrations();
+		}
+	}
+
+	private void writeFragmentIfConfigured() {
+		if (configuration.fragmentOutput() == null) return;
+		AgentMetrics.Snapshot snapshot = metrics.snapshot();
+		try {
+			var projected = new AsmCoverageFragmentProjector().project(runtimeContext.aggregator().snapshot(),
+					FragmentProjectionConfig.of(configuration.revision(), configuration.shardId()),
+					new CollectorIntegrity(true, snapshot.transformationErrors(), snapshot.methodIdCollisions(), errors));
+			errors.addAll(projected.diagnostics());
+			byte[] bytes = new CoverageFragmentCodec().serialize(projected.fragment());
+			java.nio.file.Files.write(configuration.fragmentOutput(), bytes, java.nio.file.StandardOpenOption.CREATE,
+					java.nio.file.StandardOpenOption.TRUNCATE_EXISTING, java.nio.file.StandardOpenOption.WRITE);
+		} catch (Throwable failure) {
+			errors.add("fragment-serialization-failure:" + failure.getClass().getName());
+			System.err.println("[stp-agent] failed to write coverage fragment: " + failure.getClass().getSimpleName()
+					+ ": " + String.valueOf(failure.getMessage()));
 		}
 	}
 

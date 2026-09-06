@@ -13,13 +13,13 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 
-record AgentConfiguration(Path output, List<String> includes, List<String> excludes, String runId,
-		boolean debug, boolean instrumentationEnabled) {
+record AgentConfiguration(Path output, Path fragmentOutput, String revision, String shardId,
+		List<String> includes, List<String> excludes, String runId, boolean debug, boolean instrumentationEnabled) {
 	private static final List<String> MANDATORY_EXCLUDES = List.of("java.", "javax.", "jakarta.", "jdk.",
 			"sun.", "org.junit.", "org.springframework.", "org.hibernate.", "org.mockito.", "net.bytebuddy.",
 			"org.jacoco.", "com.sap.oss.smarttestpicker.");
-	private static final Set<String> KEYS = Set.of("output", "includes", "excludes", "runId", "debug",
-			"instrumentation");
+	private static final Set<String> KEYS = Set.of("output", "fragmentOutput", "revision", "shardId", "includes",
+			"excludes", "runId", "debug", "instrumentation");
 	private static final Pattern PREFIX = Pattern.compile("(?:[A-Za-z_$][A-Za-z0-9_$]*\\.)+");
 
 	static boolean isMandatoryExclusion(String prefix) {
@@ -28,6 +28,11 @@ record AgentConfiguration(Path output, List<String> includes, List<String> exclu
 
 	public AgentConfiguration {
 		if (output == null) throw new NullPointerException("output");
+		boolean anyFragment = fragmentOutput != null || revision != null || shardId != null;
+		if (anyFragment && (fragmentOutput == null || revision == null || revision.isBlank()
+				|| shardId == null || shardId.isBlank())) {
+			throw new IllegalArgumentException("fragmentOutput, revision, and shardId must be supplied together");
+		}
 		includes = List.copyOf(includes);
 		excludes = List.copyOf(excludes);
 		if (runId == null || runId.isBlank()) throw new IllegalArgumentException("runId must not be blank");
@@ -49,8 +54,10 @@ record AgentConfiguration(Path output, List<String> includes, List<String> exclu
 		}
 
 		Path output;
+		Path fragmentOutput = null;
 		try {
 			output = Path.of(values.getOrDefault("output", "stp-agent-output.json"));
+			if (values.containsKey("fragmentOutput")) fragmentOutput = Path.of(values.get("fragmentOutput"));
 		} catch (InvalidPathException invalid) {
 			throw new IllegalArgumentException("output is not a valid path", invalid);
 		}
@@ -68,7 +75,8 @@ record AgentConfiguration(Path output, List<String> includes, List<String> exclu
 		if (!instrumentation.equals("on") && !instrumentation.equals("off")) {
 			throw new IllegalArgumentException("instrumentation must be on or off");
 		}
-		return new AgentConfiguration(output, includes, new ArrayList<>(exclusions), runId,
+		return new AgentConfiguration(output, fragmentOutput, values.get("revision"), values.get("shardId"),
+				includes, new ArrayList<>(exclusions), runId,
 				Boolean.parseBoolean(debugValue), instrumentation.equals("on"));
 	}
 

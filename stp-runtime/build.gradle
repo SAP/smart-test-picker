@@ -12,6 +12,7 @@ java {
 }
 
 dependencies {
+    api project(':smart-test-picker-common')
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
 }
 
@@ -20,4 +21,3 @@ test {
 }
 
 // Intentionally no maven-publish plugin: this experimental module is not published.
-
