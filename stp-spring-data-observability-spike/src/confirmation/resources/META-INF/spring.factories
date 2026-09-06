@@ -1,4 +1,0 @@
-org.springframework.context.ApplicationContextInitializer=\
-com.sap.oss.smarttestpicker.spike.springdata.confirmation.PetClinicConfirmationInitializer
-org.springframework.test.context.TestExecutionListener=\
-com.sap.oss.smarttestpicker.spike.springdata.confirmation.RepositoryLifecycleTestExecutionListener

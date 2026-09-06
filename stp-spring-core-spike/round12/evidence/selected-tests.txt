@@ -1,4 +1,0 @@
-org.springframework.core.ResolvableTypeTests.classWithGenericsAs
-org.springframework.core.ResolvableTypeTests.forMethodParameterWithNestingAndLevels
-org.springframework.core.BridgeMethodResolverTests.withGenericParameter
-org.springframework.core.convert.support.MapToMapConverterTests.collectionMapSourceTarget

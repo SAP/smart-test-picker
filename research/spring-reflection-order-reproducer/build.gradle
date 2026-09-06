@@ -1,8 +1,0 @@
-plugins { id 'application' }
-
-repositories { mavenCentral() }
-
-dependencies { implementation 'org.springframework:spring-core:6.1.21' }
-
-java { toolchain { languageVersion = JavaLanguageVersion.of(21) } }
-application { mainClass = 'org.springframework.core.ReflectionOrderReproducer' }

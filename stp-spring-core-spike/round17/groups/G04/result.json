@@ -1,9 +1,0 @@
-{
-  "answer": "No target-connected producer-order trace exists for either test. The proven G03 event cannot be generalized from equal vectors and similar methods.",
-  "classifiedEdges": 0,
-  "edgeCount": 20,
-  "groupId": "G04",
-  "primaryResult": "INSUFFICIENT_EVIDENCE",
-  "schemaVersion": "round17-group-result-1",
-  "unknownEdges": 20
-}

@@ -1,2 +1,0 @@
-org.springframework.context.ApplicationContextInitializer=\
-com.sap.oss.smarttestpicker.springdata.StpSpringDataApplicationContextInitializer

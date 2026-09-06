@@ -1,9 +1,0 @@
-{
-  "answer": "The triplets establish one internal operation cluster per test/run, but retained traces do not identify the concrete receiver or distinguish resize from purge for these exact invocations.",
-  "classifiedEdges": 0,
-  "edgeCount": 69,
-  "groupId": "G01",
-  "primaryResult": "INSUFFICIENT_EVIDENCE",
-  "schemaVersion": "round17-group-result-1",
-  "unknownEdges": 69
-}

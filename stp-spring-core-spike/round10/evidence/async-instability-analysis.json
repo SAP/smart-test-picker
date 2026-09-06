@@ -1,6 +1,0 @@
-{
-  "basis": "propagatedTask=true plus matching logical TestIdentity in bounded per-hit records; absence is not treated as proof of a missing boundary",
-  "unstableDespiteCorrectContextPropagation": 0,
-  "unstableEdgesCausedByMissingOrWrongContext": 0,
-  "unstableEdgesExecutingInsideCorrectlyPropagatedAsyncContexts": 0
-}

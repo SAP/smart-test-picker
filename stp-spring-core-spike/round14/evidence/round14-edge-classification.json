@@ -1,7 +1,0 @@
-{
-  "candidateOrderHypothesis": "PROVEN",
-  "classification": "CANDIDATE_ORDER_CAUSE_PROVEN",
-  "reason": "The same two candidates occur in reversed order. That reversal directly changes the first isBridgeMethodFor path and fully explains getInterfaces presence versus immediate return.",
-  "reflectionOrderCause": "NOT_PROVEN",
-  "schemaVersion": "round14-edge-classification-1"
-}
