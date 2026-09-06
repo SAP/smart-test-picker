@@ -16,6 +16,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -34,8 +35,17 @@ public final class ExecutorPropagationFixtureMain {
 		ThreadPoolExecutor direct = new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS,
 				new LinkedBlockingQueue<>());
 		CustomExecutor custom = new CustomExecutor();
+		ForkJoinPool forkJoin = new ForkJoinPool(2);
 		try {
 			run(context, test("single"), () -> single.submit(application::single).get());
+			Executor executor = single;
+			run(context, test("execute-runnable"), () -> {
+				CountDownLatch done = new CountDownLatch(1);
+				executor.execute(() -> { application.executeRunnable(); done.countDown(); });
+				check(done.await(5, TimeUnit.SECONDS), "execute runnable completion");
+			});
+			run(context, test("submit-runnable"), () ->
+					single.submit(application::submitRunnable).get());
 			run(context, test("reuse-a"), () -> single.submit(application::reusedA).get());
 			run(context, test("reuse-b"), () -> single.submit(application::reusedB).get());
 			run(context, test("fixed"), () -> {
@@ -46,6 +56,12 @@ public final class ExecutorPropagationFixtureMain {
 			});
 			run(context, test("callable"), () -> check(AsyncApplication.CALLABLE_RESULT ==
 					single.submit((Callable<String>) application::callable).get(), "callable result identity"));
+			Runnable reusedRunnable = application::reusedRunnable;
+			run(context, test("same-runnable-a"), () -> single.submit(reusedRunnable).get());
+			run(context, test("same-runnable-b"), () -> single.submit(reusedRunnable).get());
+			Callable<String> reusedCallable = application::reusedCallable;
+			run(context, test("same-callable-a"), () -> single.submit(reusedCallable).get());
+			run(context, test("same-callable-b"), () -> single.submit(reusedCallable).get());
 			run(context, test("nested"), () -> fixed.submit(() -> {
 				application.nestedOuter();
 				try {
@@ -71,8 +87,38 @@ public final class ExecutorPropagationFixtureMain {
 				custom.execute(() -> { application.customImplementation(); done.countDown(); });
 				check(done.await(5, TimeUnit.SECONDS), "custom implementation completion");
 			});
-			run(context, test("completable-future"), () ->
+			run(context, test("cf-explicit-run"), () ->
 					CompletableFuture.runAsync(application::completableFuture, direct).get());
+			run(context, test("cf-common-run"), () ->
+					CompletableFuture.runAsync(application::completableFutureCommon).get());
+			run(context, test("cf-explicit-supply"), () -> check(AsyncApplication.CALLABLE_RESULT ==
+					CompletableFuture.supplyAsync(application::completableFutureSupply, direct).get(),
+					"supplier result identity"));
+			run(context, test("cf-common-supply"), () -> check(AsyncApplication.CALLABLE_RESULT ==
+					CompletableFuture.supplyAsync(application::completableFutureSupply).get(),
+					"common supplier result identity"));
+			run(context, test("cf-common-then-apply"), () -> check(AsyncApplication.CALLABLE_RESULT ==
+					CompletableFuture.completedFuture(AsyncApplication.CALLABLE_RESULT)
+							.thenApplyAsync(application::completableFutureApply).get(),
+					"function result identity"));
+			run(context, test("cf-explicit-then-apply"), () -> check(AsyncApplication.CALLABLE_RESULT ==
+					CompletableFuture.completedFuture(AsyncApplication.CALLABLE_RESULT)
+							.thenApplyAsync(application::completableFutureApply, direct).get(),
+					"explicit function result identity"));
+			run(context, test("cf-explicit-then-run"), () ->
+					CompletableFuture.completedFuture("ready")
+							.thenRunAsync(application::completableFutureThenRun, direct).get());
+			run(context, test("cf-common-then-run"), () ->
+					CompletableFuture.completedFuture("ready")
+							.thenRunAsync(application::completableFutureThenRun).get());
+			run(context, test("forkjoin-execute"), () -> {
+				CountDownLatch done = new CountDownLatch(1);
+				forkJoin.execute(() -> { application.forkJoinExecute(); done.countDown(); });
+				check(done.await(5, TimeUnit.SECONDS), "fork/join execute completion");
+			});
+			run(context, test("forkjoin-submit"), () -> check(AsyncApplication.CALLABLE_RESULT ==
+					forkJoin.submit((Callable<String>) application::forkJoinSubmit).get(),
+					"fork/join callable result identity"));
 
 			ThreadPoolExecutor rejecting = new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS,
 					new LinkedBlockingQueue<>());
@@ -104,6 +150,7 @@ public final class ExecutorPropagationFixtureMain {
 			fixed.shutdownNow();
 			direct.shutdownNow();
 			custom.shutdown();
+			forkJoin.shutdownNow();
 			single.awaitTermination(5, TimeUnit.SECONDS);
 			fixed.awaitTermination(5, TimeUnit.SECONDS);
 		}

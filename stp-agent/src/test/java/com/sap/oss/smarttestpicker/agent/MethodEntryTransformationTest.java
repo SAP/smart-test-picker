@@ -8,6 +8,8 @@ import example.instrumented.Calculator;
 import example.instrumented.ApplicationMethodKinds;
 import example.instrumented.InstrumentedFixtureMain;
 import example.fixture.ExecutorPropagationFixtureMain;
+import example.fixture.ExecutorOverloadVerificationFixtureMain;
+import example.fixture.ThreadBoundaryFixtureMain;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 import org.objectweb.asm.ClassReader;
@@ -22,6 +24,9 @@ import java.lang.reflect.Proxy;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.net.URL;
+import java.security.CodeSource;
+import java.security.ProtectionDomain;
 import java.util.List;
 import java.util.concurrent.atomic.LongAdder;
 import java.util.jar.JarFile;
@@ -35,6 +40,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class MethodEntryTransformationTest {
+	@Test
+	void excludesMavenAndGradleTestOutputLocations() throws Exception {
+		for (String location : List.of("file:/tmp/project/target/test-classes/",
+				"file:/tmp/project/build/classes/java/test/", "file:/tmp/project/build/classes/kotlin/test/",
+				"file:/tmp/project/build/classes/java/testFixtures/",
+				"file:/tmp/project/build/classes/kotlin/testFixtures/")) {
+			ProtectionDomain domain = new ProtectionDomain(new CodeSource(new URL(location), (java.security.cert.Certificate[]) null), null);
+			assertTrue(MethodEntryClassFileTransformer.isTestClassLocation(domain), location);
+		}
+	}
 	@TempDir
 	Path temporaryDirectory;
 
@@ -138,7 +153,7 @@ class MethodEntryTransformationTest {
 	void transformingMarkedBytesIsIdempotent() throws Exception {
 		Transformation transformation = transformCalculator();
 		byte[] second = transformation.transformer.transform(getClass().getClassLoader(),
-				Calculator.class.getName().replace('.', '/'), null, getClass().getProtectionDomain(), transformation.bytes);
+				Calculator.class.getName().replace('.', '/'), null, null, transformation.bytes);
 		assertNull(second);
 		assertEquals(1, transformation.metrics.snapshot().alreadyInstrumentedClasses());
 	}
@@ -156,6 +171,9 @@ class MethodEntryTransformationTest {
 
 	@Test
 	void generatedFrameworkClassUnderIncludedPrefixRemainsUnchanged() throws Exception {
+		assertTrue(MethodEntryClassFileTransformer.isGeneratedFrameworkClass("org/springframework/core/$Proxy54"));
+		assertTrue(MethodEntryClassFileTransformer.isGeneratedFrameworkClass(
+				"org/springframework/core/Type$auxiliary$generated"));
 		Transformation transformation = transformation();
 		byte[] result = transformation.transformer.transform(getClass().getClassLoader(),
 				"example/instrumented/OwnerRepository$MockitoMock$generated", null,
@@ -204,26 +222,123 @@ class MethodEntryTransformationTest {
 		assertEquals(0, run.exitCode, run.output);
 		assertTrue(run.output.contains("executor-propagation-fixture-ok"));
 		String json = Files.readString(output);
-		assertTrue(json.contains("executor-attribution-unsupported:example.fixture.ExecutorPropagationFixtureMain:"
-				+ "java.util.concurrent.CompletableFuture.runAsync"));
 		assertTestHasOnly(json, "single", "single");
+		assertTestHasOnly(json, "execute-runnable", "executeRunnable");
+		assertTestHasOnly(json, "submit-runnable", "submitRunnable");
 		assertTestHasOnly(json, "reuse-a", "reusedA");
 		assertTestHasOnly(json, "reuse-b", "reusedB");
 		assertTestHasOnly(json, "fixed", "fixedOne", "fixedTwo");
 		assertTestHasOnly(json, "callable", "callable");
+		assertTestHasOnly(json, "same-runnable-a", "reusedRunnable");
+		assertTestHasOnly(json, "same-runnable-b", "reusedRunnable");
+		assertTestHasOnly(json, "same-callable-a", "reusedCallable");
+		assertTestHasOnly(json, "same-callable-b", "reusedCallable");
 		assertTestHasOnly(json, "nested", "nestedOuter", "nestedInner");
 		assertTestHasOnly(json, "failure", "failing");
 		assertTestHasOnly(json, "direct-thread-pool", "directThreadPool");
 		assertTestHasOnly(json, "custom-interface", "customInterface");
 		assertTestHasOnly(json, "custom-implementation", "customImplementation");
-		assertFalse(testSection(json, "completable-future").contains("AsyncApplication#completableFuture()V"));
+		assertTestHasOnly(json, "cf-explicit-run", "completableFuture");
+		assertTestHasOnly(json, "cf-common-run", "completableFutureCommon");
+		assertTestHasOnly(json, "cf-explicit-supply", "completableFutureSupply");
+		assertTestHasOnly(json, "cf-common-supply", "completableFutureSupply");
+		assertTestHasOnly(json, "cf-common-then-apply", "completableFutureApply");
+		assertTestHasOnly(json, "cf-explicit-then-apply", "completableFutureApply");
+		assertTestHasOnly(json, "cf-explicit-then-run", "completableFutureThenRun");
+		assertTestHasOnly(json, "cf-common-then-run", "completableFutureThenRun");
+		assertTestHasOnly(json, "forkjoin-execute", "forkJoinExecute");
+		assertTestHasOnly(json, "forkjoin-submit", "forkJoinSubmit");
 		String delayed = testSection(json, "delayed");
 		assertTrue(delayed.contains("\"reason\":\"LATE_EVENT\""));
 		assertTrue(delayed.contains("AsyncApplication#delayed()V"));
 		String global = json.substring(json.lastIndexOf("\"unattributedEvents\""));
 		assertTrue(global.contains("AsyncApplication#unrelated()V"));
 		assertTrue(global.contains("AsyncApplication#afterFailure()V"));
-		assertTrue(global.contains("AsyncApplication#completableFuture()V"));
+	}
+
+	@Test
+	void runnableExecutorOverloadsOutsideTheSupportedDescriptorsRemainValid() throws Exception {
+		Path output = temporaryDirectory.resolve("executor-overload.json");
+		ProcessResult run = runFixture(output, ExecutorOverloadVerificationFixtureMain.class);
+		assertEquals(0, run.exitCode, run.output);
+		assertTrue(run.output.contains("executor-overload-fixture-ok"));
+	}
+
+	@Test
+	void scheduledExecutorsAndRawThreadsPropagateThroughRealAsmInstrumentation() throws Exception {
+		Path output = temporaryDirectory.resolve("thread-boundaries.json");
+		ProcessResult run = runFixture(output, ThreadBoundaryFixtureMain.class);
+		assertEquals(0, run.exitCode, run.output);
+		assertTrue(run.output.contains("thread-boundary-fixture-ok"));
+		String json = Files.readString(output);
+		assertTestHasMethod(json, "scheduled-runnable", "scheduledRunnable");
+		assertTestHasMethod(json, "scheduled-callable", "scheduledCallable");
+		assertTestHasMethod(json, "fixed-rate", "scheduledFixedRate");
+		assertTestHasMethod(json, "fixed-delay", "scheduledFixedDelay");
+		assertTestHasMethod(json, "scheduled-nested", "scheduledNestedOuter");
+		assertTestHasMethod(json, "scheduled-nested", "scheduledNestedInner");
+		assertTestHasMethod(json, "scheduled-failure", "scheduledFailure");
+		assertTrue(testSection(json, "late-periodic").contains("\"reason\":\"LATE_EVENT\""));
+		assertTrue(testSection(json, "late-periodic").contains("scheduledLatePeriodic"));
+		assertTestHasMethod(json, "raw-thread", "rawThread");
+		assertTestHasMethod(json, "raw-reuse-a", "rawThreadReused");
+		assertTestHasMethod(json, "raw-reuse-b", "rawThreadReused");
+		assertTestHasMethod(json, "raw-failure", "rawThreadFailure");
+		assertTestHasMethod(json, "raw-nested", "rawThreadNestedOuter");
+		assertTestHasMethod(json, "raw-nested", "rawThreadNestedInner");
+		assertTrue(json.substring(json.lastIndexOf("\"unattributedEvents\""))
+				.contains("AsyncApplication#rawNoContext()V"));
+		String global = json.substring(json.lastIndexOf("\"unattributedEvents\""));
+		assertTrue(global.contains("AsyncApplication#threadSubclass()V"));
+		assertTrue(global.contains("AsyncApplication#forkJoinPoolTaskSubmit()V"));
+		assertTrue(global.contains("AsyncApplication#forkJoinPoolTaskInvoke()V"));
+		assertTrue(global.contains("AsyncApplication#forkJoinDirectFork()V"));
+		assertTrue(global.contains("AsyncApplication#scheduledNoContext()V"));
+	}
+
+	@Test
+	void jdk21VirtualThreadApisPropagateThroughRealAsmInstrumentation() throws Exception {
+		Path javaHome = jdk21Home();
+		org.junit.jupiter.api.Assumptions.assumeTrue(javaHome != null, "JDK 21 not installed");
+		Path classes = temporaryDirectory.resolve("jdk21-classes");
+		Files.createDirectories(classes);
+		Path source = Path.of(getClass().getResource(
+				"/jdk21/example/instrumented/VirtualThreadFixtureMain.java").toURI());
+		Process compile = new ProcessBuilder(javaHome.resolve("bin/javac").toString(), "--release", "21",
+				"-cp", agentJar().toString(), "-d", classes.toString(), source.toString())
+				.redirectErrorStream(true).start();
+		String compileOutput = new String(compile.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+		assertEquals(0, compile.waitFor(), compileOutput);
+		Path output = temporaryDirectory.resolve("virtual.json");
+		String args = "output=" + output + ";includes=example.instrumented.;runId=fixture-run;debug=false;instrumentation=on";
+		Process process = new ProcessBuilder(javaHome.resolve("bin/java").toString(), "-Xverify:all",
+				"-javaagent:" + agentJar() + "=" + args, "-cp", classes.toString(),
+				"example.instrumented.VirtualThreadFixtureMain").redirectErrorStream(true).start();
+		String processOutput = new String(process.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+		assertEquals(0, process.waitFor(), processOutput);
+		assertTrue(processOutput.contains("virtual-thread-fixture-ok"));
+		String json = Files.readString(output);
+		assertTestContains(json, "start-virtual", "VirtualThreadFixtureMain$Application#startVirtual(");
+		assertTestContains(json, "start-virtual", "VirtualThreadFixtureMain$Application#nested(");
+		assertTestContains(json, "builder-virtual", "VirtualThreadFixtureMain$Application#builderVirtual(");
+		assertTestContains(json, "virtual-executor", "VirtualThreadFixtureMain$Application#virtualExecutor(");
+		assertTestContains(json, "virtual-failure", "VirtualThreadFixtureMain$Application#failure(");
+		assertTrue(json.substring(json.lastIndexOf("\"unattributedEvents\""))
+				.contains("VirtualThreadFixtureMain$Application#noContext()V"));
+	}
+
+	private static Path jdk21Home() {
+		String configured = System.getenv("JDK21_HOME");
+		if (configured != null && Files.isExecutable(Path.of(configured, "bin", "java"))) return Path.of(configured);
+		Path macHome = Path.of("/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home");
+		return Files.isExecutable(macHome.resolve("bin/java")) ? macHome : null;
+	}
+
+	private static void assertTestHasMethod(String json, String testId, String methodName) {
+		assertTestContains(json, testId, "AsyncApplication#" + methodName + "(");
+	}
+	private static void assertTestContains(String json, String testId, String method) {
+		assertTrue(testSection(json, testId).contains(method), testId);
 	}
 
 	@Test
@@ -252,7 +367,7 @@ class MethodEntryTransformationTest {
 	private Transformation transform(Class<?> type) throws Exception {
 		Transformation transformation = transformation();
 		byte[] transformed = transformation.transformer.transform(getClass().getClassLoader(),
-				type.getName().replace('.', '/'), null, getClass().getProtectionDomain(), classBytes(type));
+				type.getName().replace('.', '/'), null, null, classBytes(type));
 		return transformation.withBytes(transformed);
 	}
 
@@ -279,23 +394,35 @@ class MethodEntryTransformationTest {
 
 	private ProcessResult runFixture(Path output, Class<?> mainClass) throws Exception {
 		String java = Path.of(System.getProperty("java.home"), "bin", "java").toString();
-		String testClasses = Path.of(mainClass.getProtectionDomain().getCodeSource().getLocation()
-				.toURI()).toString();
+		Path sourceClasses = Path.of(mainClass.getProtectionDomain().getCodeSource().getLocation().toURI());
+		Path fixtureClasses = temporaryDirectory.resolve("fixture-classes");
+		if (Files.notExists(fixtureClasses)) {
+			try (var paths = Files.walk(sourceClasses)) {
+				for (Path source : paths.toList()) {
+					Path target = fixtureClasses.resolve(sourceClasses.relativize(source).toString());
+					if (Files.isDirectory(source)) Files.createDirectories(target);
+					else Files.copy(source, target);
+				}
+			}
+		}
 		String args = "output=" + output + ";includes=example.instrumented.;runId=fixture-run;debug=false;instrumentation=on";
 		Process process = new ProcessBuilder(java, "-Xverify:all", "-javaagent:" + agentJar() + "=" + args,
-				"-cp", testClasses, mainClass.getName()).redirectErrorStream(true).start();
+				"-cp", fixtureClasses.toString(), mainClass.getName()).redirectErrorStream(true).start();
 		String processOutput = new String(process.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
 		return new ProcessResult(process.waitFor(), processOutput);
 	}
 
 	private static void assertTestHasOnly(String json, String testId, String... methodNames) {
 		String section = testSection(json, testId);
-		for (String methodName : methodNames) assertTrue(section.contains("AsyncApplication#" + methodName));
-		for (String other : List.of("single", "reusedA", "reusedB", "fixedOne", "fixedTwo", "callable",
-				"nestedOuter", "nestedInner", "failing", "delayed", "unrelated", "afterFailure",
-				"directThreadPool", "customInterface", "customImplementation", "completableFuture")) {
+		for (String methodName : methodNames) assertTrue(section.contains("AsyncApplication#" + methodName + "("));
+		for (String other : List.of("single", "executeRunnable", "submitRunnable", "reusedA", "reusedB",
+				"reusedRunnable", "reusedCallable", "fixedOne", "fixedTwo", "callable", "nestedOuter",
+				"nestedInner", "failing", "delayed", "unrelated", "afterFailure", "directThreadPool",
+				"customInterface", "customImplementation", "completableFuture", "completableFutureCommon",
+				"completableFutureSupply", "completableFutureApply", "completableFutureThenRun",
+				"forkJoinExecute", "forkJoinSubmit")) {
 			boolean expected = java.util.Arrays.asList(methodNames).contains(other);
-			assertEquals(expected, section.contains("AsyncApplication#" + other), testId + " -> " + other);
+			assertEquals(expected, section.contains("AsyncApplication#" + other + "("), testId + " -> " + other);
 		}
 	}
 
