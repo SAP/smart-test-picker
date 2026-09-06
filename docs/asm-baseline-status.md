@@ -4,7 +4,7 @@
 
 - Branch: `research/asm-codex`
 - Starting commit before consolidation: `64c2636fe4f9224e7f3af4c9677c38fa38594115`
-- Baseline HEAD: recorded after the final ROUND 16 documentation commit
+- Baseline HEAD: the commit dereferenced by annotated tag `asm-spring-stability-baseline` (the exact hash is also printed in the ROUND 16 completion report)
 - Annotated tag: `asm-spring-stability-baseline`
 - Remote: `origin` (`https://github.com/SAP/smart-test-picker.git`)
 
@@ -41,8 +41,23 @@ Historical reports and report-referenced evidence were preserved unchanged, incl
 - Pre-consolidation `git diff --check`: PASS.
 - Five ROUND 16 Spring Core executions: PASS, zero test failures and zero transformation errors.
 - Spring revision: `99a366baf6640b275d08dde60f05da719139bb6a`; source checkout clean after experiments.
-- Final `git diff --check`, working-tree state, tag, and push are recorded after finalization.
+- Final `git diff --check`: PASS.
+- Final working tree before tag/push: clean.
 
 ## ROUND 16 commit list
 
-To be filled with exact hashes after the final commits are created.
+Commits created from the prior `64c2636` cutoff, in chronological order:
+
+1. `8f1cc49` Propagate logical test context through ASM runtime
+2. `eb30d60` Support thread and executor context propagation
+3. `939e167` Validate ASM attribution on PetClinic
+4. `df0685e` Add bounded Spring causal diagnostics
+5. `12b7857` Validate ASM attribution on Spring Core
+6. `38a487a` Analyze Spring Core attribution stability
+7. `405ab7c` Preserve focused Spring causal evidence
+8. `28490cd` Characterize fixed Spring Core unstable edges
+9. `dbb832b` Add Spring reflection order reproducer
+10. `d879e0a` Document canonical ASM stability baseline
+11. `this commit` Record final ASM baseline metadata
+
+The final entry identifies the commit containing this self-referential status record; its immutable hash is the annotated tag target and is reported by `git rev-parse asm-spring-stability-baseline^{commit}`.
