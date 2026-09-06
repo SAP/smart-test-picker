@@ -1,0 +1,11 @@
+{
+  "descriptorIdentityCorrect": true,
+  "eventCount": 35,
+  "expectedEntryCount": 18,
+  "missing": [],
+  "passed": true,
+  "schemaVersion": "task19-oracle-fixture-acceptance-1",
+  "threadIdentityCorrect": true,
+  "unexpectedDuplicateExpectedEntries": [],
+  "wrongThreads": []
+}

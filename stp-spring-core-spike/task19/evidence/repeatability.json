@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "task19-repeatability-1",
+  "tests": [
+    {
+      "asmIntersectionSize": 335,
+      "asmStable": true,
+      "asmUnionSize": 335,
+      "jacocoIntersectionSize": 327,
+      "jacocoStable": true,
+      "jacocoUnionSize": 327,
+      "oracleIntersectionSize": 335,
+      "oracleStable": true,
+      "oracleUnionSize": 335,
+      "testIdentity": "BindingReflectionHintsRegistrarTests#registerTypeForJacksonAnnotations_203971c"
+    },
+    {
+      "asmIntersectionSize": 17,
+      "asmStable": true,
+      "asmUnionSize": 17,
+      "jacocoIntersectionSize": 19,
+      "jacocoStable": true,
+      "jacocoUnionSize": 19,
+      "oracleIntersectionSize": 17,
+      "oracleStable": true,
+      "oracleUnionSize": 17,
+      "testIdentity": "ListenableFutureTaskTests#success_750666e"
+    }
+  ]
+}

@@ -1,0 +1,192 @@
+{
+  "basis": "On non-ambiguous target-union edges ASM had perfect precision/recall; JaCoCo included pre-leaf execution and missed physical entries.",
+  "byCategory": {
+    "ASYNC": {
+      "asm": {
+        "F1": 1.0,
+        "FN": 0,
+        "FP": 0,
+        "TP": 43,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "jacoco": {
+        "F1": 0.963855421686747,
+        "FN": 3,
+        "FP": 0,
+        "TP": 40,
+        "precision": 1.0,
+        "recall": 0.9302325581395349
+      }
+    },
+    "CONCURRENT_REFERENCE_HASH_MAP": {
+      "asm": {
+        "F1": 1.0,
+        "FN": 0,
+        "FP": 0,
+        "TP": 616,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "jacoco": {
+        "F1": 0.8045822102425876,
+        "FN": 19,
+        "FP": 271,
+        "TP": 597,
+        "precision": 0.6877880184331797,
+        "recall": 0.9691558441558441
+      }
+    },
+    "CONSTRUCTOR": {
+      "asm": {
+        "F1": 1.0,
+        "FN": 0,
+        "FP": 0,
+        "TP": 273,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "jacoco": {
+        "F1": 0.32683846637335007,
+        "FN": 13,
+        "FP": 1058,
+        "TP": 260,
+        "precision": 0.19726858877086495,
+        "recall": 0.9523809523809523
+      }
+    },
+    "ORDINARY": {
+      "asm": {
+        "F1": 1.0,
+        "FN": 0,
+        "FP": 0,
+        "TP": 1801,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "jacoco": {
+        "F1": 0.7746967071057194,
+        "FN": 13,
+        "FP": 1027,
+        "TP": 1788,
+        "precision": 0.6351687388987567,
+        "recall": 0.9927817878956136
+      }
+    },
+    "REFLECTION": {
+      "asm": {
+        "F1": 1.0,
+        "FN": 0,
+        "FP": 0,
+        "TP": 167,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "jacoco": {
+        "F1": 0.9498525073746313,
+        "FN": 6,
+        "FP": 11,
+        "TP": 161,
+        "precision": 0.936046511627907,
+        "recall": 0.9640718562874252
+      }
+    },
+    "SETUP_LIFECYCLE": {
+      "asm": {
+        "F1": 1.0,
+        "FN": 0,
+        "FP": 0,
+        "TP": 7,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "jacoco": {
+        "F1": 0.923076923076923,
+        "FN": 1,
+        "FP": 0,
+        "TP": 6,
+        "precision": 1.0,
+        "recall": 0.8571428571428571
+      }
+    },
+    "STATIC_INITIALIZATION": {
+      "asm": {
+        "F1": 1.0,
+        "FN": 0,
+        "FP": 0,
+        "TP": 48,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "jacoco": {
+        "F1": 0.9199999999999999,
+        "FN": 2,
+        "FP": 6,
+        "TP": 46,
+        "precision": 0.8846153846153846,
+        "recall": 0.9583333333333334
+      }
+    }
+  },
+  "classifications": {
+    "AMBIGUOUS_OWNERSHIP": 49,
+    "ASM_TRUE_POSITIVE_JACOCO_FALSE_NEGATIVE": 57,
+    "BOTH_CORRECT": 2898,
+    "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION": 2373,
+    "NOT_EXECUTED_NOT_REPORTED": 165
+  },
+  "decision": "ASM_CLEARLY_BETTER",
+  "descriptor": {
+    "level2AvailableForSameRunJaCoCo": true,
+    "nameLevelComparisons": 5542,
+    "overloadAmbiguities": 402
+  },
+  "globalMode": {
+    "asmOnlyVsOracle": 0,
+    "both": 885,
+    "jacocoOnlyVsOracle": 36,
+    "oracleOnly": 9
+  },
+  "historicalDivergentEdgesRepresented": 2795,
+  "historicalPopulation": 25281,
+  "metrics": {
+    "asm": {
+      "F1": 1.0,
+      "FN": 0,
+      "FP": 0,
+      "TP": 2955,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "jacoco": {
+      "F1": 0.7045951859956237,
+      "FN": 57,
+      "FP": 2373,
+      "TP": 2898,
+      "precision": 0.549800796812749,
+      "recall": 0.9807106598984772
+    }
+  },
+  "observerEffect": "SOME_CASES",
+  "oracleObservations": {
+    "ambiguousMethods": 55,
+    "lateMethods": 0,
+    "outsideMethods": 3327,
+    "testOwnedMethods": 3679
+  },
+  "populationCoveragePercent": 11.055734,
+  "schemaVersion": "task19-summary-1",
+  "selectedTests": 42,
+  "taxonomy": {
+    "ACTUAL_EXECUTION_PATH": 2,
+    "ASYNC_OWNERSHIP": 49,
+    "COLLECTOR_EXTRA_ATTRIBUTION": 2373,
+    "COLLECTOR_MISS": 57,
+    "LATE_EXECUTION": 0,
+    "METHOD_REPRESENTATION": 4,
+    "OVERLOAD_AMBIGUITY": 402,
+    "RESET_BOUNDARY_ATTRIBUTION": 2373,
+    "SETUP_OWNERSHIP": 0,
+    "UNKNOWN": 0
+  }
+}

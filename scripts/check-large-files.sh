@@ -10,7 +10,8 @@ failed=0
 # One repository-relative path per case arm, with a policy justification beside it.
 is_allowlisted() {
 	case "$1" in
-		# path/to/indispensable-artifact) return 0 ;;
+		# Canonical 25,281-edge TASK 19 inventory; already minified and uniquely required for audit/sampling.
+		stp-spring-core-spike/task19/evidence/divergent-edge-inventory.json) return 0 ;;
 		*) return 1 ;;
 	esac
 }

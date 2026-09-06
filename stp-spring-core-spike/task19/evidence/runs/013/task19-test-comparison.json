@@ -1,0 +1,2432 @@
+{
+  "asmMethods": [
+    "org.springframework.core.BridgeMethodResolver#<clinit>",
+    "org.springframework.core.BridgeMethodResolver#findBridgedMethod",
+    "org.springframework.core.BridgeMethodResolver#resolveBridgeMethod",
+    "org.springframework.core.annotation.AbstractMergedAnnotation#<init>",
+    "org.springframework.core.annotation.AbstractMergedAnnotation#getValue",
+    "org.springframework.core.annotation.AbstractMergedAnnotation#synthesize",
+    "org.springframework.core.annotation.AnnotatedElementUtils#findMergedRepeatableAnnotations",
+    "org.springframework.core.annotation.AnnotatedElementUtils#findRepeatableAnnotations",
+    "org.springframework.core.annotation.AnnotatedElementUtils#highAggregateIndexesFirst",
+    "org.springframework.core.annotation.AnnotationFilter#<clinit>",
+    "org.springframework.core.annotation.AnnotationFilter#matches",
+    "org.springframework.core.annotation.AnnotationFilter#packages",
+    "org.springframework.core.annotation.AnnotationFilter$1#<init>",
+    "org.springframework.core.annotation.AnnotationFilter$2#<init>",
+    "org.springframework.core.annotation.AnnotationTypeMapping#<clinit>",
+    "org.springframework.core.annotation.AnnotationTypeMapping#<init>",
+    "org.springframework.core.annotation.AnnotationTypeMapping#addConventionAnnotationValues",
+    "org.springframework.core.annotation.AnnotationTypeMapping#addConventionMappings",
+    "org.springframework.core.annotation.AnnotationTypeMapping#afterAllMappingsSet",
+    "org.springframework.core.annotation.AnnotationTypeMapping#collectAliases",
+    "org.springframework.core.annotation.AnnotationTypeMapping#computeSynthesizableFlag",
+    "org.springframework.core.annotation.AnnotationTypeMapping#filledIntArray",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getAliasMapping",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getAnnotation",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getAnnotationType",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getAttributes",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getDistance",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getFirstRootAttributeIndex",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getMetaTypes",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getMirrorSets",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getRoot",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getSource",
+    "org.springframework.core.annotation.AnnotationTypeMapping#isAliasPair",
+    "org.springframework.core.annotation.AnnotationTypeMapping#isBetterConventionAnnotationValue",
+    "org.springframework.core.annotation.AnnotationTypeMapping#isCompatibleReturnType",
+    "org.springframework.core.annotation.AnnotationTypeMapping#lambda$resolveAliasedForTargets$1",
+    "org.springframework.core.annotation.AnnotationTypeMapping#merge",
+    "org.springframework.core.annotation.AnnotationTypeMapping#processAliases",
+    "org.springframework.core.annotation.AnnotationTypeMapping#resolveAliasTarget",
+    "org.springframework.core.annotation.AnnotationTypeMapping#resolveAliasedForTargets",
+    "org.springframework.core.annotation.AnnotationTypeMapping#validateAllAliasesClaimed",
+    "org.springframework.core.annotation.AnnotationTypeMapping$MirrorSets#<init>",
+    "org.springframework.core.annotation.AnnotationTypeMapping$MirrorSets#resolve",
+    "org.springframework.core.annotation.AnnotationTypeMapping$MirrorSets#size",
+    "org.springframework.core.annotation.AnnotationTypeMapping$MirrorSets#updateFrom",
+    "org.springframework.core.annotation.AnnotationTypeMappings#<clinit>",
+    "org.springframework.core.annotation.AnnotationTypeMappings#<init>",
+    "org.springframework.core.annotation.AnnotationTypeMappings#addAllMappings",
+    "org.springframework.core.annotation.AnnotationTypeMappings#addIfPossible",
+    "org.springframework.core.annotation.AnnotationTypeMappings#addMetaAnnotationsToQueue",
+    "org.springframework.core.annotation.AnnotationTypeMappings#forAnnotationType",
+    "org.springframework.core.annotation.AnnotationTypeMappings#get",
+    "org.springframework.core.annotation.AnnotationTypeMappings#isAlreadyMapped",
+    "org.springframework.core.annotation.AnnotationTypeMappings#isMappable",
+    "org.springframework.core.annotation.AnnotationTypeMappings#lambda$forAnnotationType$0",
+    "org.springframework.core.annotation.AnnotationTypeMappings#size",
+    "org.springframework.core.annotation.AnnotationTypeMappings$Cache#<init>",
+    "org.springframework.core.annotation.AnnotationTypeMappings$Cache#createMappings",
+    "org.springframework.core.annotation.AnnotationTypeMappings$Cache#get",
+    "org.springframework.core.annotation.AnnotationTypeMappings$Cache#lambda$get$0",
+    "org.springframework.core.annotation.AnnotationUtils#<clinit>",
+    "org.springframework.core.annotation.AnnotationUtils#invokeAnnotationMethod",
+    "org.springframework.core.annotation.AnnotationUtils#isSynthesizedAnnotation",
+    "org.springframework.core.annotation.AnnotationsProcessor#doWithAggregate",
+    "org.springframework.core.annotation.AnnotationsScanner#<clinit>",
+    "org.springframework.core.annotation.AnnotationsScanner#getDeclaredAnnotation",
+    "org.springframework.core.annotation.AnnotationsScanner#getDeclaredAnnotations",
+    "org.springframework.core.annotation.AnnotationsScanner#hasPlainJavaAnnotationsOnly",
+    "org.springframework.core.annotation.AnnotationsScanner#isIgnorable",
+    "org.springframework.core.annotation.AnnotationsScanner#isKnownEmpty",
+    "org.springframework.core.annotation.AnnotationsScanner#isWithoutHierarchy",
+    "org.springframework.core.annotation.AnnotationsScanner#process",
+    "org.springframework.core.annotation.AnnotationsScanner#processMethod",
+    "org.springframework.core.annotation.AnnotationsScanner#processMethodAnnotations",
+    "org.springframework.core.annotation.AnnotationsScanner#processMethodHierarchy",
+    "org.springframework.core.annotation.AnnotationsScanner#scan",
+    "org.springframework.core.annotation.AnnotationsScanner$1#<clinit>",
+    "org.springframework.core.annotation.AttributeMethods#<clinit>",
+    "org.springframework.core.annotation.AttributeMethods#<init>",
+    "org.springframework.core.annotation.AttributeMethods#assertAnnotation",
+    "org.springframework.core.annotation.AttributeMethods#canLoad",
+    "org.springframework.core.annotation.AttributeMethods#canThrowTypeNotPresentException",
+    "org.springframework.core.annotation.AttributeMethods#compute",
+    "org.springframework.core.annotation.AttributeMethods#forAnnotationType",
+    "org.springframework.core.annotation.AttributeMethods#get",
+    "org.springframework.core.annotation.AttributeMethods#indexOf",
+    "org.springframework.core.annotation.AttributeMethods#isAttributeMethod",
+    "org.springframework.core.annotation.AttributeMethods#lambda$static$0",
+    "org.springframework.core.annotation.AttributeMethods#size",
+    "org.springframework.core.annotation.IntrospectionFailureLogger#$values",
+    "org.springframework.core.annotation.IntrospectionFailureLogger#<clinit>",
+    "org.springframework.core.annotation.IntrospectionFailureLogger#<init>",
+    "org.springframework.core.annotation.IntrospectionFailureLogger$1#<init>",
+    "org.springframework.core.annotation.IntrospectionFailureLogger$2#<init>",
+    "org.springframework.core.annotation.MergedAnnotationCollectors#<clinit>",
+    "org.springframework.core.annotation.MergedAnnotationCollectors#lambda$toAnnotationSet$0",
+    "org.springframework.core.annotation.MergedAnnotationCollectors#toAnnotationSet",
+    "org.springframework.core.annotation.MergedAnnotations#from",
+    "org.springframework.core.annotation.MergedAnnotations$Search#<clinit>",
+    "org.springframework.core.annotation.MergedAnnotations$Search#lambda$static$1",
+    "org.springframework.core.annotation.MergedAnnotations$SearchStrategy#$values",
+    "org.springframework.core.annotation.MergedAnnotations$SearchStrategy#<clinit>",
+    "org.springframework.core.annotation.MergedAnnotations$SearchStrategy#<init>",
+    "org.springframework.core.annotation.MergedAnnotations$SearchStrategy#values",
+    "org.springframework.core.annotation.PackagesAnnotationFilter#<init>",
+    "org.springframework.core.annotation.PackagesAnnotationFilter#hashCode",
+    "org.springframework.core.annotation.PackagesAnnotationFilter#matches",
+    "org.springframework.core.annotation.RepeatableContainers#<clinit>",
+    "org.springframework.core.annotation.RepeatableContainers#<init>",
+    "org.springframework.core.annotation.RepeatableContainers#findRepeatedAnnotations",
+    "org.springframework.core.annotation.RepeatableContainers#none",
+    "org.springframework.core.annotation.RepeatableContainers#of",
+    "org.springframework.core.annotation.RepeatableContainers#standardRepeatables",
+    "org.springframework.core.annotation.RepeatableContainers$ExplicitRepeatableContainer#<init>",
+    "org.springframework.core.annotation.RepeatableContainers$ExplicitRepeatableContainer#deduceContainer",
+    "org.springframework.core.annotation.RepeatableContainers$NoRepeatableContainers#<clinit>",
+    "org.springframework.core.annotation.RepeatableContainers$NoRepeatableContainers#<init>",
+    "org.springframework.core.annotation.RepeatableContainers$StandardRepeatableContainers#<clinit>",
+    "org.springframework.core.annotation.RepeatableContainers$StandardRepeatableContainers#<init>",
+    "org.springframework.core.annotation.RepeatableContainers$StandardRepeatableContainers#computeRepeatedAnnotationsMethod",
+    "org.springframework.core.annotation.RepeatableContainers$StandardRepeatableContainers#findRepeatedAnnotations",
+    "org.springframework.core.annotation.RepeatableContainers$StandardRepeatableContainers#getRepeatedAnnotationsMethod",
+    "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#<init>",
+    "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#annotationEquals",
+    "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#annotationHashCode",
+    "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#computeHashCode",
+    "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#createProxy",
+    "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#getAttributeValue",
+    "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#invoke",
+    "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#lambda$getAttributeValue$1",
+    "org.springframework.core.annotation.TypeMappedAnnotation#<clinit>",
+    "org.springframework.core.annotation.TypeMappedAnnotation#<init>",
+    "org.springframework.core.annotation.TypeMappedAnnotation#adapt",
+    "org.springframework.core.annotation.TypeMappedAnnotation#adaptForAttribute",
+    "org.springframework.core.annotation.TypeMappedAnnotation#createIfPossible",
+    "org.springframework.core.annotation.TypeMappedAnnotation#createSynthesizedAnnotation",
+    "org.springframework.core.annotation.TypeMappedAnnotation#getAdaptType",
+    "org.springframework.core.annotation.TypeMappedAnnotation#getAggregateIndex",
+    "org.springframework.core.annotation.TypeMappedAnnotation#getAttributeIndex",
+    "org.springframework.core.annotation.TypeMappedAnnotation#getAttributeValue",
+    "org.springframework.core.annotation.TypeMappedAnnotation#getDistance",
+    "org.springframework.core.annotation.TypeMappedAnnotation#getType",
+    "org.springframework.core.annotation.TypeMappedAnnotation#getValue",
+    "org.springframework.core.annotation.TypeMappedAnnotation#isFiltered",
+    "org.springframework.core.annotation.TypeMappedAnnotation#isPresent",
+    "org.springframework.core.annotation.TypeMappedAnnotation#isSynthesizable",
+    "org.springframework.core.annotation.TypeMappedAnnotation#isTargetAnnotation",
+    "org.springframework.core.annotation.TypeMappedAnnotations#<clinit>",
+    "org.springframework.core.annotation.TypeMappedAnnotations#<init>",
+    "org.springframework.core.annotation.TypeMappedAnnotations#from",
+    "org.springframework.core.annotation.TypeMappedAnnotations#getAggregates",
+    "org.springframework.core.annotation.TypeMappedAnnotations#isMappingForType",
+    "org.springframework.core.annotation.TypeMappedAnnotations#scan",
+    "org.springframework.core.annotation.TypeMappedAnnotations#spliterator",
+    "org.springframework.core.annotation.TypeMappedAnnotations#stream",
+    "org.springframework.core.annotation.TypeMappedAnnotations$Aggregate#<init>",
+    "org.springframework.core.annotation.TypeMappedAnnotations$Aggregate#createMergedAnnotationIfPossible",
+    "org.springframework.core.annotation.TypeMappedAnnotations$Aggregate#getMapping",
+    "org.springframework.core.annotation.TypeMappedAnnotations$Aggregate#getMappings",
+    "org.springframework.core.annotation.TypeMappedAnnotations$Aggregate#size",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#<init>",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#addAggregateAnnotations",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#createAggregate",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#doWithAnnotations",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#finish",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#getAggregateAnnotations",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator#<init>",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator#characteristics",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator#getNextSuitableMapping",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator#tryAdvance",
+    "org.springframework.util.Assert#hasText",
+    "org.springframework.util.Assert#isInstanceOf",
+    "org.springframework.util.Assert#isTrue",
+    "org.springframework.util.Assert#notNull",
+    "org.springframework.util.Assert#state",
+    "org.springframework.util.ClassUtils#<clinit>",
+    "org.springframework.util.ClassUtils#getUserClass",
+    "org.springframework.util.ClassUtils#registerCommonClasses",
+    "org.springframework.util.ClassUtils#resolvePrimitiveIfNecessary",
+    "org.springframework.util.ConcurrentReferenceHashMap#<init>",
+    "org.springframework.util.ConcurrentReferenceHashMap#calculateShift",
+    "org.springframework.util.ConcurrentReferenceHashMap#createReferenceManager",
+    "org.springframework.util.ConcurrentReferenceHashMap#doTask",
+    "org.springframework.util.ConcurrentReferenceHashMap#get",
+    "org.springframework.util.ConcurrentReferenceHashMap#getHash",
+    "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+    "org.springframework.util.ConcurrentReferenceHashMap#getReference",
+    "org.springframework.util.ConcurrentReferenceHashMap#getSegmentForHash",
+    "org.springframework.util.ConcurrentReferenceHashMap#put",
+    "org.springframework.util.ConcurrentReferenceHashMap#putIfAbsent",
+    "org.springframework.util.ConcurrentReferenceHashMap$1#<init>",
+    "org.springframework.util.ConcurrentReferenceHashMap$1#execute",
+    "org.springframework.util.ConcurrentReferenceHashMap$Entry#<init>",
+    "org.springframework.util.ConcurrentReferenceHashMap$Entry#getKey",
+    "org.springframework.util.ConcurrentReferenceHashMap$Entry#getValue",
+    "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#<init>",
+    "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#createReference",
+    "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#pollForPurge",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#<init>",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#doTask",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#findInChain",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#getIndex",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#getReference",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#lambda$doTask$0",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructureIfNecessary",
+    "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#<init>",
+    "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+    "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+    "org.springframework.util.ConcurrentReferenceHashMap$Task#<init>",
+    "org.springframework.util.ConcurrentReferenceHashMap$Task#hasOption",
+    "org.springframework.util.ObjectUtils#<clinit>",
+    "org.springframework.util.ObjectUtils#nullSafeEquals",
+    "org.springframework.util.ObjectUtils#nullSafeHashCode",
+    "org.springframework.util.ReflectionUtils#isEqualsMethod",
+    "org.springframework.util.ReflectionUtils#makeAccessible",
+    "org.springframework.util.StringUtils#<clinit>",
+    "org.springframework.util.StringUtils#hasLength",
+    "org.springframework.util.StringUtils#hasText"
+  ],
+  "jacocoMethods": [
+    "org.springframework.core.BridgeMethodResolver#<clinit>",
+    "org.springframework.core.BridgeMethodResolver#findBridgedMethod",
+    "org.springframework.core.BridgeMethodResolver#resolveBridgeMethod",
+    "org.springframework.core.annotation.AbstractMergedAnnotation#<init>",
+    "org.springframework.core.annotation.AbstractMergedAnnotation#getValue",
+    "org.springframework.core.annotation.AbstractMergedAnnotation#synthesize",
+    "org.springframework.core.annotation.AnnotatedElementUtils#findMergedRepeatableAnnotations",
+    "org.springframework.core.annotation.AnnotatedElementUtils#findRepeatableAnnotations",
+    "org.springframework.core.annotation.AnnotatedElementUtils#highAggregateIndexesFirst",
+    "org.springframework.core.annotation.AnnotationFilter#<clinit>",
+    "org.springframework.core.annotation.AnnotationFilter#matches",
+    "org.springframework.core.annotation.AnnotationFilter#packages",
+    "org.springframework.core.annotation.AnnotationFilter$1#<init>",
+    "org.springframework.core.annotation.AnnotationFilter$2#<init>",
+    "org.springframework.core.annotation.AnnotationTypeMapping#<clinit>",
+    "org.springframework.core.annotation.AnnotationTypeMapping#<init>",
+    "org.springframework.core.annotation.AnnotationTypeMapping#addConventionAnnotationValues",
+    "org.springframework.core.annotation.AnnotationTypeMapping#addConventionMappings",
+    "org.springframework.core.annotation.AnnotationTypeMapping#afterAllMappingsSet",
+    "org.springframework.core.annotation.AnnotationTypeMapping#collectAliases",
+    "org.springframework.core.annotation.AnnotationTypeMapping#computeSynthesizableFlag",
+    "org.springframework.core.annotation.AnnotationTypeMapping#filledIntArray",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getAliasMapping",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getAnnotation",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getAnnotationType",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getAttributes",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getDistance",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getFirstRootAttributeIndex",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getMetaTypes",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getMirrorSets",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getRoot",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getSource",
+    "org.springframework.core.annotation.AnnotationTypeMapping#isAliasPair",
+    "org.springframework.core.annotation.AnnotationTypeMapping#isBetterConventionAnnotationValue",
+    "org.springframework.core.annotation.AnnotationTypeMapping#isCompatibleReturnType",
+    "org.springframework.core.annotation.AnnotationTypeMapping#lambda$resolveAliasedForTargets$1",
+    "org.springframework.core.annotation.AnnotationTypeMapping#merge",
+    "org.springframework.core.annotation.AnnotationTypeMapping#processAliases",
+    "org.springframework.core.annotation.AnnotationTypeMapping#resolveAliasTarget",
+    "org.springframework.core.annotation.AnnotationTypeMapping#resolveAliasedForTargets",
+    "org.springframework.core.annotation.AnnotationTypeMapping#validateAllAliasesClaimed",
+    "org.springframework.core.annotation.AnnotationTypeMapping$MirrorSets#<init>",
+    "org.springframework.core.annotation.AnnotationTypeMapping$MirrorSets#resolve",
+    "org.springframework.core.annotation.AnnotationTypeMapping$MirrorSets#size",
+    "org.springframework.core.annotation.AnnotationTypeMapping$MirrorSets#updateFrom",
+    "org.springframework.core.annotation.AnnotationTypeMappings#<clinit>",
+    "org.springframework.core.annotation.AnnotationTypeMappings#<init>",
+    "org.springframework.core.annotation.AnnotationTypeMappings#addAllMappings",
+    "org.springframework.core.annotation.AnnotationTypeMappings#addIfPossible",
+    "org.springframework.core.annotation.AnnotationTypeMappings#addMetaAnnotationsToQueue",
+    "org.springframework.core.annotation.AnnotationTypeMappings#forAnnotationType",
+    "org.springframework.core.annotation.AnnotationTypeMappings#get",
+    "org.springframework.core.annotation.AnnotationTypeMappings#isAlreadyMapped",
+    "org.springframework.core.annotation.AnnotationTypeMappings#isMappable",
+    "org.springframework.core.annotation.AnnotationTypeMappings#lambda$forAnnotationType$0",
+    "org.springframework.core.annotation.AnnotationTypeMappings#size",
+    "org.springframework.core.annotation.AnnotationTypeMappings$Cache#<init>",
+    "org.springframework.core.annotation.AnnotationTypeMappings$Cache#createMappings",
+    "org.springframework.core.annotation.AnnotationTypeMappings$Cache#get",
+    "org.springframework.core.annotation.AnnotationTypeMappings$Cache#lambda$get$0",
+    "org.springframework.core.annotation.AnnotationUtils#<clinit>",
+    "org.springframework.core.annotation.AnnotationUtils#invokeAnnotationMethod",
+    "org.springframework.core.annotation.AnnotationUtils#isSynthesizedAnnotation",
+    "org.springframework.core.annotation.AnnotationsProcessor#doWithAggregate",
+    "org.springframework.core.annotation.AnnotationsScanner#<clinit>",
+    "org.springframework.core.annotation.AnnotationsScanner#getDeclaredAnnotation",
+    "org.springframework.core.annotation.AnnotationsScanner#getDeclaredAnnotations",
+    "org.springframework.core.annotation.AnnotationsScanner#hasPlainJavaAnnotationsOnly",
+    "org.springframework.core.annotation.AnnotationsScanner#isIgnorable",
+    "org.springframework.core.annotation.AnnotationsScanner#isKnownEmpty",
+    "org.springframework.core.annotation.AnnotationsScanner#isWithoutHierarchy",
+    "org.springframework.core.annotation.AnnotationsScanner#process",
+    "org.springframework.core.annotation.AnnotationsScanner#processMethod",
+    "org.springframework.core.annotation.AnnotationsScanner#processMethodAnnotations",
+    "org.springframework.core.annotation.AnnotationsScanner#processMethodHierarchy",
+    "org.springframework.core.annotation.AnnotationsScanner#scan",
+    "org.springframework.core.annotation.AttributeMethods#<clinit>",
+    "org.springframework.core.annotation.AttributeMethods#<init>",
+    "org.springframework.core.annotation.AttributeMethods#assertAnnotation",
+    "org.springframework.core.annotation.AttributeMethods#canLoad",
+    "org.springframework.core.annotation.AttributeMethods#canThrowTypeNotPresentException",
+    "org.springframework.core.annotation.AttributeMethods#compute",
+    "org.springframework.core.annotation.AttributeMethods#forAnnotationType",
+    "org.springframework.core.annotation.AttributeMethods#get",
+    "org.springframework.core.annotation.AttributeMethods#indexOf",
+    "org.springframework.core.annotation.AttributeMethods#isAttributeMethod",
+    "org.springframework.core.annotation.AttributeMethods#lambda$static$0",
+    "org.springframework.core.annotation.AttributeMethods#size",
+    "org.springframework.core.annotation.IntrospectionFailureLogger#<clinit>",
+    "org.springframework.core.annotation.IntrospectionFailureLogger$1#<init>",
+    "org.springframework.core.annotation.IntrospectionFailureLogger$2#<init>",
+    "org.springframework.core.annotation.MergedAnnotationCollectors#<clinit>",
+    "org.springframework.core.annotation.MergedAnnotationCollectors#lambda$toAnnotationSet$0",
+    "org.springframework.core.annotation.MergedAnnotationCollectors#toAnnotationSet",
+    "org.springframework.core.annotation.MergedAnnotations#from",
+    "org.springframework.core.annotation.MergedAnnotations$Search#<clinit>",
+    "org.springframework.core.annotation.MergedAnnotations$Search#lambda$static$1",
+    "org.springframework.core.annotation.MergedAnnotations$SearchStrategy#<clinit>",
+    "org.springframework.core.annotation.NestedRepeatableAnnotationsTests#<init>",
+    "org.springframework.core.annotation.NestedRepeatableAnnotationsTests$SingleRepeatableAnnotationTests#<init>",
+    "org.springframework.core.annotation.NestedRepeatableAnnotationsTests$SingleRepeatableAnnotationTests#findMergedRepeatableAnnotations_AnnotatedElementUtils",
+    "org.springframework.core.annotation.PackagesAnnotationFilter#<init>",
+    "org.springframework.core.annotation.PackagesAnnotationFilter#hashCode",
+    "org.springframework.core.annotation.PackagesAnnotationFilter#matches",
+    "org.springframework.core.annotation.RepeatableContainers#<clinit>",
+    "org.springframework.core.annotation.RepeatableContainers#<init>",
+    "org.springframework.core.annotation.RepeatableContainers#findRepeatedAnnotations",
+    "org.springframework.core.annotation.RepeatableContainers#none",
+    "org.springframework.core.annotation.RepeatableContainers#of",
+    "org.springframework.core.annotation.RepeatableContainers#standardRepeatables",
+    "org.springframework.core.annotation.RepeatableContainers$ExplicitRepeatableContainer#<init>",
+    "org.springframework.core.annotation.RepeatableContainers$ExplicitRepeatableContainer#deduceContainer",
+    "org.springframework.core.annotation.RepeatableContainers$NoRepeatableContainers#<clinit>",
+    "org.springframework.core.annotation.RepeatableContainers$NoRepeatableContainers#<init>",
+    "org.springframework.core.annotation.RepeatableContainers$StandardRepeatableContainers#<clinit>",
+    "org.springframework.core.annotation.RepeatableContainers$StandardRepeatableContainers#<init>",
+    "org.springframework.core.annotation.RepeatableContainers$StandardRepeatableContainers#computeRepeatedAnnotationsMethod",
+    "org.springframework.core.annotation.RepeatableContainers$StandardRepeatableContainers#findRepeatedAnnotations",
+    "org.springframework.core.annotation.RepeatableContainers$StandardRepeatableContainers#getRepeatedAnnotationsMethod",
+    "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#<init>",
+    "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#annotationEquals",
+    "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#annotationHashCode",
+    "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#computeHashCode",
+    "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#createProxy",
+    "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#getAttributeValue",
+    "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#invoke",
+    "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#lambda$getAttributeValue$1",
+    "org.springframework.core.annotation.TypeMappedAnnotation#<clinit>",
+    "org.springframework.core.annotation.TypeMappedAnnotation#<init>",
+    "org.springframework.core.annotation.TypeMappedAnnotation#adapt",
+    "org.springframework.core.annotation.TypeMappedAnnotation#adaptForAttribute",
+    "org.springframework.core.annotation.TypeMappedAnnotation#createIfPossible",
+    "org.springframework.core.annotation.TypeMappedAnnotation#createSynthesizedAnnotation",
+    "org.springframework.core.annotation.TypeMappedAnnotation#getAdaptType",
+    "org.springframework.core.annotation.TypeMappedAnnotation#getAggregateIndex",
+    "org.springframework.core.annotation.TypeMappedAnnotation#getAttributeIndex",
+    "org.springframework.core.annotation.TypeMappedAnnotation#getAttributeValue",
+    "org.springframework.core.annotation.TypeMappedAnnotation#getDistance",
+    "org.springframework.core.annotation.TypeMappedAnnotation#getType",
+    "org.springframework.core.annotation.TypeMappedAnnotation#getValue",
+    "org.springframework.core.annotation.TypeMappedAnnotation#isFiltered",
+    "org.springframework.core.annotation.TypeMappedAnnotation#isPresent",
+    "org.springframework.core.annotation.TypeMappedAnnotation#isSynthesizable",
+    "org.springframework.core.annotation.TypeMappedAnnotation#isTargetAnnotation",
+    "org.springframework.core.annotation.TypeMappedAnnotations#<clinit>",
+    "org.springframework.core.annotation.TypeMappedAnnotations#<init>",
+    "org.springframework.core.annotation.TypeMappedAnnotations#from",
+    "org.springframework.core.annotation.TypeMappedAnnotations#getAggregates",
+    "org.springframework.core.annotation.TypeMappedAnnotations#isMappingForType",
+    "org.springframework.core.annotation.TypeMappedAnnotations#scan",
+    "org.springframework.core.annotation.TypeMappedAnnotations#spliterator",
+    "org.springframework.core.annotation.TypeMappedAnnotations#stream",
+    "org.springframework.core.annotation.TypeMappedAnnotations$Aggregate#<init>",
+    "org.springframework.core.annotation.TypeMappedAnnotations$Aggregate#createMergedAnnotationIfPossible",
+    "org.springframework.core.annotation.TypeMappedAnnotations$Aggregate#getMapping",
+    "org.springframework.core.annotation.TypeMappedAnnotations$Aggregate#getMappings",
+    "org.springframework.core.annotation.TypeMappedAnnotations$Aggregate#size",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#<init>",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#addAggregateAnnotations",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#createAggregate",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#doWithAnnotations",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#finish",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#getAggregateAnnotations",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator#<init>",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator#characteristics",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator#getNextSuitableMapping",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator#tryAdvance",
+    "org.springframework.util.Assert#hasText",
+    "org.springframework.util.Assert#isInstanceOf",
+    "org.springframework.util.Assert#isTrue",
+    "org.springframework.util.Assert#notNull",
+    "org.springframework.util.Assert#state",
+    "org.springframework.util.ClassUtils#<clinit>",
+    "org.springframework.util.ClassUtils#getUserClass",
+    "org.springframework.util.ClassUtils#registerCommonClasses",
+    "org.springframework.util.ClassUtils#resolvePrimitiveIfNecessary",
+    "org.springframework.util.ConcurrentReferenceHashMap#<clinit>",
+    "org.springframework.util.ConcurrentReferenceHashMap#<init>",
+    "org.springframework.util.ConcurrentReferenceHashMap#calculateShift",
+    "org.springframework.util.ConcurrentReferenceHashMap#createReferenceManager",
+    "org.springframework.util.ConcurrentReferenceHashMap#doTask",
+    "org.springframework.util.ConcurrentReferenceHashMap#get",
+    "org.springframework.util.ConcurrentReferenceHashMap#getHash",
+    "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+    "org.springframework.util.ConcurrentReferenceHashMap#getReference",
+    "org.springframework.util.ConcurrentReferenceHashMap#getSegmentForHash",
+    "org.springframework.util.ConcurrentReferenceHashMap#put",
+    "org.springframework.util.ConcurrentReferenceHashMap#putIfAbsent",
+    "org.springframework.util.ConcurrentReferenceHashMap$1#<init>",
+    "org.springframework.util.ConcurrentReferenceHashMap$1#execute",
+    "org.springframework.util.ConcurrentReferenceHashMap$Entry#<init>",
+    "org.springframework.util.ConcurrentReferenceHashMap$Entry#getKey",
+    "org.springframework.util.ConcurrentReferenceHashMap$Entry#getValue",
+    "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#<init>",
+    "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#createReference",
+    "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#pollForPurge",
+    "org.springframework.util.ConcurrentReferenceHashMap$ReferenceType#<clinit>",
+    "org.springframework.util.ConcurrentReferenceHashMap$Restructure#<clinit>",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#<init>",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#doTask",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#findInChain",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#getIndex",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#getReference",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#lambda$doTask$0",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructureIfNecessary",
+    "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#<init>",
+    "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+    "org.springframework.util.ConcurrentReferenceHashMap$Task#<init>",
+    "org.springframework.util.ConcurrentReferenceHashMap$Task#hasOption",
+    "org.springframework.util.ConcurrentReferenceHashMap$TaskOption#<clinit>",
+    "org.springframework.util.ObjectUtils#<clinit>",
+    "org.springframework.util.ObjectUtils#nullSafeEquals",
+    "org.springframework.util.ObjectUtils#nullSafeHashCode",
+    "org.springframework.util.ReflectionUtils#<clinit>",
+    "org.springframework.util.ReflectionUtils#findDefaultMethodsOnInterfaces",
+    "org.springframework.util.ReflectionUtils#findMethod",
+    "org.springframework.util.ReflectionUtils#getDeclaredMethods",
+    "org.springframework.util.ReflectionUtils#hasSameParams",
+    "org.springframework.util.ReflectionUtils#isEqualsMethod",
+    "org.springframework.util.ReflectionUtils#makeAccessible",
+    "org.springframework.util.StringUtils#<clinit>",
+    "org.springframework.util.StringUtils#hasLength",
+    "org.springframework.util.StringUtils#hasText"
+  ],
+  "metrics": {
+    "asmMetrics": {
+      "F1": 1.0,
+      "FN": 0,
+      "FP": 0,
+      "TP": 137,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "jacocoMetrics": {
+      "F1": 0.9819494584837546,
+      "FN": 1,
+      "FP": 4,
+      "TP": 136,
+      "precision": 0.9714285714285714,
+      "recall": 0.9927007299270073
+    },
+    "perMethod": [
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.BridgeMethodResolver#findBridgedMethod(Ljava/lang/reflect/Method;)Ljava/lang/reflect/Method;"
+        ],
+        "methodIdentity": "org.springframework.core.BridgeMethodResolver#findBridgedMethod",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.BridgeMethodResolver#resolveBridgeMethod(Ljava/lang/reflect/Method;Ljava/lang/Class;)Ljava/lang/reflect/Method;"
+        ],
+        "methodIdentity": "org.springframework.core.BridgeMethodResolver#resolveBridgeMethod",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AbstractMergedAnnotation#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AbstractMergedAnnotation#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AbstractMergedAnnotation#getValue(Ljava/lang/String;Ljava/lang/Class;)Ljava/util/Optional;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AbstractMergedAnnotation#getValue",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AbstractMergedAnnotation#synthesize()Ljava/lang/annotation/Annotation;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AbstractMergedAnnotation#synthesize",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotatedElementUtils#findMergedRepeatableAnnotations(Ljava/lang/reflect/AnnotatedElement;Ljava/lang/Class;)Ljava/util/Set;",
+          "org.springframework.core.annotation.AnnotatedElementUtils#findMergedRepeatableAnnotations(Ljava/lang/reflect/AnnotatedElement;Ljava/lang/Class;Ljava/lang/Class;)Ljava/util/Set;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotatedElementUtils#findMergedRepeatableAnnotations",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotatedElementUtils#findRepeatableAnnotations(Ljava/lang/reflect/AnnotatedElement;Ljava/lang/Class;Ljava/lang/Class;)Lorg/springframework/core/annotation/MergedAnnotations;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotatedElementUtils#findRepeatableAnnotations",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotatedElementUtils#highAggregateIndexesFirst()Ljava/util/Comparator;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotatedElementUtils#highAggregateIndexesFirst",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationFilter#matches(Ljava/lang/Class;)Z",
+          "org.springframework.core.annotation.AnnotationFilter#matches(Ljava/lang/annotation/Annotation;)Z"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationFilter#matches",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationTypeMapping#getAliasMapping(I)I"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationTypeMapping#getAliasMapping",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationTypeMapping#getAnnotation()Ljava/lang/annotation/Annotation;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationTypeMapping#getAnnotation",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationTypeMapping#getAnnotationType()Ljava/lang/Class;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationTypeMapping#getAnnotationType",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationTypeMapping#getAttributes()Lorg/springframework/core/annotation/AttributeMethods;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationTypeMapping#getAttributes",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationTypeMapping#getDistance()I"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationTypeMapping#getDistance",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationTypeMapping#getMirrorSets()Lorg/springframework/core/annotation/AnnotationTypeMapping$MirrorSets;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationTypeMapping#getMirrorSets",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationTypeMapping#getRoot()Lorg/springframework/core/annotation/AnnotationTypeMapping;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationTypeMapping#getRoot",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationTypeMapping$MirrorSets#resolve(Ljava/lang/Object;Ljava/lang/Object;Lorg/springframework/core/annotation/ValueExtractor;)[I"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationTypeMapping$MirrorSets#resolve",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationTypeMapping$MirrorSets#size()I"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationTypeMapping$MirrorSets#size",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationTypeMappings#forAnnotationType(Ljava/lang/Class;)Lorg/springframework/core/annotation/AnnotationTypeMappings;",
+          "org.springframework.core.annotation.AnnotationTypeMappings#forAnnotationType(Ljava/lang/Class;Ljava/util/Set;)Lorg/springframework/core/annotation/AnnotationTypeMappings;",
+          "org.springframework.core.annotation.AnnotationTypeMappings#forAnnotationType(Ljava/lang/Class;Lorg/springframework/core/annotation/RepeatableContainers;Lorg/springframework/core/annotation/AnnotationFilter;Ljava/util/Set;)Lorg/springframework/core/annotation/AnnotationTypeMappings;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationTypeMappings#forAnnotationType",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationTypeMappings#get(I)Lorg/springframework/core/annotation/AnnotationTypeMapping;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationTypeMappings#get",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationTypeMappings#size()I"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationTypeMappings#size",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationTypeMappings$Cache#get(Ljava/lang/Class;Ljava/util/Set;)Lorg/springframework/core/annotation/AnnotationTypeMappings;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationTypeMappings$Cache#get",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationUtils#invokeAnnotationMethod(Ljava/lang/reflect/Method;Ljava/lang/Object;)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationUtils#invokeAnnotationMethod",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationUtils#isSynthesizedAnnotation(Ljava/lang/annotation/Annotation;)Z"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationUtils#isSynthesizedAnnotation",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationsProcessor#doWithAggregate(Ljava/lang/Object;I)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationsProcessor#doWithAggregate",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationsScanner#getDeclaredAnnotations(Ljava/lang/reflect/AnnotatedElement;Z)[Ljava/lang/annotation/Annotation;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationsScanner#getDeclaredAnnotations",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationsScanner#hasPlainJavaAnnotationsOnly(Ljava/lang/Class;)Z",
+          "org.springframework.core.annotation.AnnotationsScanner#hasPlainJavaAnnotationsOnly(Ljava/lang/Object;)Z"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationsScanner#hasPlainJavaAnnotationsOnly",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationsScanner#isIgnorable(Ljava/lang/Class;)Z"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationsScanner#isIgnorable",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationsScanner#isKnownEmpty(Ljava/lang/reflect/AnnotatedElement;Lorg/springframework/core/annotation/MergedAnnotations$SearchStrategy;Ljava/util/function/Predicate;)Z"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationsScanner#isKnownEmpty",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationsScanner#isWithoutHierarchy(Ljava/lang/reflect/AnnotatedElement;Ljava/util/function/Predicate;)Z"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationsScanner#isWithoutHierarchy",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationsScanner#process(Ljava/lang/Object;Ljava/lang/reflect/AnnotatedElement;Lorg/springframework/core/annotation/MergedAnnotations$SearchStrategy;Ljava/util/function/Predicate;Lorg/springframework/core/annotation/AnnotationsProcessor;)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationsScanner#process",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationsScanner#processMethod(Ljava/lang/Object;Ljava/lang/reflect/Method;Lorg/springframework/core/annotation/MergedAnnotations$SearchStrategy;Lorg/springframework/core/annotation/AnnotationsProcessor;)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationsScanner#processMethod",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationsScanner#processMethodAnnotations(Ljava/lang/Object;ILjava/lang/reflect/Method;Lorg/springframework/core/annotation/AnnotationsProcessor;)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationsScanner#processMethodAnnotations",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationsScanner#processMethodHierarchy(Ljava/lang/Object;[ILjava/lang/Class;Lorg/springframework/core/annotation/AnnotationsProcessor;Ljava/lang/reflect/Method;Z)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationsScanner#processMethodHierarchy",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AnnotationsScanner#scan(Ljava/lang/Object;Ljava/lang/reflect/AnnotatedElement;Lorg/springframework/core/annotation/MergedAnnotations$SearchStrategy;Ljava/util/function/Predicate;Lorg/springframework/core/annotation/AnnotationsProcessor;)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AnnotationsScanner#scan",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AttributeMethods#assertAnnotation(Ljava/lang/annotation/Annotation;)V"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AttributeMethods#assertAnnotation",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AttributeMethods#canLoad(Ljava/lang/annotation/Annotation;)Z"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AttributeMethods#canLoad",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AttributeMethods#canThrowTypeNotPresentException(I)Z"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AttributeMethods#canThrowTypeNotPresentException",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AttributeMethods#forAnnotationType(Ljava/lang/Class;)Lorg/springframework/core/annotation/AttributeMethods;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AttributeMethods#forAnnotationType",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AttributeMethods#get(I)Ljava/lang/reflect/Method;",
+          "org.springframework.core.annotation.AttributeMethods#get(Ljava/lang/String;)Ljava/lang/reflect/Method;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AttributeMethods#get",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AttributeMethods#indexOf(Ljava/lang/String;)I"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AttributeMethods#indexOf",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.AttributeMethods#size()I"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.AttributeMethods#size",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.MergedAnnotationCollectors#lambda$toAnnotationSet$0(Ljava/util/Set;Lorg/springframework/core/annotation/MergedAnnotation;)V"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.MergedAnnotationCollectors#lambda$toAnnotationSet$0",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.MergedAnnotationCollectors#toAnnotationSet()Ljava/util/stream/Collector;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.MergedAnnotationCollectors#toAnnotationSet",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.MergedAnnotations#from(Ljava/lang/reflect/AnnotatedElement;Lorg/springframework/core/annotation/MergedAnnotations$SearchStrategy;Ljava/util/function/Predicate;Lorg/springframework/core/annotation/RepeatableContainers;Lorg/springframework/core/annotation/AnnotationFilter;)Lorg/springframework/core/annotation/MergedAnnotations;",
+          "org.springframework.core.annotation.MergedAnnotations#from(Ljava/lang/reflect/AnnotatedElement;Lorg/springframework/core/annotation/MergedAnnotations$SearchStrategy;Lorg/springframework/core/annotation/RepeatableContainers;)Lorg/springframework/core/annotation/MergedAnnotations;",
+          "org.springframework.core.annotation.MergedAnnotations#from(Ljava/lang/reflect/AnnotatedElement;Lorg/springframework/core/annotation/MergedAnnotations$SearchStrategy;Lorg/springframework/core/annotation/RepeatableContainers;Lorg/springframework/core/annotation/AnnotationFilter;)Lorg/springframework/core/annotation/MergedAnnotations;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.MergedAnnotations#from",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.MergedAnnotations$Search#lambda$static$1(Ljava/lang/Class;)Z"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.MergedAnnotations$Search#lambda$static$1",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.PackagesAnnotationFilter#hashCode()I"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.PackagesAnnotationFilter#hashCode",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.PackagesAnnotationFilter#matches(Ljava/lang/String;)Z"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.PackagesAnnotationFilter#matches",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.RepeatableContainers#<init>(Lorg/springframework/core/annotation/RepeatableContainers;)V"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.RepeatableContainers#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.RepeatableContainers#findRepeatedAnnotations(Ljava/lang/annotation/Annotation;)[Ljava/lang/annotation/Annotation;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.RepeatableContainers#findRepeatedAnnotations",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.RepeatableContainers#of(Ljava/lang/Class;Ljava/lang/Class;)Lorg/springframework/core/annotation/RepeatableContainers;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.RepeatableContainers#of",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.RepeatableContainers#standardRepeatables()Lorg/springframework/core/annotation/RepeatableContainers;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.RepeatableContainers#standardRepeatables",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.RepeatableContainers$ExplicitRepeatableContainer#<init>(Lorg/springframework/core/annotation/RepeatableContainers;Ljava/lang/Class;Ljava/lang/Class;)V"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.RepeatableContainers$ExplicitRepeatableContainer#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.RepeatableContainers$ExplicitRepeatableContainer#deduceContainer(Ljava/lang/Class;)Ljava/lang/Class;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.RepeatableContainers$ExplicitRepeatableContainer#deduceContainer",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.RepeatableContainers$StandardRepeatableContainers#findRepeatedAnnotations(Ljava/lang/annotation/Annotation;)[Ljava/lang/annotation/Annotation;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.RepeatableContainers$StandardRepeatableContainers#findRepeatedAnnotations",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.RepeatableContainers$StandardRepeatableContainers#getRepeatedAnnotationsMethod(Ljava/lang/Class;)Ljava/lang/reflect/Method;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.RepeatableContainers$StandardRepeatableContainers#getRepeatedAnnotationsMethod",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#<init>(Lorg/springframework/core/annotation/MergedAnnotation;Ljava/lang/Class;)V"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#annotationEquals(Ljava/lang/Object;)Z"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#annotationEquals",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#annotationHashCode()I"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#annotationHashCode",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#computeHashCode()Ljava/lang/Integer;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#computeHashCode",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#createProxy(Lorg/springframework/core/annotation/MergedAnnotation;Ljava/lang/Class;)Ljava/lang/annotation/Annotation;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#createProxy",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#getAttributeValue(Ljava/lang/reflect/Method;)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#getAttributeValue",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#invoke(Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#invoke",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#lambda$getAttributeValue$1(Ljava/lang/reflect/Method;Ljava/lang/String;)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#lambda$getAttributeValue$1",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotation#<init>(Lorg/springframework/core/annotation/AnnotationTypeMapping;Ljava/lang/ClassLoader;Ljava/lang/Object;Ljava/lang/Object;Lorg/springframework/core/annotation/ValueExtractor;I)V",
+          "org.springframework.core.annotation.TypeMappedAnnotation#<init>(Lorg/springframework/core/annotation/AnnotationTypeMapping;Ljava/lang/ClassLoader;Ljava/lang/Object;Ljava/lang/Object;Lorg/springframework/core/annotation/ValueExtractor;I[I)V"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotation#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotation#adapt(Ljava/lang/reflect/Method;Ljava/lang/Object;Ljava/lang/Class;)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotation#adapt",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotation#adaptForAttribute(Ljava/lang/reflect/Method;Ljava/lang/Object;)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotation#adaptForAttribute",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotation#createIfPossible(Lorg/springframework/core/annotation/AnnotationTypeMapping;Ljava/lang/Object;Ljava/lang/Object;Lorg/springframework/core/annotation/ValueExtractor;ILorg/springframework/core/annotation/IntrospectionFailureLogger;)Lorg/springframework/core/annotation/TypeMappedAnnotation;",
+          "org.springframework.core.annotation.TypeMappedAnnotation#createIfPossible(Lorg/springframework/core/annotation/AnnotationTypeMapping;Ljava/lang/Object;Ljava/lang/annotation/Annotation;ILorg/springframework/core/annotation/IntrospectionFailureLogger;)Lorg/springframework/core/annotation/TypeMappedAnnotation;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotation#createIfPossible",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotation#createSynthesizedAnnotation()Ljava/lang/annotation/Annotation;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotation#createSynthesizedAnnotation",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotation#getAdaptType(Ljava/lang/reflect/Method;Ljava/lang/Class;)Ljava/lang/Class;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotation#getAdaptType",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotation#getAggregateIndex()I"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotation#getAggregateIndex",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotation#getAttributeIndex(Ljava/lang/String;Z)I"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotation#getAttributeIndex",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotation#getAttributeValue(Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotation#getAttributeValue",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotation#getDistance()I"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotation#getDistance",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotation#getType()Ljava/lang/Class;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotation#getType",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotation#getValue(ILjava/lang/Class;)Ljava/lang/Object;",
+          "org.springframework.core.annotation.TypeMappedAnnotation#getValue(IZZ)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotation#getValue",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotation#isFiltered(Ljava/lang/String;)Z"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotation#isFiltered",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotation#isPresent()Z"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotation#isPresent",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotation#isSynthesizable(Ljava/lang/annotation/Annotation;)Z"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotation#isSynthesizable",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotation#isTargetAnnotation(Ljava/lang/Object;)Z"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotation#isTargetAnnotation",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotations#<init>(Ljava/lang/Object;[Ljava/lang/annotation/Annotation;Lorg/springframework/core/annotation/RepeatableContainers;Lorg/springframework/core/annotation/AnnotationFilter;)V",
+          "org.springframework.core.annotation.TypeMappedAnnotations#<init>(Ljava/lang/reflect/AnnotatedElement;Lorg/springframework/core/annotation/MergedAnnotations$SearchStrategy;Ljava/util/function/Predicate;Lorg/springframework/core/annotation/RepeatableContainers;Lorg/springframework/core/annotation/AnnotationFilter;)V"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotations#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotations#from(Ljava/lang/reflect/AnnotatedElement;Lorg/springframework/core/annotation/MergedAnnotations$SearchStrategy;Ljava/util/function/Predicate;Lorg/springframework/core/annotation/RepeatableContainers;Lorg/springframework/core/annotation/AnnotationFilter;)Lorg/springframework/core/annotation/MergedAnnotations;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotations#from",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotations#getAggregates()Ljava/util/List;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotations#getAggregates",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotations#isMappingForType(Lorg/springframework/core/annotation/AnnotationTypeMapping;Lorg/springframework/core/annotation/AnnotationFilter;Ljava/lang/Object;)Z"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotations#isMappingForType",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotations#scan(Ljava/lang/Object;Lorg/springframework/core/annotation/AnnotationsProcessor;)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotations#scan",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotations#spliterator(Ljava/lang/Object;)Ljava/util/Spliterator;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotations#spliterator",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotations#stream(Ljava/lang/Class;)Ljava/util/stream/Stream;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotations#stream",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotations$Aggregate#<init>(ILjava/lang/Object;Ljava/util/List;)V"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotations$Aggregate#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotations$Aggregate#createMergedAnnotationIfPossible(IILorg/springframework/core/annotation/IntrospectionFailureLogger;)Lorg/springframework/core/annotation/MergedAnnotation;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotations$Aggregate#createMergedAnnotationIfPossible",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotations$Aggregate#getMapping(II)Lorg/springframework/core/annotation/AnnotationTypeMapping;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotations$Aggregate#getMapping",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotations$Aggregate#getMappings(I)Lorg/springframework/core/annotation/AnnotationTypeMappings;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotations$Aggregate#getMappings",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotations$Aggregate#size()I"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotations$Aggregate#size",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#<init>(Lorg/springframework/core/annotation/TypeMappedAnnotations;)V"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#addAggregateAnnotations(Ljava/util/List;[Ljava/lang/annotation/Annotation;)V"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#addAggregateAnnotations",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#createAggregate(ILjava/lang/Object;[Ljava/lang/annotation/Annotation;)Lorg/springframework/core/annotation/TypeMappedAnnotations$Aggregate;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#createAggregate",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#doWithAnnotations(Ljava/lang/Object;ILjava/lang/Object;[Ljava/lang/annotation/Annotation;)Ljava/lang/Object;",
+          "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#doWithAnnotations(Ljava/lang/Object;ILjava/lang/Object;[Ljava/lang/annotation/Annotation;)Ljava/util/List;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#doWithAnnotations",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#finish(Ljava/lang/Object;)Ljava/lang/Object;",
+          "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#finish(Ljava/util/List;)Ljava/util/List;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#finish",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#getAggregateAnnotations([Ljava/lang/annotation/Annotation;)Ljava/util/List;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#getAggregateAnnotations",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator#<init>(Lorg/springframework/core/annotation/TypeMappedAnnotations;Ljava/lang/Object;Ljava/util/List;)V"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator#characteristics()I"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator#characteristics",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator#getNextSuitableMapping(Lorg/springframework/core/annotation/TypeMappedAnnotations$Aggregate;I)Lorg/springframework/core/annotation/AnnotationTypeMapping;"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator#getNextSuitableMapping",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator#tryAdvance(Ljava/util/function/Consumer;)Z",
+          "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator#tryAdvance(Lorg/springframework/core/annotation/TypeMappedAnnotations$Aggregate;Ljava/util/function/Consumer;)Z"
+        ],
+        "methodIdentity": "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator#tryAdvance",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.Assert#hasText(Ljava/lang/String;Ljava/lang/String;)V"
+        ],
+        "methodIdentity": "org.springframework.util.Assert#hasText",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.Assert#isInstanceOf(Ljava/lang/Class;Ljava/lang/Object;)V",
+          "org.springframework.util.Assert#isInstanceOf(Ljava/lang/Class;Ljava/lang/Object;Ljava/lang/String;)V"
+        ],
+        "methodIdentity": "org.springframework.util.Assert#isInstanceOf",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.Assert#isTrue(ZLjava/lang/String;)V"
+        ],
+        "methodIdentity": "org.springframework.util.Assert#isTrue",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.Assert#notNull(Ljava/lang/Object;Ljava/lang/String;)V",
+          "org.springframework.util.Assert#notNull(Ljava/lang/Object;Ljava/util/function/Supplier;)V"
+        ],
+        "methodIdentity": "org.springframework.util.Assert#notNull",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.Assert#state(ZLjava/lang/String;)V"
+        ],
+        "methodIdentity": "org.springframework.util.Assert#state",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ClassUtils#getUserClass(Ljava/lang/Class;)Ljava/lang/Class;"
+        ],
+        "methodIdentity": "org.springframework.util.ClassUtils#getUserClass",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ClassUtils#resolvePrimitiveIfNecessary(Ljava/lang/Class;)Ljava/lang/Class;"
+        ],
+        "methodIdentity": "org.springframework.util.ClassUtils#resolvePrimitiveIfNecessary",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap#doTask(Ljava/lang/Object;Lorg/springframework/util/ConcurrentReferenceHashMap$Task;)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#doTask",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap#get(Ljava/lang/Object;)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#get",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap#getHash(Ljava/lang/Object;)I"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getHash",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap#getReference(Ljava/lang/Object;Lorg/springframework/util/ConcurrentReferenceHashMap$Restructure;)Lorg/springframework/util/ConcurrentReferenceHashMap$Reference;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getReference",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap#getSegmentForHash(I)Lorg/springframework/util/ConcurrentReferenceHashMap$Segment;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getSegmentForHash",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap#put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;",
+          "org.springframework.util.ConcurrentReferenceHashMap#put(Ljava/lang/Object;Ljava/lang/Object;Z)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#put",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$1#<init>(Lorg/springframework/util/ConcurrentReferenceHashMap;[Lorg/springframework/util/ConcurrentReferenceHashMap$TaskOption;ZLjava/lang/Object;)V"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$1#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$1#execute(Lorg/springframework/util/ConcurrentReferenceHashMap$Reference;Lorg/springframework/util/ConcurrentReferenceHashMap$Entry;Lorg/springframework/util/ConcurrentReferenceHashMap$Entries;)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$1#execute",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$Entry#<init>(Ljava/lang/Object;Ljava/lang/Object;)V"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Entry#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$Entry#getKey()Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Entry#getKey",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$Entry#getValue()Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Entry#getValue",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#createReference(Lorg/springframework/util/ConcurrentReferenceHashMap$Entry;ILorg/springframework/util/ConcurrentReferenceHashMap$Reference;)Lorg/springframework/util/ConcurrentReferenceHashMap$Reference;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#createReference",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#pollForPurge()Lorg/springframework/util/ConcurrentReferenceHashMap$Reference;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#pollForPurge",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$Segment#doTask(ILjava/lang/Object;Lorg/springframework/util/ConcurrentReferenceHashMap$Task;)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#doTask",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$Segment#findInChain(Lorg/springframework/util/ConcurrentReferenceHashMap$Reference;Ljava/lang/Object;I)Lorg/springframework/util/ConcurrentReferenceHashMap$Reference;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#findInChain",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$Segment#getIndex(I[Lorg/springframework/util/ConcurrentReferenceHashMap$Reference;)I"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#getIndex",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$Segment#getReference(Ljava/lang/Object;ILorg/springframework/util/ConcurrentReferenceHashMap$Restructure;)Lorg/springframework/util/ConcurrentReferenceHashMap$Reference;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#getReference",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$Segment#lambda$doTask$0(Ljava/lang/Object;ILorg/springframework/util/ConcurrentReferenceHashMap$Reference;ILjava/lang/Object;)V"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#lambda$doTask$0",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructureIfNecessary(Z)V"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructureIfNecessary",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#<init>(Lorg/springframework/util/ConcurrentReferenceHashMap$Entry;ILorg/springframework/util/ConcurrentReferenceHashMap$Reference;Ljava/lang/ref/ReferenceQueue;)V"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "ASM_TRUE_POSITIVE_JACOCO_FALSE_NEGATIVE",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": false,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get()Lorg/springframework/util/ConcurrentReferenceHashMap$Entry;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash()I"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "NOT_EXECUTED_NOT_REPORTED",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": false,
+        "level2Descriptors": [],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+        "oracleExecuted": false,
+        "oracleOwnership": "NOT_EXECUTED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$Task#<init>(Lorg/springframework/util/ConcurrentReferenceHashMap;[Lorg/springframework/util/ConcurrentReferenceHashMap$TaskOption;)V"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Task#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$Task#hasOption(Lorg/springframework/util/ConcurrentReferenceHashMap$TaskOption;)Z"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Task#hasOption",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ObjectUtils#nullSafeEquals(Ljava/lang/Object;Ljava/lang/Object;)Z"
+        ],
+        "methodIdentity": "org.springframework.util.ObjectUtils#nullSafeEquals",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ObjectUtils#nullSafeHashCode(Ljava/lang/Object;)I"
+        ],
+        "methodIdentity": "org.springframework.util.ObjectUtils#nullSafeHashCode",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ReflectionUtils#findDefaultMethodsOnInterfaces(Ljava/lang/Class;)Ljava/util/List;"
+        ],
+        "methodIdentity": "org.springframework.util.ReflectionUtils#findDefaultMethodsOnInterfaces",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ReflectionUtils#findMethod(Ljava/lang/Class;Ljava/lang/String;)Ljava/lang/reflect/Method;",
+          "org.springframework.util.ReflectionUtils#findMethod(Ljava/lang/Class;Ljava/lang/String;[Ljava/lang/Class;)Ljava/lang/reflect/Method;"
+        ],
+        "methodIdentity": "org.springframework.util.ReflectionUtils#findMethod",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ReflectionUtils#getDeclaredMethods(Ljava/lang/Class;Z)[Ljava/lang/reflect/Method;"
+        ],
+        "methodIdentity": "org.springframework.util.ReflectionUtils#getDeclaredMethods",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ReflectionUtils#hasSameParams(Ljava/lang/reflect/Method;[Ljava/lang/Class;)Z"
+        ],
+        "methodIdentity": "org.springframework.util.ReflectionUtils#hasSameParams",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ReflectionUtils#isEqualsMethod(Ljava/lang/reflect/Method;)Z"
+        ],
+        "methodIdentity": "org.springframework.util.ReflectionUtils#isEqualsMethod",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.StringUtils#hasText(Ljava/lang/String;)Z"
+        ],
+        "methodIdentity": "org.springframework.util.StringUtils#hasText",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      }
+    ]
+  },
+  "oracleAmbiguousMethods": [],
+  "oracleLateMethods": [],
+  "oracleOutsideMethods": [
+    "org.springframework.util.ConcurrentReferenceHashMap#<clinit>",
+    "org.springframework.util.ConcurrentReferenceHashMap$ReferenceType#$values",
+    "org.springframework.util.ConcurrentReferenceHashMap$ReferenceType#<clinit>",
+    "org.springframework.util.ConcurrentReferenceHashMap$ReferenceType#<init>",
+    "org.springframework.util.ConcurrentReferenceHashMap$Restructure#$values",
+    "org.springframework.util.ConcurrentReferenceHashMap$Restructure#<clinit>",
+    "org.springframework.util.ConcurrentReferenceHashMap$Restructure#<init>",
+    "org.springframework.util.ConcurrentReferenceHashMap$TaskOption#$values",
+    "org.springframework.util.ConcurrentReferenceHashMap$TaskOption#<clinit>",
+    "org.springframework.util.ConcurrentReferenceHashMap$TaskOption#<init>",
+    "org.springframework.util.ConcurrentReferenceHashMap$TaskOption#values",
+    "org.springframework.util.ReflectionUtils#<clinit>",
+    "org.springframework.util.ReflectionUtils#findDefaultMethodsOnInterfaces",
+    "org.springframework.util.ReflectionUtils#findMethod",
+    "org.springframework.util.ReflectionUtils#getDeclaredMethods",
+    "org.springframework.util.ReflectionUtils#hasSameParams"
+  ],
+  "oracleTestOwnedMethods": [
+    "org.springframework.core.BridgeMethodResolver#<clinit>",
+    "org.springframework.core.BridgeMethodResolver#findBridgedMethod",
+    "org.springframework.core.BridgeMethodResolver#resolveBridgeMethod",
+    "org.springframework.core.annotation.AbstractMergedAnnotation#<init>",
+    "org.springframework.core.annotation.AbstractMergedAnnotation#getValue",
+    "org.springframework.core.annotation.AbstractMergedAnnotation#synthesize",
+    "org.springframework.core.annotation.AnnotatedElementUtils#findMergedRepeatableAnnotations",
+    "org.springframework.core.annotation.AnnotatedElementUtils#findRepeatableAnnotations",
+    "org.springframework.core.annotation.AnnotatedElementUtils#highAggregateIndexesFirst",
+    "org.springframework.core.annotation.AnnotationFilter#<clinit>",
+    "org.springframework.core.annotation.AnnotationFilter#matches",
+    "org.springframework.core.annotation.AnnotationFilter#packages",
+    "org.springframework.core.annotation.AnnotationFilter$1#<init>",
+    "org.springframework.core.annotation.AnnotationFilter$2#<init>",
+    "org.springframework.core.annotation.AnnotationTypeMapping#<clinit>",
+    "org.springframework.core.annotation.AnnotationTypeMapping#<init>",
+    "org.springframework.core.annotation.AnnotationTypeMapping#addConventionAnnotationValues",
+    "org.springframework.core.annotation.AnnotationTypeMapping#addConventionMappings",
+    "org.springframework.core.annotation.AnnotationTypeMapping#afterAllMappingsSet",
+    "org.springframework.core.annotation.AnnotationTypeMapping#collectAliases",
+    "org.springframework.core.annotation.AnnotationTypeMapping#computeSynthesizableFlag",
+    "org.springframework.core.annotation.AnnotationTypeMapping#filledIntArray",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getAliasMapping",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getAnnotation",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getAnnotationType",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getAttributes",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getDistance",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getFirstRootAttributeIndex",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getMetaTypes",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getMirrorSets",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getRoot",
+    "org.springframework.core.annotation.AnnotationTypeMapping#getSource",
+    "org.springframework.core.annotation.AnnotationTypeMapping#isAliasPair",
+    "org.springframework.core.annotation.AnnotationTypeMapping#isBetterConventionAnnotationValue",
+    "org.springframework.core.annotation.AnnotationTypeMapping#isCompatibleReturnType",
+    "org.springframework.core.annotation.AnnotationTypeMapping#lambda$resolveAliasedForTargets$1",
+    "org.springframework.core.annotation.AnnotationTypeMapping#merge",
+    "org.springframework.core.annotation.AnnotationTypeMapping#processAliases",
+    "org.springframework.core.annotation.AnnotationTypeMapping#resolveAliasTarget",
+    "org.springframework.core.annotation.AnnotationTypeMapping#resolveAliasedForTargets",
+    "org.springframework.core.annotation.AnnotationTypeMapping#validateAllAliasesClaimed",
+    "org.springframework.core.annotation.AnnotationTypeMapping$MirrorSets#<init>",
+    "org.springframework.core.annotation.AnnotationTypeMapping$MirrorSets#resolve",
+    "org.springframework.core.annotation.AnnotationTypeMapping$MirrorSets#size",
+    "org.springframework.core.annotation.AnnotationTypeMapping$MirrorSets#updateFrom",
+    "org.springframework.core.annotation.AnnotationTypeMappings#<clinit>",
+    "org.springframework.core.annotation.AnnotationTypeMappings#<init>",
+    "org.springframework.core.annotation.AnnotationTypeMappings#addAllMappings",
+    "org.springframework.core.annotation.AnnotationTypeMappings#addIfPossible",
+    "org.springframework.core.annotation.AnnotationTypeMappings#addMetaAnnotationsToQueue",
+    "org.springframework.core.annotation.AnnotationTypeMappings#forAnnotationType",
+    "org.springframework.core.annotation.AnnotationTypeMappings#get",
+    "org.springframework.core.annotation.AnnotationTypeMappings#isAlreadyMapped",
+    "org.springframework.core.annotation.AnnotationTypeMappings#isMappable",
+    "org.springframework.core.annotation.AnnotationTypeMappings#lambda$forAnnotationType$0",
+    "org.springframework.core.annotation.AnnotationTypeMappings#size",
+    "org.springframework.core.annotation.AnnotationTypeMappings$Cache#<init>",
+    "org.springframework.core.annotation.AnnotationTypeMappings$Cache#createMappings",
+    "org.springframework.core.annotation.AnnotationTypeMappings$Cache#get",
+    "org.springframework.core.annotation.AnnotationTypeMappings$Cache#lambda$get$0",
+    "org.springframework.core.annotation.AnnotationUtils#<clinit>",
+    "org.springframework.core.annotation.AnnotationUtils#invokeAnnotationMethod",
+    "org.springframework.core.annotation.AnnotationUtils#isSynthesizedAnnotation",
+    "org.springframework.core.annotation.AnnotationsProcessor#doWithAggregate",
+    "org.springframework.core.annotation.AnnotationsScanner#<clinit>",
+    "org.springframework.core.annotation.AnnotationsScanner#getDeclaredAnnotation",
+    "org.springframework.core.annotation.AnnotationsScanner#getDeclaredAnnotations",
+    "org.springframework.core.annotation.AnnotationsScanner#hasPlainJavaAnnotationsOnly",
+    "org.springframework.core.annotation.AnnotationsScanner#isIgnorable",
+    "org.springframework.core.annotation.AnnotationsScanner#isKnownEmpty",
+    "org.springframework.core.annotation.AnnotationsScanner#isWithoutHierarchy",
+    "org.springframework.core.annotation.AnnotationsScanner#process",
+    "org.springframework.core.annotation.AnnotationsScanner#processMethod",
+    "org.springframework.core.annotation.AnnotationsScanner#processMethodAnnotations",
+    "org.springframework.core.annotation.AnnotationsScanner#processMethodHierarchy",
+    "org.springframework.core.annotation.AnnotationsScanner#scan",
+    "org.springframework.core.annotation.AnnotationsScanner$1#<clinit>",
+    "org.springframework.core.annotation.AttributeMethods#<clinit>",
+    "org.springframework.core.annotation.AttributeMethods#<init>",
+    "org.springframework.core.annotation.AttributeMethods#assertAnnotation",
+    "org.springframework.core.annotation.AttributeMethods#canLoad",
+    "org.springframework.core.annotation.AttributeMethods#canThrowTypeNotPresentException",
+    "org.springframework.core.annotation.AttributeMethods#compute",
+    "org.springframework.core.annotation.AttributeMethods#forAnnotationType",
+    "org.springframework.core.annotation.AttributeMethods#get",
+    "org.springframework.core.annotation.AttributeMethods#indexOf",
+    "org.springframework.core.annotation.AttributeMethods#isAttributeMethod",
+    "org.springframework.core.annotation.AttributeMethods#lambda$static$0",
+    "org.springframework.core.annotation.AttributeMethods#size",
+    "org.springframework.core.annotation.IntrospectionFailureLogger#$values",
+    "org.springframework.core.annotation.IntrospectionFailureLogger#<clinit>",
+    "org.springframework.core.annotation.IntrospectionFailureLogger#<init>",
+    "org.springframework.core.annotation.IntrospectionFailureLogger$1#<init>",
+    "org.springframework.core.annotation.IntrospectionFailureLogger$2#<init>",
+    "org.springframework.core.annotation.MergedAnnotationCollectors#<clinit>",
+    "org.springframework.core.annotation.MergedAnnotationCollectors#lambda$toAnnotationSet$0",
+    "org.springframework.core.annotation.MergedAnnotationCollectors#toAnnotationSet",
+    "org.springframework.core.annotation.MergedAnnotations#from",
+    "org.springframework.core.annotation.MergedAnnotations$Search#<clinit>",
+    "org.springframework.core.annotation.MergedAnnotations$Search#lambda$static$1",
+    "org.springframework.core.annotation.MergedAnnotations$SearchStrategy#$values",
+    "org.springframework.core.annotation.MergedAnnotations$SearchStrategy#<clinit>",
+    "org.springframework.core.annotation.MergedAnnotations$SearchStrategy#<init>",
+    "org.springframework.core.annotation.MergedAnnotations$SearchStrategy#values",
+    "org.springframework.core.annotation.PackagesAnnotationFilter#<init>",
+    "org.springframework.core.annotation.PackagesAnnotationFilter#hashCode",
+    "org.springframework.core.annotation.PackagesAnnotationFilter#matches",
+    "org.springframework.core.annotation.RepeatableContainers#<clinit>",
+    "org.springframework.core.annotation.RepeatableContainers#<init>",
+    "org.springframework.core.annotation.RepeatableContainers#findRepeatedAnnotations",
+    "org.springframework.core.annotation.RepeatableContainers#none",
+    "org.springframework.core.annotation.RepeatableContainers#of",
+    "org.springframework.core.annotation.RepeatableContainers#standardRepeatables",
+    "org.springframework.core.annotation.RepeatableContainers$ExplicitRepeatableContainer#<init>",
+    "org.springframework.core.annotation.RepeatableContainers$ExplicitRepeatableContainer#deduceContainer",
+    "org.springframework.core.annotation.RepeatableContainers$NoRepeatableContainers#<clinit>",
+    "org.springframework.core.annotation.RepeatableContainers$NoRepeatableContainers#<init>",
+    "org.springframework.core.annotation.RepeatableContainers$StandardRepeatableContainers#<clinit>",
+    "org.springframework.core.annotation.RepeatableContainers$StandardRepeatableContainers#<init>",
+    "org.springframework.core.annotation.RepeatableContainers$StandardRepeatableContainers#computeRepeatedAnnotationsMethod",
+    "org.springframework.core.annotation.RepeatableContainers$StandardRepeatableContainers#findRepeatedAnnotations",
+    "org.springframework.core.annotation.RepeatableContainers$StandardRepeatableContainers#getRepeatedAnnotationsMethod",
+    "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#<init>",
+    "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#annotationEquals",
+    "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#annotationHashCode",
+    "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#computeHashCode",
+    "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#createProxy",
+    "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#getAttributeValue",
+    "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#invoke",
+    "org.springframework.core.annotation.SynthesizedMergedAnnotationInvocationHandler#lambda$getAttributeValue$1",
+    "org.springframework.core.annotation.TypeMappedAnnotation#<clinit>",
+    "org.springframework.core.annotation.TypeMappedAnnotation#<init>",
+    "org.springframework.core.annotation.TypeMappedAnnotation#adapt",
+    "org.springframework.core.annotation.TypeMappedAnnotation#adaptForAttribute",
+    "org.springframework.core.annotation.TypeMappedAnnotation#createIfPossible",
+    "org.springframework.core.annotation.TypeMappedAnnotation#createSynthesizedAnnotation",
+    "org.springframework.core.annotation.TypeMappedAnnotation#getAdaptType",
+    "org.springframework.core.annotation.TypeMappedAnnotation#getAggregateIndex",
+    "org.springframework.core.annotation.TypeMappedAnnotation#getAttributeIndex",
+    "org.springframework.core.annotation.TypeMappedAnnotation#getAttributeValue",
+    "org.springframework.core.annotation.TypeMappedAnnotation#getDistance",
+    "org.springframework.core.annotation.TypeMappedAnnotation#getType",
+    "org.springframework.core.annotation.TypeMappedAnnotation#getValue",
+    "org.springframework.core.annotation.TypeMappedAnnotation#isFiltered",
+    "org.springframework.core.annotation.TypeMappedAnnotation#isPresent",
+    "org.springframework.core.annotation.TypeMappedAnnotation#isSynthesizable",
+    "org.springframework.core.annotation.TypeMappedAnnotation#isTargetAnnotation",
+    "org.springframework.core.annotation.TypeMappedAnnotations#<clinit>",
+    "org.springframework.core.annotation.TypeMappedAnnotations#<init>",
+    "org.springframework.core.annotation.TypeMappedAnnotations#from",
+    "org.springframework.core.annotation.TypeMappedAnnotations#getAggregates",
+    "org.springframework.core.annotation.TypeMappedAnnotations#isMappingForType",
+    "org.springframework.core.annotation.TypeMappedAnnotations#scan",
+    "org.springframework.core.annotation.TypeMappedAnnotations#spliterator",
+    "org.springframework.core.annotation.TypeMappedAnnotations#stream",
+    "org.springframework.core.annotation.TypeMappedAnnotations$Aggregate#<init>",
+    "org.springframework.core.annotation.TypeMappedAnnotations$Aggregate#createMergedAnnotationIfPossible",
+    "org.springframework.core.annotation.TypeMappedAnnotations$Aggregate#getMapping",
+    "org.springframework.core.annotation.TypeMappedAnnotations$Aggregate#getMappings",
+    "org.springframework.core.annotation.TypeMappedAnnotations$Aggregate#size",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#<init>",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#addAggregateAnnotations",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#createAggregate",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#doWithAnnotations",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#finish",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesCollector#getAggregateAnnotations",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator#<init>",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator#characteristics",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator#getNextSuitableMapping",
+    "org.springframework.core.annotation.TypeMappedAnnotations$AggregatesSpliterator#tryAdvance",
+    "org.springframework.util.Assert#hasText",
+    "org.springframework.util.Assert#isInstanceOf",
+    "org.springframework.util.Assert#isTrue",
+    "org.springframework.util.Assert#notNull",
+    "org.springframework.util.Assert#state",
+    "org.springframework.util.ClassUtils#<clinit>",
+    "org.springframework.util.ClassUtils#getUserClass",
+    "org.springframework.util.ClassUtils#registerCommonClasses",
+    "org.springframework.util.ClassUtils#resolvePrimitiveIfNecessary",
+    "org.springframework.util.ConcurrentReferenceHashMap#<init>",
+    "org.springframework.util.ConcurrentReferenceHashMap#calculateShift",
+    "org.springframework.util.ConcurrentReferenceHashMap#createReferenceManager",
+    "org.springframework.util.ConcurrentReferenceHashMap#doTask",
+    "org.springframework.util.ConcurrentReferenceHashMap#get",
+    "org.springframework.util.ConcurrentReferenceHashMap#getHash",
+    "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+    "org.springframework.util.ConcurrentReferenceHashMap#getReference",
+    "org.springframework.util.ConcurrentReferenceHashMap#getSegmentForHash",
+    "org.springframework.util.ConcurrentReferenceHashMap#put",
+    "org.springframework.util.ConcurrentReferenceHashMap#putIfAbsent",
+    "org.springframework.util.ConcurrentReferenceHashMap$1#<init>",
+    "org.springframework.util.ConcurrentReferenceHashMap$1#execute",
+    "org.springframework.util.ConcurrentReferenceHashMap$Entry#<init>",
+    "org.springframework.util.ConcurrentReferenceHashMap$Entry#getKey",
+    "org.springframework.util.ConcurrentReferenceHashMap$Entry#getValue",
+    "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#<init>",
+    "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#createReference",
+    "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#pollForPurge",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#<init>",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#doTask",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#findInChain",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#getIndex",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#getReference",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#lambda$doTask$0",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructureIfNecessary",
+    "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#<init>",
+    "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+    "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+    "org.springframework.util.ConcurrentReferenceHashMap$Task#<init>",
+    "org.springframework.util.ConcurrentReferenceHashMap$Task#hasOption",
+    "org.springframework.util.ObjectUtils#<clinit>",
+    "org.springframework.util.ObjectUtils#nullSafeEquals",
+    "org.springframework.util.ObjectUtils#nullSafeHashCode",
+    "org.springframework.util.ReflectionUtils#isEqualsMethod",
+    "org.springframework.util.ReflectionUtils#makeAccessible",
+    "org.springframework.util.StringUtils#<clinit>",
+    "org.springframework.util.StringUtils#hasLength",
+    "org.springframework.util.StringUtils#hasText"
+  ],
+  "testIdentity": "SingleRepeatableAnnotationTests#findMergedRepeatableAnnotations_AnnotatedElementUtils_2804ab2"
+}

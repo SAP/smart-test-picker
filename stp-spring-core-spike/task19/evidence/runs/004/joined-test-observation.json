@@ -1,0 +1,88 @@
+{
+  "asm": {
+    "methods": [
+      "org.springframework.core.env.PropertyResolver$Subclass0#getProperty",
+      "org.springframework.core.env.PropertyResolver$Subclass0#toString",
+      "org.springframework.core.env.PropertyResolverExtensionsKt#get"
+    ]
+  },
+  "comparison": {
+    "asmMetrics": {
+      "F1": 1.0,
+      "FN": 0,
+      "FP": 0,
+      "TP": 1,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "jacocoMetrics": {
+      "F1": 1.0,
+      "FN": 0,
+      "FP": 0,
+      "TP": 1,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "perMethod": [
+      {
+        "asmPresent": false,
+        "classification": "NOT_EXECUTED_NOT_REPORTED",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": false,
+        "level2Descriptors": [],
+        "methodIdentity": "org.springframework.core.env.PropertyResolver$Subclass1#getProperty",
+        "oracleExecuted": false,
+        "oracleOwnership": "NOT_EXECUTED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "NOT_EXECUTED_NOT_REPORTED",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": false,
+        "level2Descriptors": [],
+        "methodIdentity": "org.springframework.core.env.PropertyResolver$Subclass1#toString",
+        "oracleExecuted": false,
+        "oracleOwnership": "NOT_EXECUTED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.env.PropertyResolverExtensionsKt#get(Lorg/springframework/core/env/PropertyResolver;Ljava/lang/String;)Ljava/lang/String;"
+        ],
+        "methodIdentity": "org.springframework.core.env.PropertyResolverExtensionsKt#get",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      }
+    ]
+  },
+  "jacoco": {
+    "methods": [
+      "org.springframework.core.env.PropertyResolver$Subclass0#<clinit>",
+      "org.springframework.core.env.PropertyResolver$Subclass0#getProperty",
+      "org.springframework.core.env.PropertyResolver$Subclass0#toString",
+      "org.springframework.core.env.PropertyResolverExtensionsKotlinTests#<init>",
+      "org.springframework.core.env.PropertyResolverExtensionsKotlinTests#get operator",
+      "org.springframework.core.env.PropertyResolverExtensionsKotlinTests#getPropertyResolver",
+      "org.springframework.core.env.PropertyResolverExtensionsKotlinTests$get operator$1#invoke",
+      "org.springframework.core.env.PropertyResolverExtensionsKotlinTests$get operator$2#invoke",
+      "org.springframework.core.env.PropertyResolverExtensionsKt#get"
+    ]
+  },
+  "mode": "TARGET_UNION_MODE",
+  "oracle": {
+    "ambiguousMethods": [],
+    "executedMethods": [
+      "org.springframework.core.env.PropertyResolverExtensionsKt#get"
+    ],
+    "lateMethods": [],
+    "outsideMethods": [],
+    "testOwnedMethods": [
+      "org.springframework.core.env.PropertyResolverExtensionsKt#get"
+    ]
+  },
+  "schemaVersion": "task19-joined-test-observation-1",
+  "testIdentity": "PropertyResolverExtensionsKotlinTests#get operator_1d0622c"
+}

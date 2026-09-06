@@ -1,0 +1,2653 @@
+{
+  "asm": {
+    "methods": [
+      "org.springframework.core.convert.TypeDescriptor#forObject",
+      "org.springframework.core.convert.TypeDescriptor#getObjectType",
+      "org.springframework.core.convert.TypeDescriptor#getType",
+      "org.springframework.core.convert.TypeDescriptor#hashCode",
+      "org.springframework.core.convert.TypeDescriptor#valueOf",
+      "org.springframework.core.convert.converter.GenericConverter$ConvertiblePair#<init>",
+      "org.springframework.core.convert.converter.GenericConverter$ConvertiblePair#equals",
+      "org.springframework.core.convert.converter.GenericConverter$ConvertiblePair#hashCode",
+      "org.springframework.core.convert.support.ConversionUtils#invokeConverter",
+      "org.springframework.core.convert.support.GenericConversionService#convert",
+      "org.springframework.core.convert.support.GenericConversionService#getConverter",
+      "org.springframework.core.convert.support.GenericConversionService#handleResult",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterCacheKey#<init>",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterCacheKey#hashCode",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterFactoryAdapter#convert",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterFactoryAdapter#matches",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#addInterfacesToClassHierarchy",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#addToClassHierarchy",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#find",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#getClassHierarchy",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#getRegisteredConverter",
+      "org.springframework.core.convert.support.GenericConversionService$ConvertersForPair#getConverter",
+      "org.springframework.core.convert.support.StringToNumberConverterFactory#getConverter",
+      "org.springframework.core.convert.support.StringToNumberConverterFactory$StringToNumber#<init>",
+      "org.springframework.core.convert.support.StringToNumberConverterFactory$StringToNumber#convert",
+      "org.springframework.util.Assert#notNull",
+      "org.springframework.util.Assert#state",
+      "org.springframework.util.ClassUtils#resolvePrimitiveIfNecessary",
+      "org.springframework.util.ConcurrentReferenceHashMap#doTask",
+      "org.springframework.util.ConcurrentReferenceHashMap#get",
+      "org.springframework.util.ConcurrentReferenceHashMap#getHash",
+      "org.springframework.util.ConcurrentReferenceHashMap#getReference",
+      "org.springframework.util.ConcurrentReferenceHashMap#getSegmentForHash",
+      "org.springframework.util.ConcurrentReferenceHashMap#put",
+      "org.springframework.util.ConcurrentReferenceHashMap$1#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$1#execute",
+      "org.springframework.util.ConcurrentReferenceHashMap$Entry#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#createReference",
+      "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#pollForPurge",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#doTask",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#findInChain",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#getIndex",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#getReference",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#lambda$doTask$0",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructureIfNecessary",
+      "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$Task#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$Task#hasOption",
+      "org.springframework.util.NumberUtils#<clinit>",
+      "org.springframework.util.NumberUtils#parseNumber",
+      "org.springframework.util.StringUtils#<clinit>",
+      "org.springframework.util.StringUtils#hasLength",
+      "org.springframework.util.StringUtils#trimAllWhitespace"
+    ]
+  },
+  "comparison": {
+    "asmMetrics": {
+      "F1": 1.0,
+      "FN": 0,
+      "FP": 0,
+      "TP": 51,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "jacocoMetrics": {
+      "F1": 0.4880382775119617,
+      "FN": 0,
+      "FP": 107,
+      "TP": 51,
+      "precision": 0.3227848101265823,
+      "recall": 1.0
+    },
+    "perMethod": [
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.KotlinDetector#isKotlinPresent()Z"
+        ],
+        "methodIdentity": "org.springframework.core.KotlinDetector#isKotlinPresent",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.ResolvableType#<init>(Ljava/lang/Class;)V",
+          "org.springframework.core.ResolvableType#<init>(Ljava/lang/reflect/Type;Lorg/springframework/core/ResolvableType;Lorg/springframework/core/SerializableTypeWrapper$TypeProvider;Lorg/springframework/core/ResolvableType$VariableResolver;)V",
+          "org.springframework.core.ResolvableType#<init>(Ljava/lang/reflect/Type;Lorg/springframework/core/SerializableTypeWrapper$TypeProvider;Lorg/springframework/core/ResolvableType$VariableResolver;)V",
+          "org.springframework.core.ResolvableType#<init>(Ljava/lang/reflect/Type;Lorg/springframework/core/SerializableTypeWrapper$TypeProvider;Lorg/springframework/core/ResolvableType$VariableResolver;Ljava/lang/Integer;)V"
+        ],
+        "methodIdentity": "org.springframework.core.ResolvableType#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.ResolvableType#as(Ljava/lang/Class;)Lorg/springframework/core/ResolvableType;"
+        ],
+        "methodIdentity": "org.springframework.core.ResolvableType#as",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.ResolvableType#asVariableResolver()Lorg/springframework/core/ResolvableType$VariableResolver;"
+        ],
+        "methodIdentity": "org.springframework.core.ResolvableType#asVariableResolver",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.ResolvableType#calculateHashCode()I"
+        ],
+        "methodIdentity": "org.springframework.core.ResolvableType#calculateHashCode",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "NOT_EXECUTED_NOT_REPORTED",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": false,
+        "level2Descriptors": [],
+        "methodIdentity": "org.springframework.core.ResolvableType#equals",
+        "oracleExecuted": false,
+        "oracleOwnership": "NOT_EXECUTED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "NOT_EXECUTED_NOT_REPORTED",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": false,
+        "level2Descriptors": [],
+        "methodIdentity": "org.springframework.core.ResolvableType#equalsType",
+        "oracleExecuted": false,
+        "oracleOwnership": "NOT_EXECUTED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.ResolvableType#forClass(Ljava/lang/Class;)Lorg/springframework/core/ResolvableType;"
+        ],
+        "methodIdentity": "org.springframework.core.ResolvableType#forClass",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.ResolvableType#forType(Ljava/lang/reflect/Type;Lorg/springframework/core/ResolvableType$VariableResolver;)Lorg/springframework/core/ResolvableType;",
+          "org.springframework.core.ResolvableType#forType(Ljava/lang/reflect/Type;Lorg/springframework/core/ResolvableType;)Lorg/springframework/core/ResolvableType;",
+          "org.springframework.core.ResolvableType#forType(Ljava/lang/reflect/Type;Lorg/springframework/core/SerializableTypeWrapper$TypeProvider;Lorg/springframework/core/ResolvableType$VariableResolver;)Lorg/springframework/core/ResolvableType;"
+        ],
+        "methodIdentity": "org.springframework.core.ResolvableType#forType",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.ResolvableType#getGenerics()[Lorg/springframework/core/ResolvableType;"
+        ],
+        "methodIdentity": "org.springframework.core.ResolvableType#getGenerics",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.ResolvableType#getInterfaces()[Lorg/springframework/core/ResolvableType;"
+        ],
+        "methodIdentity": "org.springframework.core.ResolvableType#getInterfaces",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.ResolvableType#hashCode()I"
+        ],
+        "methodIdentity": "org.springframework.core.ResolvableType#hashCode",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.ResolvableType#resolve()Ljava/lang/Class;",
+          "org.springframework.core.ResolvableType#resolve(Ljava/lang/Class;)Ljava/lang/Class;"
+        ],
+        "methodIdentity": "org.springframework.core.ResolvableType#resolve",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.ResolvableType#resolveClass()Ljava/lang/Class;"
+        ],
+        "methodIdentity": "org.springframework.core.ResolvableType#resolveClass",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.ResolvableType#toClass()Ljava/lang/Class;"
+        ],
+        "methodIdentity": "org.springframework.core.ResolvableType#toClass",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.ResolvableType$DefaultVariableResolver#<init>(Lorg/springframework/core/ResolvableType;)V"
+        ],
+        "methodIdentity": "org.springframework.core.ResolvableType$DefaultVariableResolver#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.ResolvableType$DefaultVariableResolver#getSource()Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.core.ResolvableType$DefaultVariableResolver#getSource",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.TypeDescriptor#forObject(Ljava/lang/Object;)Lorg/springframework/core/convert/TypeDescriptor;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.TypeDescriptor#forObject",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.TypeDescriptor#getObjectType()Ljava/lang/Class;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.TypeDescriptor#getObjectType",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.TypeDescriptor#getType()Ljava/lang/Class;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.TypeDescriptor#getType",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.TypeDescriptor#hashCode()I"
+        ],
+        "methodIdentity": "org.springframework.core.convert.TypeDescriptor#hashCode",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.TypeDescriptor#valueOf(Ljava/lang/Class;)Lorg/springframework/core/convert/TypeDescriptor;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.TypeDescriptor#valueOf",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.converter.GenericConverter$ConvertiblePair#<init>(Ljava/lang/Class;Ljava/lang/Class;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.converter.GenericConverter$ConvertiblePair#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.converter.GenericConverter$ConvertiblePair#equals(Ljava/lang/Object;)Z"
+        ],
+        "methodIdentity": "org.springframework.core.convert.converter.GenericConverter$ConvertiblePair#equals",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.converter.GenericConverter$ConvertiblePair#hashCode()I"
+        ],
+        "methodIdentity": "org.springframework.core.convert.converter.GenericConverter$ConvertiblePair#hashCode",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.AbstractConditionalEnumConverter#<init>(Lorg/springframework/core/convert/ConversionService;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.AbstractConditionalEnumConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.ArrayToArrayConverter#<init>(Lorg/springframework/core/convert/ConversionService;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.ArrayToArrayConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.ArrayToArrayConverter#getConvertibleTypes()Ljava/util/Set;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.ArrayToArrayConverter#getConvertibleTypes",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.ArrayToCollectionConverter#<init>(Lorg/springframework/core/convert/ConversionService;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.ArrayToCollectionConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.ArrayToCollectionConverter#getConvertibleTypes()Ljava/util/Set;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.ArrayToCollectionConverter#getConvertibleTypes",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.ArrayToObjectConverter#<init>(Lorg/springframework/core/convert/ConversionService;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.ArrayToObjectConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.ArrayToObjectConverter#getConvertibleTypes()Ljava/util/Set;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.ArrayToObjectConverter#getConvertibleTypes",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.ArrayToStringConverter#<init>(Lorg/springframework/core/convert/ConversionService;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.ArrayToStringConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.ArrayToStringConverter#getConvertibleTypes()Ljava/util/Set;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.ArrayToStringConverter#getConvertibleTypes",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.ByteBufferConverter#<init>(Lorg/springframework/core/convert/ConversionService;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.ByteBufferConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.ByteBufferConverter#getConvertibleTypes()Ljava/util/Set;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.ByteBufferConverter#getConvertibleTypes",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.CharacterToNumberFactory#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.CharacterToNumberFactory#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.CollectionToArrayConverter#<init>(Lorg/springframework/core/convert/ConversionService;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.CollectionToArrayConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.CollectionToArrayConverter#getConvertibleTypes()Ljava/util/Set;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.CollectionToArrayConverter#getConvertibleTypes",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.CollectionToCollectionConverter#<init>(Lorg/springframework/core/convert/ConversionService;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.CollectionToCollectionConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.CollectionToCollectionConverter#getConvertibleTypes()Ljava/util/Set;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.CollectionToCollectionConverter#getConvertibleTypes",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.CollectionToObjectConverter#<init>(Lorg/springframework/core/convert/ConversionService;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.CollectionToObjectConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.CollectionToObjectConverter#getConvertibleTypes()Ljava/util/Set;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.CollectionToObjectConverter#getConvertibleTypes",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.CollectionToStringConverter#<init>(Lorg/springframework/core/convert/ConversionService;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.CollectionToStringConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.CollectionToStringConverter#getConvertibleTypes()Ljava/util/Set;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.CollectionToStringConverter#getConvertibleTypes",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.ConversionUtils#invokeConverter(Lorg/springframework/core/convert/converter/GenericConverter;Ljava/lang/Object;Lorg/springframework/core/convert/TypeDescriptor;Lorg/springframework/core/convert/TypeDescriptor;)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.ConversionUtils#invokeConverter",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.DefaultConversionService#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.DefaultConversionService#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.DefaultConversionService#addCollectionConverters(Lorg/springframework/core/convert/converter/ConverterRegistry;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.DefaultConversionService#addCollectionConverters",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.DefaultConversionService#addDefaultConverters(Lorg/springframework/core/convert/converter/ConverterRegistry;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.DefaultConversionService#addDefaultConverters",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.DefaultConversionService#addScalarConverters(Lorg/springframework/core/convert/converter/ConverterRegistry;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.DefaultConversionService#addScalarConverters",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.EnumToIntegerConverter#<init>(Lorg/springframework/core/convert/ConversionService;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.EnumToIntegerConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.EnumToStringConverter#<init>(Lorg/springframework/core/convert/ConversionService;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.EnumToStringConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.FallbackObjectToStringConverter#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.FallbackObjectToStringConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.FallbackObjectToStringConverter#getConvertibleTypes()Ljava/util/Set;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.FallbackObjectToStringConverter#getConvertibleTypes",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService#addConverter(Ljava/lang/Class;Ljava/lang/Class;Lorg/springframework/core/convert/converter/Converter;)V",
+          "org.springframework.core.convert.support.GenericConversionService#addConverter(Lorg/springframework/core/convert/converter/Converter;)V",
+          "org.springframework.core.convert.support.GenericConversionService#addConverter(Lorg/springframework/core/convert/converter/GenericConverter;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService#addConverter",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService#addConverterFactory(Lorg/springframework/core/convert/converter/ConverterFactory;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService#addConverterFactory",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService#convert(Ljava/lang/Object;Ljava/lang/Class;)Ljava/lang/Object;",
+          "org.springframework.core.convert.support.GenericConversionService#convert(Ljava/lang/Object;Lorg/springframework/core/convert/TypeDescriptor;Lorg/springframework/core/convert/TypeDescriptor;)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService#convert",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService#getConverter(Lorg/springframework/core/convert/TypeDescriptor;Lorg/springframework/core/convert/TypeDescriptor;)Lorg/springframework/core/convert/converter/GenericConverter;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService#getConverter",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService#getRequiredTypeInfo(Ljava/lang/Class;Ljava/lang/Class;)[Lorg/springframework/core/ResolvableType;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService#getRequiredTypeInfo",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService#handleResult(Lorg/springframework/core/convert/TypeDescriptor;Lorg/springframework/core/convert/TypeDescriptor;Ljava/lang/Object;)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService#handleResult",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService#invalidateCache()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService#invalidateCache",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService$ConverterAdapter#<init>(Lorg/springframework/core/convert/support/GenericConversionService;Lorg/springframework/core/convert/converter/Converter;Lorg/springframework/core/ResolvableType;Lorg/springframework/core/ResolvableType;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService$ConverterAdapter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService$ConverterAdapter#getConvertibleTypes()Ljava/util/Set;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService$ConverterAdapter#getConvertibleTypes",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService$ConverterCacheKey#<init>(Lorg/springframework/core/convert/TypeDescriptor;Lorg/springframework/core/convert/TypeDescriptor;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService$ConverterCacheKey#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService$ConverterCacheKey#hashCode()I"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService$ConverterCacheKey#hashCode",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService$ConverterFactoryAdapter#<init>(Lorg/springframework/core/convert/support/GenericConversionService;Lorg/springframework/core/convert/converter/ConverterFactory;Lorg/springframework/core/convert/converter/GenericConverter$ConvertiblePair;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService$ConverterFactoryAdapter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService$ConverterFactoryAdapter#convert(Ljava/lang/Object;Lorg/springframework/core/convert/TypeDescriptor;Lorg/springframework/core/convert/TypeDescriptor;)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService$ConverterFactoryAdapter#convert",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService$ConverterFactoryAdapter#getConvertibleTypes()Ljava/util/Set;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService$ConverterFactoryAdapter#getConvertibleTypes",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService$ConverterFactoryAdapter#matches(Lorg/springframework/core/convert/TypeDescriptor;Lorg/springframework/core/convert/TypeDescriptor;)Z"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService$ConverterFactoryAdapter#matches",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService$Converters#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService$Converters#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService$Converters#add(Lorg/springframework/core/convert/converter/GenericConverter;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService$Converters#add",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService$Converters#addInterfacesToClassHierarchy(Ljava/lang/Class;ZLjava/util/List;Ljava/util/Set;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService$Converters#addInterfacesToClassHierarchy",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService$Converters#addToClassHierarchy(ILjava/lang/Class;ZLjava/util/List;Ljava/util/Set;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService$Converters#addToClassHierarchy",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService$Converters#find(Lorg/springframework/core/convert/TypeDescriptor;Lorg/springframework/core/convert/TypeDescriptor;)Lorg/springframework/core/convert/converter/GenericConverter;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService$Converters#find",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService$Converters#getClassHierarchy(Ljava/lang/Class;)Ljava/util/List;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService$Converters#getClassHierarchy",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService$Converters#getMatchableConverters(Lorg/springframework/core/convert/converter/GenericConverter$ConvertiblePair;)Lorg/springframework/core/convert/support/GenericConversionService$ConvertersForPair;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService$Converters#getMatchableConverters",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService$Converters#getRegisteredConverter(Lorg/springframework/core/convert/TypeDescriptor;Lorg/springframework/core/convert/TypeDescriptor;Lorg/springframework/core/convert/converter/GenericConverter$ConvertiblePair;)Lorg/springframework/core/convert/converter/GenericConverter;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService$Converters#getRegisteredConverter",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService$Converters#lambda$getMatchableConverters$0(Lorg/springframework/core/convert/converter/GenericConverter$ConvertiblePair;)Lorg/springframework/core/convert/support/GenericConversionService$ConvertersForPair;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService$Converters#lambda$getMatchableConverters$0",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService$ConvertersForPair#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService$ConvertersForPair#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService$ConvertersForPair#add(Lorg/springframework/core/convert/converter/GenericConverter;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService$ConvertersForPair#add",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.GenericConversionService$ConvertersForPair#getConverter(Lorg/springframework/core/convert/TypeDescriptor;Lorg/springframework/core/convert/TypeDescriptor;)Lorg/springframework/core/convert/converter/GenericConverter;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.GenericConversionService$ConvertersForPair#getConverter",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.IdToEntityConverter#<init>(Lorg/springframework/core/convert/ConversionService;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.IdToEntityConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.IdToEntityConverter#getConvertibleTypes()Ljava/util/Set;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.IdToEntityConverter#getConvertibleTypes",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.IntegerToEnumConverterFactory#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.IntegerToEnumConverterFactory#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.MapToMapConverter#<init>(Lorg/springframework/core/convert/ConversionService;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.MapToMapConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.MapToMapConverter#getConvertibleTypes()Ljava/util/Set;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.MapToMapConverter#getConvertibleTypes",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.NumberToCharacterConverter#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.NumberToCharacterConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.NumberToNumberConverterFactory#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.NumberToNumberConverterFactory#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.ObjectToArrayConverter#<init>(Lorg/springframework/core/convert/ConversionService;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.ObjectToArrayConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.ObjectToArrayConverter#getConvertibleTypes()Ljava/util/Set;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.ObjectToArrayConverter#getConvertibleTypes",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.ObjectToCollectionConverter#<init>(Lorg/springframework/core/convert/ConversionService;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.ObjectToCollectionConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.ObjectToCollectionConverter#getConvertibleTypes()Ljava/util/Set;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.ObjectToCollectionConverter#getConvertibleTypes",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.ObjectToObjectConverter#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.ObjectToObjectConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.ObjectToObjectConverter#getConvertibleTypes()Ljava/util/Set;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.ObjectToObjectConverter#getConvertibleTypes",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.ObjectToOptionalConverter#<init>(Lorg/springframework/core/convert/ConversionService;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.ObjectToOptionalConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.ObjectToOptionalConverter#getConvertibleTypes()Ljava/util/Set;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.ObjectToOptionalConverter#getConvertibleTypes",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.ObjectToStringConverter#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.ObjectToStringConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.PropertiesToStringConverter#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.PropertiesToStringConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.StreamConverter#<init>(Lorg/springframework/core/convert/ConversionService;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.StreamConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.StreamConverter#getConvertibleTypes()Ljava/util/Set;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.StreamConverter#getConvertibleTypes",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.StringToArrayConverter#<init>(Lorg/springframework/core/convert/ConversionService;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.StringToArrayConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.StringToArrayConverter#getConvertibleTypes()Ljava/util/Set;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.StringToArrayConverter#getConvertibleTypes",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.StringToBooleanConverter#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.StringToBooleanConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.StringToCharacterConverter#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.StringToCharacterConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.StringToCharsetConverter#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.StringToCharsetConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.StringToCollectionConverter#<init>(Lorg/springframework/core/convert/ConversionService;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.StringToCollectionConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.StringToCollectionConverter#getConvertibleTypes()Ljava/util/Set;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.StringToCollectionConverter#getConvertibleTypes",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.StringToCurrencyConverter#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.StringToCurrencyConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.StringToEnumConverterFactory#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.StringToEnumConverterFactory#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.StringToLocaleConverter#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.StringToLocaleConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.StringToNumberConverterFactory#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.StringToNumberConverterFactory#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.StringToNumberConverterFactory#getConverter(Ljava/lang/Class;)Lorg/springframework/core/convert/converter/Converter;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.StringToNumberConverterFactory#getConverter",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.StringToNumberConverterFactory$StringToNumber#<init>(Ljava/lang/Class;)V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.StringToNumberConverterFactory$StringToNumber#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.StringToNumberConverterFactory$StringToNumber#convert(Ljava/lang/Object;)Ljava/lang/Object;",
+          "org.springframework.core.convert.support.StringToNumberConverterFactory$StringToNumber#convert(Ljava/lang/String;)Ljava/lang/Number;"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.StringToNumberConverterFactory$StringToNumber#convert",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.StringToPatternConverter#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.StringToPatternConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.StringToPropertiesConverter#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.StringToPropertiesConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.StringToRegexConverter#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.StringToRegexConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.StringToTimeZoneConverter#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.StringToTimeZoneConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.StringToUUIDConverter#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.StringToUUIDConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.ZoneIdToTimeZoneConverter#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.ZoneIdToTimeZoneConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.core.convert.support.ZonedDateTimeToCalendarConverter#<init>()V"
+        ],
+        "methodIdentity": "org.springframework.core.convert.support.ZonedDateTimeToCalendarConverter#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.Assert#isTrue(ZLjava/lang/String;)V"
+        ],
+        "methodIdentity": "org.springframework.util.Assert#isTrue",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.Assert#notNull(Ljava/lang/Object;Ljava/lang/String;)V"
+        ],
+        "methodIdentity": "org.springframework.util.Assert#notNull",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.Assert#state(ZLjava/lang/String;)V"
+        ],
+        "methodIdentity": "org.springframework.util.Assert#state",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ClassUtils#resolvePrimitiveIfNecessary(Ljava/lang/Class;)Ljava/lang/Class;"
+        ],
+        "methodIdentity": "org.springframework.util.ClassUtils#resolvePrimitiveIfNecessary",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap#<init>(I)V",
+          "org.springframework.util.ConcurrentReferenceHashMap#<init>(IFILorg/springframework/util/ConcurrentReferenceHashMap$ReferenceType;)V"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap#calculateShift(II)I"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#calculateShift",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap#clear()V"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#clear",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap#createReferenceManager()Lorg/springframework/util/ConcurrentReferenceHashMap$ReferenceManager;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#createReferenceManager",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap#doTask(Ljava/lang/Object;Lorg/springframework/util/ConcurrentReferenceHashMap$Task;)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#doTask",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap#get(Ljava/lang/Object;)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#get",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap#getHash(Ljava/lang/Object;)I"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getHash",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor()F"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap#getReference(Ljava/lang/Object;Lorg/springframework/util/ConcurrentReferenceHashMap$Restructure;)Lorg/springframework/util/ConcurrentReferenceHashMap$Reference;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getReference",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap#getSegmentForHash(I)Lorg/springframework/util/ConcurrentReferenceHashMap$Segment;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getSegmentForHash",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap#purgeUnreferencedEntries()V"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#purgeUnreferencedEntries",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap#put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;",
+          "org.springframework.util.ConcurrentReferenceHashMap#put(Ljava/lang/Object;Ljava/lang/Object;Z)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#put",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$1#<init>(Lorg/springframework/util/ConcurrentReferenceHashMap;[Lorg/springframework/util/ConcurrentReferenceHashMap$TaskOption;ZLjava/lang/Object;)V"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$1#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$1#execute(Lorg/springframework/util/ConcurrentReferenceHashMap$Reference;Lorg/springframework/util/ConcurrentReferenceHashMap$Entry;Lorg/springframework/util/ConcurrentReferenceHashMap$Entries;)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$1#execute",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$Entry#<init>(Ljava/lang/Object;Ljava/lang/Object;)V"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Entry#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "NOT_EXECUTED_NOT_REPORTED",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": false,
+        "level2Descriptors": [],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Entry#getKey",
+        "oracleExecuted": false,
+        "oracleOwnership": "NOT_EXECUTED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "NOT_EXECUTED_NOT_REPORTED",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": false,
+        "level2Descriptors": [],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Entry#getValue",
+        "oracleExecuted": false,
+        "oracleOwnership": "NOT_EXECUTED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#<init>(Lorg/springframework/util/ConcurrentReferenceHashMap;)V"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#createReference(Lorg/springframework/util/ConcurrentReferenceHashMap$Entry;ILorg/springframework/util/ConcurrentReferenceHashMap$Reference;)Lorg/springframework/util/ConcurrentReferenceHashMap$Reference;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#createReference",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#pollForPurge()Lorg/springframework/util/ConcurrentReferenceHashMap$Reference;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#pollForPurge",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$Segment#<init>(Lorg/springframework/util/ConcurrentReferenceHashMap;II)V"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$Segment#clear()V"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#clear",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray(I)[Lorg/springframework/util/ConcurrentReferenceHashMap$Reference;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$Segment#doTask(ILjava/lang/Object;Lorg/springframework/util/ConcurrentReferenceHashMap$Task;)Ljava/lang/Object;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#doTask",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$Segment#findInChain(Lorg/springframework/util/ConcurrentReferenceHashMap$Reference;Ljava/lang/Object;I)Lorg/springframework/util/ConcurrentReferenceHashMap$Reference;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#findInChain",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$Segment#getIndex(I[Lorg/springframework/util/ConcurrentReferenceHashMap$Reference;)I"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#getIndex",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$Segment#getReference(Ljava/lang/Object;ILorg/springframework/util/ConcurrentReferenceHashMap$Restructure;)Lorg/springframework/util/ConcurrentReferenceHashMap$Reference;"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#getReference",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$Segment#lambda$doTask$0(Ljava/lang/Object;ILorg/springframework/util/ConcurrentReferenceHashMap$Reference;ILjava/lang/Object;)V"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#lambda$doTask$0",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructureIfNecessary(Z)V"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructureIfNecessary",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#<init>(Lorg/springframework/util/ConcurrentReferenceHashMap$Entry;ILorg/springframework/util/ConcurrentReferenceHashMap$Reference;Ljava/lang/ref/ReferenceQueue;)V"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "NOT_EXECUTED_NOT_REPORTED",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": false,
+        "level2Descriptors": [],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+        "oracleExecuted": false,
+        "oracleOwnership": "NOT_EXECUTED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "NOT_EXECUTED_NOT_REPORTED",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": false,
+        "level2Descriptors": [],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+        "oracleExecuted": false,
+        "oracleOwnership": "NOT_EXECUTED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$Task#<init>(Lorg/springframework/util/ConcurrentReferenceHashMap;[Lorg/springframework/util/ConcurrentReferenceHashMap$TaskOption;)V"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Task#<init>",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ConcurrentReferenceHashMap$Task#hasOption(Lorg/springframework/util/ConcurrentReferenceHashMap$TaskOption;)Z"
+        ],
+        "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Task#hasOption",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.NumberUtils#parseNumber(Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/Number;"
+        ],
+        "methodIdentity": "org.springframework.util.NumberUtils#parseNumber",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "NOT_EXECUTED_NOT_REPORTED",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": false,
+        "level2Descriptors": [],
+        "methodIdentity": "org.springframework.util.ObjectUtils#nullSafeEquals",
+        "oracleExecuted": false,
+        "oracleOwnership": "NOT_EXECUTED"
+      },
+      {
+        "asmPresent": false,
+        "classification": "JACOCO_FALSE_POSITIVE_ASM_CORRECT_EXCLUSION",
+        "descriptorComparison": "EXACT",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.ObjectUtils#nullSafeHashCode(Ljava/lang/Object;)I"
+        ],
+        "methodIdentity": "org.springframework.util.ObjectUtils#nullSafeHashCode",
+        "oracleExecuted": true,
+        "oracleOwnership": "OUTSIDE_TEST"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.StringUtils#hasLength(Ljava/lang/CharSequence;)Z",
+          "org.springframework.util.StringUtils#hasLength(Ljava/lang/String;)Z"
+        ],
+        "methodIdentity": "org.springframework.util.StringUtils#hasLength",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      },
+      {
+        "asmPresent": true,
+        "classification": "BOTH_CORRECT",
+        "descriptorComparison": "OVERLOAD_AMBIGUITY",
+        "jacocoPresent": true,
+        "level2Descriptors": [
+          "org.springframework.util.StringUtils#trimAllWhitespace(Ljava/lang/CharSequence;)Ljava/lang/CharSequence;",
+          "org.springframework.util.StringUtils#trimAllWhitespace(Ljava/lang/String;)Ljava/lang/String;"
+        ],
+        "methodIdentity": "org.springframework.util.StringUtils#trimAllWhitespace",
+        "oracleExecuted": true,
+        "oracleOwnership": "TEST_OWNED"
+      }
+    ]
+  },
+  "jacoco": {
+    "methods": [
+      "org.springframework.core.KotlinDetector#<clinit>",
+      "org.springframework.core.KotlinDetector#isKotlinPresent",
+      "org.springframework.core.ResolvableType#<clinit>",
+      "org.springframework.core.ResolvableType#<init>",
+      "org.springframework.core.ResolvableType#as",
+      "org.springframework.core.ResolvableType#asVariableResolver",
+      "org.springframework.core.ResolvableType#calculateHashCode",
+      "org.springframework.core.ResolvableType#forClass",
+      "org.springframework.core.ResolvableType#forType",
+      "org.springframework.core.ResolvableType#getGenerics",
+      "org.springframework.core.ResolvableType#getInterfaces",
+      "org.springframework.core.ResolvableType#hashCode",
+      "org.springframework.core.ResolvableType#resolve",
+      "org.springframework.core.ResolvableType#resolveClass",
+      "org.springframework.core.ResolvableType#resolveType",
+      "org.springframework.core.ResolvableType#toClass",
+      "org.springframework.core.ResolvableType$DefaultVariableResolver#<init>",
+      "org.springframework.core.ResolvableType$DefaultVariableResolver#getSource",
+      "org.springframework.core.ResolvableType$EmptyType#<clinit>",
+      "org.springframework.core.ResolvableType$EmptyType#<init>",
+      "org.springframework.core.convert.TypeDescriptor#<clinit>",
+      "org.springframework.core.convert.TypeDescriptor#<init>",
+      "org.springframework.core.convert.TypeDescriptor#forObject",
+      "org.springframework.core.convert.TypeDescriptor#getObjectType",
+      "org.springframework.core.convert.TypeDescriptor#getType",
+      "org.springframework.core.convert.TypeDescriptor#hashCode",
+      "org.springframework.core.convert.TypeDescriptor#valueOf",
+      "org.springframework.core.convert.TypeDescriptor$AnnotatedElementAdapter#<clinit>",
+      "org.springframework.core.convert.TypeDescriptor$AnnotatedElementAdapter#<init>",
+      "org.springframework.core.convert.TypeDescriptor$AnnotatedElementAdapter#from",
+      "org.springframework.core.convert.converter.DefaultConversionServiceTests#<init>",
+      "org.springframework.core.convert.converter.DefaultConversionServiceTests#stringToFloat",
+      "org.springframework.core.convert.converter.GenericConverter$ConvertiblePair#<init>",
+      "org.springframework.core.convert.converter.GenericConverter$ConvertiblePair#equals",
+      "org.springframework.core.convert.converter.GenericConverter$ConvertiblePair#hashCode",
+      "org.springframework.core.convert.support.AbstractConditionalEnumConverter#<init>",
+      "org.springframework.core.convert.support.ArrayToArrayConverter#<init>",
+      "org.springframework.core.convert.support.ArrayToArrayConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ArrayToCollectionConverter#<init>",
+      "org.springframework.core.convert.support.ArrayToCollectionConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ArrayToObjectConverter#<init>",
+      "org.springframework.core.convert.support.ArrayToObjectConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ArrayToStringConverter#<init>",
+      "org.springframework.core.convert.support.ArrayToStringConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ByteBufferConverter#<clinit>",
+      "org.springframework.core.convert.support.ByteBufferConverter#<init>",
+      "org.springframework.core.convert.support.ByteBufferConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.CharacterToNumberFactory#<init>",
+      "org.springframework.core.convert.support.CollectionToArrayConverter#<init>",
+      "org.springframework.core.convert.support.CollectionToArrayConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.CollectionToCollectionConverter#<init>",
+      "org.springframework.core.convert.support.CollectionToCollectionConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.CollectionToObjectConverter#<init>",
+      "org.springframework.core.convert.support.CollectionToObjectConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.CollectionToStringConverter#<init>",
+      "org.springframework.core.convert.support.CollectionToStringConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ConversionUtils#invokeConverter",
+      "org.springframework.core.convert.support.DefaultConversionService#<init>",
+      "org.springframework.core.convert.support.DefaultConversionService#addCollectionConverters",
+      "org.springframework.core.convert.support.DefaultConversionService#addDefaultConverters",
+      "org.springframework.core.convert.support.DefaultConversionService#addScalarConverters",
+      "org.springframework.core.convert.support.EnumToIntegerConverter#<init>",
+      "org.springframework.core.convert.support.EnumToStringConverter#<init>",
+      "org.springframework.core.convert.support.FallbackObjectToStringConverter#<init>",
+      "org.springframework.core.convert.support.FallbackObjectToStringConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.GenericConversionService#<clinit>",
+      "org.springframework.core.convert.support.GenericConversionService#<init>",
+      "org.springframework.core.convert.support.GenericConversionService#addConverter",
+      "org.springframework.core.convert.support.GenericConversionService#addConverterFactory",
+      "org.springframework.core.convert.support.GenericConversionService#convert",
+      "org.springframework.core.convert.support.GenericConversionService#getConverter",
+      "org.springframework.core.convert.support.GenericConversionService#getRequiredTypeInfo",
+      "org.springframework.core.convert.support.GenericConversionService#handleResult",
+      "org.springframework.core.convert.support.GenericConversionService#invalidateCache",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterAdapter#<init>",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterAdapter#getConvertibleTypes",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterCacheKey#<init>",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterCacheKey#hashCode",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterFactoryAdapter#<init>",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterFactoryAdapter#convert",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterFactoryAdapter#getConvertibleTypes",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterFactoryAdapter#matches",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#<init>",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#add",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#addInterfacesToClassHierarchy",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#addToClassHierarchy",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#find",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#getClassHierarchy",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#getMatchableConverters",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#getRegisteredConverter",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#lambda$getMatchableConverters$0",
+      "org.springframework.core.convert.support.GenericConversionService$ConvertersForPair#<init>",
+      "org.springframework.core.convert.support.GenericConversionService$ConvertersForPair#add",
+      "org.springframework.core.convert.support.GenericConversionService$ConvertersForPair#getConverter",
+      "org.springframework.core.convert.support.GenericConversionService$NoOpConverter#<init>",
+      "org.springframework.core.convert.support.IdToEntityConverter#<init>",
+      "org.springframework.core.convert.support.IdToEntityConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.IntegerToEnumConverterFactory#<init>",
+      "org.springframework.core.convert.support.MapToMapConverter#<init>",
+      "org.springframework.core.convert.support.MapToMapConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.NumberToCharacterConverter#<init>",
+      "org.springframework.core.convert.support.NumberToNumberConverterFactory#<init>",
+      "org.springframework.core.convert.support.ObjectToArrayConverter#<init>",
+      "org.springframework.core.convert.support.ObjectToArrayConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ObjectToCollectionConverter#<init>",
+      "org.springframework.core.convert.support.ObjectToCollectionConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ObjectToObjectConverter#<clinit>",
+      "org.springframework.core.convert.support.ObjectToObjectConverter#<init>",
+      "org.springframework.core.convert.support.ObjectToObjectConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ObjectToOptionalConverter#<init>",
+      "org.springframework.core.convert.support.ObjectToOptionalConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ObjectToStringConverter#<init>",
+      "org.springframework.core.convert.support.PropertiesToStringConverter#<init>",
+      "org.springframework.core.convert.support.StreamConverter#<clinit>",
+      "org.springframework.core.convert.support.StreamConverter#<init>",
+      "org.springframework.core.convert.support.StreamConverter#createConvertibleTypes",
+      "org.springframework.core.convert.support.StreamConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.StringToArrayConverter#<init>",
+      "org.springframework.core.convert.support.StringToArrayConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.StringToBooleanConverter#<clinit>",
+      "org.springframework.core.convert.support.StringToBooleanConverter#<init>",
+      "org.springframework.core.convert.support.StringToCharacterConverter#<init>",
+      "org.springframework.core.convert.support.StringToCharsetConverter#<init>",
+      "org.springframework.core.convert.support.StringToCollectionConverter#<init>",
+      "org.springframework.core.convert.support.StringToCollectionConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.StringToCurrencyConverter#<init>",
+      "org.springframework.core.convert.support.StringToEnumConverterFactory#<init>",
+      "org.springframework.core.convert.support.StringToLocaleConverter#<init>",
+      "org.springframework.core.convert.support.StringToNumberConverterFactory#<init>",
+      "org.springframework.core.convert.support.StringToNumberConverterFactory#getConverter",
+      "org.springframework.core.convert.support.StringToNumberConverterFactory$StringToNumber#<init>",
+      "org.springframework.core.convert.support.StringToNumberConverterFactory$StringToNumber#convert",
+      "org.springframework.core.convert.support.StringToPatternConverter#<init>",
+      "org.springframework.core.convert.support.StringToPropertiesConverter#<init>",
+      "org.springframework.core.convert.support.StringToRegexConverter#<init>",
+      "org.springframework.core.convert.support.StringToTimeZoneConverter#<init>",
+      "org.springframework.core.convert.support.StringToUUIDConverter#<init>",
+      "org.springframework.core.convert.support.ZoneIdToTimeZoneConverter#<init>",
+      "org.springframework.core.convert.support.ZonedDateTimeToCalendarConverter#<init>",
+      "org.springframework.util.Assert#isTrue",
+      "org.springframework.util.Assert#notNull",
+      "org.springframework.util.Assert#state",
+      "org.springframework.util.ClassUtils#<clinit>",
+      "org.springframework.util.ClassUtils#forName",
+      "org.springframework.util.ClassUtils#isPresent",
+      "org.springframework.util.ClassUtils#registerCommonClasses",
+      "org.springframework.util.ClassUtils#resolvePrimitiveClassName",
+      "org.springframework.util.ClassUtils#resolvePrimitiveIfNecessary",
+      "org.springframework.util.ConcurrentReferenceHashMap#<clinit>",
+      "org.springframework.util.ConcurrentReferenceHashMap#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap#calculateShift",
+      "org.springframework.util.ConcurrentReferenceHashMap#clear",
+      "org.springframework.util.ConcurrentReferenceHashMap#createReferenceManager",
+      "org.springframework.util.ConcurrentReferenceHashMap#doTask",
+      "org.springframework.util.ConcurrentReferenceHashMap#get",
+      "org.springframework.util.ConcurrentReferenceHashMap#getHash",
+      "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "org.springframework.util.ConcurrentReferenceHashMap#getReference",
+      "org.springframework.util.ConcurrentReferenceHashMap#getSegmentForHash",
+      "org.springframework.util.ConcurrentReferenceHashMap#purgeUnreferencedEntries",
+      "org.springframework.util.ConcurrentReferenceHashMap#put",
+      "org.springframework.util.ConcurrentReferenceHashMap$1#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$1#execute",
+      "org.springframework.util.ConcurrentReferenceHashMap$Entry#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#createReference",
+      "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#pollForPurge",
+      "org.springframework.util.ConcurrentReferenceHashMap$ReferenceType#<clinit>",
+      "org.springframework.util.ConcurrentReferenceHashMap$Restructure#<clinit>",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#clear",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#doTask",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#findInChain",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#getIndex",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#getReference",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#lambda$doTask$0",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructureIfNecessary",
+      "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$Task#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$Task#hasOption",
+      "org.springframework.util.ConcurrentReferenceHashMap$TaskOption#<clinit>",
+      "org.springframework.util.NumberUtils#<clinit>",
+      "org.springframework.util.NumberUtils#parseNumber",
+      "org.springframework.util.ObjectUtils#<clinit>",
+      "org.springframework.util.ObjectUtils#nullSafeHashCode",
+      "org.springframework.util.StringUtils#<clinit>",
+      "org.springframework.util.StringUtils#hasLength",
+      "org.springframework.util.StringUtils#trimAllWhitespace"
+    ]
+  },
+  "mode": "TARGET_UNION_MODE",
+  "oracle": {
+    "ambiguousMethods": [],
+    "executedMethods": [
+      "org.springframework.core.KotlinDetector#<clinit>",
+      "org.springframework.core.KotlinDetector#isKotlinPresent",
+      "org.springframework.core.ResolvableType#<clinit>",
+      "org.springframework.core.ResolvableType#<init>",
+      "org.springframework.core.ResolvableType#as",
+      "org.springframework.core.ResolvableType#asVariableResolver",
+      "org.springframework.core.ResolvableType#calculateHashCode",
+      "org.springframework.core.ResolvableType#forClass",
+      "org.springframework.core.ResolvableType#forType",
+      "org.springframework.core.ResolvableType#getGenerics",
+      "org.springframework.core.ResolvableType#getInterfaces",
+      "org.springframework.core.ResolvableType#hashCode",
+      "org.springframework.core.ResolvableType#resolve",
+      "org.springframework.core.ResolvableType#resolveClass",
+      "org.springframework.core.ResolvableType#resolveType",
+      "org.springframework.core.ResolvableType#toClass",
+      "org.springframework.core.ResolvableType$DefaultVariableResolver#<init>",
+      "org.springframework.core.ResolvableType$DefaultVariableResolver#getSource",
+      "org.springframework.core.ResolvableType$EmptyType#<clinit>",
+      "org.springframework.core.ResolvableType$EmptyType#<init>",
+      "org.springframework.core.convert.TypeDescriptor#<clinit>",
+      "org.springframework.core.convert.TypeDescriptor#<init>",
+      "org.springframework.core.convert.TypeDescriptor#forObject",
+      "org.springframework.core.convert.TypeDescriptor#getObjectType",
+      "org.springframework.core.convert.TypeDescriptor#getType",
+      "org.springframework.core.convert.TypeDescriptor#hashCode",
+      "org.springframework.core.convert.TypeDescriptor#valueOf",
+      "org.springframework.core.convert.TypeDescriptor$AnnotatedElementAdapter#<clinit>",
+      "org.springframework.core.convert.TypeDescriptor$AnnotatedElementAdapter#<init>",
+      "org.springframework.core.convert.TypeDescriptor$AnnotatedElementAdapter#from",
+      "org.springframework.core.convert.converter.GenericConverter$ConvertiblePair#<init>",
+      "org.springframework.core.convert.converter.GenericConverter$ConvertiblePair#equals",
+      "org.springframework.core.convert.converter.GenericConverter$ConvertiblePair#hashCode",
+      "org.springframework.core.convert.support.AbstractConditionalEnumConverter#<init>",
+      "org.springframework.core.convert.support.ArrayToArrayConverter#<init>",
+      "org.springframework.core.convert.support.ArrayToArrayConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ArrayToCollectionConverter#<init>",
+      "org.springframework.core.convert.support.ArrayToCollectionConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ArrayToObjectConverter#<init>",
+      "org.springframework.core.convert.support.ArrayToObjectConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ArrayToStringConverter#<init>",
+      "org.springframework.core.convert.support.ArrayToStringConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ByteBufferConverter#<clinit>",
+      "org.springframework.core.convert.support.ByteBufferConverter#<init>",
+      "org.springframework.core.convert.support.ByteBufferConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.CharacterToNumberFactory#<init>",
+      "org.springframework.core.convert.support.CollectionToArrayConverter#<init>",
+      "org.springframework.core.convert.support.CollectionToArrayConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.CollectionToCollectionConverter#<init>",
+      "org.springframework.core.convert.support.CollectionToCollectionConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.CollectionToObjectConverter#<init>",
+      "org.springframework.core.convert.support.CollectionToObjectConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.CollectionToStringConverter#<init>",
+      "org.springframework.core.convert.support.CollectionToStringConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ConversionUtils#invokeConverter",
+      "org.springframework.core.convert.support.DefaultConversionService#<init>",
+      "org.springframework.core.convert.support.DefaultConversionService#addCollectionConverters",
+      "org.springframework.core.convert.support.DefaultConversionService#addDefaultConverters",
+      "org.springframework.core.convert.support.DefaultConversionService#addScalarConverters",
+      "org.springframework.core.convert.support.EnumToIntegerConverter#<init>",
+      "org.springframework.core.convert.support.EnumToStringConverter#<init>",
+      "org.springframework.core.convert.support.FallbackObjectToStringConverter#<init>",
+      "org.springframework.core.convert.support.FallbackObjectToStringConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.GenericConversionService#<clinit>",
+      "org.springframework.core.convert.support.GenericConversionService#<init>",
+      "org.springframework.core.convert.support.GenericConversionService#addConverter",
+      "org.springframework.core.convert.support.GenericConversionService#addConverterFactory",
+      "org.springframework.core.convert.support.GenericConversionService#convert",
+      "org.springframework.core.convert.support.GenericConversionService#getConverter",
+      "org.springframework.core.convert.support.GenericConversionService#getRequiredTypeInfo",
+      "org.springframework.core.convert.support.GenericConversionService#handleResult",
+      "org.springframework.core.convert.support.GenericConversionService#invalidateCache",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterAdapter#<init>",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterAdapter#getConvertibleTypes",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterCacheKey#<init>",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterCacheKey#hashCode",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterFactoryAdapter#<init>",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterFactoryAdapter#convert",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterFactoryAdapter#getConvertibleTypes",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterFactoryAdapter#matches",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#<init>",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#add",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#addInterfacesToClassHierarchy",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#addToClassHierarchy",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#find",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#getClassHierarchy",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#getMatchableConverters",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#getRegisteredConverter",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#lambda$getMatchableConverters$0",
+      "org.springframework.core.convert.support.GenericConversionService$ConvertersForPair#<init>",
+      "org.springframework.core.convert.support.GenericConversionService$ConvertersForPair#add",
+      "org.springframework.core.convert.support.GenericConversionService$ConvertersForPair#getConverter",
+      "org.springframework.core.convert.support.GenericConversionService$NoOpConverter#<init>",
+      "org.springframework.core.convert.support.IdToEntityConverter#<init>",
+      "org.springframework.core.convert.support.IdToEntityConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.IntegerToEnumConverterFactory#<init>",
+      "org.springframework.core.convert.support.MapToMapConverter#<init>",
+      "org.springframework.core.convert.support.MapToMapConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.NumberToCharacterConverter#<init>",
+      "org.springframework.core.convert.support.NumberToNumberConverterFactory#<init>",
+      "org.springframework.core.convert.support.ObjectToArrayConverter#<init>",
+      "org.springframework.core.convert.support.ObjectToArrayConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ObjectToCollectionConverter#<init>",
+      "org.springframework.core.convert.support.ObjectToCollectionConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ObjectToObjectConverter#<clinit>",
+      "org.springframework.core.convert.support.ObjectToObjectConverter#<init>",
+      "org.springframework.core.convert.support.ObjectToObjectConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ObjectToOptionalConverter#<init>",
+      "org.springframework.core.convert.support.ObjectToOptionalConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ObjectToStringConverter#<init>",
+      "org.springframework.core.convert.support.PropertiesToStringConverter#<init>",
+      "org.springframework.core.convert.support.StreamConverter#<clinit>",
+      "org.springframework.core.convert.support.StreamConverter#<init>",
+      "org.springframework.core.convert.support.StreamConverter#createConvertibleTypes",
+      "org.springframework.core.convert.support.StreamConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.StringToArrayConverter#<init>",
+      "org.springframework.core.convert.support.StringToArrayConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.StringToBooleanConverter#<clinit>",
+      "org.springframework.core.convert.support.StringToBooleanConverter#<init>",
+      "org.springframework.core.convert.support.StringToCharacterConverter#<init>",
+      "org.springframework.core.convert.support.StringToCharsetConverter#<init>",
+      "org.springframework.core.convert.support.StringToCollectionConverter#<init>",
+      "org.springframework.core.convert.support.StringToCollectionConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.StringToCurrencyConverter#<init>",
+      "org.springframework.core.convert.support.StringToEnumConverterFactory#<init>",
+      "org.springframework.core.convert.support.StringToLocaleConverter#<init>",
+      "org.springframework.core.convert.support.StringToNumberConverterFactory#<init>",
+      "org.springframework.core.convert.support.StringToNumberConverterFactory#getConverter",
+      "org.springframework.core.convert.support.StringToNumberConverterFactory$StringToNumber#<init>",
+      "org.springframework.core.convert.support.StringToNumberConverterFactory$StringToNumber#convert",
+      "org.springframework.core.convert.support.StringToPatternConverter#<init>",
+      "org.springframework.core.convert.support.StringToPropertiesConverter#<init>",
+      "org.springframework.core.convert.support.StringToRegexConverter#<init>",
+      "org.springframework.core.convert.support.StringToTimeZoneConverter#<init>",
+      "org.springframework.core.convert.support.StringToUUIDConverter#<init>",
+      "org.springframework.core.convert.support.ZoneIdToTimeZoneConverter#<init>",
+      "org.springframework.core.convert.support.ZonedDateTimeToCalendarConverter#<init>",
+      "org.springframework.util.Assert#isTrue",
+      "org.springframework.util.Assert#notNull",
+      "org.springframework.util.Assert#state",
+      "org.springframework.util.ClassUtils#<clinit>",
+      "org.springframework.util.ClassUtils#forName",
+      "org.springframework.util.ClassUtils#isPresent",
+      "org.springframework.util.ClassUtils#registerCommonClasses",
+      "org.springframework.util.ClassUtils#resolvePrimitiveClassName",
+      "org.springframework.util.ClassUtils#resolvePrimitiveIfNecessary",
+      "org.springframework.util.ConcurrentReferenceHashMap#<clinit>",
+      "org.springframework.util.ConcurrentReferenceHashMap#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap#calculateShift",
+      "org.springframework.util.ConcurrentReferenceHashMap#clear",
+      "org.springframework.util.ConcurrentReferenceHashMap#createReferenceManager",
+      "org.springframework.util.ConcurrentReferenceHashMap#doTask",
+      "org.springframework.util.ConcurrentReferenceHashMap#get",
+      "org.springframework.util.ConcurrentReferenceHashMap#getHash",
+      "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "org.springframework.util.ConcurrentReferenceHashMap#getReference",
+      "org.springframework.util.ConcurrentReferenceHashMap#getSegmentForHash",
+      "org.springframework.util.ConcurrentReferenceHashMap#purgeUnreferencedEntries",
+      "org.springframework.util.ConcurrentReferenceHashMap#put",
+      "org.springframework.util.ConcurrentReferenceHashMap$1#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$1#execute",
+      "org.springframework.util.ConcurrentReferenceHashMap$Entry#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#createReference",
+      "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#pollForPurge",
+      "org.springframework.util.ConcurrentReferenceHashMap$ReferenceType#$values",
+      "org.springframework.util.ConcurrentReferenceHashMap$ReferenceType#<clinit>",
+      "org.springframework.util.ConcurrentReferenceHashMap$ReferenceType#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$Restructure#$values",
+      "org.springframework.util.ConcurrentReferenceHashMap$Restructure#<clinit>",
+      "org.springframework.util.ConcurrentReferenceHashMap$Restructure#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#clear",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#doTask",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#findInChain",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#getIndex",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#getReference",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#lambda$doTask$0",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructureIfNecessary",
+      "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$Task#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$Task#hasOption",
+      "org.springframework.util.ConcurrentReferenceHashMap$TaskOption#$values",
+      "org.springframework.util.ConcurrentReferenceHashMap$TaskOption#<clinit>",
+      "org.springframework.util.ConcurrentReferenceHashMap$TaskOption#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$TaskOption#values",
+      "org.springframework.util.NumberUtils#<clinit>",
+      "org.springframework.util.NumberUtils#parseNumber",
+      "org.springframework.util.ObjectUtils#<clinit>",
+      "org.springframework.util.ObjectUtils#nullSafeHashCode",
+      "org.springframework.util.StringUtils#<clinit>",
+      "org.springframework.util.StringUtils#hasLength",
+      "org.springframework.util.StringUtils#trimAllWhitespace"
+    ],
+    "lateMethods": [],
+    "outsideMethods": [
+      "org.springframework.core.KotlinDetector#<clinit>",
+      "org.springframework.core.KotlinDetector#isKotlinPresent",
+      "org.springframework.core.ResolvableType#<clinit>",
+      "org.springframework.core.ResolvableType#<init>",
+      "org.springframework.core.ResolvableType#as",
+      "org.springframework.core.ResolvableType#asVariableResolver",
+      "org.springframework.core.ResolvableType#calculateHashCode",
+      "org.springframework.core.ResolvableType#forClass",
+      "org.springframework.core.ResolvableType#forType",
+      "org.springframework.core.ResolvableType#getGenerics",
+      "org.springframework.core.ResolvableType#getInterfaces",
+      "org.springframework.core.ResolvableType#hashCode",
+      "org.springframework.core.ResolvableType#resolve",
+      "org.springframework.core.ResolvableType#resolveClass",
+      "org.springframework.core.ResolvableType#resolveType",
+      "org.springframework.core.ResolvableType#toClass",
+      "org.springframework.core.ResolvableType$DefaultVariableResolver#<init>",
+      "org.springframework.core.ResolvableType$DefaultVariableResolver#getSource",
+      "org.springframework.core.ResolvableType$EmptyType#<clinit>",
+      "org.springframework.core.ResolvableType$EmptyType#<init>",
+      "org.springframework.core.convert.TypeDescriptor#<clinit>",
+      "org.springframework.core.convert.TypeDescriptor#<init>",
+      "org.springframework.core.convert.TypeDescriptor$AnnotatedElementAdapter#<clinit>",
+      "org.springframework.core.convert.TypeDescriptor$AnnotatedElementAdapter#<init>",
+      "org.springframework.core.convert.TypeDescriptor$AnnotatedElementAdapter#from",
+      "org.springframework.core.convert.support.AbstractConditionalEnumConverter#<init>",
+      "org.springframework.core.convert.support.ArrayToArrayConverter#<init>",
+      "org.springframework.core.convert.support.ArrayToArrayConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ArrayToCollectionConverter#<init>",
+      "org.springframework.core.convert.support.ArrayToCollectionConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ArrayToObjectConverter#<init>",
+      "org.springframework.core.convert.support.ArrayToObjectConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ArrayToStringConverter#<init>",
+      "org.springframework.core.convert.support.ArrayToStringConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ByteBufferConverter#<clinit>",
+      "org.springframework.core.convert.support.ByteBufferConverter#<init>",
+      "org.springframework.core.convert.support.ByteBufferConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.CharacterToNumberFactory#<init>",
+      "org.springframework.core.convert.support.CollectionToArrayConverter#<init>",
+      "org.springframework.core.convert.support.CollectionToArrayConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.CollectionToCollectionConverter#<init>",
+      "org.springframework.core.convert.support.CollectionToCollectionConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.CollectionToObjectConverter#<init>",
+      "org.springframework.core.convert.support.CollectionToObjectConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.CollectionToStringConverter#<init>",
+      "org.springframework.core.convert.support.CollectionToStringConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.DefaultConversionService#<init>",
+      "org.springframework.core.convert.support.DefaultConversionService#addCollectionConverters",
+      "org.springframework.core.convert.support.DefaultConversionService#addDefaultConverters",
+      "org.springframework.core.convert.support.DefaultConversionService#addScalarConverters",
+      "org.springframework.core.convert.support.EnumToIntegerConverter#<init>",
+      "org.springframework.core.convert.support.EnumToStringConverter#<init>",
+      "org.springframework.core.convert.support.FallbackObjectToStringConverter#<init>",
+      "org.springframework.core.convert.support.FallbackObjectToStringConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.GenericConversionService#<clinit>",
+      "org.springframework.core.convert.support.GenericConversionService#<init>",
+      "org.springframework.core.convert.support.GenericConversionService#addConverter",
+      "org.springframework.core.convert.support.GenericConversionService#addConverterFactory",
+      "org.springframework.core.convert.support.GenericConversionService#getRequiredTypeInfo",
+      "org.springframework.core.convert.support.GenericConversionService#invalidateCache",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterAdapter#<init>",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterAdapter#getConvertibleTypes",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterFactoryAdapter#<init>",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterFactoryAdapter#getConvertibleTypes",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#<init>",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#add",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#getMatchableConverters",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#lambda$getMatchableConverters$0",
+      "org.springframework.core.convert.support.GenericConversionService$ConvertersForPair#<init>",
+      "org.springframework.core.convert.support.GenericConversionService$ConvertersForPair#add",
+      "org.springframework.core.convert.support.GenericConversionService$NoOpConverter#<init>",
+      "org.springframework.core.convert.support.IdToEntityConverter#<init>",
+      "org.springframework.core.convert.support.IdToEntityConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.IntegerToEnumConverterFactory#<init>",
+      "org.springframework.core.convert.support.MapToMapConverter#<init>",
+      "org.springframework.core.convert.support.MapToMapConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.NumberToCharacterConverter#<init>",
+      "org.springframework.core.convert.support.NumberToNumberConverterFactory#<init>",
+      "org.springframework.core.convert.support.ObjectToArrayConverter#<init>",
+      "org.springframework.core.convert.support.ObjectToArrayConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ObjectToCollectionConverter#<init>",
+      "org.springframework.core.convert.support.ObjectToCollectionConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ObjectToObjectConverter#<clinit>",
+      "org.springframework.core.convert.support.ObjectToObjectConverter#<init>",
+      "org.springframework.core.convert.support.ObjectToObjectConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ObjectToOptionalConverter#<init>",
+      "org.springframework.core.convert.support.ObjectToOptionalConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.ObjectToStringConverter#<init>",
+      "org.springframework.core.convert.support.PropertiesToStringConverter#<init>",
+      "org.springframework.core.convert.support.StreamConverter#<clinit>",
+      "org.springframework.core.convert.support.StreamConverter#<init>",
+      "org.springframework.core.convert.support.StreamConverter#createConvertibleTypes",
+      "org.springframework.core.convert.support.StreamConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.StringToArrayConverter#<init>",
+      "org.springframework.core.convert.support.StringToArrayConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.StringToBooleanConverter#<clinit>",
+      "org.springframework.core.convert.support.StringToBooleanConverter#<init>",
+      "org.springframework.core.convert.support.StringToCharacterConverter#<init>",
+      "org.springframework.core.convert.support.StringToCharsetConverter#<init>",
+      "org.springframework.core.convert.support.StringToCollectionConverter#<init>",
+      "org.springframework.core.convert.support.StringToCollectionConverter#getConvertibleTypes",
+      "org.springframework.core.convert.support.StringToCurrencyConverter#<init>",
+      "org.springframework.core.convert.support.StringToEnumConverterFactory#<init>",
+      "org.springframework.core.convert.support.StringToLocaleConverter#<init>",
+      "org.springframework.core.convert.support.StringToNumberConverterFactory#<init>",
+      "org.springframework.core.convert.support.StringToPatternConverter#<init>",
+      "org.springframework.core.convert.support.StringToPropertiesConverter#<init>",
+      "org.springframework.core.convert.support.StringToRegexConverter#<init>",
+      "org.springframework.core.convert.support.StringToTimeZoneConverter#<init>",
+      "org.springframework.core.convert.support.StringToUUIDConverter#<init>",
+      "org.springframework.core.convert.support.ZoneIdToTimeZoneConverter#<init>",
+      "org.springframework.core.convert.support.ZonedDateTimeToCalendarConverter#<init>",
+      "org.springframework.util.Assert#isTrue",
+      "org.springframework.util.ClassUtils#<clinit>",
+      "org.springframework.util.ClassUtils#forName",
+      "org.springframework.util.ClassUtils#isPresent",
+      "org.springframework.util.ClassUtils#registerCommonClasses",
+      "org.springframework.util.ClassUtils#resolvePrimitiveClassName",
+      "org.springframework.util.ConcurrentReferenceHashMap#<clinit>",
+      "org.springframework.util.ConcurrentReferenceHashMap#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap#calculateShift",
+      "org.springframework.util.ConcurrentReferenceHashMap#clear",
+      "org.springframework.util.ConcurrentReferenceHashMap#createReferenceManager",
+      "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "org.springframework.util.ConcurrentReferenceHashMap#purgeUnreferencedEntries",
+      "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$ReferenceType#$values",
+      "org.springframework.util.ConcurrentReferenceHashMap$ReferenceType#<clinit>",
+      "org.springframework.util.ConcurrentReferenceHashMap$ReferenceType#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$Restructure#$values",
+      "org.springframework.util.ConcurrentReferenceHashMap$Restructure#<clinit>",
+      "org.springframework.util.ConcurrentReferenceHashMap$Restructure#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#clear",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "org.springframework.util.ConcurrentReferenceHashMap$TaskOption#$values",
+      "org.springframework.util.ConcurrentReferenceHashMap$TaskOption#<clinit>",
+      "org.springframework.util.ConcurrentReferenceHashMap$TaskOption#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$TaskOption#values",
+      "org.springframework.util.ObjectUtils#<clinit>",
+      "org.springframework.util.ObjectUtils#nullSafeHashCode"
+    ],
+    "testOwnedMethods": [
+      "org.springframework.core.convert.TypeDescriptor#forObject",
+      "org.springframework.core.convert.TypeDescriptor#getObjectType",
+      "org.springframework.core.convert.TypeDescriptor#getType",
+      "org.springframework.core.convert.TypeDescriptor#hashCode",
+      "org.springframework.core.convert.TypeDescriptor#valueOf",
+      "org.springframework.core.convert.converter.GenericConverter$ConvertiblePair#<init>",
+      "org.springframework.core.convert.converter.GenericConverter$ConvertiblePair#equals",
+      "org.springframework.core.convert.converter.GenericConverter$ConvertiblePair#hashCode",
+      "org.springframework.core.convert.support.ConversionUtils#invokeConverter",
+      "org.springframework.core.convert.support.GenericConversionService#convert",
+      "org.springframework.core.convert.support.GenericConversionService#getConverter",
+      "org.springframework.core.convert.support.GenericConversionService#handleResult",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterCacheKey#<init>",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterCacheKey#hashCode",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterFactoryAdapter#convert",
+      "org.springframework.core.convert.support.GenericConversionService$ConverterFactoryAdapter#matches",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#addInterfacesToClassHierarchy",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#addToClassHierarchy",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#find",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#getClassHierarchy",
+      "org.springframework.core.convert.support.GenericConversionService$Converters#getRegisteredConverter",
+      "org.springframework.core.convert.support.GenericConversionService$ConvertersForPair#getConverter",
+      "org.springframework.core.convert.support.StringToNumberConverterFactory#getConverter",
+      "org.springframework.core.convert.support.StringToNumberConverterFactory$StringToNumber#<init>",
+      "org.springframework.core.convert.support.StringToNumberConverterFactory$StringToNumber#convert",
+      "org.springframework.util.Assert#notNull",
+      "org.springframework.util.Assert#state",
+      "org.springframework.util.ClassUtils#resolvePrimitiveIfNecessary",
+      "org.springframework.util.ConcurrentReferenceHashMap#doTask",
+      "org.springframework.util.ConcurrentReferenceHashMap#get",
+      "org.springframework.util.ConcurrentReferenceHashMap#getHash",
+      "org.springframework.util.ConcurrentReferenceHashMap#getReference",
+      "org.springframework.util.ConcurrentReferenceHashMap#getSegmentForHash",
+      "org.springframework.util.ConcurrentReferenceHashMap#put",
+      "org.springframework.util.ConcurrentReferenceHashMap$1#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$1#execute",
+      "org.springframework.util.ConcurrentReferenceHashMap$Entry#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#createReference",
+      "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#pollForPurge",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#doTask",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#findInChain",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#getIndex",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#getReference",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#lambda$doTask$0",
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructureIfNecessary",
+      "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$Task#<init>",
+      "org.springframework.util.ConcurrentReferenceHashMap$Task#hasOption",
+      "org.springframework.util.NumberUtils#<clinit>",
+      "org.springframework.util.NumberUtils#parseNumber",
+      "org.springframework.util.StringUtils#<clinit>",
+      "org.springframework.util.StringUtils#hasLength",
+      "org.springframework.util.StringUtils#trimAllWhitespace"
+    ]
+  },
+  "schemaVersion": "task19-joined-test-observation-1",
+  "testIdentity": "DefaultConversionServiceTests#stringToFloat_59f4eb5"
+}
