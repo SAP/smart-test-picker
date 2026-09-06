@@ -1,0 +1,96 @@
+{
+  "cases": [
+    {
+      "caseId": "enum-reference-type-constructor",
+      "classIdMatch": true,
+      "classification": "REAL_JACOCO_METHOD_COVERAGE_LIMITATION",
+      "directAnalyzerCovered": false,
+      "mechanism": "JACOCO_FILTER_ENUM_EMPTY_CONSTRUCTOR",
+      "representationMismatch": false,
+      "resetArtifact": false
+    },
+    {
+      "caseId": "enum-restructure-constructor",
+      "classIdMatch": true,
+      "classification": "REAL_JACOCO_METHOD_COVERAGE_LIMITATION",
+      "directAnalyzerCovered": false,
+      "mechanism": "JACOCO_FILTER_ENUM_EMPTY_CONSTRUCTOR",
+      "representationMismatch": false,
+      "resetArtifact": false
+    },
+    {
+      "caseId": "record-element-accessor",
+      "classIdMatch": true,
+      "classification": "REAL_JACOCO_METHOD_COVERAGE_LIMITATION",
+      "directAnalyzerCovered": false,
+      "mechanism": "JACOCO_FILTER_RECORD_MEMBER",
+      "representationMismatch": false,
+      "resetArtifact": false
+    },
+    {
+      "caseId": "record-processor-accessor",
+      "classIdMatch": true,
+      "classification": "REAL_JACOCO_METHOD_COVERAGE_LIMITATION",
+      "directAnalyzerCovered": false,
+      "mechanism": "JACOCO_FILTER_RECORD_MEMBER",
+      "representationMismatch": false,
+      "resetArtifact": false
+    },
+    {
+      "caseId": "bridge-soft-reference-get",
+      "classIdMatch": true,
+      "classification": "REAL_JACOCO_METHOD_COVERAGE_LIMITATION",
+      "directAnalyzerCovered": false,
+      "mechanism": "JACOCO_FILTER_SYNTHETIC_BRIDGE",
+      "representationMismatch": false,
+      "resetArtifact": false
+    },
+    {
+      "caseId": "cache-get",
+      "classIdMatch": true,
+      "classification": "REAL_JACOCO_METHOD_COVERAGE_LIMITATION",
+      "directAnalyzerCovered": false,
+      "mechanism": "IMPLICIT_EXCEPTION_BEFORE_EXIT_PROBE",
+      "representationMismatch": false,
+      "resetArtifact": false
+    },
+    {
+      "caseId": "ordinary-after-mappings",
+      "classIdMatch": true,
+      "classification": "REAL_JACOCO_METHOD_COVERAGE_LIMITATION",
+      "directAnalyzerCovered": false,
+      "mechanism": "IMPLICIT_EXCEPTION_BEFORE_EXIT_PROBE",
+      "representationMismatch": false,
+      "resetArtifact": false
+    },
+    {
+      "caseId": "ordinary-constructor",
+      "classIdMatch": true,
+      "classification": "REAL_JACOCO_METHOD_COVERAGE_LIMITATION",
+      "directAnalyzerCovered": false,
+      "mechanism": "IMPLICIT_EXCEPTION_BEFORE_PROBE_ARRAY_ACCESS",
+      "representationMismatch": false,
+      "resetArtifact": false
+    },
+    {
+      "caseId": "async-before-access",
+      "classIdMatch": true,
+      "classification": "REAL_JACOCO_METHOD_COVERAGE_LIMITATION",
+      "directAnalyzerCovered": false,
+      "mechanism": "IMPLICIT_EXCEPTION_BEFORE_EXIT_PROBE",
+      "representationMismatch": false,
+      "resetArtifact": false
+    },
+    {
+      "caseId": "synthetic-switch-clinit",
+      "classIdMatch": true,
+      "classification": "REAL_JACOCO_METHOD_COVERAGE_LIMITATION",
+      "directAnalyzerCovered": false,
+      "mechanism": "JACOCO_FILTER_SYNTHETIC_SWITCH_MAP_CLASS",
+      "representationMismatch": false,
+      "resetArtifact": false
+    }
+  ],
+  "investigated": 10,
+  "schemaVersion": "task20-case-summary-1"
+}

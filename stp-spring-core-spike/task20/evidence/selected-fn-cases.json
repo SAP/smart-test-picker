@@ -1,0 +1,177 @@
+{
+  "cases": [
+    {
+      "asmPresent": true,
+      "caseId": "enum-reference-type-constructor",
+      "className": "org.springframework.util.ConcurrentReferenceHashMap$ReferenceType",
+      "descriptor": "(Ljava/lang/String;I)V",
+      "descriptorCandidates": [
+        "(Ljava/lang/String;I)V"
+      ],
+      "gradleSelector": "org.springframework.aot.generate.AccessControlTests.forMemberWhenPublicClassWithPublicMethodAndPackagePrivateGenericOnReturnType",
+      "jacocoPresent": false,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$ReferenceType#<init>",
+      "methodName": "<init>",
+      "oracleOwnership": "TEST_OWNED",
+      "selectionReason": "implicit enum constructor; mandatory order contrast",
+      "task19Category": "CONCURRENT_REFERENCE_HASH_MAP",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPublicMethodAndPackagePrivateGenericOnReturnType_78b5ffb"
+    },
+    {
+      "asmPresent": true,
+      "caseId": "enum-restructure-constructor",
+      "className": "org.springframework.util.ConcurrentReferenceHashMap$Restructure",
+      "descriptor": "(Ljava/lang/String;I)V",
+      "descriptorCandidates": [
+        "(Ljava/lang/String;I)V"
+      ],
+      "gradleSelector": "org.springframework.aot.generate.AccessControlTests.forMemberWhenPublicClassWithPublicMethodAndPackagePrivateGenericOnReturnType",
+      "jacocoPresent": false,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Restructure#<init>",
+      "methodName": "<init>",
+      "oracleOwnership": "TEST_OWNED",
+      "selectionReason": "second implicit enum constructor; mandatory order contrast",
+      "task19Category": "CONCURRENT_REFERENCE_HASH_MAP",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPublicMethodAndPackagePrivateGenericOnReturnType_78b5ffb"
+    },
+    {
+      "asmPresent": true,
+      "caseId": "record-element-accessor",
+      "className": "org.springframework.aot.hint.annotation.ReflectiveRuntimeHintsRegistrar$Entry",
+      "descriptor": "()Ljava/lang/reflect/AnnotatedElement;",
+      "descriptorCandidates": [
+        "()Ljava/lang/reflect/AnnotatedElement;"
+      ],
+      "gradleSelector": "org.springframework.aot.hint.annotation.ReflectiveRuntimeHintsRegistrarTests.shouldProcessWithMultipleProcessorsWithAnnotationOnType",
+      "jacocoPresent": false,
+      "methodIdentity": "org.springframework.aot.hint.annotation.ReflectiveRuntimeHintsRegistrar$Entry#element",
+      "methodName": "element",
+      "oracleOwnership": "TEST_OWNED",
+      "selectionReason": "simple record accessor in reflection-related path",
+      "task19Category": "REFLECTION",
+      "testIdentity": "ReflectiveRuntimeHintsRegistrarTests#shouldProcessWithMultipleProcessorsWithAnnotationOnType_4c715ce"
+    },
+    {
+      "asmPresent": true,
+      "caseId": "record-processor-accessor",
+      "className": "org.springframework.aot.hint.annotation.ReflectiveRuntimeHintsRegistrar$Entry",
+      "descriptor": "()Lorg/springframework/aot/hint/annotation/ReflectiveProcessor;",
+      "descriptorCandidates": [
+        "()Lorg/springframework/aot/hint/annotation/ReflectiveProcessor;"
+      ],
+      "gradleSelector": "org.springframework.aot.hint.annotation.ReflectiveRuntimeHintsRegistrarTests.shouldProcessWithMultipleProcessorsWithAnnotationOnType",
+      "jacocoPresent": false,
+      "methodIdentity": "org.springframework.aot.hint.annotation.ReflectiveRuntimeHintsRegistrar$Entry#processor",
+      "methodName": "processor",
+      "oracleOwnership": "TEST_OWNED",
+      "selectionReason": "second simple record accessor",
+      "task19Category": "REFLECTION",
+      "testIdentity": "ReflectiveRuntimeHintsRegistrarTests#shouldProcessWithMultipleProcessorsWithAnnotationOnType_4c715ce"
+    },
+    {
+      "asmPresent": true,
+      "caseId": "bridge-soft-reference-get",
+      "className": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference",
+      "descriptor": "()Lorg/springframework/util/ConcurrentReferenceHashMap$Entry;",
+      "descriptorCandidates": [
+        "()Lorg/springframework/util/ConcurrentReferenceHashMap$Entry;"
+      ],
+      "gradleSelector": "org.springframework.core.type.InheritedAnnotationsAnnotationMetadataTests.hasAnnotation",
+      "jacocoPresent": false,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "methodName": "get",
+      "oracleOwnership": "TEST_OWNED",
+      "selectionReason": "cache-internal synthetic bridge method; stable alternate TASK 19 edge after the bridge-named test reproduced its known reflection-order assertion failure twice",
+      "task19Category": "CONCURRENT_REFERENCE_HASH_MAP",
+      "testIdentity": "InheritedAnnotationsAnnotationMetadataTests#hasAnnotation_40576fd"
+    },
+    {
+      "asmPresent": true,
+      "caseId": "cache-get",
+      "className": "org.springframework.core.annotation.AnnotationTypeMappings$Cache",
+      "descriptor": "(Ljava/lang/Class;Ljava/util/Set;)Lorg/springframework/core/annotation/AnnotationTypeMappings;",
+      "descriptorCandidates": [
+        "(Ljava/lang/Class;Ljava/util/Set;)Lorg/springframework/core/annotation/AnnotationTypeMappings;"
+      ],
+      "gradleSelector": "org.springframework.core.annotation.MergedAnnotationsTests.synthesizeWhenAttributeAliasForMetaAnnotationThatIsNotMetaPresent",
+      "jacocoPresent": false,
+      "methodIdentity": "org.springframework.core.annotation.AnnotationTypeMappings$Cache#get",
+      "methodName": "get",
+      "oracleOwnership": "TEST_OWNED",
+      "selectionReason": "ordinary cache-internal method",
+      "task19Category": "ORDINARY",
+      "testIdentity": "MergedAnnotationsTests#synthesizeWhenAttributeAliasForMetaAnnotationThatIsNotMetaPresent_1a62141"
+    },
+    {
+      "asmPresent": true,
+      "caseId": "ordinary-after-mappings",
+      "className": "org.springframework.core.annotation.AnnotationTypeMapping",
+      "descriptor": "()V",
+      "descriptorCandidates": [
+        "()V"
+      ],
+      "gradleSelector": "org.springframework.core.annotation.MergedAnnotationsTests.synthesizeWhenAttributeAliasForMetaAnnotationThatIsNotMetaPresent",
+      "jacocoPresent": false,
+      "methodIdentity": "org.springframework.core.annotation.AnnotationTypeMapping#afterAllMappingsSet",
+      "methodName": "afterAllMappingsSet",
+      "oracleOwnership": "TEST_OWNED",
+      "selectionReason": "ordinary synchronous method",
+      "task19Category": "SETUP_LIFECYCLE",
+      "testIdentity": "MergedAnnotationsTests#synthesizeWhenAttributeAliasForMetaAnnotationThatIsNotMetaPresent_1a62141"
+    },
+    {
+      "asmPresent": true,
+      "caseId": "ordinary-constructor",
+      "className": "org.springframework.core.convert.converter.ConvertingComparator",
+      "descriptor": "(Ljava/util/Comparator;Lorg/springframework/core/convert/ConversionService;Ljava/lang/Class;)V",
+      "descriptorCandidates": [
+        "(Ljava/util/Comparator;Lorg/springframework/core/convert/ConversionService;Ljava/lang/Class;)V"
+      ],
+      "gradleSelector": "org.springframework.core.convert.converter.ConvertingComparatorTests.shouldThrowOnNullType",
+      "jacocoPresent": false,
+      "methodIdentity": "org.springframework.core.convert.converter.ConvertingComparator#<init>",
+      "methodName": "<init>",
+      "oracleOwnership": "TEST_OWNED",
+      "selectionReason": "non-enum constructor",
+      "task19Category": "CONSTRUCTOR",
+      "testIdentity": "ConvertingComparatorTests#shouldThrowOnNullType_4e2242d"
+    },
+    {
+      "asmPresent": true,
+      "caseId": "async-before-access",
+      "className": "org.springframework.core.task.SimpleAsyncTaskExecutor$ConcurrencyThrottleAdapter",
+      "descriptor": "()V",
+      "descriptorCandidates": [
+        "()V"
+      ],
+      "gradleSelector": "org.springframework.core.task.SimpleAsyncTaskExecutorTests.cannotExecuteWhenConcurrencyIsSwitchedOff",
+      "jacocoPresent": false,
+      "methodIdentity": "org.springframework.core.task.SimpleAsyncTaskExecutor$ConcurrencyThrottleAdapter#beforeAccess",
+      "methodName": "beforeAccess",
+      "oracleOwnership": "TEST_OWNED",
+      "selectionReason": "short non-constructor async-related method",
+      "task19Category": "ASYNC",
+      "testIdentity": "SimpleAsyncTaskExecutorTests#cannotExecuteWhenConcurrencyIsSwitchedOff_33a3d64"
+    },
+    {
+      "asmPresent": true,
+      "caseId": "synthetic-switch-clinit",
+      "className": "org.springframework.core.annotation.AnnotationsScanner$1",
+      "descriptor": "()V",
+      "descriptorCandidates": [
+        "()V"
+      ],
+      "gradleSelector": "org.springframework.aot.hint.BindingReflectionHintsRegistrarTests.registerTypeForJacksonAnnotations",
+      "jacocoPresent": false,
+      "methodIdentity": "org.springframework.core.annotation.AnnotationsScanner$1#<clinit>",
+      "methodName": "<clinit>",
+      "oracleOwnership": "TEST_OWNED",
+      "selectionReason": "synthetic switch-map static initializer",
+      "task19Category": "STATIC_INITIALIZATION",
+      "testIdentity": "BindingReflectionHintsRegistrarTests#registerTypeForJacksonAnnotations_203971c"
+    }
+  ],
+  "count": 10,
+  "schemaVersion": "task20-selected-fn-cases-1",
+  "selectionRule": "Fixed shape-diverse descriptor-exact subset of the exact 57-edge input"
+}

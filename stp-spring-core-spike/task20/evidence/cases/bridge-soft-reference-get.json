@@ -1,0 +1,75 @@
+{
+  "asm": {
+    "present": true
+  },
+  "bytecode": {
+    "abstract": false,
+    "access": 4161,
+    "bridge": true,
+    "constructor": false,
+    "enumGenerated": false,
+    "exceptionOnlyPath": false,
+    "instructionCount": 4,
+    "native": false,
+    "probePlacementSummary": "method probes [4]; observed hits [4]",
+    "realExecutableInstructions": "ALOAD INVOKESPECIAL CHECKCAST ARETURN",
+    "relevantControlFlow": "JACOCO_FILTER_SYNTHETIC_BRIDGE",
+    "returnOnlyOrTrivial": true,
+    "synthetic": true
+  },
+  "causalExplanation": "JaCoCo's bridge filter removes the synthetic covariant bridge. Its return probe is hit, but the exact descriptor is absent from IClassCoverage.",
+  "causalMechanism": "JACOCO_FILTER_SYNTHETIC_BRIDGE",
+  "classBytes": {
+    "analyzerClassId": "0x90553b95ca65098e",
+    "analyzerSha256": "9bbd8b83f2bca388d4d9e30c3fbfc46899c4c7c62c0ac09bd93ca3665c12fa1d",
+    "execDataEntryPresent": true,
+    "executedClassIdentity": "Lorg/springframework/util/ConcurrentReferenceHashMap$SoftEntryReference;",
+    "executionClassId": "0x90553b95ca65098e",
+    "hashesMatch": true,
+    "instrumentedEquivalentSha256": "5d410f386f3570ef71dbb8bbe8023d1d9c2e3df27b4bd2d2d7935a6a8ff9fb46",
+    "originalSha256": "9bbd8b83f2bca388d4d9e30c3fbfc46899c4c7c62c0ac09bd93ca3665c12fa1d"
+  },
+  "descriptor": "()Lorg/springframework/util/ConcurrentReferenceHashMap$Entry;",
+  "finalClassification": "REAL_JACOCO_METHOD_COVERAGE_LIMITATION",
+  "jacoco": {
+    "branchCovered": 0,
+    "branchMissed": 0,
+    "directAnalyzerCovered": false,
+    "hitProbeIds": [
+      4
+    ],
+    "instructionCovered": 0,
+    "instructionMissed": 0,
+    "methodPresentInAnalyzer": false,
+    "probeStates": {
+      "4": "HIT"
+    },
+    "relevantProbeIds": [
+      4
+    ],
+    "task19DecoderCovered": false
+  },
+  "jvmti": {
+    "entered": true,
+    "entryCount": 8,
+    "ownedEntryCount": 4,
+    "ownership": "TEST_OWNED",
+    "thread": "Test worker"
+  },
+  "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+  "representation": {
+    "ambiguous": false,
+    "evidence": "single TASK 19 descriptor candidate; JVMTI, ASM, and analyzer compared descriptor-exact"
+  },
+  "reset": {
+    "dumpResetEndWallClockMillis": 1788699772934,
+    "dumpResetStartWallClockMillis": 1788699772850,
+    "evidence": "target entry and synchronous path precede dump/reset; JaCoCo listener callback runs before the oracle leaf-end callback",
+    "leafEndWallClockMillis": 1788699772941,
+    "leafStartWallClockMillis": 1788699771596,
+    "methodEntryWallClockMillis": 1788699771817,
+    "possibleArtifact": false
+  },
+  "schemaVersion": "task20-case-1",
+  "testIdentity": "InheritedAnnotationsAnnotationMetadataTests#hasAnnotation_40576fd"
+}

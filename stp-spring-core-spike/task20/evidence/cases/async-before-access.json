@@ -1,0 +1,73 @@
+{
+  "asm": {
+    "present": true
+  },
+  "bytecode": {
+    "abstract": false,
+    "access": 4,
+    "bridge": false,
+    "constructor": false,
+    "enumGenerated": false,
+    "exceptionOnlyPath": true,
+    "instructionCount": 3,
+    "native": false,
+    "probePlacementSummary": "method probes [1]; observed hits []",
+    "realExecutableInstructions": "ALOAD INVOKESPECIAL RETURN",
+    "relevantControlFlow": "IMPLICIT_EXCEPTION_BEFORE_EXIT_PROBE",
+    "returnOnlyOrTrivial": true,
+    "synthetic": false
+  },
+  "causalExplanation": "MethodEntry occurs, then the superclass call throws for the disabled throttle before the sole normal-return probe.",
+  "causalMechanism": "IMPLICIT_EXCEPTION_BEFORE_EXIT_PROBE",
+  "classBytes": {
+    "analyzerClassId": "0xdbb76994cd9fa785",
+    "analyzerSha256": "dc580a7aeb6a0a2d192c238e467999788db3519e0818de0ca76bb210ba862c19",
+    "execDataEntryPresent": true,
+    "executedClassIdentity": "Lorg/springframework/core/task/SimpleAsyncTaskExecutor$ConcurrencyThrottleAdapter;",
+    "executionClassId": "0xdbb76994cd9fa785",
+    "hashesMatch": true,
+    "instrumentedEquivalentSha256": "e00197d7f2312e742dc6bd874d8b640e81864caade3af2ba931136e533a4e6e1",
+    "originalSha256": "dc580a7aeb6a0a2d192c238e467999788db3519e0818de0ca76bb210ba862c19"
+  },
+  "descriptor": "()V",
+  "finalClassification": "REAL_JACOCO_METHOD_COVERAGE_LIMITATION",
+  "jacoco": {
+    "branchCovered": 0,
+    "branchMissed": 0,
+    "directAnalyzerCovered": false,
+    "hitProbeIds": [],
+    "instructionCovered": 0,
+    "instructionMissed": 3,
+    "methodPresentInAnalyzer": true,
+    "probeStates": {
+      "1": "NOT_HIT"
+    },
+    "relevantProbeIds": [
+      1
+    ],
+    "task19DecoderCovered": false
+  },
+  "jvmti": {
+    "entered": true,
+    "entryCount": 1,
+    "ownedEntryCount": 1,
+    "ownership": "TEST_OWNED",
+    "thread": "Test worker"
+  },
+  "methodIdentity": "org.springframework.core.task.SimpleAsyncTaskExecutor$ConcurrencyThrottleAdapter#beforeAccess",
+  "representation": {
+    "ambiguous": false,
+    "evidence": "single TASK 19 descriptor candidate; JVMTI, ASM, and analyzer compared descriptor-exact"
+  },
+  "reset": {
+    "dumpResetEndWallClockMillis": 1788699670563,
+    "dumpResetStartWallClockMillis": 1788699670491,
+    "evidence": "target entry and synchronous path precede dump/reset; JaCoCo listener callback runs before the oracle leaf-end callback",
+    "leafEndWallClockMillis": 1788699670570,
+    "leafStartWallClockMillis": 1788699668370,
+    "methodEntryWallClockMillis": 1788699670375,
+    "possibleArtifact": false
+  },
+  "schemaVersion": "task20-case-1",
+  "testIdentity": "SimpleAsyncTaskExecutorTests#cannotExecuteWhenConcurrencyIsSwitchedOff_33a3d64"
+}

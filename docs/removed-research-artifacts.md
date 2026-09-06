@@ -3,6 +3,10 @@
 
 # Removed research artifacts
 
+## TASK 20 focused JaCoCo confirmation material
+
+Ten canonical one-test-per-JVM runs, two ASM-first enum contrasts, two preserved failed attempts of the known reflection-order-sensitive bridge-named test, JaCoCo `.exec` files and class dumps, equivalent offline-instrumented classes, ASM maps, lifecycle timestamps, and full JVMTI traces remain local under `/private/tmp/task20-raw`. The compact `stp-spring-core-spike/task20/evidence/raw-artifact-hashes.json` identifies every raw file used by the case evidence. Reproduce the bounded run with `stp-spring-core-spike/task20/run_selected.sh /private/tmp/task20-raw` and derive the committed cases with `stp-spring-core-spike/task20/analyze_cases.py`. The binaries and full traces are excluded under the research evidence policy.
+
 This manifest records important raw artifacts removed during ROUND 16B. Sizes are bytes. SHA-256 values identify the pre-cleanup bytes preserved in `/private/tmp/asm-codex-pre-cleanup.bundle` at cleanup time. The bundle is local disaster recovery and is not a canonical remote ref.
 
 ## TASK 19 JVMTI traces

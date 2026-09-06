@@ -24,6 +24,9 @@ gradle.afterProject { project, state ->
         }
         filter { includeTestsMatching(values.TASK19_TEST_SELECTOR) }
         systemProperty 'stp.exec.dir', new File(runDir, 'jacoco').absolutePath
+        if (System.getenv('TASK20_CAPTURE_DUMP_TIMING')?.toBoolean()) {
+            systemProperty 'stp.jacoco.dump.events', new File(runDir, 'jacoco-dump-events.jsonl').absolutePath
+        }
         if (oracleEnabled) {
             systemProperty 'task19.lifecycle.output', new File(runDir, 'oracle-lifecycle.jsonl').absolutePath
             systemProperty 'junit.jupiter.extensions.autodetection.enabled', 'true'

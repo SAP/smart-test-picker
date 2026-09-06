@@ -1,0 +1,98 @@
+{
+  "asm": {
+    "present": true
+  },
+  "bytecode": {
+    "abstract": false,
+    "access": 8,
+    "bridge": false,
+    "constructor": false,
+    "enumGenerated": false,
+    "exceptionOnlyPath": false,
+    "instructionCount": 33,
+    "native": false,
+    "probePlacementSummary": "method probes [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; observed hits [0, 1, 3, 5, 7, 9]",
+    "realExecutableInstructions": "INVOKESTATIC ARRAYLENGTH NEWARRAY PUTSTATIC GETSTATIC GETSTATIC INVOKEVIRTUAL ICONST_1 IASTORE GOTO ASTORE GETSTATIC GETSTATIC INVOKEVIRTUAL ICONST_2 IASTORE GOTO ASTORE GETSTATIC GETSTATIC INVOKEVIRTUAL ICONST_3 IASTORE GOTO ASTORE GETSTATIC GETSTATIC INVOKEVIRTUAL ICONST_4 IASTORE GOTO ASTORE RETURN",
+    "relevantControlFlow": "JACOCO_FILTER_SYNTHETIC_SWITCH_MAP_CLASS",
+    "returnOnlyOrTrivial": false,
+    "synthetic": false
+  },
+  "causalExplanation": "JaCoCo filters the entire compiler-generated enum switch-map class from analysis even though six of its ten probes are hit.",
+  "causalMechanism": "JACOCO_FILTER_SYNTHETIC_SWITCH_MAP_CLASS",
+  "classBytes": {
+    "analyzerClassId": "0x84df1b746d414391",
+    "analyzerSha256": "0c938732cdbd2f2f23ad477bcf781a749e59ff8d1028b9d1e2a1e3387f02a4f0",
+    "execDataEntryPresent": true,
+    "executedClassIdentity": "Lorg/springframework/core/annotation/AnnotationsScanner$1;",
+    "executionClassId": "0x84df1b746d414391",
+    "hashesMatch": true,
+    "instrumentedEquivalentSha256": "0d6868733ad0fac47454c58a88d549466b5397535a92baeba7796e08c278c706",
+    "originalSha256": "0c938732cdbd2f2f23ad477bcf781a749e59ff8d1028b9d1e2a1e3387f02a4f0"
+  },
+  "descriptor": "()V",
+  "finalClassification": "REAL_JACOCO_METHOD_COVERAGE_LIMITATION",
+  "jacoco": {
+    "branchCovered": 0,
+    "branchMissed": 0,
+    "directAnalyzerCovered": false,
+    "hitProbeIds": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
+    "instructionCovered": 0,
+    "instructionMissed": 0,
+    "methodPresentInAnalyzer": false,
+    "probeStates": {
+      "0": "HIT",
+      "1": "HIT",
+      "2": "NOT_HIT",
+      "3": "HIT",
+      "4": "NOT_HIT",
+      "5": "HIT",
+      "6": "NOT_HIT",
+      "7": "HIT",
+      "8": "NOT_HIT",
+      "9": "HIT"
+    },
+    "relevantProbeIds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "task19DecoderCovered": false
+  },
+  "jvmti": {
+    "entered": true,
+    "entryCount": 1,
+    "ownedEntryCount": 1,
+    "ownership": "TEST_OWNED",
+    "thread": "Test worker"
+  },
+  "methodIdentity": "org.springframework.core.annotation.AnnotationsScanner$1#<clinit>",
+  "representation": {
+    "ambiguous": false,
+    "evidence": "single TASK 19 descriptor candidate; JVMTI, ASM, and analyzer compared descriptor-exact"
+  },
+  "reset": {
+    "dumpResetEndWallClockMillis": 1788699702813,
+    "dumpResetStartWallClockMillis": 1788699702728,
+    "evidence": "target entry and synchronous path precede dump/reset; JaCoCo listener callback runs before the oracle leaf-end callback",
+    "leafEndWallClockMillis": 1788699702820,
+    "leafStartWallClockMillis": 1788699697659,
+    "methodEntryWallClockMillis": 1788699700559,
+    "possibleArtifact": false
+  },
+  "schemaVersion": "task20-case-1",
+  "testIdentity": "BindingReflectionHintsRegistrarTests#registerTypeForJacksonAnnotations_203971c"
+}

@@ -1,0 +1,81 @@
+{
+  "asm": {
+    "present": true
+  },
+  "bytecode": {
+    "abstract": false,
+    "access": 0,
+    "bridge": false,
+    "constructor": false,
+    "enumGenerated": false,
+    "exceptionOnlyPath": true,
+    "instructionCount": 21,
+    "native": false,
+    "probePlacementSummary": "method probes [227, 228, 229, 230, 231]; observed hits []",
+    "realExecutableInstructions": "ALOAD INVOKEVIRTUAL ICONST_0 ISTORE ILOAD ALOAD GETFIELD INVOKEVIRTUAL IF_ICMPGE ALOAD ALOAD GETFIELD ILOAD INVOKEVIRTUAL INVOKEVIRTUAL IINC GOTO ALOAD GETFIELD INVOKEINTERFACE RETURN",
+    "relevantControlFlow": "IMPLICIT_EXCEPTION_BEFORE_EXIT_PROBE",
+    "returnOnlyOrTrivial": false,
+    "synthetic": false
+  },
+  "causalExplanation": "MethodEntry occurs, then invoked validation exits exceptionally before any of the method's exit/control-flow probes are reached.",
+  "causalMechanism": "IMPLICIT_EXCEPTION_BEFORE_EXIT_PROBE",
+  "classBytes": {
+    "analyzerClassId": "0x1968558f022a533b",
+    "analyzerSha256": "c5f7f029c5501d592b94554d76c1c25d7c5eb617758a5677a126da962dc14e37",
+    "execDataEntryPresent": true,
+    "executedClassIdentity": "Lorg/springframework/core/annotation/AnnotationTypeMapping;",
+    "executionClassId": "0x1968558f022a533b",
+    "hashesMatch": true,
+    "instrumentedEquivalentSha256": "4090e0735cd82d56d59b8d82c3f8a93c3255c1a311449ce7b1a8db7ffc5d4b8a",
+    "originalSha256": "c5f7f029c5501d592b94554d76c1c25d7c5eb617758a5677a126da962dc14e37"
+  },
+  "descriptor": "()V",
+  "finalClassification": "REAL_JACOCO_METHOD_COVERAGE_LIMITATION",
+  "jacoco": {
+    "branchCovered": 0,
+    "branchMissed": 2,
+    "directAnalyzerCovered": false,
+    "hitProbeIds": [],
+    "instructionCovered": 0,
+    "instructionMissed": 21,
+    "methodPresentInAnalyzer": true,
+    "probeStates": {
+      "227": "NOT_HIT",
+      "228": "NOT_HIT",
+      "229": "NOT_HIT",
+      "230": "NOT_HIT",
+      "231": "NOT_HIT"
+    },
+    "relevantProbeIds": [
+      227,
+      228,
+      229,
+      230,
+      231
+    ],
+    "task19DecoderCovered": false
+  },
+  "jvmti": {
+    "entered": true,
+    "entryCount": 1,
+    "ownedEntryCount": 1,
+    "ownership": "TEST_OWNED",
+    "thread": "Test worker"
+  },
+  "methodIdentity": "org.springframework.core.annotation.AnnotationTypeMapping#afterAllMappingsSet",
+  "representation": {
+    "ambiguous": false,
+    "evidence": "single TASK 19 descriptor candidate; JVMTI, ASM, and analyzer compared descriptor-exact"
+  },
+  "reset": {
+    "dumpResetEndWallClockMillis": 1788699610664,
+    "dumpResetStartWallClockMillis": 1788699610588,
+    "evidence": "target entry and synchronous path precede dump/reset; JaCoCo listener callback runs before the oracle leaf-end callback",
+    "leafEndWallClockMillis": 1788699610671,
+    "leafStartWallClockMillis": 1788699607079,
+    "methodEntryWallClockMillis": 1788699610153,
+    "possibleArtifact": false
+  },
+  "schemaVersion": "task20-case-1",
+  "testIdentity": "MergedAnnotationsTests#synthesizeWhenAttributeAliasForMetaAnnotationThatIsNotMetaPresent_1a62141"
+}

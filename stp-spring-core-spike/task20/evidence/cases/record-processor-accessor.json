@@ -1,0 +1,75 @@
+{
+  "asm": {
+    "present": true
+  },
+  "bytecode": {
+    "abstract": false,
+    "access": 1,
+    "bridge": false,
+    "constructor": false,
+    "enumGenerated": false,
+    "exceptionOnlyPath": false,
+    "instructionCount": 3,
+    "native": false,
+    "probePlacementSummary": "method probes [5]; observed hits [5]",
+    "realExecutableInstructions": "ALOAD GETFIELD ARETURN",
+    "relevantControlFlow": "JACOCO_FILTER_RECORD_MEMBER",
+    "returnOnlyOrTrivial": true,
+    "synthetic": false
+  },
+  "causalExplanation": "JaCoCo's record filter removes the generated three-instruction accessor. Its return probe is hit, but the method is absent from IClassCoverage.",
+  "causalMechanism": "JACOCO_FILTER_RECORD_MEMBER",
+  "classBytes": {
+    "analyzerClassId": "0x3a99e489f80b748b",
+    "analyzerSha256": "08c0490abe4f8896365ae9edbf07268c74177bcfd544eb974bc96f60f9fe11b3",
+    "execDataEntryPresent": true,
+    "executedClassIdentity": "Lorg/springframework/aot/hint/annotation/ReflectiveRuntimeHintsRegistrar$Entry;",
+    "executionClassId": "0x3a99e489f80b748b",
+    "hashesMatch": true,
+    "instrumentedEquivalentSha256": "bccce19170367ba07d650bd43845a697716915f8da95f4ae3302e15dbc587570",
+    "originalSha256": "08c0490abe4f8896365ae9edbf07268c74177bcfd544eb974bc96f60f9fe11b3"
+  },
+  "descriptor": "()Lorg/springframework/aot/hint/annotation/ReflectiveProcessor;",
+  "finalClassification": "REAL_JACOCO_METHOD_COVERAGE_LIMITATION",
+  "jacoco": {
+    "branchCovered": 0,
+    "branchMissed": 0,
+    "directAnalyzerCovered": false,
+    "hitProbeIds": [
+      5
+    ],
+    "instructionCovered": 0,
+    "instructionMissed": 0,
+    "methodPresentInAnalyzer": false,
+    "probeStates": {
+      "5": "HIT"
+    },
+    "relevantProbeIds": [
+      5
+    ],
+    "task19DecoderCovered": false
+  },
+  "jvmti": {
+    "entered": true,
+    "entryCount": 1,
+    "ownedEntryCount": 1,
+    "ownership": "TEST_OWNED",
+    "thread": "Test worker"
+  },
+  "methodIdentity": "org.springframework.aot.hint.annotation.ReflectiveRuntimeHintsRegistrar$Entry#processor",
+  "representation": {
+    "ambiguous": false,
+    "evidence": "single TASK 19 descriptor candidate; JVMTI, ASM, and analyzer compared descriptor-exact"
+  },
+  "reset": {
+    "dumpResetEndWallClockMillis": 1788699447403,
+    "dumpResetStartWallClockMillis": 1788699447323,
+    "evidence": "target entry and synchronous path precede dump/reset; JaCoCo listener callback runs before the oracle leaf-end callback",
+    "leafEndWallClockMillis": 1788699447410,
+    "leafStartWallClockMillis": 1788699442666,
+    "methodEntryWallClockMillis": 1788699446101,
+    "possibleArtifact": false
+  },
+  "schemaVersion": "task20-case-1",
+  "testIdentity": "ReflectiveRuntimeHintsRegistrarTests#shouldProcessWithMultipleProcessorsWithAnnotationOnType_4c715ce"
+}

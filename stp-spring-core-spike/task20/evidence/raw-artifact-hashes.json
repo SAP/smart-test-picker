@@ -1,0 +1,386 @@
+{
+  "externalRoot": "/private/tmp/task20-raw",
+  "files": [
+    {
+      "bytes": 1700,
+      "path": "asm-first/enum-reference-type-constructor/jacoco/classes/org/springframework/util/ConcurrentReferenceHashMap$ReferenceType.06c178530f9940b3.class",
+      "sha256": "283cd606341bbcda020ff5f351bdb87f316a645babbabc0d5eb9f86c9192ff63"
+    },
+    {
+      "bytes": 2272,
+      "path": "asm-first/enum-reference-type-constructor/jacoco/session_AccessControlTests#for~Member~When~Public~Class~With~Public~Method~And~Package~Private~Generic~On~Return~Type_78b5ffb.exec",
+      "sha256": "23ea709bc59138a64137d77cd5988b0a7c7518e7959dead207a001f0093b1769"
+    },
+    {
+      "bytes": 1693,
+      "path": "asm-first/enum-restructure-constructor/jacoco/classes/org/springframework/util/ConcurrentReferenceHashMap$Restructure.af0ba7f7735994c8.class",
+      "sha256": "93fc347add09b88a4db1017d7f47f9c27777963e337c8a0e9d1ad4dd761867fc"
+    },
+    {
+      "bytes": 2272,
+      "path": "asm-first/enum-restructure-constructor/jacoco/session_AccessControlTests#for~Member~When~Public~Class~With~Public~Method~And~Package~Private~Generic~On~Return~Type_78b5ffb.exec",
+      "sha256": "2d5b663240454dc01e8ad06382ed31ed4afdd909774463635a7f5da22fd2b78e"
+    },
+    {
+      "bytes": 65280,
+      "path": "canonical/async-before-access/asm-map.json",
+      "sha256": "7ac98eb4ee3142622dc56e0afb68f58afccf7e869acf31e734f8a67fb6e719a2"
+    },
+    {
+      "bytes": 760,
+      "path": "canonical/async-before-access/jacoco/classes/org/springframework/core/task/SimpleAsyncTaskExecutor$ConcurrencyThrottleAdapter.dbb76994cd9fa785.class",
+      "sha256": "dc580a7aeb6a0a2d192c238e467999788db3519e0818de0ca76bb210ba862c19"
+    },
+    {
+      "bytes": 1156,
+      "path": "canonical/async-before-access/jacoco/session_SimpleAsyncTaskExecutorTests#cannot~Execute~When~Concurrency~Is~Switched~Off_33a3d64.exec",
+      "sha256": "899e0e3d7bf05133510525498afd6a2dba6739b04e199bc4fdd76ce66af6227c"
+    },
+    {
+      "bytes": 392,
+      "path": "canonical/async-before-access/jacoco-dump-events.jsonl",
+      "sha256": "f5ee7689f943440246096d16e0652a1eb8f025699cfb1a7ee69e4ca23d532fa4"
+    },
+    {
+      "bytes": 1486,
+      "path": "canonical/async-before-access/oracle-lifecycle.jsonl",
+      "sha256": "aac24437ba994cd7f30dc8bece84655d01ee0c0e617037a6238dd108c77ef6e3"
+    },
+    {
+      "bytes": 41656,
+      "path": "canonical/async-before-access/oracle-method-events.jsonl",
+      "sha256": "5e701428a441a7aa6856d39bf1e10d65ef52fc2ac6bfd60f642c492b8f02a7dc"
+    },
+    {
+      "bytes": 317979,
+      "path": "canonical/bridge-soft-reference-get/asm-map.json",
+      "sha256": "15abbcc9e436be2de656401db284025c74831f9d17342733df7304e657035243"
+    },
+    {
+      "bytes": 2948,
+      "path": "canonical/bridge-soft-reference-get/jacoco/classes/org/springframework/util/ConcurrentReferenceHashMap$SoftEntryReference.90553b95ca65098e.class",
+      "sha256": "9bbd8b83f2bca388d4d9e30c3fbfc46899c4c7c62c0ac09bd93ca3665c12fa1d"
+    },
+    {
+      "bytes": 5064,
+      "path": "canonical/bridge-soft-reference-get/jacoco/session_InheritedAnnotationsAnnotationMetadataTests#has~Annotation_40576fd.exec",
+      "sha256": "4c93bdfd1781bb72cab00526302f2958c8db075f624d82231741b52700a254bc"
+    },
+    {
+      "bytes": 366,
+      "path": "canonical/bridge-soft-reference-get/jacoco-dump-events.jsonl",
+      "sha256": "ccdaf24a44be39378e4c66aad9d30a0529e1af1f2ecd0be24a513ba80a19ec73"
+    },
+    {
+      "bytes": 1395,
+      "path": "canonical/bridge-soft-reference-get/oracle-lifecycle.jsonl",
+      "sha256": "a28c079d6f49e93c569dff4a6924e50f39ec22db8c639ebcb98775ec7f42aa38"
+    },
+    {
+      "bytes": 539530,
+      "path": "canonical/bridge-soft-reference-get/oracle-method-events.jsonl",
+      "sha256": "d55aee819641ad3a3e7deeaea17f52a5ad711e9403ce16cbac484de2d194d4ef"
+    },
+    {
+      "bytes": 176486,
+      "path": "canonical/cache-get/asm-map.json",
+      "sha256": "6bfc21c2af3d1d561d04ec80ab8f4c2a211ae41f269695b130af93d29decf6a7"
+    },
+    {
+      "bytes": 3161,
+      "path": "canonical/cache-get/jacoco/classes/org/springframework/core/annotation/AnnotationTypeMappings$Cache.9c4f2f8676181ded.class",
+      "sha256": "262dc3f48959ef155940a4752068c7eff6700c4120005091a9a04b1786d7d6f7"
+    },
+    {
+      "bytes": 2992,
+      "path": "canonical/cache-get/jacoco/session_MergedAnnotationsTests#synthesize~When~Attribute~Alias~For~Meta~Annotation~That~Is~Not~Meta~Present_1a62141.exec",
+      "sha256": "059594d7da93f5a13862a282839a7b7b7089f4db4f5b37716e78c352e60af92d"
+    },
+    {
+      "bytes": 428,
+      "path": "canonical/cache-get/jacoco-dump-events.jsonl",
+      "sha256": "efb0795848d51350b4c80e8150a2fe6703d78ac44e85f84e2866e63517be0671"
+    },
+    {
+      "bytes": 1654,
+      "path": "canonical/cache-get/oracle-lifecycle.jsonl",
+      "sha256": "3ce019c8d167500cec86b53d499abcef55e9af703b6ef2fa597caeb792e2065a"
+    },
+    {
+      "bytes": 400192,
+      "path": "canonical/cache-get/oracle-method-events.jsonl",
+      "sha256": "bf08f2eabc404f3360e97002812a89f72cac68a0e9583df90606ffb42fdb18a4"
+    },
+    {
+      "bytes": 137602,
+      "path": "canonical/enum-reference-type-constructor/asm-map.json",
+      "sha256": "f7652f9288d6ca16dece3a1d23a0bcf62f7e3c4c5ea6506da2d1e949dac4c010"
+    },
+    {
+      "bytes": 1478,
+      "path": "canonical/enum-reference-type-constructor/jacoco/classes/org/springframework/util/ConcurrentReferenceHashMap$ReferenceType.5b823be241865c2f.class",
+      "sha256": "e51cfa7d917495b68f19ff6a062cf01c19f29920850bbf071e084043161eaa94"
+    },
+    {
+      "bytes": 2231,
+      "path": "canonical/enum-reference-type-constructor/jacoco/session_AccessControlTests#for~Member~When~Public~Class~With~Public~Method~And~Package~Private~Generic~On~Return~Type_78b5ffb.exec",
+      "sha256": "22acc6ba9560c34a02440633a08f020beb0c3d16cde42b7aaf3b700345dacf95"
+    },
+    {
+      "bytes": 442,
+      "path": "canonical/enum-reference-type-constructor/jacoco-dump-events.jsonl",
+      "sha256": "b65c2dd131000607d639b44f9bc34ac7e09bac30e1bfa8008e545ce9218dd68b"
+    },
+    {
+      "bytes": 1682,
+      "path": "canonical/enum-reference-type-constructor/oracle-lifecycle.jsonl",
+      "sha256": "13103b7742fe831f3709ff18ae6db75ea2cbfa51d8c2129aff85322b5938ecef"
+    },
+    {
+      "bytes": 231678,
+      "path": "canonical/enum-reference-type-constructor/oracle-method-events.jsonl",
+      "sha256": "758aa3440a737e152f54e4c713926dee17f32ed5bb0298bdfff41a803fead803"
+    },
+    {
+      "bytes": 137599,
+      "path": "canonical/enum-restructure-constructor/asm-map.json",
+      "sha256": "54fb16bf3d2fd9e9db1f8eb74e2ace8a12e610fecadefc02895cfec2b02e1b98"
+    },
+    {
+      "bytes": 1471,
+      "path": "canonical/enum-restructure-constructor/jacoco/classes/org/springframework/util/ConcurrentReferenceHashMap$Restructure.bec31619a87761cd.class",
+      "sha256": "01871e8f93b77b11d9660cff4f66200c00b9e2ea73f3e9ef5dd2f3196a078c04"
+    },
+    {
+      "bytes": 2231,
+      "path": "canonical/enum-restructure-constructor/jacoco/session_AccessControlTests#for~Member~When~Public~Class~With~Public~Method~And~Package~Private~Generic~On~Return~Type_78b5ffb.exec",
+      "sha256": "b3d8a50ba63061c5ff15fe755d80d8d92121252a6810aa797be46b5ade947aa6"
+    },
+    {
+      "bytes": 442,
+      "path": "canonical/enum-restructure-constructor/jacoco-dump-events.jsonl",
+      "sha256": "a2cbe7d8efa80f9947ef6d464f9c4d75549addd06657135b7f5b4526e9661cff"
+    },
+    {
+      "bytes": 1682,
+      "path": "canonical/enum-restructure-constructor/oracle-lifecycle.jsonl",
+      "sha256": "c398b0dfb2eb448afc7ff59470c29512e5b81976fb7a6633f1ca4ffa7d615faf"
+    },
+    {
+      "bytes": 231678,
+      "path": "canonical/enum-restructure-constructor/oracle-method-events.jsonl",
+      "sha256": "8ff9dccd9e1031fa89707d71f57f83da980e333facf038ec85a7c67dfc05df1f"
+    },
+    {
+      "bytes": 176500,
+      "path": "canonical/ordinary-after-mappings/asm-map.json",
+      "sha256": "39546c15df17f12bc57396a2eb5cce13bfb37df17936592c137ee0f85d382b79"
+    },
+    {
+      "bytes": 22156,
+      "path": "canonical/ordinary-after-mappings/jacoco/classes/org/springframework/core/annotation/AnnotationTypeMapping.1968558f022a533b.class",
+      "sha256": "c5f7f029c5501d592b94554d76c1c25d7c5eb617758a5677a126da962dc14e37"
+    },
+    {
+      "bytes": 2992,
+      "path": "canonical/ordinary-after-mappings/jacoco/session_MergedAnnotationsTests#synthesize~When~Attribute~Alias~For~Meta~Annotation~That~Is~Not~Meta~Present_1a62141.exec",
+      "sha256": "5296367f74c62b717ecd66a6e0e2e2d5294bd35ea92c9b1c1925cdc41d8fd5e2"
+    },
+    {
+      "bytes": 428,
+      "path": "canonical/ordinary-after-mappings/jacoco-dump-events.jsonl",
+      "sha256": "e8e37d23fdcaf0e239916e0209ce9cb7f3ba517c60a17a03b74966dd1442cf4d"
+    },
+    {
+      "bytes": 1654,
+      "path": "canonical/ordinary-after-mappings/oracle-lifecycle.jsonl",
+      "sha256": "edaac7e4a31e584382d8a402b0e0425775868a1cdf4bf505c90ff34d79534d91"
+    },
+    {
+      "bytes": 401462,
+      "path": "canonical/ordinary-after-mappings/oracle-method-events.jsonl",
+      "sha256": "e55bc854c2ac5bd7d346b6aa42e88b33c3f110b8e8524a38921c3374a58bee5f"
+    },
+    {
+      "bytes": 199001,
+      "path": "canonical/ordinary-constructor/asm-map.json",
+      "sha256": "d42370c394da449fd4d937fe931b512765e8beee4b65ded993b49464b655170d"
+    },
+    {
+      "bytes": 4372,
+      "path": "canonical/ordinary-constructor/jacoco/classes/org/springframework/core/convert/converter/ConvertingComparator.3e9d485fa3624a52.class",
+      "sha256": "da0611b7fafec241524475bd6de441c390601b9a0d0f3f30068c76fa3476c2f5"
+    },
+    {
+      "bytes": 6069,
+      "path": "canonical/ordinary-constructor/jacoco/session_ConvertingComparatorTests#should~Throw~On~Null~Type_4e2242d.exec",
+      "sha256": "87941e10831e93483e90b7e1b69603e84698d6c32b8a4be72cf951d045dff297"
+    },
+    {
+      "bytes": 346,
+      "path": "canonical/ordinary-constructor/jacoco-dump-events.jsonl",
+      "sha256": "4c0a929b0c65feaabed3c1f3542b3d3bb5c423333004e21adf8bc6559e789411"
+    },
+    {
+      "bytes": 1416,
+      "path": "canonical/ordinary-constructor/oracle-lifecycle.jsonl",
+      "sha256": "ec495b9a95801b3ddb2ce2905556d914513f9f018ccc95afd04bbef2ff97a945"
+    },
+    {
+      "bytes": 1508772,
+      "path": "canonical/ordinary-constructor/oracle-method-events.jsonl",
+      "sha256": "bbbe216857d118f1ad2929a44395d03ae3d8d54d2ed73a33990bb08e1c283dd1"
+    },
+    {
+      "bytes": 313272,
+      "path": "canonical/record-element-accessor/asm-map.json",
+      "sha256": "52fa1ab3a9a7ba1079288ef5c2855f87b886eec56b4603c6479acfa05e03f379"
+    },
+    {
+      "bytes": 2180,
+      "path": "canonical/record-element-accessor/jacoco/classes/org/springframework/aot/hint/annotation/ReflectiveRuntimeHintsRegistrar$Entry.3a99e489f80b748b.class",
+      "sha256": "08c0490abe4f8896365ae9edbf07268c74177bcfd544eb974bc96f60f9fe11b3"
+    },
+    {
+      "bytes": 5120,
+      "path": "canonical/record-element-accessor/jacoco/session_ReflectiveRuntimeHintsRegistrarTests#should~Process~With~Multiple~Processors~With~Annotation~On~Type_4c715ce.exec",
+      "sha256": "b470f12e3a98ec5a7b799ff812ff1cd65da8ae96c76701ec27d7d3af855d9b31"
+    },
+    {
+      "bytes": 436,
+      "path": "canonical/record-element-accessor/jacoco-dump-events.jsonl",
+      "sha256": "d0e38f5c36c8e797f5c1479fb4388be7dc1ca7b6c506572f0f203240d79ab493"
+    },
+    {
+      "bytes": 1710,
+      "path": "canonical/record-element-accessor/oracle-lifecycle.jsonl",
+      "sha256": "626c8787b11df622f0fea6ce57b6dd576ef093650bde63f5731a13663aa8f756"
+    },
+    {
+      "bytes": 1047149,
+      "path": "canonical/record-element-accessor/oracle-method-events.jsonl",
+      "sha256": "38d6735aab394388060d3ccad34766c083ca641171be645935e276441ab48c4d"
+    },
+    {
+      "bytes": 313274,
+      "path": "canonical/record-processor-accessor/asm-map.json",
+      "sha256": "9f2a98dab4a7a019f93568f6309fb21707396d33906ee25fd3f2cc934d8bace7"
+    },
+    {
+      "bytes": 2180,
+      "path": "canonical/record-processor-accessor/jacoco/classes/org/springframework/aot/hint/annotation/ReflectiveRuntimeHintsRegistrar$Entry.3a99e489f80b748b.class",
+      "sha256": "08c0490abe4f8896365ae9edbf07268c74177bcfd544eb974bc96f60f9fe11b3"
+    },
+    {
+      "bytes": 5120,
+      "path": "canonical/record-processor-accessor/jacoco/session_ReflectiveRuntimeHintsRegistrarTests#should~Process~With~Multiple~Processors~With~Annotation~On~Type_4c715ce.exec",
+      "sha256": "e88037b02a2f8df038464e9cd7ce31c8e7611ef1f3df256f77ed52022983f452"
+    },
+    {
+      "bytes": 436,
+      "path": "canonical/record-processor-accessor/jacoco-dump-events.jsonl",
+      "sha256": "525e36b373721ecc717683c8b59ac9af10496738e064562f9b0963a3093e0775"
+    },
+    {
+      "bytes": 1710,
+      "path": "canonical/record-processor-accessor/oracle-lifecycle.jsonl",
+      "sha256": "c99645160440c6742560b8f44dda312005add7d23750566ad803ea8dcf3754bc"
+    },
+    {
+      "bytes": 1047149,
+      "path": "canonical/record-processor-accessor/oracle-method-events.jsonl",
+      "sha256": "0285d2c387a6d4694a09b35fee29e1e43a172d0d608d7dd74ff20c3732bbc10a"
+    },
+    {
+      "bytes": 386712,
+      "path": "canonical/synthetic-switch-clinit/asm-map.json",
+      "sha256": "3b432fdabaa596472cb725f34a867c1a21afd856b035322eb28ab3d0aab25eb1"
+    },
+    {
+      "bytes": 1140,
+      "path": "canonical/synthetic-switch-clinit/jacoco/classes/org/springframework/core/annotation/AnnotationsScanner$1.84df1b746d414391.class",
+      "sha256": "0c938732cdbd2f2f23ad477bcf781a749e59ff8d1028b9d1e2a1e3387f02a4f0"
+    },
+    {
+      "bytes": 6576,
+      "path": "canonical/synthetic-switch-clinit/jacoco/session_BindingReflectionHintsRegistrarTests#register~Type~For~Jackson~Annotations_203971c.exec",
+      "sha256": "f72794b28c693b98bf3ebf019bde7613f572531752bdfc8871d66a55ac78895a"
+    },
+    {
+      "bytes": 392,
+      "path": "canonical/synthetic-switch-clinit/jacoco-dump-events.jsonl",
+      "sha256": "330bd61ff1af9a1456d9bdf652032d74587cdcc93bf27ff4807e05e930399290"
+    },
+    {
+      "bytes": 1479,
+      "path": "canonical/synthetic-switch-clinit/oracle-lifecycle.jsonl",
+      "sha256": "9ddb3fcad19e1ae8db57aa392ddf3459832919b2b2f07d5523ac5eeda6ea737c"
+    },
+    {
+      "bytes": 1655956,
+      "path": "canonical/synthetic-switch-clinit/oracle-method-events.jsonl",
+      "sha256": "3cfbea69622e141ce30c180fd963e5f4d646da8b47706ac4579fe1d2d7708477"
+    },
+    {
+      "bytes": 2123,
+      "path": "instrumented/asm-first/enum-reference-type-constructor.class",
+      "sha256": "01db7557a34279cd7e35622fb17c3eb64fc6a90d9ac8b7f796169488ecbd2c00"
+    },
+    {
+      "bytes": 2111,
+      "path": "instrumented/asm-first/enum-restructure-constructor.class",
+      "sha256": "6f860f23202aad22e7368946d5d5a03ac378482aa9ff0162b125760d1e644c54"
+    },
+    {
+      "bytes": 1130,
+      "path": "instrumented/canonical/async-before-access.class",
+      "sha256": "e00197d7f2312e742dc6bd874d8b640e81864caade3af2ba931136e533a4e6e1"
+    },
+    {
+      "bytes": 3340,
+      "path": "instrumented/canonical/bridge-soft-reference-get.class",
+      "sha256": "5d410f386f3570ef71dbb8bbe8023d1d9c2e3df27b4bd2d2d7935a6a8ff9fb46"
+    },
+    {
+      "bytes": 3527,
+      "path": "instrumented/canonical/cache-get.class",
+      "sha256": "338923d3dfbb68265b663add1a6d6428ef4038b0b5d13fc92f2fbe1b7c7b50bb"
+    },
+    {
+      "bytes": 1880,
+      "path": "instrumented/canonical/enum-reference-type-constructor.class",
+      "sha256": "e9863d467c9ea6aa527278c409b491365f53626d1b64ef82fa82805f37e006db"
+    },
+    {
+      "bytes": 1868,
+      "path": "instrumented/canonical/enum-restructure-constructor.class",
+      "sha256": "20174249a303a9f006b907fa2a47d22cc31a01b0154b084bf37c425c40cd4fda"
+    },
+    {
+      "bytes": 25214,
+      "path": "instrumented/canonical/ordinary-after-mappings.class",
+      "sha256": "4090e0735cd82d56d59b8d82c3f8a93c3255c1a311449ce7b1a8db7ffc5d4b8a"
+    },
+    {
+      "bytes": 4757,
+      "path": "instrumented/canonical/ordinary-constructor.class",
+      "sha256": "62237180119a4a0896790fc472287f4220bb9072ec9842cff4e6cbdde6228b26"
+    },
+    {
+      "bytes": 2535,
+      "path": "instrumented/canonical/record-element-accessor.class",
+      "sha256": "bccce19170367ba07d650bd43845a697716915f8da95f4ae3302e15dbc587570"
+    },
+    {
+      "bytes": 2535,
+      "path": "instrumented/canonical/record-processor-accessor.class",
+      "sha256": "bccce19170367ba07d650bd43845a697716915f8da95f4ae3302e15dbc587570"
+    },
+    {
+      "bytes": 1533,
+      "path": "instrumented/canonical/synthetic-switch-clinit.class",
+      "sha256": "0d6868733ad0fac47454c58a88d549466b5397535a92baeba7796e08c278c706"
+    }
+  ],
+  "schemaVersion": "task20-raw-artifact-hashes-1"
+}

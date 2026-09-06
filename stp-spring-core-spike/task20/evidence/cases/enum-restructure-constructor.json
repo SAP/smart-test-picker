@@ -1,0 +1,98 @@
+{
+  "asm": {
+    "present": true
+  },
+  "bytecode": {
+    "abstract": false,
+    "access": 2,
+    "bridge": false,
+    "constructor": true,
+    "enumGenerated": true,
+    "exceptionOnlyPath": false,
+    "instructionCount": 5,
+    "native": false,
+    "probePlacementSummary": "method probes [2]; observed hits [2]",
+    "realExecutableInstructions": "ALOAD ALOAD ILOAD INVOKESPECIAL RETURN",
+    "relevantControlFlow": "JACOCO_FILTER_ENUM_EMPTY_CONSTRUCTOR",
+    "returnOnlyOrTrivial": true,
+    "synthetic": false
+  },
+  "causalExplanation": "JaCoCo's enum-empty-constructor filter removes all five original instructions from the coverage model. The return probe is hit, but the method is absent from IClassCoverage.",
+  "causalMechanism": "JACOCO_FILTER_ENUM_EMPTY_CONSTRUCTOR",
+  "classBytes": {
+    "analyzerClassId": "0xbec31619a87761cd",
+    "analyzerSha256": "01871e8f93b77b11d9660cff4f66200c00b9e2ea73f3e9ef5dd2f3196a078c04",
+    "execDataEntryPresent": true,
+    "executedClassIdentity": "Lorg/springframework/util/ConcurrentReferenceHashMap$Restructure;",
+    "executionClassId": "0xbec31619a87761cd",
+    "hashesMatch": true,
+    "instrumentedEquivalentSha256": "20174249a303a9f006b907fa2a47d22cc31a01b0154b084bf37c425c40cd4fda",
+    "originalSha256": "01871e8f93b77b11d9660cff4f66200c00b9e2ea73f3e9ef5dd2f3196a078c04"
+  },
+  "descriptor": "(Ljava/lang/String;I)V",
+  "enumAsmFirstContrast": {
+    "asmFirstAnalyzerCovered": true,
+    "asmFirstHitProbeIds": [
+      4,
+      5
+    ],
+    "asmFirstInputSha256": "93fc347add09b88a4db1017d7f47f9c27777963e337c8a0e9d1ad4dd761867fc",
+    "asmFirstJaCoCoInputInstructions": "LDC INVOKESTATIC ALOAD ALOAD ILOAD INVOKESPECIAL RETURN",
+    "asmFirstRelevantProbeIds": [
+      4,
+      5
+    ],
+    "canonicalAnalyzerCovered": false,
+    "canonicalHitProbeIds": [
+      2
+    ],
+    "canonicalInputSha256": "01871e8f93b77b11d9660cff4f66200c00b9e2ea73f3e9ef5dd2f3196a078c04",
+    "canonicalOriginalInstructions": "ALOAD ALOAD ILOAD INVOKESPECIAL RETURN",
+    "canonicalRelevantProbeIds": [
+      2
+    ],
+    "mechanism": "ASM prepends LDC and INVOKESTATIC recorder instructions, so EnumEmptyConstructorFilter no longer matches; JaCoCo retains the seven instructions and marks all covered."
+  },
+  "finalClassification": "REAL_JACOCO_METHOD_COVERAGE_LIMITATION",
+  "jacoco": {
+    "branchCovered": 0,
+    "branchMissed": 0,
+    "directAnalyzerCovered": false,
+    "hitProbeIds": [
+      2
+    ],
+    "instructionCovered": 0,
+    "instructionMissed": 0,
+    "methodPresentInAnalyzer": false,
+    "probeStates": {
+      "2": "HIT"
+    },
+    "relevantProbeIds": [
+      2
+    ],
+    "task19DecoderCovered": false
+  },
+  "jvmti": {
+    "entered": true,
+    "entryCount": 2,
+    "ownedEntryCount": 2,
+    "ownership": "TEST_OWNED",
+    "thread": "Test worker"
+  },
+  "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Restructure#<init>",
+  "representation": {
+    "ambiguous": false,
+    "evidence": "single TASK 19 descriptor candidate; JVMTI, ASM, and analyzer compared descriptor-exact"
+  },
+  "reset": {
+    "dumpResetEndWallClockMillis": 1788699382868,
+    "dumpResetStartWallClockMillis": 1788699382795,
+    "evidence": "target entry and synchronous path precede dump/reset; JaCoCo listener callback runs before the oracle leaf-end callback",
+    "leafEndWallClockMillis": 1788699382875,
+    "leafStartWallClockMillis": 1788699379780,
+    "methodEntryWallClockMillis": 1788699380623,
+    "possibleArtifact": false
+  },
+  "schemaVersion": "task20-case-1",
+  "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPublicMethodAndPackagePrivateGenericOnReturnType_78b5ffb"
+}
