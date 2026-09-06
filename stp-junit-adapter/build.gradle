@@ -14,6 +14,7 @@ java {
 dependencies {
     api project(':stp-runtime')
     api 'org.junit.platform:junit-platform-launcher:1.9.3'
+    compileOnly 'org.junit.jupiter:junit-jupiter-api:5.9.3'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.9.3'

@@ -23,6 +23,8 @@ public final class StpRuntimeTestExecutionListener implements TestExecutionListe
 	private final RuntimeContextService runtime;
 	private final Map<String, TestIdentity> started = new ConcurrentHashMap<>();
 	private final Set<String> finished = ConcurrentHashMap.newKeySet();
+	private final Round11StateDiagnostics round11 = new Round11StateDiagnostics();
+	private final Round12TestTimeline round12 = new Round12TestTimeline();
 
 	/** Used only by JUnit Platform ServiceLoader discovery. An empty registry is a no-op. */
 	public StpRuntimeTestExecutionListener() {
@@ -42,6 +44,11 @@ public final class StpRuntimeTestExecutionListener implements TestExecutionListe
 		if (started.putIfAbsent(uniqueId, identity) != null) return;
 		try {
 			runtime.beginTest(identity);
+			com.sap.oss.smarttestpicker.runtime.RuntimeHooks.round13TestEvent("TEST_START");
+			com.sap.oss.smarttestpicker.runtime.RuntimeHooks.round14TestEvent("TEST_START");
+			com.sap.oss.smarttestpicker.runtime.RuntimeHooks.round15TestEvent("TEST_START");
+			round12.started(identity);
+			round11.before(identity);
 		} catch (RuntimeException failure) {
 			started.remove(uniqueId);
 			throw failure;
@@ -54,6 +61,11 @@ public final class StpRuntimeTestExecutionListener implements TestExecutionListe
 		String uniqueId = identifier.getUniqueId();
 		TestIdentity identity = started.remove(uniqueId);
 		if (identity == null || !finished.add(uniqueId)) return;
+		round11.after(identity);
+		round12.finished(identity);
+		com.sap.oss.smarttestpicker.runtime.RuntimeHooks.round13TestEvent("TEST_END");
+		com.sap.oss.smarttestpicker.runtime.RuntimeHooks.round14TestEvent("TEST_END");
+		com.sap.oss.smarttestpicker.runtime.RuntimeHooks.round15TestEvent("TEST_END");
 		runtime.endTest(identity, result(executionResult));
 	}
 

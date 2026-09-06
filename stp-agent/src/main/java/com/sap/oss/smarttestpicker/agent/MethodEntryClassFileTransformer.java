@@ -72,17 +72,22 @@ final class MethodEntryClassFileTransformer implements ClassFileTransformer {
 		}
 	}
 
-	private static boolean isGeneratedFrameworkClass(String className) {
+	static boolean isGeneratedFrameworkClass(String className) {
 		return className != null && (className.contains("$$") || className.contains("$MockitoMock$")
 				|| className.contains("$ByteBuddy$") || className.contains("$HibernateProxy")
-				|| className.contains("$HibernateInstantiator"));
+				|| className.contains("$HibernateInstantiator") || className.contains("$auxiliary$")
+				|| className.matches("(?:.*/)?\\$Proxy\\d+"));
 	}
 
-	private static boolean isTestClassLocation(ProtectionDomain protectionDomain) {
+	static boolean isTestClassLocation(ProtectionDomain protectionDomain) {
 		if (protectionDomain == null || protectionDomain.getCodeSource() == null
 				|| protectionDomain.getCodeSource().getLocation() == null) return false;
 		String path = protectionDomain.getCodeSource().getLocation().getPath().replace('\\', '/');
-		return path.contains("/test-classes/") || path.endsWith("/test-classes");
+		return path.contains("/test-classes/") || path.endsWith("/test-classes")
+				|| path.contains("/classes/java/test/") || path.endsWith("/classes/java/test")
+				|| path.contains("/classes/kotlin/test/") || path.endsWith("/classes/kotlin/test")
+				|| path.contains("/classes/java/testFixtures/") || path.endsWith("/classes/java/testFixtures")
+				|| path.contains("/classes/kotlin/testFixtures/") || path.endsWith("/classes/kotlin/testFixtures");
 	}
 
 	private byte[] instrument(String internalClassName, byte[] original) {
