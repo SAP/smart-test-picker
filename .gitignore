@@ -56,3 +56,10 @@ paper-notes/
 jira-epic-smart-test-picker.md
 .DS_Store
 stp-petclinic-spike/spring-data-acceptance/raw/
+
+# Research runs: retain derived evidence selectively, not bulk runtime output.
+stp-spring-core-spike/**/evidence/asm-run-*-map.json
+stp-spring-core-spike/**/evidence/*-test-results*/
+stp-spring-core-spike/**/evidence/*.jfr
+stp-spring-core-spike/**/evidence/*-runtime.log
+stp-spring-core-spike/**/spring-framework*/

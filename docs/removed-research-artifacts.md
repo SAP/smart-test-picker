@@ -1,0 +1,64 @@
+<!-- SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+
+# Removed research artifacts
+
+This manifest records important raw artifacts removed during ROUND 16B. Sizes are bytes. SHA-256 values identify the pre-cleanup bytes preserved in `/private/tmp/asm-codex-pre-cleanup.bundle` at cleanup time. The bundle is local disaster recovery and is not a canonical remote ref.
+
+## ROUND 9 Spring Core full-run material
+
+Purpose: raw ASM/reference comparison inputs and generated full-suite results. Derived artifacts retained include `asm-inventory-comparison.json`, `asm-repeatability.json`, `difference-classifications.json`, `context-propagation-diagnostics.json`, `redistribution-analysis.json`, `static-initializer-analysis.json`, `unattributed-events-analysis.json`, metrics, and `run-manifest.json`.
+
+| Original path | Size | SHA-256 |
+| --- | ---: | --- |
+| `stp-spring-core-spike/round9/evidence/asm-run-1-map.json` | 60,780,937 | `ef420475493a2fc447ba8b777e79c12a579767f38eba60b67936af2cfed76fcf` |
+| `stp-spring-core-spike/round9/evidence/asm-run-2-map.json` | 60,773,125 | `c11b1d97fa9d7738930464e1f8e1f1c07a4288361acb34b159f26f37565e3b07` |
+| `stp-spring-core-spike/round9/evidence/reference-spring-core-map.json` | 17,719,303 | `936becf03857bfa0d22958ca88053f4c8bfabc85651f822f4ef51837bb2813b5` |
+| `stp-spring-core-spike/round9/evidence/reference-descriptor-preserving-view.json` | 57,116,220 | `c3b292c72045bb5b2a637a7c6ebc1ec0c4651c84dc8af16c4feabd83a4276e9a` |
+| `stp-spring-core-spike/round9/evidence/full-decoded-changed-test-diff.json` | 24,766,565 | `46ef0c5a95b0d086eb4aae0fdb13422df55769ed7cc0de67ed831df59bdac5e7` |
+| `stp-spring-core-spike/round9/evidence/semantic-diff-reference-vs-asm.json` | 3,527,672 | `11ebb99c6bf88e71c5e24f3e82409071a54afd374dc195b4e0e242a516f87b56` |
+| `stp-spring-core-spike/round9/evidence/asm-run-1-runtime.log` | 112,693 | `8dc6d0533f50499985425daf97d6f2a23b40bb7b88a399d7d1e8176b1ffb5e3f` |
+| `stp-spring-core-spike/round9/evidence/asm-run-2-runtime.log` | 112,396 | `8ac5422cc58385a6058a57050275503335f8a7bf90789d73720b16b6bc92fd26` |
+
+The four `asm-run-{1,2}-test-results{-final,}/` trees each contained 315 generated Gradle report files. Their byte totals and SHA-256 values over the sorted per-file SHA-256 manifest were: run 1, 1,574,096, `0e9810dcd936da93cec6fdae52183f8e407a98997a617b1133e920754cef80a6`; run 1 final, 1,574,058, `4b69b46be6a38b068c15fd9adfe77662679433c872f7608285c669020c9c6c06`; run 2, 1,574,133, `25804f3c8ad300377f035d37aa3589899e54ff2e0aa83d02b2eb6bbe53201439`; run 2 final, 1,574,052, `2e7d1660b28183c877e8ead27b8bec813507c0d3909b5ce4c18204b39a8c34d5`.
+
+Reproduce the maps with the pinned Spring revision and `spring-agent.init.gradle`, setting `ROUND9_AGENT_JAR` and `ROUND9_AGENT_ARGS`, then run `./gradlew --init-script <repository>/stp-spring-core-spike/round9/spring-agent.init.gradle :spring-core:test`. Obtain the pinned evaluation reference described in the ROUND 9 report and run `python3 stp-spring-core-spike/round9/analyze_round9.py`. These raw files are excluded because compact derived evidence records the published conclusions and generated test reports are reproducible build output.
+
+## ROUND 10 Spring stability runs
+
+Purpose: three full-suite maps, two controlled-order maps, and a diagnostic-run map. Retained derivatives include `asm-stability-summary.json`, `unstable-edge-inventory.json`, `unstable-edge-cause-classification.json`, the bounded `per-hit-causal-trace.json`, controlled-order summaries, and `run-manifest.json`.
+
+| Original path | Size | SHA-256 |
+| --- | ---: | --- |
+| `stp-spring-core-spike/round10/evidence/asm-run-1-map.json` | 60,780,937 | `ef420475493a2fc447ba8b777e79c12a579767f38eba60b67936af2cfed76fcf` |
+| `stp-spring-core-spike/round10/evidence/asm-run-2-map.json` | 60,773,125 | `c11b1d97fa9d7738930464e1f8e1f1c07a4288361acb34b159f26f37565e3b07` |
+| `stp-spring-core-spike/round10/evidence/asm-run-3-map.json` | 60,780,640 | `8941c7e78170d39e3450c55263ea952269aa2b39781496be9843c1880c00247b` |
+| `stp-spring-core-spike/round10/evidence/order-a-map.json` | 11,425,609 | `8c392127bcacf069ead0257e2ceb186509f944537222ccde2b2f157cdb9226cf` |
+| `stp-spring-core-spike/round10/evidence/order-b-map.json` | 11,372,679 | `3bbe6a7816154dc0394ac30ad09d947917cd3cca44c1c3f51fed96b65c619ede` |
+| `stp-spring-core-spike/round10/evidence/trace-run-map.json` | 60,744,844 | `0335b3608e8ce1e2adb1adc56b0a02797274504dc9d9d2aebc462cb7fb1a3ef5` |
+
+Reproduce with the pinned subject and `round10/spring-agent.init.gradle`, using the environment variables documented in that init script for the normal, filtered trace, and order-seeded runs, then run `python3 stp-spring-core-spike/round10/analyze_round10.py`. Full maps are excluded because the retained bounded trace and derived classifications carry the evidence.
+
+## ROUND 12 JFR recording
+
+Original: `stp-spring-core-spike/round12/evidence/round12-recording.jfr`; purpose: sampled allocation and old-object inspection; size: 573,327; SHA-256: `4133f621532f501108f3512b73bd3b725f2a05d4ae0e3fcc241a616781cc90ab`. Retained derivatives include `round12-allocation-analysis.json`, `round12-heap-retention-analysis.json`, `round12-retention-analysis.json`, the timeline, classification, summary, targets, and JFR configuration.
+
+Reproduce with the pinned subject and `round12/spring-agent.init.gradle`, setting `ROUND12_JFR_OUTPUT` and `ROUND12_JFR_SETTINGS=stp-spring-core-spike/round12/evidence/round12-jfr-config.txt`, then run `python3 stp-spring-core-spike/round12/analyze_round12.py`. The recording is excluded because it is a binary runtime capture and its conclusions are represented compactly.
+
+## ROUND 16 full-run maps
+
+Purpose: five identical-configuration full Spring Core runs used to characterize the fixed 192-edge input. Retained derivatives are `round16-input-192.json`, `round16-full-run-stability.json`, `round16-edge-groups.json`, `round16-causal-classification.json`, `round16-causal-summary.json`, and `run-manifest.json`.
+
+| Original path | Size | SHA-256 |
+| --- | ---: | --- |
+| `stp-spring-core-spike/round16/evidence/asm-run-1-map.json` | 60,784,231 | `60acb974ee3a798d9c34ba1845d24899c7c75fdcff3656c4d14efba783acd293` |
+| `stp-spring-core-spike/round16/evidence/asm-run-2-map.json` | 60,763,662 | `f795ed96ef14a9561b3ce3b6b832e128a41efaab9ccd6b77eb53cc4ccab314b2` |
+| `stp-spring-core-spike/round16/evidence/asm-run-3-map.json` | 60,768,889 | `9117ae86a7fe7b8a7a4d558bdcce0a317b4f9e4cd9b27e2e6a0466e54f381410` |
+| `stp-spring-core-spike/round16/evidence/asm-run-4-map.json` | 60,770,218 | `0a3c688e7cca340228639b4d3e3968dcb7916c8661e945fcd3e8d6fc51f2af93` |
+| `stp-spring-core-spike/round16/evidence/asm-run-5-map.json` | 60,775,489 | `3ce0d75a0d78518a753637985309277a3bd9c417db8929ac8e33af76dc8bc3d4` |
+
+Reproduce each map with the pinned subject and `round16/spring-agent.init.gradle`, setting `ROUND16_AGENT_JAR` and a distinct output in `ROUND16_AGENT_ARGS`, then run `python3 stp-spring-core-spike/round16/analyze_round16.py`. The maps are excluded because presence vectors, classifications, summary, and reproducible tooling preserve all canonical ROUND 16 claims.
+
+## ROUND 5 PetClinic inventory log
+
+Original: `stp-petclinic-spike/round5/evidence/asm-full-inventory.log`; purpose: full instrumentation-failure console inventory; size: 1,959,038; SHA-256: `9fc78a7925df20c30e4f1ec771f38b92d10b87e8bfb995a7d634d5c4ff37a585`. The compact `asm-full-inventory-failure-raw.json`, normalized evidence, report, and `round5/reproduce.sh` remain. Reproduce with `stp-petclinic-spike/round5/reproduce.sh`. The log is excluded because it duplicates the compact structured failure evidence.

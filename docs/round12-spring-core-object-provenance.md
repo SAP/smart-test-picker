@@ -30,8 +30,8 @@ a directly ResolvableType-owned edge on the known BridgeMethodResolver miss path
 
 The focused recording enabled only allocation-in/outside-TLAB events, allocation samples, old-object samples, garbage
 collection and heap summaries, and thread start/end. Old-object GC-root paths were enabled on the recording command.
-The exact settings are preserved in `round12-jfr-config.txt`, and the binary recording is
-`round12-recording.jfr`.
+The exact settings are preserved in `round12-jfr-config.txt`. The binary recording is intentionally excluded from
+canonical Git; its SHA-256 and reproduction instructions are in `docs/removed-research-artifacts.md`.
 
 The opt-in JUnit listener emitted `Instant` wall-clock start/end timestamps, monotonic timestamps, Java thread ID/name,
 the canonical source class/method, and the JUnit logical unique ID. All four selected tests ran on the `Test worker`

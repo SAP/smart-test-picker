@@ -65,9 +65,9 @@ ASM discovers 3,638 production-logical identities, 14 more than the reference ar
 Because the reference does not preserve its full 4,705-execution inventory, exact full-inventory equality cannot
 be proven; semantic comparison uses the union and does not hide the 14 ASM extras.
 
-Reference methods omit descriptors. The primary comparison therefore uses exact class and method names, while
-`reference-descriptor-preserving-view.json` retains every ASM descriptor candidate and explicitly marks overload
-ambiguity rather than collapsing overloads as if descriptors were known.
+Reference methods omit descriptors. The primary comparison therefore uses exact class and method names. The full
+descriptor-preserving view is intentionally excluded from canonical Git; its SHA-256 and reproduction instructions
+are in `docs/removed-research-artifacts.md`.
 
 ## ASM run results
 
@@ -100,8 +100,9 @@ class symmetric difference is 8,926 (16.7379% of 53,328 reference edges); the me
 Globally the reference has 582 classes and 3,532 methods, while ASM has 586 classes and 3,577 methods. The global
 directional differences are 6 reference-only versus 10 ASM-only classes, and 69 reference-only versus 114 ASM-only
 methods. The canonical artifact has no outcomes, so outcome differences cannot be computed; both ASM runs have
-identical outcomes and zero failures. Exact directional evidence for every changed test is in
-`full-decoded-changed-test-diff.json`.
+identical outcomes and zero failures. The full decoded directional diff is intentionally excluded from canonical Git;
+its SHA-256 and reproduction instructions are in `docs/removed-research-artifacts.md`. Compact classifications and
+summaries remain.
 
 ## Redistribution
 
@@ -153,9 +154,9 @@ after test completion, so `late propagated events` remains zero and the detailed
 
 `./gradlew test --rerun-tasks` passed all 57 actionable tasks, covering the complete existing suite and Round 6/7
 fixtures. Both Spring runs passed. `git diff --check` passes. Evidence is under
-`stp-spring-core-spike/round9/evidence/`, including both raw maps/logs, copied reference, inventories,
-descriptor-preserving view, repeatability and reference comparisons, decoded per-test diff, context diagnostics,
-unattributed/redistribution/static/classification analyses, test results, metrics, and run manifest.
+`stp-spring-core-spike/round9/evidence/`, including compact inventories, repeatability summaries, context diagnostics,
+unattributed/redistribution/static/classification analyses, metrics, and the run manifest. Bulk raw artifacts are
+intentionally excluded; their hashes and reproduction instructions are in `docs/removed-research-artifacts.md`.
 
 ```text
 REFERENCE

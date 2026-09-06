@@ -33,7 +33,11 @@ Property-gated or experiment-specific code is disabled unless its named system p
 
 ## Cleanup
 
-Historical reports and report-referenced evidence were preserved unchanged, including negative experiments and raw maps. Ignored build output remains untracked. The nested `spring-framework-round14` checkout is a disposable pristine subject checkout and is removed only after ROUND 16 runs and its clean status/revision are verified. `.DS_Store` files are already ignored by the repository and are disposable.
+Canonical Git retains conclusions, compact derived evidence, and reproduction tooling. Bulk raw maps, copied full references, generated test results, JFR recordings, and temporary runtime logs are intentionally excluded. Their hashes and reproduction guidance are recorded in `docs/removed-research-artifacts.md`; the retention rules are in `docs/research-evidence-policy.md`.
+
+## Future canonical branch promotion
+
+The expected future strategy is to promote or rename `research/asm-codex` to the canonical `main` branch rather than merge the entire research history into the existing `main`. ROUND 16B does not perform that promotion.
 
 ## Verification
 
@@ -48,16 +52,17 @@ Historical reports and report-referenced evidence were preserved unchanged, incl
 
 Commits created from the prior `64c2636` cutoff, in chronological order:
 
-1. `8f1cc49` Propagate logical test context through ASM runtime
-2. `eb30d60` Support thread and executor context propagation
-3. `939e167` Validate ASM attribution on PetClinic
-4. `df0685e` Add bounded Spring causal diagnostics
-5. `12b7857` Validate ASM attribution on Spring Core
-6. `38a487a` Analyze Spring Core attribution stability
-7. `405ab7c` Preserve focused Spring causal evidence
-8. `28490cd` Characterize fixed Spring Core unstable edges
-9. `dbb832b` Add Spring reflection order reproducer
-10. `d879e0a` Document canonical ASM stability baseline
-11. `this commit` Record final ASM baseline metadata
+1. `3d79599` Propagate logical test context through ASM runtime
+2. `574c669` Support thread and executor context propagation
+3. `6ca3231` Validate ASM attribution on PetClinic
+4. `392d41d` Add bounded Spring causal diagnostics
+5. `6440c88` Validate ASM attribution on Spring Core
+6. `bdd8a87` Analyze Spring Core attribution stability
+7. `d53dea1` Preserve focused Spring causal evidence
+8. `9e6e0e8` Characterize fixed Spring Core unstable edges
+9. `b3b69c5` Add Spring reflection order reproducer
+10. `4c1c9b9` Document canonical ASM stability baseline
+11. `9da11da` Record final ASM baseline metadata
+12. `this commit` Establish lean canonical research evidence policy
 
 The final entry identifies the commit containing this self-referential status record; its immutable hash is the annotated tag target and is reported by `git rev-parse asm-spring-stability-baseline^{commit}`.

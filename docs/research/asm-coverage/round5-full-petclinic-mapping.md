@@ -58,9 +58,9 @@ Reason: long_2nd is not assignable to java/lang/Runnable
 ```
 
 This is an ASM/executor-transformer defect, not a PetClinic, Java, Docker, JaCoCo, or test-order failure.
-Round 5 deliberately does not repair it because further concurrency work is out of scope. The complete failure
-log and raw shutdown output are retained as `asm-full-inventory.log` and
-`asm-full-inventory-failure-raw.json`.
+Round 5 deliberately does not repair it because further concurrency work is out of scope. The compact raw shutdown
+output remains as `asm-full-inventory-failure-raw.json`. The redundant full inventory log is intentionally excluded;
+its SHA-256 and reproduction instructions are in `docs/removed-research-artifacts.md`.
 
 ## ASM runs and determinism
 
@@ -168,4 +168,3 @@ Retained under `stp-petclinic-spike/round5/evidence/`:
 * four raw and four normalized ASM maps with metrics and diagnostics;
 * the original JaCoCo STP map and descriptor-only comparison map;
 * comparison report, fully classified diff details, run manifest, and reproduction logs.
-
