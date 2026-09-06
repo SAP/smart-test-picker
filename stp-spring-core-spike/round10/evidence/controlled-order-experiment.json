@@ -1,0 +1,512 @@
+{
+  "baselineEdgeEvidence": [
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": "A late hit of the same identity is correlation, not proof that it caused historical normal-edge movement.",
+      "lateTraceHitCount": 1,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "DefaultConversionServiceTests#convertMapToMap_6cbdc407",
+      "traceEventCount": 2
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": "A late hit of the same identity is correlation, not proof that it caused historical normal-edge movement.",
+      "lateTraceHitCount": 16,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "DefaultConversionServiceTests#convertMapToMap_6cbdc407",
+      "traceEventCount": 17
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "DefaultConversionServiceTests#convertMapToMap_6cbdc407",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ReflectionUtilsTests#setField_2fec297b",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#asMap_7865a9f3",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#asMap_7865a9f3",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#asMap_7865a9f3",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#asMap_7865a9f3",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#forMethodParameterWithNestingAndLevels_3ac7fcf8",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#forMethodParameterWithNestingAndLevels_3ac7fcf8",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#forMethodParameterWithNestingAndLevels_3ac7fcf8",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForArrays_7d1051af",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForArrays_7d1051af",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForArrays_7d1051af",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveParameterizedType_20ece23e",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromFieldTypeWithImplementsType_e56060f",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromFieldTypeWithImplementsType_e56060f",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromFieldTypeWithImplementsType_e56060f",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleInterfaceType_4c6a08ac",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleInterfaceType_4c6a08ac",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#typeVariableType_64778267",
+      "traceEventCount": 14
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#wildcardType_345dddeb",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#elementTypeForCollectionSubclass_4f60b477",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#elementTypeForCollectionSubclass_4f60b477",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#elementTypeForCollectionSubclass_4f60b477",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.core.SerializableTypeWrapper#unwrap",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#fieldComplexTypeDescriptor_396cb34d",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#fieldListOfListOfString_4fe9ef87",
+      "traceEventCount": 4
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#isAssignableMapKeyValueTypes_5496c48c",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#isAssignableMapKeyValueTypes_5496c48c",
+      "traceEventCount": 0
+    }
+  ],
+  "baselineUnstableEdgesReproducedAsOrderSensitive": 29,
+  "changedMethodEdges": 1452,
+  "changedTests": 155,
+  "orders": [
+    {
+      "junitRandomSeed": 101,
+      "name": "A"
+    },
+    {
+      "junitRandomSeed": 202,
+      "name": "B"
+    }
+  ],
+  "result": "Changing only the deterministic JUnit class/method order changes per-test attribution and reproduces baseline-moving edges.",
+  "scope": "Four representative unstable test classes; 365 logical test methods"
+}

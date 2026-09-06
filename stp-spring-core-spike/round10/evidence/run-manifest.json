@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "stp-asm-round10-runs-1",
+  "springCommit": "99a366baf6640b275d08dde60f05da719139bb6a",
+  "task": ":spring-core:test",
+  "gradle": "8.14.2",
+  "jdk": "21",
+  "normalRuns": [
+    {"name": "ASM RUN 1", "source": "ROUND 9 identical baseline", "result": "BUILD SUCCESSFUL"},
+    {"name": "ASM RUN 2", "source": "ROUND 9 identical baseline", "result": "BUILD SUCCESSFUL"},
+    {"name": "ASM RUN 3", "source": "fresh ROUND 10 execution", "result": "BUILD SUCCESSFUL"}
+  ],
+  "diagnosticRun": {"methodFilterCount": 17, "testFilterCount": 68, "eventLimit": 20000, "droppedEvents": 0},
+  "orderExperiment": {"testCount": 365, "seeds": [101, 202], "results": ["BUILD SUCCESSFUL", "BUILD SUCCESSFUL"]},
+  "springSourceModified": false,
+  "normalMapSemanticsModified": false
+}

@@ -1,0 +1,3770 @@
+{
+  "classifications": [
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "BridgeMethodResolverKotlinTests#findBridgedMethod_665f90e8",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "BridgeMethodResolverKotlinTests#findBridgedMethod_665f90e8",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "BridgeMethodResolverKotlinTests#findBridgedMethod_665f90e8",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#findGenericDeclaration",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchForMatch",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchInterfaces",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.core.ResolvableType#getInterfaces",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClass",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312",
+      "traceEventCount": 2
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClassAsSet",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ClassUtils#isVisible",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ClassUtils#toClassArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.CollectionUtils#isEmpty",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": "A late hit of the same identity is correlation, not proof that it caused historical normal-edge movement.",
+      "lateTraceHitCount": 1,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "CollectionToCollectionConverterTests#objectToCollection_20ff6381",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": "A late hit of the same identity is correlation, not proof that it caused historical normal-edge movement.",
+      "lateTraceHitCount": 16,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "CollectionToCollectionConverterTests#objectToCollection_20ff6381",
+      "traceEventCount": 16
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "CollectionToCollectionConverterTests#objectToCollection_20ff6381",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ConventionsTests#set_72479166",
+      "traceEventCount": 4
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": "A late hit of the same identity is correlation, not proof that it caused historical normal-edge movement.",
+      "lateTraceHitCount": 1,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "DefaultConversionServiceTests#convertArrayToStream_44e1bd72",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": "A late hit of the same identity is correlation, not proof that it caused historical normal-edge movement.",
+      "lateTraceHitCount": 16,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "DefaultConversionServiceTests#convertArrayToStream_44e1bd72",
+      "traceEventCount": 16
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "DefaultConversionServiceTests#convertArrayToStream_44e1bd72",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        1
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "DefaultConversionServiceTests#convertIntegerArrayToIntArray_32ca0902",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": "A late hit of the same identity is correlation, not proof that it caused historical normal-edge movement.",
+      "lateTraceHitCount": 1,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "DefaultConversionServiceTests#convertMapToMap_6cbdc407",
+      "traceEventCount": 2
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": "A late hit of the same identity is correlation, not proof that it caused historical normal-edge movement.",
+      "lateTraceHitCount": 16,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "DefaultConversionServiceTests#convertMapToMap_6cbdc407",
+      "traceEventCount": 17
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "DefaultConversionServiceTests#convertMapToMap_6cbdc407",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "DefaultConversionServiceTests#convertStringArrayToIntegerArray_7f72bddc",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "DefaultParameterNameDiscovererKotlinTests#getParameterNamesOnExtensionMethod_5b605de0",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "DefaultParameterNameDiscovererKotlinTests#getParameterNamesOnExtensionMethod_5b605de0",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "DefaultParameterNameDiscovererKotlinTests#getParameterNamesOnExtensionMethod_5b605de0",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "DefaultParameterNameDiscovererKotlinTests#getParameterNamesOnExtensionMethod_5b605de0",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": "A late hit of the same identity is correlation, not proof that it caused historical normal-edge movement.",
+      "lateTraceHitCount": 1,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericConversionServiceTests#rawCollectionAsSource_28934587",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": "A late hit of the same identity is correlation, not proof that it caused historical normal-edge movement.",
+      "lateTraceHitCount": 16,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericConversionServiceTests#rawCollectionAsSource_28934587",
+      "traceEventCount": 16
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericConversionServiceTests#rawCollectionAsSource_28934587",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      "presentInRuns": [
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericConversionServiceTests#stringArrayToIntegerArray_cb70652",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericConversionServiceTests#stringArrayToIntegerArray_cb70652",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": "A late hit of the same identity is correlation, not proof that it caused historical normal-edge movement.",
+      "lateTraceHitCount": 1,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericConversionServiceTests#stringToEnumWithInterfaceConversion_47107cd0",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": "A late hit of the same identity is correlation, not proof that it caused historical normal-edge movement.",
+      "lateTraceHitCount": 16,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericConversionServiceTests#stringToEnumWithInterfaceConversion_47107cd0",
+      "traceEventCount": 16
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericConversionServiceTests#stringToEnumWithInterfaceConversion_47107cd0",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      "presentInRuns": [
+        1
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericConversionServiceTests#stringToIntegerArray_13f70e33",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        1
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericConversionServiceTests#stringToIntegerArray_13f70e33",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66",
+      "traceEventCount": 2
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66",
+      "traceEventCount": 2
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericTypeResolverTests#resolveIncompleteTypeVariables_4cde3ac4",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericTypeResolverTests#resolveIncompleteTypeVariables_4cde3ac4",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericTypeResolverTests#resolveIncompleteTypeVariables_4cde3ac4",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericTypeResolverTests#resolveIncompleteTypeVariables_4cde3ac4",
+      "traceEventCount": 12
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericTypeResolverTests#simpleCollectionSuperclassType_16339978",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericTypeResolverTests#simpleCollectionSuperclassType_16339978",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericTypeResolverTests#simpleCollectionSuperclassType_16339978",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericTypeResolverTests#simpleCollectionSuperclassType_16339978",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericTypeResolverTests#simpleCollectionSuperclassType_16339978",
+      "traceEventCount": 2
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "GenericTypeResolverTests#simpleCollectionSuperclassType_16339978",
+      "traceEventCount": 2
+    },
+    {
+      "absentInRuns": [
+        2,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.core.SerializableTypeWrapper#unwrap",
+      "presentInRuns": [
+        1
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MapToMapConverterTests#collectionMapSourceTarget_5bff386f",
+      "traceEventCount": 2
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MapToMapConverterTests#collectionMapSourceTarget_5bff386f",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        1
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MapToMapConverterTests#collectionMap_5d43ab43",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": "A late hit of the same identity is correlation, not proof that it caused historical normal-edge movement.",
+      "lateTraceHitCount": 1,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MapToMapConverterTests#multiValueMapToMultiValueMap_24e1f0a0",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": "A late hit of the same identity is correlation, not proof that it caused historical normal-edge movement.",
+      "lateTraceHitCount": 16,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MapToMapConverterTests#multiValueMapToMultiValueMap_24e1f0a0",
+      "traceEventCount": 16
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MapToMapConverterTests#multiValueMapToMultiValueMap_24e1f0a0",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": "A late hit of the same identity is correlation, not proof that it caused historical normal-edge movement.",
+      "lateTraceHitCount": 1,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MapToMapConverterTests#noDefaultConstructorCopyNotRequired_2f3c8288",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": "A late hit of the same identity is correlation, not proof that it caused historical normal-edge movement.",
+      "lateTraceHitCount": 16,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MapToMapConverterTests#noDefaultConstructorCopyNotRequired_2f3c8288",
+      "traceEventCount": 16
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MapToMapConverterTests#noDefaultConstructorCopyNotRequired_2f3c8288",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": "A late hit of the same identity is correlation, not proof that it caused historical normal-edge movement.",
+      "lateTraceHitCount": 1,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MapToMapConverterTests#stringToEnumMap_6a6adcb4",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": "A late hit of the same identity is correlation, not proof that it caused historical normal-edge movement.",
+      "lateTraceHitCount": 16,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MapToMapConverterTests#stringToEnumMap_6a6adcb4",
+      "traceEventCount": 16
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MapToMapConverterTests#stringToEnumMap_6a6adcb4",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#findGenericDeclaration",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchForMatch",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchInterfaces",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.core.ResolvableType#getInterfaces",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.core.SerializableTypeWrapper$TypeProxyInvocationHandler#<init>",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClass",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d",
+      "traceEventCount": 2
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClassAsSet",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ClassUtils#isVisible",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ClassUtils#toClassArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.CollectionUtils#isEmpty",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MergedAnnotationsTests#getFromMethodWithGenericSuperclass_78b2b090",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MergedAnnotationsTests#getFromMethodWithGenericSuperclass_78b2b090",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MergedAnnotationsTests#getFromMethodWithGenericSuperclass_78b2b090",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#findGenericDeclaration",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchForMatch",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchInterfaces",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.core.ResolvableType#getInterfaces",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.core.SerializableTypeWrapper$TypeProxyInvocationHandler#<init>",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClass",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa",
+      "traceEventCount": 2
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClassAsSet",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ClassUtils#isVisible",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ClassUtils#toClassArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.CollectionUtils#isEmpty",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        1,
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ObjectToObjectConverterRuntimeHintsTests#javaSqlDateHasHints_0b62926",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ReflectionUtilsTests#doWithMethodsFindsDuplicatesInClassHierarchy_135c0a06",
+      "traceEventCount": 2
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ReflectionUtilsTests#doWithMethodsUsingProtectedFilter_6ff24d60",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ReflectionUtilsTests#doWithMethodsUsingUserDeclaredMethodsComposedFilter_712c3971",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ReflectionUtilsTests#findField_5984975e",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ReflectionUtilsTests#findMethodWithVarArgs_5bd66dc1",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ReflectionUtilsTests#findMethodWithVarArgs_5bd66dc1",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ReflectionUtilsTests#setField_2fec297b",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ReflectionUtilsTests#validCopyOnSubTypeWithNewField_f4cc2ed",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ReflectionUtilsTests#validCopyToSubTypeWithFinalField_831b8fb",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ReflectionUtilsTests#validCopyToSubType_41a5a811",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#asMap_7865a9f3",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#asMap_7865a9f3",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#asMap_7865a9f3",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#asMap_7865a9f3",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#classWithGenericsAs_1378ee35",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#classWithGenericsAs_1378ee35",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#classWithGenericsAs_1378ee35",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#classWithGenericsAs_1378ee35",
+      "traceEventCount": 12
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#forClassWithGenerics_6bf2e2e8",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#forClassWithGenerics_6bf2e2e8",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#forClassWithGenerics_6bf2e2e8",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#forClassWithGenerics_6bf2e2e8",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#forMethodParameterWithNestingAndLevels_3ac7fcf8",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#forMethodParameterWithNestingAndLevels_3ac7fcf8",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#forMethodParameterWithNestingAndLevels_3ac7fcf8",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#forMethodParameterWithNestingAndLevels_3ac7fcf8",
+      "traceEventCount": 12
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#getComponentTypeForVariableThatResolvesToGenericArray_25bd3018",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#getComponentTypeForVariableThatResolvesToGenericArray_25bd3018",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#getComponentTypeForVariableThatResolvesToGenericArray_25bd3018",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#isAssignableFromCannotBeResolved_77bddef2",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#isAssignableFromCannotBeResolved_77bddef2",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#isAssignableFromCannotBeResolved_77bddef2",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#isAssignableFromCannotBeResolved_77bddef2",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#isAssignableFromCannotBeResolved_77bddef2",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#isAssignableFromCannotBeResolved_77bddef2",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForArrays_7d1051af",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForArrays_7d1051af",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForArrays_7d1051af",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForComplexWildcards_4dc8b13e",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForComplexWildcards_4dc8b13e",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForComplexWildcards_4dc8b13e",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForDifferentClassesWithGenerics_50485964",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForDifferentClassesWithGenerics_50485964",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForDifferentClassesWithGenerics_50485964",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForWildcards_2b853d44",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForWildcards_2b853d44",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForWildcards_2b853d44",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#nested_29cad7ee",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#nested_29cad7ee",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#nested_29cad7ee",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveGenericArrayFromGeneric_28465916",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveGenericArrayFromGeneric_28465916",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveGenericArrayFromGeneric_28465916",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveGenericArrayFromGeneric_28465916",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveGenericArrayType_5361bd11",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveGenericArrayType_5361bd11",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveGenericArrayType_5361bd11",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveParameterizedType_20ece23e",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveParameterizedType_20ece23e",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromFieldTypeWithImplementsType_e56060f",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromFieldTypeWithImplementsType_e56060f",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromFieldTypeWithImplementsType_e56060f",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e",
+      "traceEventCount": 2
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e",
+      "traceEventCount": 2
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleInterfaceType_4c6a08ac",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleInterfaceType_4c6a08ac",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleInterfaceType_4c6a08ac",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleInterfaceType_4c6a08ac",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleInterfaceType_4c6a08ac",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleInterfaceType_4c6a08ac",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveVariableFromFieldType_73a232d9",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveVariableFromFieldType_73a232d9",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveVariableFromFieldType_73a232d9",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveVariableFromInheritedFieldSwitched_1f60dce",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveVariableFromInheritedFieldSwitched_1f60dce",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveVariableFromInheritedFieldSwitched_1f60dce",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveVariableGenericArrayUnknown_38c58bf7",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveVariableGenericArrayUnknown_38c58bf7",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#resolveVariableGenericArrayUnknown_38c58bf7",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#typeVariableType_64778267",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#typeVariableType_64778267",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#typeVariableType_64778267",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#typeVariableType_64778267",
+      "traceEventCount": 12
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#typeVariableType_64778267",
+      "traceEventCount": 26
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#typeVariableType_64778267",
+      "traceEventCount": 14
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#wildcardType_345dddeb",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#wildcardType_345dddeb",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#wildcardType_345dddeb",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#wildcardType_345dddeb",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#wildcardType_345dddeb",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "ResolvableTypeTests#wildcardType_345dddeb",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": "A late hit of the same identity is correlation, not proof that it caused historical normal-edge movement.",
+      "lateTraceHitCount": 1,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "StreamConverterTests#convertFromArrayToStream_9ee5c57",
+      "traceEventCount": 2
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": "A late hit of the same identity is correlation, not proof that it caused historical normal-edge movement.",
+      "lateTraceHitCount": 16,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "StreamConverterTests#convertFromArrayToStream_9ee5c57",
+      "traceEventCount": 17
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "StreamConverterTests#convertFromArrayToStream_9ee5c57",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": "A late hit of the same identity is correlation, not proof that it caused historical normal-edge movement.",
+      "lateTraceHitCount": 1,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "StreamConverterTests#convertFromListToRawStream_4004e252",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": "A late hit of the same identity is correlation, not proof that it caused historical normal-edge movement.",
+      "lateTraceHitCount": 16,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "StreamConverterTests#convertFromListToRawStream_4004e252",
+      "traceEventCount": 16
+    },
+    {
+      "absentInRuns": [
+        1,
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "StreamConverterTests#convertFromListToRawStream_4004e252",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": "A late hit of the same identity is correlation, not proof that it caused historical normal-edge movement.",
+      "lateTraceHitCount": 1,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "StreamConverterTests#convertFromStreamToArray_6f1ce01",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": "A late hit of the same identity is correlation, not proof that it caused historical normal-edge movement.",
+      "lateTraceHitCount": 16,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "StreamConverterTests#convertFromStreamToArray_6f1ce01",
+      "traceEventCount": 16
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "StreamConverterTests#convertFromStreamToArray_6f1ce01",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "StreamConverterTests#convertFromStreamToArray_6f1ce01",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#createMapWithNullElements_2a87b96",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#createMapWithNullElements_2a87b96",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#createMapWithNullElements_2a87b96",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#createMapWithNullElements_2a87b96",
+      "traceEventCount": 24
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#elementTypeForCollectionSubclass_4f60b477",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#elementTypeForCollectionSubclass_4f60b477",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#elementTypeForCollectionSubclass_4f60b477",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.core.SerializableTypeWrapper#unwrap",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#fieldComplexTypeDescriptor_396cb34d",
+      "traceEventCount": 1
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#fieldComplexTypeDescriptor_396cb34d",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#fieldComplexTypeDescriptor_396cb34d",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#fieldComplexTypeDescriptor_396cb34d",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#fieldListOfListOfString_4fe9ef87",
+      "traceEventCount": 4
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#isAssignableElementTypes_4db34e9e",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#isAssignableElementTypes_4db34e9e",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#isAssignableElementTypes_4db34e9e",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#isAssignableMapKeyValueTypes_5496c48c",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "EXECUTION_ORDER",
+      "evidence": "The same edge changes presence between focused runs using fixed JUnit order seeds 101 and 202.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#isAssignableMapKeyValueTypes_5496c48c",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#isAssignableMapKeyValueTypes_5496c48c",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#multiValueMap_4fed22b6",
+      "traceEventCount": 8
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#nestedTooManyLevels_1b240c1d",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#nestedTooManyLevels_1b240c1d",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#nestedTooManyLevels_1b240c1d",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        1,
+        3
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "presentInRuns": [
+        2
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#nestedTooManyLevels_1b240c1d",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#propertyGenericClassList_6040d6a2",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#propertyGenericClassList_6040d6a2",
+      "traceEventCount": 0
+    },
+    {
+      "absentInRuns": [
+        2
+      ],
+      "cause": "UNKNOWN",
+      "evidence": "No bounded trace evidence proves an allowed cause.",
+      "lateEvidenceNote": null,
+      "lateTraceHitCount": 0,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presentInRuns": [
+        1,
+        3
+      ],
+      "propagatedTaskHitCount": 0,
+      "testIdentity": "TypeDescriptorTests#propertyGenericClassList_6040d6a2",
+      "traceEventCount": 0
+    }
+  ],
+  "counts": {
+    "ASYNC_CONTEXT": 0,
+    "EXECUTION_ORDER": 29,
+    "LATE_EXECUTION": 0,
+    "SHARED_JVM_STATE": 0,
+    "STATIC_INITIALIZATION": 0,
+    "UNKNOWN": 192
+  },
+  "schemaVersion": "round10-edge-causes-1"
+}

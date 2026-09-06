@@ -1,0 +1,5 @@
+{
+  "conclusion": "No <clinit> ownership moves among the three identical ASM runs.",
+  "count": 0,
+  "unstableClinitEdges": []
+}

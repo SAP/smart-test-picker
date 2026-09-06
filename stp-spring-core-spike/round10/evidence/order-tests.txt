@@ -1,0 +1,4 @@
+org.springframework.core.ResolvableTypeTests.*
+org.springframework.core.convert.TypeDescriptorTests.*
+org.springframework.core.convert.converter.DefaultConversionServiceTests.*
+org.springframework.util.ReflectionUtilsTests.*

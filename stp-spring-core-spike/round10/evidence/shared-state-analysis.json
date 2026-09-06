@@ -1,0 +1,14 @@
+{
+  "classifiedSharedJvmStateEdges": 0,
+  "conclusion": "ConcurrentReferenceHashMap dominates the moving set, but method-entry traces do not expose receiver/cache occupancy; those edges remain UNKNOWN unless the controlled-order experiment supplies direct state evidence.",
+  "hotspotCounts": {
+    "AnnotationTypeMappings": 0,
+    "Assert": 0,
+    "ConcurrentReferenceHashMap": 190,
+    "DataBufferUtils": 0,
+    "MergedAnnotations": 0,
+    "MimeTypeUtils": 0,
+    "ResolvableType": 3,
+    "StringUtils": 0
+  }
+}

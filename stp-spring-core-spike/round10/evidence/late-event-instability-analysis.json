@@ -1,0 +1,213 @@
+{
+  "basis": "RuntimeEventAggregator checks the finished bucket before TestBucket.add; trace ownerFinished hits are emitted as LATE_EVENT.",
+  "lateEventsIncorrectlyEnteringNormalCoverage": 0,
+  "lateEventsInvolvingUnstableIdentities": [
+    {
+      "lateInRuns": [
+        1,
+        2,
+        3
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "CollectionToCollectionConverterTests#objectToCollection_20ff6381"
+    },
+    {
+      "lateInRuns": [
+        1,
+        2,
+        3
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "CollectionToCollectionConverterTests#objectToCollection_20ff6381"
+    },
+    {
+      "lateInRuns": [
+        1,
+        2,
+        3
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "DefaultConversionServiceTests#convertArrayToStream_44e1bd72"
+    },
+    {
+      "lateInRuns": [
+        1,
+        2,
+        3
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "DefaultConversionServiceTests#convertArrayToStream_44e1bd72"
+    },
+    {
+      "lateInRuns": [
+        1,
+        2,
+        3
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "DefaultConversionServiceTests#convertMapToMap_6cbdc407"
+    },
+    {
+      "lateInRuns": [
+        1,
+        2,
+        3
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "DefaultConversionServiceTests#convertMapToMap_6cbdc407"
+    },
+    {
+      "lateInRuns": [
+        1,
+        2,
+        3
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "testIdentity": "DefaultConversionServiceTests#convertStringArrayToIntegerArray_7f72bddc"
+    },
+    {
+      "lateInRuns": [
+        1,
+        2,
+        3
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "GenericConversionServiceTests#rawCollectionAsSource_28934587"
+    },
+    {
+      "lateInRuns": [
+        1,
+        2,
+        3
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "GenericConversionServiceTests#rawCollectionAsSource_28934587"
+    },
+    {
+      "lateInRuns": [
+        1,
+        2,
+        3
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "GenericConversionServiceTests#stringToEnumWithInterfaceConversion_47107cd0"
+    },
+    {
+      "lateInRuns": [
+        1,
+        2,
+        3
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "GenericConversionServiceTests#stringToEnumWithInterfaceConversion_47107cd0"
+    },
+    {
+      "lateInRuns": [
+        1,
+        2,
+        3
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "MapToMapConverterTests#multiValueMapToMultiValueMap_24e1f0a0"
+    },
+    {
+      "lateInRuns": [
+        1,
+        2,
+        3
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "MapToMapConverterTests#multiValueMapToMultiValueMap_24e1f0a0"
+    },
+    {
+      "lateInRuns": [
+        1,
+        2,
+        3
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "MapToMapConverterTests#noDefaultConstructorCopyNotRequired_2f3c8288"
+    },
+    {
+      "lateInRuns": [
+        1,
+        2,
+        3
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "MapToMapConverterTests#noDefaultConstructorCopyNotRequired_2f3c8288"
+    },
+    {
+      "lateInRuns": [
+        1,
+        2,
+        3
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "MapToMapConverterTests#stringToEnumMap_6a6adcb4"
+    },
+    {
+      "lateInRuns": [
+        1,
+        2,
+        3
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "MapToMapConverterTests#stringToEnumMap_6a6adcb4"
+    },
+    {
+      "lateInRuns": [
+        1,
+        2,
+        3
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "StreamConverterTests#convertFromArrayToStream_9ee5c57"
+    },
+    {
+      "lateInRuns": [
+        1,
+        2,
+        3
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "StreamConverterTests#convertFromArrayToStream_9ee5c57"
+    },
+    {
+      "lateInRuns": [
+        1,
+        2,
+        3
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "StreamConverterTests#convertFromListToRawStream_4004e252"
+    },
+    {
+      "lateInRuns": [
+        1,
+        2,
+        3
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "StreamConverterTests#convertFromListToRawStream_4004e252"
+    },
+    {
+      "lateInRuns": [
+        1,
+        2,
+        3
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "StreamConverterTests#convertFromStreamToArray_6f1ce01"
+    },
+    {
+      "lateInRuns": [
+        1,
+        2,
+        3
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "StreamConverterTests#convertFromStreamToArray_6f1ce01"
+    }
+  ]
+}
