@@ -46,6 +46,7 @@ public final class RuntimeJsonSerializer {
 		field(json, level + 1, "displayName", test.identity.displayName(), true);
 		field(json, level + 1, "testClass", test.identity.testClass(), true);
 		field(json, level + 1, "testMethod", test.identity.testMethod(), true);
+		field(json, level + 1, "testMethodParameterTypes", test.identity.testMethodParameterTypes(), true);
 		field(json, level + 1, "engineId", test.identity.engineId(), true);
 		json.append(indent(level + 1)).append("\"result\": ");
 		writeResult(json, test.result);

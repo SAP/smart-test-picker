@@ -67,6 +67,9 @@ final class AgentOutputWriter {
 		field(json, 1, "jvmId", jvmId, true);
 		json.append("  \"configuration\": {\n");
 		field(json, 2, "output", configuration.output().toString(), true);
+		field(json, 2, "fragmentOutput", configuration.fragmentOutput() == null ? "" : configuration.fragmentOutput().toString(), true);
+		field(json, 2, "revision", configuration.revision() == null ? "" : configuration.revision(), true);
+		field(json, 2, "shardId", configuration.shardId() == null ? "" : configuration.shardId(), true);
 		arrayField(json, 2, "includes", configuration.includes(), true);
 		arrayField(json, 2, "excludes", configuration.excludes(), true);
 		field(json, 2, "debug", Boolean.toString(configuration.debug()), true, false);

@@ -15,6 +15,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.TreeMap;
 
 /** Experimental, explicitly driven in-memory event aggregator. */
@@ -23,6 +24,8 @@ public final class RuntimeEventAggregator {
 	private final String jvmId;
 	private final Map<TestIdentity, TestBucket> tests = new TreeMap<>();
 	private final Map<UnattributedEvent, Integer> unattributed = new LinkedHashMap<>();
+	private final Map<String, SetupBucket> setup = new TreeMap<>();
+	private final Set<SetupDiagnostic> setupDiagnostics = new java.util.TreeSet<>();
 
 	public RuntimeEventAggregator(String runId, String jvmId) {
 		this.runId = requireText(runId, "runId");
@@ -106,6 +109,29 @@ public final class RuntimeEventAggregator {
 		return Collections.unmodifiableMap(new LinkedHashMap<>(unattributed));
 	}
 
+	public synchronized RuntimeObservation snapshot() {
+		List<RuntimeObservation.PhysicalTest> physicalTests = tests.values().stream()
+				.map(bucket -> new RuntimeObservation.PhysicalTest(bucket.identity, bucket.result,
+						bucket.methods.keySet().stream().map(MethodHitEvent::method).collect(java.util.stream.Collectors.toSet()),
+						bucket.finished, Set.copyOf(bucket.unattributed.keySet()))).toList();
+		List<RuntimeObservation.SetupObservation> setupObservations = setup.values().stream()
+				.map(bucket -> new RuntimeObservation.SetupObservation(bucket.container, bucket.nested,
+						Set.copyOf(bucket.methods))).toList();
+		return new RuntimeObservation(runId, jvmId, physicalTests, setupObservations,
+				Set.copyOf(unattributed.keySet()), Set.copyOf(setupDiagnostics));
+	}
+
+	public synchronized void recordSetupDiagnostic(SetupDiagnostic diagnostic) {
+		setupDiagnostics.add(Objects.requireNonNull(diagnostic, "diagnostic"));
+	}
+
+	public synchronized void recordSetup(String binaryContainerName, boolean nested, MethodHitEvent event) {
+		Objects.requireNonNull(binaryContainerName, "binaryContainerName");
+		Objects.requireNonNull(event, "event");
+		setup.computeIfAbsent(binaryContainerName, ignored -> new SetupBucket(binaryContainerName, nested))
+				.methods.add(event.method());
+	}
+
 	private void validateScope(TestIdentity test) {
 		Objects.requireNonNull(test, "test");
 		if (!runId.equals(test.runId()) || !jvmId.equals(test.jvmId())) {
@@ -160,6 +186,17 @@ public final class RuntimeEventAggregator {
 
 		private TestBucketSnapshot snapshot() {
 			return new TestBucketSnapshot(this);
+		}
+	}
+
+	private static final class SetupBucket {
+		private final String container;
+		private final boolean nested;
+		private final java.util.Set<com.sap.oss.smarttestpicker.runtime.model.MethodIdentity> methods = new java.util.TreeSet<>();
+
+		private SetupBucket(String container, boolean nested) {
+			this.container = container;
+			this.nested = nested;
 		}
 	}
 }
