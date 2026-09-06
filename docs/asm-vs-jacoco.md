@@ -1,5 +1,9 @@
 # ASM and JaCoCo: coexistence and comparison
 
+## TASK 20 clarification
+
+The TASK 19 count of 57 JaCoCo false negatives survives focused bytecode/probe confirmation. Ten representative exact-descriptor cases were checked with JaCoCo's direct analyzer and class-ID calculation. The observed gap is semantic: JaCoCo deliberately filters some generated shapes, and entry alone does not cover instructions when an implicit exception occurs before a relevant probe. This means JVM `MethodEntry` and JaCoCo covered-method status are not equivalent; it does not mean that JaCoCo is generally broken. Details are in [the TASK 20 report](task20-jacoco-fn-confirmation.md).
+
 ## Technical model
 
 JaCoCo uses probes and execution-data reset/dump boundaries. It remains the existing project coverage agent and reporting mechanism used by the historical STP mapping POCs.
