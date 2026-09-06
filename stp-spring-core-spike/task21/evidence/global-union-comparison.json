@@ -1,0 +1,22 @@
+{
+  "asmOnlyPerTestEdgesMethodAppearsInJacocoGlobalUnion": 543,
+  "asmOnlyPerTestRedistributionFraction": 0.281493,
+  "classes": {
+    "asm": 586,
+    "asmOnly": 10,
+    "both": 576,
+    "jacoco": 582,
+    "jacocoOnly": 6
+  },
+  "jacocoOnlyPerTestEdgesMethodAppearsInAsmGlobalUnion": 22919,
+  "jacocoOnlyPerTestRedistributionFraction": 0.981374,
+  "methods": {
+    "asm": 3577,
+    "asmOnly": 114,
+    "both": 3463,
+    "jacoco": 3532,
+    "jacocoOnly": 69
+  },
+  "redistributionDominant": true,
+  "schemaVersion": "task21-global-union-comparison-1"
+}

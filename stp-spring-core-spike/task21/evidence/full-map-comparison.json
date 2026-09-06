@@ -1,0 +1,46 @@
+{
+  "classes": {
+    "asmEdges": 44691,
+    "asmOnly": 145,
+    "both": 44546,
+    "jacocoEdges": 53328,
+    "jacocoOnly": 8782,
+    "percentageDenominator": "edge union",
+    "symmetricDifference": 8927,
+    "symmetricDifferencePercent": 16.694407
+  },
+  "methods": {
+    "asmEdges": 149781,
+    "asmOnly": 1929,
+    "both": 147852,
+    "jacocoEdges": 171206,
+    "jacocoOnly": 23354,
+    "percentageDenominator": "edge union",
+    "symmetricDifference": 25283,
+    "symmetricDifferencePercent": 14.603055
+  },
+  "normalization": "TestIdentity -> class + method name",
+  "populations": {
+    "asmMappedTests": 3629,
+    "asmOnlyTests": [
+      "AnnotationAwareOrderComparatorTests#instanceVariableIsAnAnnotationAwareOrderComparator_32df85c",
+      "JdkProxyHintExtensionsTests#proxiedInterfaces builder extension_c71395f",
+      "PropertyResolverExtensionsKotlinTests#get operator_1d0622c",
+      "PropertyResolverExtensionsKotlinTests#getProperty extension_4bf3af6",
+      "PropertyResolverExtensionsKotlinTests#getProperty with default extension_7bd2a31",
+      "PropertyResolverExtensionsKotlinTests#getRequiredProperty extension_d3ca26e",
+      "ProxyHintsExtensionsTests#registerJdkProxy extension_628ed8e",
+      "ReflectionHintsExtensionsTests#getTypeHint extension_5495925",
+      "ReflectionHintsExtensionsTests#registerType extension with Consumer_14c12ab",
+      "ReflectionHintsExtensionsTests#registerType extension with MemberCategory_122964a",
+      "ResourceHintsExtensionsTests#registerType extension_1b4cb61",
+      "SerializationHintsExtensionsTests#registerType extension with Consumer_223719b",
+      "SerializationHintsExtensionsTests#registerType extension_eb90a26",
+      "TypeHintExtensionsTests#onReachableType builder extension_9a1f2d3"
+    ],
+    "commonTests": 3624,
+    "jacocoMappedTests": 3624,
+    "jacocoOnlyTests": []
+  },
+  "schemaVersion": "task21-full-map-comparison-1"
+}

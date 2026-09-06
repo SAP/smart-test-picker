@@ -1,0 +1,16 @@
+// SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+// SPDX-License-Identifier: Apache-2.0
+
+gradle.afterProject { project, state ->
+	if (project.path == ':spring-core') {
+		project.tasks.named('test').configure {
+			def agentJar = System.getenv('TASK21_AGENT_JAR')
+			def agentArgs = System.getenv('TASK21_AGENT_ARGS')
+			if (!agentJar || !agentArgs) {
+				throw new GradleException('TASK21_AGENT_JAR and TASK21_AGENT_ARGS are required')
+			}
+			jvmArgs "-javaagent:${agentJar}=${agentArgs}"
+			testLogging.showStandardStreams = true
+		}
+	}
+}

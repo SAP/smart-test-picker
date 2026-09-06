@@ -1,0 +1,438 @@
+{
+  "compatible": true,
+  "descriptorExactComparableEdges": 0,
+  "extraAsmTests": [
+    "AnnotationAwareOrderComparatorTests#instanceVariableIsAnAnnotationAwareOrderComparator_32df85c",
+    "JdkProxyHintExtensionsTests#proxiedInterfaces builder extension_c71395f",
+    "PropertyResolverExtensionsKotlinTests#get operator_1d0622c",
+    "PropertyResolverExtensionsKotlinTests#getProperty extension_4bf3af6",
+    "PropertyResolverExtensionsKotlinTests#getProperty with default extension_7bd2a31",
+    "PropertyResolverExtensionsKotlinTests#getRequiredProperty extension_d3ca26e",
+    "ProxyHintsExtensionsTests#registerJdkProxy extension_628ed8e",
+    "ReflectionHintsExtensionsTests#getTypeHint extension_5495925",
+    "ReflectionHintsExtensionsTests#registerType extension with Consumer_14c12ab",
+    "ReflectionHintsExtensionsTests#registerType extension with MemberCategory_122964a",
+    "ResourceHintsExtensionsTests#registerType extension_1b4cb61",
+    "SerializationHintsExtensionsTests#registerType extension with Consumer_223719b",
+    "SerializationHintsExtensionsTests#registerType extension_eb90a26",
+    "TypeHintExtensionsTests#onReachableType builder extension_9a1f2d3"
+  ],
+  "level1": "exact test key plus class and method name",
+  "level2": "historical JaCoCo map has no descriptors; no descriptor-exact cross-map edge comparison is possible",
+  "missingReferenceTestsInAsm": [],
+  "nameOnlyComparableEdges": 171206,
+  "overloadAmbiguities": 13478,
+  "overloadAmbiguityExamples": [
+    {
+      "asmDescriptors": [
+        "org.springframework.core.env.PropertySourcesPropertyResolver#getProperty(Ljava/lang/String;)Ljava/lang/String;",
+        "org.springframework.core.env.PropertySourcesPropertyResolver#getProperty(Ljava/lang/String;Ljava/lang/Class;Z)Ljava/lang/Object;"
+      ],
+      "methodIdentity": "org.springframework.core.env.PropertySourcesPropertyResolver#getProperty",
+      "testIdentity": "AcceptsProfilesTests#activeProfileSetProgrammatically_5ca38f5"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.util.StringUtils#hasLength(Ljava/lang/CharSequence;)Z",
+        "org.springframework.util.StringUtils#hasLength(Ljava/lang/String;)Z"
+      ],
+      "methodIdentity": "org.springframework.util.StringUtils#hasLength",
+      "testIdentity": "AcceptsProfilesTests#activeProfileSetViaProperty_2f91d35"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.util.StringUtils#delimitedListToStringArray(Ljava/lang/String;Ljava/lang/String;)[Ljava/lang/String;",
+        "org.springframework.util.StringUtils#delimitedListToStringArray(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)[Ljava/lang/String;"
+      ],
+      "methodIdentity": "org.springframework.util.StringUtils#delimitedListToStringArray",
+      "testIdentity": "AcceptsProfilesTests#activeProfileSetViaProperty_2f91d35"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.util.StringUtils#trimAllWhitespace(Ljava/lang/CharSequence;)Ljava/lang/CharSequence;",
+        "org.springframework.util.StringUtils#trimAllWhitespace(Ljava/lang/String;)Ljava/lang/String;"
+      ],
+      "methodIdentity": "org.springframework.util.StringUtils#trimAllWhitespace",
+      "testIdentity": "AcceptsProfilesTests#activeProfileSetViaProperty_2f91d35"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.env.PropertySourcesPropertyResolver#getProperty(Ljava/lang/String;)Ljava/lang/String;",
+        "org.springframework.core.env.PropertySourcesPropertyResolver#getProperty(Ljava/lang/String;Ljava/lang/Class;Z)Ljava/lang/Object;"
+      ],
+      "methodIdentity": "org.springframework.core.env.PropertySourcesPropertyResolver#getProperty",
+      "testIdentity": "AcceptsProfilesTests#activeProfileSetViaProperty_2f91d35"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.env.PropertySourcesPropertyResolver#getProperty(Ljava/lang/String;)Ljava/lang/String;",
+        "org.springframework.core.env.PropertySourcesPropertyResolver#getProperty(Ljava/lang/String;Ljava/lang/Class;Z)Ljava/lang/Object;"
+      ],
+      "methodIdentity": "org.springframework.core.env.PropertySourcesPropertyResolver#getProperty",
+      "testIdentity": "AcceptsProfilesTests#defaultProfile_33d3ad0"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.env.PropertySourcesPropertyResolver#getProperty(Ljava/lang/String;)Ljava/lang/String;",
+        "org.springframework.core.env.PropertySourcesPropertyResolver#getProperty(Ljava/lang/String;Ljava/lang/Class;Z)Ljava/lang/Object;"
+      ],
+      "methodIdentity": "org.springframework.core.env.PropertySourcesPropertyResolver#getProperty",
+      "testIdentity": "AcceptsProfilesTests#withInvalidNotOperator_78bf476"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.env.PropertySourcesPropertyResolver#getProperty(Ljava/lang/String;)Ljava/lang/String;",
+        "org.springframework.core.env.PropertySourcesPropertyResolver#getProperty(Ljava/lang/String;Ljava/lang/Class;Z)Ljava/lang/Object;"
+      ],
+      "methodIdentity": "org.springframework.core.env.PropertySourcesPropertyResolver#getProperty",
+      "testIdentity": "AcceptsProfilesTests#withNotOperator_65473ea"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.env.PropertySourcesPropertyResolver#getProperty(Ljava/lang/String;)Ljava/lang/String;",
+        "org.springframework.core.env.PropertySourcesPropertyResolver#getProperty(Ljava/lang/String;Ljava/lang/Class;Z)Ljava/lang/Object;"
+      ],
+      "methodIdentity": "org.springframework.core.env.PropertySourcesPropertyResolver#getProperty",
+      "testIdentity": "AcceptsProfilesTests#withProfileExpression_62896e3"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.env.ProfilesParser#parseTokens(Ljava/lang/String;Ljava/util/StringTokenizer;)Lorg/springframework/core/env/Profiles;",
+        "org.springframework.core.env.ProfilesParser#parseTokens(Ljava/lang/String;Ljava/util/StringTokenizer;Lorg/springframework/core/env/ProfilesParser$Context;)Lorg/springframework/core/env/Profiles;"
+      ],
+      "methodIdentity": "org.springframework.core.env.ProfilesParser#parseTokens",
+      "testIdentity": "AcceptsProfilesTests#withProfileExpression_62896e3"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.util.ConcurrentReferenceHashMap#put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;",
+        "org.springframework.util.ConcurrentReferenceHashMap#put(Ljava/lang/Object;Ljava/lang/Object;Z)Ljava/lang/Object;"
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#put",
+      "testIdentity": "AccessControlTests#forMemberWhenPackagePrivateClassWithPublicMethod_4156d71"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.aot.generate.AccessControl$Visibility#forResolvableType(Lorg/springframework/core/ResolvableType;)Lorg/springframework/aot/generate/AccessControl$Visibility;",
+        "org.springframework.aot.generate.AccessControl$Visibility#forResolvableType(Lorg/springframework/core/ResolvableType;Ljava/util/Set;)Lorg/springframework/aot/generate/AccessControl$Visibility;"
+      ],
+      "methodIdentity": "org.springframework.aot.generate.AccessControl$Visibility#forResolvableType",
+      "testIdentity": "AccessControlTests#forMemberWhenPackagePrivateClassWithPublicMethod_4156d71"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.MethodParameter#<init>(Ljava/lang/reflect/Method;I)V",
+        "org.springframework.core.MethodParameter#<init>(Ljava/lang/reflect/Method;II)V"
+      ],
+      "methodIdentity": "org.springframework.core.MethodParameter#<init>",
+      "testIdentity": "AccessControlTests#forMemberWhenPackagePrivateClassWithPublicMethod_4156d71"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.ResolvableType#resolve()Ljava/lang/Class;",
+        "org.springframework.core.ResolvableType#resolve(Ljava/lang/Class;)Ljava/lang/Class;"
+      ],
+      "methodIdentity": "org.springframework.core.ResolvableType#resolve",
+      "testIdentity": "AccessControlTests#forMemberWhenPackagePrivateClassWithPublicMethod_4156d71"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.ResolvableType#forType(Ljava/lang/reflect/Type;)Lorg/springframework/core/ResolvableType;",
+        "org.springframework.core.ResolvableType#forType(Ljava/lang/reflect/Type;Lorg/springframework/core/SerializableTypeWrapper$TypeProvider;Lorg/springframework/core/ResolvableType$VariableResolver;)Lorg/springframework/core/ResolvableType;"
+      ],
+      "methodIdentity": "org.springframework.core.ResolvableType#forType",
+      "testIdentity": "AccessControlTests#forMemberWhenPackagePrivateClassWithPublicMethod_4156d71"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.ResolvableType#forMethodParameter(Lorg/springframework/core/MethodParameter;)Lorg/springframework/core/ResolvableType;",
+        "org.springframework.core.ResolvableType#forMethodParameter(Lorg/springframework/core/MethodParameter;Ljava/lang/reflect/Type;)Lorg/springframework/core/ResolvableType;",
+        "org.springframework.core.ResolvableType#forMethodParameter(Lorg/springframework/core/MethodParameter;Ljava/lang/reflect/Type;I)Lorg/springframework/core/ResolvableType;"
+      ],
+      "methodIdentity": "org.springframework.core.ResolvableType#forMethodParameter",
+      "testIdentity": "AccessControlTests#forMemberWhenPackagePrivateClassWithPublicMethod_4156d71"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.util.ReflectionUtils#findField(Ljava/lang/Class;Ljava/lang/String;)Ljava/lang/reflect/Field;",
+        "org.springframework.util.ReflectionUtils#findField(Ljava/lang/Class;Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/reflect/Field;"
+      ],
+      "methodIdentity": "org.springframework.util.ReflectionUtils#findField",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateArrayComponent_4398aa4"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.aot.generate.AccessControl$Visibility#forResolvableType(Lorg/springframework/core/ResolvableType;)Lorg/springframework/aot/generate/AccessControl$Visibility;",
+        "org.springframework.aot.generate.AccessControl$Visibility#forResolvableType(Lorg/springframework/core/ResolvableType;Ljava/util/Set;)Lorg/springframework/aot/generate/AccessControl$Visibility;"
+      ],
+      "methodIdentity": "org.springframework.aot.generate.AccessControl$Visibility#forResolvableType",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateArrayComponent_4398aa4"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.ResolvableType#resolve()Ljava/lang/Class;",
+        "org.springframework.core.ResolvableType#resolve(Ljava/lang/Class;)Ljava/lang/Class;"
+      ],
+      "methodIdentity": "org.springframework.core.ResolvableType#resolve",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateArrayComponent_4398aa4"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.aot.generate.AccessControl$Visibility#forResolvableType(Lorg/springframework/core/ResolvableType;)Lorg/springframework/aot/generate/AccessControl$Visibility;",
+        "org.springframework.aot.generate.AccessControl$Visibility#forResolvableType(Lorg/springframework/core/ResolvableType;Ljava/util/Set;)Lorg/springframework/aot/generate/AccessControl$Visibility;"
+      ],
+      "methodIdentity": "org.springframework.aot.generate.AccessControl$Visibility#forResolvableType",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateConstructorParameter_32b9cbf"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.MethodParameter#<init>(Ljava/lang/reflect/Constructor;I)V",
+        "org.springframework.core.MethodParameter#<init>(Ljava/lang/reflect/Constructor;II)V"
+      ],
+      "methodIdentity": "org.springframework.core.MethodParameter#<init>",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateConstructorParameter_32b9cbf"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.ResolvableType#resolve()Ljava/lang/Class;",
+        "org.springframework.core.ResolvableType#resolve(Ljava/lang/Class;)Ljava/lang/Class;"
+      ],
+      "methodIdentity": "org.springframework.core.ResolvableType#resolve",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateConstructorParameter_32b9cbf"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.ResolvableType#forType(Ljava/lang/reflect/Type;)Lorg/springframework/core/ResolvableType;",
+        "org.springframework.core.ResolvableType#forType(Ljava/lang/reflect/Type;Lorg/springframework/core/SerializableTypeWrapper$TypeProvider;Lorg/springframework/core/ResolvableType$VariableResolver;)Lorg/springframework/core/ResolvableType;"
+      ],
+      "methodIdentity": "org.springframework.core.ResolvableType#forType",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateConstructorParameter_32b9cbf"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.ResolvableType#forMethodParameter(Lorg/springframework/core/MethodParameter;)Lorg/springframework/core/ResolvableType;",
+        "org.springframework.core.ResolvableType#forMethodParameter(Lorg/springframework/core/MethodParameter;Ljava/lang/reflect/Type;)Lorg/springframework/core/ResolvableType;",
+        "org.springframework.core.ResolvableType#forMethodParameter(Lorg/springframework/core/MethodParameter;Ljava/lang/reflect/Type;I)Lorg/springframework/core/ResolvableType;"
+      ],
+      "methodIdentity": "org.springframework.core.ResolvableType#forMethodParameter",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateConstructorParameter_32b9cbf"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.util.ReflectionUtils#findField(Ljava/lang/Class;Ljava/lang/String;)Ljava/lang/reflect/Field;",
+        "org.springframework.util.ReflectionUtils#findField(Ljava/lang/Class;Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/reflect/Field;"
+      ],
+      "methodIdentity": "org.springframework.util.ReflectionUtils#findField",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateField_78e8294"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.aot.generate.AccessControl$Visibility#forResolvableType(Lorg/springframework/core/ResolvableType;)Lorg/springframework/aot/generate/AccessControl$Visibility;",
+        "org.springframework.aot.generate.AccessControl$Visibility#forResolvableType(Lorg/springframework/core/ResolvableType;Ljava/util/Set;)Lorg/springframework/aot/generate/AccessControl$Visibility;"
+      ],
+      "methodIdentity": "org.springframework.aot.generate.AccessControl$Visibility#forResolvableType",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateField_78e8294"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.ResolvableType#resolve()Ljava/lang/Class;",
+        "org.springframework.core.ResolvableType#resolve(Ljava/lang/Class;)Ljava/lang/Class;"
+      ],
+      "methodIdentity": "org.springframework.core.ResolvableType#resolve",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateField_78e8294"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.util.ConcurrentReferenceHashMap#put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;",
+        "org.springframework.util.ConcurrentReferenceHashMap#put(Ljava/lang/Object;Ljava/lang/Object;Z)Ljava/lang/Object;"
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#put",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateGenericOnConstructorParameter_335acf9"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.ResolvableType#<init>(Ljava/lang/reflect/Type;Lorg/springframework/core/ResolvableType;Lorg/springframework/core/SerializableTypeWrapper$TypeProvider;Lorg/springframework/core/ResolvableType$VariableResolver;)V",
+        "org.springframework.core.ResolvableType#<init>(Ljava/lang/reflect/Type;Lorg/springframework/core/SerializableTypeWrapper$TypeProvider;Lorg/springframework/core/ResolvableType$VariableResolver;)V",
+        "org.springframework.core.ResolvableType#<init>(Ljava/lang/reflect/Type;Lorg/springframework/core/SerializableTypeWrapper$TypeProvider;Lorg/springframework/core/ResolvableType$VariableResolver;Ljava/lang/Integer;)V"
+      ],
+      "methodIdentity": "org.springframework.core.ResolvableType#<init>",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateGenericOnConstructorParameter_335acf9"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.util.ReflectionUtils#invokeMethod(Ljava/lang/reflect/Method;Ljava/lang/Object;)Ljava/lang/Object;",
+        "org.springframework.util.ReflectionUtils#invokeMethod(Ljava/lang/reflect/Method;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;"
+      ],
+      "methodIdentity": "org.springframework.util.ReflectionUtils#invokeMethod",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateGenericOnConstructorParameter_335acf9"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.aot.generate.AccessControl$Visibility#forResolvableType(Lorg/springframework/core/ResolvableType;)Lorg/springframework/aot/generate/AccessControl$Visibility;",
+        "org.springframework.aot.generate.AccessControl$Visibility#forResolvableType(Lorg/springframework/core/ResolvableType;Ljava/util/Set;)Lorg/springframework/aot/generate/AccessControl$Visibility;"
+      ],
+      "methodIdentity": "org.springframework.aot.generate.AccessControl$Visibility#forResolvableType",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateGenericOnConstructorParameter_335acf9"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.MethodParameter#<init>(Ljava/lang/reflect/Constructor;I)V",
+        "org.springframework.core.MethodParameter#<init>(Ljava/lang/reflect/Constructor;II)V"
+      ],
+      "methodIdentity": "org.springframework.core.MethodParameter#<init>",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateGenericOnConstructorParameter_335acf9"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.ResolvableType#resolve()Ljava/lang/Class;",
+        "org.springframework.core.ResolvableType#resolve(Ljava/lang/Class;)Ljava/lang/Class;"
+      ],
+      "methodIdentity": "org.springframework.core.ResolvableType#resolve",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateGenericOnConstructorParameter_335acf9"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.ResolvableType#forType(Ljava/lang/reflect/Type;)Lorg/springframework/core/ResolvableType;",
+        "org.springframework.core.ResolvableType#forType(Ljava/lang/reflect/Type;Lorg/springframework/core/ResolvableType$VariableResolver;)Lorg/springframework/core/ResolvableType;",
+        "org.springframework.core.ResolvableType#forType(Ljava/lang/reflect/Type;Lorg/springframework/core/SerializableTypeWrapper$TypeProvider;Lorg/springframework/core/ResolvableType$VariableResolver;)Lorg/springframework/core/ResolvableType;"
+      ],
+      "methodIdentity": "org.springframework.core.ResolvableType#forType",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateGenericOnConstructorParameter_335acf9"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.ResolvableType#forMethodParameter(Lorg/springframework/core/MethodParameter;)Lorg/springframework/core/ResolvableType;",
+        "org.springframework.core.ResolvableType#forMethodParameter(Lorg/springframework/core/MethodParameter;Ljava/lang/reflect/Type;)Lorg/springframework/core/ResolvableType;",
+        "org.springframework.core.ResolvableType#forMethodParameter(Lorg/springframework/core/MethodParameter;Ljava/lang/reflect/Type;I)Lorg/springframework/core/ResolvableType;"
+      ],
+      "methodIdentity": "org.springframework.core.ResolvableType#forMethodParameter",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateGenericOnConstructorParameter_335acf9"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.util.ConcurrentReferenceHashMap#put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;",
+        "org.springframework.util.ConcurrentReferenceHashMap#put(Ljava/lang/Object;Ljava/lang/Object;Z)Ljava/lang/Object;"
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#put",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateMethodParameter_2bef98e"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.aot.generate.AccessControl$Visibility#forResolvableType(Lorg/springframework/core/ResolvableType;)Lorg/springframework/aot/generate/AccessControl$Visibility;",
+        "org.springframework.aot.generate.AccessControl$Visibility#forResolvableType(Lorg/springframework/core/ResolvableType;Ljava/util/Set;)Lorg/springframework/aot/generate/AccessControl$Visibility;"
+      ],
+      "methodIdentity": "org.springframework.aot.generate.AccessControl$Visibility#forResolvableType",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateMethodParameter_2bef98e"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.MethodParameter#<init>(Ljava/lang/reflect/Method;I)V",
+        "org.springframework.core.MethodParameter#<init>(Ljava/lang/reflect/Method;II)V"
+      ],
+      "methodIdentity": "org.springframework.core.MethodParameter#<init>",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateMethodParameter_2bef98e"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.ResolvableType#resolve()Ljava/lang/Class;",
+        "org.springframework.core.ResolvableType#resolve(Ljava/lang/Class;)Ljava/lang/Class;"
+      ],
+      "methodIdentity": "org.springframework.core.ResolvableType#resolve",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateMethodParameter_2bef98e"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.ResolvableType#forType(Ljava/lang/reflect/Type;)Lorg/springframework/core/ResolvableType;",
+        "org.springframework.core.ResolvableType#forType(Ljava/lang/reflect/Type;Lorg/springframework/core/SerializableTypeWrapper$TypeProvider;Lorg/springframework/core/ResolvableType$VariableResolver;)Lorg/springframework/core/ResolvableType;"
+      ],
+      "methodIdentity": "org.springframework.core.ResolvableType#forType",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateMethodParameter_2bef98e"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.ResolvableType#forMethodParameter(Ljava/lang/reflect/Method;I)Lorg/springframework/core/ResolvableType;",
+        "org.springframework.core.ResolvableType#forMethodParameter(Lorg/springframework/core/MethodParameter;)Lorg/springframework/core/ResolvableType;",
+        "org.springframework.core.ResolvableType#forMethodParameter(Lorg/springframework/core/MethodParameter;Ljava/lang/reflect/Type;)Lorg/springframework/core/ResolvableType;",
+        "org.springframework.core.ResolvableType#forMethodParameter(Lorg/springframework/core/MethodParameter;Ljava/lang/reflect/Type;I)Lorg/springframework/core/ResolvableType;"
+      ],
+      "methodIdentity": "org.springframework.core.ResolvableType#forMethodParameter",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateMethodParameter_2bef98e"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.aot.generate.AccessControl$Visibility#forResolvableType(Lorg/springframework/core/ResolvableType;)Lorg/springframework/aot/generate/AccessControl$Visibility;",
+        "org.springframework.aot.generate.AccessControl$Visibility#forResolvableType(Lorg/springframework/core/ResolvableType;Ljava/util/Set;)Lorg/springframework/aot/generate/AccessControl$Visibility;"
+      ],
+      "methodIdentity": "org.springframework.aot.generate.AccessControl$Visibility#forResolvableType",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateMethodReturnType_65fea71"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.MethodParameter#<init>(Ljava/lang/reflect/Method;I)V",
+        "org.springframework.core.MethodParameter#<init>(Ljava/lang/reflect/Method;II)V"
+      ],
+      "methodIdentity": "org.springframework.core.MethodParameter#<init>",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateMethodReturnType_65fea71"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.ResolvableType#resolve()Ljava/lang/Class;",
+        "org.springframework.core.ResolvableType#resolve(Ljava/lang/Class;)Ljava/lang/Class;"
+      ],
+      "methodIdentity": "org.springframework.core.ResolvableType#resolve",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateMethodReturnType_65fea71"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.ResolvableType#forType(Ljava/lang/reflect/Type;)Lorg/springframework/core/ResolvableType;",
+        "org.springframework.core.ResolvableType#forType(Ljava/lang/reflect/Type;Lorg/springframework/core/SerializableTypeWrapper$TypeProvider;Lorg/springframework/core/ResolvableType$VariableResolver;)Lorg/springframework/core/ResolvableType;"
+      ],
+      "methodIdentity": "org.springframework.core.ResolvableType#forType",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateMethodReturnType_65fea71"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.ResolvableType#forMethodParameter(Lorg/springframework/core/MethodParameter;)Lorg/springframework/core/ResolvableType;",
+        "org.springframework.core.ResolvableType#forMethodParameter(Lorg/springframework/core/MethodParameter;Ljava/lang/reflect/Type;)Lorg/springframework/core/ResolvableType;",
+        "org.springframework.core.ResolvableType#forMethodParameter(Lorg/springframework/core/MethodParameter;Ljava/lang/reflect/Type;I)Lorg/springframework/core/ResolvableType;"
+      ],
+      "methodIdentity": "org.springframework.core.ResolvableType#forMethodParameter",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateMethodReturnType_65fea71"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.util.ConcurrentReferenceHashMap#put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;",
+        "org.springframework.util.ConcurrentReferenceHashMap#put(Ljava/lang/Object;Ljava/lang/Object;Z)Ljava/lang/Object;"
+      ],
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#put",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateMethod_7602228"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.aot.generate.AccessControl$Visibility#forResolvableType(Lorg/springframework/core/ResolvableType;)Lorg/springframework/aot/generate/AccessControl$Visibility;",
+        "org.springframework.aot.generate.AccessControl$Visibility#forResolvableType(Lorg/springframework/core/ResolvableType;Ljava/util/Set;)Lorg/springframework/aot/generate/AccessControl$Visibility;"
+      ],
+      "methodIdentity": "org.springframework.aot.generate.AccessControl$Visibility#forResolvableType",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateMethod_7602228"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.MethodParameter#<init>(Ljava/lang/reflect/Method;I)V",
+        "org.springframework.core.MethodParameter#<init>(Ljava/lang/reflect/Method;II)V"
+      ],
+      "methodIdentity": "org.springframework.core.MethodParameter#<init>",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateMethod_7602228"
+    },
+    {
+      "asmDescriptors": [
+        "org.springframework.core.ResolvableType#resolve()Ljava/lang/Class;",
+        "org.springframework.core.ResolvableType#resolve(Ljava/lang/Class;)Ljava/lang/Class;"
+      ],
+      "methodIdentity": "org.springframework.core.ResolvableType#resolve",
+      "testIdentity": "AccessControlTests#forMemberWhenPublicClassWithPackagePrivateMethod_7602228"
+    }
+  ],
+  "overloadInventoryPolicy": "First 50 deterministic examples retained; raw ASM map preserves the complete descriptor view.",
+  "schemaVersion": "task21-identity-normalization-1",
+  "testNormalization": "Simple nested class + method + first seven hex digits of nonnegative Java hashCode(FQCN#method)"
+}

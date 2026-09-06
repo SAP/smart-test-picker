@@ -1,0 +1,64 @@
+{
+  "agentErrors": [],
+  "collectorMetrics": {
+    "agentStartNanos": 125627800965500,
+    "alreadyInstrumentedClasses": 0,
+    "classLoaderMissing": 2499,
+    "classLoaderPresent": 13030,
+    "classesExcluded": 4926,
+    "classesIgnored": 9911,
+    "classesIncluded": 692,
+    "classesSeen": 15529,
+    "classesTransformed": 619,
+    "methodIdCollisions": 0,
+    "methodsConsidered": 5866,
+    "methodsInstrumented": 5510,
+    "methodsSkipped": 356,
+    "protectionDomainMissing": 3328,
+    "protectionDomainPresent": 12201,
+    "rawMethodHits": 6329858,
+    "runtimeRecordingNanos": 6237120577,
+    "transformationErrors": 0,
+    "transformerTotalNanos": 135409389,
+    "uniqueMethodHits": 4309
+  },
+  "discoveredLogicalTests": 3638,
+  "gradleLog": {
+    "bytes": 112980,
+    "path": "/private/tmp/task21-raw/gradle.log",
+    "result": "BUILD SUCCESSFUL",
+    "sha256": "0f0505b46d2b8e05b0d7d9f4f3666d2336fa107c4621563652ee7052f278a1d8"
+  },
+  "instrumentationFailures": 0,
+  "mappedTests": 3629,
+  "methodIdCollisions": 0,
+  "outcomes": {
+    "ABORTED": 24,
+    "SUCCESSFUL": 4676
+  },
+  "physicalExecutions": 4700,
+  "rawArtifact": {
+    "bytes": 60762230,
+    "path": "/private/tmp/task21-raw/asm-full-map.json",
+    "sha256": "d9f8b1b1e8633ac90694ed2af2dc49e6f4f92fc61e990cb0eaacd25a3a6915f9"
+  },
+  "schemaVersion": "task21-asm-run-integrity-1",
+  "suitableForPopulationComparison": true,
+  "transformationFailures": 0,
+  "unattributedEvents": {
+    "LATE_EVENT": 613680,
+    "NO_ACTIVE_TEST": 11210,
+    "UNKNOWN_CONTEXT": 0
+  },
+  "unmappedTests": [
+    "AnnotationAwareOrderComparatorTests#instanceVariableIsAnAnnotationAwareOrderComparator_32df85c",
+    "ReflectionHintsExtensionsTests#getTypeHint extension_5495925",
+    "ReflectionHintsExtensionsTests#registerType extension with Consumer_14c12ab",
+    "ReflectionHintsExtensionsTests#registerType extension with MemberCategory_122964a",
+    "ResourceHintsExtensionsTests#registerType extension_1b4cb61",
+    "SerializationHintsExtensionsTests#registerType extension with Consumer_223719b",
+    "SerializationHintsExtensionsTests#registerType extension_eb90a26",
+    "SpringCoreBlockHoundIntegrationTests#blockHoundIsInstalled_19c3f54",
+    "TypeHintExtensionsTests#onReachableType builder extension_9a1f2d3"
+  ]
+}

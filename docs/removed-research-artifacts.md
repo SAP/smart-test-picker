@@ -72,3 +72,12 @@ Reproduce each map with the pinned subject and `round16/spring-agent.init.gradle
 ## ROUND 5 PetClinic inventory log
 
 Original: `stp-petclinic-spike/round5/evidence/asm-full-inventory.log`; purpose: full instrumentation-failure console inventory; size: 1,959,038; SHA-256: `9fc78a7925df20c30e4f1ec771f38b92d10b87e8bfb995a7d634d5c4ff37a585`. The compact `asm-full-inventory-failure-raw.json`, normalized evidence, report, and `round5/reproduce.sh` remain. Reproduce with `stp-petclinic-spike/round5/reproduce.sh`. The log is excluded because it duplicates the compact structured failure evidence.
+
+## TASK 21 full-population raw artifacts
+
+| Removed path | Size (bytes) | SHA-256 |
+| --- | ---: | --- |
+| `/private/tmp/task21-raw/asm-full-map.json` | 60,762,230 | `d9f8b1b1e8633ac90694ed2af2dc49e6f4f92fc61e990cb0eaacd25a3a6915f9` |
+| `/private/tmp/task21-raw/gradle.log` | 112,980 | `0f0505b46d2b8e05b0d7d9f4f3666d2336fa107c4621563652ee7052f278a1d8` |
+
+The pinned Spring binary test results also remain generated material outside Git. Reproduce with `task21/spring-agent.init.gradle` and the configuration in `task21/evidence/asm-run-integrity.json`, then run `analyze_task21.py`. Git retains compact evidence, hashes, and reproduction instructions.

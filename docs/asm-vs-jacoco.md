@@ -4,6 +4,8 @@
 
 The TASK 19 count of 57 JaCoCo false negatives survives focused bytecode/probe confirmation. Ten representative exact-descriptor cases were checked with JaCoCo's direct analyzer and class-ID calculation. The observed gap is semantic: JaCoCo deliberately filters some generated shapes, and entry alone does not cover instructions when an implicit exception occurs before a relevant probe. This means JVM `MethodEntry` and JaCoCo covered-method status are not equivalent; it does not mean that JaCoCo is generally broken. Details are in [the TASK 20 report](task20-jacoco-fn-confirmation.md).
 
+TASK 21 adds the full-population migration layer. The fresh Spring Core maps differ by 25,283 per-test method edges but only 183 global method identities, so redistribution dominates. Replaying all 454 committed mutation cases reduces average selection from 80.6 to 73.4 tests and improves the existing inclusiveness result from 443/454 to 454/454, with no worse safety flip. This strengthens the production-ASM recommendation without classifying every divergent edge as accuracy evidence. See [the TASK 21 report](task21-full-spring-core-asm-vs-evaluation.md).
+
 ## Technical model
 
 JaCoCo uses probes and execution-data reset/dump boundaries. It remains the existing project coverage agent and reporting mechanism used by the historical STP mapping POCs.

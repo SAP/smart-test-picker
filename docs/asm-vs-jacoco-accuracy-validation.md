@@ -7,6 +7,8 @@
 
 TASK 20 independently confirmed a descriptor-exact sample of ten of the 57 TASK 19 JaCoCo false negatives. JaCoCo's direct analyzer agreed with the TASK 19 decoder, input bytes and execution-data IDs matched, and reset timing and representation ambiguity explained none. Six cases were generated-code filter exclusions despite hit probes; four entered and then exited exceptionally before relevant normal-flow probe evidence. TASK 19's 57-FN metric remains unchanged. See [TASK 20 JaCoCo false-negative confirmation](task20-jacoco-fn-confirmation.md) for the bounded evidence and safe claim wording.
 
+TASK 21 does not extend this oracle to the full population. It finds exact TASK 19 matches for 57 ASM-only and 2,373 JaCoCo-only full-suite edges, while most population differences remain causally unexplained. Its separate selector replay strengthens the migration recommendation; it does not prove every ASM-only edge correct or every JaCoCo-only edge wrong. See [the TASK 21 population report](task21-full-spring-core-asm-vs-evaluation.md).
+
 ## Scope and experiment
 
 TASK 19 adds execution truth to the earlier repeatability comparison. It uses Spring Framework `99a366baf6640b275d08dde60f05da719139bb6a`, `:spring-core:test`, Gradle 8.14.2, and JDK 21.0.11. Spring source was not modified and selector semantics were not started.

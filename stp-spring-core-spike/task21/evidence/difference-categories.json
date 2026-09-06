@@ -1,0 +1,85 @@
+{
+  "categories": {
+    "ASYNC": {
+      "asmOnly": 12,
+      "jacocoOnly": 98,
+      "percentageOfAllDifferences": 0.435075,
+      "testsAffected": 29
+    },
+    "CONCURRENT_REFERENCE_HASH_MAP": {
+      "asmOnly": 1318,
+      "jacocoOnly": 3329,
+      "percentageOfAllDifferences": 18.379939,
+      "testsAffected": 1336
+    },
+    "CONSTRUCTOR": {
+      "asmOnly": 42,
+      "jacocoOnly": 10399,
+      "percentageOfAllDifferences": 41.296523,
+      "testsAffected": 1055
+    },
+    "ENUM_GENERATED": {
+      "asmOnly": 38,
+      "jacocoOnly": 1,
+      "percentageOfAllDifferences": 0.154254,
+      "testsAffected": 28
+    },
+    "GENERATED_PROXY": {
+      "asmOnly": 32,
+      "jacocoOnly": 177,
+      "percentageOfAllDifferences": 0.826642,
+      "testsAffected": 172
+    },
+    "LATE_RELATED": {
+      "asmOnly": 0,
+      "jacocoOnly": 109,
+      "percentageOfAllDifferences": 0.43112,
+      "testsAffected": 109
+    },
+    "ORDINARY": {
+      "asmOnly": 432,
+      "jacocoOnly": 8878,
+      "percentageOfAllDifferences": 36.823162,
+      "testsAffected": 847
+    },
+    "OTHER": {
+      "asmOnly": 0,
+      "jacocoOnly": 0,
+      "percentageOfAllDifferences": 0.0,
+      "testsAffected": 0
+    },
+    "RECORD_GENERATED": {
+      "asmOnly": 12,
+      "jacocoOnly": 18,
+      "percentageOfAllDifferences": 0.118657,
+      "testsAffected": 21
+    },
+    "REFLECTION_BRIDGE_METHOD_RESOLVER": {
+      "asmOnly": 6,
+      "jacocoOnly": 50,
+      "percentageOfAllDifferences": 0.221493,
+      "testsAffected": 23
+    },
+    "SETUP_LIFECYCLE": {
+      "asmOnly": 2,
+      "jacocoOnly": 46,
+      "percentageOfAllDifferences": 0.189851,
+      "testsAffected": 48
+    },
+    "STATIC_INITIALIZATION": {
+      "asmOnly": 5,
+      "jacocoOnly": 54,
+      "percentageOfAllDifferences": 0.233358,
+      "testsAffected": 26
+    },
+    "SYNTHETIC_BRIDGE": {
+      "asmOnly": 30,
+      "jacocoOnly": 195,
+      "percentageOfAllDifferences": 0.889926,
+      "testsAffected": 221
+    }
+  },
+  "classificationNature": "structural, not causal proof",
+  "schemaVersion": "task21-difference-categories-1",
+  "totalDifferingEdges": 25283
+}
