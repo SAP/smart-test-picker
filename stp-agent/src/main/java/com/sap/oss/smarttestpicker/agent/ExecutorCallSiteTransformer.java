@@ -26,6 +26,15 @@ final class ExecutorCallSiteTransformer implements ClassFileTransformer {
 			"java/util/concurrent/ExecutorService");
 	private static final String RUNNABLE = "Ljava/lang/Runnable;";
 	private static final String CALLABLE = "Ljava/util/concurrent/Callable;";
+	private static final String EXECUTOR = "Ljava/util/concurrent/Executor;";
+	private static final String FUTURE = "Ljava/util/concurrent/Future;";
+	private static final String FORK_JOIN_TASK = "Ljava/util/concurrent/ForkJoinTask;";
+	private static final String COMPLETABLE_FUTURE = "Ljava/util/concurrent/CompletableFuture;";
+	private static final String SUPPLIER = "Ljava/util/function/Supplier;";
+	private static final String FUNCTION = "Ljava/util/function/Function;";
+	private static final String SCHEDULED_EXECUTOR = "Ljava/util/concurrent/ScheduledExecutorService;";
+	private static final String SCHEDULED_FUTURE = "Ljava/util/concurrent/ScheduledFuture;";
+	private static final String TIME_UNIT = "Ljava/util/concurrent/TimeUnit;";
 	private final Consumer<String> errorSink;
 
 	ExecutorCallSiteTransformer(Consumer<String> errorSink) {
@@ -46,9 +55,26 @@ final class ExecutorCallSiteTransformer implements ClassFileTransformer {
 				for (AbstractInsnNode instruction = method.instructions.getFirst(); instruction != null;
 						instruction = instruction.getNext()) {
 					if (!(instruction instanceof MethodInsnNode call)) continue;
-					if (unsupportedAsyncShape(call)) {
-						errorSink.accept("executor-attribution-unsupported:" + className.replace('/', '.') + ":"
-								+ call.owner.replace('/', '.') + "." + call.name + call.desc);
+					InsnList threadWrapping = threadWrapping(call);
+					if (threadWrapping != null) {
+						method.instructions.insertBefore(call, threadWrapping);
+						changed = true;
+						continue;
+					}
+					MethodInsnNode scheduled = scheduledBridge(call, hierarchy);
+					if (scheduled != null) {
+						call.setOpcode(Opcodes.INVOKESTATIC);
+						call.owner = scheduled.owner;
+						call.name = scheduled.name;
+						call.desc = scheduled.desc;
+						call.itf = false;
+						changed = true;
+						continue;
+					}
+					InsnList completableFutureWrapping = completableFutureWrapping(call);
+					if (completableFutureWrapping != null) {
+						method.instructions.insertBefore(call, completableFutureWrapping);
+						changed = true;
 						continue;
 					}
 					if (!executorShape(call)) continue;
@@ -77,25 +103,58 @@ final class ExecutorCallSiteTransformer implements ClassFileTransformer {
 		}
 	}
 
-	private static boolean unsupportedAsyncShape(MethodInsnNode call) {
-		return call.owner.equals("java/util/concurrent/CompletableFuture")
-				&& (call.name.equals("runAsync") || call.name.equals("supplyAsync"))
-				&& call.desc.contains("Ljava/util/concurrent/Executor;");
+	private MethodInsnNode scheduledBridge(MethodInsnNode call, Hierarchy hierarchy) {
+		String bridgeDescriptor;
+		if (call.name.equals("schedule") && call.desc.equals("(" + RUNNABLE + "J" + TIME_UNIT + ")" + SCHEDULED_FUTURE)) {
+			bridgeDescriptor = "(" + SCHEDULED_EXECUTOR + RUNNABLE + "J" + TIME_UNIT + ")" + SCHEDULED_FUTURE;
+		} else if (call.name.equals("schedule") && call.desc.equals("(" + CALLABLE + "J" + TIME_UNIT + ")" + SCHEDULED_FUTURE)) {
+			bridgeDescriptor = "(" + SCHEDULED_EXECUTOR + CALLABLE + "J" + TIME_UNIT + ")" + SCHEDULED_FUTURE;
+		} else if ((call.name.equals("scheduleAtFixedRate") || call.name.equals("scheduleWithFixedDelay"))
+				&& call.desc.equals("(" + RUNNABLE + "JJ" + TIME_UNIT + ")" + SCHEDULED_FUTURE)) {
+			bridgeDescriptor = "(" + SCHEDULED_EXECUTOR + RUNNABLE + "JJ" + TIME_UNIT + ")" + SCHEDULED_FUTURE;
+		} else return null;
+		Resolution resolution = hierarchy.scheduledExecutor(call.owner);
+		if (resolution == Resolution.UNKNOWN) errorSink.accept("scheduled-executor-attribution-incomplete:"
+				+ call.owner.replace('/', '.') + "." + call.name + call.desc);
+		if (resolution != Resolution.YES) return null;
+		return new MethodInsnNode(Opcodes.INVOKESTATIC, HOOK, call.name, bridgeDescriptor, false);
+	}
+
+	private static InsnList threadWrapping(MethodInsnNode call) {
+		boolean direct = call.owner.equals("java/lang/Thread") && call.name.equals("<init>")
+				&& (call.desc.equals("(" + RUNNABLE + ")V") || call.desc.equals("(Ljava/lang/ThreadGroup;" + RUNNABLE + ")V"));
+		boolean beforeReference = call.owner.equals("java/lang/Thread") && call.name.equals("<init>")
+				&& (call.desc.equals("(" + RUNNABLE + "Ljava/lang/String;)V")
+				|| call.desc.equals("(Ljava/lang/ThreadGroup;" + RUNNABLE + "Ljava/lang/String;)V"));
+		boolean virtual = call.name.equals("startVirtualThread") && call.owner.equals("java/lang/Thread")
+				&& call.desc.equals("(" + RUNNABLE + ")Ljava/lang/Thread;");
+		boolean virtualBuilder = call.name.equals("start") && call.owner.startsWith("java/lang/Thread$Builder")
+				&& call.desc.equals("(" + RUNNABLE + ")Ljava/lang/Thread;");
+		if (!direct && !beforeReference && !virtual && !virtualBuilder) return null;
+		InsnList result = new InsnList();
+		if (beforeReference) result.add(new InsnNode(Opcodes.SWAP));
+		result.add(new MethodInsnNode(Opcodes.INVOKESTATIC, HOOK, "wrap", "(" + RUNNABLE + ")" + RUNNABLE, false));
+		if (beforeReference) result.add(new InsnNode(Opcodes.SWAP));
+		return result;
 	}
 
 	private static boolean executorShape(MethodInsnNode call) {
-		return ((call.name.equals("execute") || call.name.equals("submit"))
-				&& call.desc.startsWith("(" + RUNNABLE))
-				|| (call.name.equals("submit") && call.desc.startsWith("(" + CALLABLE));
+		return (call.name.equals("execute") && call.desc.equals("(" + RUNNABLE + ")V"))
+				|| (call.name.equals("submit") && (call.desc.equals("(" + RUNNABLE + ")" + FUTURE)
+				|| call.desc.equals("(" + RUNNABLE + "Ljava/lang/Object;)" + FUTURE)
+				|| call.desc.equals("(" + CALLABLE + ")" + FUTURE)
+				|| call.desc.equals("(" + RUNNABLE + ")" + FORK_JOIN_TASK)
+				|| call.desc.equals("(" + RUNNABLE + "Ljava/lang/Object;)" + FORK_JOIN_TASK)
+				|| call.desc.equals("(" + CALLABLE + ")" + FORK_JOIN_TASK)));
 	}
 
 	private static InsnList wrapping(MethodInsnNode call) {
 		InsnList result = new InsnList();
 		if ((call.name.equals("execute") || call.name.equals("submit")) && call.desc.startsWith("(" + RUNNABLE)) {
-			if (call.desc.startsWith("(" + RUNNABLE + "Ljava/lang/Object;")) result.add(new InsnNode(Opcodes.SWAP));
+			if (twoArgumentRunnable(call.desc)) result.add(new InsnNode(Opcodes.SWAP));
 			result.add(new MethodInsnNode(Opcodes.INVOKESTATIC, HOOK, "wrap",
 					"(" + RUNNABLE + ")" + RUNNABLE, false));
-			if (call.desc.startsWith("(" + RUNNABLE + "Ljava/lang/Object;")) result.add(new InsnNode(Opcodes.SWAP));
+			if (twoArgumentRunnable(call.desc)) result.add(new InsnNode(Opcodes.SWAP));
 			return result;
 		}
 		if (call.name.equals("submit") && call.desc.startsWith("(" + CALLABLE)) {
@@ -106,8 +165,44 @@ final class ExecutorCallSiteTransformer implements ClassFileTransformer {
 		return null;
 	}
 
+	private static boolean twoArgumentRunnable(String descriptor) {
+		return descriptor.equals("(" + RUNNABLE + "Ljava/lang/Object;)" + FUTURE)
+				|| descriptor.equals("(" + RUNNABLE + "Ljava/lang/Object;)" + FORK_JOIN_TASK);
+	}
+
+	private static InsnList completableFutureWrapping(MethodInsnNode call) {
+		if (!call.owner.equals("java/util/concurrent/CompletableFuture")) return null;
+		String argument;
+		if (call.name.equals("runAsync") && (call.desc.equals("(" + RUNNABLE + ")" + COMPLETABLE_FUTURE)
+				|| call.desc.equals("(" + RUNNABLE + EXECUTOR + ")" + COMPLETABLE_FUTURE))) {
+			argument = RUNNABLE;
+		} else if (call.name.equals("supplyAsync") && (call.desc.equals("(" + SUPPLIER + ")" + COMPLETABLE_FUTURE)
+				|| call.desc.equals("(" + SUPPLIER + EXECUTOR + ")" + COMPLETABLE_FUTURE))) {
+			argument = SUPPLIER;
+		} else if (call.name.equals("thenRunAsync") && (call.desc.equals("(" + RUNNABLE + ")" + COMPLETABLE_FUTURE)
+				|| call.desc.equals("(" + RUNNABLE + EXECUTOR + ")" + COMPLETABLE_FUTURE))) {
+			argument = RUNNABLE;
+		} else if (call.name.equals("thenApplyAsync") && (call.desc.equals("(" + FUNCTION + ")" + COMPLETABLE_FUTURE)
+				|| call.desc.equals("(" + FUNCTION + EXECUTOR + ")" + COMPLETABLE_FUTURE))) {
+			argument = FUNCTION;
+		} else {
+			return null;
+		}
+
+		InsnList result = new InsnList();
+		boolean explicitExecutor = call.desc.contains(EXECUTOR);
+		if (explicitExecutor) result.add(new InsnNode(Opcodes.SWAP));
+		String hookMethod = argument.equals(SUPPLIER) ? "wrapSupplier"
+				: argument.equals(FUNCTION) ? "wrapFunction" : "wrap";
+		result.add(new MethodInsnNode(Opcodes.INVOKESTATIC, HOOK, hookMethod,
+				"(" + argument + ")" + argument, false));
+		if (explicitExecutor) result.add(new InsnNode(Opcodes.SWAP));
+		return result;
+	}
+
 	private static boolean excluded(String name) {
 		return name.startsWith("java/") || name.startsWith("jdk/") || name.startsWith("sun/")
+				|| name.startsWith("org/gradle/")
 				|| name.startsWith("com/sap/oss/smarttestpicker/") || name.startsWith("org/objectweb/asm/")
 				|| name.startsWith("com/sap/oss/smarttestpicker/internal/asm/");
 	}
@@ -126,6 +221,40 @@ final class ExecutorCallSiteTransformer implements ClassFileTransformer {
 
 		private Resolution executor(String owner) {
 			return executor(owner, new HashSet<>());
+		}
+
+		private Resolution scheduledExecutor(String owner) {
+			return subtype(owner, "java/util/concurrent/ScheduledExecutorService", new HashSet<>());
+		}
+
+		private Resolution subtype(String owner, String root, Set<String> visited) {
+			if (owner.equals(root)) return Resolution.YES;
+			if (!visited.add(owner) || owner.equals("java/lang/Object")) return Resolution.NO;
+			try {
+				ClassReader reader;
+				if (owner.equals(current.name)) return subtypeParents(current.superName, current.interfaces, root, visited);
+				try (InputStream bytes = loader.getResourceAsStream(owner + ".class")) {
+					if (bytes == null) return Resolution.UNKNOWN;
+					reader = new ClassReader(bytes);
+				}
+				return subtypeParents(reader.getSuperName(), java.util.Arrays.asList(reader.getInterfaces()), root, visited);
+			} catch (Throwable ignored) { return Resolution.UNKNOWN; }
+		}
+
+		private Resolution subtypeParents(String superclass, java.util.List<String> interfaces, String root,
+				Set<String> visited) {
+			boolean unknown = false;
+			for (String parent : interfaces) {
+				Resolution result = subtype(parent, root, visited);
+				if (result == Resolution.YES) return result;
+				unknown |= result == Resolution.UNKNOWN;
+			}
+			if (superclass != null) {
+				Resolution result = subtype(superclass, root, visited);
+				if (result == Resolution.YES) return result;
+				unknown |= result == Resolution.UNKNOWN;
+			}
+			return unknown ? Resolution.UNKNOWN : Resolution.NO;
 		}
 
 		private Resolution executor(String owner, Set<String> visited) {
