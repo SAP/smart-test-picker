@@ -1,0 +1,1 @@
+{"schemaVersion":1,"revision":"task24-revision","shardId":"fixture-empty","tests":{"com.example.EmptyTest#empty":{"classes":[],"methods":[],"outcome":"PASS","collectionStatus":"COLLECTED_EMPTY"}},"unmapped":[],"setupScopes":[],"collection":{"completed":true}}

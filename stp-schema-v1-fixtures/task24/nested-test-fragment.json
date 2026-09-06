@@ -1,0 +1,1 @@
+{"schemaVersion":1,"revision":"task24-revision","shardId":"fixture-nested","tests":{"com.example.OuterTest$Inner#nested test !?":{"classes":["com.example.NestedService"],"methods":["com.example.NestedService#run"],"outcome":"PASS","collectionStatus":"COLLECTED_WITH_COVERAGE"}},"unmapped":[],"setupScopes":[],"collection":{"completed":true}}

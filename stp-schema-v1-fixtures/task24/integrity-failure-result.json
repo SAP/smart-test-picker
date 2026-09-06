@@ -1,0 +1,1 @@
+{"diagnostics":["transformation-error:com.example.RequiredClass"],"fragment":{"schemaVersion":1,"revision":"task24-revision","shardId":"fixture-integrity","tests":{},"unmapped":[{"test":"com.example.BrokenTest#test","reason":"COLLECTION_FAILED"}],"setupScopes":[],"collection":{"completed":false}}}

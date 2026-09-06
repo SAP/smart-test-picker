@@ -1,0 +1,1 @@
+{"schemaVersion":1,"revision":"task24-revision","shardId":"fixture-ordinary","tests":{"com.example.PriceTest#calculates":{"classes":["com.example.PriceService"],"methods":["com.example.PriceService#calculate"],"outcome":"PASS","collectionStatus":"COLLECTED_WITH_COVERAGE"}},"unmapped":[],"setupScopes":[],"collection":{"completed":true}}

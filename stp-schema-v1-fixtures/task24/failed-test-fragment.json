@@ -1,0 +1,1 @@
+{"schemaVersion":1,"revision":"task24-revision","shardId":"fixture-failed","tests":{"com.example.FailureTest#fails":{"classes":["com.example.Service"],"methods":["com.example.Service#run"],"outcome":"FAIL","collectionStatus":"COLLECTED_WITH_COVERAGE"}},"unmapped":[],"setupScopes":[],"collection":{"completed":true}}
