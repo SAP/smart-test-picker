@@ -67,6 +67,20 @@ The expected future strategy is to promote or rename `research/asm-codex` to the
 - Final `git diff --check`: PASS.
 - Final working tree before tag/push: clean.
 
+## ROUND 18 closure baseline
+
+- Starting HEAD: `2a61dd25f8c08517052508da054e0a57240149f4` (the completed ROUND 17 evidence boundary).
+- Protected historical tag: `asm-spring-stability-baseline` remains at `67ce76bb877e6aa87f34bd3be87677532f2206d0`.
+- Production-candidate code changed during closure: NO.
+- JDK 21 full regression: PASS, `./gradlew test --rerun-tasks`, 57 actionable tasks.
+- Tracked large-file policy: PASS; no tracked file exceeds 5 MiB.
+- Coverage-attribution research: CLOSED at the final evidence boundary.
+- Collector correctness defect unresolved: NO known defect.
+- Task 5c: ready for the user's final DONE decision.
+- Recommended next work: 5b Selector semantics; 5b remains NOT STARTED.
+
+The annotated tag `asm-coverage-research-final` identifies the commit containing this closure record and uses message `Final ASM coverage mapping research baseline before selector semantics`.
+
 ## ROUND 16 commit list
 
 Commits created from the prior `64c2636` cutoff, in chronological order:
