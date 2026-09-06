@@ -31,3 +31,9 @@ Round 2 showed bootstrap work present in JaCoCo test intervals but globally obse
 - **JaCoCo:** optional validation, reference, project-coverage, and diagnostic source.
 
 Selector correctness must be defined against selector semantics and the documented ASM observation contract. It must not depend on bit equality between ASM and JaCoCo per-test maps.
+
+## TASK 19 empirical accuracy layer
+
+TASK 19 compares both collectors with a JVMTI `MethodEntry` oracle and an independent JUnit lifecycle recorder in the same physical execution, one selected leaf per fresh worker. In 42 sampled Spring tests representing 2,795 historical divergent edges, ASM had 2,955 TP, 0 FP, and 0 FN after 49 cross-thread ownership ambiguities were excluded. JaCoCo had 2,898 TP, 2,373 FP, and 57 FN. The dominant difference was JaCoCo reset-boundary attribution of pre-leaf JVM work; its remaining misses were physical entries not represented as covered by its probe/instruction model.
+
+This establishes `ASM_CLEARLY_BETTER` for the bounded sample and current ownership policy, not for the entire historical population. Late handling remains insufficiently evidenced by the Spring sample, and JVMTI changed a two-method cache path in one of four observer controls. See [the TASK 19 validation](asm-vs-jacoco-accuracy-validation.md) and [oracle design](task19-execution-oracle-design.md).
