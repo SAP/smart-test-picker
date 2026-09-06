@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.mapper;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 
 /**
@@ -40,13 +40,13 @@ public class CoverageMap
 
 	public CoverageMap()
 	{
-		this.testMappings = new HashMap<>();
+		this.testMappings = new TreeMap<>();
 	}
 
 	public CoverageMap(CoverageMapMetadata metadata, Map<String, Map<String, List<String>>> testMappings)
 	{
 		this.metadata = metadata;
-		this.testMappings = testMappings;
+		this.testMappings = new TreeMap<>(testMappings);
 	}
 
 	public CoverageMapMetadata getMetadata()
@@ -66,7 +66,7 @@ public class CoverageMap
 
 	public void setTestMappings(Map<String, Map<String, List<String>>> testMappings)
 	{
-		this.testMappings = testMappings;
+		this.testMappings = new TreeMap<>(testMappings);
 	}
 
 	public Map<String, ClassCoverageMetrics> getClassMetrics()

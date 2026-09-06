@@ -11,9 +11,9 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.zip.GZIPInputStream;
 
 import com.google.gson.Gson;
@@ -102,7 +102,7 @@ public class CoverageMapReader
 			methodIndex.add(el.getAsString());
 		}
 
-		Map<String, Map<String, List<String>>> testMappings = new HashMap<>();
+		Map<String, Map<String, List<String>>> testMappings = new TreeMap<>();
 		JsonObject mappings = root.getAsJsonObject("testMappings");
 
 		for (String testName : mappings.keySet())
@@ -127,7 +127,7 @@ public class CoverageMapReader
 				}
 			}
 
-			Map<String, List<String>> coverage = new HashMap<>();
+			Map<String, List<String>> coverage = new TreeMap<>();
 			coverage.put("classes", classes);
 			coverage.put("methods", methods);
 			testMappings.put(testName, coverage);
