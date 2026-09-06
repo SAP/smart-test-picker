@@ -25,6 +25,7 @@ public final class RuntimeContextService {
 	private final ThreadLocal<TestExecutionContext> current = new ThreadLocal<>();
 	private final ThreadLocal<TestIdentity> lastFinished = new ThreadLocal<>();
 	private final ThreadLocal<Deque<TaskIdentity>> currentTasks = ThreadLocal.withInitial(ArrayDeque::new);
+	private final ThreadLocal<Deque<ContainerIdentity>> currentContainers = ThreadLocal.withInitial(ArrayDeque::new);
 	private final AtomicLong logicalContexts = new AtomicLong();
 	private final boolean debug;
 
@@ -59,7 +60,8 @@ public final class RuntimeContextService {
 			aggregator.endTest(identity, result);
 		} finally {
 			current.remove();
-			lastFinished.set(identity);
+			// Once a leaf ends, a still-active container owns synchronous lifecycle work such as AfterAll.
+			if (currentContainers.get().isEmpty()) lastFinished.set(identity); else lastFinished.remove();
 		}
 	}
 
@@ -172,9 +174,30 @@ public final class RuntimeContextService {
 		TestIdentity finished = lastFinished.get();
 		if (finished != null) {
 			aggregator.record(finished, event);
+		} else if (event instanceof com.sap.oss.smarttestpicker.runtime.model.MethodHitEvent method
+				&& !currentContainers.get().isEmpty()) {
+			ContainerIdentity container = currentContainers.get().peek();
+			aggregator.recordSetup(container.binaryName(), container.nested(), method);
 		} else {
 			aggregator.recordUnattributed(UnattributedReason.NO_ACTIVE_TEST, event);
 		}
+	}
+
+	public void beginContainer(String uniqueId, String binaryName, boolean nested) {
+		currentContainers.get().push(new ContainerIdentity(uniqueId, binaryName, nested));
+		lastFinished.remove();
+	}
+
+	public void recordUnsupportedSetup(SetupDiagnostic.Kind kind,
+			com.sap.oss.smarttestpicker.runtime.model.MethodIdentity method, String detail) {
+		aggregator.recordSetupDiagnostic(new SetupDiagnostic(kind, SetupDiagnostic.Severity.ERROR, method, detail));
+	}
+
+	public void endContainer(String uniqueId) {
+		Deque<ContainerIdentity> values = currentContainers.get();
+		if (!values.isEmpty() && values.peek().uniqueId().equals(uniqueId)) values.pop();
+		else values.removeIf(value -> value.uniqueId().equals(uniqueId));
+		if (values.isEmpty()) currentContainers.remove();
 	}
 
 	public RuntimeEventAggregator aggregator() {
@@ -193,6 +216,7 @@ public final class RuntimeContextService {
 	}
 
 	public record TaskIdentity(String className, int identityHash) {}
+	private record ContainerIdentity(String uniqueId, String binaryName, boolean nested) {}
 	public record DiagnosticContext(TestIdentity testIdentity, Long logicalContextId, TaskIdentity task,
 			boolean ownerFinished) {}
 

@@ -18,11 +18,20 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.RepetitionInfo;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.junit.jupiter.api.TestFactory;
+import org.junit.jupiter.api.TestTemplate;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.TestTemplateInvocationContext;
+import org.junit.jupiter.api.extension.TestTemplateInvocationContextProvider;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 final class FixtureEvents {
 	static RuntimeContextService runtime;
@@ -88,6 +97,26 @@ class DynamicFixtureSuite {
 	}
 }
 
+class TemplateFixtureSuite {
+	@TestTemplate
+	@ExtendWith(TwoInvocations.class)
+	void template() {
+		FixtureEvents.hit("template");
+	}
+}
+
+class TwoInvocations implements TestTemplateInvocationContextProvider {
+	@Override public boolean supportsTestTemplate(ExtensionContext context) { return true; }
+	@Override public Stream<TestTemplateInvocationContext> provideTestTemplateInvocationContexts(ExtensionContext context) {
+		return Stream.of(invocation("one"), invocation("two"));
+	}
+	private static TestTemplateInvocationContext invocation(String name) {
+		return new TestTemplateInvocationContext() {
+			@Override public String getDisplayName(int invocationIndex) { return name; }
+		};
+	}
+}
+
 class NestedFixtureSuite {
 	@Nested
 	class Inner {
@@ -137,3 +166,13 @@ class SequentialFixtureSuite {
 	}
 }
 
+class OverloadedTestFixtureSuite {
+	@Test void overloaded() { FixtureEvents.hit("overloadedZero"); }
+	@Test void overloaded(TestInfo ignored) { FixtureEvents.hit("overloadedInfo"); }
+}
+
+@Execution(ExecutionMode.CONCURRENT)
+class ParallelFixtureSuite {
+	@Test void first() { FixtureEvents.hit("parallelFirst"); }
+	@Test void second() { FixtureEvents.hit("parallelSecond"); }
+}

@@ -10,6 +10,7 @@ import com.sap.oss.smarttestpicker.runtime.model.TestResult;
 import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.engine.UniqueId;
 import org.junit.platform.engine.support.descriptor.MethodSource;
+import org.junit.platform.engine.support.descriptor.ClassSource;
 import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestIdentifier;
 
@@ -23,6 +24,8 @@ public final class StpRuntimeTestExecutionListener implements TestExecutionListe
 	private final RuntimeContextService runtime;
 	private final Map<String, TestIdentity> started = new ConcurrentHashMap<>();
 	private final Set<String> finished = ConcurrentHashMap.newKeySet();
+	private final Map<String, MethodSource> methodSources = new ConcurrentHashMap<>();
+	private final Map<String, String> containers = new ConcurrentHashMap<>();
 
 	/** Used only by JUnit Platform ServiceLoader discovery. An empty registry is a no-op. */
 	public StpRuntimeTestExecutionListener() {
@@ -35,7 +38,15 @@ public final class StpRuntimeTestExecutionListener implements TestExecutionListe
 
 	@Override
 	public void executionStarted(TestIdentifier identifier) {
-		if (runtime == null || !identifier.isTest()) return;
+		if (runtime == null) return;
+		identifier.getSource().filter(MethodSource.class::isInstance).map(MethodSource.class::cast)
+				.ifPresent(source -> methodSources.put(identifier.getUniqueId(), source));
+		identifier.getSource().filter(ClassSource.class::isInstance).map(ClassSource.class::cast)
+				.ifPresent(source -> {
+					containers.put(identifier.getUniqueId(), source.getClassName());
+					runtime.beginContainer(identifier.getUniqueId(), source.getClassName(), source.getClassName().contains("$"));
+				});
+		if (!identifier.isTest()) return;
 		String uniqueId = identifier.getUniqueId();
 		if (finished.contains(uniqueId)) return;
 		TestIdentity identity = identity(identifier);
@@ -50,7 +61,11 @@ public final class StpRuntimeTestExecutionListener implements TestExecutionListe
 
 	@Override
 	public void executionFinished(TestIdentifier identifier, TestExecutionResult executionResult) {
-		if (runtime == null || !identifier.isTest()) return;
+		if (runtime == null) return;
+		if (!identifier.isTest()) {
+			if (containers.remove(identifier.getUniqueId()) != null) runtime.endContainer(identifier.getUniqueId());
+			return;
+		}
 		String uniqueId = identifier.getUniqueId();
 		TestIdentity identity = started.remove(uniqueId);
 		if (identity == null || !finished.add(uniqueId)) return;
@@ -60,10 +75,21 @@ public final class StpRuntimeTestExecutionListener implements TestExecutionListe
 	private TestIdentity identity(TestIdentifier identifier) {
 		Optional<MethodSource> source = identifier.getSource()
 				.filter(MethodSource.class::isInstance).map(MethodSource.class::cast);
+		if (source.isEmpty()) source = nearestMethodSource(identifier.getUniqueId());
 		return new TestIdentity(identifier.getUniqueId(), identifier.getDisplayName(),
 				source.map(MethodSource::getClassName).orElse(null),
-				source.map(MethodSource::getMethodName).orElse(null), engineId(identifier.getUniqueId()),
+				source.map(MethodSource::getMethodName).orElse(null),
+				source.map(MethodSource::getMethodParameterTypes).orElse(null), engineId(identifier.getUniqueId()),
 				runtime.runId(), runtime.jvmId());
+	}
+
+	private Optional<MethodSource> nearestMethodSource(String uniqueId) {
+		return methodSources.entrySet().stream().filter(entry -> isAncestor(entry.getKey(), uniqueId))
+				.max(java.util.Comparator.comparingInt(entry -> entry.getKey().length())).map(Map.Entry::getValue);
+	}
+
+	private static boolean isAncestor(String candidate, String uniqueId) {
+		return uniqueId.startsWith(candidate + "/");
 	}
 
 	private static String engineId(String uniqueId) {

@@ -6,6 +6,9 @@ import com.sap.oss.smarttestpicker.runtime.RuntimeContextService;
 import com.sap.oss.smarttestpicker.runtime.RuntimeContextRegistry;
 import com.sap.oss.smarttestpicker.runtime.RuntimeEventAggregator;
 import com.sap.oss.smarttestpicker.runtime.RuntimeJsonSerializer;
+import com.sap.oss.smarttestpicker.runtime.AsmCoverageFragmentProjector;
+import com.sap.oss.smarttestpicker.runtime.CollectorIntegrity;
+import com.sap.oss.smarttestpicker.runtime.FragmentProjectionConfig;
 import com.sap.oss.smarttestpicker.runtime.model.Certainty;
 import com.sap.oss.smarttestpicker.runtime.model.Evidence;
 import com.sap.oss.smarttestpicker.runtime.model.EvidenceSource;
@@ -70,10 +73,42 @@ class StpRuntimeTestExecutionListenerTest {
 
 	@Test
 	void dynamicTestsAreSeparate() {
-		String json = execute(DynamicFixtureSuite.class).json();
+		Run run = execute(DynamicFixtureSuite.class);
+		String json = run.json();
 		assertTrue(json.contains("dynamic-a"));
 		assertTrue(json.contains("dynamic-b"));
 		assertEquals(2, occurrences(json, "\"testId\""));
+		var fragment = project(run);
+		var factory = new com.sap.oss.smarttestpicker.coverage.model.TestIdentity(
+				DynamicFixtureSuite.class.getName(), "dynamicTests");
+		assertEquals(1, fragment.tests().size());
+		assertEquals(2, fragment.tests().get(factory).coveredMethods().size());
+	}
+
+	@Test
+	void testTemplateInvocationsCollapseToDeclaredMethod() {
+		var fragment = project(execute(TemplateFixtureSuite.class));
+		assertEquals(1, fragment.tests().size());
+		assertTrue(fragment.tests().containsKey(new com.sap.oss.smarttestpicker.coverage.model.TestIdentity(
+				TemplateFixtureSuite.class.getName(), "template")));
+	}
+
+	@Test
+	void overloadedJunitMethodsRemainDistinctByMethodSourceParameterTypes() {
+		var fragment = project(execute(OverloadedTestFixtureSuite.class));
+		assertEquals(2, fragment.tests().size());
+		assertTrue(fragment.tests().containsKey(new com.sap.oss.smarttestpicker.coverage.model.TestIdentity(
+				OverloadedTestFixtureSuite.class.getName(), "overloaded")));
+		assertTrue(fragment.tests().containsKey(new com.sap.oss.smarttestpicker.coverage.model.TestIdentity(
+				OverloadedTestFixtureSuite.class.getName(), "overloaded", "org.junit.jupiter.api.TestInfo")));
+	}
+
+	@Test
+	void parallelJunitLeavesRetainIndependentOwnership() {
+		var fragment = project(executeParallel(ParallelFixtureSuite.class));
+		assertEquals(2, fragment.tests().size());
+		assertTrue(fragment.collectionCompleted());
+		assertTrue(fragment.tests().values().stream().allMatch(coverage -> coverage.coveredMethods().size() == 1));
 	}
 
 	@Test
@@ -89,10 +124,22 @@ class StpRuntimeTestExecutionListenerTest {
 		assertEquals(1, occurrences(json, "\"testId\""));
 		assertTrue(json.contains("fixture.Target#lifecycleBeforeEach()V"));
 		assertTrue(json.contains("fixture.Target#lifecycleAfterEach()V"));
-		assertTrue(json.contains("\"reason\":\"NO_ACTIVE_TEST\""));
-		assertTrue(json.contains("\"reason\":\"LATE_EVENT\""));
+		assertFalse(json.contains("fixture.Target#afterAll()V\",\"evidence"));
 		assertFalse(testDependencySection(json).contains("fixture.Target#beforeAll()V"));
 		assertFalse(testDependencySection(json).contains("fixture.Target#afterAll()V"));
+	}
+
+	@Test
+	void beforeAllIsRepresentedOnlyForItsActualContainer() {
+		Run run = execute(LifecycleFixtureSuite.class);
+		var fragment = project(run);
+		assertEquals(1, fragment.setupScopes().size());
+		assertEquals(LifecycleFixtureSuite.class.getName(), fragment.setupScopes().get(0)
+				.affectedContainers().iterator().next().binaryName());
+		assertEquals(java.util.Set.of("fixture.Target"), fragment.setupScopes().get(0).coveredClasses());
+		assertTrue(run.runtime.aggregator().snapshot().setup().get(0).methods().stream()
+				.anyMatch(method -> method.methodName().equals("afterAll")));
+		assertFalse(testDependencySection(run.json()).contains("fixture.Target#afterAll()V"));
 	}
 
 	@Test
@@ -102,7 +149,7 @@ class StpRuntimeTestExecutionListenerTest {
 		String json = run.json();
 		assertTrue(json.contains("fixture.Target#firstOnly()V"));
 		assertTrue(json.contains("fixture.Target#secondOnly()V"));
-		assertTrue(json.contains("\"reason\":\"LATE_EVENT\""));
+		assertTrue(json.contains("\"reason\":\"NO_ACTIVE_TEST\""));
 		assertTrue(json.contains("fixture.Target#afterLauncher()V"));
 	}
 
@@ -189,6 +236,17 @@ class StpRuntimeTestExecutionListenerTest {
 		return new Run(runtime);
 	}
 
+	private static Run executeParallel(Class<?> fixture) {
+		RuntimeContextService runtime = newRuntime();
+		FixtureEvents.runtime = runtime;
+		Launcher launcher = LauncherFactory.create();
+		launcher.registerTestExecutionListeners(new StpRuntimeTestExecutionListener(runtime));
+		launcher.execute(LauncherDiscoveryRequestBuilder.request().selectors(selectClass(fixture))
+				.configurationParameter("junit.jupiter.execution.parallel.enabled", "true")
+				.configurationParameter("junit.jupiter.execution.parallel.mode.default", "concurrent").build());
+		return new Run(runtime);
+	}
+
 	private static RuntimeContextService newRuntime() {
 		return new RuntimeContextService(new RuntimeEventAggregator("run-1", "jvm-1"));
 	}
@@ -196,6 +254,11 @@ class StpRuntimeTestExecutionListenerTest {
 	private static MethodHitEvent method(String name) {
 		return new MethodHitEvent(new MethodIdentity("fixture.Target", name, "()V"),
 				new Evidence(EvidenceSource.ASM_METHOD_ENTRY, Certainty.OBSERVED));
+	}
+
+	private static com.sap.oss.smarttestpicker.coverage.model.CoverageFragment project(Run run) {
+		return new AsmCoverageFragmentProjector().project(run.runtime.aggregator().snapshot(),
+				FragmentProjectionConfig.of("revision-24", "shard-1"), CollectorIntegrity.healthy()).fragment();
 	}
 
 	private static String testDependencySection(String json) {

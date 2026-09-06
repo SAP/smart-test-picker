@@ -8,6 +8,7 @@
       "displayName": "value=alpha",
       "testClass": "com.sap.oss.smarttestpicker.junit.ParameterizedFixtureSuite",
       "testMethod": "parameterized",
+      "testMethodParameterTypes": "java.lang.String",
       "engineId": "junit-jupiter",
       "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
       "methods": [
@@ -24,6 +25,7 @@
       "displayName": "value=beta",
       "testClass": "com.sap.oss.smarttestpicker.junit.ParameterizedFixtureSuite",
       "testMethod": "parameterized",
+      "testMethodParameterTypes": "java.lang.String",
       "engineId": "junit-jupiter",
       "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
       "methods": [

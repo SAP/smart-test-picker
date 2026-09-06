@@ -4,6 +4,9 @@ package com.sap.oss.smarttestpicker.agent;
 
 import example.fixture.AgentFixtureMain;
 import example.fixture.AgentJunitStartupFixtureMain;
+import example.fixture.AgentCoverageFragmentFixtureMain;
+import example.instrumented.Calculator;
+import com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec;
 import com.sap.oss.smarttestpicker.junit.StpRuntimeTestExecutionListener;
 import com.sap.oss.smarttestpicker.runtime.RuntimeContextRegistry;
 import com.sap.oss.smarttestpicker.runtime.RuntimeHooks;
@@ -23,6 +26,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
+import java.util.jar.JarEntry;
+import java.util.jar.JarOutputStream;
 import org.junit.platform.engine.TestDescriptor;
 import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.engine.UniqueId;
@@ -48,6 +53,17 @@ class AgentShellTest {
 		assertTrue(configuration.excludes().contains("vendor.lib."));
 		assertEquals("run-7", configuration.runId());
 		assertTrue(configuration.debug());
+	}
+
+	@Test
+	void fragmentBindingInputsAreExplicitAndAtomic() {
+		AgentConfiguration configuration = AgentConfiguration.parse(
+				"fragmentOutput=fragment.json;revision=abc123;shardId=07");
+		assertEquals(Path.of("fragment.json"), configuration.fragmentOutput());
+		assertEquals("abc123", configuration.revision());
+		assertEquals("07", configuration.shardId());
+		assertThrows(IllegalArgumentException.class,
+				() -> AgentConfiguration.parse("fragmentOutput=fragment.json;revision=abc123"));
 	}
 
 	@Test
@@ -148,6 +164,7 @@ class AgentShellTest {
 			assertEquals("false", attributes.getValue("Can-Retransform-Classes"));
 			assertTrue(jar.getEntry("com/sap/oss/smarttestpicker/runtime/model/TestIdentity.class") != null);
 			assertTrue(jar.getEntry("com/sap/oss/smarttestpicker/runtime/RuntimeContextRegistry.class") != null);
+			assertTrue(jar.getEntry("com/sap/oss/smarttestpicker/runtime/RuntimeObservation$PhysicalTest.class") != null);
 			assertTrue(jar.getEntry("com/sap/oss/smarttestpicker/agent/StpAgent.class") != null);
 			assertTrue(jar.stream().noneMatch(entry -> entry.getName().contains("/test/")));
 			assertEquals(1, jar.stream().filter(entry -> entry.getName()
@@ -185,6 +202,34 @@ class AgentShellTest {
 		String json = Files.readString(output);
 		assertTrue(json.contains("premain-before-listener"));
 		assertTrue(json.contains("\"status\":\"SUCCESSFUL\""));
+	}
+
+	@Test
+	void isolatedJvmAgentAndRealJunitProduceSchemaV2FragmentWithoutJacocoConversion() throws Exception {
+		Path shell = temporaryDirectory.resolve("agent-shell.json");
+		Path fragment = temporaryDirectory.resolve("coverage-fragment.json");
+		Path production = isolatedProductionJar();
+		String java = Path.of(System.getProperty("java.home"), "bin", "java").toString();
+		String args = "output=" + shell + ";fragmentOutput=" + fragment
+				+ ";revision=task24-revision;shardId=fixture-1;includes=example.instrumented.;runId=task24-e2e;debug=false";
+		Process process = new ProcessBuilder(java, "-javaagent:" + agentJar() + "=" + args, "-cp",
+				junitFixtureClasspath(), AgentCoverageFragmentFixtureMain.class.getName(), production.toString())
+				.redirectErrorStream(true).start();
+		String output = new String(process.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+		assertEquals(0, process.waitFor(), output);
+		assertTrue(output.contains("coverage-fragment-fixture-ok"), output);
+		assertTrue(Files.isRegularFile(fragment), output + "\n" + (Files.exists(shell) ? Files.readString(shell) : "shell missing"));
+		var decoded = new CoverageFragmentCodec().deserialize(Files.readAllBytes(fragment));
+		assertEquals("task24-revision", decoded.revision().value());
+		assertEquals("fixture-1", decoded.shardId().value());
+		assertTrue(decoded.collectionCompleted());
+		assertEquals(1, decoded.tests().size());
+		assertTrue(decoded.tests().values().iterator().next().coveredMethods().contains(
+				new com.sap.oss.smarttestpicker.coverage.model.MethodIdentity(
+						"example.instrumented.Calculator", "add", "(II)I")));
+		assertTrue(decoded.tests().values().iterator().next().coveredMethods().contains(
+				new com.sap.oss.smarttestpicker.coverage.model.MethodIdentity(
+						"example.instrumented.Calculator", "add", "(JJ)J")));
 	}
 
 	@Test
@@ -310,6 +355,31 @@ class AgentShellTest {
 		entries.add(codeSource(org.junit.platform.commons.JUnitException.class));
 		entries.add(codeSource(org.opentest4j.TestAbortedException.class));
 		return String.join(File.pathSeparator, entries);
+	}
+
+	private static String junitFixtureClasspath() throws URISyntaxException {
+		LinkedHashSet<String> entries = new LinkedHashSet<>();
+		entries.add(codeSource(AgentCoverageFragmentFixtureMain.class));
+		entries.add(agentJar().toString());
+		for (Class<?> type : List.of(org.junit.platform.launcher.TestExecutionListener.class,
+				org.junit.platform.engine.TestExecutionResult.class, org.junit.platform.commons.JUnitException.class,
+				org.junit.jupiter.api.Test.class, org.junit.jupiter.engine.JupiterTestEngine.class,
+				org.opentest4j.TestAbortedException.class, org.apiguardian.api.API.class)) {
+			entries.add(codeSource(type));
+		}
+		return String.join(File.pathSeparator, entries);
+	}
+
+	private Path isolatedProductionJar() throws Exception {
+		Path jar = temporaryDirectory.resolve("production-fixture.jar");
+		String resource = "/" + Calculator.class.getName().replace('.', '/') + ".class";
+		try (var input = Calculator.class.getResourceAsStream(resource);
+				JarOutputStream output = new JarOutputStream(Files.newOutputStream(jar))) {
+			output.putNextEntry(new JarEntry(resource.substring(1)));
+			output.write(input.readAllBytes());
+			output.closeEntry();
+		}
+		return jar;
 	}
 
 	private static String codeSource(Class<?> type) throws URISyntaxException {
