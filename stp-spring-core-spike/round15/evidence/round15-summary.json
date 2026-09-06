@@ -1,0 +1,35 @@
+{
+  "absentRuns": [
+    1,
+    2,
+    3,
+    4,
+    6
+  ],
+  "candidateInsertionOrderEqual": false,
+  "conclusion": "The first observed divergence is the raw Class#getDeclaredMethods array. Its swap propagates unchanged through Spring candidate construction and closes the ROUND 14 causal chain.",
+  "doWithMethodsOrderEqual": false,
+  "finalClassification": "JDK_REFLECTION_ORDER_CAUSE_PROVEN",
+  "firstDivergentStage": "CLASS_GETDECLARED_METHODS",
+  "focusedRuns": 6,
+  "normalStpMapSemanticsModified": false,
+  "presentRuns": [
+    5
+  ],
+  "rawReflectionOrderEqual": false,
+  "rawReflectionStructuralSetEqual": true,
+  "reflectionOrderHypothesis": "PROVEN",
+  "reflectionUtilsOrderEqual": false,
+  "regressionSafety": {
+    "diagnosticsOptIn": true,
+    "gitDiffCheckPassed": true,
+    "selectedSpringTestPassedEveryFinalRun": true,
+    "springCheckoutClean": true,
+    "stpCompleteRegressionSuitePassed": true
+  },
+  "samplingTargetReached": false,
+  "schemaVersion": "round15-summary-1",
+  "searchCandidatesOrderEqual": false,
+  "selectorSemanticsModified": false,
+  "springSourceModified": false
+}

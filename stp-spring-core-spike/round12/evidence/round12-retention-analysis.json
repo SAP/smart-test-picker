@@ -1,0 +1,61 @@
+{
+  "note": "Usable root paths existed for unrelated samples (for example JDK locale caches), demonstrating capture operation, but none sampled a selected Spring object or retaining path.",
+  "oldObjectSampleCount": 20,
+  "pathToGcRootsEnabled": true,
+  "relevantOldObjectSampleCount": 0,
+  "schemaVersion": "round12-retention-1",
+  "targets": [
+    {
+      "age": null,
+      "allocationStack": null,
+      "gcRoot": null,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "objectClass": null,
+      "relevantCacheMapOrFieldInPath": null,
+      "relevantOldObjectSampleObserved": false,
+      "retainingPath": null,
+      "sameInstanceIdentity": "same-instance identity not proven",
+      "sameInstanceLaterObserved": false,
+      "testIdentity": "ResolvableTypeTests#classWithGenericsAs_1378ee35"
+    },
+    {
+      "age": null,
+      "allocationStack": null,
+      "gcRoot": null,
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "objectClass": null,
+      "relevantCacheMapOrFieldInPath": null,
+      "relevantOldObjectSampleObserved": false,
+      "retainingPath": null,
+      "sameInstanceIdentity": "same-instance identity not proven",
+      "sameInstanceLaterObserved": false,
+      "testIdentity": "ResolvableTypeTests#forMethodParameterWithNestingAndLevels_3ac7fcf8"
+    },
+    {
+      "age": null,
+      "allocationStack": null,
+      "gcRoot": null,
+      "methodIdentity": "org.springframework.core.ResolvableType#getInterfaces",
+      "objectClass": null,
+      "relevantCacheMapOrFieldInPath": null,
+      "relevantOldObjectSampleObserved": false,
+      "retainingPath": null,
+      "sameInstanceIdentity": "same-instance identity not proven",
+      "sameInstanceLaterObserved": false,
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "age": null,
+      "allocationStack": null,
+      "gcRoot": null,
+      "methodIdentity": "org.springframework.core.SerializableTypeWrapper#unwrap",
+      "objectClass": null,
+      "relevantCacheMapOrFieldInPath": null,
+      "relevantOldObjectSampleObserved": false,
+      "retainingPath": null,
+      "sameInstanceIdentity": "same-instance identity not proven",
+      "sameInstanceLaterObserved": false,
+      "testIdentity": "MapToMapConverterTests#collectionMapSourceTarget_5bff386f"
+    }
+  ]
+}

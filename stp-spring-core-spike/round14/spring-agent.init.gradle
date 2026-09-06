@@ -1,0 +1,21 @@
+// SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+// SPDX-License-Identifier: Apache-2.0
+
+gradle.afterProject { project, state ->
+	if (project.path == ':spring-core') {
+		project.tasks.named('test').configure {
+			def javaExecutable = System.getenv('ROUND14_JAVA_EXECUTABLE')
+			if (javaExecutable) executable = javaExecutable
+			def agentJar = System.getenv('ROUND14_AGENT_JAR')
+			def agentArgs = System.getenv('ROUND14_AGENT_ARGS')
+			if (!agentJar || !agentArgs) throw new GradleException('ROUND14_AGENT_JAR and ROUND14_AGENT_ARGS are required')
+			jvmArgs "-javaagent:${agentJar}=${agentArgs}"
+			def trace = System.getenv('ROUND14_TRACE_OUTPUT')
+			if (trace) systemProperty 'stp.round14.trace.output', trace
+			def limit = System.getenv('ROUND14_TRACE_LIMIT')
+			if (limit) systemProperty 'stp.round14.trace.limit', limit
+			filter.includeTestsMatching('org.springframework.core.BridgeMethodResolverTests.withGenericParameter')
+			testLogging.showStandardStreams = true
+		}
+	}
+}

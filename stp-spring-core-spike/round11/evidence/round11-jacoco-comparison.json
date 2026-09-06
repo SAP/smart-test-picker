@@ -1,0 +1,974 @@
+{
+  "allInputStatusCounts": {
+    "ASSIGNS_TO_ANOTHER_TEST": 167,
+    "ASSIGNS_TO_SAME_TEST": 11,
+    "DOES_NOT_CONTAIN_OR_DISTINGUISH_EDGE": 14
+  },
+  "conclusion": "No newly proven shared-state edge exists to benchmark. The ASM state experiment can expose conditional cache history, whereas this single JaCoCo map contains only an ordinary concrete assignment or absence.",
+  "edges": [
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "BridgeMethodResolverKotlinTests#findBridgedMethod_665f90e8"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "BridgeMethodResolverKotlinTests#findBridgedMethod_665f90e8"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "BridgeMethodResolverKotlinTests#findBridgedMethod_665f90e8"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#findGenericDeclaration",
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchForMatch",
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchInterfaces",
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.core.ResolvableType#getInterfaces",
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClass",
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClassAsSet",
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ClassUtils#isVisible",
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ClassUtils#toClassArray",
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.CollectionUtils#isEmpty",
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "CollectionToCollectionConverterTests#objectToCollection_20ff6381"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "CollectionToCollectionConverterTests#objectToCollection_20ff6381"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "CollectionToCollectionConverterTests#objectToCollection_20ff6381"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "testIdentity": "ConventionsTests#set_72479166"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "DefaultConversionServiceTests#convertArrayToStream_44e1bd72"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "DefaultConversionServiceTests#convertArrayToStream_44e1bd72"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "DefaultConversionServiceTests#convertArrayToStream_44e1bd72"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "testIdentity": "DefaultConversionServiceTests#convertIntegerArrayToIntArray_32ca0902"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "testIdentity": "DefaultConversionServiceTests#convertStringArrayToIntegerArray_7f72bddc"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "DefaultParameterNameDiscovererKotlinTests#getParameterNamesOnExtensionMethod_5b605de0"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "DefaultParameterNameDiscovererKotlinTests#getParameterNamesOnExtensionMethod_5b605de0"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "DefaultParameterNameDiscovererKotlinTests#getParameterNamesOnExtensionMethod_5b605de0"
+    },
+    {
+      "jacocoStatus": "DOES_NOT_CONTAIN_OR_DISTINGUISH_EDGE",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "testIdentity": "DefaultParameterNameDiscovererKotlinTests#getParameterNamesOnExtensionMethod_5b605de0"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "GenericConversionServiceTests#rawCollectionAsSource_28934587"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "GenericConversionServiceTests#rawCollectionAsSource_28934587"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "GenericConversionServiceTests#rawCollectionAsSource_28934587"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_SAME_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      "testIdentity": "GenericConversionServiceTests#stringArrayToIntegerArray_cb70652"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_SAME_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "testIdentity": "GenericConversionServiceTests#stringArrayToIntegerArray_cb70652"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "GenericConversionServiceTests#stringToEnumWithInterfaceConversion_47107cd0"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "GenericConversionServiceTests#stringToEnumWithInterfaceConversion_47107cd0"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "GenericConversionServiceTests#stringToEnumWithInterfaceConversion_47107cd0"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      "testIdentity": "GenericConversionServiceTests#stringToIntegerArray_13f70e33"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "testIdentity": "GenericConversionServiceTests#stringToIntegerArray_13f70e33"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66"
+    },
+    {
+      "jacocoStatus": "DOES_NOT_CONTAIN_OR_DISTINGUISH_EDGE",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "GenericTypeResolverTests#resolveIncompleteTypeVariables_4cde3ac4"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "GenericTypeResolverTests#resolveIncompleteTypeVariables_4cde3ac4"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "GenericTypeResolverTests#resolveIncompleteTypeVariables_4cde3ac4"
+    },
+    {
+      "jacocoStatus": "DOES_NOT_CONTAIN_OR_DISTINGUISH_EDGE",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "testIdentity": "GenericTypeResolverTests#resolveIncompleteTypeVariables_4cde3ac4"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "GenericTypeResolverTests#simpleCollectionSuperclassType_16339978"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "GenericTypeResolverTests#simpleCollectionSuperclassType_16339978"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "GenericTypeResolverTests#simpleCollectionSuperclassType_16339978"
+    },
+    {
+      "jacocoStatus": "DOES_NOT_CONTAIN_OR_DISTINGUISH_EDGE",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "testIdentity": "GenericTypeResolverTests#simpleCollectionSuperclassType_16339978"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      "testIdentity": "GenericTypeResolverTests#simpleCollectionSuperclassType_16339978"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "testIdentity": "GenericTypeResolverTests#simpleCollectionSuperclassType_16339978"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.core.SerializableTypeWrapper#unwrap",
+      "testIdentity": "MapToMapConverterTests#collectionMapSourceTarget_5bff386f"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "MapToMapConverterTests#collectionMapSourceTarget_5bff386f"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "MapToMapConverterTests#collectionMap_5d43ab43"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "MapToMapConverterTests#multiValueMapToMultiValueMap_24e1f0a0"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "MapToMapConverterTests#multiValueMapToMultiValueMap_24e1f0a0"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "MapToMapConverterTests#multiValueMapToMultiValueMap_24e1f0a0"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "MapToMapConverterTests#noDefaultConstructorCopyNotRequired_2f3c8288"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "MapToMapConverterTests#noDefaultConstructorCopyNotRequired_2f3c8288"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "MapToMapConverterTests#noDefaultConstructorCopyNotRequired_2f3c8288"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "MapToMapConverterTests#stringToEnumMap_6a6adcb4"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "MapToMapConverterTests#stringToEnumMap_6a6adcb4"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "MapToMapConverterTests#stringToEnumMap_6a6adcb4"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#findGenericDeclaration",
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchForMatch",
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchInterfaces",
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.core.ResolvableType#getInterfaces",
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.core.SerializableTypeWrapper$TypeProxyInvocationHandler#<init>",
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClass",
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClassAsSet",
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ClassUtils#isVisible",
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ClassUtils#toClassArray",
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.CollectionUtils#isEmpty",
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "MergedAnnotationsTests#getFromMethodWithGenericSuperclass_78b2b090"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "MergedAnnotationsTests#getFromMethodWithGenericSuperclass_78b2b090"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "MergedAnnotationsTests#getFromMethodWithGenericSuperclass_78b2b090"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#findGenericDeclaration",
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchForMatch",
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchInterfaces",
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.core.ResolvableType#getInterfaces",
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.core.SerializableTypeWrapper$TypeProxyInvocationHandler#<init>",
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClass",
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClassAsSet",
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ClassUtils#isVisible",
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ClassUtils#toClassArray",
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.CollectionUtils#isEmpty",
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_SAME_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "testIdentity": "ObjectToObjectConverterRuntimeHintsTests#javaSqlDateHasHints_0b62926"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "testIdentity": "ReflectionUtilsTests#doWithMethodsFindsDuplicatesInClassHierarchy_135c0a06"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "testIdentity": "ReflectionUtilsTests#doWithMethodsUsingProtectedFilter_6ff24d60"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "testIdentity": "ReflectionUtilsTests#doWithMethodsUsingUserDeclaredMethodsComposedFilter_712c3971"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "testIdentity": "ReflectionUtilsTests#findField_5984975e"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      "testIdentity": "ReflectionUtilsTests#findMethodWithVarArgs_5bd66dc1"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "testIdentity": "ReflectionUtilsTests#findMethodWithVarArgs_5bd66dc1"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "testIdentity": "ReflectionUtilsTests#validCopyOnSubTypeWithNewField_f4cc2ed"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "testIdentity": "ReflectionUtilsTests#validCopyToSubTypeWithFinalField_831b8fb"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "testIdentity": "ReflectionUtilsTests#validCopyToSubType_41a5a811"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "ResolvableTypeTests#classWithGenericsAs_1378ee35"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "ResolvableTypeTests#classWithGenericsAs_1378ee35"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "ResolvableTypeTests#classWithGenericsAs_1378ee35"
+    },
+    {
+      "jacocoStatus": "DOES_NOT_CONTAIN_OR_DISTINGUISH_EDGE",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "testIdentity": "ResolvableTypeTests#classWithGenericsAs_1378ee35"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "ResolvableTypeTests#forClassWithGenerics_6bf2e2e8"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "ResolvableTypeTests#forClassWithGenerics_6bf2e2e8"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "ResolvableTypeTests#forClassWithGenerics_6bf2e2e8"
+    },
+    {
+      "jacocoStatus": "DOES_NOT_CONTAIN_OR_DISTINGUISH_EDGE",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "testIdentity": "ResolvableTypeTests#forClassWithGenerics_6bf2e2e8"
+    },
+    {
+      "jacocoStatus": "DOES_NOT_CONTAIN_OR_DISTINGUISH_EDGE",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "testIdentity": "ResolvableTypeTests#forMethodParameterWithNestingAndLevels_3ac7fcf8"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "ResolvableTypeTests#getComponentTypeForVariableThatResolvesToGenericArray_25bd3018"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "ResolvableTypeTests#getComponentTypeForVariableThatResolvesToGenericArray_25bd3018"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "ResolvableTypeTests#getComponentTypeForVariableThatResolvesToGenericArray_25bd3018"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "ResolvableTypeTests#isAssignableFromCannotBeResolved_77bddef2"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "ResolvableTypeTests#isAssignableFromCannotBeResolved_77bddef2"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "ResolvableTypeTests#isAssignableFromCannotBeResolved_77bddef2"
+    },
+    {
+      "jacocoStatus": "DOES_NOT_CONTAIN_OR_DISTINGUISH_EDGE",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "testIdentity": "ResolvableTypeTests#isAssignableFromCannotBeResolved_77bddef2"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      "testIdentity": "ResolvableTypeTests#isAssignableFromCannotBeResolved_77bddef2"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "testIdentity": "ResolvableTypeTests#isAssignableFromCannotBeResolved_77bddef2"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForComplexWildcards_4dc8b13e"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForComplexWildcards_4dc8b13e"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForComplexWildcards_4dc8b13e"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForDifferentClassesWithGenerics_50485964"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForDifferentClassesWithGenerics_50485964"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForDifferentClassesWithGenerics_50485964"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForWildcards_2b853d44"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForWildcards_2b853d44"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForWildcards_2b853d44"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "ResolvableTypeTests#nested_29cad7ee"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "ResolvableTypeTests#nested_29cad7ee"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "ResolvableTypeTests#nested_29cad7ee"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "ResolvableTypeTests#resolveGenericArrayFromGeneric_28465916"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "ResolvableTypeTests#resolveGenericArrayFromGeneric_28465916"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "ResolvableTypeTests#resolveGenericArrayFromGeneric_28465916"
+    },
+    {
+      "jacocoStatus": "DOES_NOT_CONTAIN_OR_DISTINGUISH_EDGE",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "testIdentity": "ResolvableTypeTests#resolveGenericArrayFromGeneric_28465916"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "ResolvableTypeTests#resolveGenericArrayType_5361bd11"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "ResolvableTypeTests#resolveGenericArrayType_5361bd11"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "ResolvableTypeTests#resolveGenericArrayType_5361bd11"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "testIdentity": "ResolvableTypeTests#resolveParameterizedType_20ece23e"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e"
+    },
+    {
+      "jacocoStatus": "DOES_NOT_CONTAIN_OR_DISTINGUISH_EDGE",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleInterfaceType_4c6a08ac"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleInterfaceType_4c6a08ac"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleInterfaceType_4c6a08ac"
+    },
+    {
+      "jacocoStatus": "DOES_NOT_CONTAIN_OR_DISTINGUISH_EDGE",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleInterfaceType_4c6a08ac"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "ResolvableTypeTests#resolveVariableFromFieldType_73a232d9"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "ResolvableTypeTests#resolveVariableFromFieldType_73a232d9"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "ResolvableTypeTests#resolveVariableFromFieldType_73a232d9"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_SAME_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "ResolvableTypeTests#resolveVariableFromInheritedFieldSwitched_1f60dce"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_SAME_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "ResolvableTypeTests#resolveVariableFromInheritedFieldSwitched_1f60dce"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_SAME_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "ResolvableTypeTests#resolveVariableFromInheritedFieldSwitched_1f60dce"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "ResolvableTypeTests#resolveVariableGenericArrayUnknown_38c58bf7"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "ResolvableTypeTests#resolveVariableGenericArrayUnknown_38c58bf7"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "ResolvableTypeTests#resolveVariableGenericArrayUnknown_38c58bf7"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "ResolvableTypeTests#typeVariableType_64778267"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "ResolvableTypeTests#typeVariableType_64778267"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "ResolvableTypeTests#typeVariableType_64778267"
+    },
+    {
+      "jacocoStatus": "DOES_NOT_CONTAIN_OR_DISTINGUISH_EDGE",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "testIdentity": "ResolvableTypeTests#typeVariableType_64778267"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      "testIdentity": "ResolvableTypeTests#typeVariableType_64778267"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "ResolvableTypeTests#wildcardType_345dddeb"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "ResolvableTypeTests#wildcardType_345dddeb"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "ResolvableTypeTests#wildcardType_345dddeb"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      "testIdentity": "ResolvableTypeTests#wildcardType_345dddeb"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "testIdentity": "ResolvableTypeTests#wildcardType_345dddeb"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_SAME_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "StreamConverterTests#convertFromArrayToStream_9ee5c57"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_SAME_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "StreamConverterTests#convertFromArrayToStream_9ee5c57"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "StreamConverterTests#convertFromArrayToStream_9ee5c57"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "StreamConverterTests#convertFromListToRawStream_4004e252"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "StreamConverterTests#convertFromListToRawStream_4004e252"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "StreamConverterTests#convertFromListToRawStream_4004e252"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_SAME_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "StreamConverterTests#convertFromStreamToArray_6f1ce01"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_SAME_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "StreamConverterTests#convertFromStreamToArray_6f1ce01"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "StreamConverterTests#convertFromStreamToArray_6f1ce01"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_SAME_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "testIdentity": "StreamConverterTests#convertFromStreamToArray_6f1ce01"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "TypeDescriptorTests#createMapWithNullElements_2a87b96"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "TypeDescriptorTests#createMapWithNullElements_2a87b96"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "TypeDescriptorTests#createMapWithNullElements_2a87b96"
+    },
+    {
+      "jacocoStatus": "DOES_NOT_CONTAIN_OR_DISTINGUISH_EDGE",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "testIdentity": "TypeDescriptorTests#createMapWithNullElements_2a87b96"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "TypeDescriptorTests#fieldComplexTypeDescriptor_396cb34d"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "TypeDescriptorTests#fieldComplexTypeDescriptor_396cb34d"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "TypeDescriptorTests#fieldComplexTypeDescriptor_396cb34d"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "TypeDescriptorTests#isAssignableElementTypes_4db34e9e"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "TypeDescriptorTests#isAssignableElementTypes_4db34e9e"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "TypeDescriptorTests#isAssignableElementTypes_4db34e9e"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "TypeDescriptorTests#isAssignableMapKeyValueTypes_5496c48c"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "testIdentity": "TypeDescriptorTests#multiValueMap_4fed22b6"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "TypeDescriptorTests#nestedTooManyLevels_1b240c1d"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "TypeDescriptorTests#nestedTooManyLevels_1b240c1d"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "TypeDescriptorTests#nestedTooManyLevels_1b240c1d"
+    },
+    {
+      "jacocoStatus": "DOES_NOT_CONTAIN_OR_DISTINGUISH_EDGE",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "testIdentity": "TypeDescriptorTests#nestedTooManyLevels_1b240c1d"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "testIdentity": "TypeDescriptorTests#propertyGenericClassList_6040d6a2"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "testIdentity": "TypeDescriptorTests#propertyGenericClassList_6040d6a2"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "TypeDescriptorTests#propertyGenericClassList_6040d6a2"
+    }
+  ],
+  "historyDependentEdgesRepresentedAsOrdinaryCoverage": 0,
+  "newlyProvenSharedStateEdges": 0,
+  "reference": "existing ROUND 9 JaCoCo map",
+  "schemaVersion": "round11-jacoco-1"
+}

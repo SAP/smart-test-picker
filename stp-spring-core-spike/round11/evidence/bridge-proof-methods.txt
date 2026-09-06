@@ -1,0 +1,9 @@
+org.springframework.core.BridgeMethodResolver#findGenericDeclaration
+org.springframework.core.BridgeMethodResolver#searchForMatch
+org.springframework.core.BridgeMethodResolver#searchInterfaces
+org.springframework.core.ResolvableType#getInterfaces
+org.springframework.util.ClassUtils#getAllInterfacesForClass
+org.springframework.util.ClassUtils#getAllInterfacesForClassAsSet
+org.springframework.util.ClassUtils#isVisible
+org.springframework.util.ClassUtils#toClassArray
+org.springframework.util.CollectionUtils#isEmpty

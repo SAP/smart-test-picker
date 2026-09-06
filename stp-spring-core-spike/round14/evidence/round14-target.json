@@ -1,0 +1,10 @@
+{
+  "gradle": "8.14.2",
+  "jdk": "21.0.11",
+  "methodIdentity": "org.springframework.core.ResolvableType#getInterfaces",
+  "runtimeTestIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter",
+  "schemaVersion": "round14-target-1",
+  "springRevision": "99a366baf6640b275d08dde60f05da719139bb6a",
+  "task": ":spring-core:test",
+  "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+}

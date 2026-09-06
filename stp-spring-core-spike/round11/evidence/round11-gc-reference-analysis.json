@@ -1,0 +1,13 @@
+{
+  "answer": "No directly observed reclamation changed attribution for a ROUND 10 UNKNOWN edge. Presence differences without an observed reclaimed reference are not classified.",
+  "changedRepresentativeUnknownMethods": [
+    "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+    "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure"
+  ],
+  "classificationEffect": 0,
+  "experiment": "one System.gc() immediately before the representative target in an otherwise identical focused order",
+  "observedReclamation": false,
+  "relevantInputEdgeCount": 86,
+  "schemaVersion": "round11-gc-reference-1"
+}

@@ -1,0 +1,400 @@
+{
+  "absentRun": 1,
+  "doWithMethodsOrderEqual": false,
+  "getDeclaredMethodsOrderEqual": false,
+  "getDeclaredMethodsStructuralSetEqual": true,
+  "presentRun": 5,
+  "runs": [
+    {
+      "doWithMethodsTraversal": [
+        {
+          "accepted": false,
+          "method": {
+            "bridge": true,
+            "modifiers": 4161,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+            "synthetic": true
+          },
+          "sequence": 4
+        },
+        {
+          "accepted": true,
+          "method": {
+            "bridge": false,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+            "synthetic": false
+          },
+          "sequence": 5
+        },
+        {
+          "accepted": true,
+          "method": {
+            "bridge": false,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+            "synthetic": false
+          },
+          "sequence": 7
+        }
+      ],
+      "getDeclaredMethodsOrder": [
+        {
+          "index": 0,
+          "method": {
+            "bridge": true,
+            "modifiers": 4161,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+            "synthetic": true
+          }
+        },
+        {
+          "index": 1,
+          "method": {
+            "bridge": false,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+            "synthetic": false
+          }
+        },
+        {
+          "index": 2,
+          "method": {
+            "bridge": false,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+            "synthetic": false
+          }
+        }
+      ],
+      "presence": "ABSENT",
+      "run": 1
+    },
+    {
+      "doWithMethodsTraversal": [
+        {
+          "accepted": false,
+          "method": {
+            "bridge": true,
+            "modifiers": 4161,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+            "synthetic": true
+          },
+          "sequence": 4
+        },
+        {
+          "accepted": true,
+          "method": {
+            "bridge": false,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+            "synthetic": false
+          },
+          "sequence": 5
+        },
+        {
+          "accepted": true,
+          "method": {
+            "bridge": false,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+            "synthetic": false
+          },
+          "sequence": 7
+        }
+      ],
+      "getDeclaredMethodsOrder": [
+        {
+          "index": 0,
+          "method": {
+            "bridge": true,
+            "modifiers": 4161,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+            "synthetic": true
+          }
+        },
+        {
+          "index": 1,
+          "method": {
+            "bridge": false,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+            "synthetic": false
+          }
+        },
+        {
+          "index": 2,
+          "method": {
+            "bridge": false,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+            "synthetic": false
+          }
+        }
+      ],
+      "presence": "ABSENT",
+      "run": 2
+    },
+    {
+      "doWithMethodsTraversal": [
+        {
+          "accepted": false,
+          "method": {
+            "bridge": true,
+            "modifiers": 4161,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+            "synthetic": true
+          },
+          "sequence": 4
+        },
+        {
+          "accepted": true,
+          "method": {
+            "bridge": false,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+            "synthetic": false
+          },
+          "sequence": 5
+        },
+        {
+          "accepted": true,
+          "method": {
+            "bridge": false,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+            "synthetic": false
+          },
+          "sequence": 7
+        }
+      ],
+      "getDeclaredMethodsOrder": [
+        {
+          "index": 0,
+          "method": {
+            "bridge": true,
+            "modifiers": 4161,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+            "synthetic": true
+          }
+        },
+        {
+          "index": 1,
+          "method": {
+            "bridge": false,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+            "synthetic": false
+          }
+        },
+        {
+          "index": 2,
+          "method": {
+            "bridge": false,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+            "synthetic": false
+          }
+        }
+      ],
+      "presence": "ABSENT",
+      "run": 3
+    },
+    {
+      "doWithMethodsTraversal": [
+        {
+          "accepted": false,
+          "method": {
+            "bridge": true,
+            "modifiers": 4161,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+            "synthetic": true
+          },
+          "sequence": 4
+        },
+        {
+          "accepted": true,
+          "method": {
+            "bridge": false,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+            "synthetic": false
+          },
+          "sequence": 5
+        },
+        {
+          "accepted": true,
+          "method": {
+            "bridge": false,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+            "synthetic": false
+          },
+          "sequence": 7
+        }
+      ],
+      "getDeclaredMethodsOrder": [
+        {
+          "index": 0,
+          "method": {
+            "bridge": true,
+            "modifiers": 4161,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+            "synthetic": true
+          }
+        },
+        {
+          "index": 1,
+          "method": {
+            "bridge": false,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+            "synthetic": false
+          }
+        },
+        {
+          "index": 2,
+          "method": {
+            "bridge": false,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+            "synthetic": false
+          }
+        }
+      ],
+      "presence": "ABSENT",
+      "run": 4
+    },
+    {
+      "doWithMethodsTraversal": [
+        {
+          "accepted": false,
+          "method": {
+            "bridge": true,
+            "modifiers": 4161,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+            "synthetic": true
+          },
+          "sequence": 4
+        },
+        {
+          "accepted": true,
+          "method": {
+            "bridge": false,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+            "synthetic": false
+          },
+          "sequence": 5
+        },
+        {
+          "accepted": true,
+          "method": {
+            "bridge": false,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+            "synthetic": false
+          },
+          "sequence": 7
+        }
+      ],
+      "getDeclaredMethodsOrder": [
+        {
+          "index": 0,
+          "method": {
+            "bridge": true,
+            "modifiers": 4161,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+            "synthetic": true
+          }
+        },
+        {
+          "index": 1,
+          "method": {
+            "bridge": false,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+            "synthetic": false
+          }
+        },
+        {
+          "index": 2,
+          "method": {
+            "bridge": false,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+            "synthetic": false
+          }
+        }
+      ],
+      "presence": "PRESENT",
+      "run": 5
+    },
+    {
+      "doWithMethodsTraversal": [
+        {
+          "accepted": false,
+          "method": {
+            "bridge": true,
+            "modifiers": 4161,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+            "synthetic": true
+          },
+          "sequence": 4
+        },
+        {
+          "accepted": true,
+          "method": {
+            "bridge": false,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+            "synthetic": false
+          },
+          "sequence": 5
+        },
+        {
+          "accepted": true,
+          "method": {
+            "bridge": false,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+            "synthetic": false
+          },
+          "sequence": 7
+        }
+      ],
+      "getDeclaredMethodsOrder": [
+        {
+          "index": 0,
+          "method": {
+            "bridge": true,
+            "modifiers": 4161,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+            "synthetic": true
+          }
+        },
+        {
+          "index": 1,
+          "method": {
+            "bridge": false,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+            "synthetic": false
+          }
+        },
+        {
+          "index": 2,
+          "method": {
+            "bridge": false,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+            "synthetic": false
+          }
+        }
+      ],
+      "presence": "ABSENT",
+      "run": 6
+    }
+  ],
+  "schemaVersion": "round15-reflectionutils-orders-1"
+}

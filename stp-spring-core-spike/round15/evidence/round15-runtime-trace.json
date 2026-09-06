@@ -1,0 +1,4002 @@
+{
+  "identityScope": "identityHashCode is same-JVM correlation only",
+  "runs": [
+    {
+      "droppedEvents": 0,
+      "events": [
+        {
+          "accepted": null,
+          "classQueried": null,
+          "event": "TEST_START",
+          "methods": null,
+          "reason": null,
+          "sequence": 1,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "RAW_REFLECTION_RESULT",
+          "methods": {
+            "length": 3,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": true,
+                  "identityHashCode": 1213871206,
+                  "modifiers": 4161,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+                  "synthetic": true
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 811562535,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 2,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1560379655,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 2,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "REFLECTIONUTILS_RETURN",
+          "methods": {
+            "length": 3,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": true,
+                  "identityHashCode": 1213871206,
+                  "modifiers": 4161,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+                  "synthetic": true
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 811562535,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 2,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1560379655,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 3,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": true,
+            "identityHashCode": 1213871206,
+            "modifiers": 4161,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+            "synthetic": true
+          },
+          "reason": null,
+          "sequence": 4,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": true,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 811562535,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 5,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": true,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "CANDIDATE_INSERT",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 811562535,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+            "synthetic": false
+          },
+          "reason": "accepted by isBridgedCandidateFor and passed to candidateMethods::add",
+          "sequence": 6,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": true,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 1560379655,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 7,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": true,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "CANDIDATE_INSERT",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 1560379655,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+            "synthetic": false
+          },
+          "reason": "accepted by isBridgedCandidateFor and passed to candidateMethods::add",
+          "sequence": 8,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": "java.lang.Object",
+          "event": "RAW_REFLECTION_RESULT",
+          "methods": {
+            "length": 12,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 2117642238,
+                  "modifiers": 4,
+                  "structuralKey": "java.lang.Object#finalize()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 913242382,
+                  "modifiers": 274,
+                  "structuralKey": "java.lang.Object#wait0(long)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 2,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 870322840,
+                  "modifiers": 1,
+                  "structuralKey": "java.lang.Object#equals(java.lang.Object)->boolean",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 3,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 837246227,
+                  "modifiers": 1,
+                  "structuralKey": "java.lang.Object#toString()->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 4,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 173738886,
+                  "modifiers": 257,
+                  "structuralKey": "java.lang.Object#hashCode()->int",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 5,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1262237002,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#getClass()->java.lang.Class",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 6,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 2029754983,
+                  "modifiers": 260,
+                  "structuralKey": "java.lang.Object#clone()->java.lang.Object",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 7,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1946111918,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#notify()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 8,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 564817260,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#notifyAll()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 9,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 194415222,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait(long)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 10,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 798622145,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait(long,int)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 11,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 638695843,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait()->void",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 9,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": "java.lang.Object",
+          "event": "REFLECTIONUTILS_RETURN",
+          "methods": {
+            "length": 12,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 2117642238,
+                  "modifiers": 4,
+                  "structuralKey": "java.lang.Object#finalize()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 913242382,
+                  "modifiers": 274,
+                  "structuralKey": "java.lang.Object#wait0(long)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 2,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 870322840,
+                  "modifiers": 1,
+                  "structuralKey": "java.lang.Object#equals(java.lang.Object)->boolean",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 3,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 837246227,
+                  "modifiers": 1,
+                  "structuralKey": "java.lang.Object#toString()->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 4,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 173738886,
+                  "modifiers": 257,
+                  "structuralKey": "java.lang.Object#hashCode()->int",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 5,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1262237002,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#getClass()->java.lang.Class",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 6,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 2029754983,
+                  "modifiers": 260,
+                  "structuralKey": "java.lang.Object#clone()->java.lang.Object",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 7,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1946111918,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#notify()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 8,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 564817260,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#notifyAll()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 9,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 194415222,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait(long)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 10,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 798622145,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait(long,int)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 11,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 638695843,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait()->void",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 10,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 2117642238,
+            "modifiers": 4,
+            "structuralKey": "java.lang.Object#finalize()->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 11,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 913242382,
+            "modifiers": 274,
+            "structuralKey": "java.lang.Object#wait0(long)->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 12,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 870322840,
+            "modifiers": 1,
+            "structuralKey": "java.lang.Object#equals(java.lang.Object)->boolean",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 13,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 837246227,
+            "modifiers": 1,
+            "structuralKey": "java.lang.Object#toString()->java.lang.String",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 14,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 173738886,
+            "modifiers": 257,
+            "structuralKey": "java.lang.Object#hashCode()->int",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 15,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 1262237002,
+            "modifiers": 273,
+            "structuralKey": "java.lang.Object#getClass()->java.lang.Class",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 16,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 2029754983,
+            "modifiers": 260,
+            "structuralKey": "java.lang.Object#clone()->java.lang.Object",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 17,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 1946111918,
+            "modifiers": 273,
+            "structuralKey": "java.lang.Object#notify()->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 18,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 564817260,
+            "modifiers": 273,
+            "structuralKey": "java.lang.Object#notifyAll()->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 19,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 194415222,
+            "modifiers": 17,
+            "structuralKey": "java.lang.Object#wait(long)->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 20,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 798622145,
+            "modifiers": 17,
+            "structuralKey": "java.lang.Object#wait(long,int)->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 21,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 638695843,
+            "modifiers": 17,
+            "structuralKey": "java.lang.Object#wait()->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 22,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": null,
+          "event": "SEARCH_CANDIDATES_INPUT",
+          "methods": {
+            "length": 2,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 811562535,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1560379655,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 23,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": null,
+          "event": "TEST_END",
+          "methods": null,
+          "reason": null,
+          "sequence": 24,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        }
+      ],
+      "presence": "ABSENT",
+      "run": 1,
+      "source": "focused-run-1-trace.json"
+    },
+    {
+      "droppedEvents": 0,
+      "events": [
+        {
+          "accepted": null,
+          "classQueried": null,
+          "event": "TEST_START",
+          "methods": null,
+          "reason": null,
+          "sequence": 1,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "RAW_REFLECTION_RESULT",
+          "methods": {
+            "length": 3,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": true,
+                  "identityHashCode": 1213871206,
+                  "modifiers": 4161,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+                  "synthetic": true
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 811562535,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 2,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1560379655,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 2,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "REFLECTIONUTILS_RETURN",
+          "methods": {
+            "length": 3,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": true,
+                  "identityHashCode": 1213871206,
+                  "modifiers": 4161,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+                  "synthetic": true
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 811562535,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 2,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1560379655,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 3,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": true,
+            "identityHashCode": 1213871206,
+            "modifiers": 4161,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+            "synthetic": true
+          },
+          "reason": null,
+          "sequence": 4,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": true,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 811562535,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 5,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": true,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "CANDIDATE_INSERT",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 811562535,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+            "synthetic": false
+          },
+          "reason": "accepted by isBridgedCandidateFor and passed to candidateMethods::add",
+          "sequence": 6,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": true,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 1560379655,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 7,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": true,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "CANDIDATE_INSERT",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 1560379655,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+            "synthetic": false
+          },
+          "reason": "accepted by isBridgedCandidateFor and passed to candidateMethods::add",
+          "sequence": 8,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": "java.lang.Object",
+          "event": "RAW_REFLECTION_RESULT",
+          "methods": {
+            "length": 12,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 2117642238,
+                  "modifiers": 4,
+                  "structuralKey": "java.lang.Object#finalize()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 913242382,
+                  "modifiers": 274,
+                  "structuralKey": "java.lang.Object#wait0(long)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 2,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 870322840,
+                  "modifiers": 1,
+                  "structuralKey": "java.lang.Object#equals(java.lang.Object)->boolean",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 3,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 837246227,
+                  "modifiers": 1,
+                  "structuralKey": "java.lang.Object#toString()->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 4,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 173738886,
+                  "modifiers": 257,
+                  "structuralKey": "java.lang.Object#hashCode()->int",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 5,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1262237002,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#getClass()->java.lang.Class",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 6,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 2029754983,
+                  "modifiers": 260,
+                  "structuralKey": "java.lang.Object#clone()->java.lang.Object",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 7,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1946111918,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#notify()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 8,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 564817260,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#notifyAll()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 9,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 194415222,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait(long)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 10,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 798622145,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait(long,int)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 11,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 638695843,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait()->void",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 9,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": "java.lang.Object",
+          "event": "REFLECTIONUTILS_RETURN",
+          "methods": {
+            "length": 12,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 2117642238,
+                  "modifiers": 4,
+                  "structuralKey": "java.lang.Object#finalize()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 913242382,
+                  "modifiers": 274,
+                  "structuralKey": "java.lang.Object#wait0(long)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 2,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 870322840,
+                  "modifiers": 1,
+                  "structuralKey": "java.lang.Object#equals(java.lang.Object)->boolean",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 3,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 837246227,
+                  "modifiers": 1,
+                  "structuralKey": "java.lang.Object#toString()->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 4,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 173738886,
+                  "modifiers": 257,
+                  "structuralKey": "java.lang.Object#hashCode()->int",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 5,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1262237002,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#getClass()->java.lang.Class",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 6,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 2029754983,
+                  "modifiers": 260,
+                  "structuralKey": "java.lang.Object#clone()->java.lang.Object",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 7,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1946111918,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#notify()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 8,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 564817260,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#notifyAll()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 9,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 194415222,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait(long)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 10,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 798622145,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait(long,int)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 11,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 638695843,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait()->void",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 10,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 2117642238,
+            "modifiers": 4,
+            "structuralKey": "java.lang.Object#finalize()->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 11,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 913242382,
+            "modifiers": 274,
+            "structuralKey": "java.lang.Object#wait0(long)->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 12,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 870322840,
+            "modifiers": 1,
+            "structuralKey": "java.lang.Object#equals(java.lang.Object)->boolean",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 13,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 837246227,
+            "modifiers": 1,
+            "structuralKey": "java.lang.Object#toString()->java.lang.String",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 14,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 173738886,
+            "modifiers": 257,
+            "structuralKey": "java.lang.Object#hashCode()->int",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 15,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 1262237002,
+            "modifiers": 273,
+            "structuralKey": "java.lang.Object#getClass()->java.lang.Class",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 16,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 2029754983,
+            "modifiers": 260,
+            "structuralKey": "java.lang.Object#clone()->java.lang.Object",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 17,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 1946111918,
+            "modifiers": 273,
+            "structuralKey": "java.lang.Object#notify()->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 18,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 564817260,
+            "modifiers": 273,
+            "structuralKey": "java.lang.Object#notifyAll()->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 19,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 194415222,
+            "modifiers": 17,
+            "structuralKey": "java.lang.Object#wait(long)->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 20,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 798622145,
+            "modifiers": 17,
+            "structuralKey": "java.lang.Object#wait(long,int)->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 21,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 638695843,
+            "modifiers": 17,
+            "structuralKey": "java.lang.Object#wait()->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 22,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": null,
+          "event": "SEARCH_CANDIDATES_INPUT",
+          "methods": {
+            "length": 2,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 811562535,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1560379655,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 23,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": null,
+          "event": "TEST_END",
+          "methods": null,
+          "reason": null,
+          "sequence": 24,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        }
+      ],
+      "presence": "ABSENT",
+      "run": 2,
+      "source": "focused-run-2-trace.json"
+    },
+    {
+      "droppedEvents": 0,
+      "events": [
+        {
+          "accepted": null,
+          "classQueried": null,
+          "event": "TEST_START",
+          "methods": null,
+          "reason": null,
+          "sequence": 1,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "RAW_REFLECTION_RESULT",
+          "methods": {
+            "length": 3,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": true,
+                  "identityHashCode": 1213871206,
+                  "modifiers": 4161,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+                  "synthetic": true
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 811562535,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 2,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1560379655,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 2,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "REFLECTIONUTILS_RETURN",
+          "methods": {
+            "length": 3,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": true,
+                  "identityHashCode": 1213871206,
+                  "modifiers": 4161,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+                  "synthetic": true
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 811562535,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 2,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1560379655,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 3,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": true,
+            "identityHashCode": 1213871206,
+            "modifiers": 4161,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+            "synthetic": true
+          },
+          "reason": null,
+          "sequence": 4,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": true,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 811562535,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 5,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": true,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "CANDIDATE_INSERT",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 811562535,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+            "synthetic": false
+          },
+          "reason": "accepted by isBridgedCandidateFor and passed to candidateMethods::add",
+          "sequence": 6,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": true,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 1560379655,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 7,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": true,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "CANDIDATE_INSERT",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 1560379655,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+            "synthetic": false
+          },
+          "reason": "accepted by isBridgedCandidateFor and passed to candidateMethods::add",
+          "sequence": 8,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": "java.lang.Object",
+          "event": "RAW_REFLECTION_RESULT",
+          "methods": {
+            "length": 12,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 2117642238,
+                  "modifiers": 4,
+                  "structuralKey": "java.lang.Object#finalize()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 913242382,
+                  "modifiers": 274,
+                  "structuralKey": "java.lang.Object#wait0(long)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 2,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 870322840,
+                  "modifiers": 1,
+                  "structuralKey": "java.lang.Object#equals(java.lang.Object)->boolean",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 3,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 837246227,
+                  "modifiers": 1,
+                  "structuralKey": "java.lang.Object#toString()->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 4,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 173738886,
+                  "modifiers": 257,
+                  "structuralKey": "java.lang.Object#hashCode()->int",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 5,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1262237002,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#getClass()->java.lang.Class",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 6,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 2029754983,
+                  "modifiers": 260,
+                  "structuralKey": "java.lang.Object#clone()->java.lang.Object",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 7,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1946111918,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#notify()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 8,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 564817260,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#notifyAll()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 9,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 194415222,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait(long)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 10,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 798622145,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait(long,int)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 11,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 638695843,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait()->void",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 9,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": "java.lang.Object",
+          "event": "REFLECTIONUTILS_RETURN",
+          "methods": {
+            "length": 12,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 2117642238,
+                  "modifiers": 4,
+                  "structuralKey": "java.lang.Object#finalize()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 913242382,
+                  "modifiers": 274,
+                  "structuralKey": "java.lang.Object#wait0(long)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 2,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 870322840,
+                  "modifiers": 1,
+                  "structuralKey": "java.lang.Object#equals(java.lang.Object)->boolean",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 3,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 837246227,
+                  "modifiers": 1,
+                  "structuralKey": "java.lang.Object#toString()->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 4,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 173738886,
+                  "modifiers": 257,
+                  "structuralKey": "java.lang.Object#hashCode()->int",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 5,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1262237002,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#getClass()->java.lang.Class",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 6,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 2029754983,
+                  "modifiers": 260,
+                  "structuralKey": "java.lang.Object#clone()->java.lang.Object",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 7,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1946111918,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#notify()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 8,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 564817260,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#notifyAll()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 9,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 194415222,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait(long)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 10,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 798622145,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait(long,int)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 11,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 638695843,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait()->void",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 10,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 2117642238,
+            "modifiers": 4,
+            "structuralKey": "java.lang.Object#finalize()->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 11,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 913242382,
+            "modifiers": 274,
+            "structuralKey": "java.lang.Object#wait0(long)->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 12,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 870322840,
+            "modifiers": 1,
+            "structuralKey": "java.lang.Object#equals(java.lang.Object)->boolean",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 13,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 837246227,
+            "modifiers": 1,
+            "structuralKey": "java.lang.Object#toString()->java.lang.String",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 14,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 173738886,
+            "modifiers": 257,
+            "structuralKey": "java.lang.Object#hashCode()->int",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 15,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 1262237002,
+            "modifiers": 273,
+            "structuralKey": "java.lang.Object#getClass()->java.lang.Class",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 16,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 2029754983,
+            "modifiers": 260,
+            "structuralKey": "java.lang.Object#clone()->java.lang.Object",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 17,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 1946111918,
+            "modifiers": 273,
+            "structuralKey": "java.lang.Object#notify()->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 18,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 564817260,
+            "modifiers": 273,
+            "structuralKey": "java.lang.Object#notifyAll()->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 19,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 194415222,
+            "modifiers": 17,
+            "structuralKey": "java.lang.Object#wait(long)->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 20,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 798622145,
+            "modifiers": 17,
+            "structuralKey": "java.lang.Object#wait(long,int)->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 21,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 638695843,
+            "modifiers": 17,
+            "structuralKey": "java.lang.Object#wait()->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 22,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": null,
+          "event": "SEARCH_CANDIDATES_INPUT",
+          "methods": {
+            "length": 2,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 811562535,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1560379655,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 23,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": null,
+          "event": "TEST_END",
+          "methods": null,
+          "reason": null,
+          "sequence": 24,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        }
+      ],
+      "presence": "ABSENT",
+      "run": 3,
+      "source": "focused-run-3-trace.json"
+    },
+    {
+      "droppedEvents": 0,
+      "events": [
+        {
+          "accepted": null,
+          "classQueried": null,
+          "event": "TEST_START",
+          "methods": null,
+          "reason": null,
+          "sequence": 1,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "RAW_REFLECTION_RESULT",
+          "methods": {
+            "length": 3,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": true,
+                  "identityHashCode": 1213871206,
+                  "modifiers": 4161,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+                  "synthetic": true
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 811562535,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 2,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1560379655,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 2,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "REFLECTIONUTILS_RETURN",
+          "methods": {
+            "length": 3,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": true,
+                  "identityHashCode": 1213871206,
+                  "modifiers": 4161,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+                  "synthetic": true
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 811562535,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 2,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1560379655,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 3,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": true,
+            "identityHashCode": 1213871206,
+            "modifiers": 4161,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+            "synthetic": true
+          },
+          "reason": null,
+          "sequence": 4,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": true,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 811562535,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 5,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": true,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "CANDIDATE_INSERT",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 811562535,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+            "synthetic": false
+          },
+          "reason": "accepted by isBridgedCandidateFor and passed to candidateMethods::add",
+          "sequence": 6,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": true,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 1560379655,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 7,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": true,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "CANDIDATE_INSERT",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 1560379655,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+            "synthetic": false
+          },
+          "reason": "accepted by isBridgedCandidateFor and passed to candidateMethods::add",
+          "sequence": 8,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": "java.lang.Object",
+          "event": "RAW_REFLECTION_RESULT",
+          "methods": {
+            "length": 12,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 2117642238,
+                  "modifiers": 4,
+                  "structuralKey": "java.lang.Object#finalize()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 913242382,
+                  "modifiers": 274,
+                  "structuralKey": "java.lang.Object#wait0(long)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 2,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 870322840,
+                  "modifiers": 1,
+                  "structuralKey": "java.lang.Object#equals(java.lang.Object)->boolean",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 3,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 837246227,
+                  "modifiers": 1,
+                  "structuralKey": "java.lang.Object#toString()->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 4,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 173738886,
+                  "modifiers": 257,
+                  "structuralKey": "java.lang.Object#hashCode()->int",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 5,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1262237002,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#getClass()->java.lang.Class",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 6,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 2029754983,
+                  "modifiers": 260,
+                  "structuralKey": "java.lang.Object#clone()->java.lang.Object",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 7,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1946111918,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#notify()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 8,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 564817260,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#notifyAll()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 9,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 194415222,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait(long)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 10,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 798622145,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait(long,int)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 11,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 638695843,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait()->void",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 9,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": "java.lang.Object",
+          "event": "REFLECTIONUTILS_RETURN",
+          "methods": {
+            "length": 12,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 2117642238,
+                  "modifiers": 4,
+                  "structuralKey": "java.lang.Object#finalize()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 913242382,
+                  "modifiers": 274,
+                  "structuralKey": "java.lang.Object#wait0(long)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 2,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 870322840,
+                  "modifiers": 1,
+                  "structuralKey": "java.lang.Object#equals(java.lang.Object)->boolean",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 3,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 837246227,
+                  "modifiers": 1,
+                  "structuralKey": "java.lang.Object#toString()->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 4,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 173738886,
+                  "modifiers": 257,
+                  "structuralKey": "java.lang.Object#hashCode()->int",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 5,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1262237002,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#getClass()->java.lang.Class",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 6,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 2029754983,
+                  "modifiers": 260,
+                  "structuralKey": "java.lang.Object#clone()->java.lang.Object",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 7,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1946111918,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#notify()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 8,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 564817260,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#notifyAll()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 9,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 194415222,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait(long)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 10,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 798622145,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait(long,int)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 11,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 638695843,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait()->void",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 10,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 2117642238,
+            "modifiers": 4,
+            "structuralKey": "java.lang.Object#finalize()->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 11,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 913242382,
+            "modifiers": 274,
+            "structuralKey": "java.lang.Object#wait0(long)->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 12,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 870322840,
+            "modifiers": 1,
+            "structuralKey": "java.lang.Object#equals(java.lang.Object)->boolean",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 13,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 837246227,
+            "modifiers": 1,
+            "structuralKey": "java.lang.Object#toString()->java.lang.String",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 14,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 173738886,
+            "modifiers": 257,
+            "structuralKey": "java.lang.Object#hashCode()->int",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 15,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 1262237002,
+            "modifiers": 273,
+            "structuralKey": "java.lang.Object#getClass()->java.lang.Class",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 16,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 2029754983,
+            "modifiers": 260,
+            "structuralKey": "java.lang.Object#clone()->java.lang.Object",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 17,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 1946111918,
+            "modifiers": 273,
+            "structuralKey": "java.lang.Object#notify()->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 18,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 564817260,
+            "modifiers": 273,
+            "structuralKey": "java.lang.Object#notifyAll()->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 19,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 194415222,
+            "modifiers": 17,
+            "structuralKey": "java.lang.Object#wait(long)->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 20,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 798622145,
+            "modifiers": 17,
+            "structuralKey": "java.lang.Object#wait(long,int)->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 21,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 638695843,
+            "modifiers": 17,
+            "structuralKey": "java.lang.Object#wait()->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 22,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": null,
+          "event": "SEARCH_CANDIDATES_INPUT",
+          "methods": {
+            "length": 2,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 811562535,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1560379655,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 23,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": null,
+          "event": "TEST_END",
+          "methods": null,
+          "reason": null,
+          "sequence": 24,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        }
+      ],
+      "presence": "ABSENT",
+      "run": 4,
+      "source": "focused-run-4-trace.json"
+    },
+    {
+      "droppedEvents": 0,
+      "events": [
+        {
+          "accepted": null,
+          "classQueried": null,
+          "event": "TEST_START",
+          "methods": null,
+          "reason": null,
+          "sequence": 1,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "RAW_REFLECTION_RESULT",
+          "methods": {
+            "length": 3,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": true,
+                  "identityHashCode": 1213871206,
+                  "modifiers": 4161,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+                  "synthetic": true
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 811562535,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 2,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1560379655,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 2,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "REFLECTIONUTILS_RETURN",
+          "methods": {
+            "length": 3,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": true,
+                  "identityHashCode": 1213871206,
+                  "modifiers": 4161,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+                  "synthetic": true
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 811562535,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 2,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1560379655,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 3,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": true,
+            "identityHashCode": 1213871206,
+            "modifiers": 4161,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+            "synthetic": true
+          },
+          "reason": null,
+          "sequence": 4,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": true,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 811562535,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 5,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": true,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "CANDIDATE_INSERT",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 811562535,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+            "synthetic": false
+          },
+          "reason": "accepted by isBridgedCandidateFor and passed to candidateMethods::add",
+          "sequence": 6,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": true,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 1560379655,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 7,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": true,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "CANDIDATE_INSERT",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 1560379655,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+            "synthetic": false
+          },
+          "reason": "accepted by isBridgedCandidateFor and passed to candidateMethods::add",
+          "sequence": 8,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": "java.lang.Object",
+          "event": "RAW_REFLECTION_RESULT",
+          "methods": {
+            "length": 12,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 2117642238,
+                  "modifiers": 4,
+                  "structuralKey": "java.lang.Object#finalize()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 913242382,
+                  "modifiers": 274,
+                  "structuralKey": "java.lang.Object#wait0(long)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 2,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 870322840,
+                  "modifiers": 1,
+                  "structuralKey": "java.lang.Object#equals(java.lang.Object)->boolean",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 3,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 837246227,
+                  "modifiers": 1,
+                  "structuralKey": "java.lang.Object#toString()->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 4,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 173738886,
+                  "modifiers": 257,
+                  "structuralKey": "java.lang.Object#hashCode()->int",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 5,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1262237002,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#getClass()->java.lang.Class",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 6,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 2029754983,
+                  "modifiers": 260,
+                  "structuralKey": "java.lang.Object#clone()->java.lang.Object",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 7,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1946111918,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#notify()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 8,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 564817260,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#notifyAll()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 9,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 194415222,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait(long)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 10,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 798622145,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait(long,int)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 11,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 638695843,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait()->void",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 9,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": "java.lang.Object",
+          "event": "REFLECTIONUTILS_RETURN",
+          "methods": {
+            "length": 12,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 2117642238,
+                  "modifiers": 4,
+                  "structuralKey": "java.lang.Object#finalize()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 913242382,
+                  "modifiers": 274,
+                  "structuralKey": "java.lang.Object#wait0(long)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 2,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 870322840,
+                  "modifiers": 1,
+                  "structuralKey": "java.lang.Object#equals(java.lang.Object)->boolean",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 3,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 837246227,
+                  "modifiers": 1,
+                  "structuralKey": "java.lang.Object#toString()->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 4,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 173738886,
+                  "modifiers": 257,
+                  "structuralKey": "java.lang.Object#hashCode()->int",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 5,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1262237002,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#getClass()->java.lang.Class",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 6,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 2029754983,
+                  "modifiers": 260,
+                  "structuralKey": "java.lang.Object#clone()->java.lang.Object",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 7,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1946111918,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#notify()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 8,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 564817260,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#notifyAll()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 9,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 194415222,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait(long)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 10,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 798622145,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait(long,int)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 11,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 638695843,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait()->void",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 10,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 2117642238,
+            "modifiers": 4,
+            "structuralKey": "java.lang.Object#finalize()->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 11,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 913242382,
+            "modifiers": 274,
+            "structuralKey": "java.lang.Object#wait0(long)->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 12,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 870322840,
+            "modifiers": 1,
+            "structuralKey": "java.lang.Object#equals(java.lang.Object)->boolean",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 13,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 837246227,
+            "modifiers": 1,
+            "structuralKey": "java.lang.Object#toString()->java.lang.String",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 14,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 173738886,
+            "modifiers": 257,
+            "structuralKey": "java.lang.Object#hashCode()->int",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 15,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 1262237002,
+            "modifiers": 273,
+            "structuralKey": "java.lang.Object#getClass()->java.lang.Class",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 16,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 2029754983,
+            "modifiers": 260,
+            "structuralKey": "java.lang.Object#clone()->java.lang.Object",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 17,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 1946111918,
+            "modifiers": 273,
+            "structuralKey": "java.lang.Object#notify()->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 18,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 564817260,
+            "modifiers": 273,
+            "structuralKey": "java.lang.Object#notifyAll()->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 19,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 194415222,
+            "modifiers": 17,
+            "structuralKey": "java.lang.Object#wait(long)->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 20,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 798622145,
+            "modifiers": 17,
+            "structuralKey": "java.lang.Object#wait(long,int)->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 21,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 638695843,
+            "modifiers": 17,
+            "structuralKey": "java.lang.Object#wait()->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 22,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": null,
+          "event": "SEARCH_CANDIDATES_INPUT",
+          "methods": {
+            "length": 2,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 811562535,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1560379655,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 23,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": null,
+          "event": "TEST_END",
+          "methods": null,
+          "reason": null,
+          "sequence": 24,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        }
+      ],
+      "presence": "PRESENT",
+      "run": 5,
+      "source": "focused-run-5-trace.json"
+    },
+    {
+      "droppedEvents": 0,
+      "events": [
+        {
+          "accepted": null,
+          "classQueried": null,
+          "event": "TEST_START",
+          "methods": null,
+          "reason": null,
+          "sequence": 1,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "RAW_REFLECTION_RESULT",
+          "methods": {
+            "length": 3,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": true,
+                  "identityHashCode": 1213871206,
+                  "modifiers": 4161,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+                  "synthetic": true
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 811562535,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 2,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1560379655,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 2,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "REFLECTIONUTILS_RETURN",
+          "methods": {
+            "length": 3,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": true,
+                  "identityHashCode": 1213871206,
+                  "modifiers": 4161,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+                  "synthetic": true
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 811562535,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 2,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1560379655,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 3,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": true,
+            "identityHashCode": 1213871206,
+            "modifiers": 4161,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+            "synthetic": true
+          },
+          "reason": null,
+          "sequence": 4,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": true,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 811562535,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 5,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": true,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "CANDIDATE_INSERT",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 811562535,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+            "synthetic": false
+          },
+          "reason": "accepted by isBridgedCandidateFor and passed to candidateMethods::add",
+          "sequence": 6,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": true,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 1560379655,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 7,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": true,
+          "classQueried": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+          "event": "CANDIDATE_INSERT",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 1560379655,
+            "modifiers": 1,
+            "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+            "synthetic": false
+          },
+          "reason": "accepted by isBridgedCandidateFor and passed to candidateMethods::add",
+          "sequence": 8,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": "java.lang.Object",
+          "event": "RAW_REFLECTION_RESULT",
+          "methods": {
+            "length": 12,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 2117642238,
+                  "modifiers": 4,
+                  "structuralKey": "java.lang.Object#finalize()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 913242382,
+                  "modifiers": 274,
+                  "structuralKey": "java.lang.Object#wait0(long)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 2,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 870322840,
+                  "modifiers": 1,
+                  "structuralKey": "java.lang.Object#equals(java.lang.Object)->boolean",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 3,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 837246227,
+                  "modifiers": 1,
+                  "structuralKey": "java.lang.Object#toString()->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 4,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 173738886,
+                  "modifiers": 257,
+                  "structuralKey": "java.lang.Object#hashCode()->int",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 5,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1262237002,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#getClass()->java.lang.Class",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 6,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 2029754983,
+                  "modifiers": 260,
+                  "structuralKey": "java.lang.Object#clone()->java.lang.Object",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 7,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1946111918,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#notify()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 8,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 564817260,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#notifyAll()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 9,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 194415222,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait(long)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 10,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 798622145,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait(long,int)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 11,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 638695843,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait()->void",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 9,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": "java.lang.Object",
+          "event": "REFLECTIONUTILS_RETURN",
+          "methods": {
+            "length": 12,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 2117642238,
+                  "modifiers": 4,
+                  "structuralKey": "java.lang.Object#finalize()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 913242382,
+                  "modifiers": 274,
+                  "structuralKey": "java.lang.Object#wait0(long)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 2,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 870322840,
+                  "modifiers": 1,
+                  "structuralKey": "java.lang.Object#equals(java.lang.Object)->boolean",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 3,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 837246227,
+                  "modifiers": 1,
+                  "structuralKey": "java.lang.Object#toString()->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 4,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 173738886,
+                  "modifiers": 257,
+                  "structuralKey": "java.lang.Object#hashCode()->int",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 5,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1262237002,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#getClass()->java.lang.Class",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 6,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 2029754983,
+                  "modifiers": 260,
+                  "structuralKey": "java.lang.Object#clone()->java.lang.Object",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 7,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1946111918,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#notify()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 8,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 564817260,
+                  "modifiers": 273,
+                  "structuralKey": "java.lang.Object#notifyAll()->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 9,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 194415222,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait(long)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 10,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 798622145,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait(long,int)->void",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 11,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 638695843,
+                  "modifiers": 17,
+                  "structuralKey": "java.lang.Object#wait()->void",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 10,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 2117642238,
+            "modifiers": 4,
+            "structuralKey": "java.lang.Object#finalize()->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 11,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 913242382,
+            "modifiers": 274,
+            "structuralKey": "java.lang.Object#wait0(long)->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 12,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 870322840,
+            "modifiers": 1,
+            "structuralKey": "java.lang.Object#equals(java.lang.Object)->boolean",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 13,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 837246227,
+            "modifiers": 1,
+            "structuralKey": "java.lang.Object#toString()->java.lang.String",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 14,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 173738886,
+            "modifiers": 257,
+            "structuralKey": "java.lang.Object#hashCode()->int",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 15,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 1262237002,
+            "modifiers": 273,
+            "structuralKey": "java.lang.Object#getClass()->java.lang.Class",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 16,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 2029754983,
+            "modifiers": 260,
+            "structuralKey": "java.lang.Object#clone()->java.lang.Object",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 17,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 1946111918,
+            "modifiers": 273,
+            "structuralKey": "java.lang.Object#notify()->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 18,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 564817260,
+            "modifiers": 273,
+            "structuralKey": "java.lang.Object#notifyAll()->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 19,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 194415222,
+            "modifiers": 17,
+            "structuralKey": "java.lang.Object#wait(long)->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 20,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 798622145,
+            "modifiers": 17,
+            "structuralKey": "java.lang.Object#wait(long,int)->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 21,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": false,
+          "classQueried": "java.lang.Object",
+          "event": "DOWITHMETHODS_CALLBACK",
+          "methods": {
+            "bridge": false,
+            "identityHashCode": 638695843,
+            "modifiers": 17,
+            "structuralKey": "java.lang.Object#wait()->void",
+            "synthetic": false
+          },
+          "reason": null,
+          "sequence": 22,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": null,
+          "event": "SEARCH_CANDIDATES_INPUT",
+          "methods": {
+            "length": 2,
+            "order": [
+              {
+                "index": 0,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 811562535,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+                  "synthetic": false
+                }
+              },
+              {
+                "index": 1,
+                "method": {
+                  "bridge": false,
+                  "identityHashCode": 1560379655,
+                  "modifiers": 1,
+                  "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+                  "synthetic": false
+                }
+              }
+            ]
+          },
+          "reason": null,
+          "sequence": 23,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        },
+        {
+          "accepted": null,
+          "classQueried": null,
+          "event": "TEST_END",
+          "methods": null,
+          "reason": null,
+          "sequence": 24,
+          "testIdentity": "org.springframework.core.BridgeMethodResolverTests#withGenericParameter"
+        }
+      ],
+      "presence": "ABSENT",
+      "run": 6,
+      "source": "focused-run-6-trace.json"
+    }
+  ],
+  "schemaVersion": "round15-runtime-trace-collection-1"
+}

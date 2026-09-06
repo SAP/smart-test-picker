@@ -1,0 +1,46 @@
+{
+  "focusedRuns": 4,
+  "maximumRuns": 5,
+  "runs": [
+    {
+      "run": 1,
+      "targetPresence": [
+        false,
+        false,
+        true
+      ],
+      "testsPassed": true
+    },
+    {
+      "run": 2,
+      "targetPresence": [
+        false,
+        false,
+        false
+      ],
+      "testsPassed": true
+    },
+    {
+      "run": 3,
+      "targetPresence": [
+        false,
+        false,
+        true
+      ],
+      "testsPassed": true
+    },
+    {
+      "run": 4,
+      "targetPresence": [
+        false,
+        false,
+        false
+      ],
+      "testsPassed": true
+    }
+  ],
+  "schemaVersion": "round13-reproduction-1",
+  "stoppedReason": "Finalized-schema run 3 was PRESENT and run 4 ABSENT for target 3; stopped immediately after the contrast.",
+  "targetsNotReproduced": 2,
+  "targetsReproducedMoving": 1
+}

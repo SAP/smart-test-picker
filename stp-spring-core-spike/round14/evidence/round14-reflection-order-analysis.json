@@ -1,0 +1,21 @@
+{
+  "candidateOrderDiffers": true,
+  "classGetDeclaredMethodsArrayDirectlyCaptured": false,
+  "immediateProducer": "ReflectionUtils#doWithMethods using ReflectionUtils#getDeclaredMethods(clazz, false)",
+  "observedTraversal": {
+    "absentLeafPrefix": [
+      "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+      "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+      "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String"
+    ],
+    "presentLeafPrefix": [
+      "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+      "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+      "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String"
+    ]
+  },
+  "producerSameStructuralSetDifferentOrder": true,
+  "reason": "The filter callback sequence directly proves ReflectionUtils traversed the same leaf methods in different orders, and source shows doWithMethods consumes getDeclaredMethods(clazz,false) unchanged. The returned Class#getDeclaredMethods array itself was not hooked, so no JVM reflection nondeterminism claim is made.",
+  "reflectionOrderCause": "NOT_PROVEN",
+  "schemaVersion": "round14-reflection-order-analysis-1"
+}

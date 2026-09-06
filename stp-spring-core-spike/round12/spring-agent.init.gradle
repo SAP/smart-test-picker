@@ -1,0 +1,32 @@
+// SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+// SPDX-License-Identifier: Apache-2.0
+
+gradle.afterProject { project, state ->
+	if (project.path == ':spring-core') {
+		project.tasks.named('test').configure {
+			def javaExecutable = System.getenv('ROUND12_JAVA_EXECUTABLE')
+			if (javaExecutable) executable = javaExecutable
+			def agentJar = System.getenv('ROUND12_AGENT_JAR')
+			def agentArgs = System.getenv('ROUND12_AGENT_ARGS')
+			if (!agentJar || !agentArgs) throw new GradleException('ROUND12_AGENT_JAR and ROUND12_AGENT_ARGS are required')
+			jvmArgs "-javaagent:${agentJar}=${agentArgs}"
+			def timeline = System.getenv('ROUND12_TIMELINE_OUTPUT')
+			if (timeline) systemProperty 'stp.round12.timeline.output', timeline
+			def recording = System.getenv('ROUND12_JFR_OUTPUT')
+			def settings = System.getenv('ROUND12_JFR_SETTINGS')
+			if (recording && settings) {
+				jvmArgs "-XX:StartFlightRecording=name=round12,settings=${settings},filename=${recording},dumponexit=true,path-to-gc-roots=true"
+			}
+			def classOrder = System.getenv('ROUND12_CLASS_ORDER')
+			if (classOrder) {
+				systemProperty 'stp.round11.classOrder', classOrder
+				systemProperty 'junit.jupiter.testclass.order.default', 'com.sap.oss.smarttestpicker.junit.Round11ClassOrderer'
+			}
+			def filterFile = System.getenv('ROUND12_FILTER_FILE')
+			if (filterFile) {
+				file(filterFile).readLines().findAll { !it.isBlank() }.each { selected -> filter.includeTestsMatching(selected) }
+			}
+			testLogging.showStandardStreams = true
+		}
+	}
+}

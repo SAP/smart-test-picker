@@ -1,0 +1,5 @@
+{
+  "heapDumpUsed": false,
+  "reason": "JFR found no relevant sampled instance to anchor a targeted heap query. An end-of-subset dump could enumerate equal-class objects but could not associate an instance with an earlier TestIdentity or the moving edge; an exact between-test trigger would add behavior-changing control instrumentation. It would not materially answer the selected causal questions.",
+  "schemaVersion": "round12-heap-retention-1"
+}

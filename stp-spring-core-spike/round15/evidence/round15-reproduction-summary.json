@@ -1,0 +1,19 @@
+{
+  "absentRuns": [
+    1,
+    2,
+    3,
+    4,
+    6
+  ],
+  "allSelectedTestsPassed": true,
+  "focusedRuns": 6,
+  "maximumRuns": 6,
+  "presentRuns": [
+    5
+  ],
+  "sameFinalizedTraceSchema": true,
+  "samplingTargetReached": false,
+  "schemaVersion": "round15-reproduction-1",
+  "stoppedReason": "Maximum six runs reached; one PRESENT and five ABSENT runs were observed."
+}

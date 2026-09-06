@@ -1,0 +1,206 @@
+{
+  "causalResult": "The 27 representative ROUND 10 UNKNOWN miss-path edges execute in both orders. This rejects the proposed cross-test cache-reuse mechanism for this subset but does not explain baseline movement.",
+  "edges": [
+    {
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#findGenericDeclaration",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchForMatch",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchInterfaces",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "methodIdentity": "org.springframework.core.ResolvableType#getInterfaces",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClass",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClassAsSet",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "methodIdentity": "org.springframework.util.ClassUtils#isVisible",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "methodIdentity": "org.springframework.util.ClassUtils#toClassArray",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "methodIdentity": "org.springframework.util.CollectionUtils#isEmpty",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#findGenericDeclaration",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchForMatch",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchInterfaces",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "methodIdentity": "org.springframework.core.ResolvableType#getInterfaces",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClass",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClassAsSet",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "methodIdentity": "org.springframework.util.ClassUtils#isVisible",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "methodIdentity": "org.springframework.util.ClassUtils#toClassArray",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "methodIdentity": "org.springframework.util.CollectionUtils#isEmpty",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#findGenericDeclaration",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchForMatch",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchInterfaces",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "methodIdentity": "org.springframework.core.ResolvableType#getInterfaces",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClass",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClassAsSet",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "methodIdentity": "org.springframework.util.ClassUtils#isVisible",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "methodIdentity": "org.springframework.util.ClassUtils#toClassArray",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "methodIdentity": "org.springframework.util.CollectionUtils#isEmpty",
+      "orderAExecuted": true,
+      "orderBExecuted": true,
+      "result": "executes in both cold/miss observations; shared-state movement rejected for this focused contrast",
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    }
+  ],
+  "orderA": [
+    "BridgeMethodResolverTests",
+    "MergedAnnotationsComposedOnSingleAnnotatedElementTests",
+    "MultipleComposedAnnotationsOnSingleAnnotatedElementTests"
+  ],
+  "orderB": [
+    "MultipleComposedAnnotationsOnSingleAnnotatedElementTests",
+    "MergedAnnotationsComposedOnSingleAnnotatedElementTests",
+    "BridgeMethodResolverTests"
+  ],
+  "schemaVersion": "round11-controlled-order-1",
+  "stateResult": "BridgeMethodResolver.cache starts at size 0. Each selected test adds a distinct key hash; reversing class order changes first population but creates no hit for another selected test."
+}

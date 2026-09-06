@@ -1,0 +1,184 @@
+{
+  "crossJvmComparisonKey": "structuralKey",
+  "identityHashCodeUsage": "same-JVM correlation only",
+  "methods": [
+    {
+      "bridge": false,
+      "declaringClass": "java.lang.Object",
+      "modifiers": 260,
+      "name": "clone",
+      "parameterTypes": [],
+      "returnType": "java.lang.Object",
+      "structuralKey": "java.lang.Object#clone()->java.lang.Object",
+      "synthetic": false
+    },
+    {
+      "bridge": false,
+      "declaringClass": "java.lang.Object",
+      "modifiers": 1,
+      "name": "equals",
+      "parameterTypes": [
+        "java.lang.Object"
+      ],
+      "returnType": "boolean",
+      "structuralKey": "java.lang.Object#equals(java.lang.Object)->boolean",
+      "synthetic": false
+    },
+    {
+      "bridge": false,
+      "declaringClass": "java.lang.Object",
+      "modifiers": 4,
+      "name": "finalize",
+      "parameterTypes": [],
+      "returnType": "void",
+      "structuralKey": "java.lang.Object#finalize()->void",
+      "synthetic": false
+    },
+    {
+      "bridge": false,
+      "declaringClass": "java.lang.Object",
+      "modifiers": 273,
+      "name": "getClass",
+      "parameterTypes": [],
+      "returnType": "java.lang.Class",
+      "structuralKey": "java.lang.Object#getClass()->java.lang.Class",
+      "synthetic": false
+    },
+    {
+      "bridge": false,
+      "declaringClass": "java.lang.Object",
+      "modifiers": 257,
+      "name": "hashCode",
+      "parameterTypes": [],
+      "returnType": "int",
+      "structuralKey": "java.lang.Object#hashCode()->int",
+      "synthetic": false
+    },
+    {
+      "bridge": false,
+      "declaringClass": "java.lang.Object",
+      "modifiers": 273,
+      "name": "notify",
+      "parameterTypes": [],
+      "returnType": "void",
+      "structuralKey": "java.lang.Object#notify()->void",
+      "synthetic": false
+    },
+    {
+      "bridge": false,
+      "declaringClass": "java.lang.Object",
+      "modifiers": 273,
+      "name": "notifyAll",
+      "parameterTypes": [],
+      "returnType": "void",
+      "structuralKey": "java.lang.Object#notifyAll()->void",
+      "synthetic": false
+    },
+    {
+      "bridge": false,
+      "declaringClass": "java.lang.Object",
+      "modifiers": 1,
+      "name": "toString",
+      "parameterTypes": [],
+      "returnType": "java.lang.String",
+      "structuralKey": "java.lang.Object#toString()->java.lang.String",
+      "synthetic": false
+    },
+    {
+      "bridge": false,
+      "declaringClass": "java.lang.Object",
+      "modifiers": 17,
+      "name": "wait",
+      "parameterTypes": [],
+      "returnType": "void",
+      "structuralKey": "java.lang.Object#wait()->void",
+      "synthetic": false
+    },
+    {
+      "bridge": false,
+      "declaringClass": "java.lang.Object",
+      "modifiers": 17,
+      "name": "wait",
+      "parameterTypes": [
+        "long"
+      ],
+      "returnType": "void",
+      "structuralKey": "java.lang.Object#wait(long)->void",
+      "synthetic": false
+    },
+    {
+      "bridge": false,
+      "declaringClass": "java.lang.Object",
+      "modifiers": 17,
+      "name": "wait",
+      "parameterTypes": [
+        "long",
+        "int"
+      ],
+      "returnType": "void",
+      "structuralKey": "java.lang.Object#wait(long,int)->void",
+      "synthetic": false
+    },
+    {
+      "bridge": false,
+      "declaringClass": "java.lang.Object",
+      "modifiers": 274,
+      "name": "wait0",
+      "parameterTypes": [
+        "long"
+      ],
+      "returnType": "void",
+      "structuralKey": "java.lang.Object#wait0(long)->void",
+      "synthetic": false
+    },
+    {
+      "bridge": false,
+      "declaringClass": "org.springframework.core.BridgeMethodResolverTests$GenericParameter",
+      "modifiers": 1025,
+      "name": "getFor",
+      "parameterTypes": [
+        "java.lang.Class"
+      ],
+      "returnType": "java.lang.Object",
+      "structuralKey": "org.springframework.core.BridgeMethodResolverTests$GenericParameter#getFor(java.lang.Class)->java.lang.Object",
+      "synthetic": false
+    },
+    {
+      "bridge": true,
+      "declaringClass": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+      "modifiers": 4161,
+      "name": "getFor",
+      "parameterTypes": [
+        "java.lang.Class"
+      ],
+      "returnType": "java.lang.Object",
+      "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.Object",
+      "synthetic": true
+    },
+    {
+      "bridge": false,
+      "declaringClass": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+      "modifiers": 1,
+      "name": "getFor",
+      "parameterTypes": [
+        "java.lang.Class"
+      ],
+      "returnType": "java.lang.String",
+      "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Class)->java.lang.String",
+      "synthetic": false
+    },
+    {
+      "bridge": false,
+      "declaringClass": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+      "modifiers": 1,
+      "name": "getFor",
+      "parameterTypes": [
+        "java.lang.Integer"
+      ],
+      "returnType": "java.lang.String",
+      "structuralKey": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter#getFor(java.lang.Integer)->java.lang.String",
+      "synthetic": false
+    }
+  ],
+  "schemaVersion": "round14-method-identities-1"
+}

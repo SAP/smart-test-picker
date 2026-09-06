@@ -1,0 +1,17 @@
+{
+  "environment": {
+    "architecture": "arm64",
+    "gradleVersion": "8.14.2",
+    "jdkVendor": "Homebrew OpenJDK",
+    "jdkVersion": "21.0.11",
+    "queriedDeclaringClass": "org.springframework.core.BridgeMethodResolverTests$StringGenericParameter",
+    "springRevision": "99a366baf6640b275d08dde60f05da719139bb6a",
+    "test": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+  },
+  "finalClassification": "JDK_REFLECTION_ORDER_CAUSE_PROVEN",
+  "firstDivergentStage": "CLASS_GETDECLARED_METHODS",
+  "hypothesis": "The different searchCandidates order originates directly from different ordering of the same structural Method set returned by Class#getDeclaredMethods().",
+  "result": "PROVEN",
+  "schemaVersion": "round15-reflection-order-classification-1",
+  "scope": "For this JDK 21 / Spring revision / test setup, Class#getDeclaredMethods returned the same structural Method set in different orders across fresh JVM runs."
+}

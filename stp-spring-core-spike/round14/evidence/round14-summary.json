@@ -1,0 +1,26 @@
+{
+  "absentRuns": [
+    1,
+    2,
+    4,
+    5
+  ],
+  "candidateOrderEqual": false,
+  "candidateOrderHypothesis": "PROVEN",
+  "candidateStructuralSetEqual": true,
+  "conclusion": "Candidate order is causal: PRESENT first explores getFor(Integer) through generic/interface resolution and enters getInterfaces; ABSENT first matches getFor(Class) and returns immediately.",
+  "finalClassification": "CANDIDATE_ORDER_CAUSE_PROVEN",
+  "firstDivergentCandidateIndex": 0,
+  "firstDivergentDecision": "direct isResolvedTypeMatch: false for PRESENT candidate getFor(Integer), true for ABSENT candidate getFor(Class)",
+  "firstDivergentHelper": "BridgeMethodResolver#isBridgeMethodFor",
+  "focusedRuns": 6,
+  "normalStpMapSemanticsModified": false,
+  "presentRuns": [
+    3,
+    6
+  ],
+  "reflectionOrderCause": "NOT_PROVEN",
+  "schemaVersion": "round14-summary-1",
+  "selectorSemanticsModified": false,
+  "springSourceModified": false
+}

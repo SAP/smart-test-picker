@@ -1,0 +1,3 @@
+org.springframework.core.ResolvableTypeTests.classWithGenericsAs
+org.springframework.core.ResolvableTypeTests.forMethodParameterWithNestingAndLevels
+org.springframework.core.BridgeMethodResolverTests.withGenericParameter

@@ -1,0 +1,23 @@
+{
+  "classifications": {
+    "INSUFFICIENT_EVIDENCE": 4,
+    "OBJECT_HISTORY_PROVEN": 0,
+    "OBJECT_HISTORY_REJECTED": 0
+  },
+  "conclusion": "JFR/runtime evidence does not establish object-history causality for the selected cases.",
+  "controlledContrast": "selected ResolvableType restructure edge absent in both warm and isolated fresh-JVM cases",
+  "heapDumpUsed": false,
+  "jfrCounts": {
+    "allocationEvents": 921,
+    "oldObjectSamples": 20,
+    "relevantAllocationEvents": 0,
+    "relevantOldObjectSamples": 0
+  },
+  "jfrRecording": "round12-recording.jfr",
+  "jfrValid": true,
+  "normalProductionMapSemanticsModified": false,
+  "sameInstanceIdentityProven": false,
+  "schemaVersion": "round12-summary-1",
+  "springSourceModified": false,
+  "targets": 4
+}

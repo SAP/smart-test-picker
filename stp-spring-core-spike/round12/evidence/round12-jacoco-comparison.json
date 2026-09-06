@@ -1,0 +1,30 @@
+{
+  "comparisonRequiredForProvenEdge": false,
+  "conclusion": "No object-history causality was proven, so the conditional JaCoCo comparison is not applicable. The reference exposes ordinary coverage assignment only and no prior-object/JVM-history evidence.",
+  "provenObjectHistoryEdges": 0,
+  "reference": "existing ROUND 9 JaCoCo map",
+  "regenerated": false,
+  "schemaVersion": "round12-jacoco-1",
+  "selectedTargetsForContextOnly": [
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "testIdentity": "ResolvableTypeTests#classWithGenericsAs_1378ee35"
+    },
+    {
+      "jacocoStatus": "DOES_NOT_CONTAIN_OR_DISTINGUISH_EDGE",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "testIdentity": "ResolvableTypeTests#forMethodParameterWithNestingAndLevels_3ac7fcf8"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.core.ResolvableType#getInterfaces",
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "jacocoStatus": "ASSIGNS_TO_ANOTHER_TEST",
+      "methodIdentity": "org.springframework.core.SerializableTypeWrapper#unwrap",
+      "testIdentity": "MapToMapConverterTests#collectionMapSourceTarget_5bff386f"
+    }
+  ]
+}

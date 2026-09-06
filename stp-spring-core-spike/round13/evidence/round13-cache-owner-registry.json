@@ -1,0 +1,176 @@
+{
+  "identityScope": "identities correlate objects only inside their containing JVM run",
+  "knownCandidateFields": [
+    "ResolvableType.cache",
+    "SerializableTypeWrapper.cache",
+    "BridgeMethodResolver.cache",
+    "GenericTypeResolver.typeVariableCache",
+    "ReflectionUtils.declaredMethodsCache",
+    "ReflectionUtils.declaredFieldsCache",
+    "ClassUtils.interfaceMethodCache"
+  ],
+  "resolvedConcurrentReferenceHashMapOwnerCount": 7,
+  "resolvedConcurrentReferenceHashMapOwners": [
+    "BridgeMethodResolver.cache",
+    "ClassUtils.interfaceMethodCache",
+    "GenericTypeResolver.typeVariableCache",
+    "ReflectionUtils.declaredFieldsCache",
+    "ReflectionUtils.declaredMethodsCache",
+    "ResolvableType.cache",
+    "SerializableTypeWrapper.cache"
+  ],
+  "runs": [
+    {
+      "owners": [
+        {
+          "identity": 708613859,
+          "owner": "BridgeMethodResolver.cache"
+        },
+        {
+          "identity": 1089584667,
+          "owner": "ClassUtils.interfaceMethodCache"
+        },
+        {
+          "identity": 1479909053,
+          "owner": "GenericTypeResolver.typeVariableCache"
+        },
+        {
+          "identity": 1345265484,
+          "owner": "ReflectionUtils.declaredFieldsCache"
+        },
+        {
+          "identity": 1265053098,
+          "owner": "ReflectionUtils.declaredMethodsCache"
+        },
+        {
+          "identity": 1732663543,
+          "owner": "ResolvableType.cache"
+        },
+        {
+          "identity": 16148478,
+          "owner": "SerializableTypeWrapper.cache"
+        }
+      ],
+      "run": 1
+    },
+    {
+      "owners": [
+        {
+          "identity": 708613859,
+          "owner": "BridgeMethodResolver.cache"
+        },
+        {
+          "identity": 1089584667,
+          "owner": "ClassUtils.interfaceMethodCache"
+        },
+        {
+          "identity": 1479909053,
+          "owner": "GenericTypeResolver.typeVariableCache"
+        },
+        {
+          "identity": 1345265484,
+          "owner": "ReflectionUtils.declaredFieldsCache"
+        },
+        {
+          "identity": 1265053098,
+          "owner": "ReflectionUtils.declaredMethodsCache"
+        },
+        {
+          "identity": 1732663543,
+          "owner": "ResolvableType.cache"
+        },
+        {
+          "identity": 16148478,
+          "owner": "SerializableTypeWrapper.cache"
+        }
+      ],
+      "run": 2
+    },
+    {
+      "owners": [
+        {
+          "identity": 708613859,
+          "owner": "BridgeMethodResolver.cache"
+        },
+        {
+          "identity": 1089584667,
+          "owner": "ClassUtils.interfaceMethodCache"
+        },
+        {
+          "identity": 1479909053,
+          "owner": "GenericTypeResolver.typeVariableCache"
+        },
+        {
+          "identity": 1345265484,
+          "owner": "ReflectionUtils.declaredFieldsCache"
+        },
+        {
+          "identity": 1265053098,
+          "owner": "ReflectionUtils.declaredMethodsCache"
+        },
+        {
+          "identity": 1732663543,
+          "owner": "ResolvableType.cache"
+        },
+        {
+          "identity": 16148478,
+          "owner": "SerializableTypeWrapper.cache"
+        }
+      ],
+      "run": 3
+    },
+    {
+      "owners": [
+        {
+          "identity": 708613859,
+          "owner": "BridgeMethodResolver.cache"
+        },
+        {
+          "identity": 1089584667,
+          "owner": "ClassUtils.interfaceMethodCache"
+        },
+        {
+          "identity": 1479909053,
+          "owner": "GenericTypeResolver.typeVariableCache"
+        },
+        {
+          "identity": 1345265484,
+          "owner": "ReflectionUtils.declaredFieldsCache"
+        },
+        {
+          "identity": 1265053098,
+          "owner": "ReflectionUtils.declaredMethodsCache"
+        },
+        {
+          "identity": 1732663543,
+          "owner": "ResolvableType.cache"
+        },
+        {
+          "identity": 16148478,
+          "owner": "SerializableTypeWrapper.cache"
+        }
+      ],
+      "run": 4
+    }
+  ],
+  "schemaVersion": "round13-cache-owner-registry-1",
+  "unresolvedByRun": [
+    {
+      "receivers": [],
+      "run": 1
+    },
+    {
+      "receivers": [],
+      "run": 2
+    },
+    {
+      "receivers": [],
+      "run": 3
+    },
+    {
+      "receivers": [],
+      "run": 4
+    }
+  ],
+  "unresolvedMapInternalReceiverCount": 0
+}
