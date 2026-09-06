@@ -1,0 +1,452 @@
+{
+  "run1": {
+    "LATE_EVENT": {
+      "count": 613704,
+      "uniqueMethods": 522,
+      "topMethods": [
+        {
+          "method": "org.springframework.util.ConcurrentReferenceHashMap$Segment#clear()V",
+          "count": 116848,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#pollForPurge()Lorg/springframework/util/ConcurrentReferenceHashMap$Reference;",
+          "count": 58331,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructureIfNecessary(Z)V",
+          "count": 58331,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.util.ObjectUtils#nullSafeEquals(Ljava/lang/Object;Ljava/lang/Object;)Z",
+          "count": 20521,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.util.Assert#notNull(Ljava/lang/Object;Ljava/lang/String;)V",
+          "count": 17077,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.ResolvableType#resolve()Ljava/lang/Class;",
+          "count": 15668,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.util.ObjectUtils#nullSafeHashCode(Ljava/lang/Object;)I",
+          "count": 10281,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.ResolvableType$DefaultVariableResolver#getSource()Ljava/lang/Object;",
+          "count": 10235,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.ResolvableType#forType(Ljava/lang/reflect/Type;Lorg/springframework/core/ResolvableType$VariableResolver;)Lorg/springframework/core/ResolvableType;",
+          "count": 9559,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.ResolvableType#forType(Ljava/lang/reflect/Type;Lorg/springframework/core/SerializableTypeWrapper$TypeProvider;Lorg/springframework/core/ResolvableType$VariableResolver;)Lorg/springframework/core/ResolvableType;",
+          "count": 9559,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.convert.converter.GenericConverter$ConvertiblePair#hashCode()I",
+          "count": 8948,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.ResolvableType#resolve(Ljava/lang/Class;)Ljava/lang/Class;",
+          "count": 8943,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.ResolvableType#toClass()Ljava/lang/Class;",
+          "count": 8943,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.convert.support.GenericConversionService$Converters#getMatchableConverters(Lorg/springframework/core/convert/converter/GenericConverter$ConvertiblePair;)Lorg/springframework/core/convert/support/GenericConversionService$ConvertersForPair;",
+          "count": 8493,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.convert.support.GenericConversionService$ConvertersForPair#add(Lorg/springframework/core/convert/converter/GenericConverter;)V",
+          "count": 8493,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.convert.support.GenericConversionService$Converters#lambda$getMatchableConverters$0(Lorg/springframework/core/convert/converter/GenericConverter$ConvertiblePair;)Lorg/springframework/core/convert/support/GenericConversionService$ConvertersForPair;",
+          "count": 8344,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.convert.support.GenericConversionService$ConvertersForPair#<init>()V",
+          "count": 8344,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.convert.converter.GenericConverter$ConvertiblePair#<init>(Ljava/lang/Class;Ljava/lang/Class;)V",
+          "count": 7309,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.util.ConcurrentReferenceHashMap#clear()V",
+          "count": 7303,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.convert.support.GenericConversionService#addConverter(Lorg/springframework/core/convert/converter/GenericConverter;)V",
+          "count": 7301,
+          "globallyCoveredElsewhere": true
+        }
+      ]
+    },
+    "NO_ACTIVE_TEST": {
+      "count": 11210,
+      "uniqueMethods": 143,
+      "topMethods": [
+        {
+          "method": "org.springframework.util.Assert#notNull(Ljava/lang/Object;Ljava/lang/String;)V",
+          "count": 1030,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.DataBufferUtils#release(Lorg/springframework/core/io/buffer/DataBuffer;)Z",
+          "count": 489,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.DataBufferUtils$ReadCompletionHandler$Attachment#dataBuffer()Lorg/springframework/core/io/buffer/DataBuffer;",
+          "count": 362,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.DataBufferUtils$ReadCompletionHandler$Attachment#iterator()Lorg/springframework/core/io/buffer/DataBuffer$ByteBufferIterator;",
+          "count": 362,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.DataBufferUtils$ReadCompletionHandler#completed(Ljava/lang/Integer;Lorg/springframework/core/io/buffer/DataBufferUtils$ReadCompletionHandler$Attachment;)V",
+          "count": 336,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.DataBufferUtils$ReadCompletionHandler#completed(Ljava/lang/Object;Ljava/lang/Object;)V",
+          "count": 336,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.DefaultDataBuffer#assertIndex(ZLjava/lang/String;[Ljava/lang/Object;)V",
+          "count": 292,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.DataBufferUtils$ReadCompletionHandler#read()V",
+          "count": 249,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.DataBufferUtils$ReadCompletionHandler$Attachment#<init>(Lorg/springframework/core/io/buffer/DataBuffer;Lorg/springframework/core/io/buffer/DataBuffer$ByteBufferIterator;)V",
+          "count": 249,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.util.Assert#state(ZLjava/lang/String;)V",
+          "count": 249,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.NettyDataBuffer#isAllocated()Z",
+          "count": 231,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.NettyDataBuffer$ByteBufferIterator#close()V",
+          "count": 216,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.NettyDataBuffer$ByteBufferIterator#hasNext()Z",
+          "count": 209,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.NettyDataBuffer#release()Z",
+          "count": 207,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.Netty5DataBuffer$BufferComponentIterator#close()V",
+          "count": 204,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.Netty5DataBuffer$BufferComponentIterator#hasNext()Z",
+          "count": 200,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.Netty5DataBuffer#close()V",
+          "count": 180,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.DataBufferUtils#closeChannel(Ljava/nio/channels/Channel;)V",
+          "count": 172,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.NettyDataBuffer$ByteBufferIterator#<init>([Ljava/nio/ByteBuffer;Z)V",
+          "count": 153,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.NettyDataBuffer$ByteBufferIterator#next()Ljava/lang/Object;",
+          "count": 153,
+          "globallyCoveredElsewhere": true
+        }
+      ]
+    },
+    "UNKNOWN_CONTEXT": {
+      "count": 0,
+      "uniqueMethods": 0,
+      "topMethods": []
+    },
+    "lateClassification": {
+      "ordinaryBetweenTestInitialization": 613704,
+      "propagatedAsyncAfterTestCompletion": 0,
+      "unknownLateExecution": 0,
+      "basis": "LATE_EVENT records retain the finished owner thread; no attach record proves a propagated task executed after endTest."
+    }
+  },
+  "run2": {
+    "LATE_EVENT": {
+      "count": 613714,
+      "uniqueMethods": 522,
+      "topMethods": [
+        {
+          "method": "org.springframework.util.ConcurrentReferenceHashMap$Segment#clear()V",
+          "count": 116848,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#pollForPurge()Lorg/springframework/util/ConcurrentReferenceHashMap$Reference;",
+          "count": 58331,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructureIfNecessary(Z)V",
+          "count": 58331,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.util.ObjectUtils#nullSafeEquals(Ljava/lang/Object;Ljava/lang/Object;)Z",
+          "count": 20521,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.util.Assert#notNull(Ljava/lang/Object;Ljava/lang/String;)V",
+          "count": 17077,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.ResolvableType#resolve()Ljava/lang/Class;",
+          "count": 15668,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.util.ObjectUtils#nullSafeHashCode(Ljava/lang/Object;)I",
+          "count": 10281,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.ResolvableType$DefaultVariableResolver#getSource()Ljava/lang/Object;",
+          "count": 10235,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.ResolvableType#forType(Ljava/lang/reflect/Type;Lorg/springframework/core/ResolvableType$VariableResolver;)Lorg/springframework/core/ResolvableType;",
+          "count": 9559,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.ResolvableType#forType(Ljava/lang/reflect/Type;Lorg/springframework/core/SerializableTypeWrapper$TypeProvider;Lorg/springframework/core/ResolvableType$VariableResolver;)Lorg/springframework/core/ResolvableType;",
+          "count": 9559,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.convert.converter.GenericConverter$ConvertiblePair#hashCode()I",
+          "count": 8948,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.ResolvableType#resolve(Ljava/lang/Class;)Ljava/lang/Class;",
+          "count": 8943,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.ResolvableType#toClass()Ljava/lang/Class;",
+          "count": 8943,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.convert.support.GenericConversionService$Converters#getMatchableConverters(Lorg/springframework/core/convert/converter/GenericConverter$ConvertiblePair;)Lorg/springframework/core/convert/support/GenericConversionService$ConvertersForPair;",
+          "count": 8493,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.convert.support.GenericConversionService$ConvertersForPair#add(Lorg/springframework/core/convert/converter/GenericConverter;)V",
+          "count": 8493,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.convert.support.GenericConversionService$Converters#lambda$getMatchableConverters$0(Lorg/springframework/core/convert/converter/GenericConverter$ConvertiblePair;)Lorg/springframework/core/convert/support/GenericConversionService$ConvertersForPair;",
+          "count": 8344,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.convert.support.GenericConversionService$ConvertersForPair#<init>()V",
+          "count": 8344,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.convert.converter.GenericConverter$ConvertiblePair#<init>(Ljava/lang/Class;Ljava/lang/Class;)V",
+          "count": 7309,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.util.ConcurrentReferenceHashMap#clear()V",
+          "count": 7303,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.convert.support.GenericConversionService#addConverter(Lorg/springframework/core/convert/converter/GenericConverter;)V",
+          "count": 7301,
+          "globallyCoveredElsewhere": true
+        }
+      ]
+    },
+    "NO_ACTIVE_TEST": {
+      "count": 11210,
+      "uniqueMethods": 143,
+      "topMethods": [
+        {
+          "method": "org.springframework.util.Assert#notNull(Ljava/lang/Object;Ljava/lang/String;)V",
+          "count": 1030,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.DataBufferUtils#release(Lorg/springframework/core/io/buffer/DataBuffer;)Z",
+          "count": 489,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.DataBufferUtils$ReadCompletionHandler$Attachment#dataBuffer()Lorg/springframework/core/io/buffer/DataBuffer;",
+          "count": 362,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.DataBufferUtils$ReadCompletionHandler$Attachment#iterator()Lorg/springframework/core/io/buffer/DataBuffer$ByteBufferIterator;",
+          "count": 362,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.DataBufferUtils$ReadCompletionHandler#completed(Ljava/lang/Integer;Lorg/springframework/core/io/buffer/DataBufferUtils$ReadCompletionHandler$Attachment;)V",
+          "count": 336,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.DataBufferUtils$ReadCompletionHandler#completed(Ljava/lang/Object;Ljava/lang/Object;)V",
+          "count": 336,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.DefaultDataBuffer#assertIndex(ZLjava/lang/String;[Ljava/lang/Object;)V",
+          "count": 292,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.DataBufferUtils$ReadCompletionHandler#read()V",
+          "count": 249,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.DataBufferUtils$ReadCompletionHandler$Attachment#<init>(Lorg/springframework/core/io/buffer/DataBuffer;Lorg/springframework/core/io/buffer/DataBuffer$ByteBufferIterator;)V",
+          "count": 249,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.util.Assert#state(ZLjava/lang/String;)V",
+          "count": 249,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.NettyDataBuffer#isAllocated()Z",
+          "count": 231,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.NettyDataBuffer$ByteBufferIterator#close()V",
+          "count": 216,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.NettyDataBuffer$ByteBufferIterator#hasNext()Z",
+          "count": 209,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.NettyDataBuffer#release()Z",
+          "count": 207,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.Netty5DataBuffer$BufferComponentIterator#close()V",
+          "count": 204,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.Netty5DataBuffer$BufferComponentIterator#hasNext()Z",
+          "count": 200,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.Netty5DataBuffer#close()V",
+          "count": 180,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.DataBufferUtils#closeChannel(Ljava/nio/channels/Channel;)V",
+          "count": 172,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.NettyDataBuffer$ByteBufferIterator#<init>([Ljava/nio/ByteBuffer;Z)V",
+          "count": 153,
+          "globallyCoveredElsewhere": true
+        },
+        {
+          "method": "org.springframework.core.io.buffer.NettyDataBuffer$ByteBufferIterator#next()Ljava/lang/Object;",
+          "count": 153,
+          "globallyCoveredElsewhere": true
+        }
+      ]
+    },
+    "UNKNOWN_CONTEXT": {
+      "count": 0,
+      "uniqueMethods": 0,
+      "topMethods": []
+    },
+    "lateClassification": {
+      "ordinaryBetweenTestInitialization": 613714,
+      "propagatedAsyncAfterTestCompletion": 0,
+      "unknownLateExecution": 0,
+      "basis": "LATE_EVENT records retain the finished owner thread; no attach record proves a propagated task executed after endTest."
+    }
+  }
+}

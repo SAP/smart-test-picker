@@ -1,0 +1,302 @@
+{
+  "referenceOnlyClinitEdges": 54,
+  "asmOnlyClinitEdges": 5,
+  "uniqueClinitMethodIdentities": [
+    "org.springframework.aot.generate.FileSystemGeneratedFiles$1#<clinit>",
+    "org.springframework.aot.hint.BindingReflectionHintsRegistrar#<clinit>",
+    "org.springframework.aot.nativex.ReflectionHintsWriter$1#<clinit>",
+    "org.springframework.core.BridgeMethodResolver#<clinit>",
+    "org.springframework.core.MethodParameter#<clinit>",
+    "org.springframework.core.NativeDetector#<clinit>",
+    "org.springframework.core.ResolvableType#<clinit>",
+    "org.springframework.core.ResolvableType$EmptyType#<clinit>",
+    "org.springframework.core.SerializableTypeWrapper#<clinit>",
+    "org.springframework.core.annotation.AnnotationFilter#<clinit>",
+    "org.springframework.core.annotation.AnnotationTypeMapping#<clinit>",
+    "org.springframework.core.annotation.AnnotationTypeMappings#<clinit>",
+    "org.springframework.core.annotation.AnnotationUtils#<clinit>",
+    "org.springframework.core.annotation.AnnotationsScanner#<clinit>",
+    "org.springframework.core.annotation.AnnotationsScanner$1#<clinit>",
+    "org.springframework.core.annotation.AttributeMethods#<clinit>",
+    "org.springframework.core.annotation.IntrospectionFailureLogger#<clinit>",
+    "org.springframework.core.annotation.MergedAnnotation$Adapt#<clinit>",
+    "org.springframework.core.annotation.MergedAnnotationCollectors#<clinit>",
+    "org.springframework.core.annotation.MergedAnnotationSelectors#<clinit>",
+    "org.springframework.core.annotation.MergedAnnotations$Search#<clinit>",
+    "org.springframework.core.annotation.MergedAnnotations$SearchStrategy#<clinit>",
+    "org.springframework.core.annotation.MissingMergedAnnotation#<clinit>",
+    "org.springframework.core.annotation.RepeatableContainers#<clinit>",
+    "org.springframework.core.annotation.RepeatableContainers$NoRepeatableContainers#<clinit>",
+    "org.springframework.core.annotation.RepeatableContainers$StandardRepeatableContainers#<clinit>",
+    "org.springframework.core.annotation.TypeMappedAnnotation#<clinit>",
+    "org.springframework.core.annotation.TypeMappedAnnotations#<clinit>",
+    "org.springframework.core.annotation.TypeMappedAnnotations$IsPresent#<clinit>",
+    "org.springframework.core.codec.AbstractCharSequenceDecoder#<clinit>",
+    "org.springframework.core.codec.CharSequenceEncoder#<clinit>",
+    "org.springframework.core.codec.ResourceDecoder#<clinit>",
+    "org.springframework.core.codec.ResourceRegionEncoder#<clinit>",
+    "org.springframework.core.convert.support.ByteBufferConverter#<clinit>",
+    "org.springframework.core.convert.support.GenericConversionService#<clinit>",
+    "org.springframework.core.convert.support.ObjectToObjectConverter#<clinit>",
+    "org.springframework.core.convert.support.StreamConverter#<clinit>",
+    "org.springframework.core.convert.support.StringToBooleanConverter#<clinit>",
+    "org.springframework.core.io.buffer.DefaultDataBufferFactory#<clinit>",
+    "org.springframework.core.io.support.PathMatchingResourcePatternResolver#<clinit>",
+    "org.springframework.core.io.support.PropertySourceProcessor#<clinit>",
+    "org.springframework.core.log.CompositeLog#<clinit>",
+    "org.springframework.core.style.SimpleValueStyler#<clinit>",
+    "org.springframework.util.AntPathMatcher#<clinit>",
+    "org.springframework.util.ClassUtils#<clinit>",
+    "org.springframework.util.ConcurrentReferenceHashMap#<clinit>",
+    "org.springframework.util.ConcurrentReferenceHashMap$ReferenceType#<clinit>",
+    "org.springframework.util.ConcurrentReferenceHashMap$Restructure#<clinit>",
+    "org.springframework.util.ConcurrentReferenceHashMap$TaskOption#<clinit>",
+    "org.springframework.util.MimeType#<clinit>",
+    "org.springframework.util.MimeTypeUtils#<clinit>",
+    "org.springframework.util.ObjectUtils#<clinit>",
+    "org.springframework.util.ReflectionUtils#<clinit>",
+    "org.springframework.util.StringUtils#<clinit>",
+    "org.springframework.util.concurrent.FutureAdapter$1#<clinit>",
+    "org.springframework.util.concurrent.FutureAdapter$State#<clinit>",
+    "org.springframework.util.concurrent.ListenableFutureCallbackRegistry$1#<clinit>",
+    "org.springframework.util.concurrent.SettableListenableFuture#<clinit>"
+  ],
+  "testsAffected": [
+    "BindingReflectionHintsRegistrarTests#registerTypeForJacksonAnnotations_203971c",
+    "BridgeMethodResolverTests#spr2583_208552d",
+    "ByteArrayDecoderTests#decodeToMono_2295452",
+    "CharBufferDecoderTests#decodeToMono_5aaf6f3",
+    "CharSequenceEncoderTests#encode_5714d2f",
+    "ClassNameGeneratorTests#generateClassNameWithNoTextFeatureNamePrefix_4ce1768",
+    "CompositeLogTests#useFirstLogger_a1c06aa",
+    "ConvertingComparatorTests#shouldThrowOnNullConverter_1e4ff29",
+    "CustomClassAndMethodStylers#styleClassMap_51b3409",
+    "DataBufferTests#toByteBuffer_6fd2491",
+    "FileNativeConfigurationWriterTests#reflectionConfig_22cde5c",
+    "FileSystemGeneratedFilesTests#addFilesCopiesToFileSystem_e06b40e",
+    "FutureAdapterTests#cancel_69c9807",
+    "FutureAdapterTests#getTimeOut_6e9a050",
+    "JarResources#singleResourceInRootOfJar_36f0019",
+    "ListenableFutureTaskTests#success_750666e",
+    "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyComposedCacheOnInterfaceAndLocalCacheOnClass_37e0da4",
+    "MergedAnnotationsTests#asAnnotationAttributesReturnsPopulatedAnnotationAttributes_6278ded",
+    "MergedAnnotationsTests#collectMultiValueMapFavorsInheritedComposedAnnotationsOverMoreLocallyDeclaredComposedAnnotations_54ae137",
+    "MergedAnnotationsTests#getDirectFromClassWithMetaCycleAnnotatedClassWithMissingTargetMetaAnnotation_62a67fb",
+    "MergedAnnotationsTests#getWithTypeHierarchyFromInheritedAnnotationInterface_6153a33",
+    "MergedAnnotationsTests#isPresentWhenFromAnnotationClassWithMetaDepth0_156822e",
+    "PropertySourceProcessorTests#processorRegistersPropertySource_5b726b1",
+    "ResourceDecoderTests#decodeToMono_13e9796",
+    "ResourceRegionEncoderTests#shouldEncodeMultipleResourceRegionsFileResource_348c09a",
+    "SettableListenableFutureTests#throwsSetExceptionWrappedInExecutionExceptionFromCompletable_fa05d79"
+  ],
+  "topReferenceOnlyMethods": [
+    [
+      "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      353
+    ],
+    [
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      353
+    ],
+    [
+      "org.springframework.util.Assert#isTrue",
+      336
+    ],
+    [
+      "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      316
+    ],
+    [
+      "org.springframework.util.ConcurrentReferenceHashMap#<init>",
+      286
+    ],
+    [
+      "org.springframework.util.ConcurrentReferenceHashMap#calculateShift",
+      286
+    ],
+    [
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#<init>",
+      286
+    ],
+    [
+      "org.springframework.util.ConcurrentReferenceHashMap$ReferenceManager#<init>",
+      285
+    ],
+    [
+      "org.springframework.util.ConcurrentReferenceHashMap#createReferenceManager",
+      256
+    ],
+    [
+      "org.springframework.core.convert.support.GenericConversionService#<init>",
+      253
+    ],
+    [
+      "org.springframework.core.convert.support.GenericConversionService$Converters#<init>",
+      253
+    ],
+    [
+      "org.springframework.core.io.buffer.NettyDataBufferFactory#<init>",
+      169
+    ],
+    [
+      "org.springframework.core.convert.support.StreamConverter#<init>",
+      158
+    ],
+    [
+      "org.springframework.aot.hint.ResourceHints#<init>",
+      153
+    ],
+    [
+      "org.springframework.core.KotlinDetector#isKotlinPresent",
+      149
+    ],
+    [
+      "org.springframework.core.convert.support.AbstractConditionalEnumConverter#<init>",
+      149
+    ],
+    [
+      "org.springframework.core.convert.support.ArrayToArrayConverter#<init>",
+      149
+    ],
+    [
+      "org.springframework.core.convert.support.ArrayToArrayConverter#getConvertibleTypes",
+      149
+    ],
+    [
+      "org.springframework.core.convert.support.ArrayToCollectionConverter#<init>",
+      149
+    ],
+    [
+      "org.springframework.core.convert.support.ArrayToCollectionConverter#getConvertibleTypes",
+      149
+    ]
+  ],
+  "topAsmOnlyMethods": [
+    [
+      "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      1150
+    ],
+    [
+      "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      50
+    ],
+    [
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      43
+    ],
+    [
+      "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      34
+    ],
+    [
+      "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      34
+    ],
+    [
+      "org.springframework.core.annotation.AnnotationTypeMappings$Cache#createMappings",
+      23
+    ],
+    [
+      "org.springframework.core.annotation.AnnotationTypeMappings$Cache#get",
+      23
+    ],
+    [
+      "org.springframework.core.annotation.AnnotationTypeMappings$Cache#lambda$get$0",
+      23
+    ],
+    [
+      "org.springframework.core.annotation.AbstractMergedAnnotation#getRequiredAttributeValue",
+      22
+    ],
+    [
+      "org.springframework.core.annotation.RepeatableContainers#of",
+      21
+    ],
+    [
+      "org.springframework.util.MimeTypeUtils#parseMimeType",
+      17
+    ],
+    [
+      "org.springframework.core.annotation.MergedAnnotation#from",
+      16
+    ],
+    [
+      "org.springframework.util.unit.DataUnit#values",
+      12
+    ],
+    [
+      "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      11
+    ],
+    [
+      "org.springframework.core.env.Profiles#of",
+      11
+    ],
+    [
+      "org.springframework.core.io.support.PropertySourceDescriptor#encoding",
+      9
+    ],
+    [
+      "org.springframework.core.io.support.PropertySourceDescriptor#ignoreResourceNotFound",
+      9
+    ],
+    [
+      "org.springframework.core.io.support.PropertySourceDescriptor#locations",
+      9
+    ],
+    [
+      "org.springframework.core.io.support.PropertySourceDescriptor#name",
+      9
+    ],
+    [
+      "org.springframework.core.io.support.PropertySourceDescriptor#propertySourceFactory",
+      9
+    ]
+  ],
+  "historicalPatternCounts": {
+    "ConcurrentReferenceHashMap": {
+      "referenceOnly": 3330,
+      "asmOnly": 1329
+    },
+    "ConcurrentLruCache": {
+      "referenceOnly": 12,
+      "asmOnly": 6
+    },
+    "ResolvableType": {
+      "referenceOnly": 1354,
+      "asmOnly": 10
+    },
+    "ReflectionUtils": {
+      "referenceOnly": 42,
+      "asmOnly": 6
+    },
+    "AnnotationTypeMappings": {
+      "referenceOnly": 22,
+      "asmOnly": 69
+    },
+    "MergedAnnotations": {
+      "referenceOnly": 29,
+      "asmOnly": 8
+    },
+    "StringUtils": {
+      "referenceOnly": 351,
+      "asmOnly": 0
+    },
+    "Assert": {
+      "referenceOnly": 535,
+      "asmOnly": 4
+    },
+    "DataBufferUtils": {
+      "referenceOnly": 99,
+      "asmOnly": 7
+    },
+    "MimeTypeUtils": {
+      "referenceOnly": 1,
+      "asmOnly": 17
+    },
+    "ReactiveAdapterRegistry": {
+      "referenceOnly": 29,
+      "asmOnly": 4
+    }
+  }
+}

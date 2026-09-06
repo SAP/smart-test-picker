@@ -1,0 +1,93 @@
+{
+  "reference": {
+    "inventory": 3624,
+    "mapped": 3624,
+    "unmapped": [],
+    "methodEdges": 171206,
+    "classEdges": 53328,
+    "globalMethods": 3532,
+    "globalClasses": 582
+  },
+  "asmRun1": {
+    "inventory": 3638,
+    "mapped": 3629,
+    "unmapped": [
+      "AnnotationAwareOrderComparatorTests#instanceVariableIsAnAnnotationAwareOrderComparator_32df85c",
+      "ReflectionHintsExtensionsTests#getTypeHint extension_5495925",
+      "ReflectionHintsExtensionsTests#registerType extension with Consumer_14c12ab",
+      "ReflectionHintsExtensionsTests#registerType extension with MemberCategory_122964a",
+      "ResourceHintsExtensionsTests#registerType extension_1b4cb61",
+      "SerializationHintsExtensionsTests#registerType extension with Consumer_223719b",
+      "SerializationHintsExtensionsTests#registerType extension_eb90a26",
+      "SpringCoreBlockHoundIntegrationTests#blockHoundIsInstalled_19c3f54",
+      "TypeHintExtensionsTests#onReachableType builder extension_9a1f2d3"
+    ],
+    "methodEdges": 149827,
+    "classEdges": 44700,
+    "globalMethods": 3577,
+    "globalClasses": 586
+  },
+  "asmRun2": {
+    "inventory": 3638,
+    "mapped": 3629,
+    "unmapped": [
+      "AnnotationAwareOrderComparatorTests#instanceVariableIsAnAnnotationAwareOrderComparator_32df85c",
+      "ReflectionHintsExtensionsTests#getTypeHint extension_5495925",
+      "ReflectionHintsExtensionsTests#registerType extension with Consumer_14c12ab",
+      "ReflectionHintsExtensionsTests#registerType extension with MemberCategory_122964a",
+      "ResourceHintsExtensionsTests#registerType extension_1b4cb61",
+      "SerializationHintsExtensionsTests#registerType extension with Consumer_223719b",
+      "SerializationHintsExtensionsTests#registerType extension_eb90a26",
+      "SpringCoreBlockHoundIntegrationTests#blockHoundIsInstalled_19c3f54",
+      "TypeHintExtensionsTests#onReachableType builder extension_9a1f2d3"
+    ],
+    "methodEdges": 149800,
+    "classEdges": 44697,
+    "globalMethods": 3577,
+    "globalClasses": 586
+  },
+  "asmRun1Agent": {
+    "classesSeen": 15527,
+    "classesIncluded": 692,
+    "classesExcluded": 4924,
+    "classesIgnored": 9911,
+    "transformationErrors": 0,
+    "transformerTotalNanos": 92664963,
+    "agentStartNanos": 90067531983416,
+    "classLoaderPresent": 13026,
+    "classLoaderMissing": 2501,
+    "protectionDomainPresent": 12197,
+    "protectionDomainMissing": 3330,
+    "classesTransformed": 619,
+    "methodsConsidered": 5866,
+    "methodsInstrumented": 5510,
+    "methodsSkipped": 356,
+    "alreadyInstrumentedClasses": 0,
+    "methodIdCollisions": 0,
+    "rawMethodHits": 6331154,
+    "uniqueMethodHits": 4309,
+    "runtimeRecordingNanos": 4409330093
+  },
+  "asmRun2Agent": {
+    "classesSeen": 15526,
+    "classesIncluded": 692,
+    "classesExcluded": 4923,
+    "classesIgnored": 9911,
+    "transformationErrors": 0,
+    "transformerTotalNanos": 96837659,
+    "agentStartNanos": 90099865702666,
+    "classLoaderPresent": 13026,
+    "classLoaderMissing": 2500,
+    "protectionDomainPresent": 12197,
+    "protectionDomainMissing": 3329,
+    "classesTransformed": 619,
+    "methodsConsidered": 5866,
+    "methodsInstrumented": 5510,
+    "methodsSkipped": 356,
+    "alreadyInstrumentedClasses": 0,
+    "methodIdCollisions": 0,
+    "rawMethodHits": 6330668,
+    "uniqueMethodHits": 4309,
+    "runtimeRecordingNanos": 4356290573
+  }
+}
