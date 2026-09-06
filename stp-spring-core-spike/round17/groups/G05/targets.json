@@ -1,0 +1,17 @@
+{
+  "edges": [
+    {
+      "methodIdentity": "org.springframework.core.SerializableTypeWrapper#unwrap",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "MapToMapConverterTests#collectionMapSourceTarget_5bff386f"
+    }
+  ],
+  "groupId": "G05",
+  "schemaVersion": "round17-group-targets-1"
+}

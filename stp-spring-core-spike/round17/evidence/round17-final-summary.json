@@ -1,0 +1,32 @@
+{
+  "classificationCounts": {
+    "ASYNC_CONTEXT": 0,
+    "EXECUTION_ORDER": 0,
+    "JDK_REFLECTION_ORDER": 8,
+    "LATE_EXECUTION": 0,
+    "NOT_REPRODUCED_ROUND17": 0,
+    "OTHER_PROVEN_RUNTIME_CAUSE": 0,
+    "REFERENCE_LIFECYCLE": 0,
+    "SHARED_JVM_STATE": 0,
+    "SPRING_ORDER_SENSITIVE_CONTROL_FLOW": 0,
+    "STATIC_INITIALIZATION": 0,
+    "UNKNOWN": 105
+  },
+  "classificationTotal": 113,
+  "collectorCorrectnessDefectFound": false,
+  "edgesExplainedByGroupLevelPattern": 8,
+  "edgesExplainedIndividually": 0,
+  "edgesRemainingUnknown": 105,
+  "groupsInsufficient": 4,
+  "groupsInvestigated": 5,
+  "groupsNotReproduced": 0,
+  "groupsPartiallyExplained": 0,
+  "groupsWithMultipleProvenCauses": 0,
+  "groupsWithNoSharedCause": 0,
+  "groupsWithOneProvenSharedCause": 1,
+  "inputUnknownEdges": 113,
+  "newFullSuiteRuns": 0,
+  "patternResult": "NO",
+  "patternResultRationale": "One proven pattern explains 8/113 edges (7.08%); 105/113 remain UNKNOWN across four groups. This is not a material collapse into a small recurring-mechanism set.",
+  "schemaVersion": "round17-final-summary-1"
+}

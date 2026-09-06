@@ -1,0 +1,758 @@
+{
+  "groups": [
+    {
+      "clusters": [
+        {
+          "edgeCount": 6,
+          "edges": [
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+              "testIdentity": "ResolvableTypeTests#classWithGenericsAs_1378ee35"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+              "testIdentity": "ResolvableTypeTests#classWithGenericsAs_1378ee35"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+              "testIdentity": "ResolvableTypeTests#classWithGenericsAs_1378ee35"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+              "testIdentity": "ResolvableTypeTests#forClassWithGenerics_6bf2e2e8"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+              "testIdentity": "ResolvableTypeTests#forClassWithGenerics_6bf2e2e8"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+              "testIdentity": "ResolvableTypeTests#forClassWithGenerics_6bf2e2e8"
+            }
+          ],
+          "interpretation": "observed co-movement only; causality requires separate direct evidence",
+          "signature": [
+            0,
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "edgeCount": 3,
+          "edges": [
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+              "testIdentity": "StreamConverterTests#convertFromArrayToStream_9ee5c57"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+              "testIdentity": "StreamConverterTests#convertFromArrayToStream_9ee5c57"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+              "testIdentity": "StreamConverterTests#convertFromArrayToStream_9ee5c57"
+            }
+          ],
+          "interpretation": "observed co-movement only; causality requires separate direct evidence",
+          "signature": [
+            0,
+            0,
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "edgeCount": 9,
+          "edges": [
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+              "testIdentity": "CollectionToCollectionConverterTests#objectToCollection_20ff6381"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+              "testIdentity": "CollectionToCollectionConverterTests#objectToCollection_20ff6381"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+              "testIdentity": "CollectionToCollectionConverterTests#objectToCollection_20ff6381"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+              "testIdentity": "DefaultConversionServiceTests#convertArrayToStream_44e1bd72"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+              "testIdentity": "DefaultConversionServiceTests#convertArrayToStream_44e1bd72"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+              "testIdentity": "DefaultConversionServiceTests#convertArrayToStream_44e1bd72"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+              "testIdentity": "MapToMapConverterTests#noDefaultConstructorCopyNotRequired_2f3c8288"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+              "testIdentity": "MapToMapConverterTests#noDefaultConstructorCopyNotRequired_2f3c8288"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+              "testIdentity": "MapToMapConverterTests#noDefaultConstructorCopyNotRequired_2f3c8288"
+            }
+          ],
+          "interpretation": "observed co-movement only; causality requires separate direct evidence",
+          "signature": [
+            0,
+            0,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "edgeCount": 3,
+          "edges": [
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+              "testIdentity": "ResolvableTypeTests#resolveVariableFromFieldType_73a232d9"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+              "testIdentity": "ResolvableTypeTests#resolveVariableFromFieldType_73a232d9"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+              "testIdentity": "ResolvableTypeTests#resolveVariableFromFieldType_73a232d9"
+            }
+          ],
+          "interpretation": "observed co-movement only; causality requires separate direct evidence",
+          "signature": [
+            0,
+            1,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "edgeCount": 3,
+          "edges": [
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+              "testIdentity": "StreamConverterTests#convertFromListToRawStream_4004e252"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+              "testIdentity": "StreamConverterTests#convertFromListToRawStream_4004e252"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+              "testIdentity": "StreamConverterTests#convertFromListToRawStream_4004e252"
+            }
+          ],
+          "interpretation": "observed co-movement only; causality requires separate direct evidence",
+          "signature": [
+            0,
+            1,
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "edgeCount": 3,
+          "edges": [
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+              "testIdentity": "ResolvableTypeTests#typeVariableType_64778267"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+              "testIdentity": "ResolvableTypeTests#typeVariableType_64778267"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+              "testIdentity": "ResolvableTypeTests#typeVariableType_64778267"
+            }
+          ],
+          "interpretation": "observed co-movement only; causality requires separate direct evidence",
+          "signature": [
+            0,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "edgeCount": 25,
+          "edges": [
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+              "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+              "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+              "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+              "testIdentity": "GenericTypeResolverTests#resolveIncompleteTypeVariables_4cde3ac4"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+              "testIdentity": "GenericTypeResolverTests#resolveIncompleteTypeVariables_4cde3ac4"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+              "testIdentity": "GenericTypeResolverTests#resolveIncompleteTypeVariables_4cde3ac4"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+              "testIdentity": "MergedAnnotationsTests#getFromMethodWithGenericSuperclass_78b2b090"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+              "testIdentity": "MergedAnnotationsTests#getFromMethodWithGenericSuperclass_78b2b090"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+              "testIdentity": "MergedAnnotationsTests#getFromMethodWithGenericSuperclass_78b2b090"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+              "testIdentity": "ResolvableTypeTests#isAssignableFromForComplexWildcards_4dc8b13e"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+              "testIdentity": "ResolvableTypeTests#isAssignableFromForComplexWildcards_4dc8b13e"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+              "testIdentity": "ResolvableTypeTests#isAssignableFromForComplexWildcards_4dc8b13e"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+              "testIdentity": "ResolvableTypeTests#resolveGenericArrayType_5361bd11"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+              "testIdentity": "ResolvableTypeTests#resolveGenericArrayType_5361bd11"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+              "testIdentity": "ResolvableTypeTests#resolveGenericArrayType_5361bd11"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+              "testIdentity": "ResolvableTypeTests#resolveVariableFromInheritedFieldSwitched_1f60dce"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+              "testIdentity": "ResolvableTypeTests#resolveVariableFromInheritedFieldSwitched_1f60dce"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+              "testIdentity": "ResolvableTypeTests#resolveVariableFromInheritedFieldSwitched_1f60dce"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+              "testIdentity": "StreamConverterTests#convertFromStreamToArray_6f1ce01"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+              "testIdentity": "StreamConverterTests#convertFromStreamToArray_6f1ce01"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+              "testIdentity": "StreamConverterTests#convertFromStreamToArray_6f1ce01"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+              "testIdentity": "TypeDescriptorTests#isAssignableMapKeyValueTypes_5496c48c"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+              "testIdentity": "TypeDescriptorTests#nestedTooManyLevels_1b240c1d"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+              "testIdentity": "TypeDescriptorTests#nestedTooManyLevels_1b240c1d"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+              "testIdentity": "TypeDescriptorTests#nestedTooManyLevels_1b240c1d"
+            }
+          ],
+          "interpretation": "observed co-movement only; causality requires separate direct evidence",
+          "signature": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "edgeCount": 6,
+          "edges": [
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+              "testIdentity": "ResolvableTypeTests#isAssignableFromForWildcards_2b853d44"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+              "testIdentity": "ResolvableTypeTests#isAssignableFromForWildcards_2b853d44"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+              "testIdentity": "ResolvableTypeTests#isAssignableFromForWildcards_2b853d44"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+              "testIdentity": "TypeDescriptorTests#propertyGenericClassList_6040d6a2"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+              "testIdentity": "TypeDescriptorTests#propertyGenericClassList_6040d6a2"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+              "testIdentity": "TypeDescriptorTests#propertyGenericClassList_6040d6a2"
+            }
+          ],
+          "interpretation": "observed co-movement only; causality requires separate direct evidence",
+          "signature": [
+            1,
+            0,
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "edgeCount": 3,
+          "edges": [
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+              "testIdentity": "MapToMapConverterTests#multiValueMapToMultiValueMap_24e1f0a0"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+              "testIdentity": "MapToMapConverterTests#multiValueMapToMultiValueMap_24e1f0a0"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+              "testIdentity": "MapToMapConverterTests#multiValueMapToMultiValueMap_24e1f0a0"
+            }
+          ],
+          "interpretation": "observed co-movement only; causality requires separate direct evidence",
+          "signature": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "edgeCount": 1,
+          "edges": [
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+              "testIdentity": "MapToMapConverterTests#collectionMapSourceTarget_5bff386f"
+            }
+          ],
+          "interpretation": "observed co-movement only; causality requires separate direct evidence",
+          "signature": [
+            1,
+            1,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "edgeCount": 7,
+          "edges": [
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+              "testIdentity": "MapToMapConverterTests#collectionMap_5d43ab43"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+              "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+              "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+              "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+              "testIdentity": "TypeDescriptorTests#isAssignableElementTypes_4db34e9e"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+              "testIdentity": "TypeDescriptorTests#isAssignableElementTypes_4db34e9e"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+              "testIdentity": "TypeDescriptorTests#isAssignableElementTypes_4db34e9e"
+            }
+          ],
+          "interpretation": "observed co-movement only; causality requires separate direct evidence",
+          "signature": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ]
+        }
+      ],
+      "groupId": "G01"
+    },
+    {
+      "clusters": [
+        {
+          "edgeCount": 4,
+          "edges": [
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+              "testIdentity": "GenericConversionServiceTests#stringArrayToIntegerArray_cb70652"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+              "testIdentity": "GenericConversionServiceTests#stringArrayToIntegerArray_cb70652"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+              "testIdentity": "ResolvableTypeTests#classWithGenericsAs_1378ee35"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+              "testIdentity": "ResolvableTypeTests#forClassWithGenerics_6bf2e2e8"
+            }
+          ],
+          "interpretation": "observed co-movement only; causality requires separate direct evidence",
+          "signature": [
+            0,
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "edgeCount": 2,
+          "edges": [
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+              "testIdentity": "ReflectionUtilsTests#findMethodWithVarArgs_5bd66dc1"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+              "testIdentity": "ReflectionUtilsTests#findMethodWithVarArgs_5bd66dc1"
+            }
+          ],
+          "interpretation": "observed co-movement only; causality requires separate direct evidence",
+          "signature": [
+            0,
+            0,
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "edgeCount": 1,
+          "edges": [
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+              "testIdentity": "ResolvableTypeTests#typeVariableType_64778267"
+            }
+          ],
+          "interpretation": "observed co-movement only; causality requires separate direct evidence",
+          "signature": [
+            0,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "edgeCount": 5,
+          "edges": [
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+              "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+              "testIdentity": "GenericTypeResolverTests#resolveIncompleteTypeVariables_4cde3ac4"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+              "testIdentity": "ResolvableTypeTests#wildcardType_345dddeb"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+              "testIdentity": "ResolvableTypeTests#wildcardType_345dddeb"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+              "testIdentity": "TypeDescriptorTests#nestedTooManyLevels_1b240c1d"
+            }
+          ],
+          "interpretation": "observed co-movement only; causality requires separate direct evidence",
+          "signature": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "edgeCount": 1,
+          "edges": [
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+              "testIdentity": "ConventionsTests#set_72479166"
+            }
+          ],
+          "interpretation": "observed co-movement only; causality requires separate direct evidence",
+          "signature": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "edgeCount": 1,
+          "edges": [
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+              "testIdentity": "TypeDescriptorTests#multiValueMap_4fed22b6"
+            }
+          ],
+          "interpretation": "observed co-movement only; causality requires separate direct evidence",
+          "signature": [
+            1,
+            1,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "edgeCount": 1,
+          "edges": [
+            {
+              "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+              "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e"
+            }
+          ],
+          "interpretation": "observed co-movement only; causality requires separate direct evidence",
+          "signature": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ]
+        }
+      ],
+      "groupId": "G02"
+    },
+    {
+      "clusters": [
+        {
+          "edgeCount": 8,
+          "edges": [
+            {
+              "methodIdentity": "org.springframework.core.BridgeMethodResolver#findGenericDeclaration",
+              "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+            },
+            {
+              "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchForMatch",
+              "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+            },
+            {
+              "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchInterfaces",
+              "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClass",
+              "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClassAsSet",
+              "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ClassUtils#isVisible",
+              "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ClassUtils#toClassArray",
+              "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+            },
+            {
+              "methodIdentity": "org.springframework.util.CollectionUtils#isEmpty",
+              "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+            }
+          ],
+          "interpretation": "observed co-movement only; causality requires separate direct evidence",
+          "signature": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "groupId": "G03"
+    },
+    {
+      "clusters": [
+        {
+          "edgeCount": 20,
+          "edges": [
+            {
+              "methodIdentity": "org.springframework.core.BridgeMethodResolver#findGenericDeclaration",
+              "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+            },
+            {
+              "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchForMatch",
+              "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+            },
+            {
+              "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchInterfaces",
+              "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+            },
+            {
+              "methodIdentity": "org.springframework.core.ResolvableType#getInterfaces",
+              "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+            },
+            {
+              "methodIdentity": "org.springframework.core.SerializableTypeWrapper$TypeProxyInvocationHandler#<init>",
+              "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClass",
+              "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClassAsSet",
+              "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ClassUtils#isVisible",
+              "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ClassUtils#toClassArray",
+              "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+            },
+            {
+              "methodIdentity": "org.springframework.util.CollectionUtils#isEmpty",
+              "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+            },
+            {
+              "methodIdentity": "org.springframework.core.BridgeMethodResolver#findGenericDeclaration",
+              "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+            },
+            {
+              "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchForMatch",
+              "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+            },
+            {
+              "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchInterfaces",
+              "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+            },
+            {
+              "methodIdentity": "org.springframework.core.ResolvableType#getInterfaces",
+              "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+            },
+            {
+              "methodIdentity": "org.springframework.core.SerializableTypeWrapper$TypeProxyInvocationHandler#<init>",
+              "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClass",
+              "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClassAsSet",
+              "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ClassUtils#isVisible",
+              "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+            },
+            {
+              "methodIdentity": "org.springframework.util.ClassUtils#toClassArray",
+              "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+            },
+            {
+              "methodIdentity": "org.springframework.util.CollectionUtils#isEmpty",
+              "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+            }
+          ],
+          "interpretation": "observed co-movement only; causality requires separate direct evidence",
+          "signature": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "groupId": "G04"
+    },
+    {
+      "clusters": [
+        {
+          "edgeCount": 1,
+          "edges": [
+            {
+              "methodIdentity": "org.springframework.core.SerializableTypeWrapper#unwrap",
+              "testIdentity": "MapToMapConverterTests#collectionMapSourceTarget_5bff386f"
+            }
+          ],
+          "interpretation": "observed co-movement only; causality requires separate direct evidence",
+          "signature": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "groupId": "G05"
+    }
+  ],
+  "newFullSuiteRuns": 0,
+  "reasonNoNewRuns": "The canonical five-run vectors already reproduce movement for every input edge and separate the analysis groups.",
+  "runSource": "ROUND 16 five accepted identical fresh-JVM full runs",
+  "schemaVersion": "round17-comovement-analysis-1"
+}

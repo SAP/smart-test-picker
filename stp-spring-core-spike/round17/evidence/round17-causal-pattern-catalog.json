@@ -1,0 +1,57 @@
+{
+  "patternCount": 1,
+  "patterns": [
+    {
+      "affectedEdges": [
+        {
+          "methodIdentity": "org.springframework.core.BridgeMethodResolver#findGenericDeclaration",
+          "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+        },
+        {
+          "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchForMatch",
+          "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+        },
+        {
+          "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchInterfaces",
+          "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClass",
+          "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClassAsSet",
+          "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ClassUtils#isVisible",
+          "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ClassUtils#toClassArray",
+          "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+        },
+        {
+          "methodIdentity": "org.springframework.util.CollectionUtils#isEmpty",
+          "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+        }
+      ],
+      "affectedGroups": [
+        "G03"
+      ],
+      "controlledProof": "ROUND 15 fresh JVM runs 1 and 5 have the same structural Method set but different order and opposite presence for all eight edges; ROUND 14 locates the first differing decision.",
+      "evidence": [
+        "round15-raw-reflection-orders.json",
+        "round15-candidate-propagation.json",
+        "round14-present-absent-control-flow-diff.json",
+        "round15 focused maps"
+      ],
+      "name": "Reflection result order gates a multi-method BridgeMethodResolver path",
+      "patternId": "P01",
+      "runtimeMechanism": "ReflectionUtils preserves raw order; BridgeMethodResolver preserves candidate insertion order; the Class candidate returns early while the Integer candidate enters generic/interface resolution.",
+      "scopeLimits": "Does not classify G04 despite equal ROUND 16 vectors and similar method families; those tests lack a target-connected producer trace.",
+      "trigger": "Class#getDeclaredMethods returns the same three-method structural set with the two non-bridge candidates swapped."
+    }
+  ],
+  "schemaVersion": "round17-causal-pattern-catalog-1"
+}

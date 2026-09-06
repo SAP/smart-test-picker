@@ -1,0 +1,11 @@
+{
+  "groupId": "G02",
+  "newRuntimeCapture": false,
+  "retainedEvidenceOnly": true,
+  "schemaVersion": "round17-group-evidence-index-1",
+  "sources": [
+    "round16-causal-classification.json",
+    "round11-gc-reference-analysis.json",
+    "round12-retention-analysis.json"
+  ]
+}

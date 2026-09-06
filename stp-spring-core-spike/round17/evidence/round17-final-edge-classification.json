@@ -1,0 +1,1862 @@
+{
+  "entries": [
+    {
+      "classification": "JDK_REFLECTION_ORDER",
+      "evidence": {
+        "directCausalChain": "Class#getDeclaredMethods order -> ReflectionUtils traversal -> BridgeMethodResolver candidate order -> early return versus generic/interface-resolution path -> all listed method entries absent/present together",
+        "patternId": "P01",
+        "presentAbsentMaps": [
+          "round15/focused-run-1-map.json",
+          "round15/focused-run-5-map.json"
+        ],
+        "scope": "only BridgeMethodResolverTests#withGenericParameter and the eight listed ROUND 17 edges"
+      },
+      "groupId": "G03",
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#findGenericDeclaration",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "classification": "JDK_REFLECTION_ORDER",
+      "evidence": {
+        "directCausalChain": "Class#getDeclaredMethods order -> ReflectionUtils traversal -> BridgeMethodResolver candidate order -> early return versus generic/interface-resolution path -> all listed method entries absent/present together",
+        "patternId": "P01",
+        "presentAbsentMaps": [
+          "round15/focused-run-1-map.json",
+          "round15/focused-run-5-map.json"
+        ],
+        "scope": "only BridgeMethodResolverTests#withGenericParameter and the eight listed ROUND 17 edges"
+      },
+      "groupId": "G03",
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchForMatch",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "classification": "JDK_REFLECTION_ORDER",
+      "evidence": {
+        "directCausalChain": "Class#getDeclaredMethods order -> ReflectionUtils traversal -> BridgeMethodResolver candidate order -> early return versus generic/interface-resolution path -> all listed method entries absent/present together",
+        "patternId": "P01",
+        "presentAbsentMaps": [
+          "round15/focused-run-1-map.json",
+          "round15/focused-run-5-map.json"
+        ],
+        "scope": "only BridgeMethodResolverTests#withGenericParameter and the eight listed ROUND 17 edges"
+      },
+      "groupId": "G03",
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchInterfaces",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "classification": "JDK_REFLECTION_ORDER",
+      "evidence": {
+        "directCausalChain": "Class#getDeclaredMethods order -> ReflectionUtils traversal -> BridgeMethodResolver candidate order -> early return versus generic/interface-resolution path -> all listed method entries absent/present together",
+        "patternId": "P01",
+        "presentAbsentMaps": [
+          "round15/focused-run-1-map.json",
+          "round15/focused-run-5-map.json"
+        ],
+        "scope": "only BridgeMethodResolverTests#withGenericParameter and the eight listed ROUND 17 edges"
+      },
+      "groupId": "G03",
+      "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClass",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "classification": "JDK_REFLECTION_ORDER",
+      "evidence": {
+        "directCausalChain": "Class#getDeclaredMethods order -> ReflectionUtils traversal -> BridgeMethodResolver candidate order -> early return versus generic/interface-resolution path -> all listed method entries absent/present together",
+        "patternId": "P01",
+        "presentAbsentMaps": [
+          "round15/focused-run-1-map.json",
+          "round15/focused-run-5-map.json"
+        ],
+        "scope": "only BridgeMethodResolverTests#withGenericParameter and the eight listed ROUND 17 edges"
+      },
+      "groupId": "G03",
+      "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClassAsSet",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "classification": "JDK_REFLECTION_ORDER",
+      "evidence": {
+        "directCausalChain": "Class#getDeclaredMethods order -> ReflectionUtils traversal -> BridgeMethodResolver candidate order -> early return versus generic/interface-resolution path -> all listed method entries absent/present together",
+        "patternId": "P01",
+        "presentAbsentMaps": [
+          "round15/focused-run-1-map.json",
+          "round15/focused-run-5-map.json"
+        ],
+        "scope": "only BridgeMethodResolverTests#withGenericParameter and the eight listed ROUND 17 edges"
+      },
+      "groupId": "G03",
+      "methodIdentity": "org.springframework.util.ClassUtils#isVisible",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "classification": "JDK_REFLECTION_ORDER",
+      "evidence": {
+        "directCausalChain": "Class#getDeclaredMethods order -> ReflectionUtils traversal -> BridgeMethodResolver candidate order -> early return versus generic/interface-resolution path -> all listed method entries absent/present together",
+        "patternId": "P01",
+        "presentAbsentMaps": [
+          "round15/focused-run-1-map.json",
+          "round15/focused-run-5-map.json"
+        ],
+        "scope": "only BridgeMethodResolverTests#withGenericParameter and the eight listed ROUND 17 edges"
+      },
+      "groupId": "G03",
+      "methodIdentity": "org.springframework.util.ClassUtils#toClassArray",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "classification": "JDK_REFLECTION_ORDER",
+      "evidence": {
+        "directCausalChain": "Class#getDeclaredMethods order -> ReflectionUtils traversal -> BridgeMethodResolver candidate order -> early return versus generic/interface-resolution path -> all listed method entries absent/present together",
+        "patternId": "P01",
+        "presentAbsentMaps": [
+          "round15/focused-run-1-map.json",
+          "round15/focused-run-5-map.json"
+        ],
+        "scope": "only BridgeMethodResolverTests#withGenericParameter and the eight listed ROUND 17 edges"
+      },
+      "groupId": "G03",
+      "methodIdentity": "org.springframework.util.CollectionUtils#isEmpty",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presenceVector": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "CollectionToCollectionConverterTests#objectToCollection_20ff6381"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presenceVector": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "CollectionToCollectionConverterTests#objectToCollection_20ff6381"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presenceVector": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "CollectionToCollectionConverterTests#objectToCollection_20ff6381"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G02",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "ConventionsTests#set_72479166"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presenceVector": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "DefaultConversionServiceTests#convertArrayToStream_44e1bd72"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presenceVector": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "DefaultConversionServiceTests#convertArrayToStream_44e1bd72"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presenceVector": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "DefaultConversionServiceTests#convertArrayToStream_44e1bd72"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G02",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      "presenceVector": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "testIdentity": "GenericConversionServiceTests#stringArrayToIntegerArray_cb70652"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G02",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presenceVector": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "testIdentity": "GenericConversionServiceTests#stringArrayToIntegerArray_cb70652"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G02",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "GenericTypeResolverTests#resolveIncompleteTypeVariables_4cde3ac4"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "GenericTypeResolverTests#resolveIncompleteTypeVariables_4cde3ac4"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "GenericTypeResolverTests#resolveIncompleteTypeVariables_4cde3ac4"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G02",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "GenericTypeResolverTests#resolveIncompleteTypeVariables_4cde3ac4"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G05",
+      "methodIdentity": "org.springframework.core.SerializableTypeWrapper#unwrap",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "MapToMapConverterTests#collectionMapSourceTarget_5bff386f"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presenceVector": [
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      "testIdentity": "MapToMapConverterTests#collectionMapSourceTarget_5bff386f"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presenceVector": [
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "MapToMapConverterTests#collectionMap_5d43ab43"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MapToMapConverterTests#multiValueMapToMultiValueMap_24e1f0a0"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MapToMapConverterTests#multiValueMapToMultiValueMap_24e1f0a0"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MapToMapConverterTests#multiValueMapToMultiValueMap_24e1f0a0"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presenceVector": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MapToMapConverterTests#noDefaultConstructorCopyNotRequired_2f3c8288"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presenceVector": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MapToMapConverterTests#noDefaultConstructorCopyNotRequired_2f3c8288"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presenceVector": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MapToMapConverterTests#noDefaultConstructorCopyNotRequired_2f3c8288"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G04",
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#findGenericDeclaration",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G04",
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchForMatch",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G04",
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchInterfaces",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G04",
+      "methodIdentity": "org.springframework.core.ResolvableType#getInterfaces",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G04",
+      "methodIdentity": "org.springframework.core.SerializableTypeWrapper$TypeProxyInvocationHandler#<init>",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G04",
+      "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClass",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G04",
+      "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClassAsSet",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G04",
+      "methodIdentity": "org.springframework.util.ClassUtils#isVisible",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G04",
+      "methodIdentity": "org.springframework.util.ClassUtils#toClassArray",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G04",
+      "methodIdentity": "org.springframework.util.CollectionUtils#isEmpty",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "MergedAnnotationsTests#getFromMethodWithGenericSuperclass_78b2b090"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "MergedAnnotationsTests#getFromMethodWithGenericSuperclass_78b2b090"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "MergedAnnotationsTests#getFromMethodWithGenericSuperclass_78b2b090"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G04",
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#findGenericDeclaration",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G04",
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchForMatch",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G04",
+      "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchInterfaces",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G04",
+      "methodIdentity": "org.springframework.core.ResolvableType#getInterfaces",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G04",
+      "methodIdentity": "org.springframework.core.SerializableTypeWrapper$TypeProxyInvocationHandler#<init>",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G04",
+      "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClass",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G04",
+      "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClassAsSet",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G04",
+      "methodIdentity": "org.springframework.util.ClassUtils#isVisible",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G04",
+      "methodIdentity": "org.springframework.util.ClassUtils#toClassArray",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G04",
+      "methodIdentity": "org.springframework.util.CollectionUtils#isEmpty",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G02",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      "presenceVector": [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "ReflectionUtilsTests#findMethodWithVarArgs_5bd66dc1"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G02",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presenceVector": [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "ReflectionUtilsTests#findMethodWithVarArgs_5bd66dc1"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presenceVector": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "testIdentity": "ResolvableTypeTests#classWithGenericsAs_1378ee35"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presenceVector": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "testIdentity": "ResolvableTypeTests#classWithGenericsAs_1378ee35"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presenceVector": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "testIdentity": "ResolvableTypeTests#classWithGenericsAs_1378ee35"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G02",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "presenceVector": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "testIdentity": "ResolvableTypeTests#classWithGenericsAs_1378ee35"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presenceVector": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "testIdentity": "ResolvableTypeTests#forClassWithGenerics_6bf2e2e8"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presenceVector": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "testIdentity": "ResolvableTypeTests#forClassWithGenerics_6bf2e2e8"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presenceVector": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "testIdentity": "ResolvableTypeTests#forClassWithGenerics_6bf2e2e8"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G02",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "presenceVector": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "testIdentity": "ResolvableTypeTests#forClassWithGenerics_6bf2e2e8"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForComplexWildcards_4dc8b13e"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForComplexWildcards_4dc8b13e"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForComplexWildcards_4dc8b13e"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForWildcards_2b853d44"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForWildcards_2b853d44"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForWildcards_2b853d44"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "ResolvableTypeTests#resolveGenericArrayType_5361bd11"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "ResolvableTypeTests#resolveGenericArrayType_5361bd11"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "ResolvableTypeTests#resolveGenericArrayType_5361bd11"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presenceVector": [
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presenceVector": [
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presenceVector": [
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G02",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "presenceVector": [
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presenceVector": [
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "testIdentity": "ResolvableTypeTests#resolveVariableFromFieldType_73a232d9"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presenceVector": [
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "testIdentity": "ResolvableTypeTests#resolveVariableFromFieldType_73a232d9"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presenceVector": [
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "testIdentity": "ResolvableTypeTests#resolveVariableFromFieldType_73a232d9"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "ResolvableTypeTests#resolveVariableFromInheritedFieldSwitched_1f60dce"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "ResolvableTypeTests#resolveVariableFromInheritedFieldSwitched_1f60dce"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "ResolvableTypeTests#resolveVariableFromInheritedFieldSwitched_1f60dce"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presenceVector": [
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "ResolvableTypeTests#typeVariableType_64778267"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presenceVector": [
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "ResolvableTypeTests#typeVariableType_64778267"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presenceVector": [
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "ResolvableTypeTests#typeVariableType_64778267"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G02",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "presenceVector": [
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "ResolvableTypeTests#typeVariableType_64778267"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G02",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "ResolvableTypeTests#wildcardType_345dddeb"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G02",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "ResolvableTypeTests#wildcardType_345dddeb"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presenceVector": [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "StreamConverterTests#convertFromArrayToStream_9ee5c57"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presenceVector": [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "StreamConverterTests#convertFromArrayToStream_9ee5c57"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presenceVector": [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "StreamConverterTests#convertFromArrayToStream_9ee5c57"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presenceVector": [
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "StreamConverterTests#convertFromListToRawStream_4004e252"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presenceVector": [
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "StreamConverterTests#convertFromListToRawStream_4004e252"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presenceVector": [
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "StreamConverterTests#convertFromListToRawStream_4004e252"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "StreamConverterTests#convertFromStreamToArray_6f1ce01"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "StreamConverterTests#convertFromStreamToArray_6f1ce01"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "StreamConverterTests#convertFromStreamToArray_6f1ce01"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presenceVector": [
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "TypeDescriptorTests#isAssignableElementTypes_4db34e9e"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presenceVector": [
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "TypeDescriptorTests#isAssignableElementTypes_4db34e9e"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presenceVector": [
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "TypeDescriptorTests#isAssignableElementTypes_4db34e9e"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "TypeDescriptorTests#isAssignableMapKeyValueTypes_5496c48c"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G02",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+      "presenceVector": [
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      "testIdentity": "TypeDescriptorTests#multiValueMap_4fed22b6"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "TypeDescriptorTests#nestedTooManyLevels_1b240c1d"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "TypeDescriptorTests#nestedTooManyLevels_1b240c1d"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "TypeDescriptorTests#nestedTooManyLevels_1b240c1d"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G02",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+      "presenceVector": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "TypeDescriptorTests#nestedTooManyLevels_1b240c1d"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "TypeDescriptorTests#propertyGenericClassList_6040d6a2"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "TypeDescriptorTests#propertyGenericClassList_6040d6a2"
+    },
+    {
+      "classification": "UNKNOWN",
+      "evidence": {
+        "reason": "No direct controlled event/path explains this edge; structural grouping and presence correlation are insufficient."
+      },
+      "groupId": "G01",
+      "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+      "presenceVector": [
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "TypeDescriptorTests#propertyGenericClassList_6040d6a2"
+    }
+  ],
+  "inputEdgeCount": 113,
+  "schemaVersion": "round17-final-edge-classification-1"
+}

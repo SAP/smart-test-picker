@@ -1,0 +1,52 @@
+{
+  "groupCount": 5,
+  "groups": [
+    {
+      "classCount": 2,
+      "edgeCount": 69,
+      "groupId": "G01",
+      "groupName": "ConcurrentReferenceHashMap restructure and capacity operations",
+      "methodCount": 3,
+      "testCount": 25
+    },
+    {
+      "classCount": 1,
+      "edgeCount": 15,
+      "groupId": "G02",
+      "groupName": "ConcurrentReferenceHashMap soft-reference traversal operations",
+      "methodCount": 3,
+      "testCount": 12
+    },
+    {
+      "classCount": 3,
+      "edgeCount": 8,
+      "groupId": "G03",
+      "groupName": "Proven withGenericParameter reflection-order path",
+      "methodCount": 8,
+      "testCount": 1
+    },
+    {
+      "classCount": 5,
+      "edgeCount": 20,
+      "groupId": "G04",
+      "groupName": "Correlated annotation bridge-resolution paths",
+      "methodCount": 10,
+      "testCount": 2
+    },
+    {
+      "classCount": 1,
+      "edgeCount": 1,
+      "groupId": "G05",
+      "groupName": "Isolated SerializableTypeWrapper unwrap edge",
+      "methodCount": 1,
+      "testCount": 1
+    }
+  ],
+  "inputEdgeCount": 113,
+  "populationStructure": {
+    "ConcurrentReferenceHashMapInternals": 84,
+    "bridgeAndReflectionPaths": 28,
+    "isolatedEdges": 1
+  },
+  "schemaVersion": "round17-group-summary-1"
+}

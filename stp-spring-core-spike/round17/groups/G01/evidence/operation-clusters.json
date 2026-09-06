@@ -1,0 +1,338 @@
+{
+  "causalLimit": "Method-entry shape and co-movement do not identify receiver, owner, occupancy, or restructure reason.",
+  "clusterCount": 22,
+  "clusters": [
+    {
+      "methods": [
+        "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure"
+      ],
+      "signature": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "CollectionToCollectionConverterTests#objectToCollection_20ff6381"
+    },
+    {
+      "methods": [
+        "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure"
+      ],
+      "signature": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "DefaultConversionServiceTests#convertArrayToStream_44e1bd72"
+    },
+    {
+      "methods": [
+        "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure"
+      ],
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66"
+    },
+    {
+      "methods": [
+        "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure"
+      ],
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "GenericTypeResolverTests#resolveIncompleteTypeVariables_4cde3ac4"
+    },
+    {
+      "methods": [
+        "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure"
+      ],
+      "signature": [
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MapToMapConverterTests#multiValueMapToMultiValueMap_24e1f0a0"
+    },
+    {
+      "methods": [
+        "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure"
+      ],
+      "signature": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "MapToMapConverterTests#noDefaultConstructorCopyNotRequired_2f3c8288"
+    },
+    {
+      "methods": [
+        "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure"
+      ],
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "MergedAnnotationsTests#getFromMethodWithGenericSuperclass_78b2b090"
+    },
+    {
+      "methods": [
+        "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure"
+      ],
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "testIdentity": "ResolvableTypeTests#classWithGenericsAs_1378ee35"
+    },
+    {
+      "methods": [
+        "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure"
+      ],
+      "signature": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "testIdentity": "ResolvableTypeTests#forClassWithGenerics_6bf2e2e8"
+    },
+    {
+      "methods": [
+        "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure"
+      ],
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForComplexWildcards_4dc8b13e"
+    },
+    {
+      "methods": [
+        "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure"
+      ],
+      "signature": [
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "ResolvableTypeTests#isAssignableFromForWildcards_2b853d44"
+    },
+    {
+      "methods": [
+        "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure"
+      ],
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "ResolvableTypeTests#resolveGenericArrayType_5361bd11"
+    },
+    {
+      "methods": [
+        "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure"
+      ],
+      "signature": [
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e"
+    },
+    {
+      "methods": [
+        "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure"
+      ],
+      "signature": [
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "testIdentity": "ResolvableTypeTests#resolveVariableFromFieldType_73a232d9"
+    },
+    {
+      "methods": [
+        "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure"
+      ],
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "ResolvableTypeTests#resolveVariableFromInheritedFieldSwitched_1f60dce"
+    },
+    {
+      "methods": [
+        "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure"
+      ],
+      "signature": [
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "testIdentity": "ResolvableTypeTests#typeVariableType_64778267"
+    },
+    {
+      "methods": [
+        "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure"
+      ],
+      "signature": [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "StreamConverterTests#convertFromArrayToStream_9ee5c57"
+    },
+    {
+      "methods": [
+        "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure"
+      ],
+      "signature": [
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "StreamConverterTests#convertFromListToRawStream_4004e252"
+    },
+    {
+      "methods": [
+        "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure"
+      ],
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "StreamConverterTests#convertFromStreamToArray_6f1ce01"
+    },
+    {
+      "methods": [
+        "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure"
+      ],
+      "signature": [
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "TypeDescriptorTests#isAssignableElementTypes_4db34e9e"
+    },
+    {
+      "methods": [
+        "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure"
+      ],
+      "signature": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "testIdentity": "TypeDescriptorTests#nestedTooManyLevels_1b240c1d"
+    },
+    {
+      "methods": [
+        "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure"
+      ],
+      "signature": [
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "testIdentity": "TypeDescriptorTests#propertyGenericClassList_6040d6a2"
+    }
+  ],
+  "representedEdges": 66,
+  "schemaVersion": "round17-g01-operation-clusters-1"
+}

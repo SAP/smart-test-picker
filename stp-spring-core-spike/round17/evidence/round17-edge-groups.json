@@ -1,0 +1,2122 @@
+{
+  "exclusivePrimaryAssignment": true,
+  "groupCount": 5,
+  "groups": [
+    {
+      "candidateMechanisms": [
+        "map occupancy",
+        "resize restructure",
+        "purge restructure",
+        "execution-order-dependent cache activity"
+      ],
+      "classCount": 2,
+      "coMovementClusters": [
+        {
+          "edgeCount": 3,
+          "signature": [
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "CollectionToCollectionConverterTests#objectToCollection_20ff6381"
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "DefaultConversionServiceTests#convertArrayToStream_44e1bd72"
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66"
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "GenericTypeResolverTests#resolveIncompleteTypeVariables_4cde3ac4"
+        },
+        {
+          "edgeCount": 1,
+          "signature": [
+            1,
+            1,
+            0,
+            1,
+            1
+          ],
+          "testIdentity": "MapToMapConverterTests#collectionMapSourceTarget_5bff386f"
+        },
+        {
+          "edgeCount": 1,
+          "signature": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "MapToMapConverterTests#collectionMap_5d43ab43"
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MapToMapConverterTests#multiValueMapToMultiValueMap_24e1f0a0"
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MapToMapConverterTests#noDefaultConstructorCopyNotRequired_2f3c8288"
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "MergedAnnotationsTests#getFromMethodWithGenericSuperclass_78b2b090"
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "testIdentity": "ResolvableTypeTests#classWithGenericsAs_1378ee35"
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "testIdentity": "ResolvableTypeTests#forClassWithGenerics_6bf2e2e8"
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "ResolvableTypeTests#isAssignableFromForComplexWildcards_4dc8b13e"
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "ResolvableTypeTests#isAssignableFromForWildcards_2b853d44"
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "ResolvableTypeTests#resolveGenericArrayType_5361bd11"
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e"
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            0,
+            1,
+            0,
+            1,
+            1
+          ],
+          "testIdentity": "ResolvableTypeTests#resolveVariableFromFieldType_73a232d9"
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "ResolvableTypeTests#resolveVariableFromInheritedFieldSwitched_1f60dce"
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "ResolvableTypeTests#typeVariableType_64778267"
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "StreamConverterTests#convertFromArrayToStream_9ee5c57"
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "StreamConverterTests#convertFromListToRawStream_4004e252"
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "StreamConverterTests#convertFromStreamToArray_6f1ce01"
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "TypeDescriptorTests#isAssignableElementTypes_4db34e9e"
+        },
+        {
+          "edgeCount": 1,
+          "signature": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "TypeDescriptorTests#isAssignableMapKeyValueTypes_5496c48c"
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "TypeDescriptorTests#nestedTooManyLevels_1b240c1d"
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "TypeDescriptorTests#propertyGenericClassList_6040d6a2"
+        }
+      ],
+      "edgeCount": 69,
+      "edges": [
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+          "presenceVector": [
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "CollectionToCollectionConverterTests#objectToCollection_20ff6381"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+          "presenceVector": [
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "CollectionToCollectionConverterTests#objectToCollection_20ff6381"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+          "presenceVector": [
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "CollectionToCollectionConverterTests#objectToCollection_20ff6381"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+          "presenceVector": [
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "DefaultConversionServiceTests#convertArrayToStream_44e1bd72"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+          "presenceVector": [
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "DefaultConversionServiceTests#convertArrayToStream_44e1bd72"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+          "presenceVector": [
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "DefaultConversionServiceTests#convertArrayToStream_44e1bd72"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "GenericTypeResolverTests#resolveIncompleteTypeVariables_4cde3ac4"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "GenericTypeResolverTests#resolveIncompleteTypeVariables_4cde3ac4"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "GenericTypeResolverTests#resolveIncompleteTypeVariables_4cde3ac4"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+          "presenceVector": [
+            1,
+            1,
+            0,
+            1,
+            1
+          ],
+          "testIdentity": "MapToMapConverterTests#collectionMapSourceTarget_5bff386f"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+          "presenceVector": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "MapToMapConverterTests#collectionMap_5d43ab43"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MapToMapConverterTests#multiValueMapToMultiValueMap_24e1f0a0"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MapToMapConverterTests#multiValueMapToMultiValueMap_24e1f0a0"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MapToMapConverterTests#multiValueMapToMultiValueMap_24e1f0a0"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+          "presenceVector": [
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MapToMapConverterTests#noDefaultConstructorCopyNotRequired_2f3c8288"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+          "presenceVector": [
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MapToMapConverterTests#noDefaultConstructorCopyNotRequired_2f3c8288"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+          "presenceVector": [
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MapToMapConverterTests#noDefaultConstructorCopyNotRequired_2f3c8288"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "MergedAnnotationsTests#getFromMethodWithGenericSuperclass_78b2b090"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "MergedAnnotationsTests#getFromMethodWithGenericSuperclass_78b2b090"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "MergedAnnotationsTests#getFromMethodWithGenericSuperclass_78b2b090"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+          "presenceVector": [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "testIdentity": "ResolvableTypeTests#classWithGenericsAs_1378ee35"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+          "presenceVector": [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "testIdentity": "ResolvableTypeTests#classWithGenericsAs_1378ee35"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+          "presenceVector": [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "testIdentity": "ResolvableTypeTests#classWithGenericsAs_1378ee35"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+          "presenceVector": [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "testIdentity": "ResolvableTypeTests#forClassWithGenerics_6bf2e2e8"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+          "presenceVector": [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "testIdentity": "ResolvableTypeTests#forClassWithGenerics_6bf2e2e8"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+          "presenceVector": [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "testIdentity": "ResolvableTypeTests#forClassWithGenerics_6bf2e2e8"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "ResolvableTypeTests#isAssignableFromForComplexWildcards_4dc8b13e"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "ResolvableTypeTests#isAssignableFromForComplexWildcards_4dc8b13e"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "ResolvableTypeTests#isAssignableFromForComplexWildcards_4dc8b13e"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "ResolvableTypeTests#isAssignableFromForWildcards_2b853d44"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "ResolvableTypeTests#isAssignableFromForWildcards_2b853d44"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "ResolvableTypeTests#isAssignableFromForWildcards_2b853d44"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "ResolvableTypeTests#resolveGenericArrayType_5361bd11"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "ResolvableTypeTests#resolveGenericArrayType_5361bd11"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "ResolvableTypeTests#resolveGenericArrayType_5361bd11"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+          "presenceVector": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+          "presenceVector": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+          "presenceVector": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+          "presenceVector": [
+            0,
+            1,
+            0,
+            1,
+            1
+          ],
+          "testIdentity": "ResolvableTypeTests#resolveVariableFromFieldType_73a232d9"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+          "presenceVector": [
+            0,
+            1,
+            0,
+            1,
+            1
+          ],
+          "testIdentity": "ResolvableTypeTests#resolveVariableFromFieldType_73a232d9"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+          "presenceVector": [
+            0,
+            1,
+            0,
+            1,
+            1
+          ],
+          "testIdentity": "ResolvableTypeTests#resolveVariableFromFieldType_73a232d9"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "ResolvableTypeTests#resolveVariableFromInheritedFieldSwitched_1f60dce"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "ResolvableTypeTests#resolveVariableFromInheritedFieldSwitched_1f60dce"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "ResolvableTypeTests#resolveVariableFromInheritedFieldSwitched_1f60dce"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+          "presenceVector": [
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "ResolvableTypeTests#typeVariableType_64778267"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+          "presenceVector": [
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "ResolvableTypeTests#typeVariableType_64778267"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+          "presenceVector": [
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "ResolvableTypeTests#typeVariableType_64778267"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+          "presenceVector": [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "StreamConverterTests#convertFromArrayToStream_9ee5c57"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+          "presenceVector": [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "StreamConverterTests#convertFromArrayToStream_9ee5c57"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+          "presenceVector": [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "StreamConverterTests#convertFromArrayToStream_9ee5c57"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+          "presenceVector": [
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "StreamConverterTests#convertFromListToRawStream_4004e252"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+          "presenceVector": [
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "StreamConverterTests#convertFromListToRawStream_4004e252"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+          "presenceVector": [
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "StreamConverterTests#convertFromListToRawStream_4004e252"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "StreamConverterTests#convertFromStreamToArray_6f1ce01"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "StreamConverterTests#convertFromStreamToArray_6f1ce01"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "StreamConverterTests#convertFromStreamToArray_6f1ce01"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+          "presenceVector": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "TypeDescriptorTests#isAssignableElementTypes_4db34e9e"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+          "presenceVector": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "TypeDescriptorTests#isAssignableElementTypes_4db34e9e"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+          "presenceVector": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "TypeDescriptorTests#isAssignableElementTypes_4db34e9e"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "TypeDescriptorTests#isAssignableMapKeyValueTypes_5496c48c"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "TypeDescriptorTests#nestedTooManyLevels_1b240c1d"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "TypeDescriptorTests#nestedTooManyLevels_1b240c1d"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "TypeDescriptorTests#nestedTooManyLevels_1b240c1d"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "TypeDescriptorTests#propertyGenericClassList_6040d6a2"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "TypeDescriptorTests#propertyGenericClassList_6040d6a2"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "TypeDescriptorTests#propertyGenericClassList_6040d6a2"
+        }
+      ],
+      "groupId": "G01",
+      "groupName": "ConcurrentReferenceHashMap restructure and capacity operations",
+      "methodCount": 3,
+      "methods": [
+        "org.springframework.util.ConcurrentReferenceHashMap#getLoadFactor",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#createReferenceArray",
+        "org.springframework.util.ConcurrentReferenceHashMap$Segment#restructure"
+      ],
+      "presenceVectors": [
+        {
+          "edgeCount": 6,
+          "signature": [
+            0,
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            0,
+            0,
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "edgeCount": 9,
+          "signature": [
+            0,
+            0,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            0,
+            1,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            0,
+            1,
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            0,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "edgeCount": 25,
+          "signature": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "edgeCount": 6,
+          "signature": [
+            1,
+            0,
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "edgeCount": 3,
+          "signature": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "edgeCount": 1,
+          "signature": [
+            1,
+            1,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "edgeCount": 7,
+          "signature": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ]
+        }
+      ],
+      "sharedCallPathEvidence": "Segment#restructure invokes getLoadFactor and createReferenceArray on resize paths; exact triplet equality is visible in ROUND 16.",
+      "testCount": 25,
+      "tests": [
+        "CollectionToCollectionConverterTests#objectToCollection_20ff6381",
+        "DefaultConversionServiceTests#convertArrayToStream_44e1bd72",
+        "GenericTypeResolverTests#boundParameterizedType_74d42a66",
+        "GenericTypeResolverTests#resolveIncompleteTypeVariables_4cde3ac4",
+        "MapToMapConverterTests#collectionMapSourceTarget_5bff386f",
+        "MapToMapConverterTests#collectionMap_5d43ab43",
+        "MapToMapConverterTests#multiValueMapToMultiValueMap_24e1f0a0",
+        "MapToMapConverterTests#noDefaultConstructorCopyNotRequired_2f3c8288",
+        "MergedAnnotationsTests#getFromMethodWithGenericSuperclass_78b2b090",
+        "ResolvableTypeTests#classWithGenericsAs_1378ee35",
+        "ResolvableTypeTests#forClassWithGenerics_6bf2e2e8",
+        "ResolvableTypeTests#isAssignableFromForComplexWildcards_4dc8b13e",
+        "ResolvableTypeTests#isAssignableFromForWildcards_2b853d44",
+        "ResolvableTypeTests#resolveGenericArrayType_5361bd11",
+        "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e",
+        "ResolvableTypeTests#resolveVariableFromFieldType_73a232d9",
+        "ResolvableTypeTests#resolveVariableFromInheritedFieldSwitched_1f60dce",
+        "ResolvableTypeTests#typeVariableType_64778267",
+        "StreamConverterTests#convertFromArrayToStream_9ee5c57",
+        "StreamConverterTests#convertFromListToRawStream_4004e252",
+        "StreamConverterTests#convertFromStreamToArray_6f1ce01",
+        "TypeDescriptorTests#isAssignableElementTypes_4db34e9e",
+        "TypeDescriptorTests#isAssignableMapKeyValueTypes_5496c48c",
+        "TypeDescriptorTests#nestedTooManyLevels_1b240c1d",
+        "TypeDescriptorTests#propertyGenericClassList_6040d6a2"
+      ],
+      "whyGroupedTogether": {
+        "CAUSAL_EVIDENCE": "The triplets establish one internal operation cluster per test/run, but retained traces do not identify the concrete receiver or distinguish resize from purge for these exact invocations.",
+        "OBSERVED_COMOVEMENT": "Twenty-two test-local triplets have identical five-run vectors; three additional restructure edges move alone.",
+        "STRUCTURAL_GROUPING": "All edges enter getLoadFactor, Segment#createReferenceArray, or Segment#restructure."
+      }
+    },
+    {
+      "candidateMechanisms": [
+        "bucket-chain traversal",
+        "reference lifecycle",
+        "purge of cleared references",
+        "occupancy-dependent collision traversal"
+      ],
+      "classCount": 1,
+      "coMovementClusters": [
+        {
+          "edgeCount": 1,
+          "signature": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "ConventionsTests#set_72479166"
+        },
+        {
+          "edgeCount": 2,
+          "signature": [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "testIdentity": "GenericConversionServiceTests#stringArrayToIntegerArray_cb70652"
+        },
+        {
+          "edgeCount": 1,
+          "signature": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66"
+        },
+        {
+          "edgeCount": 1,
+          "signature": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "GenericTypeResolverTests#resolveIncompleteTypeVariables_4cde3ac4"
+        },
+        {
+          "edgeCount": 2,
+          "signature": [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "ReflectionUtilsTests#findMethodWithVarArgs_5bd66dc1"
+        },
+        {
+          "edgeCount": 1,
+          "signature": [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "testIdentity": "ResolvableTypeTests#classWithGenericsAs_1378ee35"
+        },
+        {
+          "edgeCount": 1,
+          "signature": [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "testIdentity": "ResolvableTypeTests#forClassWithGenerics_6bf2e2e8"
+        },
+        {
+          "edgeCount": 1,
+          "signature": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e"
+        },
+        {
+          "edgeCount": 1,
+          "signature": [
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "ResolvableTypeTests#typeVariableType_64778267"
+        },
+        {
+          "edgeCount": 2,
+          "signature": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "ResolvableTypeTests#wildcardType_345dddeb"
+        },
+        {
+          "edgeCount": 1,
+          "signature": [
+            1,
+            1,
+            0,
+            1,
+            1
+          ],
+          "testIdentity": "TypeDescriptorTests#multiValueMap_4fed22b6"
+        },
+        {
+          "edgeCount": 1,
+          "signature": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "TypeDescriptorTests#nestedTooManyLevels_1b240c1d"
+        }
+      ],
+      "edgeCount": 15,
+      "edges": [
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "ConventionsTests#set_72479166"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+          "presenceVector": [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "testIdentity": "GenericConversionServiceTests#stringArrayToIntegerArray_cb70652"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+          "presenceVector": [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "testIdentity": "GenericConversionServiceTests#stringArrayToIntegerArray_cb70652"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "GenericTypeResolverTests#boundParameterizedType_74d42a66"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "GenericTypeResolverTests#resolveIncompleteTypeVariables_4cde3ac4"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+          "presenceVector": [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "ReflectionUtilsTests#findMethodWithVarArgs_5bd66dc1"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+          "presenceVector": [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "ReflectionUtilsTests#findMethodWithVarArgs_5bd66dc1"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+          "presenceVector": [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "testIdentity": "ResolvableTypeTests#classWithGenericsAs_1378ee35"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+          "presenceVector": [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "testIdentity": "ResolvableTypeTests#forClassWithGenerics_6bf2e2e8"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+          "presenceVector": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          "testIdentity": "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+          "presenceVector": [
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "ResolvableTypeTests#typeVariableType_64778267"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "ResolvableTypeTests#wildcardType_345dddeb"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "ResolvableTypeTests#wildcardType_345dddeb"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext",
+          "presenceVector": [
+            1,
+            1,
+            0,
+            1,
+            1
+          ],
+          "testIdentity": "TypeDescriptorTests#multiValueMap_4fed22b6"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "TypeDescriptorTests#nestedTooManyLevels_1b240c1d"
+        }
+      ],
+      "groupId": "G02",
+      "groupName": "ConcurrentReferenceHashMap soft-reference traversal operations",
+      "methodCount": 3,
+      "methods": [
+        "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#get",
+        "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getHash",
+        "org.springframework.util.ConcurrentReferenceHashMap$SoftEntryReference#getNext"
+      ],
+      "presenceVectors": [
+        {
+          "edgeCount": 4,
+          "signature": [
+            0,
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "edgeCount": 2,
+          "signature": [
+            0,
+            0,
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "edgeCount": 1,
+          "signature": [
+            0,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "edgeCount": 5,
+          "signature": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "edgeCount": 1,
+          "signature": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "edgeCount": 1,
+          "signature": [
+            1,
+            1,
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "edgeCount": 1,
+          "signature": [
+            1,
+            1,
+            1,
+            0,
+            0
+          ]
+        }
+      ],
+      "sharedCallPathEvidence": "The paired getHash/getNext edges are compatible with one bucket/reference traversal, but no retained trace follows exact reference identity.",
+      "testCount": 12,
+      "tests": [
+        "ConventionsTests#set_72479166",
+        "GenericConversionServiceTests#stringArrayToIntegerArray_cb70652",
+        "GenericTypeResolverTests#boundParameterizedType_74d42a66",
+        "GenericTypeResolverTests#resolveIncompleteTypeVariables_4cde3ac4",
+        "ReflectionUtilsTests#findMethodWithVarArgs_5bd66dc1",
+        "ResolvableTypeTests#classWithGenericsAs_1378ee35",
+        "ResolvableTypeTests#forClassWithGenerics_6bf2e2e8",
+        "ResolvableTypeTests#resolveTypeVariableFromSimpleCollectionInterfaceType_296c8f6e",
+        "ResolvableTypeTests#typeVariableType_64778267",
+        "ResolvableTypeTests#wildcardType_345dddeb",
+        "TypeDescriptorTests#multiValueMap_4fed22b6",
+        "TypeDescriptorTests#nestedTooManyLevels_1b240c1d"
+      ],
+      "whyGroupedTogether": {
+        "CAUSAL_EVIDENCE": "ROUND 11 observed no reclaimed relevant reference; method names and correlated presence do not prove clearing, purge, or a concrete owner.",
+        "OBSERVED_COMOVEMENT": "getHash/getNext pairs move together for three tests; the remaining reference methods have distinct test-local signatures.",
+        "STRUCTURAL_GROUPING": "All edges enter SoftEntryReference#get, #getHash, or #getNext."
+      }
+    },
+    {
+      "candidateMechanisms": [
+        "JDK Class#getDeclaredMethods order consumed by Spring candidate traversal"
+      ],
+      "classCount": 3,
+      "coMovementClusters": [
+        {
+          "edgeCount": 8,
+          "signature": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+        }
+      ],
+      "edgeCount": 8,
+      "edges": [
+        {
+          "methodIdentity": "org.springframework.core.BridgeMethodResolver#findGenericDeclaration",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+        },
+        {
+          "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchForMatch",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+        },
+        {
+          "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchInterfaces",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClass",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClassAsSet",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ClassUtils#isVisible",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ClassUtils#toClassArray",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+        },
+        {
+          "methodIdentity": "org.springframework.util.CollectionUtils#isEmpty",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+        }
+      ],
+      "groupId": "G03",
+      "groupName": "Proven withGenericParameter reflection-order path",
+      "methodCount": 8,
+      "methods": [
+        "org.springframework.core.BridgeMethodResolver#findGenericDeclaration",
+        "org.springframework.core.BridgeMethodResolver#searchForMatch",
+        "org.springframework.core.BridgeMethodResolver#searchInterfaces",
+        "org.springframework.util.ClassUtils#getAllInterfacesForClass",
+        "org.springframework.util.ClassUtils#getAllInterfacesForClassAsSet",
+        "org.springframework.util.ClassUtils#isVisible",
+        "org.springframework.util.ClassUtils#toClassArray",
+        "org.springframework.util.CollectionUtils#isEmpty"
+      ],
+      "presenceVectors": [
+        {
+          "edgeCount": 8,
+          "signature": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "sharedCallPathEvidence": "One raw-order swap changes the first candidate and gates the complete eight-edge downstream path.",
+      "testCount": 1,
+      "tests": [
+        "BridgeMethodResolverTests#withGenericParameter_5de9f312"
+      ],
+      "whyGroupedTogether": {
+        "CAUSAL_EVIDENCE": "ROUND 15 observes the same structural Method set in a different raw order, preserved into candidate order; ROUND 14 observes the resulting early-return versus generic/interface-resolution branch. The retained maps show all eight edges only on the latter branch.",
+        "OBSERVED_COMOVEMENT": "All eight have ROUND 16 vector [1,0,1,1,1], and all are absent in ROUND 15 run 1 and present in run 5.",
+        "STRUCTURAL_GROUPING": "All eight input edges are on the BridgeMethodResolver withGenericParameter candidate-search path."
+      }
+    },
+    {
+      "candidateMechanisms": [
+        "reflection order",
+        "Spring order-sensitive traversal",
+        "shared bridge-resolution path"
+      ],
+      "classCount": 5,
+      "coMovementClusters": [
+        {
+          "edgeCount": 10,
+          "signature": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+        },
+        {
+          "edgeCount": 10,
+          "signature": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+        }
+      ],
+      "edgeCount": 20,
+      "edges": [
+        {
+          "methodIdentity": "org.springframework.core.BridgeMethodResolver#findGenericDeclaration",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+        },
+        {
+          "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchForMatch",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+        },
+        {
+          "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchInterfaces",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+        },
+        {
+          "methodIdentity": "org.springframework.core.ResolvableType#getInterfaces",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+        },
+        {
+          "methodIdentity": "org.springframework.core.SerializableTypeWrapper$TypeProxyInvocationHandler#<init>",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClass",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClassAsSet",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ClassUtils#isVisible",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ClassUtils#toClassArray",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+        },
+        {
+          "methodIdentity": "org.springframework.util.CollectionUtils#isEmpty",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d"
+        },
+        {
+          "methodIdentity": "org.springframework.core.BridgeMethodResolver#findGenericDeclaration",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+        },
+        {
+          "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchForMatch",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+        },
+        {
+          "methodIdentity": "org.springframework.core.BridgeMethodResolver#searchInterfaces",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+        },
+        {
+          "methodIdentity": "org.springframework.core.ResolvableType#getInterfaces",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+        },
+        {
+          "methodIdentity": "org.springframework.core.SerializableTypeWrapper$TypeProxyInvocationHandler#<init>",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClass",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ClassUtils#getAllInterfacesForClassAsSet",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ClassUtils#isVisible",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+        },
+        {
+          "methodIdentity": "org.springframework.util.ClassUtils#toClassArray",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+        },
+        {
+          "methodIdentity": "org.springframework.util.CollectionUtils#isEmpty",
+          "presenceVector": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "testIdentity": "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+        }
+      ],
+      "groupId": "G04",
+      "groupName": "Correlated annotation bridge-resolution paths",
+      "methodCount": 10,
+      "methods": [
+        "org.springframework.core.BridgeMethodResolver#findGenericDeclaration",
+        "org.springframework.core.BridgeMethodResolver#searchForMatch",
+        "org.springframework.core.BridgeMethodResolver#searchInterfaces",
+        "org.springframework.core.ResolvableType#getInterfaces",
+        "org.springframework.core.SerializableTypeWrapper$TypeProxyInvocationHandler#<init>",
+        "org.springframework.util.ClassUtils#getAllInterfacesForClass",
+        "org.springframework.util.ClassUtils#getAllInterfacesForClassAsSet",
+        "org.springframework.util.ClassUtils#isVisible",
+        "org.springframework.util.ClassUtils#toClassArray",
+        "org.springframework.util.CollectionUtils#isEmpty"
+      ],
+      "presenceVectors": [
+        {
+          "edgeCount": 20,
+          "signature": [
+            1,
+            0,
+            1,
+            1,
+            1
+          ]
+        }
+      ],
+      "sharedCallPathEvidence": "Method-entry co-presence supports a shared path within each test, not a shared trigger across tests.",
+      "testCount": 2,
+      "tests": [
+        "MergedAnnotationsComposedOnSingleAnnotatedElementTests#typeHierarchyStrategyMultipleComposedAnnotationsOnBridgeMethod_7472b95d",
+        "MultipleComposedAnnotationsOnSingleAnnotatedElementTests#findMultipleComposedAnnotationsOnBridgeMethod_6ecf9afa"
+      ],
+      "whyGroupedTogether": {
+        "CAUSAL_EVIDENCE": "No target-connected producer-order trace exists for either test. The proven G03 event cannot be generalized from equal vectors and similar methods.",
+        "OBSERVED_COMOVEMENT": "All twenty edges share ROUND 16 vector [1,0,1,1,1].",
+        "STRUCTURAL_GROUPING": "Two annotation tests each exercise the same ten-method BridgeMethodResolver/ResolvableType/SerializableTypeWrapper/ClassUtils path."
+      }
+    },
+    {
+      "candidateMechanisms": [
+        "memoized type unwrapping",
+        "execution-order-dependent cache state"
+      ],
+      "classCount": 1,
+      "coMovementClusters": [
+        {
+          "edgeCount": 1,
+          "signature": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "MapToMapConverterTests#collectionMapSourceTarget_5bff386f"
+        }
+      ],
+      "edgeCount": 1,
+      "edges": [
+        {
+          "methodIdentity": "org.springframework.core.SerializableTypeWrapper#unwrap",
+          "presenceVector": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "testIdentity": "MapToMapConverterTests#collectionMapSourceTarget_5bff386f"
+        }
+      ],
+      "groupId": "G05",
+      "groupName": "Isolated SerializableTypeWrapper unwrap edge",
+      "methodCount": 1,
+      "methods": [
+        "org.springframework.core.SerializableTypeWrapper#unwrap"
+      ],
+      "presenceVectors": [
+        {
+          "edgeCount": 1,
+          "signature": [
+            1,
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "sharedCallPathEvidence": "None beyond the single method-entry edge.",
+      "testCount": 1,
+      "tests": [
+        "MapToMapConverterTests#collectionMapSourceTarget_5bff386f"
+      ],
+      "whyGroupedTogether": {
+        "CAUSAL_EVIDENCE": "ROUND 11 did not obtain a contrasting SerializableTypeWrapper hit/miss proof.",
+        "OBSERVED_COMOVEMENT": "No same-group edge exists; its vector is [1,0,0,0,0].",
+        "STRUCTURAL_GROUPING": "The edge is the only remaining singleton outside the four recurrent families."
+      }
+    }
+  ],
+  "inputEdgeCount": 113,
+  "schemaVersion": "round17-edge-groups-1"
+}

@@ -1,0 +1,10 @@
+{
+  "groupId": "G04",
+  "newRuntimeCapture": false,
+  "retainedEvidenceOnly": true,
+  "schemaVersion": "round17-group-evidence-index-1",
+  "sources": [
+    "round16-causal-classification.json",
+    "round11-controlled-order-proof.json"
+  ]
+}
