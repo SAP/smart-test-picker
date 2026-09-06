@@ -45,6 +45,18 @@ The exact historical 192-pair input is preserved with a canonical hash. ROUND 16
 
 The proven edge is `BridgeMethodResolverTests#withGenericParameter_5de9f312 -> ResolvableType#getInterfaces`, present with vector `[1,0,1,1,1]`. Its direct chain is raw declared-method order, preserved ReflectionUtils/candidate order, differing first-candidate decision, and interface-resolution presence/absence. No sibling edge is automatically promoted from association. Of the 78 stable-in-round edges, some were always present and some always absent; this category means only that historical movement was not reproduced in the bounded five-run sample. The 113 moving edges remain `UNKNOWN`; cache-family and reflection-related names are hints, not causal classifications.
 
+## ROUND 17 grouped causal characterization
+
+ROUND 17 preserved the exact 113 ROUND 16 `UNKNOWN` pairs as immutable input and assigned each to one of five exclusive causal-analysis groups. The population is structurally concentrated in 84 `ConcurrentReferenceHashMap` internal edges, 28 bridge/reflection-path edges, and one isolated `SerializableTypeWrapper#unwrap` edge. Existing five-run vectors already reproduced every input edge, so no new full-suite run was needed.
+
+The map population split into 69 capacity/restructure edges and 15 soft-reference traversal edges. Twenty-two same-test `getLoadFactor` / `createReferenceArray` / `restructure` triplets move as internal operation clusters. That is a structural and co-movement result, not a causal cache-owner result: retained evidence does not connect the exact invocations to a concrete receiver, occupancy transition, resize versus purge reason, or cleared reference. Prior cache-reset and GC evidence remains negative or non-probative. Those 84 edges remain `UNKNOWN`.
+
+ROUND 17 identified one additional recurring causal pattern within the fixed input. The already-proven `withGenericParameter` raw `Class#getDeclaredMethods` order event directly gates the whole traced generic/interface-resolution branch, not only `ResolvableType#getInterfaces`. Retained present/absent maps show eight ROUND 17 input edges on that same branch moving together. Those eight are now `JDK_REFLECTION_ORDER`. The superficially similar 20-edge annotation group remains `UNKNOWN` because it has no target-connected producer-order trace; shared methods and an equal presence vector are not generalized as cause. The isolated unwrap edge also remains unknown.
+
+Final ROUND 17 accounting is 8 `JDK_REFLECTION_ORDER`, 105 `UNKNOWN`, and zero in every other allowed category. One group has a proven shared cause and four groups have insufficient evidence. One shared pattern explains 8/113 edges (7.08%), so the remaining instability did not materially collapse into a small set of recurring proven mechanisms.
+
+This is the final evidence boundary. Further progress would require broad exact receiver/reference provenance or repeated target-specific rare-path investigations. No collector correctness defect was found, and no collector, map, selector, or Spring behavior was changed. No further coverage-attribution forensics are recommended before selector work.
+
 ## Semantic limitations
 
 Method-entry coverage records execution, not selector meaning. It does not make reflection order deterministic, guarantee completion of arbitrary asynchronous descendants, or infer ownership across unsupported boundaries. Wrapper identity can be visible to custom executors. Periodic tasks retain their captured owner and become late after that owner finishes. `LATE_EVENT` preserves historical ownership but is excluded from normal coverage; correlation alone is not proof that timing caused an unstable edge.
