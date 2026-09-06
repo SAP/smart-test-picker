@@ -2,8 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.runtime.model;
 
-public sealed interface RuntimeEvent permits MethodHitEvent, SpringBeanEvent, EndpointEvent,
-		RepositoryInvocationEvent, EntityEvent, TableEvent, UnattributedEvent {
+public sealed interface RuntimeEvent permits MethodHitEvent, UnattributedEvent {
 	Evidence evidence();
 }
-

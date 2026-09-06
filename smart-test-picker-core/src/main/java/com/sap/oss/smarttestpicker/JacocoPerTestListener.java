@@ -135,7 +135,6 @@ public class JacocoPerTestListener implements TestExecutionListener
 
 	private void dumpJaCoCoData()
 	{
-		recordDumpBoundary("JACOCO_DUMP_RESET_START");
 		try
 		{
 			Class<?> rtClass = Class.forName("org.jacoco.agent.rt.RT");
@@ -146,44 +145,6 @@ public class JacocoPerTestListener implements TestExecutionListener
 		{
 			System.err.println("Failed to dump JaCoCo execution data: " + e.getMessage());
 		}
-		finally
-		{
-			recordDumpBoundary("JACOCO_DUMP_RESET_END");
-		}
-	}
-
-	/** Optional bounded research trace used to prove per-test dump/reset ordering. */
-	private void recordDumpBoundary(String phase)
-	{
-		String output = System.getProperty("stp.jacoco.dump.events");
-		if (output == null || output.isBlank())
-		{
-			return;
-		}
-		try
-		{
-			Path path = Path.of(output);
-			if (path.getParent() != null)
-			{
-				Files.createDirectories(path.getParent());
-			}
-			String session = currentSessionId.get();
-			String event = "{\"phase\":\"" + phase + "\",\"testIdentity\":\""
-					+ jsonEscape(session == null ? "" : session) + "\",\"wallClockMillis\":"
-					+ System.currentTimeMillis() + ",\"monotonicNanos\":" + System.nanoTime() + "}\n";
-			Files.writeString(path, event, java.nio.file.StandardOpenOption.CREATE,
-					java.nio.file.StandardOpenOption.APPEND);
-		}
-		catch (IOException e)
-		{
-			System.err.println("Failed to record JaCoCo dump boundary: " + e.getMessage());
-		}
-	}
-
-	private static String jsonEscape(String value)
-	{
-		return value.replace("\\", "\\\\").replace("\"", "\\\"")
-				.replace("\n", "\\n").replace("\r", "\\r");
 	}
 
 	private void saveJaCoCoSessionData(String sessionId)

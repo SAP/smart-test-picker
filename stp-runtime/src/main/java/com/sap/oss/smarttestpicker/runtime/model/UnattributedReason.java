@@ -9,7 +9,5 @@ public enum UnattributedReason {
 	STARTUP,
 	SHUTDOWN,
 	LATE_EVENT,
-	AMBIGUOUS_BEAN,
 	TRANSFORMATION_ERROR
 }
-

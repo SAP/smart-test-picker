@@ -17,12 +17,6 @@ public final class StpAgent {
 		AgentRuntime runtime = AgentRuntime.install(configuration, metrics);
 		try {
 			if (configuration.instrumentationEnabled()) {
-				if (System.getProperty("stp.round15.trace.output") != null)
-					instrumentation.addTransformer(new Round15ClassFileTransformer(runtime::error), false);
-				if (System.getProperty("stp.round14.trace.output") != null)
-					instrumentation.addTransformer(new Round14ClassFileTransformer(runtime::error), false);
-				if (System.getProperty("stp.round13.trace.output") != null)
-					instrumentation.addTransformer(new Round13ClassFileTransformer(runtime::error), false);
 				instrumentation.addTransformer(new ExecutorCallSiteTransformer(runtime::error), false);
 				instrumentation.addTransformer(new MethodEntryClassFileTransformer(configuration, metrics,
 						runtime.catalog(), runtime::error), false);
@@ -37,7 +31,7 @@ public final class StpAgent {
 		}
 		if (configuration.debug()) {
 			System.err.println("[stp-agent] mode="
-					+ (configuration.instrumentationEnabled() ? "method-entry" : "no-op")
+					+ (configuration.instrumentationEnabled() ? "method-entry" : "debug-no-op")
 					+ "; runId=" + configuration.runId());
 		}
 	}

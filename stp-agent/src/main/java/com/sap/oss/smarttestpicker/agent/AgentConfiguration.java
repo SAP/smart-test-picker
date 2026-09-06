@@ -15,7 +15,6 @@ import java.util.regex.Pattern;
 
 record AgentConfiguration(Path output, List<String> includes, List<String> excludes, String runId,
 		boolean debug, boolean instrumentationEnabled) {
-	private static final String DEFAULT_INCLUDE = "org.springframework.samples.petclinic.";
 	private static final List<String> MANDATORY_EXCLUDES = List.of("java.", "javax.", "jakarta.", "jdk.",
 			"sun.", "org.junit.", "org.springframework.", "org.hibernate.", "org.mockito.", "net.bytebuddy.",
 			"org.jacoco.", "com.sap.oss.smarttestpicker.");
@@ -56,7 +55,7 @@ record AgentConfiguration(Path output, List<String> includes, List<String> exclu
 			throw new IllegalArgumentException("output is not a valid path", invalid);
 		}
 		List<String> includes = values.containsKey("includes")
-				? prefixes(values.get("includes"), "includes") : List.of(DEFAULT_INCLUDE);
+				? prefixes(values.get("includes"), "includes") : List.of();
 		TreeSet<String> exclusions = new TreeSet<>(MANDATORY_EXCLUDES);
 		if (values.containsKey("excludes")) exclusions.addAll(prefixes(values.get("excludes"), "excludes"));
 		String runId = values.getOrDefault("runId", "run-1");
@@ -65,7 +64,7 @@ record AgentConfiguration(Path output, List<String> includes, List<String> exclu
 		if (!debugValue.equals("true") && !debugValue.equals("false")) {
 			throw new IllegalArgumentException("debug must be true or false");
 		}
-		String instrumentation = values.getOrDefault("instrumentation", "off");
+		String instrumentation = values.getOrDefault("instrumentation", "on");
 		if (!instrumentation.equals("on") && !instrumentation.equals("off")) {
 			throw new IllegalArgumentException("instrumentation must be on or off");
 		}

@@ -54,11 +54,12 @@ class AgentShellTest {
 	void suppliesSafeDefaults() {
 		AgentConfiguration configuration = AgentConfiguration.parse(null);
 		assertEquals(Path.of("stp-agent-output.json"), configuration.output());
-		assertEquals(List.of("org.springframework.samples.petclinic."), configuration.includes());
+		assertEquals(List.of(), configuration.includes());
 		assertTrue(configuration.excludes().containsAll(List.of("java.", "org.springframework.",
 				"org.junit.", "org.mockito.", "net.bytebuddy.", "org.jacoco.",
 				"com.sap.oss.smarttestpicker.")));
 		assertFalse(configuration.debug());
+		assertTrue(configuration.instrumentationEnabled());
 	}
 
 	@Test
@@ -82,8 +83,7 @@ class AgentShellTest {
 	void includesConfiguredApplicationClass() {
 		NoOpClassFileTransformer transformer = transformer("includes=example.fixture.");
 		assertEquals(ClassDecision.INCLUDED, transformer.decision("example/fixture/AgentFixtureMain"));
-		assertEquals(ClassDecision.INCLUDED,
-				transformer(null).decision("org/springframework/samples/petclinic/owner/OwnerController"));
+		assertEquals(ClassDecision.IGNORED, transformer(null).decision("example/fixture/AgentFixtureMain"));
 	}
 
 	@Test
@@ -283,7 +283,8 @@ class AgentShellTest {
 		String java = Path.of(System.getProperty("java.home"), "bin", "java").toString();
 		String testClasses = Path.of(AgentFixtureMain.class.getProtectionDomain().getCodeSource().getLocation().toURI())
 				.toString();
-		String args = "output=" + output + ";includes=example.fixture.;runId=isolated-run;debug=false";
+		String args = "output=" + output
+				+ ";includes=example.fixture.;runId=isolated-run;debug=false;instrumentation=off";
 		Process process = new ProcessBuilder(java, "-javaagent:" + agentJar() + "=" + args, "-cp", testClasses,
 				AgentFixtureMain.class.getName()).redirectErrorStream(true).start();
 		String processOutput = new String(process.getInputStream().readAllBytes(), StandardCharsets.UTF_8);

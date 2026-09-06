@@ -3,14 +3,8 @@
 package com.sap.oss.smarttestpicker.runtime;
 
 import com.sap.oss.smarttestpicker.runtime.RuntimeEventAggregator.TestBucketSnapshot;
-import com.sap.oss.smarttestpicker.runtime.model.EndpointEvent;
-import com.sap.oss.smarttestpicker.runtime.model.EntityEvent;
 import com.sap.oss.smarttestpicker.runtime.model.Evidence;
 import com.sap.oss.smarttestpicker.runtime.model.MethodHitEvent;
-import com.sap.oss.smarttestpicker.runtime.model.RepositoryInvocationEvent;
-import com.sap.oss.smarttestpicker.runtime.model.SpringBeanEvent;
-import com.sap.oss.smarttestpicker.runtime.model.TableAccess;
-import com.sap.oss.smarttestpicker.runtime.model.TableEvent;
 import com.sap.oss.smarttestpicker.runtime.model.UnattributedEvent;
 
 import java.util.ArrayList;
@@ -58,22 +52,6 @@ public final class RuntimeJsonSerializer {
 		json.append(",\n");
 		writeNamedArray(json, level + 1, "methods", sorted(test.methods, e -> e.method().canonicalKey()),
 				RuntimeJsonSerializer::writeMethod, true);
-		writeNamedArray(json, level + 1, "springBeans", sorted(test.springBeans,
-				e -> e.beanName() + "\u0000" + e.binaryClassName()), RuntimeJsonSerializer::writeBean, true);
-		writeNamedArray(json, level + 1, "endpoints", sorted(test.endpoints,
-				e -> e.httpMethod() + "\u0000" + e.routePattern() + "\u0000" + e.handler().canonicalKey()),
-				RuntimeJsonSerializer::writeEndpoint, true);
-		writeNamedArray(json, level + 1, "repositories", sorted(test.repositories,
-				RuntimeJsonSerializer::repositoryKey),
-				RuntimeJsonSerializer::writeRepository, true);
-		writeNamedArray(json, level + 1, "entities", sorted(test.entities,
-				e -> e.binaryClassName() + evidenceKey(e.evidence())), RuntimeJsonSerializer::writeEntity, true);
-		json.append(indent(level + 1)).append("\"tables\": {\n");
-		writeNamedArray(json, level + 2, "mapped", sorted(filterTables(test.tables, true),
-				e -> tableKey(e)), RuntimeJsonSerializer::writeTable, true);
-		writeNamedArray(json, level + 2, "observed", sorted(filterTables(test.tables, false),
-				e -> tableKey(e)), RuntimeJsonSerializer::writeTable, false);
-		json.append(indent(level + 1)).append("},\n");
 		writeNamedArray(json, level + 1, "unattributedEvents", sorted(test.unattributed,
 				RuntimeJsonSerializer::unattributedKey), RuntimeJsonSerializer::writeUnattributed, true);
 		int rawMethods = test.methods.values().stream().mapToInt(Integer::intValue).sum();
@@ -96,74 +74,10 @@ public final class RuntimeJsonSerializer {
 		json.append('}');
 	}
 
-	private static Map<TableEvent, Integer> filterTables(Map<TableEvent, Integer> source, boolean mapped) {
-		java.util.LinkedHashMap<TableEvent, Integer> result = new java.util.LinkedHashMap<>();
-		source.forEach((event, count) -> {
-			if ((event.access() == TableAccess.MAPPED) == mapped) result.put(event, count);
-		});
-		return result;
-	}
-
 	private static void writeMethod(StringBuilder json, MethodHitEvent event, int count, int level) {
 		objectStart(json, level);
 		property(json, "methodId", event.methodId() == null ? null : Long.toUnsignedString(event.methodId()), true);
 		property(json, "method", event.method().canonicalKey(), true);
-		evidenceProperties(json, event.evidence(), true);
-		numberProperty(json, "count", count, false);
-		json.append('}');
-	}
-
-	private static void writeBean(StringBuilder json, SpringBeanEvent event, int count, int level) {
-		objectStart(json, level);
-		property(json, "beanName", event.beanName(), true);
-		property(json, "className", event.binaryClassName(), true);
-		evidenceProperties(json, event.evidence(), true);
-		numberProperty(json, "count", count, false);
-		json.append('}');
-	}
-
-	private static void writeEndpoint(StringBuilder json, EndpointEvent event, int count, int level) {
-		objectStart(json, level);
-		property(json, "httpMethod", event.httpMethod(), true);
-		property(json, "routePattern", event.routePattern(), true);
-		property(json, "handler", event.handler().canonicalKey(), true);
-		evidenceProperties(json, event.evidence(), true);
-		numberProperty(json, "count", count, false);
-		json.append('}');
-	}
-
-	private static void writeRepository(StringBuilder json, RepositoryInvocationEvent event, int count, int level) {
-		objectStart(json, level);
-		property(json, "repositoryKind", event.repositoryKind().name(), true);
-		property(json, "repositoryInterface", event.repositoryInterface(), true);
-		property(json, "beanName", event.beanName(), true);
-		property(json, "methodName", event.methodName(), true);
-		property(json, "jvmDescriptor", event.jvmDescriptor(), true);
-		property(json, "domainType", event.domainType(), true);
-		property(json, "outcome", event.outcome().name(), true);
-		evidenceProperties(json, event.evidence(), true);
-		numberProperty(json, "count", count, false);
-		json.append('}');
-	}
-
-	static String repositoryKey(RepositoryInvocationEvent event) {
-		return event.repositoryKind() + "\u0000" + event.repositoryInterface() + "\u0000" + event.beanName()
-				+ "\u0000" + event.methodName() + "\u0000" + event.jvmDescriptor() + "\u0000" + event.domainType()
-				+ "\u0000" + event.outcome() + evidenceKey(event.evidence());
-	}
-
-	private static void writeEntity(StringBuilder json, EntityEvent event, int count, int level) {
-		objectStart(json, level);
-		property(json, "className", event.binaryClassName(), true);
-		evidenceProperties(json, event.evidence(), true);
-		numberProperty(json, "count", count, false);
-		json.append('}');
-	}
-
-	private static void writeTable(StringBuilder json, TableEvent event, int count, int level) {
-		objectStart(json, level);
-		property(json, "tableName", event.tableName(), true);
-		property(json, "access", event.access().name(), true);
 		evidenceProperties(json, event.evidence(), true);
 		numberProperty(json, "count", count, false);
 		json.append('}');
@@ -205,10 +119,6 @@ public final class RuntimeJsonSerializer {
 			json.append(i + 1 < values.size() ? ",\n" : "\n");
 		}
 		json.append(indent(level)).append(']');
-	}
-
-	private static String tableKey(TableEvent event) {
-		return event.tableName() + "\u0000" + event.access() + evidenceKey(event.evidence());
 	}
 
 	private static String unattributedKey(UnattributedEvent event) {
