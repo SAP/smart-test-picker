@@ -19,6 +19,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -197,6 +198,81 @@ class RuntimeContextServiceTest {
 		String json = JSON.serialize(service.aggregator());
 		assertTrue(testSection(json, "captured").contains("capturedTask"));
 		assertTrue(testSection(json, "worker").contains("workerAfterRestore"));
+	}
+
+	@Test
+	void sameRunnableAndCallableCanBeCapturedIndependentlyForDifferentTests() throws Exception {
+		RuntimeContextService service = service();
+		ExecutorService worker = Executors.newSingleThreadExecutor();
+		try {
+			Runnable runnable = () -> service.record(method("sameRunnable"));
+			Callable<String> callable = () -> { service.record(method("sameCallable")); return "result"; };
+			for (String id : new String[] { "reuse-a", "reuse-b" }) {
+				TestIdentity identity = test(id);
+				service.beginTest(identity);
+				worker.submit(service.wrap(runnable)).get();
+				assertEquals("result", worker.submit(service.wrap(callable)).get());
+				service.endTest(identity, SUCCESS);
+			}
+			String json = JSON.serialize(service.aggregator());
+			assertTrue(testSection(json, "reuse-a").contains("sameRunnable"));
+			assertTrue(testSection(json, "reuse-a").contains("sameCallable"));
+			assertTrue(testSection(json, "reuse-b").contains("sameRunnable"));
+			assertTrue(testSection(json, "reuse-b").contains("sameCallable"));
+		} finally {
+			worker.shutdownNow();
+		}
+	}
+
+	@Test
+	void overlappingLogicalContextsRemainIsolated() throws Exception {
+		RuntimeContextService service = service();
+		ExecutorService workers = Executors.newFixedThreadPool(2);
+		CountDownLatch attached = new CountDownLatch(2);
+		CountDownLatch release = new CountDownLatch(1);
+		AtomicReference<Throwable> failure = new AtomicReference<>();
+		Thread submitterA = submitter(service, workers, "overlap-a", "eventA", attached, release, failure);
+		Thread submitterB = submitter(service, workers, "overlap-b", "eventB", attached, release, failure);
+		try {
+			submitterA.start();
+			submitterB.start();
+			assertTrue(attached.await(5, TimeUnit.SECONDS));
+			release.countDown();
+			submitterA.join();
+			submitterB.join();
+			if (failure.get() != null) throw new AssertionError(failure.get());
+			String json = JSON.serialize(service.aggregator());
+			assertTrue(testSection(json, "overlap-a").contains("eventA"));
+			assertFalse(testSection(json, "overlap-a").contains("eventB"));
+			assertTrue(testSection(json, "overlap-b").contains("eventB"));
+			assertFalse(testSection(json, "overlap-b").contains("eventA"));
+		} finally {
+			release.countDown();
+			workers.shutdownNow();
+		}
+	}
+
+	private static Thread submitter(RuntimeContextService service, ExecutorService workers, String id,
+			String event, CountDownLatch attached, CountDownLatch release, AtomicReference<Throwable> failure) {
+		return new Thread(() -> {
+			TestIdentity identity = test(id);
+			try {
+				service.beginTest(identity);
+				workers.submit(service.wrap(() -> {
+					attached.countDown();
+					try {
+						release.await();
+					} catch (InterruptedException interrupted) {
+						Thread.currentThread().interrupt();
+						throw new AssertionError(interrupted);
+					}
+					service.record(method(event));
+				})).get();
+				service.endTest(identity, SUCCESS);
+			} catch (Throwable throwable) {
+				failure.compareAndSet(null, throwable);
+			}
+		}, "submitter-" + id);
 	}
 
 	private static RuntimeContextService service() {

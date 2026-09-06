@@ -86,6 +86,11 @@ public final class RuntimeEventAggregator {
 		recordUnattributed(EventFacts.unattributed(reason, event));
 	}
 
+	public synchronized boolean isFinished(TestIdentity test) {
+		TestBucket bucket = tests.get(test);
+		return bucket != null && bucket.finished;
+	}
+
 	String runId() {
 		return runId;
 	}
