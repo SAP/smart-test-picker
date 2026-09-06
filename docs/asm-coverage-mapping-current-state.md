@@ -1,6 +1,6 @@
 # ASM coverage mapping: current state
 
-This is the canonical starting point for work after ROUND 16. It records the evidence boundary; it does not start selector semantics.
+This is the canonical entry point after closure of ASM coverage-attribution research through ROUND 17. It records the final evidence boundary; it does not start selector semantics. Read `docs/asm-research-summary.md` for the complete narrative, `docs/asm-research-documentation-index.md` for history, and `docs/asm-vs-jacoco.md` for the collector comparison.
 
 ## Collector support
 
@@ -63,12 +63,12 @@ Method-entry coverage records execution, not selector meaning. It does not make 
 
 The agent currently carries bounded ROUND 10-15 diagnostics for reproducibility. They are disabled by default and are not all production candidates; their dispositions are in `docs/asm-baseline-status.md`. The standalone research fixture demonstrates the proven reflection-order mechanism without STP, and the upstream text remains a draft only.
 
-Task 5c status:
-POC proven / semantic hardening completed to current evidence boundary
+Task 5c:
+research and semantic hardening complete to final evidence boundary
 
 Task 5c can be considered ready for closure decision.
 
-Next planned backlog item if 5c is accepted:
+Recommended next work:
 5b Selector semantics
 
 Task 5b remains NOT STARTED.

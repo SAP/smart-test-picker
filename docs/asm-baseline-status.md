@@ -16,7 +16,26 @@ ROUND 16 converts the accumulated ROUND 6-15 work into separate commits for logi
 
 Production-candidate code consists of the ASM method-entry collector, deterministic method catalog and output, logical test context, JUnit lifecycle attribution, late-event quarantine, supported call-site propagation wrappers, class/generated-code filtering, and associated tests.
 
-Property-gated or experiment-specific code is disabled unless its named system properties are supplied:
+The closure disposition is definitive for the current branch. “Remove before production release” means exclude or relocate it during a later production-hardening task, not delete it from this research baseline.
+
+| Component | Production candidate? | Research only? | Keep for reproducibility? | Remove before production release? |
+| --- | --- | --- | --- | --- |
+| ASM method-entry transformer, catalog, collision handling, output | YES | NO | YES | NO |
+| Logical `TestIdentity`, lifecycle aggregation, late-event quarantine | YES | NO | YES | NO |
+| Supported thread/executor/`CompletableFuture` propagation and tests | YES | NO | YES | NO |
+| JUnit Platform execution listener | YES | NO | YES | NO |
+| `CausalTraceRecorder` (Round 10) | POSSIBLE UTILITY; API NOT ACCEPTED | YES | YES | YES, unless separately promoted |
+| `Round11ClassOrderer` | NO | YES | YES | YES |
+| `Round11StateDiagnostics` | NO | YES | YES | YES |
+| `Round12TestTimeline` | POSSIBLE UTILITY; API NOT ACCEPTED | YES | YES | YES, unless separately promoted |
+| Round 13 cache transformer/recorder | NO | YES | YES | YES |
+| Round 14 candidate-order transformer/recorder | NO | YES | YES | YES |
+| Round 15 reflection-order transformer/recorder | NO | YES | YES | YES |
+| Round 9–17 Spring init scripts/analyzers/evidence | NO | YES | YES | YES |
+| PetClinic experiment runners/analyzers/evidence | NO | YES | YES | YES |
+| Standalone reflection-order reproducer | NO | YES | YES | YES |
+
+Property-gated or experiment-specific code is disabled unless its named system properties are supplied. The detailed diagnostic rationale is:
 
 | Diagnostic | Disposition | Reason |
 | --- | --- | --- |
@@ -27,7 +46,7 @@ Property-gated or experiment-specific code is disabled unless its named system p
 | `Round13ClassFileTransformer` / `Round13TraceRecorder` | KEEP_FOR_REPRODUCIBILITY | Exact cache-owner/hit-miss tracing reproduces the ROUND 13 negative cache result. |
 | `Round14ClassFileTransformer` / `Round14TraceRecorder` | KEEP_FOR_REPRODUCIBILITY | Exact candidate decision tracing reproduces the BridgeMethodResolver control-flow proof. |
 | `Round15ClassFileTransformer` / `Round15TraceRecorder` | KEEP_FOR_REPRODUCIBILITY | Exact reflection pipeline tracing reproduces the raw-order proof. |
-| ROUND 9-16 init scripts and analyzers | KEEP_FOR_REPRODUCIBILITY | Research harnesses, not shipped runtime behavior. |
+| ROUND 9-17 init scripts and analyzers | KEEP_FOR_REPRODUCIBILITY | Research harnesses, not shipped runtime behavior. |
 
 `RuntimeHooks` contains small sink interfaces for ROUND 13-15 because transformed Spring bytecode must call a bootstrap-visible runtime boundary. Those interfaces are inert without the property-gated transformer and recorder.
 
