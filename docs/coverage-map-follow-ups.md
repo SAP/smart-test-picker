@@ -1,12 +1,19 @@
 # Coverage-map follow-up backlog
 
-This document records implementation requirements established after coverage-map schema v1. Detailed
+This document records current implementation requirements established after the original coverage-map contract. Detailed
 experimental evidence remains with the POC that produced it; this file contains only the consequences
 for the corresponding backlog items.
 
 ## Task 5c — Coverage runtime and fragment production
 
-Status: **NOT STARTED — blocking collector finding recorded**
+Status: **IN PROGRESS — ASM collector and schema-v2 fragment production foundation implemented**
+
+TASK 24 established direct ASM observation projection and TASK 25 made schema v2 authoritative.
+The current foundation proves ASM direct collection, descriptor-aware production method identity,
+distinct overloaded test identity, JUnit invocation collapsing, explicit revision/shard binding,
+deterministic fragment production, collector integrity gating, bounded setup ownership,
+single-versus-multi collector setup equivalence, parallel container ownership, and a real
+javaagent-to-schema-v2-fragment end-to-end path.
 
 The three-agent Spring PetClinic POC exposed an unsafe behavior in the current experimental collector.
 Run-wide setup attribution can create false setup-to-test relations because it combines every setup
@@ -18,9 +25,9 @@ The PetClinic baseline produced three false setup edges that were absent from th
 - `CrashController -> ValidatorTests`
 - `WelcomeController -> ValidatorTests`
 
-Task 5c must attribute setup coverage to the actual JUnit lifecycle/container scope. It must not derive
-affected tests from a run-wide Cartesian product. The existing schema-v1 `SetupScope` model appears able
-to represent the required narrower attribution; the POC did not establish a need for another schema.
+Task 5c attributes setup coverage to the actual JUnit lifecycle/container scope and does not derive
+affected tests from a run-wide Cartesian product. Schema-v2 `CONTAINER` and `NESTED_CONTAINER` scopes
+represent this bounded attribution. `AfterAll` cannot leak to the last leaf.
 
 Additional acceptance criterion:
 
@@ -28,6 +35,11 @@ Additional acceptance criterion:
 single-shard and multi-shard collection must produce
 semantically identical setup coverage
 ```
+
+Remaining 5c work is framework-specific inherited/shared/async setup detection, integration with
+Gradle and Maven, and inventory-discovery boundaries where owned by 5c. Fragment merge,
+publication, and global completeness remain 5d; selector fallback policy remains 5b. Task 5c is not
+DONE, and neither 5b nor 5d status changes here.
 
 ## Task 5d — Fragment merge, publication, and Jenkins orchestration
 
