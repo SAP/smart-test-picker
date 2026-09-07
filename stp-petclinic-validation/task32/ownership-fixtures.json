@@ -1,0 +1,27 @@
+{
+  "inheritedLifecycle": {
+    "fixture": "InheritedLifecycleFixtureSuite",
+    "callbacks": ["superclass @BeforeAll", "superclass @AfterAll"],
+    "declaringClass": "com.sap.oss.smarttestpicker.junit.InheritedLifecycleBase",
+    "affectedContainer": "com.sap.oss.smarttestpicker.junit.InheritedLifecycleFixtureSuite",
+    "result": "SUPPORTED_BOUNDED"
+  },
+  "sharedContext": {
+    "fixture": "SharedContextFixtureSuite",
+    "boundary": "beginUnboundedSharedContextSetup/endUnboundedSharedContextSetup",
+    "diagnostic": "SHARED_CONTEXT_SETUP_UNSUPPORTED",
+    "severity": "ERROR",
+    "setupEdges": 0,
+    "collectionCompleted": false
+  },
+  "async": {
+    "supportedContainerSubmission": "bounded to concrete open container",
+    "closedContainerExecution": "ASYNC_SETUP_UNSUPPORTED",
+    "recognizedUnsupportedBoundary": "ForkJoinTask/ForkJoinPool task submission",
+    "severity": "ERROR",
+    "collectionCompleted": false
+  },
+  "genericNoActiveTestFatal": false,
+  "genericLateEventFatal": false,
+  "guessedOwnership": false
+}

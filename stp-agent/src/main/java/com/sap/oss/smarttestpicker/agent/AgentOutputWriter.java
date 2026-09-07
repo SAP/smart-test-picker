@@ -10,6 +10,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.nio.file.AtomicMoveNotSupportedException;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,6 +35,31 @@ final class AgentOutputWriter {
 	static void write(Path output, String json) throws IOException {
 		Files.writeString(output, json, StandardCharsets.UTF_8, StandardOpenOption.CREATE,
 				StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);
+	}
+
+	/** Removes any result from an earlier collector execution before current production begins. */
+	static void invalidate(Path output) throws IOException {
+		Files.deleteIfExists(output.toAbsolutePath());
+	}
+
+	/** Publishes validated bytes through a sibling temporary file and replaces the target atomically when supported. */
+	static boolean publish(Path output, byte[] bytes) throws IOException {
+		Path target = output.toAbsolutePath();
+		Path parent = target.getParent();
+		if (parent == null) throw new IOException("fragment output has no parent");
+		Path temporary = Files.createTempFile(parent, target.getFileName().toString() + ".", ".tmp");
+		try {
+			Files.write(temporary, bytes, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE);
+			try {
+				Files.move(temporary, target, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
+				return true;
+			} catch (AtomicMoveNotSupportedException unsupported) {
+				Files.move(temporary, target, StandardCopyOption.REPLACE_EXISTING);
+				return false;
+			}
+		} finally {
+			Files.deleteIfExists(temporary);
+		}
 	}
 
 	static void write(Path output, String runId, String jvmId, AgentConfiguration configuration,
@@ -63,6 +90,7 @@ final class AgentOutputWriter {
 		StringBuilder json = new StringBuilder(1024);
 		json.append("{\n");
 		field(json, 1, "schemaVersion", "agent-shell-1", true);
+		field(json, 1, "collector", "ASM", true);
 		field(json, 1, "runId", runId, true);
 		field(json, 1, "jvmId", jvmId, true);
 		json.append("  \"configuration\": {\n");

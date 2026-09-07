@@ -1,0 +1,17 @@
+{
+  "task": 32,
+  "baseline": {
+    "branch": "research/asm-codex",
+    "head": "58f84a7bb1f93161282240d268a1080beccb6bda"
+  },
+  "ownershipSafety": "PASS",
+  "fragmentOutputSafety": "PASS",
+  "petclinicRegression": "PASS",
+  "springCoreJenkinsAsmRegression": "PASS",
+  "gradleRuntimeClosure": "DONE",
+  "remaining5cBlocker": "TASK 33 — Maven schema-v2 fragment adapter",
+  "backlog5c": "IN PROGRESS",
+  "backlog5d": "NOT STARTED — POC proven",
+  "selectorChanged": false,
+  "mavenChanged": false
+}

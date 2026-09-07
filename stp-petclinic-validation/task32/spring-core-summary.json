@@ -1,0 +1,30 @@
+{
+  "result": "PASS",
+  "independentInventory": {
+    "physicalExecutions": 4705,
+    "physicalSkipped": 29,
+    "logicalDiscoveredFromXml": 3647,
+    "logicalRunnable": 3643,
+    "logicalOnlySkipped": 4
+  },
+  "mappingExecution": {
+    "physicalExecutions": 4705,
+    "physicalSkipped": 29,
+    "logicalDiscoveredFromXml": 3647,
+    "logicalRunnable": 3643,
+    "logicalOnlySkipped": 4
+  },
+  "fragment": {
+    "schemaVersion": 2,
+    "revision": "99a366baf6640b275d08dde60f05da719139bb6a",
+    "shardId": "task32-full",
+    "collectionCompleted": true,
+    "mapped": 3632,
+    "unmapped": 6,
+    "classEdges": 45648,
+    "methodEdges": 171649,
+    "setupScopes": 112,
+    "setupClassEdges": 809,
+    "sha256": "373797141744a693362768ba7068cb3c7cb036b719554e99ff5dad7a2a32e339"
+  }
+}

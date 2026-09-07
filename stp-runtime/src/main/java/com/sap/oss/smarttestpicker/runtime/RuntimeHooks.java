@@ -71,6 +71,14 @@ public final class RuntimeHooks {
 		}
 	}
 
+	public static void unsupportedAsyncBoundary(String boundary) {
+		try {
+			RuntimeContextRegistry.current().ifPresent(service -> service.recordUnsupportedAsyncBoundary(boundary));
+		} catch (Throwable ignored) {
+			// Diagnostics must not alter application execution.
+		}
+	}
+
 	public static ScheduledFuture<?> schedule(ScheduledExecutorService executor, Runnable task,
 			long delay, TimeUnit unit) {
 		return executor.schedule(wrap(task), delay, unit);

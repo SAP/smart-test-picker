@@ -1,0 +1,22 @@
+{
+  "revision": "88e37c15cf6fc8490b01bc3e8e2c800cec1ac272",
+  "environmentBaseline": "69 non-database runnable logical tests",
+  "collector": "ASM",
+  "schemaVersion": 2,
+  "shardId": "petclinic-single",
+  "mapped": 69,
+  "unmapped": 0,
+  "classEdges": 418,
+  "methodEdges": 1343,
+  "setupScopes": 10,
+  "setupClassEdges": 69,
+  "collectionCompleted": true,
+  "agentErrors": 0,
+  "transformationFailures": 0,
+  "methodIdCollisions": 0,
+  "unsupportedOwnershipErrors": 0,
+  "noActiveTest": 0,
+  "lateEvent": 0,
+  "historicalFalseEdgesPresent": false,
+  "result": "PASS"
+}

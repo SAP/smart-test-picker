@@ -1,0 +1,14 @@
+{
+  "jenkinsBuild": "stp-task32-spring-core/7",
+  "jenkinsNode": "stp-agent",
+  "workspace": "/home/jenkins/agent/workspace/stp-task32-spring-core",
+  "jdk": "Eclipse Temurin 21.0.12.1+1-LTS",
+  "gradle": "8.14.2",
+  "springRevision": "99a366baf6640b275d08dde60f05da719139bb6a",
+  "inventoryTask": ":spring-core:test",
+  "mappingTask": ":spring-core:generateSmartTestCoverage",
+  "jenkinsStep": "stpCoverageMap",
+  "collector": "ASM",
+  "fragmentPath": "build/stp/fragment-task32-full.json",
+  "diagnosticPath": "build/stp/agent-diagnostic-task32-full.json"
+}

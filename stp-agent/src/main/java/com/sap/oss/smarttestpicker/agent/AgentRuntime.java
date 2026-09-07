@@ -133,9 +133,13 @@ final class AgentRuntime {
 					FragmentProjectionConfig.of(configuration.revision(), configuration.shardId()),
 					new CollectorIntegrity(true, snapshot.transformationErrors(), snapshot.methodIdCollisions(), errors));
 			errors.addAll(projected.diagnostics());
-			byte[] bytes = new CoverageFragmentCodec().serialize(projected.fragment());
-			java.nio.file.Files.write(configuration.fragmentOutput(), bytes, java.nio.file.StandardOpenOption.CREATE,
-					java.nio.file.StandardOpenOption.TRUNCATE_EXISTING, java.nio.file.StandardOpenOption.WRITE);
+			CoverageFragmentCodec codec = new CoverageFragmentCodec();
+			byte[] bytes = codec.serialize(projected.fragment());
+			// Validate exactly the bytes that will be published; the final name is the commit point.
+			codec.deserialize(bytes);
+			if (!AgentOutputWriter.publish(configuration.fragmentOutput(), bytes)) {
+				errors.add("fragment-atomic-move-unsupported:platform-fallback");
+			}
 		} catch (Throwable failure) {
 			errors.add("fragment-serialization-failure:" + failure.getClass().getName());
 			System.err.println("[stp-agent] failed to write coverage fragment: " + failure.getClass().getSimpleName()

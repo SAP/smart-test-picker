@@ -1,0 +1,10 @@
+{
+  "staleTargetInvalidatedAt": ["Gradle task start", "agent startup"],
+  "publication": ["project", "serialize", "decode serialized bytes", "write sibling temporary", "final move"],
+  "atomicMoveRequested": true,
+  "platformFallback": "same-directory replacement when ATOMIC_MOVE is unsupported",
+  "temporaryCleanup": true,
+  "testedFailures": ["missing fragment", "malformed fragment", "revision mismatch", "shard mismatch", "incomplete fragment", "final replacement failure"],
+  "oldCompletedFragmentSurvivesFailure": false,
+  "gradlePostExecutionVerification": true
+}

@@ -1,0 +1,19 @@
+{
+  "agentErrors": 0,
+  "transformationFailures": 0,
+  "methodIdCollisions": 0,
+  "runtimeInitializationFailures": 0,
+  "fragmentFailures": 0,
+  "unsupportedIdentities": 0,
+  "setupErrorDiagnostics": 0,
+  "ownershipSensitiveAsyncErrors": 0,
+  "noActiveTest": 11212,
+  "lateEvent": 0,
+  "classesSeen": 15657,
+  "classesTransformed": 648,
+  "kotlinBacktickIdentitiesAccepted": true,
+  "jacocoInitPresent": false,
+  "junitListenerIsolationRegression": false,
+  "criticalIntegrity": "PASS",
+  "diagnosticSha256": "d0ff2a4dca6d9223ddbe169a3cae089362c2c18ffda5c6d182aa7b01ec1c7a6e"
+}

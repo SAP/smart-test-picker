@@ -13,7 +13,14 @@ public final class StpAgent {
 		if (instrumentation == null) throw new NullPointerException("instrumentation");
 		AgentConfiguration configuration = AgentConfiguration.parse(agentArgs);
 		AgentOutputWriter.validate(configuration.output());
-		if (configuration.fragmentOutput() != null) AgentOutputWriter.validate(configuration.fragmentOutput());
+		if (configuration.fragmentOutput() != null) {
+			AgentOutputWriter.validate(configuration.fragmentOutput());
+			try {
+				AgentOutputWriter.invalidate(configuration.fragmentOutput());
+			} catch (java.io.IOException failure) {
+				throw new IllegalStateException("cannot invalidate stale fragment output", failure);
+			}
+		}
 		AgentMetrics metrics = new AgentMetrics(started);
 		AgentRuntime runtime = AgentRuntime.install(configuration, metrics);
 		try {
