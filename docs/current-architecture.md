@@ -110,7 +110,7 @@ selection head, verifies the map revision is its ancestor, and computes committe
 and untracked changes without method-level parsing or Git mutation. Unsafe input or analysis returns
 semantic RUN_ALL with public status `FULL_SUITE`.
 
-The build-tool-neutral `HeadTestInventory` supplies exact runnable `TestIdentity` values. The resulting
+The build-tool-neutral `HeadTestInventory` supplies exact logical JUnit `TestIdentity` values. The resulting
 `SelectionContext` classifies new, deleted, and changed-container tests but deliberately performs no
 direct/setup/unmapped selection union. Inventory provisioning and adapter execution remain TASK 38;
 CI-wide inventory and orchestration remain 5d. Task 5b is **IN PROGRESS**.
@@ -140,9 +140,13 @@ TASK 39 implements production provisioning. Gradle and Maven now generate the ex
 inventory themselves through shared JUnit Platform discovery; the CLI retains explicit input.
 See [`task39-head-inventory-generation.md`](task39-head-inventory-generation.md).
 
-The PetClinic 69-entry execution-produced map does not contain the four disabled DB-profile
-declarations found by authoritative discovery, so the required no-change `NONE` regression remains
-open under the locked new-test policy.
+TASK 40 aligns published logical inventory with authoritative discovery. Orchestration explicitly
+accounts for intentionally non-executable declarations in completeness without representing them as
+unsafe `UnmappedTest`; mapped/unmapped executable tests retain their existing selection semantics.
+Pinned PetClinic now has exact 73-of-73 logical equality while preserving 69 mappings, 418 class
+edges, 1,343 method edges, and ten setup scopes. No-change selection is `NONE` and executes zero tests.
+The real Maven lifecycle and TASK 33 identity equality are also validated. See
+[`task40-logical-vs-executable-inventory-contract.md`](task40-logical-vs-executable-inventory-contract.md).
 
-Canonical state: 5a **DONE**, 5b **IN PROGRESS**, 5c **DONE**, 5d **NOT STARTED — POC proven**, and 5e
+Canonical state: 5a **DONE**, 5b **DONE**, 5c **DONE**, 5d **NOT STARTED — POC proven**, and 5e
 **NOT STARTED / independent**. The dependency remains `5a -> {5b, 5c} -> 5d`.

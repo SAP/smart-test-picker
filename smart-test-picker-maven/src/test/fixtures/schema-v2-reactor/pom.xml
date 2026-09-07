@@ -1,0 +1,8 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+  <modelVersion>4.0.0</modelVersion><groupId>fixture</groupId><artifactId>reactor</artifactId><version>1</version><packaging>pom</packaging>
+  <modules><module>module-a</module><module>module-b</module></modules>
+  <profiles><profile><id>collision</id><modules><module>module-collision</module></modules></profile></profiles>
+  <properties><maven.compiler.release>17</maven.compiler.release></properties>
+  <dependencyManagement><dependencies><dependency><groupId>org.junit.jupiter</groupId><artifactId>junit-jupiter</artifactId><version>5.9.3</version></dependency></dependencies></dependencyManagement>
+  <build><pluginManagement><plugins><plugin><groupId>com.sap.oss.smart-test-picker</groupId><artifactId>smart-test-picker-maven</artifactId><version>0.1.0</version></plugin></plugins></pluginManagement></build>
+</project>

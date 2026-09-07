@@ -210,6 +210,19 @@ class SchemaV2SelectionAnalyzerTest
 	{
 		return map(revision, CoverageMapLifecycleState.PUBLISHED, complete(Set.of(OLD)), Map.of(OLD, coverage()), List.of());
 	}
+
+	@Test void authoritativeLogicalInventoryIncludesIntentionallyNonExecutableDeclarations() throws Exception
+	{
+		Repo repo = repo();
+		Completeness complete = complete(Set.of(OLD, OVERLOAD));
+		CoverageMap map = map(repo.head(), CoverageMapLifecycleState.PUBLISHED, complete,
+				Map.of(OLD, coverage()), List.of());
+		SelectionAnalysisResult result = analyze(writeMap(repo.root, map), repo,
+				HeadTestInventory.from(List.of(OLD, OVERLOAD)), 10, List.of());
+		assertFalse(result.isRunAll(), result.reason());
+		assertTrue(result.context().orElseThrow().newTests().isEmpty());
+		assertTrue(new SchemaV2TestSelector().select(result).getSelectedTests().isEmpty());
+	}
 	private static CoverageMap map(String revision, CoverageMapLifecycleState lifecycle, Completeness completeness,
 			Map<TestIdentity, TestCoverage> tests, List<UnmappedTest> unmapped)
 	{

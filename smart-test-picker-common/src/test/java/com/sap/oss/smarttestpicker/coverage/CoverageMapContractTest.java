@@ -221,6 +221,19 @@ class CoverageMapContractTest
 		assertFalse(sameCountDifferentMembers.isComplete()); assertEquals(Set.of(BAR), sameCountDifferentMembers.missingTests()); assertEquals(Set.of(BAZ), sameCountDifferentMembers.unexpectedTests());
 	}
 
+	@Test void orchestrationCanAccountForKnownNonExecutableDeclarationsWithoutMakingThemUnmapped()
+	{
+		CollectionExpectation expectation = new CollectionExpectation(
+				new TestInventory(new CoverageMapRevision("abc123"), Set.of(FOO, BAR)),
+				Set.of(new ShardId("01")), Set.of(BAR));
+		Completeness completeness = Completeness.from(expectation,
+				new CollectionSummary(Set.of(FOO), List.of(new ShardId("01")), Set.of()));
+		assertTrue(completeness.isComplete());
+		assertEquals(Set.of(FOO, BAR), completeness.reportedTests());
+		assertThrows(IllegalArgumentException.class, () -> new CollectionExpectation(
+				new TestInventory(new CoverageMapRevision("abc123"), Set.of(FOO)), Set.of(), Set.of(BAR)));
+	}
+
 	@Test void missingDuplicateAndUnexpectedShardsAreDistinguished()
 	{
 		CollectionExpectation expectation = expectation(Set.of(FOO), Set.of(new ShardId("01"), new ShardId("02")));

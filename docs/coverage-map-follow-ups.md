@@ -6,7 +6,7 @@ for the corresponding backlog items.
 
 ## Task 5b — Selector semantics
 
-Status: **IN PROGRESS — authoritative JUnit provisioning implemented; disabled-inventory transition open**
+Status: **DONE — authoritative logical inventory aligned and selector safety preserved**
 
 TASK 35 establishes that 5b must consume only a validated, globally complete `PUBLISHED` schema-v2
 map and must anchor the normal comparison at the map revision. Minimum safe selection is class-level;
@@ -153,6 +153,10 @@ automatic Gradle/Maven provisioning. Exact `MethodSource` identities are determi
 unsupported leaves fail open. The CLI remains explicit-input. See
 [`task39-head-inventory-generation.md`](task39-head-inventory-generation.md).
 
-Pinned PetClinic exposes 73 declarations versus the preserved 69-entry execution-produced map. The
-four exact additions are disabled DB-profile tests. The unchanged selector safely selects them as new,
-which prevents the required `NONE` regression; therefore 5b is not marked done.
+TASK 40 distinguishes logical declarations from executable and runtime-reported populations. An exact,
+orchestration-owned signal accounts for intentionally non-executable declarations without turning them
+into unsafe executable `UnmappedTest`. Silent missing tests remain incomplete; `ALWAYS_SELECT`, new-test,
+setup, and fallback rules are unchanged. PetClinic reconciles 73 logical declarations with 69 mappings
+and four intentionally non-executable DB-profile declarations, and no-change returns `NONE` with zero
+executions. Maven lifecycle/reactor discovery and TASK 33 sidecar identity equality are validated. See
+[`task40-logical-vs-executable-inventory-contract.md`](task40-logical-vs-executable-inventory-contract.md).

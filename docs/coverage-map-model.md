@@ -40,7 +40,9 @@ production coverage. `COLLECTION_FAILED` belongs in `unmapped`, never in a succe
 
 `Completeness.from` requires both an independent `CollectionExpectation` and a collector-side
 `CollectionSummary`. The expectation combines `TestInventory` with expected shard identities;
-neither expected tests nor expected shards can be inferred from collector output. Inventory discovery belongs to 5c/5d. Completeness uses identity
+neither expected tests nor expected shards can be inferred from collector output. An orchestration-owned
+exact set may account for expected declarations intentionally excluded from execution; it cannot be
+inferred from missing collector output. Completeness uses identity
 set differences and separately records missing, unexpected and duplicate tests and missing or
 duplicate shards. Equal counts with different identities are incomplete.
 
