@@ -160,3 +160,11 @@ setup, and fallback rules are unchanged. PetClinic reconciles 73 logical declara
 and four intentionally non-executable DB-profile declarations, and no-change returns `NONE` with zero
 executions. Maven lifecycle/reactor discovery and TASK 33 sidecar identity equality are validated. See
 [`task40-logical-vs-executable-inventory-contract.md`](task40-logical-vs-executable-inventory-contract.md).
+
+TASK 42 validates the complete current workflow on pinned Spring Core. The authoritative 3,643-entry
+target inventory publishes completely as 3,638 mapped plus five positively known non-executions;
+schema-v2 selection and actual Gradle execution pass every required selected and fail-open scenario.
+Two Spring-exposed 5c/adapter regressions were fixed with focused coverage: partial parameterized skips
+no longer discard runnable sibling coverage, and `smartTest` inherits the configured target execution
+environment. The core is ready for 5d, whose remote store, registry, retention, lookup, scheduling,
+and production orchestration remain intentionally unimplemented.
