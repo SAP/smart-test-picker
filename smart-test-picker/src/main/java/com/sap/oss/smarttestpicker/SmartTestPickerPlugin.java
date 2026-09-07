@@ -249,13 +249,11 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 			StpCoverageTest mappingTest = coverageTest.get();
 			mappingTest.setTestClassesDirs(standardTest.getTestClassesDirs());
 			mappingTest.setClasspath(standardTest.getClasspath());
-			mappingTest.setJvmArgs(standardTest.getJvmArgs());
-			mappingTest.setMinHeapSize(standardTest.getMinHeapSize());
-			mappingTest.setMaxHeapSize(standardTest.getMaxHeapSize());
-			mappingTest.setEnableAssertions(standardTest.getEnableAssertions());
-			mappingTest.setSystemProperties(standardTest.getSystemProperties());
+			mirrorExecutionEnvironment(standardTest, mappingTest);
 			mappingTest.getFilter().setIncludePatterns(
 					standardTest.getFilter().getIncludePatterns().toArray(String[]::new));
+			mappingTest.getFilter().setExcludePatterns(
+					standardTest.getFilter().getExcludePatterns().toArray(String[]::new));
 			CoverageCollectorBackend backend = switch (CoverageCollectorType.parse(ext.getCoverageCollector().get())) {
 				case ASM -> new AsmCoverageCollectorBackend(stpAgent);
 				case JACOCO -> new JacocoCoverageCollectorBackend(stpJacocoCollector);
@@ -267,6 +265,7 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 				Test testTask = (Test) p.getTasks().getByName("test");
 				smartTest.setTestClassesDirs(testTask.getTestClassesDirs());
 				smartTest.setClasspath(testTask.getClasspath());
+				mirrorExecutionEnvironment(testTask, smartTest);
 
 				File selectedFile = p.getLayout().getBuildDirectory()
 						.file("selected-tests.json").get().getAsFile();
@@ -274,6 +273,17 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 			});
 		});
 
+	}
+
+	static void mirrorExecutionEnvironment(Test source, Test target)
+	{
+		target.setJvmArgs(source.getJvmArgs());
+		target.setMinHeapSize(source.getMinHeapSize());
+		target.setMaxHeapSize(source.getMaxHeapSize());
+		target.setEnableAssertions(source.getEnableAssertions());
+		target.setSystemProperties(source.getSystemProperties());
+		target.setIncludes(source.getIncludes());
+		target.setExcludes(source.getExcludes());
 	}
 
 	private static String pluginVersion() {

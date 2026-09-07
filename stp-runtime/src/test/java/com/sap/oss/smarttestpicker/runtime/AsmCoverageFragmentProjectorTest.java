@@ -51,6 +51,23 @@ class AsmCoverageFragmentProjectorTest {
 	}
 
 	@Test
+	void parameterizedLogicalTestWithRunnableAndSkippedInvocationsRetainsCollectedCoverage() {
+		RuntimeEventAggregator aggregator = new RuntimeEventAggregator("run", "jvm");
+		TestIdentity runnable = test("[test-template-invocation:#1]", "com.foo.BufferTest", "works", "com.foo.Factory");
+		TestIdentity skipped = test("[test-template-invocation:#2]", "com.foo.BufferTest", "works", "com.foo.Factory");
+		run(aggregator, runnable, TestExecutionStatus.SUCCESSFUL, method("com.foo.Buffer", "read", "()V"));
+		run(aggregator, skipped, TestExecutionStatus.ABORTED);
+
+		var result = project(aggregator, CollectorIntegrity.healthy());
+		var identity = new com.sap.oss.smarttestpicker.coverage.model.TestIdentity(
+				"com.foo.BufferTest", "works", "com.foo.Factory");
+		assertTrue(result.fragment().unmapped().isEmpty());
+		assertEquals(Set.of(schemaMethod("com.foo.Buffer", "read", "()V")),
+				result.fragment().tests().get(identity).coveredMethods());
+		assertTrue(result.fragment().collectionCompleted());
+	}
+
+	@Test
 	void supportsNestedAndLegalJvmTestNamesAndMultipleLogicalTests() {
 		RuntimeEventAggregator aggregator = new RuntimeEventAggregator("run", "jvm");
 		run(aggregator, test("one", "com.foo.OuterTest$Inner", "works !?#", ""), TestExecutionStatus.SUCCESSFUL,
