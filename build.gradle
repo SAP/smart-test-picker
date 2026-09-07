@@ -30,6 +30,12 @@ subprojects {
 
         plugins.withId('maven-publish') {
             publishing {
+                repositories {
+                    maven {
+                        name = 'functionalTest'
+                        url = rootProject.layout.buildDirectory.dir('functional-test-maven-repository')
+                    }
+                }
                 publications.configureEach { pub ->
                     if (pub instanceof MavenPublication) {
                         pub.pom {

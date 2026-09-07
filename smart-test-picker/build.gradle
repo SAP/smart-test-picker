@@ -24,6 +24,16 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    dependsOn ':stp-agent:shadowJar', ':smart-test-picker-core:jar',
+            ':smart-test-picker-common:publishMavenJavaPublicationToFunctionalTestRepository',
+            ':smart-test-picker-core:publishMavenJavaPublicationToFunctionalTestRepository',
+            ':stp-agent:publishAgentPublicationToFunctionalTestRepository',
+            ':smart-test-picker:publishPluginMavenPublicationToFunctionalTestRepository',
+            ':smart-test-picker:publishSmartTestPickerPluginMarkerMavenPublicationToFunctionalTestRepository'
+    systemProperty 'stp.test.agent.jar', project(':stp-agent').layout.buildDirectory.file('libs/stp-agent.jar').get().asFile
+    systemProperty 'stp.test.core.jar', project(':smart-test-picker-core').layout.buildDirectory.file('libs/smart-test-picker-core-0.1.0.jar').get().asFile
+    systemProperty 'stp.test.source.root', rootProject.projectDir
+    systemProperty 'stp.test.maven.repository', rootProject.layout.buildDirectory.dir('functional-test-maven-repository').get().asFile
 }
 
 gradlePlugin {
@@ -34,6 +44,21 @@ gradlePlugin {
         }
     }
 }
+
+tasks.named('jar') {
+    manifest { attributes('Implementation-Version': project.version) }
+}
+
+def generatedVersionResources = layout.buildDirectory.dir('generated-resources/plugin-version')
+tasks.register('writePluginVersion') {
+    outputs.file(generatedVersionResources.map { it.file('META-INF/smart-test-picker/plugin-version.txt') })
+    doLast {
+        def output = generatedVersionResources.get().file('META-INF/smart-test-picker/plugin-version.txt').asFile
+        output.parentFile.mkdirs()
+        output.text = project.version.toString() + '\n'
+    }
+}
+sourceSets.main.output.dir(generatedVersionResources, builtBy: tasks.named('writePluginVersion'))
 
 publishing {
     publications {
