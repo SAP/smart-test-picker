@@ -130,9 +130,12 @@ public class ExecToXmlEngine
 			executor.submit(() -> {
 				String name = execFile.getName().replace(".exec", "");
 				File xmlOut = new File(reportDir, name + ".xml");
+				File statusOut = new File(reportDir, name + ".status");
 				try
 				{
+					Files.deleteIfExists(xmlOut.toPath());
 					boolean hasContent = generateReport(execFile, classCache, sourceDir, xmlOut);
+					Files.writeString(statusOut.toPath(), hasContent ? "COVERED\n" : "EMPTY\n");
 					if (hasContent)
 					{
 						generated.incrementAndGet();
@@ -145,6 +148,8 @@ public class ExecToXmlEngine
 				catch (Exception e)
 				{
 					failed.incrementAndGet();
+					try { Files.writeString(statusOut.toPath(), "FAILED\n"); }
+					catch (IOException ignored) { /* absence also fails fragment integrity */ }
 					logger.warn("[SmartTestPicker] Failed to generate report for {}: {}",
 							execFile.getName(), e.getMessage());
 				}

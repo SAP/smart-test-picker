@@ -39,6 +39,7 @@ public class JacocoPerTestListener implements TestExecutionListener
 	private static volatile boolean shutdownHookRegistered = false;
 
 	private final ThreadLocal<String> currentSessionId = new ThreadLocal<>();
+	private final ThreadLocal<DeclaredTestIdentity> currentTestIdentity = new ThreadLocal<>();
 	private final ThreadLocal<Long> startTime = new ThreadLocal<>();
 
 	@Override
@@ -50,8 +51,12 @@ public class JacocoPerTestListener implements TestExecutionListener
 		}
 
 		active = true;
-		String sessionId = extractSessionId(id);
+		DeclaredTestIdentity identity = extractTestIdentity(id);
+		String sessionId = identity != null
+				? buildSessionId(identity.simpleClassName(), identity.methodName(), identity.className(), identity.methodParameterTypes())
+				: id.getDisplayName();
 		currentSessionId.set(sessionId);
+		currentTestIdentity.set(identity);
 		setJaCoCoSession(sessionId);
 
 		if (isMetricsEnabled())
@@ -72,11 +77,22 @@ public class JacocoPerTestListener implements TestExecutionListener
 		String sessionId = currentSessionId.get();
 		if (sessionId == null)
 		{
-			sessionId = extractSessionId(id);
+			DeclaredTestIdentity fallbackIdentity = extractTestIdentity(id);
+			sessionId = fallbackIdentity != null
+					? buildSessionId(fallbackIdentity.simpleClassName(), fallbackIdentity.methodName(),
+							fallbackIdentity.className(), fallbackIdentity.methodParameterTypes())
+					: id.getDisplayName();
+			currentTestIdentity.set(fallbackIdentity);
 		}
 
 		dumpJaCoCoData();
 		saveJaCoCoSessionData(sessionId);
+		DeclaredTestIdentity identity = currentTestIdentity.get();
+		if (identity != null)
+		{
+			writeTestIdentity(sessionId, identity,
+					result.getStatus() == TestExecutionResult.Status.SUCCESSFUL ? "PASS" : "FAIL");
+		}
 
 		if (isMetricsEnabled())
 		{
@@ -84,18 +100,20 @@ public class JacocoPerTestListener implements TestExecutionListener
 		}
 
 		currentSessionId.remove();
+		currentTestIdentity.remove();
 		startTime.remove();
 	}
 
-	private String extractSessionId(TestIdentifier id)
+	private DeclaredTestIdentity extractTestIdentity(TestIdentifier id)
 	{
 		TestSource source = id.getSource().orElse(null);
 		if (source instanceof MethodSource)
 		{
 			MethodSource ms = (MethodSource) source;
-			return buildSessionId(ms.getJavaClass().getSimpleName(), ms.getMethodName(), ms.getClassName());
+			return new DeclaredTestIdentity(ms.getJavaClass().getSimpleName(), ms.getClassName(),
+					ms.getMethodName(), ms.getMethodParameterTypes());
 		}
-		return id.getDisplayName();
+		return null;
 	}
 
 	/**
@@ -110,7 +128,13 @@ public class JacocoPerTestListener implements TestExecutionListener
 	 */
 	static String buildSessionId(String simpleClassName, String methodName, String fullClassName)
 	{
-		String fqn = fullClassName + "#" + methodName;
+		return buildSessionId(simpleClassName, methodName, fullClassName, "");
+	}
+
+	static String buildSessionId(String simpleClassName, String methodName, String fullClassName,
+			String methodParameterTypes)
+	{
+		String fqn = fullClassName + "#" + methodName + "(" + methodParameterTypes + ")";
 		String hash = Integer.toHexString(fqn.hashCode() & 0x7fffffff);
 		while (hash.length() < 7)
 		{
@@ -118,6 +142,30 @@ public class JacocoPerTestListener implements TestExecutionListener
 		}
 		return simpleClassName + "#" + methodName + "_" + hash.substring(0, 7);
 	}
+
+	private synchronized void writeTestIdentity(String sessionId, DeclaredTestIdentity identity, String outcome)
+	{
+		try
+		{
+			Path file = Path.of(resolveExecDir()).resolve("session_" + SessionFileNames.sanitize(sessionId) + ".identity");
+			Files.createDirectories(file.getParent());
+			String previous = Files.exists(file) ? Files.readString(file) : "";
+			String mergedOutcome = previous.contains("outcome=FAIL\n") ? "FAIL" : outcome;
+			String content = "format=1\n"
+					+ "className=" + identity.className() + "\n"
+					+ "methodName=" + identity.methodName() + "\n"
+					+ "methodParameterTypes=" + identity.methodParameterTypes() + "\n"
+					+ "outcome=" + mergedOutcome + "\n";
+			Files.writeString(file, content);
+		}
+		catch (Exception e)
+		{
+			System.err.println("Failed to save authoritative test identity: " + e.getMessage());
+		}
+	}
+
+	private record DeclaredTestIdentity(String simpleClassName, String className, String methodName,
+			String methodParameterTypes) {}
 
 	private void setJaCoCoSession(String sessionId)
 	{
