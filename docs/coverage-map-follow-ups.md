@@ -6,7 +6,7 @@ for the corresponding backlog items.
 
 ## Task 5b — Selector semantics
 
-Status: **IN PROGRESS — schema-v2 safety boundary implemented by TASK 36**
+Status: **IN PROGRESS — schema-v2 safety boundary and core policy implemented by TASKS 36–37**
 
 TASK 35 establishes that 5b must consume only a validated, globally complete `PUBLISHED` schema-v2
 map and must anchor the normal comparison at the map revision. Minimum safe selection is class-level;
@@ -20,9 +20,14 @@ see [`task35-5b-selector-semantics-audit.md`](task35-5b-selector-semantics-audit
 TASK 36 adds the shared decode-once schema-v2 ingress, exact revision-to-fixed-head Git analysis,
 conservative structural class detection, configured full-suite triggers, and an authoritative exact
 `TestIdentity` head-inventory boundary. It yields safe semantic context or `FULL_SUITE`; it does not
-apply direct, setup-scope, or unmapped unions. That policy remains TASK 37, while adapter inventory
-provisioning and execution consistency remain TASK 38. No 5d orchestration or 5e base/head behavior
-is introduced.
+apply direct, setup-scope, or unmapped unions.
+
+TASK 37 adds the pure shared policy over that context. It unions exact class coverage, exact bounded
+setup containers, all published unmapped tests still at head, and new/changed head identities; then
+intersects with head inventory, deduplicates, sorts, and normalizes to `SELECTED`, `NONE`, or
+`FULL_SUITE`. Missing affected containers fail open. Method edges and outcomes are not selection
+filters. Adapter inventory provisioning, execution consistency, and real-project regression remain
+TASK 38. No 5d orchestration or 5e base/head behavior is introduced.
 
 ## Task 5c — Coverage runtime and fragment production
 
