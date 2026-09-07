@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.sap.oss.smarttestpicker.fixture</groupId>
+  <artifactId>maven-schema-v2-fixture</artifactId>
+  <version>1.0.0</version>
+  <properties>
+    <maven.compiler.release>17</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <smartTestPicker.revision>fixture-revision</smartTestPicker.revision>
+    <smartTestPicker.shardId>fixture-shard</smartTestPicker.shardId>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>com.sap.oss.smart-test-picker</groupId>
+      <artifactId>smart-test-picker-core</artifactId>
+      <version>0.1.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.9.3</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+      <version>5.9.3</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.13</version>
+        <executions><execution><goals><goal>prepare-agent</goal></goals></execution></executions>
+        <configuration>
+          <destFile>${project.build.directory}/jacoco/test.exec</destFile>
+          <append>false</append>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.5.3</version>
+        <configuration>
+          <properties><configurationParameters>junit.jupiter.extensions.autodetection.enabled = true</configurationParameters></properties>
+          <systemPropertyVariables><stp.exec.dir>${project.build.directory}/jacoco</stp.exec.dir></systemPropertyVariables>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.sap.oss.smart-test-picker</groupId>
+        <artifactId>smart-test-picker-maven</artifactId>
+        <version>0.1.0</version>
+        <executions>
+          <execution><id>reports</id><phase>verify</phase><goals><goal>generate-reports</goal></goals></execution>
+          <execution><id>fragment</id><phase>verify</phase><goals><goal>generate-coverage-fragment</goal></goals></execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

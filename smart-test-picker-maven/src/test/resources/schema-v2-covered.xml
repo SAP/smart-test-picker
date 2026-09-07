@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<report name="smart-report">
+  <package name="org/example/service">
+    <class name="org/example/service/UserService" sourcefilename="UserService.java">
+      <method name="updateAddress" desc="(Ljava/lang/String;)V" line="10">
+        <counter type="INSTRUCTION" missed="0" covered="5"/>
+      </method>
+    </class>
+  </package>
+</report>

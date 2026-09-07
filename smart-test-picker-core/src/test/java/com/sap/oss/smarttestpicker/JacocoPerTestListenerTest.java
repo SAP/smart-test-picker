@@ -60,6 +60,17 @@ class JacocoPerTestListenerTest
 	}
 
 	@Test
+	void buildSessionId_declaredOverloads_produceDifferentIds()
+	{
+		String id1 = JacocoPerTestListener.buildSessionId(
+				"FooTest", "overloaded", "com.example.FooTest", "org.junit.jupiter.api.TestInfo");
+		String id2 = JacocoPerTestListener.buildSessionId(
+				"FooTest", "overloaded", "com.example.FooTest", "org.junit.jupiter.api.TestReporter");
+
+		assertNotEquals(id1, id2, "Declared overloads must not share a JaCoCo session");
+	}
+
+	@Test
 	void buildSessionId_preservesReadablePart()
 	{
 		String sessionId = JacocoPerTestListener.buildSessionId(

@@ -27,6 +27,7 @@ import com.sap.oss.smarttestpicker.jacoco.JacocoPackage;
 import com.sap.oss.smarttestpicker.jacoco.JacocoReport;
 import com.sap.oss.smarttestpicker.jacoco.JacocoSessionInfo;
 import com.sap.oss.smarttestpicker.jacoco.JacocoSourceFile;
+import com.sap.oss.smarttestpicker.coverage.model.MethodIdentity;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Unmarshaller;
 
@@ -46,6 +47,7 @@ import jakarta.xml.bind.Unmarshaller;
  */
 public class CoverageMapperJaxb
 {
+	public record SchemaV2Coverage(Set<String> coveredClasses, Set<MethodIdentity> coveredMethods) {}
 
 	/** Directory containing per-test JaCoCo XML reports. */
 	private final File reportsDir;
@@ -177,6 +179,37 @@ public class CoverageMapperJaxb
 	public Map<String, ClassCoverageMetrics> getClassMetrics()
 	{
 		return classMetrics;
+	}
+
+	/** Parses one JaCoCo XML report without projecting descriptor-bearing methods into legacy strings. */
+	public SchemaV2Coverage readSchemaV2Coverage(File xml)
+	{
+		JacocoReport report = parseXml(xml);
+		if (report == null || report.getPackages() == null)
+			throw new IllegalArgumentException("Malformed or incomplete JaCoCo report: " + xml);
+		Set<String> classes = new java.util.TreeSet<>();
+		Set<MethodIdentity> methods = new java.util.TreeSet<>();
+		for (JacocoPackage pkg : report.getPackages())
+		{
+			if (pkg.getClasses() == null) continue;
+			for (JacocoClass cls : pkg.getClasses())
+			{
+				if (cls == null || cls.getName() == null || cls.getMethods() == null) continue;
+				String className = cls.getName().replace('/', '.');
+				if (TestClassFilter.isTestClass(className)) continue;
+				for (JacocoMethod method : cls.getMethods())
+				{
+					if (method != null && method.getName() != null && method.getCoveredCount() > 0)
+					{
+						if (method.getDesc() == null || method.getDesc().isBlank())
+							throw new IllegalArgumentException("Covered method lacks JVM descriptor in " + xml);
+						classes.add(className);
+						methods.add(new MethodIdentity(className, method.getName(), method.getDesc()));
+					}
+				}
+			}
+		}
+		return new SchemaV2Coverage(Set.copyOf(classes), Set.copyOf(methods));
 	}
 
 	private void collectClassMetrics(String classFqn, JacocoClass cls)

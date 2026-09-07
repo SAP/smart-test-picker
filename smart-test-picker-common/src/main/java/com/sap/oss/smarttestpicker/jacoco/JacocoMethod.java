@@ -35,6 +35,10 @@ public class JacocoMethod {
         return name;
     }
 
+    public String getDesc() {
+        return desc;
+    }
+
     public List<JacocoCounter> getCounters() {
         return counters;
     }
