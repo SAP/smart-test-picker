@@ -40,7 +40,11 @@ final class FixtureEvents {
 	}
 
 	static void hit(String name) {
-		runtime.record(new MethodHitEvent(new MethodIdentity("fixture.Target", name, "()V"),
+		hit("fixture.Target", name);
+	}
+
+	static void hit(String owner, String name) {
+		runtime.record(new MethodHitEvent(new MethodIdentity(owner, name, "()V"),
 				new Evidence(EvidenceSource.ASM_METHOD_ENTRY, Certainty.OBSERVED)));
 	}
 }
@@ -152,6 +156,24 @@ class LifecycleFixtureSuite {
 	static void afterAll() {
 		FixtureEvents.hit("afterAll");
 	}
+}
+
+abstract class InheritedLifecycleBase {
+	@BeforeAll static void inheritedBeforeAll() { FixtureEvents.hit(InheritedLifecycleBase.class.getName(), "inheritedBeforeAll"); }
+	@AfterAll static void inheritedAfterAll() { FixtureEvents.hit(InheritedLifecycleBase.class.getName(), "inheritedAfterAll"); }
+}
+
+class InheritedLifecycleFixtureSuite extends InheritedLifecycleBase {
+	@Test void inheritedLeaf() { FixtureEvents.hit("inheritedLeaf"); }
+}
+
+class SharedContextFixtureSuite {
+	@BeforeAll static void initializeSharedContextWithoutKnownConsumers() {
+		FixtureEvents.runtime.beginUnboundedSharedContextSetup("cached-fixture");
+		try { FixtureEvents.hit("sharedInitialization"); }
+		finally { FixtureEvents.runtime.endUnboundedSharedContextSetup("cached-fixture"); }
+	}
+	@Test void consumer() { FixtureEvents.hit("sharedConsumer"); }
 }
 
 class SequentialFixtureSuite {

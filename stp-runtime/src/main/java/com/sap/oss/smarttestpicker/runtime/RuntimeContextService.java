@@ -26,6 +26,9 @@ public final class RuntimeContextService {
 	private final ThreadLocal<TestIdentity> lastFinished = new ThreadLocal<>();
 	private final ThreadLocal<Deque<TaskIdentity>> currentTasks = ThreadLocal.withInitial(ArrayDeque::new);
 	private final ThreadLocal<Deque<ContainerIdentity>> currentContainers = ThreadLocal.withInitial(ArrayDeque::new);
+	private final ThreadLocal<ContainerIdentity> capturedContainer = new ThreadLocal<>();
+	private final ThreadLocal<String> unboundedSharedSetup = new ThreadLocal<>();
+	private final java.util.Set<String> activeContainers = java.util.concurrent.ConcurrentHashMap.newKeySet();
 	private final AtomicLong logicalContexts = new AtomicLong();
 	private final boolean debug;
 
@@ -78,7 +81,9 @@ public final class RuntimeContextService {
 		Objects.requireNonNull(task, "task");
 		TestExecutionContext captured = current.get();
 		debug("capture", task, captured);
-		return captured == null ? task : () -> runWith(captured, task);
+		ContainerIdentity container = currentContainer();
+		return captured != null ? () -> runWith(captured, task)
+				: container != null ? () -> runWith(container, task) : task;
 	}
 
 	/** Captures the active test at submission and restores the worker's state after execution. */
@@ -86,21 +91,60 @@ public final class RuntimeContextService {
 		Objects.requireNonNull(task, "task");
 		TestExecutionContext captured = current.get();
 		debug("capture", task, captured);
-		return captured == null ? task : () -> callWith(captured, task);
+		ContainerIdentity container = currentContainer();
+		return captured != null ? () -> callWith(captured, task)
+				: container != null ? () -> callWith(container, task) : task;
 	}
 
 	public <V> Supplier<V> wrapSupplier(Supplier<V> task) {
 		Objects.requireNonNull(task, "task");
 		TestExecutionContext captured = current.get();
 		debug("capture", task, captured);
-		return captured == null ? task : () -> supplyWith(captured, task);
+		ContainerIdentity container = currentContainer();
+		return captured != null ? () -> supplyWith(captured, task)
+				: container != null ? () -> supplyWith(container, task) : task;
 	}
 
 	public <T, R> Function<T, R> wrapFunction(Function<T, R> task) {
 		Objects.requireNonNull(task, "task");
 		TestExecutionContext captured = current.get();
 		debug("capture", task, captured);
-		return captured == null ? task : value -> applyWith(captured, task, value);
+		ContainerIdentity container = currentContainer();
+		return captured != null ? value -> applyWith(captured, task, value)
+				: container != null ? value -> applyWith(container, task, value) : task;
+	}
+
+	private ContainerIdentity currentContainer() {
+		Deque<ContainerIdentity> values = currentContainers.get();
+		return values.isEmpty() ? null : values.peek();
+	}
+
+	private void runWith(ContainerIdentity container, Runnable task) {
+		ContainerIdentity previous = capturedContainer.get();
+		capturedContainer.set(container);
+		try { task.run(); } finally { restoreContainer(previous); }
+	}
+
+	private <V> V callWith(ContainerIdentity container, Callable<V> task) throws Exception {
+		ContainerIdentity previous = capturedContainer.get();
+		capturedContainer.set(container);
+		try { return task.call(); } finally { restoreContainer(previous); }
+	}
+
+	private <V> V supplyWith(ContainerIdentity container, Supplier<V> task) {
+		ContainerIdentity previous = capturedContainer.get();
+		capturedContainer.set(container);
+		try { return task.get(); } finally { restoreContainer(previous); }
+	}
+
+	private <T, R> R applyWith(ContainerIdentity container, Function<T, R> task, T value) {
+		ContainerIdentity previous = capturedContainer.get();
+		capturedContainer.set(container);
+		try { return task.apply(value); } finally { restoreContainer(previous); }
+	}
+
+	private void restoreContainer(ContainerIdentity previous) {
+		if (previous == null) capturedContainer.remove(); else capturedContainer.set(previous);
 	}
 
 	private void runWith(TestExecutionContext captured, Runnable task) {
@@ -166,6 +210,13 @@ public final class RuntimeContextService {
 
 	public void record(RuntimeEvent event) {
 		Objects.requireNonNull(event, "event");
+		if (event instanceof com.sap.oss.smarttestpicker.runtime.model.MethodHitEvent method
+				&& unboundedSharedSetup.get() != null) {
+			recordUnsupportedSetup(SetupDiagnostic.Kind.SHARED_CONTEXT_SETUP_UNSUPPORTED, method.method(),
+					"affected containers are unknown for shared context " + unboundedSharedSetup.get());
+			aggregator.recordUnattributed(UnattributedReason.NO_ACTIVE_TEST, event);
+			return;
+		}
 		TestExecutionContext active = current.get();
 		if (active != null) {
 			aggregator.record(active.testIdentity(), event);
@@ -174,6 +225,16 @@ public final class RuntimeContextService {
 		TestIdentity finished = lastFinished.get();
 		if (finished != null) {
 			aggregator.record(finished, event);
+		} else if (event instanceof com.sap.oss.smarttestpicker.runtime.model.MethodHitEvent method
+				&& capturedContainer.get() != null) {
+			ContainerIdentity container = capturedContainer.get();
+			if (activeContainers.contains(container.uniqueId())) {
+				aggregator.recordSetup(container.binaryName(), container.nested(), method);
+			} else {
+				recordUnsupportedSetup(SetupDiagnostic.Kind.ASYNC_SETUP_UNSUPPORTED, method.method(),
+						"work captured by closed JUnit container " + container.uniqueId());
+				aggregator.recordUnattributed(UnattributedReason.LATE_EVENT, event);
+			}
 		} else if (event instanceof com.sap.oss.smarttestpicker.runtime.model.MethodHitEvent method
 				&& !currentContainers.get().isEmpty()) {
 			ContainerIdentity container = currentContainers.get().peek();
@@ -185,7 +246,22 @@ public final class RuntimeContextService {
 
 	public void beginContainer(String uniqueId, String binaryName, boolean nested) {
 		currentContainers.get().push(new ContainerIdentity(uniqueId, binaryName, nested));
+		activeContainers.add(uniqueId);
 		lastFinished.remove();
+	}
+
+	/** Narrow integration boundary for a shared initializer whose complete consumer set is unavailable. */
+	public void beginUnboundedSharedContextSetup(String contextId) {
+		if (contextId == null || contextId.isBlank()) throw new IllegalArgumentException("contextId must not be blank");
+		if (unboundedSharedSetup.get() != null) throw new IllegalStateException("shared setup is already active");
+		unboundedSharedSetup.set(contextId);
+	}
+
+	public void endUnboundedSharedContextSetup(String contextId) {
+		if (!Objects.equals(contextId, unboundedSharedSetup.get())) {
+			throw new IllegalStateException("shared setup is not active: " + contextId);
+		}
+		unboundedSharedSetup.remove();
 	}
 
 	public void recordUnsupportedSetup(SetupDiagnostic.Kind kind,
@@ -193,7 +269,18 @@ public final class RuntimeContextService {
 		aggregator.recordSetupDiagnostic(new SetupDiagnostic(kind, SetupDiagnostic.Severity.ERROR, method, detail));
 	}
 
+	/** Called only at a recognized submission boundary which cannot preserve the active owner. */
+	public void recordUnsupportedAsyncBoundary(String boundary) {
+		TestExecutionContext test = current.get();
+		ContainerIdentity container = currentContainer();
+		if (test == null && container == null) return; // ordinary runtime use is not ownership evidence
+		aggregator.recordSetupDiagnostic(new SetupDiagnostic(SetupDiagnostic.Kind.ASYNC_SETUP_UNSUPPORTED,
+				SetupDiagnostic.Severity.ERROR, null, boundary + "; owner="
+						+ (test != null ? test.testIdentity().platformUniqueId() : container.uniqueId())));
+	}
+
 	public void endContainer(String uniqueId) {
+		activeContainers.remove(uniqueId);
 		Deque<ContainerIdentity> values = currentContainers.get();
 		if (!values.isEmpty() && values.peek().uniqueId().equals(uniqueId)) values.pop();
 		else values.removeIf(value -> value.uniqueId().equals(uniqueId));

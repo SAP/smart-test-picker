@@ -267,7 +267,8 @@ class MethodEntryTransformationTest {
 	@Test
 	void scheduledExecutorsAndRawThreadsPropagateThroughRealAsmInstrumentation() throws Exception {
 		Path output = temporaryDirectory.resolve("thread-boundaries.json");
-		ProcessResult run = runFixture(output, ThreadBoundaryFixtureMain.class);
+		Path fragment = temporaryDirectory.resolve("thread-boundaries-fragment.json");
+		ProcessResult run = runFixture(output, ThreadBoundaryFixtureMain.class, fragment);
 		assertEquals(0, run.exitCode, run.output);
 		assertTrue(run.output.contains("thread-boundary-fixture-ok"));
 		String json = Files.readString(output);
@@ -294,6 +295,9 @@ class MethodEntryTransformationTest {
 		assertTrue(global.contains("AsyncApplication#forkJoinPoolTaskInvoke()V"));
 		assertTrue(global.contains("AsyncApplication#forkJoinDirectFork()V"));
 		assertTrue(global.contains("AsyncApplication#scheduledNoContext()V"));
+		assertTrue(json.contains("ASYNC_SETUP_UNSUPPORTED"));
+		assertFalse(new com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec()
+				.deserialize(Files.readAllBytes(fragment)).collectionCompleted());
 	}
 
 	@Test
@@ -393,6 +397,10 @@ class MethodEntryTransformationTest {
 	}
 
 	private ProcessResult runFixture(Path output, Class<?> mainClass) throws Exception {
+		return runFixture(output, mainClass, null);
+	}
+
+	private ProcessResult runFixture(Path output, Class<?> mainClass, Path fragment) throws Exception {
 		String java = Path.of(System.getProperty("java.home"), "bin", "java").toString();
 		Path sourceClasses = Path.of(mainClass.getProtectionDomain().getCodeSource().getLocation().toURI());
 		Path fixtureClasses = temporaryDirectory.resolve("fixture-classes");
@@ -405,7 +413,8 @@ class MethodEntryTransformationTest {
 				}
 			}
 		}
-		String args = "output=" + output + ";includes=example.instrumented.;runId=fixture-run;debug=false;instrumentation=on";
+		String args = "output=" + output + ";includes=example.instrumented.;runId=fixture-run;debug=false;instrumentation=on"
+				+ (fragment == null ? "" : ";fragmentOutput=" + fragment + ";revision=fixture-revision;shardId=fixture-shard");
 		Process process = new ProcessBuilder(java, "-Xverify:all", "-javaagent:" + agentJar() + "=" + args,
 				"-cp", fixtureClasses.toString(), mainClass.getName()).redirectErrorStream(true).start();
 		String processOutput = new String(process.getInputStream().readAllBytes(), StandardCharsets.UTF_8);

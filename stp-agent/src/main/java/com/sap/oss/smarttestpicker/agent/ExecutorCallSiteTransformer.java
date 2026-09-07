@@ -55,6 +55,15 @@ final class ExecutorCallSiteTransformer implements ClassFileTransformer {
 				for (AbstractInsnNode instruction = method.instructions.getFirst(); instruction != null;
 						instruction = instruction.getNext()) {
 					if (!(instruction instanceof MethodInsnNode call)) continue;
+					if (unsupportedForkJoinBoundary(call, hierarchy)) {
+						InsnList marker = new InsnList();
+						marker.add(new org.objectweb.asm.tree.LdcInsnNode(
+								call.owner.replace('/', '.') + "." + call.name + call.desc));
+						marker.add(new MethodInsnNode(Opcodes.INVOKESTATIC, HOOK, "unsupportedAsyncBoundary",
+								"(Ljava/lang/String;)V", false));
+						method.instructions.insertBefore(call, marker);
+						changed = true;
+					}
 					InsnList threadWrapping = threadWrapping(call);
 					if (threadWrapping != null) {
 						method.instructions.insertBefore(call, threadWrapping);
@@ -101,6 +110,16 @@ final class ExecutorCallSiteTransformer implements ClassFileTransformer {
 					+ failure.getClass().getName());
 			return null;
 		}
+	}
+
+	private static boolean unsupportedForkJoinBoundary(MethodInsnNode call, Hierarchy hierarchy) {
+		if ((call.name.equals("fork") || call.name.equals("invoke")) && call.desc.startsWith("()")
+				&& hierarchy.forkJoinTask(call.owner) == Resolution.YES) {
+			return true;
+		}
+		return call.owner.equals("java/util/concurrent/ForkJoinPool")
+				&& (call.name.equals("submit") || call.name.equals("invoke"))
+				&& call.desc.startsWith("(" + FORK_JOIN_TASK);
 	}
 
 	private MethodInsnNode scheduledBridge(MethodInsnNode call, Hierarchy hierarchy) {
@@ -225,6 +244,10 @@ final class ExecutorCallSiteTransformer implements ClassFileTransformer {
 
 		private Resolution scheduledExecutor(String owner) {
 			return subtype(owner, "java/util/concurrent/ScheduledExecutorService", new HashSet<>());
+		}
+
+		private Resolution forkJoinTask(String owner) {
+			return subtype(owner, "java/util/concurrent/ForkJoinTask", new HashSet<>());
 		}
 
 		private Resolution subtype(String owner, String root, Set<String> visited) {

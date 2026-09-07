@@ -143,6 +143,29 @@ class StpRuntimeTestExecutionListenerTest {
 	}
 
 	@Test
+	void inheritedLifecycleIsBoundedToTheConcreteExecutingContainer() {
+		var fragment = project(execute(InheritedLifecycleFixtureSuite.class));
+		assertTrue(fragment.collectionCompleted());
+		assertEquals(1, fragment.setupScopes().size());
+		var scope = fragment.setupScopes().get(0);
+		assertEquals(InheritedLifecycleFixtureSuite.class.getName(),
+				scope.affectedContainers().iterator().next().binaryName());
+		assertEquals(java.util.Set.of(InheritedLifecycleBase.class.getName()), scope.coveredClasses());
+	}
+
+	@Test
+	void recognizedSharedSetupWithoutProvableConsumersFailsClosedWithoutASetupEdge() {
+		Run run = execute(SharedContextFixtureSuite.class);
+		var result = new AsmCoverageFragmentProjector().project(run.runtime.aggregator().snapshot(),
+				FragmentProjectionConfig.of("revision-24", "shard-1"), CollectorIntegrity.healthy());
+		assertFalse(result.fragment().collectionCompleted());
+		assertTrue(result.fragment().setupScopes().isEmpty());
+		assertTrue(result.diagnostics().stream().anyMatch(value ->
+				value.contains("SHARED_CONTEXT_SETUP_UNSUPPORTED:ERROR")));
+		assertTrue(run.json().contains("sharedInitialization"));
+	}
+
+	@Test
 	void eventsDuringTestAreAttributedAndEventsAfterCompletionAreLate() {
 		Run run = execute(SequentialFixtureSuite.class);
 		run.runtime.record(method("afterLauncher"));

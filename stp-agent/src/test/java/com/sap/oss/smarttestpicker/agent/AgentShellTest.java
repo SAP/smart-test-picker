@@ -156,6 +156,34 @@ class AgentShellTest {
 	}
 
 	@Test
+	void fragmentPublicationInvalidatesStaleTargetAndUsesAValidatedCommitPoint() throws Exception {
+		Path target = temporaryDirectory.resolve("fragment.json");
+		Files.writeString(target, "old-completed-fragment");
+		AgentOutputWriter.invalidate(target);
+		assertFalse(Files.exists(target));
+		assertTrue(AgentOutputWriter.publish(target, "fresh".getBytes(StandardCharsets.UTF_8))
+				|| Files.readString(target).equals("fresh"));
+		assertEquals("fresh", Files.readString(target));
+		try (var siblings = Files.list(temporaryDirectory)) {
+			assertFalse(siblings.anyMatch(path -> path.getFileName().toString().endsWith(".tmp")));
+		}
+	}
+
+	@Test
+	void failedFinalReplacementLeavesNoTemporaryOrOldCompletedFragment() throws Exception {
+		Path target = temporaryDirectory.resolve("blocked-fragment.json");
+		Files.writeString(target, "old-completed-fragment");
+		AgentOutputWriter.invalidate(target);
+		Files.createDirectory(target); // simulates a final-path obstruction after collector startup
+		assertThrows(IOException.class, () -> AgentOutputWriter.publish(target,
+				"new-completed-fragment".getBytes(StandardCharsets.UTF_8)));
+		assertTrue(Files.isDirectory(target));
+		try (var siblings = Files.list(temporaryDirectory)) {
+			assertFalse(siblings.anyMatch(path -> path.getFileName().toString().endsWith(".tmp")));
+		}
+	}
+
+	@Test
 	void agentJarHasRequiredManifestAndRuntimeClasses() throws IOException {
 		try (JarFile jar = new JarFile(agentJar().toFile())) {
 			Attributes attributes = jar.getManifest().getMainAttributes();

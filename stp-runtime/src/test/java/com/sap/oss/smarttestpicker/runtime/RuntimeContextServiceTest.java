@@ -105,6 +105,36 @@ class RuntimeContextServiceTest {
 	}
 
 	@Test
+	void setupTaskUsesConcreteContainerWhileOpenAndFailsClosedAfterItCloses() {
+		RuntimeContextService service = service();
+		service.beginContainer("container-1", "fixture.ConcreteTest", false);
+		Runnable setup = service.wrap(() -> service.record(method("asyncSetup")));
+		setup.run();
+		service.endContainer("container-1");
+		setup.run();
+
+		RuntimeObservation observation = service.aggregator().snapshot();
+		assertEquals(1, observation.setup().size());
+		assertEquals("fixture.ConcreteTest", observation.setup().get(0).binaryContainerName());
+		assertTrue(observation.setupDiagnostics().stream().anyMatch(value ->
+				value.kind() == SetupDiagnostic.Kind.ASYNC_SETUP_UNSUPPORTED
+						&& value.severity() == SetupDiagnostic.Severity.ERROR));
+	}
+
+	@Test
+	void recognizedUnsupportedBoundaryIsFatalOnlyWithActiveOwnershipEvidence() {
+		RuntimeContextService service = service();
+		service.recordUnsupportedAsyncBoundary("outside");
+		assertTrue(service.aggregator().snapshot().setupDiagnostics().isEmpty());
+		TestIdentity identity = test("unsupported");
+		service.beginTest(identity);
+		service.recordUnsupportedAsyncBoundary("ForkJoinTask.fork");
+		service.endTest(identity, SUCCESS);
+		assertTrue(service.aggregator().snapshot().setupDiagnostics().stream().anyMatch(value ->
+				value.kind() == SetupDiagnostic.Kind.ASYNC_SETUP_UNSUPPORTED));
+	}
+
+	@Test
 	void nestedSubmissionCapturesThePropagatedParentContext() throws Exception {
 		RuntimeContextService service = service();
 		ExecutorService worker = Executors.newFixedThreadPool(2);
