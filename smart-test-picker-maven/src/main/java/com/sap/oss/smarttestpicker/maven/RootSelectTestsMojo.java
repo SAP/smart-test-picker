@@ -19,7 +19,7 @@ import org.apache.maven.project.MavenProject;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import com.sap.oss.smarttestpicker.engine.TestSelectionEngine;
+import com.sap.oss.smarttestpicker.selector.SchemaV2SelectorFlow;
 import com.sap.oss.smarttestpicker.selector.SelectionOutput;
 
 
@@ -61,8 +61,7 @@ public class RootSelectTestsMojo extends AbstractMojo
 		if (!coverageMapFile.exists())
 		{
 			getLog().warn("[SmartTestPicker] Merged coverage map not found: " + coverageMapFile.getAbsolutePath()
-					+ " — run baseline first (mvn verify -Psmart-test-picker)");
-			return;
+					+ " — selection will fail open to the full suite");
 		}
 
 		List<File> testClassesDirs = new ArrayList<>();
@@ -88,15 +87,13 @@ public class RootSelectTestsMojo extends AbstractMojo
 			}
 		}
 
-		TestSelectionEngine engine = new TestSelectionEngine();
-		SelectionOutput output = engine.select(
+		File headTestInventoryFile = new File(rootTarget, "head-test-inventory.json");
+		SelectionOutput output = new SchemaV2SelectorFlow().select(
 				coverageMapFile,
-				testClassesDirs,
-				testSourceDirs,
+				headTestInventoryFile,
 				root.getBasedir(),
 				maxCommitDistance,
-				fullSuiteTriggers != null ? fullSuiteTriggers : List.of(),
-				new MavenEngineLogger(getLog()));
+				fullSuiteTriggers != null ? fullSuiteTriggers : List.of());
 
 		getLog().info("[SmartTestPicker] Status: " + output.getStatus() + " — " + output.getReason());
 
@@ -131,8 +128,9 @@ public class RootSelectTestsMojo extends AbstractMojo
 				File includesFile = new File(moduleTarget, "selected-tests-surefire.txt");
 				SmartTestFilter.writeIncludesFile(output, includesFile, classLevelSelection);
 
-				module.getProperties().setProperty("surefire.includesFile",
+				if (includesFile.exists()) module.getProperties().setProperty("surefire.includesFile",
 						includesFile.getAbsolutePath());
+				else module.getProperties().remove("surefire.includesFile");
 				modulesWritten++;
 			}
 			catch (IOException e)

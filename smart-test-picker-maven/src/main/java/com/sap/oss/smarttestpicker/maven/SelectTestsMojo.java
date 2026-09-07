@@ -19,7 +19,7 @@ import org.apache.maven.project.MavenProject;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import com.sap.oss.smarttestpicker.engine.TestSelectionEngine;
+import com.sap.oss.smarttestpicker.selector.SchemaV2SelectorFlow;
 import com.sap.oss.smarttestpicker.selector.SelectionOutput;
 
 
@@ -42,6 +42,9 @@ public class SelectTestsMojo extends AbstractMojo
 	@Parameter(defaultValue = "${project.build.directory}/selected-tests.json", required = true)
 	private File selectedTestsFile;
 
+	@Parameter(defaultValue = "${project.build.directory}/head-test-inventory.json", required = true)
+	private File headTestInventoryFile;
+
 	@Parameter(defaultValue = "${project.build.testOutputDirectory}", required = true)
 	private File testClassesDir;
 
@@ -63,14 +66,12 @@ public class SelectTestsMojo extends AbstractMojo
 	@Override
 	public void execute() throws MojoExecutionException
 	{
-		TestSelectionEngine engine = new TestSelectionEngine();
-		SelectionOutput output = engine.select(
+		SelectionOutput output = new SchemaV2SelectorFlow().select(
 				coverageMapFile,
-				testClassesDir,
+				headTestInventoryFile,
 				projectDir,
 				maxCommitDistance,
-				fullSuiteTriggers != null ? fullSuiteTriggers : List.of(),
-				new MavenEngineLogger(getLog()));
+				fullSuiteTriggers != null ? fullSuiteTriggers : List.of());
 
 		getLog().info("[SmartTestPicker] Status: " + output.getStatus() + " \u2014 " + output.getReason());
 

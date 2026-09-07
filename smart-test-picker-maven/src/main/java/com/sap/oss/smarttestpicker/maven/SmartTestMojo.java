@@ -35,7 +35,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import com.sap.oss.smarttestpicker.engine.ReportEngine;
-import com.sap.oss.smarttestpicker.engine.TestSelectionEngine;
+import com.sap.oss.smarttestpicker.selector.SchemaV2SelectorFlow;
 import com.sap.oss.smarttestpicker.mapper.ClassCoverageMetrics;
 import com.sap.oss.smarttestpicker.mapper.CoverageMap;
 import com.sap.oss.smarttestpicker.mapper.CoverageMapMetadata;
@@ -49,7 +49,7 @@ import com.sap.oss.smarttestpicker.store.RemoteStoreClient;
  * <p>Performs the full smart-test workflow in a single invocation:</p>
  * <ol>
  *   <li>Select tests from the existing (baseline) coverage map</li>
- *   <li>Determine which reactor modules contain selected/unmapped tests</li>
+ *   <li>Route mandatory selected tests to reactor modules</li>
  *   <li>Fork {@code mvn verify} only on affected modules (via Maven Invoker)</li>
  *   <li>Merge per-module coverage maps</li>
  *   <li>Generate HTML report</li>
@@ -89,6 +89,7 @@ public class SmartTestMojo extends AbstractMojo
 	private String springProfiles;
 
 	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	private boolean routingUncertain;
 
 	@Override
 	public void execute() throws MojoExecutionException
@@ -127,10 +128,9 @@ public class SmartTestMojo extends AbstractMojo
 
 		if (!coverageMapFile.exists())
 		{
-			getLog().error("[SmartTestPicker] No baseline coverage map found at: "
+			getLog().warn("[SmartTestPicker] No baseline coverage map found at: "
 					+ coverageMapFile.getAbsolutePath());
-			getLog().error("[SmartTestPicker] Run baseline first: mvn verify -Psmart-test-picker");
-			return;
+			getLog().warn("[SmartTestPicker] Selection will fail open to the full suite");
 		}
 
 		List<File> testClassesDirs = new ArrayList<>();
@@ -156,15 +156,12 @@ public class SmartTestMojo extends AbstractMojo
 			}
 		}
 
-		TestSelectionEngine engine = new TestSelectionEngine();
-		SelectionOutput output = engine.select(
+		SelectionOutput output = new SchemaV2SelectorFlow().select(
 				coverageMapFile,
-				testClassesDirs,
-				testSourceDirs,
+				new File(rootTarget, "head-test-inventory.json"),
 				root.getBasedir(),
 				maxCommitDistance,
-				fullSuiteTriggers != null ? fullSuiteTriggers : List.of(),
-				logger);
+				fullSuiteTriggers != null ? fullSuiteTriggers : List.of());
 
 		getLog().info("[SmartTestPicker] Status: " + output.getStatus() + " — " + output.getReason());
 
@@ -191,16 +188,13 @@ public class SmartTestMojo extends AbstractMojo
 
 		forkMavenVerify(root.getBasedir(), moduleList);
 
-		// Step 4: Prune tests that no longer exist (commented/deleted) from selection and coverage map
-		pruneNonExistentTests(output, selectedTestsFile);
-
-		// Step 5: Merge coverage maps + generate report
+		// Step 4: Merge coverage maps + generate report. The mandatory selection is never pruned.
 		mergeCoverageMapsAndReport(root, rootTarget, selectedTestsFile, logger);
 	}
 
 	/**
-	 * Determines which reactor modules need to be built. For SELECTED: modules containing
-	 * selected tests or unmapped tests. For FULL_SUITE: all non-pom modules.
+	 * Determines which reactor modules need to be built from selectedTests only.
+	 * FULL_SUITE and uncertain routing conservatively include all non-pom modules.
 	 */
 	private Set<String> determineAffectedModules(SelectionOutput output)
 	{
@@ -212,88 +206,33 @@ public class SmartTestMojo extends AbstractMojo
 			{
 				int hash = test.indexOf('#');
 				String className = hash > 0 ? test.substring(0, hash) : test;
-				String module = findModuleForTestClass(className);
+				String module = findModuleForTestClassFqn(className);
 				if (module != null)
 				{
 					modules.add(module);
 				}
-			}
-		}
-
-		// Include modules containing unmapped tests only if:
-		// (a) the module is already affected by selected tests, OR
-		// (b) the unmapped test shares a module with changed production code
-		// This prevents building every module just because it has unmapped tests.
-		Set<String> changedCodeModules = findModulesWithChangedCode(output);
-		if (output.getUnmappedTests() != null)
-		{
-			for (String fqn : output.getUnmappedTests().keySet())
-			{
-				String module = findModuleForTestClassFqn(fqn);
-				if (module != null && (modules.contains(module) || changedCodeModules.contains(module)))
+				else
 				{
-					modules.add(module);
+					routingUncertain = true;
+					addAllRunnableModules(modules);
 				}
 			}
 		}
 
-		if ("FULL_SUITE".equals(output.getStatus()))
+		if (!Set.of("SELECTED", "NONE", "FULL_SUITE").contains(output.getStatus())
+				|| "FULL_SUITE".equals(output.getStatus()))
 		{
-			for (MavenProject m : reactorProjects)
-			{
-				if (!"pom".equals(m.getPackaging()))
-				{
-					modules.add(m.getArtifactId());
-				}
-			}
+			addAllRunnableModules(modules);
 		}
 
 		getLog().info("[SmartTestPicker] Affected modules: " + modules);
 		return modules;
 	}
 
-	private Set<String> findModulesWithChangedCode(SelectionOutput output)
-	{
-		Set<String> modules = new LinkedHashSet<>();
-		if (output.getChangedClasses() == null)
-		{
-			return modules;
-		}
-		for (String changedClass : output.getChangedClasses())
-		{
-			String classFile = changedClass.replace('.', File.separatorChar) + ".class";
-			for (MavenProject module : reactorProjects)
-			{
-				if ("pom".equals(module.getPackaging()))
-				{
-					continue;
-				}
-				File classes = new File(module.getBuild().getOutputDirectory());
-				if (new File(classes, classFile).exists())
-				{
-					modules.add(module.getArtifactId());
-					break;
-				}
-			}
-		}
-		return modules;
-	}
-
-	private String findModuleForTestClass(String simpleClassName)
+	private void addAllRunnableModules(Set<String> modules)
 	{
 		for (MavenProject module : reactorProjects)
-		{
-			if ("pom".equals(module.getPackaging()))
-			{
-				continue;
-			}
-			File testClasses = new File(module.getBuild().getDirectory(), "test-classes");
-			if (testClasses.exists() && containsClass(testClasses, simpleClassName))
-			{
-				return module.getArtifactId();
-			}
-		}
-		return null;
+			if (!"pom".equals(module.getPackaging())) modules.add(module.getArtifactId());
 	}
 
 	private String findModuleForTestClassFqn(String fqn)
@@ -314,21 +253,11 @@ public class SmartTestMojo extends AbstractMojo
 		return null;
 	}
 
-	private boolean containsClass(File testClassesDir, String simpleClassName)
-	{
-		try
-		{
-			return java.nio.file.Files.walk(testClassesDir.toPath())
-					.anyMatch(p -> p.getFileName().toString().equals(simpleClassName + ".class"));
-		}
-		catch (IOException e)
-		{
-			return false;
-		}
-	}
-
 	private void writeIncludesFiles(SelectionOutput output) throws MojoExecutionException
 	{
+		SelectionOutput executionOutput = routingUncertain
+				? new SelectionOutput("FULL_SUITE", "Module routing uncertain; conservatively widened", List.of(), Map.of())
+				: output;
 		for (MavenProject module : reactorProjects)
 		{
 			if ("pom".equals(module.getPackaging()))
@@ -337,21 +266,10 @@ public class SmartTestMojo extends AbstractMojo
 			}
 			try
 			{
-				Map<String, String> moduleUnmapped = filterUnmappedForModule(output, module);
-				SelectionOutput moduleOutput = new SelectionOutput(
-						output.getStatus(), output.getReason(),
-						output.getSelectedTests(), moduleUnmapped);
-
 				File moduleTarget = new File(module.getBuild().getDirectory());
 				moduleTarget.mkdirs();
 				File includesFile = new File(moduleTarget, "selected-tests-surefire.txt");
-				SmartTestFilter.writeIncludesFile(moduleOutput, includesFile, classLevelSelection);
-
-				if (!moduleUnmapped.isEmpty())
-				{
-					getLog().info("[SmartTestPicker] " + module.getArtifactId()
-							+ ": " + moduleUnmapped.size() + " unmapped tests in includes");
-				}
+				SmartTestFilter.writeIncludesFile(executionOutput, includesFile, classLevelSelection);
 			}
 			catch (IOException e)
 			{
@@ -361,30 +279,6 @@ public class SmartTestMojo extends AbstractMojo
 		}
 	}
 
-	/** Filters unmapped tests to only those whose .class file exists in this module's test-classes directory. */
-	private Map<String, String> filterUnmappedForModule(SelectionOutput output, MavenProject module)
-	{
-		if (output.getUnmappedTests() == null || output.getUnmappedTests().isEmpty())
-		{
-			return Map.of();
-		}
-		File testClasses = new File(module.getBuild().getDirectory(), "test-classes");
-		if (!testClasses.exists())
-		{
-			return Map.of();
-		}
-		Map<String, String> result = new LinkedHashMap<>();
-		for (Map.Entry<String, String> entry : output.getUnmappedTests().entrySet())
-		{
-			String fqn = entry.getKey();
-			String classFile = fqn.replace('.', File.separatorChar) + ".class";
-			if (new File(testClasses, classFile).exists())
-			{
-				result.put(fqn, entry.getValue());
-			}
-		}
-		return result;
-	}
 
 	/**
 	 * Deletes stale .exec and .xml coverage artifacts for tests that will be re-run.
@@ -400,15 +294,6 @@ public class SmartTestMojo extends AbstractMojo
 				int hash = test.indexOf('#');
 				String className = hash > 0 ? test.substring(0, hash) : test;
 				testClassPrefixes.add(className);
-			}
-		}
-		if (output.getUnmappedTests() != null)
-		{
-			for (String fqn : output.getUnmappedTests().keySet())
-			{
-				int lastDot = fqn.lastIndexOf('.');
-				String simpleName = lastDot >= 0 ? fqn.substring(lastDot + 1) : fqn;
-				testClassPrefixes.add(simpleName);
 			}
 		}
 
@@ -494,74 +379,6 @@ public class SmartTestMojo extends AbstractMojo
 		{
 			throw new MojoExecutionException("Failed to fork Maven build", e);
 		}
-	}
-
-	/**
-	 * Removes tests from the selection output that no longer have XML reports on disk.
-	 * This handles tests that were deleted or commented out between selection and execution.
-	 */
-	private void pruneNonExistentTests(SelectionOutput output, File selectedTestsFile)
-			throws MojoExecutionException
-	{
-		if (output.getSelectedTests() == null || output.getSelectedTests().isEmpty())
-		{
-			return;
-		}
-
-		List<File> xmlDirs = new ArrayList<>();
-		for (MavenProject module : reactorProjects)
-		{
-			if ("pom".equals(module.getPackaging()))
-			{
-				continue;
-			}
-			File xmlDir = new File(module.getBuild().getDirectory(), "jacoco-xml");
-			if (xmlDir.exists())
-			{
-				xmlDirs.add(xmlDir);
-			}
-		}
-
-		List<String> pruned = new ArrayList<>();
-		int removed = 0;
-		for (String test : output.getSelectedTests())
-		{
-			if (xmlExistsForTest(xmlDirs, test))
-			{
-				pruned.add(test);
-			}
-			else
-			{
-				removed++;
-			}
-		}
-
-		if (removed > 0)
-		{
-			output.setSelectedTests(pruned);
-			output.setReason(pruned.size() + " tests selected out of "
-					+ output.getReason().replaceAll("^\\d+ tests selected out of ", "")
-					+ " (" + removed + " removed: no longer in source)");
-			writeJson(selectedTestsFile, output);
-			getLog().info("[SmartTestPicker] Pruned " + removed
-					+ " non-existent tests from selection, " + pruned.size() + " remaining");
-		}
-	}
-
-	private boolean xmlExistsForTest(List<File> xmlDirs, String testName)
-	{
-		for (File dir : xmlDirs)
-		{
-			if (new File(dir, "session_" + testName + ".xml").exists())
-			{
-				return true;
-			}
-			if (new File(dir, testName + ".xml").exists())
-			{
-				return true;
-			}
-		}
-		return false;
 	}
 
 	private void mergeCoverageMapsAndReport(MavenProject root, File rootTarget,
