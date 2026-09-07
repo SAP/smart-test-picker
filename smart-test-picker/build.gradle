@@ -16,6 +16,7 @@ repositories {
 dependencies {
     implementation project(':smart-test-picker-common')
     implementation project(':smart-test-picker-core')
+    implementation 'org.junit.platform:junit-platform-launcher:1.9.3'
     implementation 'com.google.code.gson:gson:2.10.1'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'

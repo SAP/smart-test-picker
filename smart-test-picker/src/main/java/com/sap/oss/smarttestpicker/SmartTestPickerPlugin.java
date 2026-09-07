@@ -168,6 +168,14 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 			task.getBaseBranch().set(ext.getBaseBranch());
 		});
 
+		TaskProvider<GenerateHeadTestInventoryTask> inventoryTask = project.getTasks().register(
+				"generateHeadTestInventory", GenerateHeadTestInventoryTask.class, task -> {
+			task.setGroup("verification");
+			task.setDescription("Discovers the standard test target and writes its exact JUnit head inventory");
+			task.getOutputFile().set(project.getLayout().getBuildDirectory().file("head-test-inventory.json"));
+			task.dependsOn("testClasses");
+		});
+
 		project.getTasks().register("selectTests", SelectTestsTask.class, task -> {
 			task.setGroup("verification");
 			task.setDescription("Selects tests impacted by code changes based on coverage map and git diff");
@@ -176,6 +184,7 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 			task.getSelectedTestsFile().set(project.getLayout().getBuildDirectory().file("selected-tests.json"));
 			task.getMaxCommitDistance().set(ext.getMaxCommitDistance());
 			task.getFullSuiteTriggers().set(ext.getFullSuiteTriggers());
+			task.dependsOn(inventoryTask);
 			// Always re-run: selection depends on git state which Gradle cannot track
 			task.getOutputs().upToDateWhen(t -> false);
 		});
@@ -234,6 +243,9 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 		// which must exist from a prior ./gradlew selectTests invocation
 		project.afterEvaluate(p -> {
 			Test standardTest = (Test) p.getTasks().getByName("test");
+			GenerateHeadTestInventoryTask inventory = inventoryTask.get();
+			inventory.getTestClassesDirs().setFrom(standardTest.getTestClassesDirs());
+			inventory.getRuntimeClasspath().setFrom(standardTest.getClasspath());
 			StpCoverageTest mappingTest = coverageTest.get();
 			mappingTest.setTestClassesDirs(standardTest.getTestClassesDirs());
 			mappingTest.setClasspath(standardTest.getClasspath());

@@ -40,6 +40,7 @@ The plugin registers the following tasks:
 |------|------|-------------|
 | `generateSmartReports` | inline doLast | Converts `session_*.exec` to `session_*.xml` via JaCoCo |
 | `generateTestCoverageJson` | `GenerateTestCoverageJsonTask` | Parses XML reports into `build/test-coverage-map.json` |
+| `generateHeadTestInventory` | `GenerateHeadTestInventoryTask` | Discovers exact JUnit identities into `build/head-test-inventory.json` without executing tests |
 | `selectTests` | `SelectTestsTask` | Reads map + git diff, writes `build/selected-tests.json` |
 | `smartTest` | Gradle `Test` | Runs only selected + unmapped tests via Gradle filter |
 | `generateTestReport` | `GenerateTestReportTask` | Produces HTML dashboard + source coverage pages |
@@ -110,6 +111,9 @@ Input: `build/smart-reports/*.xml`
 Output: `build/test-coverage-map.json`
 
 ### selectTests
+
+`selectTests` automatically depends on `generateHeadTestInventory`; users do not create the inventory
+file. Discovery mirrors the standard `test` task's test class directories and runtime classpath.
 
 Runs the 8-step selection flow:
 1. Load coverage map

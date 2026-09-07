@@ -18,6 +18,7 @@ Maven plugin providing mojo implementations for the coverage pipeline.
 |------|-----------|-------------|
 | `generate-coverage-map` | `GenerateCoverageMapMojo` | Generates JSON coverage map from per-test XML reports |
 | `generate-coverage-fragment` | `GenerateCoverageFragmentMojo` | Generates a revision/shard-bound schema-v2 fragment |
+| `generate-head-test-inventory` | `GenerateHeadTestInventoryMojo` | Discovers exact JUnit identities without running tests |
 | `select-tests` | `SelectTestsMojo` | Runs test selection and writes `selected-tests.json` |
 | `generate-report` | `GenerateReportMojo` | Generates HTML dashboard report |
 | `generate-reports` | `GenerateReportsMojo` | Converts `.exec` files to XML reports |
@@ -25,6 +26,10 @@ Maven plugin providing mojo implementations for the coverage pipeline.
 | `merge-test-metrics` | `MergeTestMetricsMojo` | Merges per-test metrics from multi-module builds |
 
 ## Multi-Module Support
+
+Selector goals generate inventory automatically. Root and `smart-test` flows discover every non-POM
+reactor module using its test output and test runtime classpath; an exact cross-module identity
+collision fails open.
 
 For multi-module Maven projects, each module generates its own coverage map. The `merge-coverage-maps` goal combines them into a single map.
 

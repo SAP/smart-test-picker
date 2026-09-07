@@ -6,7 +6,7 @@ for the corresponding backlog items.
 
 ## Task 5b — Selector semantics
 
-Status: **IN PROGRESS — schema-v2 safety boundary and core policy implemented by TASKS 36–37**
+Status: **IN PROGRESS — authoritative JUnit provisioning implemented; disabled-inventory transition open**
 
 TASK 35 establishes that 5b must consume only a validated, globally complete `PUBLISHED` schema-v2
 map and must anchor the normal comparison at the map revision. Minimum safe selection is class-level;
@@ -140,10 +140,19 @@ artifact integrity gating are proven by the real Maven fixture. Task 5c is **DON
 Canonical post-Task-33 state:
 
 - 5a: **DONE**
-- 5b: **DONE** — TASK 38 integrated the shared schema-v2 decision across Gradle, Maven, and CLI and
-  validated actual Gradle execution on pinned PetClinic.
+- 5b: **IN PROGRESS** — TASK 38 integrated the shared schema-v2 decision across adapters; TASK 39
+  implements production inventory but leaves the disabled-test publication transition open.
 - 5c: **DONE**
 - 5d: **NOT STARTED — POC proven**
 - 5e: **NOT STARTED / independent**
 
 The dependency remains `5a -> {5b, 5c} -> 5d`; the next dependent backlog item is 5d.
+
+TASK 39 supplies the production mechanism left after TASK 38: shared discovery-only JUnit inventory generation and
+automatic Gradle/Maven provisioning. Exact `MethodSource` identities are deterministic and unsafe
+unsupported leaves fail open. The CLI remains explicit-input. See
+[`task39-head-inventory-generation.md`](task39-head-inventory-generation.md).
+
+Pinned PetClinic exposes 73 declarations versus the preserved 69-entry execution-produced map. The
+four exact additions are disabled DB-profile tests. The unchanged selector safely selects them as new,
+which prevents the required `NONE` regression; therefore 5b is not marked done.

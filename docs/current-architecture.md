@@ -136,5 +136,13 @@ restrictive filtering for `FULL_SUITE` or unknown states. Pinned PetClinic execu
 NONE, missing-map, trigger, nonancestor, unmapped, new-test, and bounded setup behavior. Details are in
 [`task38-5b-adapter-and-petclinic-closure.md`](task38-5b-adapter-and-petclinic-closure.md).
 
-Canonical state: 5a **DONE**, 5b **DONE**, 5c **DONE**, 5d **NOT STARTED — POC proven**, and 5e
+TASK 39 implements production provisioning. Gradle and Maven now generate the exact
+inventory themselves through shared JUnit Platform discovery; the CLI retains explicit input.
+See [`task39-head-inventory-generation.md`](task39-head-inventory-generation.md).
+
+The PetClinic 69-entry execution-produced map does not contain the four disabled DB-profile
+declarations found by authoritative discovery, so the required no-change `NONE` regression remains
+open under the locked new-test policy.
+
+Canonical state: 5a **DONE**, 5b **IN PROGRESS**, 5c **DONE**, 5d **NOT STARTED — POC proven**, and 5e
 **NOT STARTED / independent**. The dependency remains `5a -> {5b, 5c} -> 5d`.

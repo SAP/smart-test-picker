@@ -20,7 +20,12 @@ class SmartTestPickerExtensionTest
 	void setUp()
 	{
 		project = ProjectBuilder.builder().build();
+		project.getPluginManager().apply("java");
 		project.getPluginManager().apply("com.sap.oss.smart-test-picker");
+		assertNotNull(project.getTasks().findByName("generateHeadTestInventory"));
+		assertTrue(project.getTasks().getByName("selectTests").getTaskDependencies()
+				.getDependencies(project.getTasks().getByName("selectTests")).stream()
+				.anyMatch(task -> task.getName().equals("generateHeadTestInventory")));
 		extension = project.getExtensions().getByType(SmartTestPickerExtension.class);
 	}
 

@@ -60,6 +60,9 @@ smart-test-picker generate-map \
 
 Selects tests impacted by code changes using the coverage map and git diff. Delegates to the 8-step selection flow in `TestSelectionEngine`.
 
+Schema-v2 CLI selection continues to require `--head-inventory <file>`. Unlike Gradle and Maven, the
+standalone CLI has no authoritative test runtime classpath and does not attempt discovery.
+
 The coverage map can be provided explicitly via `--map`, or resolved automatically from the local cache (`~/.gradle/smart-test-picker/PROJECT_NAME/`). When using the cache, `--prefer-map` controls which map is preferred.
 
 ```bash

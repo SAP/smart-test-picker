@@ -88,6 +88,7 @@ public class RootSelectTestsMojo extends AbstractMojo
 		}
 
 		File headTestInventoryFile = new File(rootTarget, "head-test-inventory.json");
+		MavenHeadTestInventory.generate(reactorProjects, headTestInventoryFile, getLog());
 		SelectionOutput output = new SchemaV2SelectorFlow().select(
 				coverageMapFile,
 				headTestInventoryFile,

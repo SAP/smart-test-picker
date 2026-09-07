@@ -156,9 +156,11 @@ public class SmartTestMojo extends AbstractMojo
 			}
 		}
 
+		File headTestInventoryFile = new File(rootTarget, "head-test-inventory.json");
+		MavenHeadTestInventory.generate(reactorProjects, headTestInventoryFile, getLog());
 		SelectionOutput output = new SchemaV2SelectorFlow().select(
 				coverageMapFile,
-				new File(rootTarget, "head-test-inventory.json"),
+				headTestInventoryFile,
 				root.getBasedir(),
 				maxCommitDistance,
 				fullSuiteTriggers != null ? fullSuiteTriggers : List.of());
