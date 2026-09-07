@@ -166,3 +166,17 @@ invocations now retain collected logical-test coverage, and `smartTest` mirrors 
 JVM/system-property/candidate environment. The validated fixes close the temporary 5c reopening. The
 canonical backlog remains 5a/5b/5c **DONE**, 5d **NOT STARTED — POC proven**, and 5e **NOT STARTED /
 independent**.
+
+## Task 43 Jenkins map orchestration
+
+TASK 43 officially starts 5d. The companion Jenkins plugin now has an orchestration plan v2 that freezes
+project, branch, revision, build tool, target, collector, exact inventory, deterministic assignments and
+bounded artifact identities. Its mapping runtime adds a storage interface, immutable revision-keyed map
+writes, validated latest-map lookup, branch pointers and locked Git-ancestry stale-publication protection.
+The file backend is a local/reference implementation, not a claimed remote production service.
+
+The orchestrator/collector ownership boundary and mapping/selection separation are unchanged. Production
+positive non-execution evidence, automatic stash/unstash, prepare-owned discovery, remote storage, the full
+failure matrix and fresh physical validations remain open. Canonical state is therefore 5a/5b/5c **DONE**,
+5d **IN PROGRESS**, and 5e **NOT STARTED / independent**. See
+[`task43-5d-map-orchestration-productization.md`](task43-5d-map-orchestration-productization.md).
