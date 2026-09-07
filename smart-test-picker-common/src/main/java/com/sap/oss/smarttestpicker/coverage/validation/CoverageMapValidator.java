@@ -28,7 +28,10 @@ public final class CoverageMapValidator
 			errors.add(error(ValidationCategory.INVALID_STRUCTURE, ValidationCode.MISSING_REVISION, "revision is required"));
 
 		Set<TestIdentity> unmapped = new HashSet<>();
-		map.unmapped().forEach(entry -> unmapped.add(entry.test()));
+		map.unmapped().forEach(entry -> {
+			if (!unmapped.add(entry.test())) errors.add(error(ValidationCategory.INVALID_STRUCTURE,
+					ValidationCode.DUPLICATE_TEST_IDENTITY, "Duplicate unmapped test: " + entry.test()));
+		});
 		Set<TestIdentity> overlap = new HashSet<>(map.tests().keySet()); overlap.retainAll(unmapped);
 		if (!overlap.isEmpty())
 			errors.add(error(ValidationCategory.INVALID_STRUCTURE, ValidationCode.TEST_MAPPED_AND_UNMAPPED,

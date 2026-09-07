@@ -6,7 +6,7 @@ for the corresponding backlog items.
 
 ## Task 5b — Selector semantics
 
-Status: **NOT STARTED — contract reconstructed by TASK 35**
+Status: **IN PROGRESS — schema-v2 safety boundary implemented by TASK 36**
 
 TASK 35 establishes that 5b must consume only a validated, globally complete `PUBLISHED` schema-v2
 map and must anchor the normal comparison at the map revision. Minimum safe selection is class-level;
@@ -16,6 +16,13 @@ logical test regardless of reason, and new/changed head tests. `NONE` means that
 Unsafe map, revision, Git, identity, or structural-change state means semantic RUN_ALL, represented by
 the existing public `FULL_SUITE` spelling. Implementation is intentionally deferred to Tasks 36–38;
 see [`task35-5b-selector-semantics-audit.md`](task35-5b-selector-semantics-audit.md).
+
+TASK 36 adds the shared decode-once schema-v2 ingress, exact revision-to-fixed-head Git analysis,
+conservative structural class detection, configured full-suite triggers, and an authoritative exact
+`TestIdentity` head-inventory boundary. It yields safe semantic context or `FULL_SUITE`; it does not
+apply direct, setup-scope, or unmapped unions. That policy remains TASK 37, while adapter inventory
+provisioning and execution consistency remain TASK 38. No 5d orchestration or 5e base/head behavior
+is introduced.
 
 ## Task 5c — Coverage runtime and fragment production
 
@@ -128,7 +135,7 @@ artifact integrity gating are proven by the real Maven fixture. Task 5c is **DON
 Canonical post-Task-33 state:
 
 - 5a: **DONE**
-- 5b: **NOT STARTED**
+- 5b: **IN PROGRESS**
 - 5c: **DONE**
 - 5d: **NOT STARTED — POC proven**
 - 5e: **NOT STARTED / independent**
