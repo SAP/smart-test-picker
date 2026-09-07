@@ -86,3 +86,18 @@ The Maven capability is class coverage YES, exact descriptor-aware method covera
 NO, direct schema-v2 fragments YES, unmapped reporting YES, and local integrity gating YES. Gradle ASM
 additionally has bounded setup ownership. The schema semantics are shared. Task 5c is **DONE**; Tasks
 5b and 5d remain unchanged.
+
+## Task 35 selector contract
+
+Task 35 reconstructs 5b without implementing it. The current production selector still consumes the
+parallel legacy `mapper.CoverageMap`; it is not safe for schema-v2 production. The authoritative 5b
+boundary must decode and validate a complete `PUBLISHED` schema-v2 map, use its exact revision `R` as
+the Git base for `R -> HEAD`, and fail open to the wire status `FULL_SUITE` (semantic RUN_ALL) whenever
+map, revision, diff, identity, or structural-change safety cannot be proved. Minimum safe selection is
+class-level: descriptor-aware method precision is deferred until change analysis can produce exact JVM
+identities. Direct class edges, bounded setup-scope containers, every schema-v2 unmapped test, and
+new/changed head tests form one union. `NONE` is valid only when that effective union is empty.
+
+The detailed decision and minimal Tasks 36–38 plan are in
+[`task35-5b-selector-semantics-audit.md`](task35-5b-selector-semantics-audit.md). Completing this audit
+does not change 5b from **NOT STARTED**, reopen 5c, or start 5d/5e.

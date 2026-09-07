@@ -4,6 +4,19 @@ This document records current implementation requirements established after the 
 experimental evidence remains with the POC that produced it; this file contains only the consequences
 for the corresponding backlog items.
 
+## Task 5b — Selector semantics
+
+Status: **NOT STARTED — contract reconstructed by TASK 35**
+
+TASK 35 establishes that 5b must consume only a validated, globally complete `PUBLISHED` schema-v2
+map and must anchor the normal comparison at the map revision. Minimum safe selection is class-level;
+the current descriptor-less Git method detector cannot safely drive schema-v2 `MethodIdentity`.
+Selection is the union of direct class edges, bounded `SetupScope.affectedContainers`, every unmapped
+logical test regardless of reason, and new/changed head tests. `NONE` means that final union is empty.
+Unsafe map, revision, Git, identity, or structural-change state means semantic RUN_ALL, represented by
+the existing public `FULL_SUITE` spelling. Implementation is intentionally deferred to Tasks 36–38;
+see [`task35-5b-selector-semantics-audit.md`](task35-5b-selector-semantics-audit.md).
+
 ## Task 5c — Coverage runtime and fragment production
 
 Status: **DONE — Gradle runtime/ASM and Maven schema-v2 adapters implemented**
