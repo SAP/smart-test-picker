@@ -66,6 +66,7 @@ public class SelectTestsMojo extends AbstractMojo
 	@Override
 	public void execute() throws MojoExecutionException
 	{
+		MavenHeadTestInventory.generate(List.of(mavenProject), headTestInventoryFile, getLog());
 		SelectionOutput output = new SchemaV2SelectorFlow().select(
 				coverageMapFile,
 				headTestInventoryFile,
