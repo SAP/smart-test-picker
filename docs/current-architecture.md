@@ -101,3 +101,16 @@ new/changed head tests form one union. `NONE` is valid only when that effective 
 The detailed decision and minimal Tasks 36–38 plan are in
 [`task35-5b-selector-semantics-audit.md`](task35-5b-selector-semantics-audit.md). Completing this audit
 does not change 5b from **NOT STARTED**, reopen 5c, or start 5d/5e.
+
+## Task 36 schema-v2 selector safety boundary
+
+Task 36 starts 5b by adding an authoritative schema-v2 ingress and change-analysis API in common.
+It decodes once through `CoverageMapCodec`, requires a validated complete `PUBLISHED` map, fixes one
+selection head, verifies the map revision is its ancestor, and computes committed, staged, unstaged,
+and untracked changes without method-level parsing or Git mutation. Unsafe input or analysis returns
+semantic RUN_ALL with public status `FULL_SUITE`.
+
+The build-tool-neutral `HeadTestInventory` supplies exact runnable `TestIdentity` values. The resulting
+`SelectionContext` classifies new, deleted, and changed-container tests but deliberately performs no
+direct/setup/unmapped selection union. Inventory provisioning and adapter execution remain TASK 38;
+CI-wide inventory and orchestration remain 5d. Task 5b is **IN PROGRESS**.
