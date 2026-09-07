@@ -140,9 +140,10 @@ artifact integrity gating are proven by the real Maven fixture. Task 5c is **DON
 Canonical post-Task-33 state:
 
 - 5a: **DONE**
-- 5b: **IN PROGRESS**
+- 5b: **DONE** — TASK 38 integrated the shared schema-v2 decision across Gradle, Maven, and CLI and
+  validated actual Gradle execution on pinned PetClinic.
 - 5c: **DONE**
 - 5d: **NOT STARTED — POC proven**
 - 5e: **NOT STARTED / independent**
 
-The dependency remains `5a -> {5b, 5c} -> 5d`; the next dependent backlog item is 5b.
+The dependency remains `5a -> {5b, 5c} -> 5d`; the next dependent backlog item is 5d.

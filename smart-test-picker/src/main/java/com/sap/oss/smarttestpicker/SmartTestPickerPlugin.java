@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.charset.StandardCharsets;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -24,7 +23,6 @@ import org.gradle.api.tasks.TaskProvider;
 import com.google.gson.Gson;
 
 import com.sap.oss.smarttestpicker.engine.ExecToXmlEngine;
-import com.sap.oss.smarttestpicker.mapper.CoverageMap;
 import com.sap.oss.smarttestpicker.selector.SelectionOutput;
 
 
@@ -174,6 +172,7 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 			task.setGroup("verification");
 			task.setDescription("Selects tests impacted by code changes based on coverage map and git diff");
 			task.getCoverageMapFile().set(project.getLayout().getBuildDirectory().file("test-coverage-map.json"));
+			task.getHeadTestInventoryFile().set(project.getLayout().getBuildDirectory().file("head-test-inventory.json"));
 			task.getSelectedTestsFile().set(project.getLayout().getBuildDirectory().file("selected-tests.json"));
 			task.getMaxCommitDistance().set(ext.getMaxCommitDistance());
 			task.getFullSuiteTriggers().set(ext.getFullSuiteTriggers());
@@ -259,11 +258,7 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 
 				File selectedFile = p.getLayout().getBuildDirectory()
 						.file("selected-tests.json").get().getAsFile();
-				File coverageMapFile = p.getLayout().getBuildDirectory()
-						.file("test-coverage-map.json").get().getAsFile();
-
-				boolean classLevel = ext.getClassLevelSelection().getOrElse(false);
-				applySmartTestFilters(smartTest, selectedFile, coverageMapFile, p.getLogger(), classLevel);
+				applySmartTestFilters(smartTest, selectedFile, p.getLogger());
 			});
 		});
 
@@ -286,17 +281,17 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 	}
 
 	/**
-	 * Applies test filters to the smartTest task based on selected-tests.json and new test detection.
+	 * Applies the authoritative selected-tests.json decision to the smartTest task.
 	 *
 	 * <p>Logic:</p>
 	 * <ul>
 	 *   <li>FULL_SUITE or file missing → no filter, run everything</li>
-	 *   <li>NONE → include only unmapped tests (if any), otherwise skip all</li>
-	 *   <li>SELECTED → include selected tests + unmapped tests + any additional new tests found at config time</li>
+	 *   <li>NONE → explicit no-test sentinel</li>
+	 *   <li>SELECTED → conservative class widening of selectedTests only</li>
 	 * </ul>
 	 */
-	private void applySmartTestFilters(Test smartTest, File selectedFile, File coverageMapFile,
-			org.gradle.api.logging.Logger logger, boolean classLevelSelection)
+	static void applySmartTestFilters(Test smartTest, File selectedFile,
+			org.gradle.api.logging.Logger logger)
 	{
 		if (!selectedFile.exists())
 		{
@@ -312,36 +307,28 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 			String json = new String(Files.readAllBytes(selectedFile.toPath()));
 			output = new Gson().fromJson(json, SelectionOutput.class);
 		}
-		catch (IOException e)
+		catch (IOException | RuntimeException e)
 		{
 			logger.warn("[SmartTestPicker] Failed to read selected-tests.json — running full suite");
 			return;
 		}
 
-		if (output == null || "FULL_SUITE".equals(output.getStatus()))
+		if (output == null || !Set.of("SELECTED", "NONE", "FULL_SUITE").contains(output.getStatus())
+				|| "FULL_SUITE".equals(output.getStatus()))
 		{
 			logger.lifecycle("[SmartTestPicker] Full suite required — no filter applied");
 			return;
 		}
 
-		// Collect unmapped tests from JSON + detect any additional new tests at config time
-		Set<String> unmappedTestClasses = new LinkedHashSet<>();
-		if (output.getUnmappedTests() != null)
-		{
-			unmappedTestClasses.addAll(output.getUnmappedTests().keySet());
-		}
-		// Belt-and-suspenders: also detect new tests at config time
-		Set<String> additionalNew = detectNewTestClasses(smartTest, coverageMapFile, logger);
-		unmappedTestClasses.addAll(additionalNew);
-
 		boolean isNone = "NONE".equals(output.getStatus());
 		java.util.List<String> selectedTests = output.getSelectedTests() != null
 				? output.getSelectedTests() : java.util.List.of();
 
-		if (isNone && unmappedTestClasses.isEmpty())
+		if (isNone)
 		{
-			logger.lifecycle("[SmartTestPicker] No tests to run (NONE + no unmapped tests)");
+			logger.lifecycle("[SmartTestPicker] No tests to run (NONE)");
 			smartTest.getFilter().includeTestsMatching("__no_tests_to_run__");
+			smartTest.getFilter().setFailOnNoMatchingTests(false);
 			return;
 		}
 
@@ -350,21 +337,9 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 
 		for (String test : selectedTests)
 		{
-			if (classLevelSelection)
-			{
-				int hash = test.indexOf('#');
-				String className = hash > 0 ? test.substring(0, hash) : test;
-				includePatterns.add(className + ".*");
-			}
-			else
-			{
-				includePatterns.add(test.replace('#', '.'));
-			}
-		}
-
-		for (String newClass : unmappedTestClasses)
-		{
-			includePatterns.add(newClass + ".*");
+			int hash = test.indexOf('#');
+			String className = hash > 0 ? test.substring(0, hash) : test;
+			includePatterns.add(className + ".*");
 		}
 
 		if (includePatterns.isEmpty())
@@ -380,87 +355,8 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 		}
 		smartTest.getFilter().setFailOnNoMatchingTests(false);
 
-		logger.lifecycle("[SmartTestPicker] smartTest filter: {} selected tests + {} unmapped test classes{}",
-				selectedTests.size(), unmappedTestClasses.size(),
-				classLevelSelection ? " (class-level selection)" : "");
-	}
-
-	/**
-	 * Detects test classes that exist on disk but are not in the coverage map.
-	 * These are "new tests" that should always be run.
-	 *
-	 * @return set of simple class names of new test classes
-	 */
-	private Set<String> detectNewTestClasses(Test smartTest, File coverageMapFile,
-			org.gradle.api.logging.Logger logger)
-	{
-		Set<String> newTestClasses = new LinkedHashSet<>();
-
-		if (!coverageMapFile.exists())
-		{
-			return newTestClasses;
-		}
-
-		// Load coverage map to get known test class names
-		Set<String> knownTestClasses = new HashSet<>();
-		try
-		{
-			CoverageMap coverageMap = com.sap.oss.smarttestpicker.mapper.CoverageMapReader.load(coverageMapFile);
-			if (coverageMap != null && coverageMap.getTestMappings() != null)
-			{
-				for (String testName : coverageMap.getTestMappings().keySet())
-				{
-					// Extract class name from "TestClass#testMethod"
-					int hash = testName.indexOf('#');
-					if (hash > 0)
-					{
-						knownTestClasses.add(testName.substring(0, hash));
-					}
-				}
-			}
-		}
-		catch (IOException e)
-		{
-			logger.warn("[SmartTestPicker] Failed to read coverage map for new test detection");
-			return newTestClasses;
-		}
-
-		// Scan compiled test class files
-		smartTest.getTestClassesDirs().getFiles().forEach(dir -> {
-			if (!dir.exists())
-				return;
-			try
-			{
-				Files.walk(dir.toPath())
-						.filter(p -> p.toString().endsWith(".class"))
-						.forEach(classFile -> {
-							String fileName = classFile.getFileName().toString();
-							String className = fileName.replace(".class", "");
-
-							// Skip inner classes and non-test classes
-							if (className.contains("$"))
-								return;
-
-							// Check if this class is known in the coverage map
-							if (!knownTestClasses.contains(className))
-							{
-								newTestClasses.add(className);
-							}
-						});
-			}
-			catch (IOException e)
-			{
-				logger.warn("[SmartTestPicker] Failed to scan test classes in {}", dir);
-			}
-		});
-
-		if (!newTestClasses.isEmpty())
-		{
-			logger.lifecycle("[SmartTestPicker] New test classes detected (not in coverage map): {}",
-					newTestClasses);
-		}
-
-		return newTestClasses;
+		logger.lifecycle("[SmartTestPicker] smartTest filter: {} mandatory identities (conservative class widening)",
+				selectedTests.size());
 	}
 
 }

@@ -126,3 +126,15 @@ Safe empty unions become `NONE`; nonempty unions become `SELECTED`; TASK 36 RUN_
 selector identity inconsistencies become public `FULL_SUITE`. `selectedTests` is authoritative while
 `unmappedTests` is diagnostic. Gradle, Maven, CLI, and PetClinic execution integration remain TASK 38,
 so Task 5b remains **IN PROGRESS**.
+
+## Task 38 adapter closure
+
+Gradle, Maven, and CLI now call the common schema-v2 analyzer and selector through an exact structured
+head-inventory file. `selectedTests` is the sole mandatory execution set; unmapped data is diagnostic.
+Adapters conservatively widen to complete test classes, represent `NONE` explicitly, and remove
+restrictive filtering for `FULL_SUITE` or unknown states. Pinned PetClinic execution proves SELECTED,
+NONE, missing-map, trigger, nonancestor, unmapped, new-test, and bounded setup behavior. Details are in
+[`task38-5b-adapter-and-petclinic-closure.md`](task38-5b-adapter-and-petclinic-closure.md).
+
+Canonical state: 5a **DONE**, 5b **DONE**, 5c **DONE**, 5d **NOT STARTED — POC proven**, and 5e
+**NOT STARTED / independent**. The dependency remains `5a -> {5b, 5c} -> 5d`.

@@ -25,31 +25,31 @@ class SmartTestFilterTest
 	Path tempDir;
 
 	@Test
-	void writesDefaultPatternsForFullSuite() throws IOException
+	void fullSuiteRemovesStaleRestrictiveFile() throws IOException
 	{
 		File includesFile = tempDir.resolve("target/includes.txt").toFile();
+		Files.createDirectories(includesFile.toPath().getParent());
+		Files.writeString(includesFile.toPath(), "stale.Restriction");
 		SelectionOutput output = new SelectionOutput();
 		output.setStatus("FULL_SUITE");
 
 		SmartTestFilter.writeIncludesFile(output, includesFile, false);
 
-		assertTrue(includesFile.exists());
-		List<String> lines = Files.readAllLines(includesFile.toPath());
-		assertTrue(lines.contains("**/*Test.java"));
-		assertTrue(lines.contains("**/*Tests.java"));
-		assertTrue(lines.contains("**/*TestCase.java"));
+		assertFalse(includesFile.exists());
 	}
 
 	@Test
-	void writesDefaultPatternsForNullOutput() throws IOException
+	void nullAndUnknownOutputFailOpenByRemovingRestriction() throws IOException
 	{
 		File includesFile = tempDir.resolve("target/includes.txt").toFile();
 
 		SmartTestFilter.writeIncludesFile(null, includesFile, false);
-
-		assertTrue(includesFile.exists());
-		List<String> lines = Files.readAllLines(includesFile.toPath());
-		assertTrue(lines.contains("**/*Test.java"));
+		assertFalse(includesFile.exists());
+		Files.createDirectories(includesFile.toPath().getParent());
+		Files.writeString(includesFile.toPath(), "stale");
+		SelectionOutput unknown = new SelectionOutput(); unknown.setStatus("FUTURE");
+		SmartTestFilter.writeIncludesFile(unknown, includesFile, false);
+		assertFalse(includesFile.exists());
 	}
 
 	@Test
@@ -67,7 +67,7 @@ class SmartTestFilterTest
 	}
 
 	@Test
-	void writesUnmappedFqnPathsForNoneWithUnmapped() throws IOException
+	void noneIgnoresDiagnosticUnmappedAndWritesSentinel() throws IOException
 	{
 		File includesFile = tempDir.resolve("target/includes.txt").toFile();
 		SelectionOutput output = new SelectionOutput();
@@ -80,7 +80,7 @@ class SmartTestFilterTest
 		SmartTestFilter.writeIncludesFile(output, includesFile, false);
 
 		List<String> lines = Files.readAllLines(includesFile.toPath());
-		assertTrue(lines.contains("com/example/NewTest.java"));
+		assertEquals(List.of("__no_tests_to_run__"), lines);
 	}
 
 	@Test
@@ -103,7 +103,7 @@ class SmartTestFilterTest
 	}
 
 	@Test
-	void includesUnmappedTestsInSelected() throws IOException
+	void selectedUsesOnlyMandatorySelectedTests() throws IOException
 	{
 		File includesFile = tempDir.resolve("target/includes.txt").toFile();
 		SelectionOutput output = new SelectionOutput();
@@ -118,6 +118,6 @@ class SmartTestFilterTest
 
 		List<String> lines = Files.readAllLines(includesFile.toPath());
 		assertTrue(lines.contains("com.example.FooTest"));
-		assertTrue(lines.contains("com/example/NewTest.java"));
+		assertEquals(List.of("com.example.FooTest"), lines);
 	}
 }

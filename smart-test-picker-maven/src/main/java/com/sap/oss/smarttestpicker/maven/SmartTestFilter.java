@@ -21,9 +21,9 @@ import com.sap.oss.smarttestpicker.selector.SelectionOutput;
  * <p>Surefire's {@code includesFile} parameter reads one test pattern per line.
  * This class writes patterns that match the selection output:</p>
  * <ul>
- *   <li>FULL_SUITE — no file written (Surefire runs everything)</li>
- *   <li>NONE + no unmapped — sentinel pattern that matches nothing</li>
- *   <li>SELECTED — selected tests + unmapped test classes</li>
+ *   <li>FULL_SUITE/unknown — stale file removed (Surefire runs everything)</li>
+ *   <li>NONE — sentinel pattern that matches nothing</li>
+ *   <li>SELECTED — conservative class widening of selectedTests only</li>
  * </ul>
  */
 public class SmartTestFilter
@@ -40,12 +40,10 @@ public class SmartTestFilter
 	public static void writeIncludesFile(SelectionOutput output, File includesFile,
 			boolean classLevelSelection) throws IOException
 	{
-		if (output == null || "FULL_SUITE".equals(output.getStatus()))
+		if (output == null || !Set.of("SELECTED", "NONE", "FULL_SUITE").contains(output.getStatus())
+				|| "FULL_SUITE".equals(output.getStatus()))
 		{
-			List<String> defaultPatterns = List.of(
-					"**/*Test.java", "**/*Tests.java", "**/*TestCase.java");
-			FileUtils.ensureParentDirExists(includesFile);
-			Files.write(includesFile.toPath(), defaultPatterns);
+			Files.deleteIfExists(includesFile.toPath());
 			return;
 		}
 
@@ -53,17 +51,7 @@ public class SmartTestFilter
 
 		if ("NONE".equals(output.getStatus()))
 		{
-			if (output.getUnmappedTests() == null || output.getUnmappedTests().isEmpty())
-			{
-				lines.add("__no_tests_to_run__");
-			}
-			else
-			{
-				for (String fqn : output.getUnmappedTests().keySet())
-				{
-					lines.add(fqn.replace('.', '/') + ".java");
-				}
-			}
+			lines.add("__no_tests_to_run__");
 		}
 		else
 		{
@@ -84,16 +72,9 @@ public class SmartTestFilter
 				lines.add(className);
 			}
 
-			if (output.getUnmappedTests() != null)
-			{
-				for (String fqn : output.getUnmappedTests().keySet())
-				{
-					lines.add(fqn.replace('.', '/') + ".java");
-				}
-			}
 		}
 
-			FileUtils.ensureParentDirExists(includesFile);
+		FileUtils.ensureParentDirExists(includesFile);
 		Files.write(includesFile.toPath(), lines);
 	}
 }

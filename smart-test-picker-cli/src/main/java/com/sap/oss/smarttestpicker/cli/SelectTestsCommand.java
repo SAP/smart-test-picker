@@ -15,7 +15,7 @@ import java.util.concurrent.Callable;
 
 import com.google.gson.GsonBuilder;
 
-import com.sap.oss.smarttestpicker.engine.TestSelectionEngine;
+import com.sap.oss.smarttestpicker.selector.SchemaV2SelectorFlow;
 import com.sap.oss.smarttestpicker.selector.SelectionOutput;
 import com.sap.oss.smarttestpicker.store.CoverageMapResolver;
 import picocli.CommandLine.Command;
@@ -26,7 +26,7 @@ import picocli.CommandLine.Option;
  * CLI subcommand that selects tests impacted by code changes.
  *
  * <p>Reads a coverage map and uses git diff to determine which tests need to run.
- * Delegates to {@link TestSelectionEngine} for the full 8-step selection flow.</p>
+ * Delegates to the authoritative schema-v2 analyzer and selector.</p>
  *
  * <p>The coverage map can be provided explicitly via {@code --map}, or resolved
  * automatically from the local cache using the {@code --prefer-map} mode.</p>
@@ -38,7 +38,6 @@ import picocli.CommandLine.Option;
  *   <li>{@code ant} - grouped by class with method filtering syntax (ClassName#method1+method2)</li>
  * </ul>
  *
- * @see TestSelectionEngine
  * @see CoverageMapResolver
  */
 @Command(
@@ -78,8 +77,12 @@ public class SelectTestsCommand implements Callable<Integer>
 	private List<String> fullSuiteTriggers = new ArrayList<>();
 
 	@Option(names = "--test-classes-dir",
-			description = "Compiled test classes directory for new test detection")
+			description = "Deprecated legacy option; schema-v2 selection requires --head-inventory")
 	private File testClassesDir;
+
+	@Option(names = "--head-inventory",
+			description = "Exact JSON array of runnable schema-v2 TestIdentity strings")
+	private File headInventoryFile;
 
 	@Override
 	public Integer call()
@@ -98,38 +101,24 @@ public class SelectTestsCommand implements Callable<Integer>
 			CoverageMapResolver resolver = new CoverageMapResolver(projectDir, logger);
 			mapFile = resolver.resolve(mode);
 
-			if (mapFile == null)
-			{
-				logger.warn("No coverage map available. Run 'pull-map' or 'generate-map --cache' first.");
-				return 1;
-			}
+			if (mapFile == null) logger.warn("No coverage map available; selection will fail open.");
 		}
 		else
 		{
-			if (!mapFile.exists())
-			{
-				System.err.println("Error: coverage map not found: " + mapFile);
-				return 1;
-			}
-			logger.info("[SmartTestPicker] Using explicit map: {}", mapFile.getAbsolutePath());
+			if (mapFile.exists()) logger.info("[SmartTestPicker] Using explicit map: {}", mapFile.getAbsolutePath());
+			else logger.warn("Coverage map not found; selection will fail open: {}", mapFile);
 		}
 
-		// Use a non-existent dir if not provided - NewTestDetector returns empty map
-		if (testClassesDir == null)
-		{
-			testClassesDir = new File(projectDir, "build/classes/java/test");
-		}
-
-		logger.info("Coverage map:      {}", mapFile.getAbsolutePath());
+		logger.info("Coverage map:      {}", mapFile == null ? "<missing>" : mapFile.getAbsolutePath());
+		logger.info("Head inventory:    {}", headInventoryFile == null ? "<missing>" : headInventoryFile.getAbsolutePath());
 		logger.info("Project dir:       {}", projectDir.getAbsolutePath());
 		logger.info("Output:            {}", output.getAbsolutePath());
 		logger.info("Format:            {}", format);
 		logger.info("Max commit dist:   {}", maxCommitDistance);
 
-		TestSelectionEngine engine = new TestSelectionEngine();
-		SelectionOutput result = engine.select(
-				mapFile, testClassesDir, projectDir,
-				maxCommitDistance, fullSuiteTriggers, logger);
+		SelectionOutput result = new SchemaV2SelectorFlow().select(
+				mapFile, headInventoryFile, projectDir,
+				maxCommitDistance, fullSuiteTriggers);
 
 		logger.info("Status:  {}", result.getStatus());
 		logger.info("Reason:  {}", result.getReason());
@@ -200,11 +189,10 @@ public class SelectTestsCommand implements Callable<Integer>
 
 	private void writeTxt(SelectionOutput result) throws IOException
 	{
-		List<String> allTests = collectAllTests(result);
-
 		try (FileWriter writer = new FileWriter(output))
 		{
-			for (String test : allTests)
+			if (failOpen(result)) writer.write("FULL_SUITE\n");
+			else for (String test : selected(result))
 			{
 				writer.write(test + "\n");
 			}
@@ -218,6 +206,10 @@ public class SelectTestsCommand implements Callable<Integer>
 	 */
 	private void writeAnt(SelectionOutput result) throws IOException
 	{
+		if (failOpen(result))
+		{
+			throw new IOException("Ant output cannot safely represent FULL_SUITE; use JSON or txt");
+		}
 		// Group selected tests by class: ClassName -> [method1, method2, ...]
 		Map<String, List<String>> byClass = new LinkedHashMap<>();
 
@@ -236,15 +228,6 @@ public class SelectTestsCommand implements Callable<Integer>
 				{
 					byClass.computeIfAbsent(test, k -> new ArrayList<>());
 				}
-			}
-		}
-
-		// Add unmapped tests (class-level only, no methods)
-		if (result.getUnmappedTests() != null)
-		{
-			for (String fqn : result.getUnmappedTests().keySet())
-			{
-				byClass.computeIfAbsent(fqn, k -> new ArrayList<>());
 			}
 		}
 
@@ -268,17 +251,14 @@ public class SelectTestsCommand implements Callable<Integer>
 		}
 	}
 
-	private List<String> collectAllTests(SelectionOutput result)
+	private static boolean failOpen(SelectionOutput result)
 	{
-		List<String> all = new ArrayList<>();
-		if (result.getSelectedTests() != null)
-		{
-			all.addAll(result.getSelectedTests());
-		}
-		if (result.getUnmappedTests() != null)
-		{
-			all.addAll(result.getUnmappedTests().keySet());
-		}
-		return all;
+		return result == null || !List.of("SELECTED", "NONE", "FULL_SUITE").contains(result.getStatus())
+				|| "FULL_SUITE".equals(result.getStatus());
+	}
+
+	private static List<String> selected(SelectionOutput result)
+	{
+		return result.getSelectedTests() == null ? List.of() : result.getSelectedTests();
 	}
 }
