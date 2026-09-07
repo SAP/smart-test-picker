@@ -1,0 +1,1 @@
+{"algorithm":"SHA-256 of top-level lifecycle container, first byte modulo 3","assignments":[{"shardId":"0","node":"stp-map-agent-1","scheduled":32},{"shardId":"1","node":"stp-map-agent-2","scheduled":12},{"shardId":"2","node":"stp-map-agent-3","scheduled":25}],"duplicates":0,"omissions":0}

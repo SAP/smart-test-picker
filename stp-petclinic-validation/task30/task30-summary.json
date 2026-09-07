@@ -1,0 +1,1 @@
+{"status":"VALIDATED","jenkinsBuilds":{"fullEvidence":10,"filterContinuation":9},"schemaV2":true,"asm":true,"physicalAgents":3,"semanticEquivalence":true,"setupSafety":true,"negativeJoinTests":"PASS","agentFailure":"NOT RUN - disruptive","backlog":{"5c":"IN PROGRESS","5d":"NOT STARTED — POC proven","5bChanged":false}}

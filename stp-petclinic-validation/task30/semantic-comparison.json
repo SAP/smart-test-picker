@@ -1,0 +1,1 @@
+{"testIdentityDiff":0,"classEdgeDiff":0,"methodEdgeDiff":0,"setupDiff":0,"outcomeDiff":0,"collectionStatusDiff":0,"unmappedDiff":0,"single":{"tests":69,"classEdges":418,"methodEdges":1343,"setupScopes":10},"distributed":{"tests":69,"classEdges":418,"methodEdges":1343,"setupScopes":10},"equivalent":true,"cartesianAttribution":false,"historicalFalseEdgesPresent":false}
