@@ -1,0 +1,8 @@
+{
+  "single": {"tests":69,"classEdges":418,"methodEdges":1343,"setupEdges":68,"outcomes":69,"unmapped":0},
+  "threeShardUnion": {"tests":69,"classEdges":418,"methodEdges":1343,"setupEdges":68,"outcomes":69,"unmapped":0},
+  "diff": {"tests":0,"classEdges":0,"methodEdges":0,"setupEdges":0,"outcomes":0,"unmapped":0},
+  "duplicateScheduledTests": 0,
+  "omittedScheduledTests": 0,
+  "unexpectedScheduledTests": 0
+}

@@ -16,6 +16,9 @@ import org.gradle.api.provider.Property;
  * <p>Usage in {@code build.gradle}:</p>
  * <pre>{@code
  * smartTestPicker {
+ *     coverageCollector = 'ASM'    // ASM (default) or JACOCO
+ *     revision = providers.environmentVariable('GIT_COMMIT')
+ *     shardId = 'ci-shard-1'       // optional; defaults to the mapping task path
  *     baseBranch = 'develop'       // default: 'main'
  *     maxCommitDistance = 500       // default: 500
  *     fullSuiteTriggers = [        // default: empty (disabled)
@@ -40,12 +43,28 @@ public abstract class SmartTestPickerExtension
 {
 
 	private final RemoteStoreExtension remoteStore;
+	private final Property<String> coverageCollector;
 
 	@Inject
 	public SmartTestPickerExtension(ObjectFactory objects)
 	{
 		this.remoteStore = objects.newInstance(RemoteStoreExtension.class);
+		this.coverageCollector = objects.property(String.class);
+		this.coverageCollector.convention(CoverageCollectorType.ASM.name());
 	}
+
+	/** Accepts {@code ASM} or {@code JACOCO}, case-insensitively. */
+	public Property<String> getCoverageCollector() { return coverageCollector; }
+
+	/** Revision persisted in ASM fragments. No Git discovery is performed by the agent. */
+	public abstract Property<String> getRevision();
+
+	/** Optional externally orchestrated shard ID; defaults to the mapping task path. */
+	public abstract Property<String> getShardId();
+
+	public abstract ListProperty<String> getCoverageIncludes();
+
+	public abstract ListProperty<String> getCoverageExcludes();
 
 	/**
 	 * The base branch used for change detection (e.g. "main", "develop").

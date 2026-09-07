@@ -3,9 +3,12 @@
 plugins {
     id 'java-library'
     id 'com.gradleup.shadow' version '8.3.6'
+    id 'maven-publish'
 }
 
 description = 'STP ASM mapping agent'
+group = 'com.sap.oss.smart-test-picker'
+version = '0.1.0'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -49,6 +52,33 @@ tasks.register('agentJar') {
     group = 'build'
     description = 'Builds the shaded STP ASM mapping agent JAR.'
     dependsOn tasks.named('shadowJar')
+}
+
+configurations {
+    stpAgentElements {
+        canBeConsumed = true
+        canBeResolved = false
+        attributes {
+            attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage, Usage.JAVA_RUNTIME))
+            attribute(Category.CATEGORY_ATTRIBUTE, objects.named(Category, Category.LIBRARY))
+            attribute(LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE, objects.named(LibraryElements, LibraryElements.JAR))
+        }
+    }
+}
+
+artifacts {
+    stpAgentElements tasks.named('shadowJar')
+}
+
+publishing {
+    publications {
+        agent(MavenPublication) {
+            artifact tasks.named('shadowJar')
+            artifactId = 'stp-agent'
+            pom.packaging = 'jar'
+        }
+    }
+    repositories { mavenLocal() }
 }
 
 test {

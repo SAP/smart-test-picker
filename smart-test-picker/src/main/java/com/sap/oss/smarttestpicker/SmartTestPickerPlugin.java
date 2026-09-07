@@ -4,15 +4,22 @@ package com.sap.oss.smarttestpicker;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
+import org.gradle.api.Task;
 import org.gradle.api.artifacts.Configuration;
+import org.gradle.api.attributes.Category;
+import org.gradle.api.attributes.LibraryElements;
+import org.gradle.api.attributes.Usage;
 import org.gradle.api.tasks.testing.Test;
+import org.gradle.api.tasks.TaskProvider;
 
 import com.google.gson.Gson;
 
@@ -62,6 +69,59 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 		ext.getMaxCommitDistance().convention(500);
 		ext.getClassLevelSelection().convention(false);
 		ext.getFullSuiteTriggers().convention(java.util.List.of());
+		ext.getRevision().convention(project.getProviders().systemProperty("stp.revision")
+				.orElse(project.getProviders().environmentVariable("GIT_COMMIT")).orElse("UNKNOWN"));
+		ext.getShardId().convention(project.getProviders().systemProperty("stp.shardId"));
+		ext.getCoverageIncludes().convention(java.util.List.of());
+		ext.getCoverageExcludes().convention(java.util.List.of());
+
+		Configuration stpAgent = project.getConfigurations().create("stpAgent", configuration -> {
+			configuration.setCanBeConsumed(false);
+			configuration.setCanBeResolved(true);
+			configuration.setVisible(false);
+			configuration.setDescription("The single STP ASM javaagent artifact used by mapping executions.");
+			configuration.attributes(attributes -> {
+				attributes.attribute(Usage.USAGE_ATTRIBUTE,
+						project.getObjects().named(Usage.class, Usage.JAVA_RUNTIME));
+				attributes.attribute(Category.CATEGORY_ATTRIBUTE,
+						project.getObjects().named(Category.class, Category.LIBRARY));
+				attributes.attribute(LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE,
+						project.getObjects().named(LibraryElements.class, LibraryElements.JAR));
+			});
+		});
+		Configuration stpJacocoCollector = project.getConfigurations().create("stpJacocoCollector", configuration -> {
+			configuration.setCanBeConsumed(false);
+			configuration.setCanBeResolved(true);
+			configuration.setVisible(false);
+			configuration.setDescription("The STP legacy JaCoCo listener runtime used by mapping executions.");
+			configuration.attributes(attributes -> {
+				attributes.attribute(Usage.USAGE_ATTRIBUTE,
+						project.getObjects().named(Usage.class, Usage.JAVA_RUNTIME));
+				attributes.attribute(Category.CATEGORY_ATTRIBUTE,
+						project.getObjects().named(Category.class, Category.LIBRARY));
+				attributes.attribute(LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE,
+						project.getObjects().named(LibraryElements.class, LibraryElements.JAR));
+			});
+		});
+		stpAgent.defaultDependencies(dependencies -> {
+			Project agentProject = project.getRootProject().findProject(":stp-agent");
+			if (agentProject != null) {
+				dependencies.add(project.getDependencies().project(java.util.Map.of(
+						"path", agentProject.getPath(), "configuration", "stpAgentElements")));
+			} else {
+				dependencies.add(project.getDependencies().create(
+						"com.sap.oss.smart-test-picker:stp-agent:" + pluginVersion()));
+			}
+		});
+		stpJacocoCollector.defaultDependencies(dependencies -> {
+			Project coreProject = project.getRootProject().findProject(":smart-test-picker-core");
+			if (coreProject != null) {
+				dependencies.add(project.getDependencies().project(java.util.Map.of("path", coreProject.getPath())));
+			} else {
+				dependencies.add(project.getDependencies().create(
+						"com.sap.oss.smart-test-picker:smart-test-picker-core:" + pluginVersion()));
+			}
+		});
 
 		// Task: generateSmartReports
 		project.getTasks().register("generateSmartReports", task -> {
@@ -90,27 +150,19 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 			});
 		});
 
-		// Optional all-in-one task
-		project.getTasks().register("generateSmartTestMapping", task -> {
+		TaskProvider<StpCoverageTest> coverageTest = project.getTasks().register(
+				"generateSmartTestCoverage", StpCoverageTest.class, task -> {
 			task.setGroup("verification");
-			task.setDescription("Runs tests, generates reports, and builds test-to-class mapping");
-			task.dependsOn("test", "generateSmartReports", "generateTestCoverageJson");
+			task.setDescription("Runs the dedicated Smart Test Picker coverage mapping test JVM");
+			task.useJUnitPlatform();
 		});
 
-		// Optional JaCoCo agent setup (only if config exists)
-		Configuration jacocoAgent = project.getConfigurations().findByName("jacocoAgent");
-		if (jacocoAgent != null)
-		{
-			File execDir = new File(project.getLayout().getBuildDirectory().getAsFile().get(), "jacoco");
-			project.getTasks().withType(Test.class).configureEach(test -> {
-				test.systemProperty("stp.exec.dir", execDir.getAbsolutePath());
-				test.finalizedBy("generateSmartReports");
-			});
-		}
-		else
-		{
-			project.getLogger().warn("[SmartTestPickerPlugin] jacocoAgent configuration not found. Skipping agent setup.");
-		}
+		// All-in-one mapping task; the selected backend adds only its required downstream stages.
+		TaskProvider<Task> mappingTask = project.getTasks().register("generateSmartTestMapping", task -> {
+			task.setGroup("verification");
+			task.setDescription("Runs the selected STP coverage collector and its mapping pipeline");
+			task.dependsOn(coverageTest);
+		});
 
 		project.getTasks().register("generateTestCoverageJson", GenerateTestCoverageJsonTask.class, task -> {
 			task.getReportsDir().set(project.file("build/jacoco-xml"));
@@ -182,6 +234,23 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 		// Apply test filters at configuration time (afterEvaluate) — reads selected-tests.json
 		// which must exist from a prior ./gradlew selectTests invocation
 		project.afterEvaluate(p -> {
+			Test standardTest = (Test) p.getTasks().getByName("test");
+			StpCoverageTest mappingTest = coverageTest.get();
+			mappingTest.setTestClassesDirs(standardTest.getTestClassesDirs());
+			mappingTest.setClasspath(standardTest.getClasspath());
+			mappingTest.setJvmArgs(standardTest.getJvmArgs());
+			mappingTest.setMinHeapSize(standardTest.getMinHeapSize());
+			mappingTest.setMaxHeapSize(standardTest.getMaxHeapSize());
+			mappingTest.setEnableAssertions(standardTest.getEnableAssertions());
+			mappingTest.setSystemProperties(standardTest.getSystemProperties());
+			mappingTest.getFilter().setIncludePatterns(
+					standardTest.getFilter().getIncludePatterns().toArray(String[]::new));
+			CoverageCollectorBackend backend = switch (CoverageCollectorType.parse(ext.getCoverageCollector().get())) {
+				case ASM -> new AsmCoverageCollectorBackend(stpAgent);
+				case JACOCO -> new JacocoCoverageCollectorBackend(stpJacocoCollector);
+			};
+			backend.configure(p, ext, mappingTest, mappingTask.get());
+
 			p.getTasks().named("smartTest", Test.class, smartTest -> {
 				// Mirror classpath from the standard test task
 				Test testTask = (Test) p.getTasks().getByName("test");
@@ -198,6 +267,22 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 			});
 		});
 
+	}
+
+	private static String pluginVersion() {
+		try (InputStream stream = SmartTestPickerPlugin.class.getResourceAsStream(
+				"/META-INF/smart-test-picker/plugin-version.txt")) {
+			if (stream == null) {
+				throw new IllegalStateException("Gradle-controlled STP plugin version resource is missing");
+			}
+			String version = new String(stream.readAllBytes(), StandardCharsets.UTF_8).trim();
+			if (version.isEmpty()) {
+				throw new IllegalStateException("Gradle-controlled STP plugin version is empty");
+			}
+			return version;
+		} catch (IOException e) {
+			throw new IllegalStateException("Cannot read Gradle-controlled STP plugin version", e);
+		}
 	}
 
 	/**

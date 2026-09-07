@@ -1,0 +1,14 @@
+{
+  "scopeCount": 10,
+  "containerScopes": 10,
+  "nestedScopes": 0,
+  "allAffectedContainerCountsAreOne": true,
+  "cartesianAttribution": false,
+  "historicalFalseRelations": {
+    "CacheConfiguration -> ValidatorTests": false,
+    "CrashController -> ValidatorTests": false,
+    "WelcomeController -> ValidatorTests": false
+  },
+  "afterAllPresentInPetClinic": false,
+  "afterAllLastLeafLeakObserved": false
+}

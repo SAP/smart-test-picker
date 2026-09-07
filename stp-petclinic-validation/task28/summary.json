@@ -1,0 +1,96 @@
+{
+  "task": 28,
+  "stp": {
+    "branch": "research/asm-codex",
+    "baselineCommit": "58f84a7bb1f93161282240d268a1080beccb6bda",
+    "baselineHadTask27Changes": true
+  },
+  "petclinic": {
+    "repository": "https://github.com/spring-projects/spring-petclinic.git",
+    "commit": "88e37c15cf6fc8490b01bc3e8e2c800cec1ac272",
+    "gradle": "9.5.1",
+    "testJvm": "OpenJDK 17.0.19",
+    "launcherJvm": "OpenJDK 21.0.11",
+    "testTask": "test",
+    "mappingTask": "generateSmartTestCoverage"
+  },
+  "filters": {
+    "includes": ["org.springframework.samples.petclinic."],
+    "excludes": [],
+    "note": "TASK 27 accepts package prefixes; PetClinic production and test classes share packages. Loaded application classes were limited by the include and mandatory framework exclusions."
+  },
+  "inventory": {
+    "physicalExecutions": 73,
+    "logicalTests": 73,
+    "runnableLogicalTests": 69,
+    "skipped": 4,
+    "failed": 0
+  },
+  "single": {
+    "collector": "ASM",
+    "revision": "88e37c15cf6fc8490b01bc3e8e2c800cec1ac272",
+    "shardId": "petclinic-single",
+    "schemaVersion": 2,
+    "completed": true,
+    "mapped": 69,
+    "unmapped": 0,
+    "missing": 0,
+    "unexpected": 0,
+    "classes": 18,
+    "classEdges": 418,
+    "methods": 89,
+    "methodEdges": 1343,
+    "setupScopes": 10,
+    "setupEdges": 68,
+    "wallClockSecondsWarm": 13.48,
+    "coldWallClockSeconds": 921.86,
+    "fragmentSha256": "f9e548156745a5143340017533fb0f22374ab39c9b202e14292b73fa5132e40a"
+  },
+  "integrity": {
+    "agentErrors": 0,
+    "transformationFailures": 0,
+    "methodIdCollisions": 0,
+    "runtimeInitializationFailures": 0,
+    "fragmentFailures": 0,
+    "unsupportedIdentities": 0,
+    "setupErrorDiagnostics": 0,
+    "noActiveTest": 46,
+    "lateEvent": 0,
+    "classesSeen": 20482,
+    "classesTransformed": 29,
+    "methodsInstrumented": 146,
+    "rawMethodHits": 3816,
+    "uniqueMethodHits": 102
+  },
+  "repeatability": {
+    "byteIdentical": true,
+    "testIdentityDiff": 0,
+    "classEdgeDiff": 0,
+    "methodEdgeDiff": 0,
+    "setupDiff": 0,
+    "outcomeDiff": 0,
+    "unmappedDiff": 0
+  },
+  "shards": [
+    {"shardId":"petclinic-1","tests":27,"mapped":27,"unmapped":0,"completed":true,"classEdges":189,"methodEdges":629,"setupEdges":13,"wallClockSeconds":10.28},
+    {"shardId":"petclinic-2","tests":24,"mapped":24,"unmapped":0,"completed":true,"classEdges":184,"methodEdges":619,"setupEdges":7,"wallClockSeconds":7.19},
+    {"shardId":"petclinic-3","tests":18,"mapped":18,"unmapped":0,"completed":true,"classEdges":45,"methodEdges":95,"setupEdges":48,"wallClockSeconds":10.73}
+  ],
+  "singleVsThree": {
+    "testIdentityDiff": 0,
+    "classEdgeDiff": 0,
+    "methodEdgeDiff": 0,
+    "setupDiff": 0,
+    "outcomeDiff": 0,
+    "unmappedDiff": 0
+  },
+  "coexistence": {"asmFragment": true,"projectJacocoExec": true,"projectJacocoXml": true,"jvmVerificationErrors": 0},
+  "defaultCollector": {"configurationOmitted": true,"asmSelected": true,"fragmentValid": true},
+  "configurationCache": {"stored": true,"reused": true,"fragmentValid": true},
+  "jacocoFallback": {"executed": true,"backendSelected": true,"asmAttached": false,"legacyPathProducedMapping": false,"reason":"No per-test exec files were produced for the custom coverage Test task."},
+  "integrationLimitations": [
+    "Composite external consumption required an explicit stpAgent file dependency because the default unpublished module coordinate did not resolve.",
+    "The optional JACOCO fallback selected correctly but did not produce legacy per-test exec files on this real Gradle project.",
+    "PetClinic contains no parameterized, repeated, template, dynamic, or AfterAll tests at this revision."
+  ]
+}

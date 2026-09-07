@@ -31,6 +31,28 @@ class SmartTestPickerExtensionTest
 	}
 
 	@Test
+	void asmIsDefaultCollector()
+	{
+		assertEquals("ASM", extension.getCoverageCollector().get());
+	}
+
+	@Test
+	void collectorAcceptsCaseInsensitiveDslString()
+	{
+		extension.getCoverageCollector().set("jacoco");
+		assertEquals(CoverageCollectorType.JACOCO,
+				CoverageCollectorType.parse(extension.getCoverageCollector().get()));
+	}
+
+	@Test
+	void unknownCollectorIsRejectedClearly()
+	{
+		IllegalArgumentException failure = assertThrows(IllegalArgumentException.class,
+				() -> CoverageCollectorType.parse("both"));
+		assertTrue(failure.getMessage().contains("Supported values are ASM and JACOCO"));
+	}
+
+	@Test
 	void remoteStoreExtensionIsAccessible()
 	{
 		assertNotNull(extension.getRemoteStore());
