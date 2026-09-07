@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-/** PROVISIONAL collector contract pending producibility confirmation in backlog 5c. */
+/** Revision- and shard-bound schema-v2 collector output. */
 public record CoverageFragment(int schemaVersion, CoverageMapRevision revision, ShardId shardId,
 		Map<TestIdentity, TestCoverage> tests, List<UnmappedTest> unmapped,
 		List<SetupScope> setupScopes, boolean collectionCompleted)

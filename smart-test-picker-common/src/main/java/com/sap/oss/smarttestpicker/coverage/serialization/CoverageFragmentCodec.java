@@ -36,7 +36,7 @@ import com.sap.oss.smarttestpicker.coverage.validation.CoverageMapValidator;
 import com.sap.oss.smarttestpicker.coverage.validation.ValidationCategory;
 import com.sap.oss.smarttestpicker.coverage.validation.ValidationCode;
 
-/** PROVISIONAL schema-v2 fragment codec. Setup scopes use the same semantic shape as maps. */
+/** Deterministic schema-v2 fragment codec. Setup scopes use the same semantic shape as maps. */
 public final class CoverageFragmentCodec
 {
 	private static final Gson GSON = new Gson();

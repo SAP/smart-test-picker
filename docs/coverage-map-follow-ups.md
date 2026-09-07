@@ -6,7 +6,7 @@ for the corresponding backlog items.
 
 ## Task 5c — Coverage runtime and fragment production
 
-Status: **IN PROGRESS — ASM collector and schema-v2 fragment production foundation implemented**
+Status: **DONE — Gradle runtime/ASM and Maven schema-v2 adapters implemented**
 
 TASK 24 established direct ASM observation projection and TASK 25 made schema v2 authoritative.
 The current foundation proves ASM direct collection, descriptor-aware production method identity,
@@ -36,10 +36,31 @@ single-shard and multi-shard collection must produce
 semantically identical setup coverage
 ```
 
-Remaining 5c work is framework-specific inherited/shared/async setup detection, integration with
-Gradle and Maven, and inventory-discovery boundaries where owned by 5c. Fragment merge,
-publication, and global completeness remain 5d; selector fallback policy remains 5b. Task 5c is not
-DONE, and neither 5b nor 5d status changes here.
+TASK 27 adds production Gradle collector selection through one backend abstraction, makes ASM the
+default, retains JaCoCo as an explicit fallback, resolves the agent automatically, and verifies
+ordinary project-JaCoCo coexistence. It does not make Task 5c DONE.
+
+Task 31 narrows the remaining 5c work to two closure tasks: safe production handling for
+ownership-sensitive inherited/shared/async setup or execution that the collector cannot attribute,
+including fail-closed fragment replacement/write behavior; and schema-v2 fragment production through
+the supported Maven adapter. The first need not add broad framework support: correct attribution or
+explicit incomplete-fragment degradation is sufficient.
+Maven need not copy Gradle's collector design, but it must emit the authoritative fragment contract
+without guessing descriptor or setup data. Inventory discovery is not a remaining collector concern:
+the collector reports what ran, while the orchestrator owns what should run. Fragment merge,
+publication, and global completeness remain 5d; selector fallback policy remains 5b. Task 5c remains
+**IN PROGRESS**.
+
+TASK 28 validates the production Gradle ASM execution on pinned Spring PetClinic: 69/69 runnable logical
+tests mapped, byte-identical repeat output, and exact single-versus-three-shard equality for test, class,
+method, outcome, unmapped, and bounded setup semantics. Project JaCoCo coexistence, default ASM selection,
+and configuration-cache reuse also pass. External automatic agent resolution and the real-project
+JACOCO fallback remain follow-ups, so Task 5c stays **IN PROGRESS**.
+
+TASK 29 closes those two Gradle follow-ups. Published consumers automatically resolve the aligned
+shaded agent, and the dedicated JACOCO mapping lifecycle again produces per-test exec, XML, and the
+legacy map. The existing Jenkins POC was audited and remains schema-v1-only, so no schema-v2 physical
+multi-agent validation is claimed and Task 5c remains **IN PROGRESS**.
 
 ## Task 5d — Fragment merge, publication, and Jenkins orchestration
 
@@ -70,3 +91,33 @@ The evidence is documented in `stp-jenkins-plugin-poc/docs/coverage-mapping-poc.
 contained the same 58-test inventory, 54 mapped tests, four explicitly skipped tests, 338 test-to-class
 edges, and 1,045 test-to-method edges. Setup comparison alone differed: 304 baseline edges versus 301
 distributed edges.
+Task 30 adds physical Jenkins evidence to 5c/5d: the schema-v2 Gradle ASM path, stash transport, model-aware join, completeness rejection, and single-vs-three-agent semantics are proven in the Docker POC. Statuses remain 5c IN PROGRESS and 5d NOT STARTED — POC proven; 5b is unchanged.
+
+Task 32 closes the Gradle/runtime side of 5c. Inherited lifecycle setup retains concrete-container
+ownership; recognized unbounded shared setup and unsupported async ownership fail incomplete without
+fabricated edges; generic unattributed/late noise remains nonfatal. Fragment production invalidates old
+targets, validates temporary serialized bytes, uses atomic replacement where supported, and is verified
+after the Gradle mapping JVM exits. PetClinic retains its 69-test/418-class-edge/1,343-method-edge result
+without historical false setup relations. A one-agent Jenkins Spring Core run passes through
+`stpCoverageMap` and production `:spring-core:generateSmartTestCoverage` with a fresh completed schema-v2
+fragment and clean critical integrity. The sole remaining 5c blocker is Task 33, the Maven schema-v2
+fragment adapter; 5c remains **IN PROGRESS**.
+
+Task 33 closes the final adapter blocker. Maven retains its legacy goals and adds
+`generate-coverage-fragment`, using authoritative JUnit `MethodSource` identity sidecars plus per-test
+JaCoCo report status/XML. JaCoCo XML supplies exact JVM descriptors, so Maven emits descriptor-aware
+method edges without converting legacy `Class#method` strings. Setup scopes are deliberately empty:
+the Maven source has no honest affected-container ownership. Explicit revision/shard configuration,
+shared schema-v2 codec validation, deterministic output, known-test unmapped reporting, and local
+artifact integrity gating are proven by the real Maven fixture. Task 5c is **DONE**. Task 5b remains
+**NOT STARTED** and Task 5d remains **NOT STARTED — POC proven**.
+
+Canonical post-Task-33 state:
+
+- 5a: **DONE**
+- 5b: **NOT STARTED**
+- 5c: **DONE**
+- 5d: **NOT STARTED — POC proven**
+- 5e: **NOT STARTED / independent**
+
+The dependency remains `5a -> {5b, 5c} -> 5d`; the next dependent backlog item is 5b.
