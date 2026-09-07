@@ -89,7 +89,7 @@ multi-agent validation is claimed and Task 5c remains **IN PROGRESS**.
 
 ## Task 5d — Fragment merge, publication, and Jenkins orchestration
 
-Status: **NOT STARTED — POC proven**
+Status: **IN PROGRESS**
 
 The three-agent Spring PetClinic POC proved the mechanism for:
 
@@ -106,6 +106,12 @@ The three-agent Spring PetClinic POC proved the mechanism for:
 
 This evidence does not complete Task 5d. Production storage, retention, lookup, scheduling, publication
 policy, failure recovery, and CI-wide configuration remain unimplemented.
+
+TASK 43 officially starts 5d. It adds a versioned orchestration plan, immutable revision-keyed storage,
+validated latest-map lookup, idempotent/conflict-safe writes, branch pointers and ancestry-based stale-build
+protection in the Jenkins companion repository. Positive non-execution evidence, automatic Pipeline
+stash/unstash, direct discovery from preparation, a remote backend, the full failure matrix and fresh
+physical validation remain open, so 5d is **IN PROGRESS**.
 
 ## Canonical POC conclusion
 

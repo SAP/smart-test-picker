@@ -1,0 +1,10 @@
+{
+  "project": "spring-framework:spring-core",
+  "revision": "99a366baf6640b275d08dde60f05da719139bb6a",
+  "authoritativeInventory": 3643,
+  "priorMapped": 3638,
+  "priorPositivelyNonExecuted": 5,
+  "priorMissing": 0,
+  "task43PlanV2Publication": "NOT_RUN",
+  "reason": "production positive non-execution transport and new pointer path require fresh Jenkins validation"
+}

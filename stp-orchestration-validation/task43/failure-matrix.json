@@ -1,0 +1,17 @@
+{
+  "missingFragment": "PRIOR_POC_PASS",
+  "duplicateShard": "MODEL_VALIDATION_PASS",
+  "unexpectedShard": "PRIOR_POC_PASS",
+  "revisionMismatch": "PRIOR_POC_PASS",
+  "corruptFragment": "LOCAL_VALIDATION_PASS",
+  "incompleteFragment": "LOCAL_VALIDATION_PASS",
+  "duplicateTest": "MODEL_VALIDATION_PASS",
+  "unexpectedTest": "PRIOR_POC_PASS",
+  "unexplainedMissingTest": "PRIOR_POC_PASS",
+  "conflictingImmutablePublication": "UNIT_PASS",
+  "storageWriteFailure": "NOT_TESTED",
+  "pointerFailure": "NOT_TESTED",
+  "olderBuildRace": "UNIT_PASS",
+  "previousKnownGoodPreserved": "PARTIAL_UNIT_PASS",
+  "completeMatrix": false
+}

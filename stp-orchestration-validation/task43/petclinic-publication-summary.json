@@ -1,0 +1,9 @@
+{
+  "project": "spring-petclinic",
+  "revision": "88e37c15cf6fc8490b01bc3e8e2c800cec1ac272",
+  "authoritativeInventory": 73,
+  "acceptedEnvironmentOutcomes": ["69 mapped + 4 positively non-executed", "73 mapped + 0 non-executed"],
+  "priorPhysicalAgents": 3,
+  "task43PlanV2Publication": "NOT_RUN",
+  "reason": "physical Jenkins environment was not rerun during this implementation slice"
+}
