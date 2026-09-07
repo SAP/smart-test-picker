@@ -114,3 +114,15 @@ The build-tool-neutral `HeadTestInventory` supplies exact runnable `TestIdentity
 `SelectionContext` classifies new, deleted, and changed-container tests but deliberately performs no
 direct/setup/unmapped selection union. Inventory provisioning and adapter execution remain TASK 38;
 CI-wide inventory and orchestration remain 5d. Task 5b is **IN PROGRESS**.
+
+## Task 37 schema-v2 selector core policy
+
+Task 37 adds `SchemaV2TestSelector`, a pure consumer of TASK 36's analysis result and context. It
+selects exact class-coverage dependencies, expands matching setup scopes only to their explicitly
+named head containers, always selects published unmapped identities still runnable at head, and adds
+new and changed head tests. The sorted union is intersected with authoritative head inventory.
+
+Safe empty unions become `NONE`; nonempty unions become `SELECTED`; TASK 36 RUN_ALL and internal
+selector identity inconsistencies become public `FULL_SUITE`. `selectedTests` is authoritative while
+`unmappedTests` is diagnostic. Gradle, Maven, CLI, and PetClinic execution integration remain TASK 38,
+so Task 5b remains **IN PROGRESS**.
