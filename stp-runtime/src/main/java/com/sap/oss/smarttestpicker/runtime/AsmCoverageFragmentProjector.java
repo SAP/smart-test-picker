@@ -56,7 +56,7 @@ public final class AsmCoverageFragmentProjector {
 				complete = false;
 				continue;
 			}
-			if (group.aborted) {
+			if (group.allAborted) {
 				unmapped.add(new UnmappedTest(entry.getKey(), UnmappedReason.SKIPPED));
 				continue;
 			}
@@ -101,7 +101,7 @@ public final class AsmCoverageFragmentProjector {
 	private static final class Accumulator {
 		private final Set<MethodIdentity> methods = new TreeSet<>();
 		private boolean failed;
-		private boolean aborted;
+		private boolean allAborted = true;
 		private boolean finished = true;
 		private boolean resultMissing;
 
@@ -111,7 +111,7 @@ public final class AsmCoverageFragmentProjector {
 			resultMissing |= physical.result() == null;
 			if (physical.result() != null) {
 				failed |= physical.result().status() == TestExecutionStatus.FAILED;
-				aborted |= physical.result().status() == TestExecutionStatus.ABORTED;
+				allAborted &= physical.result().status() == TestExecutionStatus.ABORTED;
 			}
 		}
 	}

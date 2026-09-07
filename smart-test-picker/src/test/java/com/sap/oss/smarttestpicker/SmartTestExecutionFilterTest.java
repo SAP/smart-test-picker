@@ -36,5 +36,22 @@ class SmartTestExecutionFilterTest {
 		SmartTestPickerPlugin.applySmartTestFilters(task, temporary.resolve("missing.json").toFile(), logger); assertTrue(task.getFilter().getIncludePatterns().isEmpty());
 		Path corrupt = temporary.resolve("corrupt.json"); Files.writeString(corrupt, "{"); SmartTestPickerPlugin.applySmartTestFilters(task, corrupt.toFile(), logger); assertTrue(task.getFilter().getIncludePatterns().isEmpty());
 	}
+	@org.junit.jupiter.api.Test void smartTestMirrorsStandardExecutionEnvironment() {
+		Test standard = project.getTasks().create("standard", Test.class);
+		standard.jvmArgs("-Dstp.fixture=true");
+		standard.setMinHeapSize("128m"); standard.setMaxHeapSize("512m");
+		standard.setEnableAssertions(false);
+		standard.systemProperty("stp.property", "present");
+		standard.include("**/*Tests.class"); standard.exclude("**/ExcludedTests.class");
+
+		SmartTestPickerPlugin.mirrorExecutionEnvironment(standard, task);
+
+		assertEquals(standard.getJvmArgs(), task.getJvmArgs());
+		assertEquals("128m", task.getMinHeapSize()); assertEquals("512m", task.getMaxHeapSize());
+		assertFalse(task.getEnableAssertions());
+		assertEquals("present", task.getSystemProperties().get("stp.property"));
+		assertEquals(standard.getIncludes(), task.getIncludes());
+		assertEquals(standard.getExcludes(), task.getExcludes());
+	}
 	private Path write(SelectionOutput output) throws Exception { Path file = temporary.resolve(UUID.randomUUID() + ".json"); Files.writeString(file, new Gson().toJson(output)); return file; }
 }
