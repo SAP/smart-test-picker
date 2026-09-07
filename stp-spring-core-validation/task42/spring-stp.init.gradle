@@ -1,0 +1,34 @@
+// TASK 42 disposable-subject integration: apply the production STP plugin only to :spring-core.
+def stpRepository = System.getProperty('stp.pluginRepository')
+if (!stpRepository) {
+	throw new GradleException('Missing -Dstp.pluginRepository=<local Maven repository>')
+}
+
+initscript {
+	repositories {
+		maven { url = uri(System.getProperty('stp.pluginRepository')) }
+		mavenCentral()
+		gradlePluginPortal()
+	}
+	dependencies {
+		classpath 'com.sap.oss.smart-test-picker:smart-test-picker:0.1.0'
+	}
+}
+
+gradle.beforeProject { project ->
+	project.repositories {
+		maven { url = uri(stpRepository) }
+	}
+	if (project.path == ':spring-core') {
+		project.pluginManager.apply(com.sap.oss.smarttestpicker.SmartTestPickerPlugin)
+		def extension = project.extensions.getByName('smartTestPicker')
+		extension.revision.set('99a366baf6640b275d08dde60f05da719139bb6a')
+		extension.shardId.set('task42-spring-core')
+		extension.coverageCollector.set('ASM')
+		extension.coverageIncludes.set(['org.springframework.'])
+		def trigger = System.getProperty('stp.fullSuiteTrigger')
+		if (trigger) {
+			extension.fullSuiteTriggers.set([trigger])
+		}
+	}
+}

@@ -1,0 +1,50 @@
+{
+  "task": 42,
+  "revision": "99a366baf6640b275d08dde60f05da719139bb6a",
+  "environment": {
+    "os": "Darwin 25.5.0 arm64",
+    "jdk": "OpenJDK 21.0.11",
+    "gradle": "8.14.2",
+    "dockerAvailable": false
+  },
+  "vanilla": {
+    "build": "PASS",
+    "suites": 312,
+    "physicalCases": 4705,
+    "passed": 4676,
+    "failed": 0,
+    "skipped": 29
+  },
+  "targetInventoryCount": 3643,
+  "headInventoryCount": 3643,
+  "headInventoryEqualsConfiguredTarget": true,
+  "mappedCount": 3638,
+  "unmappedCount": 0,
+  "intentionallyNonExecutedCount": 5,
+  "missingCount": 0,
+  "unexpectedCount": 0,
+  "duplicateCount": 0,
+  "classEdges": 45694,
+  "methodEdges": 171917,
+  "setupScopes": 112,
+  "mapBytes": 2355124,
+  "mapSha256": "85082d7b76ba1923d5e61211a5ae3768755eadcb9e1e94f91d62581f41530718",
+  "selectorScenarios": {
+    "noChange": {"result": "PASS", "status": "NONE", "selected": 0, "executed": 0},
+    "directProductionChange": {"result": "PASS", "status": "SELECTED", "selected": 1, "runtimeReported": 24, "executed": 24, "skipped": 0},
+    "changedTest": {"result": "PASS", "status": "SELECTED", "selected": 24, "executed": 24},
+    "newTest": {"result": "PASS", "inventoryCount": 3644, "selected": 1, "executed": 1},
+    "missingMap": {"result": "PASS", "status": "FULL_SUITE", "runtimeReported": 4705, "skipped": 29},
+    "corruptMap": {"result": "PASS", "status": "FULL_SUITE", "runtimeReported": 4705, "skipped": 29},
+    "checksumFailure": {"result": "PASS", "status": "FULL_SUITE"},
+    "fullSuiteTrigger": {"result": "PASS", "status": "FULL_SUITE", "runtimeReported": 4705, "skipped": 29},
+    "nonancestor": {"result": "PASS", "status": "FULL_SUITE", "runtimeReported": 4705, "skipped": 29},
+    "setupScope": {"result": "PASS", "selected": 19, "affectedContainerTests": 7, "runtimeReported": 32, "unrelatedSetupLeakage": false},
+    "controlledExecutableUnmapped": {"result": "PASS", "status": "SELECTED", "selected": 1, "runtimeReported": 24}
+  },
+  "bugs": [
+    "mixed runnable/skipped parameterized invocations collapsed the logical test to SKIPPED unmapped",
+    "smartTest did not mirror the configured test target JVM/system-property execution environment"
+  ],
+  "finalVerdict": "READY_FOR_5D"
+}

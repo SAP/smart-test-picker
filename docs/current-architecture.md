@@ -150,3 +150,19 @@ The real Maven lifecycle and TASK 33 identity equality are also validated. See
 
 Canonical state: 5a **DONE**, 5b **DONE**, 5c **DONE**, 5d **NOT STARTED — POC proven**, and 5e
 **NOT STARTED / independent**. The dependency remains `5a -> {5b, 5c} -> 5d`.
+
+## Task 42 Spring Core end-to-end validation
+
+Pinned Spring Core now validates the whole local schema-v2 chain at large-project scale: 3,643
+authoritative logical target identities, 3,638 mapped executions, five positively evidenced
+intentional non-executions, zero missing/unexpected/duplicate identities, 45,694 class edges, 171,917
+method edges, and 112 bounded setup scopes. The published map passes no-change, selected-change,
+new/changed-test, missing/corrupt/nonancestor/trigger fail-open, setup-scope, unsafe-unmapped, and actual
+Gradle execution scenarios. See
+[`task42-spring-core-full-e2e-validation.md`](task42-spring-core-full-e2e-validation.md).
+
+Spring exposed and TASK 42 fixed two narrow regressions: mixed runnable/skipped parameterized
+invocations now retain collected logical-test coverage, and `smartTest` mirrors the standard target's
+JVM/system-property/candidate environment. The validated fixes close the temporary 5c reopening. The
+canonical backlog remains 5a/5b/5c **DONE**, 5d **NOT STARTED — POC proven**, and 5e **NOT STARTED /
+independent**.
