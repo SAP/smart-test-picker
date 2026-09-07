@@ -108,8 +108,9 @@ not imply that every failed test is unmapped. Selection semantics remain a 5b co
 
 ## Completeness and shards
 
-Completeness compares global expected and reported identity sets, never counts. Reported means
-mapped plus unmapped. `CollectionExpectation` independently owns expected shard identities;
+Completeness compares global expected and logically accounted identity sets, never counts. Accounted
+means mapped plus unsafe executable unmapped plus explicitly expected/intentionally non-executable
+declarations. `CollectionExpectation` independently owns expected shard identities;
 `CollectionSummary` contains only completed shard reports and other collected facts. Sharding is
 dynamic and there is no per-shard expected-test assignment. Missing,
 unexpected and duplicate identities and missing or duplicate shards prevent publication.

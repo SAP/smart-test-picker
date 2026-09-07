@@ -18,6 +18,7 @@ import java.util.TreeSet;
 import com.sap.oss.smarttestpicker.coverage.CoverageMapContract;
 import com.sap.oss.smarttestpicker.coverage.model.CoverageMap;
 import com.sap.oss.smarttestpicker.coverage.model.CoverageMapLifecycleState;
+import com.sap.oss.smarttestpicker.coverage.model.PublishedTestInventory;
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 import com.sap.oss.smarttestpicker.coverage.serialization.CoverageMapCodec;
 import com.sap.oss.smarttestpicker.coverage.validation.ValidationResult;
@@ -81,8 +82,7 @@ public final class SchemaV2SelectionAnalyzer
 				if (unsafe != null) return unsafe;
 			}
 
-			Set<TestIdentity> mapTests = new TreeSet<>(map.tests().keySet());
-			map.unmapped().forEach(value -> mapTests.add(value.test()));
+			Set<TestIdentity> mapTests = PublishedTestInventory.logical(map);
 			Set<TestIdentity> headTests = headInventory.runnableTests();
 			Set<TestIdentity> newTests = difference(headTests, mapTests);
 			Set<TestIdentity> deletedTests = difference(mapTests, headTests);
@@ -109,10 +109,10 @@ public final class SchemaV2SelectionAnalyzer
 		ValidationResult validation = codec.validate(map);
 		if (!validation.isValid()) return runAll("Coverage map validation failed: " + validation.errors().get(0).message());
 		if (!map.completeness().isComplete()) return runAll("Coverage map is incomplete");
-		Set<TestIdentity> logicalInventory = new TreeSet<>(map.tests().keySet());
-		map.unmapped().forEach(value -> logicalInventory.add(value.test()));
+		Set<TestIdentity> logicalInventory = PublishedTestInventory.logical(map);
+		Set<TestIdentity> executableInventory = PublishedTestInventory.executable(map);
 		if (!logicalInventory.equals(map.completeness().reportedTests())
-				|| !logicalInventory.equals(map.completeness().expectedTests()))
+				|| !logicalInventory.containsAll(executableInventory))
 			return runAll("Coverage map completeness does not match its logical test inventory");
 		return null;
 	}
