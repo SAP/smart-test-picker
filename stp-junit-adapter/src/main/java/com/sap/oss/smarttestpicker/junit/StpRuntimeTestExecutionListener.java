@@ -13,6 +13,7 @@ import org.junit.platform.engine.support.descriptor.MethodSource;
 import org.junit.platform.engine.support.descriptor.ClassSource;
 import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestIdentifier;
+import org.junit.platform.launcher.TestPlan;
 
 import java.util.Map;
 import java.util.Optional;
@@ -26,6 +27,7 @@ public final class StpRuntimeTestExecutionListener implements TestExecutionListe
 	private final Set<String> finished = ConcurrentHashMap.newKeySet();
 	private final Map<String, MethodSource> methodSources = new ConcurrentHashMap<>();
 	private final Map<String, String> containers = new ConcurrentHashMap<>();
+	private volatile TestPlan testPlan;
 
 	/** Used only by JUnit Platform ServiceLoader discovery. An empty registry is a no-op. */
 	public StpRuntimeTestExecutionListener() {
@@ -34,6 +36,11 @@ public final class StpRuntimeTestExecutionListener implements TestExecutionListe
 
 	public StpRuntimeTestExecutionListener(RuntimeContextService runtime) {
 		this.runtime = runtime;
+	}
+
+	@Override
+	public void testPlanExecutionStarted(TestPlan plan) {
+		testPlan = plan;
 	}
 
 	@Override
@@ -63,6 +70,10 @@ public final class StpRuntimeTestExecutionListener implements TestExecutionListe
 	public void executionFinished(TestIdentifier identifier, TestExecutionResult executionResult) {
 		if (runtime == null) return;
 		if (!identifier.isTest()) {
+			if (executionResult.getStatus() == TestExecutionResult.Status.ABORTED) {
+				recordNonExecutedDescendants(identifier, executionResult.getThrowable()
+						.map(Throwable::getMessage).orElse("container aborted"));
+			}
 			if (containers.remove(identifier.getUniqueId()) != null) runtime.endContainer(identifier.getUniqueId());
 			return;
 		}
@@ -70,6 +81,30 @@ public final class StpRuntimeTestExecutionListener implements TestExecutionListe
 		TestIdentity identity = started.remove(uniqueId);
 		if (identity == null || !finished.add(uniqueId)) return;
 		runtime.endTest(identity, result(executionResult));
+	}
+
+	@Override
+	public void executionSkipped(TestIdentifier identifier, String reason) {
+		if (runtime == null) return;
+		var skipped = identifier.isTest() ? java.util.List.of(identifier)
+				: testPlan == null ? java.util.List.<TestIdentifier>of()
+				: testPlan.getDescendants(identifier).stream().filter(TestIdentifier::isTest).toList();
+		recordNonExecuted(skipped, reason);
+	}
+
+	private void recordNonExecutedDescendants(TestIdentifier identifier, String reason) {
+		if (testPlan == null) return;
+		recordNonExecuted(testPlan.getDescendants(identifier).stream().filter(TestIdentifier::isTest).toList(), reason);
+	}
+
+	private void recordNonExecuted(java.util.List<TestIdentifier> skipped, String reason) {
+		for (TestIdentifier leaf : skipped) {
+			String uniqueId = leaf.getUniqueId();
+			if (!finished.add(uniqueId)) continue;
+			TestIdentity identity = identity(leaf);
+			runtime.beginTest(identity);
+			runtime.endTest(identity, new TestResult(TestExecutionStatus.ABORTED, null, reason));
+		}
 	}
 
 	private TestIdentity identity(TestIdentifier identifier) {

@@ -180,3 +180,7 @@ positive non-execution evidence, automatic stash/unstash, prepare-owned discover
 failure matrix and fresh physical validations remain open. Canonical state is therefore 5a/5b/5c **DONE**,
 5d **IN PROGRESS**, and 5e **NOT STARTED / independent**. See
 [`task43-5d-map-orchestration-productization.md`](task43-5d-map-orchestration-productization.md).
+
+## Task 44 positive execution accounting and Jenkins transport
+
+The companion Jenkins plugin now freezes and captures authoritative Gradle/Maven inventory during preparation, produces exact revision/shard/target/tool-bound execution evidence, and aggregates physical invocation outcomes to logical `TestIdentity`. Plan v2 owns successful shard stash and publisher unstash. Join publication requires exact disjoint accounting from mapped, executable-unmapped, and positively non-executed identities; subtraction never proves non-execution. See [`task44-5d-execution-accounting-and-transport.md`](task44-5d-execution-accounting-and-transport.md). Item 5d remains **IN PROGRESS** and 5e is unchanged.

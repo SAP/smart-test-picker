@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DynamicTest;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.RepetitionInfo;
@@ -84,6 +85,35 @@ class ParameterizedFixtureSuite {
 	void parameterized(String ignored) {
 		FixtureEvents.hit("parameterized");
 	}
+}
+
+class MixedParameterizedFixtureSuite {
+	@ParameterizedTest
+	@ValueSource(strings = { "execute", "skip" })
+	void parameterized(String value) {
+		Assumptions.assumeTrue(value.equals("execute"));
+		FixtureEvents.hit("mixedParameterized");
+	}
+}
+
+class AllAbortedParameterizedFixtureSuite {
+	@ParameterizedTest
+	@ValueSource(strings = { "one", "two" })
+	void parameterized(String value) {
+		Assumptions.abort(value);
+	}
+}
+
+@Disabled("positive class-level skip")
+class DisabledFixtureSuite {
+	@Test void skippedOne() { }
+	@Test void skippedTwo() { }
+}
+
+class AbortedContainerFixtureSuite {
+	@BeforeAll static void unavailable() { Assumptions.abort("container unavailable"); }
+	@Test void skippedOne() { }
+	@Test void skippedTwo() { }
 }
 
 class RepeatedFixtureSuite {
