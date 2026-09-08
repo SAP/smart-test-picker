@@ -176,3 +176,11 @@ Two Spring-exposed 5c/adapter regressions were fixed with focused coverage: part
 no longer discard runnable sibling coverage, and `smartTest` inherits the configured target execution
 environment. The core is ready for 5d, whose remote store, registry, retention, lookup, scheduling,
 and production orchestration remain intentionally unimplemented.
+
+TASK 45 validates the productionized 5d Jenkins orchestration on the same pinned Spring Core revision.
+The public plan-v2 steps produce exact `3643 = 3638 mapped + 0 executable-unmapped + 5 positive
+non-executed` accounting, automatic fragment/evidence transport, 112 bounded setup scopes, and a
+read-back-verified immutable local/reference publication. Edge totals are 45,704 class and 171,910 method
+edges, a runtime-sensitive delta of +10/-7 from TASK42 with no logical, setup, transformation-error, or
+collision difference. Focused Gradle lifecycle fixes were required. No remote storage, retention, selector,
+Maven, or 5e work was added. 5d remains **IN PROGRESS** pending its separate closure audit.
