@@ -16,6 +16,7 @@ import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 import com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec;
 
 import static org.junit.jupiter.api.Assertions.*;
+import com.google.gson.JsonParser;
 
 class GenerateCoverageFragmentMojoTest
 {
@@ -51,6 +52,23 @@ class GenerateCoverageFragmentMojoTest
 		assertTrue(fragment.tests().get(new TestIdentity("example.FixtureTests", "overloaded",
 				"org.junit.jupiter.api.TestInfo")).coveredMethods().contains(new MethodIdentity(
 				"org.example.service.UserService", "updateAddress", "(Ljava/lang/String;)V")));
+	}
+
+	@Test
+	void exactSidecarsAggregateMixedAndAllSkippedLogicalIdentities(@TempDir Path temp) throws Exception
+	{
+		Path exec = Files.createDirectories(temp.resolve("jacoco"));
+		Path reports = Files.createDirectories(temp.resolve("reports"));
+		Path output = temp.resolve("fragment.json");
+		writeIdentity(exec.resolve("session_mixed.identity"), "example.Parameters", "mixed", "java.lang.String", "PASS");
+		writeIdentity(exec.resolve("session_mixed.non-executed"), "example.Parameters", "mixed", "java.lang.String", "SKIPPED");
+		writeIdentity(exec.resolve("session_all.non-executed"), "example.Parameters", "allSkipped", "int", "SKIPPED");
+		Files.write(exec.resolve("session_mixed.exec"), new byte[] {1});
+		Files.writeString(reports.resolve("session_mixed.status"), "EMPTY\n");
+		mojo(exec,reports,output).execute();
+		var evidence=JsonParser.parseString(Files.readString(temp.resolve("execution-evidence-v1.json"))).getAsJsonObject();
+		assertEquals("example.Parameters#mixed(java.lang.String)",evidence.getAsJsonArray("EXECUTED").get(0).getAsString());
+		assertEquals("example.Parameters#allSkipped(int)",evidence.getAsJsonArray("NON_EXECUTED").get(0).getAsString());
 	}
 
 	@Test

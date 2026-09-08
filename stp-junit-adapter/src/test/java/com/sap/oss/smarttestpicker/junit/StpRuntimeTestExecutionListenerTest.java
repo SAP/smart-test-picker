@@ -64,6 +64,39 @@ class StpRuntimeTestExecutionListenerTest {
 	}
 
 	@Test
+	void mixedParameterizedInvocationsRemainExecutable() {
+		var fragment = project(execute(MixedParameterizedFixtureSuite.class));
+		var identity = new com.sap.oss.smarttestpicker.coverage.model.TestIdentity(
+				MixedParameterizedFixtureSuite.class.getName(), "parameterized", "java.lang.String");
+		assertTrue(fragment.tests().containsKey(identity));
+		assertTrue(fragment.unmapped().stream().noneMatch(value -> value.test().equals(identity)));
+	}
+
+	@Test
+	void allAbortedParameterizedInvocationsArePositivelySkipped() {
+		var fragment = project(execute(AllAbortedParameterizedFixtureSuite.class));
+		var identity = new com.sap.oss.smarttestpicker.coverage.model.TestIdentity(
+				AllAbortedParameterizedFixtureSuite.class.getName(), "parameterized", "java.lang.String");
+		assertFalse(fragment.tests().containsKey(identity));
+		assertTrue(fragment.unmapped().stream().anyMatch(value -> value.test().equals(identity)
+				&& value.reason() == com.sap.oss.smarttestpicker.coverage.model.UnmappedReason.SKIPPED));
+	}
+
+	@Test
+	void disabledContainerDescendantsArePositivelySkipped() {
+		var fragment = project(execute(DisabledFixtureSuite.class));
+		assertEquals(2, fragment.unmapped().stream().filter(value ->
+				value.reason() == com.sap.oss.smarttestpicker.coverage.model.UnmappedReason.SKIPPED).count());
+	}
+
+	@Test
+	void abortedContainerDescendantsArePositivelySkipped() {
+		var fragment = project(execute(AbortedContainerFixtureSuite.class));
+		assertEquals(2, fragment.unmapped().stream().filter(value ->
+				value.reason() == com.sap.oss.smarttestpicker.coverage.model.UnmappedReason.SKIPPED).count());
+	}
+
+	@Test
 	void repeatedInvocationsAreSeparate() {
 		String json = execute(RepeatedFixtureSuite.class).json();
 		assertTrue(json.contains("[test-template-invocation:#1]"));

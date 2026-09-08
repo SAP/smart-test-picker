@@ -14,6 +14,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -55,13 +59,24 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 			property = "smartTestPicker.fragmentOutput", required = true)
 	private File fragmentOutput;
 
+	@Parameter(defaultValue = "${project.build.directory}/execution-evidence-v1.json",
+			property = "smartTestPicker.evidenceOutput", required = true)
+	private File evidenceOutput;
+
+	@Parameter(defaultValue = "test", property = "smartTestPicker.testTarget")
+	private String testTarget;
+
 	@Override
 	public void execute() throws MojoExecutionException
 	{
 		if (revision == null || revision.isBlank()) throw new MojoExecutionException("smartTestPicker.revision must not be blank");
 		if (shardId == null || shardId.isBlank()) throw new MojoExecutionException("smartTestPicker.shardId must not be blank");
+		if (evidenceOutput == null) evidenceOutput = new File(fragmentOutput.getAbsoluteFile().getParentFile(), "execution-evidence-v1.json");
+		if (testTarget == null || testTarget.isBlank()) testTarget = "test";
 		try { Files.deleteIfExists(fragmentOutput.toPath()); }
 		catch (IOException failure) { throw new MojoExecutionException("Failed to invalidate previous coverage fragment", failure); }
+		try { Files.deleteIfExists(evidenceOutput.toPath()); }
+		catch (IOException failure) { throw new MojoExecutionException("Failed to invalidate previous execution evidence", failure); }
 
 		CoverageFragment fragment = collect();
 		var validation = CoverageMapValidator.validate(fragment);
@@ -70,9 +85,36 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 		byte[] bytes = codec.serialize(fragment);
 		codec.deserialize(bytes);
 		writeAtomically(bytes);
+		writeExecutionEvidence();
 		getLog().info("[SmartTestPicker] Generated schema-v2 coverage fragment: " + fragmentOutput
 				+ " (" + fragment.tests().size() + " mapped, " + fragment.unmapped().size()
 				+ " unmapped, completed=" + fragment.collectionCompleted() + ")");
+	}
+
+	private void writeExecutionEvidence() throws MojoExecutionException
+	{
+		try
+		{
+			Set<TestIdentity> executed = new TreeSet<>(), nonExecuted = new TreeSet<>();
+			File[] identities = execDir.listFiles((dir, name) -> name.startsWith("session_") && name.endsWith(".identity"));
+			File[] skipped = execDir.listFiles((dir, name) -> name.startsWith("session_") && name.endsWith(".non-executed"));
+			if (identities != null) for (File file : identities) executed.add(readTestIdentity(file));
+			if (skipped != null) for (File file : skipped) nonExecuted.add(readTestIdentity(file));
+			nonExecuted.removeAll(executed);
+			JsonObject root = new JsonObject(); root.addProperty("version", 1); root.addProperty("revision", revision);
+			root.addProperty("shardId", shardId); root.addProperty("testTarget", testTarget); root.addProperty("buildTool", "maven");
+			JsonArray x = new JsonArray(); executed.forEach(id -> x.add(id.toString())); root.add("EXECUTED", x);
+			JsonArray n = new JsonArray(); nonExecuted.forEach(id -> n.add(id.toString())); root.add("NON_EXECUTED", n);
+			File parent = evidenceOutput.getAbsoluteFile().getParentFile(); if (parent != null) Files.createDirectories(parent.toPath());
+			Files.writeString(evidenceOutput.toPath(), new GsonBuilder().setPrettyPrinting().create().toJson(root) + "\n");
+		}
+		catch (Exception failure) { throw new MojoExecutionException("Failed to write exact execution evidence", failure); }
+	}
+
+	private static TestIdentity readTestIdentity(File file) throws IOException
+	{
+		Map<String,String> values = readIdentity(file);
+		return new TestIdentity(required(values,"className"),required(values,"methodName"),values.getOrDefault("methodParameterTypes",""));
 	}
 
 	private CoverageFragment collect() throws MojoExecutionException
@@ -155,7 +197,8 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 
 		for (File exec : execFiles)
 			if (!identityBases.contains(stripSuffix(exec.getName(), ".exec"))) completed = false;
-		if (identities.length == 0 && execFiles.length == 0) completed = false;
+		File[] nonExecuted = execDir.listFiles((dir, name) -> name.startsWith("session_") && name.endsWith(".non-executed"));
+		if (identities.length == 0 && execFiles.length == 0 && (nonExecuted == null || nonExecuted.length == 0)) completed = false;
 
 		return new CoverageFragment(CoverageMapContract.SCHEMA_VERSION, new CoverageMapRevision(revision),
 				new ShardId(shardId), tests, new ArrayList<>(unmapped.values()), List.of(), completed);

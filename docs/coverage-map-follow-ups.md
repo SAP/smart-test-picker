@@ -113,6 +113,8 @@ protection in the Jenkins companion repository. Positive non-execution evidence,
 stash/unstash, direct discovery from preparation, a remote backend, the full failure matrix and fresh
 physical validation remain open, so 5d is **IN PROGRESS**.
 
+TASK 44 closes the next 5d production gap: authoritative prepare-owned inventory, positive exact logical execution/non-execution evidence for Gradle and Maven, exact fail-closed join accounting, and plan-owned Jenkins stash/unstash. The existing Docker Jenkins topology validates pinned PetClinic across three physical agents. Durable remote storage, its failure injection, full Spring Core publication, and the final 5d audit remain; 5d therefore stays **IN PROGRESS** and 5e stays independent and untouched.
+
 ## Canonical POC conclusion
 
 > Distributed mapping itself did not introduce coverage loss. The only semantic difference was caused

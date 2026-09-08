@@ -13,6 +13,7 @@ import org.junit.platform.engine.TestSource;
 import org.junit.platform.engine.support.descriptor.MethodSource;
 import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestIdentifier;
+import org.junit.platform.launcher.TestPlan;
 
 
 /**
@@ -41,6 +42,10 @@ public class JacocoPerTestListener implements TestExecutionListener
 	private final ThreadLocal<String> currentSessionId = new ThreadLocal<>();
 	private final ThreadLocal<DeclaredTestIdentity> currentTestIdentity = new ThreadLocal<>();
 	private final ThreadLocal<Long> startTime = new ThreadLocal<>();
+	private volatile TestPlan testPlan;
+
+	@Override
+	public void testPlanExecutionStarted(TestPlan plan) { testPlan = plan; }
 
 	@Override
 	public void executionStarted(TestIdentifier id)
@@ -102,6 +107,26 @@ public class JacocoPerTestListener implements TestExecutionListener
 		currentSessionId.remove();
 		currentTestIdentity.remove();
 		startTime.remove();
+	}
+
+	@Override
+	public void executionSkipped(TestIdentifier id, String reason)
+	{
+		List<TestIdentifier> skipped = id.isTest() ? List.of(id)
+				: testPlan == null ? List.of() : testPlan.getDescendants(id).stream().filter(TestIdentifier::isTest).toList();
+		for (TestIdentifier skippedId : skipped)
+		try
+		{
+			DeclaredTestIdentity identity = extractTestIdentity(skippedId);
+			if (identity == null) continue;
+			String sessionId = buildSessionId(identity.simpleClassName(), identity.methodName(),
+					identity.className(), identity.methodParameterTypes());
+			Path file = Path.of(resolveExecDir()).resolve("session_" + SessionFileNames.sanitize(sessionId) + ".non-executed");
+			Files.createDirectories(file.getParent());
+			Files.writeString(file, "format=1\nclassName=" + identity.className() + "\nmethodName="
+					+ identity.methodName() + "\nmethodParameterTypes=" + identity.methodParameterTypes() + "\n");
+		}
+		catch (Exception e) { System.err.println("Failed to save authoritative non-execution identity: " + e.getMessage()); }
 	}
 
 	private DeclaredTestIdentity extractTestIdentity(TestIdentifier id)
