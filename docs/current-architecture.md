@@ -184,3 +184,13 @@ failure matrix and fresh physical validations remain open. Canonical state is th
 ## Task 44 positive execution accounting and Jenkins transport
 
 The companion Jenkins plugin now freezes and captures authoritative Gradle/Maven inventory during preparation, produces exact revision/shard/target/tool-bound execution evidence, and aggregates physical invocation outcomes to logical `TestIdentity`. Plan v2 owns successful shard stash and publisher unstash. Join publication requires exact disjoint accounting from mapped, executable-unmapped, and positively non-executed identities; subtraction never proves non-execution. See [`task44-5d-execution-accounting-and-transport.md`](task44-5d-execution-accounting-and-transport.md). Item 5d remains **IN PROGRESS** and 5e is unchanged.
+
+## Task 45 Spring Core Jenkins validation
+
+The existing Docker Jenkins plan-v2 workflow now validates pinned Spring Core through the public prepare,
+map, and publish steps. One collector shard accounts exactly for all 3,643 logical identities as 3,638
+mapped plus five positively non-executed, publishes 45,704 class edges, 171,910 method edges, and the same
+112 bounded setup scopes as TASK42, and preserves the 4,705-case physical result. Spring required focused
+Gradle adapter fixes for typed filters, late task configuration of the runtime/evidence properties, and
+exact `@Disabled` parameterized evidence. The local/reference publication is valid and immutable. Item 5d
+remains **IN PROGRESS**, but is ready for a separate closure audit; 5e remains independent and untouched.
