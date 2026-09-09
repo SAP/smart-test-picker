@@ -115,6 +115,14 @@ physical validation remain open, so 5d is **IN PROGRESS**.
 
 TASK 44 closes the next 5d production gap: authoritative prepare-owned inventory, positive exact logical execution/non-execution evidence for Gradle and Maven, exact fail-closed join accounting, and plan-owned Jenkins stash/unstash. The existing Docker Jenkins topology validates pinned PetClinic across three physical agents. Durable remote storage, its failure injection, full Spring Core publication, and the final 5d audit remain; 5d therefore stays **IN PROGRESS** and 5e stays independent and untouched.
 
+TASK 46 completes the separate closure audit after TASK45. Base 5d orchestration is **DONE**: plan-v2
+expectation ownership, runtime evidence, transport, exact join accounting, immutable revision publication,
+safe latest lookup, stale-build protection, and failure safety all have implementation, test, and physical
+validation evidence. The file store remains the local/reference implementation. Remote RAW/GCS/S3/
+AZURE_BLOB implementations, retention operations, Jenkins scheduling/cadence, retry scheduling, and
+CI-wide rollout are deferred extension/deployment work and do not block base 5d closure. 5e remains
+**NOT STARTED / independent**. See `task46-5d-closure-audit.md`.
+
 ## Canonical POC conclusion
 
 > Distributed mapping itself did not introduce coverage loss. The only semantic difference was caused
@@ -184,3 +192,8 @@ read-back-verified immutable local/reference publication. Edge totals are 45,704
 edges, a runtime-sensitive delta of +10/-7 from TASK42 with no logical, setup, transformation-error, or
 collision difference. Focused Gradle lifecycle fixes were required. No remote storage, retention, selector,
 Maven, or 5e work was added. 5d remains **IN PROGRESS** pending its separate closure audit.
+
+TASK 46 performs that closure audit without repeating either real-project run. No correctness blocker is
+open, so the canonical backlog is now 5a/5b/5c/5d **DONE** and 5e **NOT STARTED / independent**. Remote
+storage implementations remain a deferred extension point rather than production storage claimed by the
+file-backed reference implementation.

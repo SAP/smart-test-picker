@@ -194,3 +194,20 @@ mapped plus five positively non-executed, publishes 45,704 class edges, 171,910 
 Gradle adapter fixes for typed filters, late task configuration of the runtime/evidence properties, and
 exact `@Disabled` parameterized evidence. The local/reference publication is valid and immutable. Item 5d
 remains **IN PROGRESS**, but is ready for a separate closure audit; 5e remains independent and untouched.
+
+## Task 46 5d closure audit
+
+The final audit reconstructs the 5d contract from the architecture, backlog, implementation, tests, and
+TASK44/45 evidence. Revision and authoritative inventory remain orchestrator-owned; execution, coverage,
+executable-unmapped results, setup scopes, diagnostics, and runtime integrity remain collector-owned. The
+join requires exact disjoint accounting from mapped, executable-unmapped, and positively non-executed
+identities, and publication remains complete-schema-v2-only, immutable, read-back verified, and protected
+against stale pointer updates. The public plan-v2 lifecycle owns fragment/evidence transport and safe latest
+lookup returns no map rather than synthesizing an empty map.
+
+No correctness blocker remains. The file store is still the **LOCAL / REFERENCE IMPLEMENTATION**. Future
+remote backends share one storage contract; planned families are RAW (generic artifact/raw HTTP, not
+Nexus-specific), GCS, S3, and AZURE_BLOB. Their implementations, retention operations, deployment
+scheduling/cadence, retry scheduling, and CI-wide rollout are intentionally deferred extension or adoption
+work and do not block base orchestration closure. Canonical state is now 5a/5b/5c/5d **DONE**, with 5e
+**NOT STARTED / independent**. See [`task46-5d-closure-audit.md`](task46-5d-closure-audit.md).
