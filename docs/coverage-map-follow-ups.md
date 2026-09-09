@@ -226,3 +226,10 @@ TASK 46 performs that closure audit without repeating either real-project run. N
 open, so the canonical backlog is now 5a/5b/5c/5d **DONE** and 5e **NOT STARTED / independent**. Remote
 storage implementations remain a deferred extension point rather than production storage claimed by the
 file-backed reference implementation.
+
+TASK 53 exposes the common 5e `ExplicitPrSelectorFlow` through the existing Gradle and Maven paths
+with frozen integration/base/head inputs and revision-bound inventory generation. Both adapters verify
+workspace HEAD before stamping, retain artifact ownership of map/inventory revisions, and preserve local
+worktree mode. Pinned PetClinic produces equal 73-identity inventories and safety-equivalent decisions.
+See [`task53-5e-gradle-maven-petclinic.md`](task53-5e-gradle-maven-petclinic.md). 5e remains
+**IN PROGRESS**; the remaining expected work is its closure audit.

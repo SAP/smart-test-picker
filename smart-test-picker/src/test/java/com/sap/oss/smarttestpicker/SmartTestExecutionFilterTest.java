@@ -53,5 +53,15 @@ class SmartTestExecutionFilterTest {
 		assertEquals(standard.getIncludes(), task.getIncludes());
 		assertEquals(standard.getExcludes(), task.getExcludes());
 	}
+	@org.junit.jupiter.api.Test void explicitOuterStatusesGateExecutionDistinctly() throws Exception {
+		Path base = temporary.resolve("base.json"); Files.writeString(base, "{\"status\":\"BASE_OUT_OF_DATE\"}");
+		SmartTestPickerPlugin.applyExplicitExecutionGate(task, base.toFile(), logger);
+		assertFalse(task.getOnlyIf().isSatisfiedBy(task));
+
+		Test errorTask = project.getTasks().create("explicitError", Test.class);
+		Path error = temporary.resolve("error.json"); Files.writeString(error, "{\"status\":\"ERROR\"}");
+		assertThrows(org.gradle.api.GradleException.class,
+				() -> SmartTestPickerPlugin.applyExplicitExecutionGate(errorTask, error.toFile(), logger));
+	}
 	private Path write(SelectionOutput output) throws Exception { Path file = temporary.resolve(UUID.randomUUID() + ".json"); Files.writeString(file, new Gson().toJson(output)); return file; }
 }

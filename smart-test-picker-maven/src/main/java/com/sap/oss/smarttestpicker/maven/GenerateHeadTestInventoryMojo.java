@@ -9,15 +9,18 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 
 /** Generates the exact schema-v2 inventory using JUnit Platform discovery only. */
-@Mojo(name = "generate-head-test-inventory", defaultPhase = LifecyclePhase.PROCESS_TEST_CLASSES)
+@Mojo(name = "generate-head-test-inventory", defaultPhase = LifecyclePhase.PROCESS_TEST_CLASSES,
+		requiresDependencyResolution = ResolutionScope.TEST)
 public final class GenerateHeadTestInventoryMojo extends AbstractMojo {
 	@Parameter(defaultValue = "${project}", readonly = true, required = true) private MavenProject project;
 	@Parameter(defaultValue = "${project.build.directory}/head-test-inventory.json", required = true) private File outputFile;
+	@Parameter(property = "smartTestPicker.prHeadRevision") private String prHeadRevision;
 	@Override public void execute() throws MojoExecutionException {
-		if (!MavenHeadTestInventory.generate(List.of(project), outputFile, getLog()))
+		if (!MavenHeadTestInventory.generate(List.of(project), outputFile, project.getBasedir(), prHeadRevision, getLog()))
 			throw new MojoExecutionException("JUnit head inventory discovery failed");
 	}
 }

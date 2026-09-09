@@ -14,13 +14,19 @@ import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 import com.sap.oss.smarttestpicker.selector.HeadTestInventory;
 import com.sap.oss.smarttestpicker.selector.HeadTestInventoryCodec;
 import com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGenerator;
+import com.sap.oss.smarttestpicker.selector.WorkspaceRevisionVerifier;
 
 /** Shared Maven adapter around the build-tool-neutral JUnit discovery producer. */
 final class MavenHeadTestInventory {
 	private MavenHeadTestInventory() {}
 
 	static boolean generate(List<MavenProject> projects, File output, Log log) {
+		return generate(projects, output, null, null, log);
+	}
+
+	static boolean generate(List<MavenProject> projects, File output, File projectDir, String revision, Log log) {
 		try {
+			if (revision != null) revision = WorkspaceRevisionVerifier.requireHead(projectDir, revision);
 			List<TestIdentity> merged = new ArrayList<>();
 			boolean discoveredTarget = false;
 			for (MavenProject project : projects) {
@@ -34,7 +40,8 @@ final class MavenHeadTestInventory {
 				merged.addAll(inventory.runnableTests());
 			}
 			if (!discoveredTarget) throw new IllegalStateException("No compiled Maven test output is available");
-			HeadTestInventory inventory = HeadTestInventory.from(merged); // exact cross-module collisions are unsafe
+			HeadTestInventory inventory = revision == null ? HeadTestInventory.from(merged)
+					: HeadTestInventory.atRevision(revision, merged); // exact cross-module collisions are unsafe
 			new HeadTestInventoryCodec().write(output, inventory);
 			log.info("[SmartTestPicker] Discovered " + inventory.runnableTests().size() + " logical JUnit tests");
 			return true;

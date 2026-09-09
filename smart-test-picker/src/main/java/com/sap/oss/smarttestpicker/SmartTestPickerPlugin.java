@@ -21,6 +21,8 @@ import org.gradle.api.tasks.testing.Test;
 import org.gradle.api.tasks.TaskProvider;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonParser;
+import org.gradle.api.GradleException;
 
 import com.sap.oss.smarttestpicker.engine.ExecToXmlEngine;
 import com.sap.oss.smarttestpicker.selector.SelectionOutput;
@@ -172,7 +174,8 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 				"generateHeadTestInventory", GenerateHeadTestInventoryTask.class, task -> {
 			task.setGroup("verification");
 			task.setDescription("Discovers the standard test target and writes its exact JUnit head inventory");
-			task.getOutputFile().set(project.getLayout().getBuildDirectory().file("head-test-inventory.json"));
+				task.getOutputFile().set(project.getLayout().getBuildDirectory().file("head-test-inventory.json"));
+				task.getRevision().set(ext.getPrHeadRevision());
 			task.dependsOn("testClasses");
 		});
 
@@ -184,6 +187,10 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 			task.getSelectedTestsFile().set(project.getLayout().getBuildDirectory().file("selected-tests.json"));
 			task.getMaxCommitDistance().set(ext.getMaxCommitDistance());
 			task.getFullSuiteTriggers().set(ext.getFullSuiteTriggers());
+			task.getIntegrationRevision().set(ext.getIntegrationRevision());
+			task.getPrBaseRevision().set(ext.getPrBaseRevision());
+			task.getPrHeadRevision().set(ext.getPrHeadRevision());
+			task.getExplicitResultFile().set(project.getLayout().getBuildDirectory().file("explicit-pr-selection-result.json"));
 			task.dependsOn(inventoryTask);
 			// Always re-run: selection depends on git state which Gradle cannot track
 			task.getOutputs().upToDateWhen(t -> false);
@@ -269,10 +276,38 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 
 				File selectedFile = p.getLayout().getBuildDirectory()
 						.file("selected-tests.json").get().getAsFile();
+				File explicitResult = p.getLayout().getBuildDirectory()
+						.file("explicit-pr-selection-result.json").get().getAsFile();
+				applyExplicitExecutionGate(smartTest, explicitResult, p.getLogger());
 				applySmartTestFilters(smartTest, selectedFile, p.getLogger());
 			});
 		});
 
+	}
+
+	static void applyExplicitExecutionGate(Test smartTest, File resultFile,
+			org.gradle.api.logging.Logger logger)
+	{
+		if (!resultFile.isFile()) return;
+		try
+		{
+			String status = JsonParser.parseString(Files.readString(resultFile.toPath()))
+					.getAsJsonObject().get("status").getAsString();
+			if ("BASE_OUT_OF_DATE".equals(status))
+			{
+				logger.lifecycle("[SmartTestPicker] Explicit PR base is out of date — smartTest skipped");
+				smartTest.onlyIf(t -> false);
+			}
+			else if ("ERROR".equals(status))
+			{
+				throw new GradleException("Explicit PR selection failed; rerun selectTests for details");
+			}
+		}
+		catch (IOException | RuntimeException failure)
+		{
+			if (failure instanceof GradleException gradle) throw gradle;
+			throw new GradleException("Cannot read explicit PR selection result", failure);
+		}
 	}
 
 	static void mirrorExecutionEnvironment(Test source, Test target)
