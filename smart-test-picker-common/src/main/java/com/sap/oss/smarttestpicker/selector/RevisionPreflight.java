@@ -24,16 +24,17 @@ public final class RevisionPreflight
 			GitRevisionAccess git = new GitRevisionAccess(projectDir);
 			String map = resolveFrozen(git, "mapRevision", request.mapRevision());
 			String integration = resolveFrozen(git, "integrationRevision", request.integrationRevision());
-			String base = resolveFrozen(git, "prBaseRevision", request.prBaseRevision());
+			// Retained as validated provider provenance for backward-compatible callers. Eligibility is
+			// determined by the frozen integration-to-source-head graph, not provider base metadata.
+			resolveFrozen(git, "prBaseRevision", request.prBaseRevision());
 			String head = resolveFrozen(git, "prHeadRevision", request.prHeadRevision());
 
-			if (!base.equals(integration))
-				return result(RevisionPreflightStatus.BASE_OUT_OF_DATE, "BASE_OUT_OF_DATE");
 			if (!git.isAncestor(map, integration))
 				return result(RevisionPreflightStatus.FULL_SUITE,
 						"Coverage map revision is not an ancestor of integration revision");
 			if (!git.isAncestor(integration, head))
-				return error("PR head revision is not a descendant of integration revision");
+				return result(RevisionPreflightStatus.BASE_OUT_OF_DATE,
+						"BASE_OUT_OF_DATE: integration revision is not an ancestor of PR head revision");
 			int distance = git.commitDistance(map, head);
 			if (distance < 0) return error("Invalid commit distance");
 			if (distance > request.maxCommitDistance())

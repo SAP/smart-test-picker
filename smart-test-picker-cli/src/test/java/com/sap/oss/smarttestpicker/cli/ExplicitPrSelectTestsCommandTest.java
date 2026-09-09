@@ -58,9 +58,9 @@ class ExplicitPrSelectTestsCommandTest
 
 	@Test void stalePrIsBaseOutOfDateWithoutSelectionOutput() throws Exception
 	{
-		Repo repo = repo(); String r0 = repo.head(); repo.commitText("r1", "R1"); String r1 = repo.head();
-		repo.commitText("r2", "R2"); String r2 = repo.head(); repo.commitText("p", "P"); String p = repo.head();
-		JsonObject result = execute(repo, r0, r2, r1, p, p, 10, List.of(), false);
+		Repo repo = repo(); String r0 = repo.head(); repo.commitText("integration", "E"); String integration = repo.head();
+		run(repo.root, "git", "checkout", "--detach", r0); repo.commitText("pr", "P"); String head = repo.head();
+		JsonObject result = execute(repo, r0, integration, r0, head, head, 10, List.of(), false);
 		assertEquals("BASE_OUT_OF_DATE", status(result));
 		assertFalse(result.has("selectionOutput"));
 	}
@@ -87,7 +87,7 @@ class ExplicitPrSelectTestsCommandTest
 		assertEquals("FULL_SUITE", status(execute(repo, divergent, r1, r1, r2, r2, 10, List.of(), false)));
 	}
 
-	@Test void invalidHeadAncestryIsErrorAndTriggerIsFullSuite() throws Exception
+	@Test void divergentHeadIsBaseOutOfDateAndTriggerIsFullSuite() throws Exception
 	{
 		Repo repo = repo(); String base = repo.head();
 		repo.commitFile("build.gradle", "plugins {}", "integration"); String integration = repo.head();
@@ -96,7 +96,7 @@ class ExplicitPrSelectTestsCommandTest
 				List.of("build.gradle"), false)));
 		run(repo.root, "git", "checkout", "--detach", base); repo.commitText("side", "side"); String side = repo.head();
 		JsonObject invalid = execute(repo, base, integration, integration, side, side, 10, List.of(), false);
-		assertEquals("ERROR", status(invalid));
+		assertEquals("BASE_OUT_OF_DATE", status(invalid));
 		assertFalse(invalid.has("selectionOutput"));
 	}
 

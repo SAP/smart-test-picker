@@ -1,6 +1,23 @@
 # Current architecture
 
-This is the authoritative architecture snapshot through TASK 54.
+This is the authoritative architecture snapshot through TASK 54, with later clarification notes.
+
+## TASK62 PR base semantics clarification
+
+GitHub Branch Source provider evidence proved that `PullRequestSCMRevision.baseHash` is the frozen
+target/base commit associated with the indexed PR revision (and, for a validated merge revision, the
+non-head merge parent), not the historical point at which the feature branch diverged. The old
+`prBaseRevision == integrationRevision` eligibility comparison therefore duplicated provider target
+metadata for GitHub and could not reliably express stale-PR policy across providers.
+
+The canonical eligibility rule is now that the frozen `integrationRevision` must be an
+ancestor-or-equal of the frozen source `prHeadRevision`. Failure produces `BASE_OUT_OF_DATE`; Git can
+prove that the head is not based on the required integration commit but cannot distinguish an ordinary
+out-of-date branch from force-pushed or otherwise divergent history. `prBaseRevision` remains required,
+resolved as a full commit, and retained as provider provenance for compatibility, but does not decide
+eligibility. Map ancestry/distance rules, missing/shallow protections, committed `map..head` selection,
+and the separation of synthetic workspace revision from source head are unchanged. Historical TASK48–54
+sections below describe the contract as it existed when those tasks closed.
 
 ## Modules
 

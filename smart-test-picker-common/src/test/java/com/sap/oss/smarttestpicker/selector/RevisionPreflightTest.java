@@ -45,11 +45,11 @@ class RevisionPreflightTest
 		assertEquals(new SelectionRevisionInterval(map, head, 2), result.effectiveInterval().orElseThrow());
 	}
 
-	@Test void rejectsStalePrAsBaseOutOfDate() throws Exception
+	@Test void providerBaseDoesNotDetermineEligibility() throws Exception
 	{
 		Repo repo = repo(); String map = repo.head(); String oldBase = repo.commit("old base");
 		String integration = repo.commit("integration"); String head = repo.commit("pr head");
-		assertEquals(RevisionPreflightStatus.BASE_OUT_OF_DATE,
+		assertEquals(RevisionPreflightStatus.ELIGIBLE,
 				evaluate(repo, map, integration, oldBase, head, 10).status());
 	}
 
@@ -72,11 +72,11 @@ class RevisionPreflightTest
 				evaluate(repo, map, integration, integration, head, 10).status());
 	}
 
-	@Test void errorsWhenHeadIsNotDescendantOfIntegration() throws Exception
+	@Test void rejectsHeadNotBasedOnIntegrationAsBaseOutOfDate() throws Exception
 	{
 		Repo repo = repo(); String common = repo.head(); String integration = repo.commit("integration");
 		run(repo.root, "git", "checkout", "-q", "-b", "pr-side", common); String head = repo.commit("head");
-		assertEquals(RevisionPreflightStatus.ERROR,
+		assertEquals(RevisionPreflightStatus.BASE_OUT_OF_DATE,
 				evaluate(repo, common, integration, integration, head, 10).status());
 	}
 
