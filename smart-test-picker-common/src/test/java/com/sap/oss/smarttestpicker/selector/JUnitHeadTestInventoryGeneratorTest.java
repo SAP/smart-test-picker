@@ -26,7 +26,9 @@ class JUnitHeadTestInventoryGeneratorTest {
 		List<Path> classpath = Arrays.stream(System.getProperty("java.class.path").split(
 				System.getProperty("path.separator"))).map(Path::of)
 				.filter(path -> !path.getFileName().toString().startsWith("junit-platform-launcher-")).toList();
-		HeadTestInventory result = new JUnitHeadTestInventoryGenerator().generate(classpath, List.of(root));
+		String revision = "0123456789abcdef0123456789abcdef01234567";
+		HeadTestInventory result = new JUnitHeadTestInventoryGenerator().generate(revision, classpath, List.of(root));
+		assertEquals(revision, result.revision());
 		Set<TestIdentity> fixture = result.runnableTests().stream()
 				.filter(id -> id.className().startsWith(InventoryFixture.class.getName())).collect(java.util.stream.Collectors.toSet());
 		assertEquals(Set.of(

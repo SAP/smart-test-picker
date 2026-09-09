@@ -140,9 +140,12 @@ TASK50 integrates this preflight with the common-core explicit PR selector. Elig
 the complete committed `mapRevision..prHeadRevision` interval, uses the supplied PR-head inventory, and
 never mixes in workspace HEAD, staged, unstaged, or untracked changes. Its wrapper keeps
 `BASE_OUT_OF_DATE` and `ERROR` separate from `SelectionOutput`, while preflight `FULL_SUITE` uses the
-existing selector fallback. `HeadTestInventory` does not itself carry revision provenance, so adapters
-must provide and bind it to `prHeadRevision`; adapter wiring and real-project validation remain open.
-Neither TASK48, TASK49, nor TASK50 changes 5b selection policy. See
+existing selector fallback. TASK51 defines Test Inventory as the authoritative complete logical test
+set for one concrete test target at one concrete revision—not tests that happened to execute and not
+an arbitrary list of names. `HeadTestInventory` now carries that revision provenance, and explicit PR
+mode fails with an error unless its frozen full commit resolves exactly to `prHeadRevision`. This closes
+TASK50's common-core provenance gap without changing local worktree semantics; adapter wiring and
+real-project validation remain open. Neither TASK48 through TASK51 changes 5b selection policy. See
 [`task48-5e-revision-contract-audit.md`](task48-5e-revision-contract-audit.md).
 
 ## Canonical POC conclusion

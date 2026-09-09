@@ -27,9 +27,15 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass
 /** Build-tool-neutral, discovery-only producer of exact logical JUnit test identities. */
 public final class JUnitHeadTestInventoryGenerator {
 	public HeadTestInventory generate(Collection<Path> runtimeClasspath, Collection<Path> testClassRoots) {
-		if (testClassRoots == null || testClassRoots.isEmpty()) return HeadTestInventory.from(List.of());
+		return generate(null, runtimeClasspath, testClassRoots);
+	}
+
+	public HeadTestInventory generate(String revision, Collection<Path> runtimeClasspath,
+			Collection<Path> testClassRoots) {
+		if (testClassRoots == null || testClassRoots.isEmpty())
+			return bind(revision, HeadTestInventory.from(List.of()));
 		Set<Path> roots = new LinkedHashSet<>(testClassRoots.stream().filter(java.nio.file.Files::isDirectory).toList());
-		if (roots.isEmpty()) return HeadTestInventory.from(List.of());
+		if (roots.isEmpty()) return bind(revision, HeadTestInventory.from(List.of()));
 		List<URL> urls = new ArrayList<>();
 		try {
 			for (Path path : runtimeClasspath) urls.add(path.toUri().toURL());
@@ -43,18 +49,22 @@ public final class JUnitHeadTestInventoryGenerator {
 					: new URLClassLoader(urls.toArray(URL[]::new), previous)) {
 				Thread.currentThread().setContextClassLoader(loader);
 				try {
-					if (targetOwnsLauncher) return isolated(loader, roots);
+					if (targetOwnsLauncher) return bind(revision, isolated(loader, roots));
 					LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
 							.selectors(selectClasspathRoots(roots)).build();
 					Launcher launcher = LauncherFactory.create(LauncherConfig.builder()
 							.enableTestExecutionListenerAutoRegistration(false)
 							.enableLauncherSessionListenerAutoRegistration(false).build());
-					return inventory(launcher.discover(request));
+					return bind(revision, inventory(launcher.discover(request)));
 				} finally { Thread.currentThread().setContextClassLoader(previous); }
 			}
 		} catch (Exception failure) {
 			throw new IllegalStateException("JUnit head inventory discovery failed", failure);
 		}
+	}
+
+	private static HeadTestInventory bind(String revision, HeadTestInventory inventory) {
+		return revision == null ? inventory : HeadTestInventory.atRevision(revision, inventory.runnableTests());
 	}
 
 	@SuppressWarnings("unchecked")
