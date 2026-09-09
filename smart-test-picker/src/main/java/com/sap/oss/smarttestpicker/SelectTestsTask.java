@@ -22,6 +22,9 @@ import com.google.gson.GsonBuilder;
 
 import com.sap.oss.smarttestpicker.selector.SchemaV2SelectorFlow;
 import com.sap.oss.smarttestpicker.selector.SelectionOutput;
+import com.sap.oss.smarttestpicker.selector.ExplicitPrSelectionResult;
+import com.sap.oss.smarttestpicker.selector.ExplicitPrSelectionStatus;
+import org.gradle.api.GradleException;
 
 
 /**
@@ -61,12 +64,28 @@ public abstract class SelectTestsTask extends DefaultTask
 	@Optional
 	public abstract ListProperty<String> getFullSuiteTriggers();
 
+	@Input @Optional public abstract Property<String> getIntegrationRevision();
+	@Input @Optional public abstract Property<String> getPrBaseRevision();
+	@Input @Optional public abstract Property<String> getPrHeadRevision();
+	@Internal public abstract RegularFileProperty getExplicitResultFile();
+
 	/**
 	 * Main task action: delegates to the shared schema-v2 analyzer and selector.
 	 */
 	@TaskAction
 	public void select()
 	{
+		boolean explicit = GradleExplicitPrSelection.requested(getIntegrationRevision().getOrNull(),
+				getPrBaseRevision().getOrNull(), getPrHeadRevision().getOrNull());
+		if (explicit)
+		{
+			if (!getIntegrationRevision().isPresent() || !getPrBaseRevision().isPresent()
+					|| !getPrHeadRevision().isPresent())
+				throw new GradleException("Explicit PR mode requires integrationRevision, prBaseRevision, and prHeadRevision");
+			selectExplicit();
+			return;
+		}
+		getExplicitResultFile().getAsFile().get().delete();
 		SelectionOutput output = new SchemaV2SelectorFlow().select(
 				getCoverageMapFile().getAsFile().get(),
 				getHeadTestInventoryFile().getAsFile().getOrNull(),
@@ -76,11 +95,44 @@ public abstract class SelectTestsTask extends DefaultTask
 
 		getLogger().lifecycle("[SmartTestPicker] Status: {} \u2014 {}", output.getStatus(), output.getReason());
 
+		write(getSelectedTestsFile().getAsFile().get(), output);
+	}
+
+	private void selectExplicit()
+	{
+		ExplicitPrSelectionResult result;
+		try
+		{
+			result = GradleExplicitPrSelection.select(getCoverageMapFile().getAsFile().get(),
+					getHeadTestInventoryFile().getAsFile().get(), getProject().getProjectDir(), getIntegrationRevision().get(),
+					getPrBaseRevision().get(), getPrHeadRevision().get(), getMaxCommitDistance().get(),
+					getFullSuiteTriggers().getOrElse(List.of()));
+		}
+		catch (Exception failure)
+		{
+			result = ExplicitPrSelectionResult.failure(ExplicitPrSelectionStatus.ERROR,
+					"Explicit PR selection failed: " + failure.getMessage());
+		}
+		write(getExplicitResultFile().getAsFile().get(), GradleExplicitPrSelection.report(result));
+		getLogger().lifecycle("[SmartTestPicker] Explicit PR status: {} — {}", result.status(), result.reason());
+		if (result.status() != ExplicitPrSelectionStatus.SELECTION_RESULT)
+		{
+			getSelectedTestsFile().getAsFile().get().delete();
+			if (result.status() == ExplicitPrSelectionStatus.ERROR) throw new GradleException(result.reason());
+			return;
+		}
+		SelectionOutput output = result.output().orElseThrow();
+		write(getSelectedTestsFile().getAsFile().get(), output);
+	}
+
+	private static void write(File outputFile, Object value)
+	{
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		File outputFile = getSelectedTestsFile().getAsFile().get();
+		File parent = outputFile.getParentFile();
+		if (parent != null) parent.mkdirs();
 		try (FileWriter writer = new FileWriter(outputFile))
 		{
-			gson.toJson(output, writer);
+			gson.toJson(value, writer);
 		}
 		catch (IOException e)
 		{

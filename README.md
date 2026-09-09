@@ -52,6 +52,11 @@ plugins {
 smartTestPicker {
     baseBranch = 'main'          // default: 'main'
     maxCommitDistance = 500       // default: 500
+
+    // Optional explicit PR mode; supply all three frozen full commit IDs.
+    integrationRevision = '...'
+    prBaseRevision = '...'
+    prHeadRevision = '...'
 }
 ```
 
@@ -83,6 +88,12 @@ mvn verify -Psmart-test-picker
 
 # Phase 2 (on feature branch): one-command smart test run
 mvn com.sap.oss.smart-test-picker:smart-test-picker-maven:0.1.0:smart-test
+
+# Explicit PR mode (all three properties are required together)
+mvn process-test-classes com.sap.oss.smart-test-picker:smart-test-picker-maven:0.1.0:select-tests \
+  -DsmartTestPicker.integrationRevision=<full-sha> \
+  -DsmartTestPicker.prBaseRevision=<full-sha> \
+  -DsmartTestPicker.prHeadRevision=<full-sha>
 
 # View report
 open target/reports/smart-test-picker/index.html

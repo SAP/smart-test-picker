@@ -23,6 +23,7 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.shared.invoker.DefaultInvocationRequest;
 import org.apache.maven.shared.invoker.DefaultInvoker;
@@ -40,6 +41,8 @@ import com.sap.oss.smarttestpicker.mapper.ClassCoverageMetrics;
 import com.sap.oss.smarttestpicker.mapper.CoverageMap;
 import com.sap.oss.smarttestpicker.mapper.CoverageMapMetadata;
 import com.sap.oss.smarttestpicker.selector.SelectionOutput;
+import com.sap.oss.smarttestpicker.selector.ExplicitPrSelectionResult;
+import com.sap.oss.smarttestpicker.selector.ExplicitPrSelectionStatus;
 import com.sap.oss.smarttestpicker.store.RemoteStoreClient;
 
 
@@ -57,7 +60,8 @@ import com.sap.oss.smarttestpicker.store.RemoteStoreClient;
  *
  * <p>Usage: {@code mvn smart-test-picker:smart-test -Psmart-test}</p>
  */
-@Mojo(name = "smart-test", aggregator = true, requiresProject = true)
+@Mojo(name = "smart-test", aggregator = true, requiresProject = true,
+		requiresDependencyResolution = ResolutionScope.TEST)
 public class SmartTestMojo extends AbstractMojo
 {
 
@@ -87,6 +91,9 @@ public class SmartTestMojo extends AbstractMojo
 
 	@Parameter(property = "spring.profiles.active")
 	private String springProfiles;
+	@Parameter(property = "smartTestPicker.integrationRevision") private String integrationRevision;
+	@Parameter(property = "smartTestPicker.prBaseRevision") private String prBaseRevision;
+	@Parameter(property = "smartTestPicker.prHeadRevision") private String prHeadRevision;
 
 	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	private boolean routingUncertain;
@@ -157,13 +164,31 @@ public class SmartTestMojo extends AbstractMojo
 		}
 
 		File headTestInventoryFile = new File(rootTarget, "head-test-inventory.json");
-		MavenHeadTestInventory.generate(reactorProjects, headTestInventoryFile, getLog());
-		SelectionOutput output = new SchemaV2SelectorFlow().select(
+		SelectionOutput output;
+		if (MavenExplicitPrSelection.requested(integrationRevision, prBaseRevision, prHeadRevision))
+		{
+			ExplicitPrSelectionResult explicit = MavenExplicitPrSelection.run(reactorProjects, root.getBasedir(),
+					coverageMapFile, headTestInventoryFile, new File(rootTarget, "explicit-pr-selection-result.json"),
+					integrationRevision, prBaseRevision, prHeadRevision, maxCommitDistance, fullSuiteTriggers, getLog());
+			if (explicit.status() == ExplicitPrSelectionStatus.ERROR) throw new MojoExecutionException(explicit.reason());
+			if (explicit.status() == ExplicitPrSelectionStatus.BASE_OUT_OF_DATE)
+			{
+				getLog().warn("[SmartTestPicker] PR base is out of date — no selective execution performed");
+				return;
+			}
+			output = explicit.output().orElseThrow();
+		}
+		else
+		{
+			new File(rootTarget, "explicit-pr-selection-result.json").delete();
+			MavenHeadTestInventory.generate(reactorProjects, headTestInventoryFile, getLog());
+			output = new SchemaV2SelectorFlow().select(
 				coverageMapFile,
 				headTestInventoryFile,
 				root.getBasedir(),
 				maxCommitDistance,
 				fullSuiteTriggers != null ? fullSuiteTriggers : List.of());
+		}
 
 		getLog().info("[SmartTestPicker] Status: " + output.getStatus() + " — " + output.getReason());
 

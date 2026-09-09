@@ -14,6 +14,7 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 
 import com.google.gson.Gson;
@@ -21,6 +22,8 @@ import com.google.gson.GsonBuilder;
 
 import com.sap.oss.smarttestpicker.selector.SchemaV2SelectorFlow;
 import com.sap.oss.smarttestpicker.selector.SelectionOutput;
+import com.sap.oss.smarttestpicker.selector.ExplicitPrSelectionResult;
+import com.sap.oss.smarttestpicker.selector.ExplicitPrSelectionStatus;
 
 
 /**
@@ -32,7 +35,7 @@ import com.sap.oss.smarttestpicker.selector.SelectionOutput;
  * Writes {@code selected-tests.json} to root target plus a per-module
  * {@code selected-tests-surefire.txt} so Surefire filters tests automatically.</p>
  */
-@Mojo(name = "root-select-tests", aggregator = true)
+@Mojo(name = "root-select-tests", aggregator = true, requiresDependencyResolution = ResolutionScope.TEST)
 public class RootSelectTestsMojo extends AbstractMojo
 {
 
@@ -50,6 +53,9 @@ public class RootSelectTestsMojo extends AbstractMojo
 
 	@Parameter(defaultValue = "false", property = "smartTestPicker.classLevelSelection")
 	private boolean classLevelSelection;
+	@Parameter(property = "smartTestPicker.integrationRevision") private String integrationRevision;
+	@Parameter(property = "smartTestPicker.prBaseRevision") private String prBaseRevision;
+	@Parameter(property = "smartTestPicker.prHeadRevision") private String prHeadRevision;
 
 	@Override
 	public void execute() throws MojoExecutionException
@@ -88,13 +94,36 @@ public class RootSelectTestsMojo extends AbstractMojo
 		}
 
 		File headTestInventoryFile = new File(rootTarget, "head-test-inventory.json");
-		MavenHeadTestInventory.generate(reactorProjects, headTestInventoryFile, getLog());
-		SelectionOutput output = new SchemaV2SelectorFlow().select(
+		SelectionOutput output;
+		if (MavenExplicitPrSelection.requested(integrationRevision, prBaseRevision, prHeadRevision))
+		{
+			ExplicitPrSelectionResult explicit = MavenExplicitPrSelection.run(reactorProjects, root.getBasedir(),
+					coverageMapFile, headTestInventoryFile, new File(rootTarget, "explicit-pr-selection-result.json"),
+					integrationRevision, prBaseRevision, prHeadRevision, maxCommitDistance, fullSuiteTriggers, getLog());
+			if (explicit.status() == ExplicitPrSelectionStatus.ERROR) throw new MojoExecutionException(explicit.reason());
+			if (explicit.status() == ExplicitPrSelectionStatus.BASE_OUT_OF_DATE)
+			{
+				for (MavenProject module : reactorProjects)
+				{
+					new File(module.getBuild().getDirectory(), "selected-tests-surefire.txt").delete();
+					module.getProperties().remove("surefire.includesFile");
+				}
+				new File(rootTarget, "selected-tests.json").delete();
+				return;
+			}
+			output = explicit.output().orElseThrow();
+		}
+		else
+		{
+			new File(rootTarget, "explicit-pr-selection-result.json").delete();
+			MavenHeadTestInventory.generate(reactorProjects, headTestInventoryFile, getLog());
+			output = new SchemaV2SelectorFlow().select(
 				coverageMapFile,
 				headTestInventoryFile,
 				root.getBasedir(),
 				maxCommitDistance,
 				fullSuiteTriggers != null ? fullSuiteTriggers : List.of());
+		}
 
 		getLog().info("[SmartTestPicker] Status: " + output.getStatus() + " — " + output.getReason());
 

@@ -83,6 +83,15 @@ public abstract class SmartTestPickerExtension
 	 */
 	public abstract Property<Integer> getMaxCommitDistance();
 
+	/** Frozen integration commit; setting any explicit revision requires all three. */
+	public abstract Property<String> getIntegrationRevision();
+
+	/** Frozen PR base commit. */
+	public abstract Property<String> getPrBaseRevision();
+
+	/** Frozen PR head commit and provenance for newly generated head inventory. */
+	public abstract Property<String> getPrHeadRevision();
+
 	/**
 	 * When enabled, the smartTest task includes entire test classes instead of
 	 * individual test methods. Use this for projects where test methods within

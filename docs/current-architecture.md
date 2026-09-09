@@ -1,6 +1,6 @@
 # Current architecture
 
-This is the authoritative architecture snapshot after TASK 27 Gradle collector integration.
+This is the authoritative architecture snapshot through TASK 53.
 
 ## Modules
 
@@ -254,3 +254,18 @@ CLI adds no revision policy and does not stamp legacy inventories; it emits a JS
 `BASE_OUT_OF_DATE` and `ERROR` separate from unchanged normal `SelectionOutput` statuses. Existing
 local/worktree selection remains separate and unchanged. Gradle/Maven adapter exposure, real-project
 validation, and the final 5e closure audit remain open, so 5e stays **IN PROGRESS**.
+
+## Task 53 Gradle/Maven explicit PR adapters
+
+Gradle and Maven now expose frozen `integrationRevision`, `prBaseRevision`, and `prHeadRevision`
+inputs as an additive mode. Both decode artifact-owned map and inventory revisions and delegate
+eligibility plus the `mapRevision..prHeadRevision` interval to `ExplicitPrSelectorFlow`.
+`BASE_OUT_OF_DATE` and `ERROR` remain outside `SelectionOutput` and stop selective execution.
+Ordinary HEAD/worktree-aware local selection is unchanged.
+
+New explicit inventories are bound to `prHeadRevision` only after proving workspace HEAD is that exact
+full commit. No checkout, reset, merge, or rebase occurs. Maven inventory-generating goals request
+test-scope dependency resolution so discovery uses the configured target runtime. Pinned PetClinic
+dual-build evidence is in
+[`task53-5e-gradle-maven-petclinic.md`](task53-5e-gradle-maven-petclinic.md). Task 5e remains
+**IN PROGRESS** pending its closure audit.
