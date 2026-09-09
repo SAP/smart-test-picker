@@ -371,3 +371,14 @@ reference with legacy-read/new-write migration. Multi-controller writers require
 Nexus-specific behavior exists only in validation infrastructure. Jenkins Credentials integration and
 public authenticated backend selection remain TASK69; item 8 remains not started. See
 [`task68-raw-http-nexus-storage.md`](task68-raw-http-nexus-storage.md).
+
+## Task 69 Jenkins credential integration and authenticated storage
+
+Item 7 remains **IN PROGRESS**. TASK69 adds centralized FILE/RAW_HTTP Jenkins storage configuration,
+execution-time Jenkins Username/Password credential resolution, authenticated RAW HTTP publish/lookup,
+and public Pipeline validation against Nexus. Secrets are not persisted in STP configuration or logs.
+
+RAW HTTP operations and keyed sole-writer coordination execute in the Jenkins controller/plugin process,
+so one controller spans concurrent builds; multi-controller writers remain unsupported without remote
+CAS. TASK70 remains for cross-build/cross-agent and wider remote correctness E2E. Item 8 remains not
+started. See [`task69-jenkins-credential-authenticated-storage.md`](task69-jenkins-credential-authenticated-storage.md).
