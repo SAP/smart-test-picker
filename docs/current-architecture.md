@@ -214,11 +214,14 @@ work and do not block base orchestration closure. Canonical state is now 5a/5b/5
 
 ## Task 48 5e revision contract audit
 
-TASK48 defines, without implementation, the eligibility boundary for explicit PR revisions:
-`prBaseRevision == mapRevision == integrationRevision`, with the base and head resolving as commits and
-the base an ancestor of the head. An out-of-date PR is rejected before selector invocation with the
-preflight reason `BASE_OUT_OF_DATE`; it is not represented as `SELECTED`, `NONE`, or `FULL_SUITE`, and
-there is no override. Missing or integration-mismatched maps retain 5b's existing `FULL_SUITE` safety
-fallback. PR CI is commit-to-commit, and automatic historical-map lookup is out of scope. The 5b
-selection policy is unchanged. Canonical state is 5a/5b/5c/5d **DONE** and 5e **NOT STARTED / CONTRACT
-DEFINED**. See [`task48-5e-revision-contract-audit.md`](task48-5e-revision-contract-audit.md).
+TASK48 initially defined, without implementation, the strict eligibility equality
+`prBaseRevision == mapRevision == integrationRevision`. TASK49 refines that decision for production:
+`prBaseRevision == integrationRevision` remains mandatory, while `mapRevision` may be an
+ancestor-or-equal of integration and integration must be an ancestor-or-equal of the PR head. All
+inputs resolve as frozen commits. Selection uses `diff(mapRevision, prHeadRevision)`, and the existing
+`maxCommitDistance` applies to that complete interval. A stale PR is still rejected before selector
+invocation as `BASE_OUT_OF_DATE`; an incompatible or too-old map produces `FULL_SUITE`; invalid input
+or head ancestry produces a preflight error. PR CI remains commit-to-commit and 5b selector policy is
+unchanged. TASK49 implements the common core model and preflight, but adapter wiring and real-project
+validation remain open. Canonical state is 5a/5b/5c/5d **DONE** and 5e **IN PROGRESS**. See
+[`task48-5e-revision-contract-audit.md`](task48-5e-revision-contract-audit.md).

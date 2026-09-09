@@ -1,8 +1,34 @@
 # TASK 48 — 5e revision contract audit
 
-## Decision
+## TASK49 production refinement
 
-Canonical backlog item **5e Arbitrary base/head revisions — STP core** is governed by one mandatory
+TASK48 recorded the initial contract below as
+`prBaseRevision == mapRevision == integrationRevision`. TASK49 does not erase that historical
+decision; it refines it after accounting for the production reality that a complete coverage map may
+legitimately lag the integration branch. The canonical contract from TASK49 onward is:
+
+```text
+prBaseRevision == integrationRevision
+mapRevision ancestor-or-equal integrationRevision
+integrationRevision ancestor-or-equal prHeadRevision
+commitCount(mapRevision..prHeadRevision) <= maxCommitDistance
+```
+
+The map mismatch section below is therefore superseded only where it treats every older map as
+unusable. A compatible older map remains safe inside the existing 5b distance window because selection
+uses `Map(mapRevision)`, `diff(mapRevision, prHeadRevision)`, and the authoritative head inventory.
+There is no second staleness threshold. A distance beyond `maxCommitDistance`, or a map not ancestral
+to integration, produces `FULL_SUITE`. A stale PR still produces `BASE_OUT_OF_DATE`, and a head not
+descended from integration is an explicit preflight `ERROR`.
+
+For example, `Map(R0)`, integration/base `R1`, and head `R2` is eligible when ancestry holds and
+`commitCount(R0..R2)` is within the window. Its effective interval is `R0..R2`, never `R1..R2`.
+TASK49 implements this build-tool-neutral core preflight but does not wire adapters, so 5e is now
+**IN PROGRESS**.
+
+## Initial TASK48 decision (refined by TASK49 above)
+
+TASK48 initially governed canonical backlog item **5e Arbitrary base/head revisions — STP core** by one mandatory
 eligibility invariant:
 
 ```text

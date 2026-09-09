@@ -50,14 +50,14 @@ public final class SchemaV2SelectionAnalyzer
 			SelectionAnalysisResult inadmissible = validateAdmissibility(map);
 			if (inadmissible != null) return inadmissible;
 
-			Git git = new Git(projectDir);
-			String head = git.output("rev-parse", "--verify", "HEAD^{commit}").trim();
+			GitRevisionAccess git = new GitRevisionAccess(projectDir);
+			String head = git.resolveCommit("HEAD");
 			String revision = map.revision().value();
 			if (revision == null || revision.isBlank()) return runAll("Coverage map revision is missing");
-			git.output("rev-parse", "--verify", revision + "^{commit}");
+			git.resolveCommit(revision);
 			if (!git.isAncestor(revision, head))
 				return runAll("Coverage map revision is not an ancestor of selection head");
-			int distance = Integer.parseInt(git.output("rev-list", "--count", revision + ".." + head).trim());
+			int distance = git.commitDistance(revision, head);
 			if (distance < 0) return runAll("Invalid commit distance");
 			if (distance > maxCommitDistance) return runAll("Coverage map revision is stale: " + distance + " commits");
 
@@ -91,7 +91,7 @@ public final class SchemaV2SelectionAnalyzer
 				if (changedTestContainers.contains(test.className())) changedTests.add(test);
 
 			beforeHeadVerification.run();
-			if (!head.equals(git.output("rev-parse", "--verify", "HEAD^{commit}").trim()))
+			if (!head.equals(git.resolveCommit("HEAD")))
 				return runAll("HEAD moved during selection analysis");
 			return SelectionAnalysisResult.ready(new SelectionContext(map, map.revision(), head, changedClasses,
 					changedPaths, headTests, newTests, deletedTests, changedTests));
@@ -222,36 +222,4 @@ public final class SchemaV2SelectionAnalyzer
 		Set<String> paths() { return new LinkedHashSet<>(List.of(oldPath, newPath)); }
 	}
 
-	private static final class Git
-	{
-		private final File directory;
-		private Git(File directory) { this.directory = directory; }
-		private boolean isAncestor(String revision, String head)
-		{
-			CommandResult result = execute(true, "merge-base", "--is-ancestor", revision, head);
-			if (result.exitCode == 0) return true;
-			if (result.exitCode == 1) return false;
-			throw new IllegalStateException("git merge-base --is-ancestor failed with exit " + result.exitCode);
-		}
-		private String output(String... args)
-		{
-			CommandResult result = execute(false, args);
-			if (result.exitCode != 0) throw new IllegalStateException("git " + String.join(" ", args) + " failed: " + result.output);
-			return result.output;
-		}
-		private CommandResult execute(boolean statusOnly, String... args)
-		{
-			try
-			{
-				List<String> command = new ArrayList<>(); command.add("git"); command.addAll(List.of(args));
-				Process process = new ProcessBuilder(command).directory(directory).redirectErrorStream(true).start();
-				String output = new String(process.getInputStream().readAllBytes());
-				int exit = process.waitFor();
-				return new CommandResult(exit, statusOnly ? "" : output.trim());
-			}
-			catch (IOException e) { throw new IllegalStateException("Failed to run git", e); }
-			catch (InterruptedException e) { Thread.currentThread().interrupt(); throw new IllegalStateException("Interrupted while running git", e); }
-		}
-	}
-	private record CommandResult(int exitCode, String output) {}
 }
