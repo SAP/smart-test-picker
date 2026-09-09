@@ -6,7 +6,9 @@ The Jenkins plugin now exposes `stpPrSelect`, a block step that resolves the cur
 `ScmPrContextResolver`, binds head inventory generation to the resolved source-head revision, and
 passes `ResolvedPrContext.toFiveERevisions()` unchanged into the existing explicit 5e flow. Callers
 do not provide integration, PR-base, PR-head, or workspace revisions. Resolver failures remain typed
-and do not select or create a plan; no item-8 fallback policy is implied. `SOURCE_HEAD` is supported.
+and do not select or create a plan; no item-8 fallback policy is implied. The `SOURCE_HEAD` automatic
+public flow is fully Docker validated end-to-end through real Gradle head-inventory generation and
+common-core explicit selection.
 `SYNTHETIC_MERGE` is safely reported as `PR_HEAD_INVENTORY_UNAVAILABLE` until a separate immutable
 source-head workspace exists; the merge workspace is never relabeled or mutated. The manual
 `stpExplicitPrSelect` API and all TASK62 common-core semantics remain unchanged. Backlog item 6 is
