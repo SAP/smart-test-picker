@@ -1,0 +1,59 @@
+{
+  "task": 67,
+  "item": "7a remote storage + credential contract",
+  "scope": "Architecture and contract only; no production, Docker, SCM/PR, selector, mapping, or item-8 policy implementation",
+  "productionCodeChanged": false,
+  "existingStorageInterface": "io.github.smarttestpicker.mapping.CoverageMapStore",
+  "storageInterfaceChangeRequired": "Minimum backward-compatible evolution of the existing interface: vendor-neutral object result, typed outcomes, structured checksummed pointer, and explicit concurrency capability/result",
+  "referenceBackend": "FileCoverageMapStore (LOCAL / REFERENCE IMPLEMENTATION)",
+  "firstRemoteBackendType": "RAW_HTTP",
+  "validationServer": "Nexus Repository OSS hosted RAW repository; validation infrastructure only",
+  "immutableArtifactContract": {
+    "path": "<root>/projects/<safe-project>/branches/<safe-branch>/revisions/<safe-revision>/coverage-map-v2.json",
+    "identicalRepublish": "ALREADY_EXISTS_IDENTICAL",
+    "conflictingRepublish": "IMMUTABILITY_CONFLICT",
+    "serverOverwritePolicySoleProtection": false,
+    "readBackRequired": true
+  },
+  "pointerContract": {
+    "path": "<root>/projects/<safe-project>/branches/<safe-branch>/pointers/latest.json",
+    "mutable": true,
+    "fields": ["schemaVersion", "project", "branch", "revision", "mapSha256", "updatedAt", "producer.buildId"],
+    "mapEmbedded": false
+  },
+  "concurrencyModel": "Item-5d ancestry decision inside a store coordination boundary; controller-wide keyed serialization is sufficient only for the first sole-writer single-controller topology; atomic remote CAS is required for multiple controllers or external writers",
+  "credentialModel": "Persist credentialId only; resolve through Jenkins Credentials API at execution time and pass a short-lived authentication abstraction to the backend",
+  "credentialTypes": ["Jenkins Username/Password; repository token may be supplied as password when Basic authentication is supported"],
+  "secretPersistenceAllowed": false,
+  "remotePathModel": "Fixed projects/branches/revisions and pointers segments with existing safeComponent encoding for logical project, branch, and revision",
+  "typedOutcomes": [
+    "FOUND",
+    "STORED",
+    "ALREADY_EXISTS_IDENTICAL",
+    "POINTER_UPDATED",
+    "POINTER_ALREADY_CURRENT",
+    "NOT_FOUND",
+    "AUTHENTICATION_FAILED",
+    "AUTHORIZATION_FAILED",
+    "REMOTE_UNAVAILABLE",
+    "TIMEOUT",
+    "INVALID_RESPONSE",
+    "INTEGRITY_FAILURE",
+    "IMMUTABILITY_CONFLICT",
+    "POINTER_CONFLICT",
+    "STALE_POINTER_UPDATE",
+    "CONFIGURATION_ERROR",
+    "CREDENTIAL_REQUIRED",
+    "CREDENTIAL_NOT_FOUND",
+    "CREDENTIAL_TYPE_UNSUPPORTED"
+  ],
+  "cloudBackendsDeferred": ["GCS", "S3", "Azure Blob", "Artifactory-specific"],
+  "nextTasks": [
+    "TASK68 generic RAW HTTP backend + Docker Nexus RAW",
+    "TASK69 Jenkins credential integration + authenticated remote publish/lookup",
+    "TASK70 cross-build/cross-agent and concurrency/failure E2E",
+    "TASK71 item-7 closure audit"
+  ],
+  "item8Implemented": false,
+  "result": "PASS"
+}

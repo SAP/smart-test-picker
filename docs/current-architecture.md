@@ -343,3 +343,19 @@ revisions, bound workspace and inventory to the true pull hash, and completed co
 selection with `SELECTION_RESULT/SELECTED`. No provider contradiction or production-code change was
 required. Item 6 remains **IN PROGRESS** only for its final closure audit; items 7 and 8 remain
 **NOT STARTED**. See [`task65-real-github-pr-e2e.md`](task65-real-github-pr-e2e.md).
+
+## Task 67 item-7 remote storage and credential contract
+
+Item 7 has started and remains **IN PROGRESS**; TASK67 completes its 7a architecture/contract slice.
+The first production remote-storage family is vendor-neutral `RAW_HTTP`, retaining and minimally
+evolving the existing `CoverageMapStore` rather than introducing a vendor interface. Nexus Repository
+OSS RAW is the controlled Docker validation environment, not the product abstraction. Immutable
+revision maps remain application-protected and read-back verified; mutable checksummed branch pointers
+preserve item-5d stale-publication rules under an explicit writer-coordination boundary.
+
+Persistent configuration references only Jenkins credential IDs. Jenkins resolves Username/Password
+credentials at execution time, and resolved secrets are never serialized, persisted in artifacts, put
+in URLs, or logged. GCS, S3, Azure Blob, and Artifactory-specific backends remain deferred. No Docker,
+production backend, credential integration, SCM/PR semantic, or item-8 fallback-policy code is added by
+TASK67. See
+[`task67-item7-remote-storage-credential-contract.md`](task67-item7-remote-storage-credential-contract.md).
