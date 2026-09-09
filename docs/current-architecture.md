@@ -1,6 +1,6 @@
 # Current architecture
 
-This is the authoritative architecture snapshot through TASK 53.
+This is the authoritative architecture snapshot through TASK 54.
 
 ## Modules
 
@@ -16,8 +16,9 @@ This is the authoritative architecture snapshot through TASK 53.
   is the default and JaCoCo is the explicit legacy fallback.
 - `smart-test-picker-maven`: the Maven plugin, retaining its legacy JaCoCo map path and adding direct
   schema-v2 fragment projection from authoritative JUnit identity sidecars and per-test JaCoCo reports.
-- `smart-test-picker-cli`: the existing user-facing CLI and legacy paths; schema-v2 CLI integration
-  has not started.
+- `smart-test-picker-cli`: the user-facing CLI for local/worktree selection and explicit PR selection;
+  explicit mode delegates frozen integration/base/head eligibility and committed schema-v2 analysis to
+  the common core.
 
 Gradle production mapping now attaches the version-aligned ASM agent automatically to the dedicated
 `generateSmartTestCoverage` task and emits a deterministic workspace-relative schema-v2 fragment.
@@ -269,3 +270,19 @@ test-scope dependency resolution so discovery uses the configured target runtime
 dual-build evidence is in
 [`task53-5e-gradle-maven-petclinic.md`](task53-5e-gradle-maven-petclinic.md). Task 5e remains
 **IN PROGRESS** pending its closure audit.
+
+## Task 54 5e closure audit
+
+The final audit verifies the complete implementation chain: TASK49 revision preflight, TASK50 explicit
+selector flow, TASK51 revision-bound inventory provenance, TASK52 CLI exposure, and TASK53 Gradle/Maven
+exposure plus pinned PetClinic equivalence. Explicit PR selection requires frozen full commits,
+`prBaseRevision == integrationRevision`, map ancestry of integration, integration ancestry of PR head,
+and exact inventory/head equality. Both distance and selection use `mapRevision..prHeadRevision`.
+Stale PRs remain `BASE_OUT_OF_DATE`; divergent or too-old maps produce normal `FULL_SUITE`; invalid
+head ancestry and provenance failures remain `ERROR`.
+
+No correctness blocker remains. Local/worktree selection, the 5b selector union, 5c mapping, and 5d
+orchestration/publication are unchanged. Historical-map discovery, remote registry lookup,
+CI-provider revision extraction, later Jenkins adoption, deployment configuration, and distance-policy
+tuning are deferred extensions or adoption work. Canonical state is 5a/5b/5c/5d/5e **DONE**. See
+[`task54-5e-closure-audit.md`](task54-5e-closure-audit.md).

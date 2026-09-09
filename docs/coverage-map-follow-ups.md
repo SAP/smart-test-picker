@@ -89,7 +89,7 @@ multi-agent validation is claimed and Task 5c remains **IN PROGRESS**.
 
 ## Task 5d — Fragment merge, publication, and Jenkins orchestration
 
-Status: **IN PROGRESS**
+Status: **DONE**
 
 The three-agent Spring PetClinic POC proved the mechanism for:
 
@@ -125,7 +125,7 @@ CI-wide rollout are deferred extension/deployment work and do not block base 5d 
 
 ## Task 5e — Arbitrary base/head revisions
 
-Status: **IN PROGRESS**
+Status: **DONE**
 
 TASK48 initially defined the strict equality
 `prBaseRevision == mapRevision == integrationRevision`. TASK49 records and implements the production
@@ -148,8 +148,9 @@ TASK50's common-core provenance gap without changing local worktree semantics. T
 exact common-core flow through the existing CLI `select-tests` command using caller-supplied frozen
 integration/base/head commits, artifact-owned map and inventory revisions, and structured JSON that
 distinguishes normal selection, `BASE_OUT_OF_DATE`, and `ERROR`. It leaves local/worktree selection
-intact. Gradle/Maven adapter exposure, real-project validation, and the final 5e closure audit remain
-open. Neither TASK48 through TASK52 changes 5b selection policy. See
+intact. TASK53 adds the thin Gradle/Maven adapters, safe workspace-head inventory stamping, and pinned
+PetClinic equivalence. TASK54 finds no correctness blocker and closes 5e. Neither TASK48 through TASK54
+changes 5b selection policy. See
 [`task48-5e-revision-contract-audit.md`](task48-5e-revision-contract-audit.md).
 
 ## Canonical POC conclusion
@@ -233,3 +234,12 @@ workspace HEAD before stamping, retain artifact ownership of map/inventory revis
 worktree mode. Pinned PetClinic produces equal 73-identity inventories and safety-equivalent decisions.
 See [`task53-5e-gradle-maven-petclinic.md`](task53-5e-gradle-maven-petclinic.md). 5e remains
 **IN PROGRESS**; the remaining expected work is its closure audit.
+
+TASK 54 completes that closure audit without repeating PetClinic. The common preflight, explicit
+selector flow, revision-bound inventory, and CLI/Gradle/Maven adapters satisfy the frozen revision,
+ancestry, bounded `mapRevision..prHeadRevision`, provenance, and outcome contracts. The 5b selector,
+5c mapping, and 5d orchestration/publication boundaries are unchanged. Automatic historical-map
+discovery, remote registry lookup, CI-provider extraction, later Jenkins adoption, deployment, and
+distance-policy tuning remain deferred extensions/adoption work rather than correctness blockers.
+The canonical backlog is now 5a/5b/5c/5d/5e **DONE**. See
+[`task54-5e-closure-audit.md`](task54-5e-closure-audit.md).

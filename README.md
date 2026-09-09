@@ -108,6 +108,18 @@ smart-test-picker select-tests --map coverage-map.json --output selected.json
 smart-test-picker generate-report --map coverage-map.json --selected selected.json --output report/
 ```
 
+Explicit PR selection accepts caller-owned frozen integration/base/head commits while the map and
+inventory retain their own revision provenance:
+
+```bash
+smart-test-picker select-tests --map coverage-map.json --head-inventory head-inventory.json \
+  --integration-revision <full-sha> --pr-base-revision <full-sha> \
+  --pr-head-revision <full-sha> --output explicit-result.json
+```
+
+Explicit results distinguish normal `SELECTED`/`NONE`/`FULL_SUITE` selection from
+`BASE_OUT_OF_DATE` and `ERROR`.
+
 ## Project Structure
 
 ```
