@@ -211,3 +211,14 @@ Nexus-specific), GCS, S3, and AZURE_BLOB. Their implementations, retention opera
 scheduling/cadence, retry scheduling, and CI-wide rollout are intentionally deferred extension or adoption
 work and do not block base orchestration closure. Canonical state is now 5a/5b/5c/5d **DONE**, with 5e
 **NOT STARTED / independent**. See [`task46-5d-closure-audit.md`](task46-5d-closure-audit.md).
+
+## Task 48 5e revision contract audit
+
+TASK48 defines, without implementation, the eligibility boundary for explicit PR revisions:
+`prBaseRevision == mapRevision == integrationRevision`, with the base and head resolving as commits and
+the base an ancestor of the head. An out-of-date PR is rejected before selector invocation with the
+preflight reason `BASE_OUT_OF_DATE`; it is not represented as `SELECTED`, `NONE`, or `FULL_SUITE`, and
+there is no override. Missing or integration-mismatched maps retain 5b's existing `FULL_SUITE` safety
+fallback. PR CI is commit-to-commit, and automatic historical-map lookup is out of scope. The 5b
+selection policy is unchanged. Canonical state is 5a/5b/5c/5d **DONE** and 5e **NOT STARTED / CONTRACT
+DEFINED**. See [`task48-5e-revision-contract-audit.md`](task48-5e-revision-contract-audit.md).
