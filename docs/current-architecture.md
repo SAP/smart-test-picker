@@ -1,5 +1,17 @@
 # Current architecture
 
+## TASK63 automatic Jenkins PR selection wiring
+
+The Jenkins plugin now exposes `stpPrSelect`, a block step that resolves the current typed PR with
+`ScmPrContextResolver`, binds head inventory generation to the resolved source-head revision, and
+passes `ResolvedPrContext.toFiveERevisions()` unchanged into the existing explicit 5e flow. Callers
+do not provide integration, PR-base, PR-head, or workspace revisions. Resolver failures remain typed
+and do not select or create a plan; no item-8 fallback policy is implied. `SOURCE_HEAD` is supported.
+`SYNTHETIC_MERGE` is safely reported as `PR_HEAD_INVENTORY_UNAVAILABLE` until a separate immutable
+source-head workspace exists; the merge workspace is never relabeled or mutated. The manual
+`stpExplicitPrSelect` API and all TASK62 common-core semantics remain unchanged. Backlog item 6 is
+still in progress pending real external PR E2E and closure audit; items 7 and 8 are not started.
+
 This is the authoritative architecture snapshot through TASK 54, with later clarification notes.
 
 ## TASK62 PR base semantics clarification
