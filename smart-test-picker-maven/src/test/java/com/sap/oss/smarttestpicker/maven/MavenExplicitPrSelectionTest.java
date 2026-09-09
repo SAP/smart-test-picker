@@ -34,11 +34,11 @@ class MavenExplicitPrSelectionTest
 	@Test void stalePrInvalidHeadAndTooOldMapPreserveCommonStatuses() throws Exception
 	{
 		Repo repo = repo(); String r0 = repo.head(); repo.commitText("r1", "R1"); String r1 = repo.head();
-		repo.commitText("r2", "R2"); String r2 = repo.head(); repo.commitText("p", "P"); String p = repo.head();
-		assertEquals(ExplicitPrSelectionStatus.BASE_OUT_OF_DATE, select(repo, r0, r2, r1, p, p, 10).status());
+		repo.commitText("r2", "R2"); String r2 = repo.head();
 		assertEquals("FULL_SUITE", output(select(repo, r0, r1, r1, r2, r2, 1)).getStatus());
 		run(repo.root, "git", "checkout", "--detach", r0); repo.commitText("side", "side"); String side = repo.head();
-		assertEquals(ExplicitPrSelectionStatus.ERROR, select(repo, r0, r2, r2, side, side, 10).status());
+		assertEquals(ExplicitPrSelectionStatus.BASE_OUT_OF_DATE,
+				select(repo, r0, r2, r0, side, side, 10).status());
 	}
 
 	@Test void inventoryMismatchAndRevisionlessInventoryAreErrors() throws Exception

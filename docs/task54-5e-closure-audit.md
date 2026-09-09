@@ -1,5 +1,10 @@
 # TASK 54 — 5e closure audit
 
+> TASK62 clarification: TASK54 accurately records the then-current contract and evidence. TASK62
+> subsequently proved that provider base metadata is not a historical fork point. Eligibility now
+> uses `integrationRevision` ancestor-or-equal `prHeadRevision`; failure is `BASE_OUT_OF_DATE`.
+> `prBaseRevision` remains a required, frozen, validated compatibility/provenance input only.
+
 ## Decision
 
 **5e DONE.** No correctness blocker remains. This audit inspected current production code, focused

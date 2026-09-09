@@ -4,7 +4,7 @@ package com.sap.oss.smarttestpicker.selector;
 
 import com.sap.oss.smarttestpicker.coverage.model.CoverageMap;
 
-/** Frozen inputs for explicit PR revision eligibility. The map revision is owned by the coverage map. */
+/** Frozen inputs for explicit PR revision eligibility. PR base is validated provider provenance only. */
 public record RevisionPreflightRequest(CoverageMap coverageMap, String integrationRevision,
 		String prBaseRevision, String prHeadRevision, int maxCommitDistance)
 {

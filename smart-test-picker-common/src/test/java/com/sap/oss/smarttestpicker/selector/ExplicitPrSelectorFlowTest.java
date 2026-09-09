@@ -65,9 +65,9 @@ class ExplicitPrSelectorFlowTest
 
 	@Test void stalePrIsDistinctAndHasNoSelectionOutput() throws Exception
 	{
-		Repo repo = repo(); String r0 = repo.head(); repo.commitFile("r1", "R1"); String r1 = repo.head();
-		repo.commitFile("r2", "R2"); String r2 = repo.head(); repo.commitFile("p", "P"); String p = repo.head();
-		ExplicitPrSelectionResult result = select(repo, r0, r2, r1, p, 10, List.of());
+		Repo repo = repo(); String r0 = repo.head(); repo.commitFile("integration", "E"); String integration = repo.head();
+		run(repo.root, "git", "checkout", "--detach", r0); repo.commitFile("pr", "P"); String head = repo.head();
+		ExplicitPrSelectionResult result = select(repo, r0, integration, r0, head, 10, List.of());
 		assertEquals(ExplicitPrSelectionStatus.BASE_OUT_OF_DATE, result.status());
 		assertTrue(result.output().isEmpty());
 		assertTrue(result.context().isEmpty());
@@ -85,12 +85,12 @@ class ExplicitPrSelectorFlowTest
 		assertFullSuite(select(repo, divergent, r1, r1, r2, 10, List.of()));
 	}
 
-	@Test void invalidHeadAncestryIsExplicitError() throws Exception
+	@Test void divergentHeadIsBaseOutOfDate() throws Exception
 	{
 		Repo repo = repo(); String base = repo.head(); repo.commitFile("integration", "integration"); String integration = repo.head();
 		run(repo.root, "git", "checkout", "--detach", base); repo.commitFile("side", "head"); String side = repo.head();
 		ExplicitPrSelectionResult result = select(repo, base, integration, integration, side, 10, List.of());
-		assertEquals(ExplicitPrSelectionStatus.ERROR, result.status());
+		assertEquals(ExplicitPrSelectionStatus.BASE_OUT_OF_DATE, result.status());
 		assertTrue(result.output().isEmpty());
 	}
 

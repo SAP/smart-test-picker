@@ -34,13 +34,12 @@ class GradleExplicitPrSelectionTest
 		assertEquals(Set.of("com.example.Service", "com.example.PullRequest"), stale.context().orElseThrow().changedClasses());
 	}
 
-	@Test void stalePrAndInvalidHeadRemainDistinct() throws Exception
+	@Test void staleAndDivergentHeadsAreBaseOutOfDate() throws Exception
 	{
-		Repo repo = repo(); String r0 = repo.head(); repo.commitText("r1", "R1"); String r1 = repo.head();
-		repo.commitText("r2", "R2"); String r2 = repo.head(); repo.commitText("p", "P"); String p = repo.head();
-		assertEquals(ExplicitPrSelectionStatus.BASE_OUT_OF_DATE, select(repo, r0, r2, r1, p, p, 10).status());
+		Repo repo = repo(); String r0 = repo.head(); repo.commitText("integration", "E"); String integration = repo.head();
 		run(repo.root, "git", "checkout", "--detach", r0); repo.commitText("side", "side"); String side = repo.head();
-		assertEquals(ExplicitPrSelectionStatus.ERROR, select(repo, r0, r2, r2, side, side, 10).status());
+		assertEquals(ExplicitPrSelectionStatus.BASE_OUT_OF_DATE,
+				select(repo, r0, integration, r0, side, side, 10).status());
 	}
 
 	@Test void tooOldMapIsFullSuite() throws Exception
