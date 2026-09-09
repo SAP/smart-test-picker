@@ -1,0 +1,79 @@
+{
+  "task": 66,
+  "item": "6 SCM/PR resolution",
+  "decision": "DONE",
+  "correctnessBlockers": [],
+  "deferredCapabilities": [
+    "synthetic-merge secondary immutable source-head workspace",
+    "resolver-level credential-aware fetch/unshallow recovery",
+    "other SCM provider adapters",
+    "real stale external PR demonstration",
+    "real external MERGE observation",
+    "item 7 remote storage and productized credentials",
+    "item 8 central failure/fallback policy"
+  ],
+  "revisionSemantics": {
+    "integrationRevision": "frozen current target/integration commit associated with the provider PR snapshot; 5e eligibility input",
+    "prBaseRevision": "frozen validated provider target/base provenance retained for compatibility; not a historical fork point or independent eligibility signal",
+    "prHeadRevision": "frozen true PR source-head commit",
+    "workspaceRevision": "actual Jenkins workspace HEAD; resolver-owned diagnostic/execution context, never substituted for source head"
+  },
+  "stalePrRule": {
+    "predicate": "integrationRevision ancestor-or-equal prHeadRevision",
+    "failure": "BASE_OUT_OF_DATE",
+    "baseEqualityRuleActive": false,
+    "unprovableHistoryLabeledStale": false
+  },
+  "providers": {
+    "genericResolver": true,
+    "adapterSeam": "ScmPrProviderAdapter",
+    "implemented": ["GitHub Branch Source"],
+    "githubMapping": {
+      "integrationRevision": "PullRequestSCMRevision.getBaseHash()",
+      "prBaseRevision": "PullRequestSCMRevision.getBaseHash()",
+      "prHeadRevision": "PullRequestSCMRevision.getPullHash()",
+      "HEAD": "SOURCE_HEAD",
+      "MERGE": "SYNTHETIC_MERGE"
+    },
+    "futureAdapters": ["GitLab", "Bitbucket", "other generic change-request providers"]
+  },
+  "automaticStep": "stpPrSelect",
+  "manualStep": "stpExplicitPrSelect",
+  "sourceHeadSupport": true,
+  "syntheticMergeSupport": "metadata resolution only",
+  "syntheticMergeBehavior": "RESOLVED/SYNTHETIC_MERGE then PR_HEAD_INVENTORY_UNAVAILABLE; no body, selector, plan, relabeling, or workspace mutation",
+  "fetchRecovery": false,
+  "gitMutation": false,
+  "typedFailures": [
+    "NOT_PR_BUILD",
+    "PR_METADATA_MISSING",
+    "TARGET_BRANCH_UNKNOWN",
+    "SOURCE_BRANCH_UNKNOWN",
+    "PR_HEAD_UNRESOLVED",
+    "INTEGRATION_REVISION_UNRESOLVED",
+    "PR_BASE_UNRESOLVED",
+    "WORKSPACE_REVISION_UNRESOLVED",
+    "AMBIGUOUS_SCM_CONTEXT",
+    "UNSUPPORTED_SCM_CONTEXT",
+    "REQUIRED_COMMIT_MISSING",
+    "SHALLOW_HISTORY",
+    "SYNTHETIC_MERGE_UNCLASSIFIED"
+  ],
+  "fiveEPolicyDuplicated": false,
+  "item7Implemented": false,
+  "item8Implemented": false,
+  "realGithubE2E": "PASS: real private GitHub PR, natural Multibranch/provider objects, SOURCE_HEAD, generated inventory, common-core SELECTED",
+  "realStalePrRequiredForClosure": false,
+  "realMergeRequiredForClosure": false,
+  "otherProvidersRequiredForClosure": false,
+  "tests": {
+    "focused": "NOT_NEEDED",
+    "fullJenkins": "PASS (58 tests, 0 failures, 0 errors, 0 skipped)",
+    "expectedCount": 58,
+    "task63DockerSourceHead": "PASS",
+    "task63DockerSyntheticMergeSafeRejection": "PASS",
+    "task65RealGithubSourceHead": "PASS"
+  },
+  "packagingIntegrity": "PASS",
+  "result": "PASS"
+}

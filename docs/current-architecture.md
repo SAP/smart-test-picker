@@ -1,5 +1,19 @@
 # Current architecture
 
+## TASK66 item 6 closure
+
+Item 6 SCM/PR resolution is **DONE**. The Jenkins plugin has a provider-neutral typed resolver and
+provider-adapter seam, with GitHub Branch Source implemented against `PullRequestSCMHead` and
+`PullRequestSCMRevision`. Frozen semantics are: integration is the provider PR snapshot's target
+commit, PR base is validated target/base provenance retained for compatibility, PR head is the true
+source-head commit, and workspace revision is the actual Jenkins checkout. The public automatic
+`stpPrSelect` step resolves and hands these values to the existing 5e flow; `SOURCE_HEAD` is supported
+end-to-end and proven by both Docker and real GitHub Multibranch indexing. `SYNTHETIC_MERGE` metadata
+is resolved but automatic selection safely returns `PR_HEAD_INVENTORY_UNAVAILABLE` until a separate
+immutable source-head workspace exists. Missing, shallow, unsupported, ambiguous, and non-PR states
+remain typed failures with no fetch, workspace mutation, or centralized fallback policy. Items 7 and
+8 remain **NOT STARTED**.
+
 ## TASK63 automatic Jenkins PR selection wiring
 
 The Jenkins plugin now exposes `stpPrSelect`, a block step that resolves the current typed PR with
