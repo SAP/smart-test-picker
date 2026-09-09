@@ -359,3 +359,15 @@ in URLs, or logged. GCS, S3, Azure Blob, and Artifactory-specific backends remai
 production backend, credential integration, SCM/PR semantic, or item-8 fallback-policy code is added by
 TASK67. See
 [`task67-item7-remote-storage-credential-contract.md`](task67-item7-remote-storage-credential-contract.md).
+
+## Task 68 RAW HTTP storage and Docker Nexus
+
+Item 7 remains **IN PROGRESS**. TASK68 implements vendor-neutral RAW_HTTP storage and validates it
+against Docker Nexus RAW. CoverageMapStore now supports remote-safe typed outcomes, structured
+checksummed latest pointers, immutable remote maps, exact/latest lookup, explicit pointer/map revision
+binding, and sole-writer coordinated stale-pointer protection. FileCoverageMapStore remains the local
+reference with legacy-read/new-write migration. Multi-controller writers require future remote CAS.
+
+Nexus-specific behavior exists only in validation infrastructure. Jenkins Credentials integration and
+public authenticated backend selection remain TASK69; item 8 remains not started. See
+[`task68-raw-http-nexus-storage.md`](task68-raw-http-nexus-storage.md).
