@@ -68,36 +68,65 @@ public final class SchemaV2SelectionAnalyzer
 			for (String path : git.output("ls-files", "--others", "--exclude-standard").split("\\R"))
 				if (!path.isBlank()) changes.add(new PathChange('A', path, path));
 
-			Set<String> changedPaths = new TreeSet<>();
-			for (PathChange change : changes) { changedPaths.add(change.oldPath()); changedPaths.add(change.newPath()); }
-			changedPaths.remove("");
-			String trigger = triggerMatch(changedPaths, fullSuiteTriggers == null ? List.of() : fullSuiteTriggers);
-			if (trigger != null) return runAll("Changed path matches full-suite trigger: " + trigger);
-
-			Set<String> changedClasses = new TreeSet<>();
-			Set<String> changedTestContainers = new TreeSet<>();
-			for (PathChange change : changes)
-			{
-				SelectionAnalysisResult unsafe = classify(change, changedClasses, changedTestContainers);
-				if (unsafe != null) return unsafe;
-			}
-
-			Set<TestIdentity> mapTests = PublishedTestInventory.logical(map);
-			Set<TestIdentity> headTests = headInventory.runnableTests();
-			Set<TestIdentity> newTests = difference(headTests, mapTests);
-			Set<TestIdentity> deletedTests = difference(mapTests, headTests);
-			Set<TestIdentity> changedTests = new TreeSet<>();
-			for (TestIdentity test : headTests)
-				if (changedTestContainers.contains(test.className())) changedTests.add(test);
-
+			SelectionAnalysisResult analysis = analyzeChanges(map, headInventory, head, changes, fullSuiteTriggers);
+			if (analysis.isRunAll()) return analysis;
 			beforeHeadVerification.run();
 			if (!head.equals(git.resolveCommit("HEAD")))
 				return runAll("HEAD moved during selection analysis");
-			return SelectionAnalysisResult.ready(new SelectionContext(map, map.revision(), head, changedClasses,
-					changedPaths, headTests, newTests, deletedTests, changedTests));
+			return analysis;
 		}
 		catch (IOException e) { return runAll("Coverage map unreadable: " + e.getMessage()); }
 		catch (RuntimeException e) { return runAll("Unsafe selector analysis: " + safeMessage(e)); }
+	}
+
+	SelectionAnalysisResult analyzeExplicit(CoverageMap map, File projectDir, HeadTestInventory headInventory,
+			SelectionRevisionInterval interval, List<String> fullSuiteTriggers)
+	{
+		try
+		{
+			if (map == null) return runAll("Coverage map unavailable");
+			if (headInventory == null) return runAll("Authoritative PR-head test inventory unavailable");
+			if (projectDir == null || !projectDir.isDirectory()) return runAll("Git project directory unavailable");
+			if (interval == null) return runAll("Explicit selection revision interval unavailable");
+			SelectionAnalysisResult inadmissible = validateAdmissibility(map);
+			if (inadmissible != null) return inadmissible;
+			if (!map.revision().value().equalsIgnoreCase(interval.effectiveBaseRevision()))
+				return runAll("Preflight interval does not start at coverage map revision");
+
+			GitRevisionAccess git = new GitRevisionAccess(projectDir);
+			List<PathChange> changes = new ArrayList<>();
+			parseChanges(git.output("diff", "--name-status", "--find-renames",
+					interval.effectiveBaseRevision() + ".." + interval.effectiveHeadRevision()), changes);
+			return analyzeChanges(map, headInventory, interval.effectiveHeadRevision(), changes, fullSuiteTriggers);
+		}
+		catch (RuntimeException e) { return runAll("Unsafe selector analysis: " + safeMessage(e)); }
+	}
+
+	private SelectionAnalysisResult analyzeChanges(CoverageMap map, HeadTestInventory headInventory, String head,
+			List<PathChange> changes, List<String> fullSuiteTriggers)
+	{
+		Set<String> changedPaths = new TreeSet<>();
+		for (PathChange change : changes) { changedPaths.add(change.oldPath()); changedPaths.add(change.newPath()); }
+		changedPaths.remove("");
+		String trigger = triggerMatch(changedPaths, fullSuiteTriggers == null ? List.of() : fullSuiteTriggers);
+		if (trigger != null) return runAll("Changed path matches full-suite trigger: " + trigger);
+
+		Set<String> changedClasses = new TreeSet<>();
+		Set<String> changedTestContainers = new TreeSet<>();
+		for (PathChange change : changes)
+		{
+			SelectionAnalysisResult unsafe = classify(change, changedClasses, changedTestContainers);
+			if (unsafe != null) return unsafe;
+		}
+		Set<TestIdentity> mapTests = PublishedTestInventory.logical(map);
+		Set<TestIdentity> headTests = headInventory.runnableTests();
+		Set<TestIdentity> newTests = difference(headTests, mapTests);
+		Set<TestIdentity> deletedTests = difference(mapTests, headTests);
+		Set<TestIdentity> changedTests = new TreeSet<>();
+		for (TestIdentity test : headTests)
+			if (changedTestContainers.contains(test.className())) changedTests.add(test);
+		return SelectionAnalysisResult.ready(new SelectionContext(map, map.revision(), head, changedClasses,
+				changedPaths, headTests, newTests, deletedTests, changedTests));
 	}
 
 	private SelectionAnalysisResult validateAdmissibility(CoverageMap map)
