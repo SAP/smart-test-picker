@@ -244,3 +244,13 @@ frozen full commit ID, and explicit PR selection requires that ID to resolve exa
 local/worktree-only compatibility format and are rejected by explicit PR mode. Adapter wiring and
 real-project proof remain open, so 5e stays **IN PROGRESS**. Canonical state remains 5a/5b/5c/5d
 **DONE**, 5e **IN PROGRESS**.
+
+## Task 52 CLI explicit PR selection
+
+TASK52 exposes the common-core `ExplicitPrSelectorFlow` through the existing `select-tests` command.
+The caller supplies the coverage map, revision-bound head inventory, project directory, and frozen full
+integration, PR-base, and PR-head commit IDs. Map and inventory revisions remain artifact-owned. The
+CLI adds no revision policy and does not stamp legacy inventories; it emits a JSON envelope that keeps
+`BASE_OUT_OF_DATE` and `ERROR` separate from unchanged normal `SelectionOutput` statuses. Existing
+local/worktree selection remains separate and unchanged. Gradle/Maven adapter exposure, real-project
+validation, and the final 5e closure audit remain open, so 5e stays **IN PROGRESS**.

@@ -61,7 +61,8 @@ smart-test-picker generate-map \
 Selects tests impacted by code changes using the coverage map and git diff. Delegates to the 8-step selection flow in `TestSelectionEngine`.
 
 Schema-v2 CLI selection continues to require `--head-inventory <file>`. Unlike Gradle and Maven, the
-standalone CLI has no authoritative test runtime classpath and does not attempt discovery.
+standalone CLI has no authoritative test runtime classpath and does not attempt discovery. Local mode
+accepts the legacy bare-array inventory for compatibility.
 
 The coverage map can be provided explicitly via `--map`, or resolved automatically from the local cache (`~/.gradle/smart-test-picker/PROJECT_NAME/`). When using the cache, `--prefer-map` controls which map is preferred.
 
@@ -79,6 +80,16 @@ smart-test-picker select-tests \
     --format json \
     --full-suite-trigger "build.gradle" \
     --full-suite-trigger "gradle.properties"
+
+# Frozen explicit PR selection (schema v2 only)
+smart-test-picker select-tests \
+    --map /path/to/coverage-map.json \
+    --head-inventory /path/to/head-inventory.json \
+    --project-dir /path/to/project \
+    --integration-revision <full-commit-id> \
+    --pr-base-revision <full-commit-id> \
+    --pr-head-revision <full-commit-id> \
+    --output /path/to/explicit-result.json
 ```
 
 **Options:**
@@ -93,6 +104,15 @@ smart-test-picker select-tests \
 | `--max-commit-distance` | No | Max commits before map is stale (default: 500) |
 | `--full-suite-trigger` | No | Glob pattern that forces full suite (repeatable) |
 | `--test-classes-dir` | No | Compiled test classes directory for new test detection |
+| `--head-inventory` | Schema v2 | Exact head test inventory JSON |
+| `--integration-revision` | Explicit PR | Frozen full integration commit ID |
+| `--pr-base-revision` | Explicit PR | Frozen full PR base commit ID |
+| `--pr-head-revision` | Explicit PR | Frozen full PR head commit ID |
+
+Supplying any explicit revision enables explicit PR mode and requires all three revisions, `--map`,
+`--head-inventory`, and JSON output. Map and inventory revisions come only from their artifacts. The
+inventory must be the authoritative complete logical test set for one concrete test target at one
+concrete revision; a legacy revisionless array is rejected in this mode.
 
 **Map selection modes (`--prefer-map`):**
 
@@ -113,6 +133,12 @@ smart-test-picker select-tests \
   ```
 - `txt` -- one test per line (selected + unmapped), for shell scripts
 - `ant` -- Ant format: `TestClass#method1+method2,OtherTest#method3`
+
+Explicit PR JSON has a small envelope. Its top-level `status` is one of `SELECTED`, `NONE`,
+`FULL_SUITE`, `BASE_OUT_OF_DATE`, or `ERROR`. Normal selector outcomes also contain the unchanged
+`SelectionOutput` as `selectionOutput`; the two preflight failure statuses do not. Successfully
+written structured outcomes use exit code 0, including `BASE_OUT_OF_DATE` and `ERROR`; argument errors
+use 2 and output-write failures use 1.
 
 ### generate-report
 
