@@ -319,3 +319,13 @@ tuning are deferred extensions or adoption work. The companion Jenkins repositor
 validated the explicit three-revision selector flow; Jenkins still does not derive SCM/PR revisions.
 Canonical state is 5a/5b/5c/5d/5e **DONE**. See
 [`task54-5e-closure-audit.md`](task54-5e-closure-audit.md).
+
+## Task 65 real GitHub PR E2E
+
+GitHub Branch Source PR resolution and automatic SOURCE_HEAD selection are proven not only through
+provider-native local fixtures but also through a real externally indexed GitHub Multibranch PR
+build. The public `stpPrSelect` step resolved the typed provider action without caller-supplied
+revisions, bound workspace and inventory to the true pull hash, and completed common-core explicit
+selection with `SELECTION_RESULT/SELECTED`. No provider contradiction or production-code change was
+required. Item 6 remains **IN PROGRESS** only for its final closure audit; items 7 and 8 remain
+**NOT STARTED**. See [`task65-real-github-pr-e2e.md`](task65-real-github-pr-e2e.md).
