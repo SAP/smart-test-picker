@@ -125,16 +125,20 @@ CI-wide rollout are deferred extension/deployment work and do not block base 5d 
 
 ## Task 5e — Arbitrary base/head revisions
 
-Status: **NOT STARTED / CONTRACT DEFINED**
+Status: **IN PROGRESS**
 
-TASK48 defines the mandatory PR eligibility invariant
-`prBaseRevision == mapRevision == integrationRevision`. All inputs are frozen, resolvable commits and
-the PR base must be an ancestor of its head. A stale base is rejected before selector invocation as
-`NOT_ELIGIBLE / BASE_OUT_OF_DATE`; no override is supported. A missing map or a map whose revision does
-not match the eligible integration baseline retains 5b's existing `FULL_SUITE` fallback. PR CI is
-commit-to-commit, while existing local worktree-aware 5b behavior remains separate. Using a newer map
-for an older PR base and automatic historical-map lookup are unsupported and out of scope. TASK48 does
-not change 5b policy or production code. See [`task48-5e-revision-contract-audit.md`](task48-5e-revision-contract-audit.md).
+TASK48 initially defined the strict equality
+`prBaseRevision == mapRevision == integrationRevision`. TASK49 records and implements the production
+refinement: `prBaseRevision == integrationRevision`, `mapRevision` ancestor-or-equal integration, and
+integration ancestor-or-equal `prHeadRevision`. All values are frozen, resolvable commits. An eligible
+evaluation exposes only the effective interval `mapRevision..prHeadRevision`, and applies the existing
+`maxCommitDistance` to that interval. A stale PR is rejected before selector invocation as
+`BASE_OUT_OF_DATE`; no override is supported. A divergent or too-old map retains the safe
+`FULL_SUITE` fallback, while invalid revisions or head ancestry produce an explicit preflight error.
+PR CI is commit-to-commit, while existing local worktree-aware 5b behavior remains separate. The
+common core is implemented; adapter wiring and real-project validation remain open. Neither TASK48 nor
+TASK49 changes 5b selection policy. See
+[`task48-5e-revision-contract-audit.md`](task48-5e-revision-contract-audit.md).
 
 ## Canonical POC conclusion
 
