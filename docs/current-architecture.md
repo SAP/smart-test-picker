@@ -225,3 +225,17 @@ or head ancestry produces a preflight error. PR CI remains commit-to-commit and 
 unchanged. TASK49 implements the common core model and preflight, but adapter wiring and real-project
 validation remain open. Canonical state is 5a/5b/5c/5d **DONE** and 5e **IN PROGRESS**. See
 [`task48-5e-revision-contract-audit.md`](task48-5e-revision-contract-audit.md).
+
+## Task 50 5e explicit selector flow
+
+TASK50 integrates the TASK49 revision preflight into a build-tool-neutral explicit PR selector flow in
+the common core. Eligible analysis uses only the committed `mapRevision..prHeadRevision` diff with
+rename detection, binds `SelectionContext.headRevision` to the explicit PR head, and compares the
+published map inventory with the supplied PR-head inventory. It does not inspect current HEAD, staged,
+unstaged, or untracked state. The existing local/worktree analyzer remains unchanged and separate.
+
+The explicit result distinguishes `SELECTION_RESULT`, `BASE_OUT_OF_DATE`, and `ERROR` without changing
+`SelectionOutput`; preflight `FULL_SUITE` becomes the existing selector fail-open output. Because
+`HeadTestInventory` has no revision field, producing and provenance-checking that inventory against
+`prHeadRevision` remains an adapter responsibility. Adapter wiring and real-project proof remain open,
+so 5e stays **IN PROGRESS**. Canonical state remains 5a/5b/5c/5d **DONE**, 5e **IN PROGRESS**.

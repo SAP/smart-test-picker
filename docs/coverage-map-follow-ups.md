@@ -136,8 +136,13 @@ evaluation exposes only the effective interval `mapRevision..prHeadRevision`, an
 `BASE_OUT_OF_DATE`; no override is supported. A divergent or too-old map retains the safe
 `FULL_SUITE` fallback, while invalid revisions or head ancestry produce an explicit preflight error.
 PR CI is commit-to-commit, while existing local worktree-aware 5b behavior remains separate. The
-common core is implemented; adapter wiring and real-project validation remain open. Neither TASK48 nor
-TASK49 changes 5b selection policy. See
+TASK50 integrates this preflight with the common-core explicit PR selector. Eligible selection analyzes
+the complete committed `mapRevision..prHeadRevision` interval, uses the supplied PR-head inventory, and
+never mixes in workspace HEAD, staged, unstaged, or untracked changes. Its wrapper keeps
+`BASE_OUT_OF_DATE` and `ERROR` separate from `SelectionOutput`, while preflight `FULL_SUITE` uses the
+existing selector fallback. `HeadTestInventory` does not itself carry revision provenance, so adapters
+must provide and bind it to `prHeadRevision`; adapter wiring and real-project validation remain open.
+Neither TASK48, TASK49, nor TASK50 changes 5b selection policy. See
 [`task48-5e-revision-contract-audit.md`](task48-5e-revision-contract-audit.md).
 
 ## Canonical POC conclusion
