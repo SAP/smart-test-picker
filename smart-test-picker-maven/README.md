@@ -72,6 +72,15 @@ Common parameters across mojos:
 | `coverageMapFile` | `${project.build.directory}/test-coverage-map.json` | Coverage map path |
 | `selectedTestsFile` | `${project.build.directory}/selected-tests.json` | Selection output path |
 
+The `select-tests`, `root-select-tests`, and `smart-test` goals also support additive explicit PR mode
+through `smartTestPicker.integrationRevision`, `smartTestPicker.prBaseRevision`, and
+`smartTestPicker.prHeadRevision`; setting any one requires all three frozen full commit IDs. Inventory
+generation uses the target test runtime (`ResolutionScope.TEST`) and stamps `prHeadRevision` only after
+workspace HEAD verification. The goals delegate revision policy and committed
+`mapRevision..prHeadRevision` analysis to common core. `BASE_OUT_OF_DATE` prevents selective execution,
+`ERROR` fails the goal, and normal `FULL_SUITE`, `NONE`, and `SELECTED` retain their established
+Surefire/filter behavior. With no explicit revisions the local/worktree flow is unchanged.
+
 ## Per-Test Coverage Collection (JaCoCo)
 
 The Maven plugin requires `smart-test-picker-core` as a test dependency for per-test coverage. On projects using JUnit Platform 6.x or Surefire 3.x, enable Jupiter extension auto-detection in surefire:

@@ -29,6 +29,11 @@ smartTestPicker {
         'gradle.properties',
         'src/main/resources/**'
     ]
+
+    // Optional explicit PR mode; all three must be frozen full commit IDs.
+    integrationRevision = '...'
+    prBaseRevision = '...'
+    prHeadRevision = '...'
 }
 ```
 
@@ -127,6 +132,13 @@ Runs the 8-step selection flow:
 
 Input: `build/test-coverage-map.json`
 Output: `build/selected-tests.json`
+
+When any explicit revision is configured, all three are required. The generated inventory is stamped
+with `prHeadRevision` only after workspace HEAD is verified, then the task delegates eligibility and
+the committed `mapRevision..prHeadRevision` analysis to common core. `BASE_OUT_OF_DATE` skips
+`smartTest`, `ERROR` fails visibly, `FULL_SUITE` leaves filtering unrestricted, `NONE` runs no tests,
+and `SELECTED` preserves the existing mandatory class-widened filter. Without these inputs the existing
+HEAD/worktree-aware local flow is unchanged.
 
 ### smartTest
 
