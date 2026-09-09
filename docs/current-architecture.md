@@ -283,6 +283,8 @@ head ancestry and provenance failures remain `ERROR`.
 
 No correctness blocker remains. Local/worktree selection, the 5b selector union, 5c mapping, and 5d
 orchestration/publication are unchanged. Historical-map discovery, remote registry lookup,
-CI-provider revision extraction, later Jenkins adoption, deployment configuration, and distance-policy
-tuning are deferred extensions or adoption work. Canonical state is 5a/5b/5c/5d/5e **DONE**. See
+CI-provider revision extraction, further Jenkins deployment/adoption configuration, and distance-policy
+tuning are deferred extensions or adoption work. The companion Jenkins repository now exposes and has
+validated the explicit three-revision selector flow; Jenkins still does not derive SCM/PR revisions.
+Canonical state is 5a/5b/5c/5d/5e **DONE**. See
 [`task54-5e-closure-audit.md`](task54-5e-closure-audit.md).
