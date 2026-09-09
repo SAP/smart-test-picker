@@ -144,8 +144,12 @@ existing selector fallback. TASK51 defines Test Inventory as the authoritative c
 set for one concrete test target at one concrete revision—not tests that happened to execute and not
 an arbitrary list of names. `HeadTestInventory` now carries that revision provenance, and explicit PR
 mode fails with an error unless its frozen full commit resolves exactly to `prHeadRevision`. This closes
-TASK50's common-core provenance gap without changing local worktree semantics; adapter wiring and
-real-project validation remain open. Neither TASK48 through TASK51 changes 5b selection policy. See
+TASK50's common-core provenance gap without changing local worktree semantics. TASK52 exposes this
+exact common-core flow through the existing CLI `select-tests` command using caller-supplied frozen
+integration/base/head commits, artifact-owned map and inventory revisions, and structured JSON that
+distinguishes normal selection, `BASE_OUT_OF_DATE`, and `ERROR`. It leaves local/worktree selection
+intact. Gradle/Maven adapter exposure, real-project validation, and the final 5e closure audit remain
+open. Neither TASK48 through TASK52 changes 5b selection policy. See
 [`task48-5e-revision-contract-audit.md`](task48-5e-revision-contract-audit.md).
 
 ## Canonical POC conclusion

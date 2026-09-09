@@ -15,6 +15,11 @@ import java.util.concurrent.Callable;
 
 import com.google.gson.GsonBuilder;
 
+import com.sap.oss.smarttestpicker.selector.ExplicitPrSelectionResult;
+import com.sap.oss.smarttestpicker.selector.ExplicitPrSelectionStatus;
+import com.sap.oss.smarttestpicker.selector.ExplicitPrSelectorFlow;
+import com.sap.oss.smarttestpicker.selector.HeadTestInventory;
+import com.sap.oss.smarttestpicker.selector.HeadTestInventoryCodec;
 import com.sap.oss.smarttestpicker.selector.SchemaV2SelectorFlow;
 import com.sap.oss.smarttestpicker.selector.SelectionOutput;
 import com.sap.oss.smarttestpicker.store.CoverageMapResolver;
@@ -81,8 +86,20 @@ public class SelectTestsCommand implements Callable<Integer>
 	private File testClassesDir;
 
 	@Option(names = "--head-inventory",
-			description = "Exact JSON array of runnable schema-v2 TestIdentity strings")
+			description = "Exact schema-v2 head test inventory JSON")
 	private File headInventoryFile;
+
+	@Option(names = "--integration-revision",
+			description = "Frozen full integration commit ID (enables explicit PR mode)")
+	private String integrationRevision;
+
+	@Option(names = "--pr-base-revision",
+			description = "Frozen full PR base commit ID (explicit PR mode)")
+	private String prBaseRevision;
+
+	@Option(names = "--pr-head-revision",
+			description = "Frozen full PR head commit ID (explicit PR mode)")
+	private String prHeadRevision;
 
 	@Override
 	public Integer call()
@@ -93,6 +110,23 @@ public class SelectTestsCommand implements Callable<Integer>
 		}
 
 		ConsoleLogger logger = new ConsoleLogger();
+		boolean explicitPr = integrationRevision != null || prBaseRevision != null || prHeadRevision != null;
+		if (explicitPr && (integrationRevision == null || prBaseRevision == null || prHeadRevision == null))
+		{
+			System.err.println("Explicit PR mode requires --integration-revision, --pr-base-revision,"
+					+ " and --pr-head-revision");
+			return 2;
+		}
+		if (explicitPr && (mapFile == null || headInventoryFile == null))
+		{
+			System.err.println("Explicit PR mode requires --map and --head-inventory");
+			return 2;
+		}
+		if (explicitPr && !"json".equalsIgnoreCase(format))
+		{
+			System.err.println("Explicit PR mode requires --format json");
+			return 2;
+		}
 
 		// Resolve coverage map: explicit --map takes precedence over cache
 		if (mapFile == null)
@@ -115,6 +149,8 @@ public class SelectTestsCommand implements Callable<Integer>
 		logger.info("Output:            {}", output.getAbsolutePath());
 		logger.info("Format:            {}", format);
 		logger.info("Max commit dist:   {}", maxCommitDistance);
+
+		if (explicitPr) return selectExplicitPr(logger);
 
 		SelectionOutput result = new SchemaV2SelectorFlow().select(
 				mapFile, headInventoryFile, projectDir,
@@ -141,6 +177,58 @@ public class SelectTestsCommand implements Callable<Integer>
 		{
 			System.err.println("Error writing output: " + e.getMessage());
 			return 1;
+		}
+	}
+
+	private int selectExplicitPr(ConsoleLogger logger)
+	{
+		ExplicitPrSelectionResult result;
+		try
+		{
+			HeadTestInventory inventory = new HeadTestInventoryCodec().read(headInventoryFile);
+			result = new ExplicitPrSelectorFlow().select(mapFile, projectDir, inventory,
+					integrationRevision, prBaseRevision, prHeadRevision, maxCommitDistance, fullSuiteTriggers);
+		}
+		catch (IOException | RuntimeException e)
+		{
+			result = ExplicitPrSelectionResult.failure(ExplicitPrSelectionStatus.ERROR,
+					"Explicit PR selection failed: " + safeMessage(e));
+		}
+
+		ExplicitPrCliOutput outputResult = ExplicitPrCliOutput.from(result);
+		logger.info("Status:  {}", outputResult.status());
+		logger.info("Reason:  {}", outputResult.reason());
+		try
+		{
+			FileUtils.ensureParentDirExists(output);
+			try (FileWriter writer = new FileWriter(output))
+			{
+				new GsonBuilder().setPrettyPrinting().create().toJson(outputResult, writer);
+			}
+			return 0;
+		}
+		catch (IOException e)
+		{
+			System.err.println("Error writing output: " + e.getMessage());
+			return 1;
+		}
+	}
+
+	private static String safeMessage(Exception e)
+	{
+		return e.getMessage() == null ? e.getClass().getSimpleName() : e.getMessage();
+	}
+
+	private record ExplicitPrCliOutput(String status, String reason, SelectionOutput selectionOutput)
+	{
+		private static ExplicitPrCliOutput from(ExplicitPrSelectionResult result)
+		{
+			if (result.status() == ExplicitPrSelectionStatus.SELECTION_RESULT)
+			{
+				SelectionOutput selection = result.output().orElseThrow();
+				return new ExplicitPrCliOutput(selection.getStatus(), selection.getReason(), selection);
+			}
+			return new ExplicitPrCliOutput(result.status().name(), result.reason(), null);
 		}
 	}
 
