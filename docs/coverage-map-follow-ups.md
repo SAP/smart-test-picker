@@ -123,6 +123,19 @@ AZURE_BLOB implementations, retention operations, Jenkins scheduling/cadence, re
 CI-wide rollout are deferred extension/deployment work and do not block base 5d closure. 5e remains
 **NOT STARTED / independent**. See `task46-5d-closure-audit.md`.
 
+## Task 5e — Arbitrary base/head revisions
+
+Status: **NOT STARTED / CONTRACT DEFINED**
+
+TASK48 defines the mandatory PR eligibility invariant
+`prBaseRevision == mapRevision == integrationRevision`. All inputs are frozen, resolvable commits and
+the PR base must be an ancestor of its head. A stale base is rejected before selector invocation as
+`NOT_ELIGIBLE / BASE_OUT_OF_DATE`; no override is supported. A missing map or a map whose revision does
+not match the eligible integration baseline retains 5b's existing `FULL_SUITE` fallback. PR CI is
+commit-to-commit, while existing local worktree-aware 5b behavior remains separate. Using a newer map
+for an older PR base and automatic historical-map lookup are unsupported and out of scope. TASK48 does
+not change 5b policy or production code. See [`task48-5e-revision-contract-audit.md`](task48-5e-revision-contract-audit.md).
+
 ## Canonical POC conclusion
 
 > Distributed mapping itself did not introduce coverage loss. The only semantic difference was caused
