@@ -102,13 +102,57 @@ class ExplicitPrSelectorFlowTest
 		assertFullSuite(select(repo, r0, r1, r1, r2, 10, List.of("build.gradle")));
 	}
 
+	@Test void rejectsInventoryFromIntegrationRevision() throws Exception
+	{
+		Repo repo = repo(); String r1 = repo.head(); repo.commitFile("head", "R2"); String r2 = repo.head();
+		ExplicitPrSelectionResult result = select(repo, r1, r1, r1, r2, r1, 10, List.of());
+		assertEquals(ExplicitPrSelectionStatus.ERROR, result.status());
+		assertEquals("HEAD_INVENTORY_REVISION_MISMATCH: inventory revision does not equal prHeadRevision",
+				result.reason());
+		assertTrue(result.output().isEmpty());
+	}
+
+	@Test void rejectsInventoryFromLaterRevision() throws Exception
+	{
+		Repo repo = repo(); String r1 = repo.head(); repo.commitFile("head", "R2"); String r2 = repo.head();
+		repo.commitFile("later", "R3"); String r3 = repo.head();
+		ExplicitPrSelectionResult result = select(repo, r1, r1, r1, r2, r3, 10, List.of());
+		assertEquals(ExplicitPrSelectionStatus.ERROR, result.status());
+		assertTrue(result.output().isEmpty());
+	}
+
+	@Test void rejectsSymbolicAndUnresolvedInventoryRevisions() throws Exception
+	{
+		Repo repo = repo(); String head = repo.head();
+		ExplicitPrSelectionResult symbolic = select(repo, head, head, head, head, "HEAD", 10, List.of());
+		assertEquals(ExplicitPrSelectionStatus.ERROR, symbolic.status());
+		assertTrue(symbolic.reason().startsWith("HEAD_INVENTORY_REVISION_MISMATCH"));
+		ExplicitPrSelectionResult unresolved = select(repo, head, head, head, head, "does-not-exist", 10, List.of());
+		assertEquals(ExplicitPrSelectionStatus.ERROR, unresolved.status());
+		assertTrue(unresolved.reason().startsWith("HEAD_INVENTORY_REVISION_MISMATCH"));
+	}
+
+	@Test void explicitInventoryCanMatchHeadThatIsNotWorkspaceHead() throws Exception
+	{
+		Repo repo = repo(); String r1 = repo.head(); repo.commitFile("head", "R2"); String r2 = repo.head();
+		repo.commitFile("workspace", "workspace");
+		ExplicitPrSelectionResult result = select(repo, r1, r1, r1, r2, r2, 10, List.of());
+		assertEquals(ExplicitPrSelectionStatus.SELECTION_RESULT, result.status());
+		assertEquals(r2, result.context().orElseThrow().headRevision());
+	}
+
 	private ExplicitPrSelectionResult select(Repo repo, String map, String integration, String base, String head,
 			int distance, List<String> triggers) throws Exception
+	{
+		return select(repo, map, integration, base, head, head, distance, triggers);
+	}
+	private ExplicitPrSelectionResult select(Repo repo, String map, String integration, String base, String head,
+			String inventoryRevision, int distance, List<String> triggers) throws Exception
 	{
 		Path mapFile = repo.root.resolve("map-" + System.nanoTime() + ".json");
 		Files.write(mapFile, new CoverageMapCodec().serialize(map(map)));
 		return new ExplicitPrSelectorFlow().select(mapFile.toFile(), repo.root.toFile(),
-				HeadTestInventory.from(List.of(TEST)), integration, base, head, distance, triggers);
+				HeadTestInventory.atRevision(inventoryRevision, List.of(TEST)), integration, base, head, distance, triggers);
 	}
 	private static void assertFullSuite(ExplicitPrSelectionResult result)
 	{

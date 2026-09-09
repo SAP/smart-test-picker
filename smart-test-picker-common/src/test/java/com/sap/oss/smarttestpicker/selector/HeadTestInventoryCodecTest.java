@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Set;
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -14,15 +15,24 @@ import org.junit.jupiter.api.io.TempDir;
 class HeadTestInventoryCodecTest {
 	@TempDir Path directory;
 	@Test void roundTripsInDeterministicNaturalOrder() throws Exception {
-		HeadTestInventory inventory = HeadTestInventory.from(List.of(
+		String revision = "0123456789abcdef0123456789abcdef01234567";
+		HeadTestInventory inventory = HeadTestInventory.atRevision(revision, List.of(
 				new TestIdentity("com.example.ZTest", "z"), new TestIdentity("com.example.ATest", "a", "java.lang.String")));
 		Path first = directory.resolve("first.json"), second = directory.resolve("second.json");
 		HeadTestInventoryCodec codec = new HeadTestInventoryCodec();
 		codec.write(first.toFile(), inventory); codec.write(second.toFile(), inventory);
 		assertEquals(inventory, codec.read(first.toFile()));
 		assertArrayEquals(Files.readAllBytes(first), Files.readAllBytes(second));
-		assertEquals("[\"com.example.ATest#a(java.lang.String)\",\"com.example.ZTest#z\"]\n",
+		assertEquals("{\"version\":1,\"revision\":\"" + revision
+				+ "\",\"tests\":[\"com.example.ATest#a(java.lang.String)\",\"com.example.ZTest#z\"]}\n",
 				Files.readString(first, StandardCharsets.UTF_8));
+	}
+	@Test void readsLegacyRevisionlessInventoryForLocalCompatibility() throws Exception {
+		Path file = directory.resolve("legacy.json");
+		Files.writeString(file, "[\"com.example.Test#a\"]");
+		HeadTestInventory inventory = new HeadTestInventoryCodec().read(file.toFile());
+		assertNull(inventory.revision());
+		assertEquals(Set.of(new TestIdentity("com.example.Test", "a")), inventory.runnableTests());
 	}
 	@Test void rejectsInvalidRepresentations() throws Exception {
 		assertRejected("{}", "object.json"); assertRejected("[null]", "null.json");

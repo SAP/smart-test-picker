@@ -28,6 +28,21 @@ public final class ExplicitPrSelectorFlow
 				return ExplicitPrSelectionResult.failure(ExplicitPrSelectionStatus.BASE_OUT_OF_DATE,
 						preflight.reason());
 			if (preflight.status() == RevisionPreflightStatus.ERROR) return error(preflight.reason());
+			String inventoryRevision = prHeadInventory.revision();
+			if (inventoryRevision == null || inventoryRevision.isBlank())
+				return error("HEAD_INVENTORY_REVISION_MISMATCH: inventory revision is missing");
+			GitRevisionAccess git = new GitRevisionAccess(projectDir);
+			String resolvedInventory;
+			try { resolvedInventory = git.resolveCommit(inventoryRevision); }
+			catch (RuntimeException invalidInventory)
+			{
+				return error("HEAD_INVENTORY_REVISION_MISMATCH: inventory revision cannot be resolved");
+			}
+			if (!resolvedInventory.equalsIgnoreCase(inventoryRevision))
+				return error("HEAD_INVENTORY_REVISION_MISMATCH: inventory revision must be a full frozen commit ID");
+			String resolvedHead = git.resolveCommit(prHeadRevision);
+			if (!resolvedInventory.equalsIgnoreCase(resolvedHead))
+				return error("HEAD_INVENTORY_REVISION_MISMATCH: inventory revision does not equal prHeadRevision");
 			SchemaV2TestSelector selector = new SchemaV2TestSelector();
 			if (preflight.status() == RevisionPreflightStatus.FULL_SUITE)
 				return ExplicitPrSelectionResult.selection(

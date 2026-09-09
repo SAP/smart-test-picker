@@ -110,7 +110,9 @@ selection head, verifies the map revision is its ancestor, and computes committe
 and untracked changes without method-level parsing or Git mutation. Unsafe input or analysis returns
 semantic RUN_ALL with public status `FULL_SUITE`.
 
-The build-tool-neutral `HeadTestInventory` supplies exact logical JUnit `TestIdentity` values. The resulting
+The build-tool-neutral `HeadTestInventory` supplies exact logical JUnit `TestIdentity` values. A Test
+Inventory is the authoritative complete logical test set for one concrete test target at one concrete
+revision; it is neither execution evidence nor an arbitrary list of names. The resulting
 `SelectionContext` classifies new, deleted, and changed-container tests but deliberately performs no
 direct/setup/unmapped selection union. Inventory provisioning and adapter execution remain TASK 38;
 CI-wide inventory and orchestration remain 5d. Task 5b is **IN PROGRESS**.
@@ -235,7 +237,10 @@ published map inventory with the supplied PR-head inventory. It does not inspect
 unstaged, or untracked state. The existing local/worktree analyzer remains unchanged and separate.
 
 The explicit result distinguishes `SELECTION_RESULT`, `BASE_OUT_OF_DATE`, and `ERROR` without changing
-`SelectionOutput`; preflight `FULL_SUITE` becomes the existing selector fail-open output. Because
-`HeadTestInventory` has no revision field, producing and provenance-checking that inventory against
-`prHeadRevision` remains an adapter responsibility. Adapter wiring and real-project proof remain open,
-so 5e stays **IN PROGRESS**. Canonical state remains 5a/5b/5c/5d **DONE**, 5e **IN PROGRESS**.
+`SelectionOutput`; preflight `FULL_SUITE` becomes the existing selector fail-open output. TASK51 closes
+TASK50's remaining common-core provenance gap: revision-bound inventories persist their
+frozen full commit ID, and explicit PR selection requires that ID to resolve exactly to
+`prHeadRevision` before committed analysis or 5b policy runs. Revisionless legacy inventories remain a
+local/worktree-only compatibility format and are rejected by explicit PR mode. Adapter wiring and
+real-project proof remain open, so 5e stays **IN PROGRESS**. Canonical state remains 5a/5b/5c/5d
+**DONE**, 5e **IN PROGRESS**.

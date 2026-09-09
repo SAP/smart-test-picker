@@ -10,8 +10,8 @@ import java.util.TreeSet;
 
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 
-/** Authoritative logical tests runnable by the local execution target at the fixed selection head. */
-public record HeadTestInventory(Set<TestIdentity> runnableTests)
+/** Authoritative complete logical test set for one concrete test target at one concrete revision. */
+public record HeadTestInventory(String revision, Set<TestIdentity> runnableTests)
 {
 	public HeadTestInventory
 	{
@@ -21,8 +21,24 @@ public record HeadTestInventory(Set<TestIdentity> runnableTests)
 		runnableTests = Set.copyOf(new TreeSet<>(runnableTests));
 	}
 
+	/** Compatibility for local/worktree callers whose inventory predates revision provenance. */
+	public HeadTestInventory(Set<TestIdentity> runnableTests) { this(null, runnableTests); }
+
 	/** Preserves duplicate detection at inventory-provider boundaries. */
 	public static HeadTestInventory from(Collection<TestIdentity> tests)
+	{
+		return from(null, tests);
+	}
+
+	/** Creates an inventory bound to the caller-supplied frozen revision. */
+	public static HeadTestInventory atRevision(String revision, Collection<TestIdentity> tests)
+	{
+		if (revision == null || revision.isBlank())
+			throw new IllegalArgumentException("Head inventory revision is missing");
+		return from(revision, tests);
+	}
+
+	private static HeadTestInventory from(String revision, Collection<TestIdentity> tests)
 	{
 		Objects.requireNonNull(tests, "tests");
 		HashSet<TestIdentity> unique = new HashSet<>();
@@ -31,6 +47,6 @@ public record HeadTestInventory(Set<TestIdentity> runnableTests)
 			if (test == null) throw new IllegalArgumentException("Head inventory contains a null test identity");
 			if (!unique.add(test)) throw new IllegalArgumentException("Duplicate head test identity: " + test);
 		}
-		return new HeadTestInventory(unique);
+		return new HeadTestInventory(revision, unique);
 	}
 }
