@@ -403,3 +403,16 @@ external writers require future remote CAS and are explicitly unsupported/deferr
 backends remain optional extensions. Item 8 **Central failure policy remains NOT STARTED**. Historical
 task sections above retain the status that was current when each was written. See
 [`task71-item7-storage-credentials-closure-audit.md`](task71-item7-storage-credentials-closure-audit.md).
+
+## Task 72 item-8 failure-policy contract
+
+Item 8 **Central failure policy is IN PROGRESS**. TASK72 defines the authoritative fact taxonomy,
+policy contexts, default decisions, fail-open/fail-closed safety rules, deterministic precedence,
+retryability metadata, aggregation and the separation between producer facts, central policy decisions,
+and Jenkins execution actions. Selector `FULL_SUITE` remains a safe domain result; `BASE_OUT_OF_DATE`
+remains a strict PR-update failure; genuine map absence differs from a broken pointer target.
+
+No production policy engine, retry scheduler, producer fallback, or Jenkins behavior is implemented yet.
+The intended sequence remains TASK73 engine, TASK74 Jenkins integration, TASK75 E2E validation, and
+TASK76 closure audit. See
+[`task72-item8-failure-policy-contract.md`](task72-item8-failure-policy-contract.md).
