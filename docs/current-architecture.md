@@ -388,3 +388,18 @@ started. See [`task69-jenkins-credential-authenticated-storage.md`](task69-jenki
 TASK70 proves authenticated RAW_HTTP storage across independent Jenkins builds, agents, and workspaces, including real concurrent publication races. Controller-owned coordination prevents stale pointer regression and same-revision corruption for the supported single-controller topology. A discovered ancestry defect was corrected so pointer ordering is evaluated against the publishing agent's Git workspace while the controller lock is held.
 
 Remote maps are independent of producer workspaces and remain safely consumable by later builds. Multi-controller writers still require remote CAS and remain unsupported. Item 7 remains **IN PROGRESS** only for its final TASK71 closure audit. Item 8 remains **NOT STARTED**. See [`task70-cross-build-cross-agent-remote-storage-e2e.md`](task70-cross-build-cross-agent-remote-storage-e2e.md).
+
+## Task 71 item-7 storage and credentials closure
+
+Item 7 **Storage + credentials is DONE**. The production storage boundary supports FILE and
+vendor-neutral RAW_HTTP. RAW_HTTP uses immutable revision-bound maps, validated checksummed latest
+pointers, typed storage outcomes, Jenkins execution-time Username/Password credential resolution, and
+authenticated public publish/lookup.
+
+Cross-build, cross-agent, workspace-independent use and concurrent publication safety are validated for
+the supported single-Jenkins-controller writer topology. Git ancestry is evaluated in the publishing
+workspace while controller-owned storage coordination is held. Multiple independent controllers or
+external writers require future remote CAS and are explicitly unsupported/deferred. Cloud-specific
+backends remain optional extensions. Item 8 **Central failure policy remains NOT STARTED**. Historical
+task sections above retain the status that was current when each was written. See
+[`task71-item7-storage-credentials-closure-audit.md`](task71-item7-storage-credentials-closure-audit.md).
