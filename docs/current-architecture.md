@@ -382,3 +382,9 @@ RAW HTTP operations and keyed sole-writer coordination execute in the Jenkins co
 so one controller spans concurrent builds; multi-controller writers remain unsupported without remote
 CAS. TASK70 remains for cross-build/cross-agent and wider remote correctness E2E. Item 8 remains not
 started. See [`task69-jenkins-credential-authenticated-storage.md`](task69-jenkins-credential-authenticated-storage.md).
+
+## Task 70 cross-build and concurrent remote-storage E2E
+
+TASK70 proves authenticated RAW_HTTP storage across independent Jenkins builds, agents, and workspaces, including real concurrent publication races. Controller-owned coordination prevents stale pointer regression and same-revision corruption for the supported single-controller topology. A discovered ancestry defect was corrected so pointer ordering is evaluated against the publishing agent's Git workspace while the controller lock is held.
+
+Remote maps are independent of producer workspaces and remain safely consumable by later builds. Multi-controller writers still require remote CAS and remain unsupported. Item 7 remains **IN PROGRESS** only for its final TASK71 closure audit. Item 8 remains **NOT STARTED**. See [`task70-cross-build-cross-agent-remote-storage-e2e.md`](task70-cross-build-cross-agent-remote-storage-e2e.md).
