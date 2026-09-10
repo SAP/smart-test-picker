@@ -94,6 +94,10 @@ class CentralFailurePolicyTest
 		}
 		assertAction(RUN_FULL_SUITE, input(INVENTORY, "PR_HEAD_INVENTORY_UNAVAILABLE", PR_SELECTION, PolicyOperation.INVENTORY_DISCOVERY, true));
 		assertAction(FAIL_BUILD, input(INVENTORY, "PR_HEAD_INVENTORY_UNAVAILABLE", PR_SELECTION, PolicyOperation.INVENTORY_DISCOVERY, false));
+		assertAction(RUN_FULL_SUITE, input(INVENTORY, "INVENTORY_UNAVAILABLE", PR_SELECTION, PolicyOperation.INVENTORY_DISCOVERY, true));
+		assertAction(FAIL_BUILD, input(INVENTORY, "INVENTORY_INVALID", PR_SELECTION, PolicyOperation.INVENTORY_DISCOVERY, true));
+		assertAction(FAIL_BUILD, input(INVENTORY, "INVENTORY_REVISION_MISMATCH", PR_SELECTION, PolicyOperation.INVENTORY_DISCOVERY, true));
+		assertAction(FAIL_BUILD, input(INVENTORY, "WORKSPACE_REVISION_CHANGED", PR_SELECTION, PolicyOperation.INVENTORY_DISCOVERY, true));
 	}
 
 	@Test void normalizedMappingFailuresFailWithoutReinterpretingPerTestFacts()

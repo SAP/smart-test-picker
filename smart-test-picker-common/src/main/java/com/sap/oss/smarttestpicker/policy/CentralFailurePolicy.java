@@ -33,6 +33,9 @@ public final class CentralFailurePolicy
 			"FRAGMENT_MISSING", "FRAGMENT_INVALID", "FRAGMENT_INCOMPLETE", "EVIDENCE_MISSING", "EVIDENCE_INVALID",
 			"ACCOUNTING_INCOMPLETE", "DUPLICATE_IDENTITY", "DUPLICATE_SHARD", "JOIN_INVALID",
 			"PUBLICATION_REVISION_MISMATCH", "RUNTIME_INTEGRITY_FAILURE");
+	private static final Set<String> INVENTORY_UNAVAILABLE = Set.of("PR_HEAD_INVENTORY_UNAVAILABLE", "INVENTORY_UNAVAILABLE");
+	private static final Set<String> INVENTORY_FAILURES = Set.of("INVENTORY_INVALID", "INVENTORY_REVISION_MISMATCH",
+			"WORKSPACE_REVISION_CHANGED");
 
 	public PolicyDecision evaluate(PolicyInput input) { return evaluateOne(Objects.requireNonNull(input, "input")).decision(); }
 
@@ -57,6 +60,9 @@ public final class CentralFailurePolicy
 					"Published or produced data failed an integrity requirement.", outcome.equals("POINTER_CONFLICT") ? AFTER_USER_FIX : NOT_RETRYABLE, outcome.equals("POINTER_CONFLICT"), 500);
 		if (input.source() == MAPPING && MAPPING_FAILURES.contains(outcome))
 			return decision(input, FAIL_BUILD, "MAPPING_INCOMPLETE", "Mapping output is incomplete, inconsistent, or invalid.", NOT_RETRYABLE, input.userActionRequired(), 500);
+		if (input.source() == INVENTORY && INVENTORY_FAILURES.contains(outcome))
+			return decision(input, FAIL_BUILD, "INVENTORY_INVALID", "Inventory identity, contents, or revision could not be trusted.",
+					NOT_RETRYABLE, input.userActionRequired(), 500);
 		if (input.source() == REVISION && outcome.equals("BASE_OUT_OF_DATE") && input.context() == PR_SELECTION)
 			return decision(input, FAIL_BUILD, "BASE_OUT_OF_DATE", "The pull request base must be updated before selective testing.", AFTER_USER_FIX, true, 400);
 		if (outcome.equals("ERROR"))
@@ -73,7 +79,7 @@ public final class CentralFailurePolicy
 		}
 		if (input.source() == SCM && SCM_FALLBACKS.contains(outcome) && input.context() == PR_SELECTION)
 			return fallbackOrFail(input, "SCM_OPTIMIZATION_UNAVAILABLE", "Automatic pull-request optimization could not be established.", input.retryabilityHint());
-		if (input.source() == INVENTORY && outcome.equals("PR_HEAD_INVENTORY_UNAVAILABLE") && input.context() == PR_SELECTION)
+		if (input.source() == INVENTORY && INVENTORY_UNAVAILABLE.contains(outcome) && input.context() == PR_SELECTION)
 			return fallbackOrFail(input, "PR_HEAD_INVENTORY_UNAVAILABLE", "Authoritative pull-request head inventory is unavailable.", input.retryabilityHint());
 		if (SUCCESSES.getOrDefault(input.source(), Set.of()).contains(outcome))
 			return decision(input, CONTINUE, "SAFE_DOMAIN_RESULT", "The producer returned a known safe domain result.", input.retryabilityHint(), input.userActionRequired(), 100);
