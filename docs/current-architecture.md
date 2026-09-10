@@ -428,3 +428,13 @@ facts and context, with retryability metadata, hard safety rules, and order-inde
 Public Jenkins steps do not yet realize policy decisions. TASK74 owns Jenkins integration plus remaining
 inventory/mapping producer normalization and FILE/RAW public error parity. Item 8 remains **IN PROGRESS**.
 See [`task73-central-failure-policy-engine.md`](task73-central-failure-policy-engine.md).
+# TASK74 Jenkins central failure-policy integration
+
+TASK74 integrates the TASK73 central failure-policy engine into public Jenkins execution. Jenkins-specific
+SCM, inventory, mapping, and storage outcomes are normalized to bounded `PolicyInput` facts; the common
+engine remains the sole owner of `CONTINUE`, `RUN_FULL_SUITE`, and `FAIL_BUILD` decisions.
+
+Public realization makes safe full-suite fallback explicit, fails strict decisions visibly, preserves
+`SELECTED`, `NONE`, and successful domain values, and exposes bounded policy diagnostics. Inventory and
+mapping typing and FILE/RAW public parity are closed. Item 8 remains **IN PROGRESS**; TASK75 owns the broad
+failure-policy E2E matrix.
