@@ -1,5 +1,17 @@
 # Current architecture
 
+## TASK75 central failure-policy E2E validation
+
+TASK75 validates the central failure-policy chain end-to-end through public Jenkins execution across
+selector, revision, inventory, SCM, storage, credentials, mapping, lookup and publication scenarios.
+
+Safe optimization failures execute the unrestricted full test target; hard integrity, revision,
+security, configuration and mapping failures fail Jenkins visibly. FILE and RAW_HTTP normalize
+equivalent storage facts identically, unknown behavior remains conservative, and no duplicate
+Jenkins-side policy decision path exists.
+
+Item 8 remains **IN PROGRESS** only for TASK76 final closure audit.
+
 ## TASK66 item 6 closure
 
 Item 6 SCM/PR resolution is **DONE**. The Jenkins plugin has a provider-neutral typed resolver and
