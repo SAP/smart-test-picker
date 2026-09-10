@@ -1,5 +1,22 @@
 # Current architecture
 
+## TASK76 item-8 central failure-policy closure
+
+Item 8 Central failure policy is **DONE**.
+
+The final architecture has one Jenkins-neutral deterministic central policy engine, one Jenkins
+fact-normalization boundary, and one Jenkins action-realization boundary. Covered producer facts from
+SCM/PR resolution, revision preflight, selector outcomes, inventory, mapping, storage and credentials
+are normalized before CI action is chosen.
+
+Safe optimization-only failures may execute the unrestricted full test target only when full-suite
+safety is positively established. Revision eligibility, integrity, security/configuration and mapping
+correctness fail closed. Unknown failures never enable selective execution.
+
+TASK74/TASK75 public Jenkins evidence and the TASK76 closure audit, including focused corrections for
+unclassified callback and RAW_HTTP bridge failures, found no remaining correctness blocker for the
+supported single-controller topology.
+
 ## TASK75 central failure-policy E2E validation
 
 TASK75 validates the central failure-policy chain end-to-end through public Jenkins execution across
