@@ -416,3 +416,15 @@ No production policy engine, retry scheduler, producer fallback, or Jenkins beha
 The intended sequence remains TASK73 engine, TASK74 Jenkins integration, TASK75 E2E validation, and
 TASK76 closure audit. See
 [`task72-item8-failure-policy-contract.md`](task72-item8-failure-policy-contract.md).
+
+## Task 73 central failure-policy engine
+
+TASK73 implements the Jenkins-neutral central failure-policy engine in `smart-test-picker-common`. The
+TASK72 blocking latest-lookup ambiguity is closed: `NO_POINTER` is ordinary optimization absence while
+`TARGET_MISSING` is a broken pointer integrity condition. Exact-object `NOT_FOUND` remains unchanged.
+
+The pure engine deterministically produces `CONTINUE`, `RUN_FULL_SUITE`, or `FAIL_BUILD` from bounded
+facts and context, with retryability metadata, hard safety rules, and order-independent precedence.
+Public Jenkins steps do not yet realize policy decisions. TASK74 owns Jenkins integration plus remaining
+inventory/mapping producer normalization and FILE/RAW public error parity. Item 8 remains **IN PROGRESS**.
+See [`task73-central-failure-policy-engine.md`](task73-central-failure-policy-engine.md).
