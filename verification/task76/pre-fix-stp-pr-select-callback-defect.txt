@@ -1,0 +1,22 @@
+TASK76 pre-fix closure-blocker capture
+
+Repository: /Users/d061177/work/stp-jenkins-plugin-poc
+Baseline commit: 2fe4903
+Production path: StpPrSelectStep.Completed.failOrFallback
+
+Observed pre-fix logic:
+
+  InventoryOutcome outcome = failure instanceof InventoryOperationException typed
+      ? typed.outcome()
+      : InventoryOutcome.INVENTORY_UNAVAILABLE;
+  JenkinsPolicyAdapter.inventory(outcome, PolicyContext.PR_SELECTION, true)
+
+BodyExecutionCallback.onFailure receives an arbitrary Throwable from the invoked Pipeline body.
+Therefore a build-tool, user-body, plugin, or internal failure that is not an
+InventoryOperationException was reclassified as INVENTORY_UNAVAILABLE and supplied an
+unconditionally true full-suite safety hint. CentralFailurePolicy could consequently choose
+RUN_FULL_SUITE for a failure that did not prove inventory-only optimization unavailability.
+
+Required correction: preserve known InventoryOperationException outcomes, but normalize every
+untyped callback failure to UNKNOWN with fullSuitePossible=false and let CentralFailurePolicy
+choose FAIL_BUILD.

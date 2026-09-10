@@ -1,0 +1,83 @@
+{
+  "task": 76,
+  "item": "8 Central failure policy",
+  "baseline": {
+    "mainStp": "28a35a1",
+    "jenkinsPlugin": "2fe4903",
+    "bothClean": true
+  },
+  "productionCodeChanged": true,
+  "dockerUsed": false,
+  "architecture": {
+    "chain": "producer -> typed fact/domain result -> JenkinsPolicyAdapter -> PolicyInput -> CentralFailurePolicy -> PolicyDecision -> JenkinsPolicyDecisionHandler -> Jenkins behavior"
+  },
+  "singleCentralEngine": true,
+  "singleJenkinsAdapter": true,
+  "singleJenkinsRealization": true,
+  "duplicatePolicyRules": false,
+  "callbackFailureAudit": {
+    "arbitraryCallbackFailureCanBecomeInventoryUnavailableBeforeFix": true,
+    "arbitraryCallbackFailureCanBecomeInventoryUnavailable": false,
+    "callbackFixRequired": true,
+    "callbackFixApplied": true,
+    "knownAbsenceDecision": "RUN_FULL_SUITE when trusted fallback exists",
+    "unknownDecision": "UNKNOWN with fullSuitePossible=false -> FAIL_BUILD"
+  },
+  "mappingPublicationBypassAudit": {
+    "task75FixStillPresent": true,
+    "knownPolicyBypasses": []
+  },
+  "fullSuitePossibleSites": [
+    "automatic SCM terminal status after untouched checkout",
+    "synthetic merge source-head inventory limitation",
+    "typed automatic inventory limitation before selection",
+    "latest-map lookup optimization failures before selection",
+    "selector FULL_SUITE domain result"
+  ],
+  "unsafeFullSuiteHints": [],
+  "unknownRoutingValidated": true,
+  "inventoryTypingValidated": true,
+  "mappingTypingValidated": true,
+  "scmPolicyValidated": true,
+  "storagePolicyValidated": true,
+  "credentialPolicyValidated": true,
+  "selectorPolicyValidated": true,
+  "revisionPolicyValidated": true,
+  "fileRawParityValidated": true,
+  "publicApiValidated": true,
+  "observabilityValidated": true,
+  "secretSafetyValidated": true,
+  "policyPurityValidated": true,
+  "precedenceValidated": true,
+  "aggregationValidated": true,
+  "supportedTopology": [
+    "single Jenkins controller",
+    "supported STP public steps",
+    "FILE and RAW_HTTP storage",
+    "current GitHub Branch Source PR resolver semantics",
+    "current Gradle/Maven mapping and selector adapters"
+  ],
+  "correctnessBlockers": [],
+  "deferredNonblocking": [
+    "retry scheduling",
+    "policy configuration UI",
+    "diagnostic verbosity options",
+    "multi-controller storage CAS",
+    "additional storage backends and SCM providers",
+    "rollout and adoption",
+    "telemetry and dashboards",
+    "finer strict diagnostic codes"
+  ],
+  "tests": {
+    "common": {"result": "PASS", "tests": 279, "skipped": 7},
+    "focusedJenkinsPolicy": {"result": "PASS", "tests": 9},
+    "jenkins": {"result": "PASS", "tests": 72, "skipped": 0}
+  },
+  "mappingRuntime": {"result": "PASS", "tests": 32, "skipped": 3},
+  "packagingIntegrity": {"result": "PASS", "commonJarBundled": true, "adapterManifest": "PASS"},
+  "dockerReason": "NOT NEEDED: source proof and focused automated regression resolved the defects",
+  "dockerStopped": "NOT_USED",
+  "productionFixCommit": "2c56af0",
+  "item8Status": "DONE",
+  "result": "PASS"
+}
