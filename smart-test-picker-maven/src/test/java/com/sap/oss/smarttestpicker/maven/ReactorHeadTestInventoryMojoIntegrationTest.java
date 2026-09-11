@@ -101,7 +101,9 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 				"-DsmartTestPicker.evidenceOutput=" + evidence);
 		assertEquals(0, result.exitCode(), result.output());
 		assertTrue(Files.isRegularFile(fixture.resolve("module-a/target/stp/coverage-fragment-v2.json")));
+		assertTrue(Files.isRegularFile(fixture.resolve("module-a/target/stp/execution-evidence-v1.json")));
 		assertTrue(Files.isRegularFile(fixture.resolve("module-b/target/stp/coverage-fragment-v2.json")));
+		assertTrue(Files.isRegularFile(fixture.resolve("module-b/target/stp/execution-evidence-v1.json")));
 		var decoded = new CoverageFragmentCodec().deserialize(Files.readAllBytes(fragment));
 		assertTrue(decoded.collectionCompleted());
 		assertEquals("reactor-revision", decoded.revision().value());
@@ -144,21 +146,26 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 	}
 
 	@Test
-	void singleModuleStillPublishesJenkinsCompatiblePair(@TempDir Path temp) throws Exception {
+	void historicalSingleModuleInvocationPublishesCustomJenkinsPairWithoutAggregator(@TempDir Path temp) throws Exception {
 		Path fixture = copyFixture("schema-v2", temp.resolve("single"));
-		Result inventoryResult = maven(fixture, "process-test-classes", PLUGIN + "generate-head-test-inventory");
-		assertEquals(0, inventoryResult.exitCode(), inventoryResult.output());
-		var inventory = new HeadTestInventoryCodec().read(fixture.resolve("target/head-test-inventory.json").toFile());
-		Path assignments = fixture.resolve("assignments.txt");
-		Files.writeString(assignments, inventory.runnableTests().stream().map(TestIdentity::toString)
-				.sorted().collect(java.util.stream.Collectors.joining("\n", "", "\n")));
-		Path fragment = fixture.resolve("target/final-fragment.json"), evidence = fixture.resolve("target/final-evidence.json");
-		Result result = maven(fixture, "verify", PLUGIN + "aggregate-reactor-coverage-fragment",
-				"-DsmartTestPicker.testsFile=" + assignments, "-DsmartTestPicker.fragmentOutput=" + fragment,
+		Path fragment = fixture.resolve("jenkins/custom-fragment.json");
+		Path evidence = fixture.resolve("jenkins/custom-evidence.json");
+		Result result = maven(fixture, "verify", "-DsmartTestPicker.revision=historical-revision",
+				"-DsmartTestPicker.shardId=historical-shard", "-DsmartTestPicker.fragmentOutput=" + fragment,
 				"-DsmartTestPicker.evidenceOutput=" + evidence);
 		assertEquals(0, result.exitCode(), result.output());
-		assertTrue(new CoverageFragmentCodec().deserialize(Files.readAllBytes(fragment)).collectionCompleted());
+		assertTrue(Files.isRegularFile(fragment));
 		assertTrue(Files.isRegularFile(evidence));
+		var decoded = new CoverageFragmentCodec().deserialize(Files.readAllBytes(fragment));
+		assertEquals(2, decoded.schemaVersion());
+		assertEquals("historical-revision", decoded.revision().value());
+		assertEquals("historical-shard", decoded.shardId().value());
+		var json = JsonParser.parseString(Files.readString(evidence)).getAsJsonObject();
+		assertEquals("historical-revision", json.get("revision").getAsString());
+		assertEquals("historical-shard", json.get("shardId").getAsString());
+		assertEquals("test", json.get("testTarget").getAsString());
+		assertEquals("maven", json.get("buildTool").getAsString());
+		assertFalse(result.output().contains("aggregate-reactor-coverage-fragment"), result.output());
 	}
 
 	private static void assertAggregationFailure(Path fixture, Path assignments, ThrowingAction mutation, String message) throws Exception {

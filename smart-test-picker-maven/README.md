@@ -138,12 +138,16 @@ mvn verify \
   -DsmartTestPicker.evidenceOutput=target/execution-evidence-v1.json
 ```
 
-`generate-coverage-fragment` always writes module-local intermediates to
-`target/stp/coverage-fragment-v2.json` and `target/stp/execution-evidence-v1.json`. The public,
-`aggregator=true` `aggregate-reactor-coverage-fragment` goal consumes them after the reactor's
-`verify` lifecycle and atomically publishes the final paths supplied by Jenkins. Invoke it after
-`verify` in the same Maven command; a root project's `verify` runs before child modules reach that
-phase.
+By default, `generate-coverage-fragment` preserves the single-module contract and writes the paths
+selected by `smartTestPicker.fragmentOutput` and `smartTestPicker.evidenceOutput` (defaulting to
+`target/coverage-fragment-v2.json` and `target/execution-evidence-v1.json`). A reactor build opts in
+to module-local intermediates with `smartTestPicker.moduleFragmentOutput` and
+`smartTestPicker.moduleEvidenceOutput`; both must be configured together and conventionally point
+to `target/stp/coverage-fragment-v2.json` and `target/stp/execution-evidence-v1.json`. The public,
+`aggregator=true` `aggregate-reactor-coverage-fragment` goal consumes only those conventional files
+after the reactor's `verify` lifecycle and atomically publishes the final paths supplied by Jenkins.
+Invoke it after `verify` in the same Maven command; a root project's `verify` runs before child
+modules reach that phase.
 
 The aggregator uses `STP_MAPPING_TESTS_FILE` as its authoritative shard assignment
 (`smartTestPicker.testsFile` is available for focused invocations). It rejects missing assigned
