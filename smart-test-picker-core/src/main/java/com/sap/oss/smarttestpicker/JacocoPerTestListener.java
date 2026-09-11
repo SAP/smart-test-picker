@@ -76,6 +76,10 @@ public class JacocoPerTestListener implements TestExecutionListener
 	{
 		if (!id.isTest())
 		{
+			if (result.getStatus() == TestExecutionResult.Status.ABORTED)
+			{
+				markNonExecuted(id);
+			}
 			return;
 		}
 
@@ -111,6 +115,11 @@ public class JacocoPerTestListener implements TestExecutionListener
 
 	@Override
 	public void executionSkipped(TestIdentifier id, String reason)
+	{
+		markNonExecuted(id);
+	}
+
+	private void markNonExecuted(TestIdentifier id)
 	{
 		List<TestIdentifier> skipped = id.isTest() ? List.of(id)
 				: testPlan == null ? List.of() : testPlan.getDescendants(id).stream().filter(TestIdentifier::isTest).toList();
