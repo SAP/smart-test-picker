@@ -33,6 +33,10 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    dependsOn ':smart-test-picker-common:publishAllPublicationsToFunctionalTestRepository'
+    dependsOn 'publishAllPublicationsToFunctionalTestRepository'
+    systemProperty 'smartTestPicker.functionalTestRepository',
+            rootProject.layout.buildDirectory.dir('functional-test-maven-repository').get().asFile
 }
 
 // Keep published bytecode compatible with the project's Java 17 baseline.
