@@ -18,7 +18,8 @@ Maven plugin providing mojo implementations for the coverage pipeline.
 |------|-----------|-------------|
 | `generate-coverage-map` | `GenerateCoverageMapMojo` | Generates JSON coverage map from per-test XML reports |
 | `generate-coverage-fragment` | `GenerateCoverageFragmentMojo` | Generates a revision/shard-bound schema-v2 fragment |
-| `generate-head-test-inventory` | `GenerateHeadTestInventoryMojo` | Discovers exact JUnit identities without running tests |
+| `generate-head-test-inventory` | `GenerateHeadTestInventoryMojo` | Discovers exact JUnit identities for the current module without running tests |
+| `generate-reactor-head-test-inventory` | `GenerateReactorHeadTestInventoryMojo` | Writes one authoritative inventory for the effective reactor |
 | `select-tests` | `SelectTestsMojo` | Runs test selection and writes `selected-tests.json` |
 | `generate-report` | `GenerateReportMojo` | Generates HTML dashboard report |
 | `generate-reports` | `GenerateReportsMojo` | Converts `.exec` files to XML reports |
@@ -26,6 +27,17 @@ Maven plugin providing mojo implementations for the coverage pipeline.
 | `merge-test-metrics` | `MergeTestMetricsMojo` | Merges per-test metrics from multi-module builds |
 
 ## Multi-Module Support
+
+Use the aggregator inventory goal after test compilation to write exactly one inventory under the
+Maven execution root (by default, `target/head-test-inventory.json`):
+
+```bash
+mvn process-test-classes com.sap.oss.smart-test-picker:smart-test-picker-maven:0.1.0:generate-reactor-head-test-inventory \
+  -DsmartTestPicker.prHeadRevision="$GIT_COMMIT"
+```
+
+`generate-head-test-inventory` remains a single-module goal. The reactor goal uses the effective
+`${reactorProjects}` list, so Maven `-pl ... -am` limits the inventory to that effective reactor.
 
 Selector goals generate inventory automatically. Root and `smart-test` flows discover every non-POM
 reactor module using its test output and test runtime classpath; an exact cross-module identity
