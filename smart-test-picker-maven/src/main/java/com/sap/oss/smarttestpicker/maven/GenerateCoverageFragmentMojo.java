@@ -55,11 +55,19 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 	@Parameter(property = "smartTestPicker.shardId", required = true)
 	private String shardId;
 
-	@Parameter(defaultValue = "${project.build.directory}/stp/coverage-fragment-v2.json", required = true)
+	@Parameter(defaultValue = "${project.build.directory}/coverage-fragment-v2.json",
+			property = "smartTestPicker.fragmentOutput", required = true)
 	private File fragmentOutput;
 
-	@Parameter(defaultValue = "${project.build.directory}/stp/execution-evidence-v1.json", required = true)
+	@Parameter(defaultValue = "${project.build.directory}/execution-evidence-v1.json",
+			property = "smartTestPicker.evidenceOutput", required = true)
 	private File evidenceOutput;
+
+	@Parameter(property = "smartTestPicker.moduleFragmentOutput")
+	private File moduleFragmentOutput;
+
+	@Parameter(property = "smartTestPicker.moduleEvidenceOutput")
+	private File moduleEvidenceOutput;
 
 	@Parameter(defaultValue = "test", property = "smartTestPicker.testTarget")
 	private String testTarget;
@@ -69,6 +77,7 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 	{
 		if (revision == null || revision.isBlank()) throw new MojoExecutionException("smartTestPicker.revision must not be blank");
 		if (shardId == null || shardId.isBlank()) throw new MojoExecutionException("smartTestPicker.shardId must not be blank");
+		selectOutputs();
 		if (evidenceOutput == null) evidenceOutput = new File(fragmentOutput.getAbsoluteFile().getParentFile(), "execution-evidence-v1.json");
 		if (testTarget == null || testTarget.isBlank()) testTarget = "test";
 		try { Files.deleteIfExists(fragmentOutput.toPath()); }
@@ -87,6 +96,19 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 		getLog().info("[SmartTestPicker] Generated schema-v2 coverage fragment: " + fragmentOutput
 				+ " (" + fragment.tests().size() + " mapped, " + fragment.unmapped().size()
 				+ " unmapped, completed=" + fragment.collectionCompleted() + ")");
+	}
+
+	private void selectOutputs() throws MojoExecutionException
+	{
+		boolean moduleFragmentConfigured = moduleFragmentOutput != null;
+		boolean moduleEvidenceConfigured = moduleEvidenceOutput != null;
+		if (moduleFragmentConfigured != moduleEvidenceConfigured)
+			throw new MojoExecutionException("smartTestPicker.moduleFragmentOutput and smartTestPicker.moduleEvidenceOutput must be supplied together");
+		if (moduleFragmentConfigured)
+		{
+			fragmentOutput = moduleFragmentOutput;
+			evidenceOutput = moduleEvidenceOutput;
+		}
 	}
 
 	private void writeExecutionEvidence() throws MojoExecutionException
