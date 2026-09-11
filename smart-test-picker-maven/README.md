@@ -123,7 +123,7 @@ The Maven plugin requires `smart-test-picker-core` as a test dependency for per-
 </build>
 ```
 
-## Schema-v2 fragment production
+## Schema-v2 fragment production and reactor aggregation
 
 The additive `generate-coverage-fragment` goal consumes the identity sidecars emitted by
 `smart-test-picker-core` and the status/XML artifacts emitted by `generate-reports`. CI must supply
@@ -131,12 +131,25 @@ the exact revision and shard; the plugin never discovers Git revision for this g
 
 ```bash
 mvn verify \
+  com.sap.oss.smart-test-picker:smart-test-picker-maven:aggregate-reactor-coverage-fragment \
   -DsmartTestPicker.revision="$GIT_COMMIT" \
   -DsmartTestPicker.shardId="maven-1" \
-  -DsmartTestPicker.fragmentOutput=target/coverage-fragment-v2.json
+  -DsmartTestPicker.fragmentOutput=target/coverage-fragment-v2.json \
+  -DsmartTestPicker.evidenceOutput=target/execution-evidence-v1.json
 ```
 
-The default fragment path is `target/coverage-fragment-v2.json`; there are no defaults for revision
+`generate-coverage-fragment` always writes module-local intermediates to
+`target/stp/coverage-fragment-v2.json` and `target/stp/execution-evidence-v1.json`. The public,
+`aggregator=true` `aggregate-reactor-coverage-fragment` goal consumes them after the reactor's
+`verify` lifecycle and atomically publishes the final paths supplied by Jenkins. Invoke it after
+`verify` in the same Maven command; a root project's `verify` runs before child modules reach that
+phase.
+
+The aggregator uses `STP_MAPPING_TESTS_FILE` as its authoritative shard assignment
+(`smartTestPicker.testsFile` is available for focused invocations). It rejects missing assigned
+module outputs, binding mismatches, global identity duplication, evidence overlap, and identities
+outside the shard. Non-POM modules with no assigned JUnit tests and no sidecars do not participate.
+There are no defaults for revision
 or shard. Maven preserves exact method descriptors from JaCoCo XML and emits no setup scopes because
 the JaCoCo adapter has no affected-container setup ownership. A missing identity, exec, status, XML,
 or a malformed artifact makes the local fragment incomplete. This is collector-local truth only;

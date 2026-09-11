@@ -55,12 +55,10 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 	@Parameter(property = "smartTestPicker.shardId", required = true)
 	private String shardId;
 
-	@Parameter(defaultValue = "${project.build.directory}/coverage-fragment-v2.json",
-			property = "smartTestPicker.fragmentOutput", required = true)
+	@Parameter(defaultValue = "${project.build.directory}/stp/coverage-fragment-v2.json", required = true)
 	private File fragmentOutput;
 
-	@Parameter(defaultValue = "${project.build.directory}/execution-evidence-v1.json",
-			property = "smartTestPicker.evidenceOutput", required = true)
+	@Parameter(defaultValue = "${project.build.directory}/stp/execution-evidence-v1.json", required = true)
 	private File evidenceOutput;
 
 	@Parameter(defaultValue = "test", property = "smartTestPicker.testTarget")
