@@ -1,0 +1,47 @@
+{
+  "task": "EI-1 — Add executable test identity semantic model and canonical execution targets",
+  "baselineCommit": "abfd848aae90cc8f9bf7bcadf5245327a0bf7a74",
+  "logicalTestIdentityChanged": false,
+  "typesAdded": [
+    "BuildTool",
+    "ExecutionTarget",
+    "ExecutableTestIdentity"
+  ],
+  "buildTools": [
+    "maven",
+    "gradle"
+  ],
+  "mavenTargetContract": "reactor-relative module path; '.' is root; '/' separator; canonical relative non-escaping paths only",
+  "gradleTargetContract": "fully qualified Gradle Test task path beginning with ':' and containing no blank segments",
+  "canonicalExecutionTargetFormat": "<build-tool>:<target-id>",
+  "canonicalExecutableIdentityFormat": "<execution-target>::<logical-test-identity>",
+  "sonarJavaProof": {
+    "logical": "org.sonar.java.checks.helpers.ReassignmentFinderTest#parameter_with_usage",
+    "first": "maven:java-checks-common::org.sonar.java.checks.helpers.ReassignmentFinderTest#parameter_with_usage",
+    "second": "maven:java-checks::org.sonar.java.checks.helpers.ReassignmentFinderTest#parameter_with_usage",
+    "logicalEqual": true,
+    "executableEqual": false
+  },
+  "crossBuildToolProof": {
+    "maven": "maven:module-a::com.example.Test#works",
+    "gradle": "gradle::module-a:test::com.example.Test#works",
+    "executableEqual": false
+  },
+  "testsRun": [
+    ":smart-test-picker-common:test",
+    ":smart-test-picker-common:test --tests com.sap.oss.smarttestpicker.coverage.model.ExecutionTargetTest --tests com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentityTest --tests com.sap.oss.smarttestpicker.coverage.model.TestIdentityRegressionTest"
+  ],
+  "testsPassed": true,
+  "schemaChanged": false,
+  "coverageMapChanged": false,
+  "inventoryChanged": false,
+  "selectorChanged": false,
+  "mavenAdapterChanged": false,
+  "gradleAdapterChanged": false,
+  "jenkinsChanged": false,
+  "dockerUsed": false,
+  "jenkinsUsed": false,
+  "pushPerformed": false,
+  "result": "PASS",
+  "next": "EI-2 — Introduce versioned artifact contracts for executable identities."
+}
