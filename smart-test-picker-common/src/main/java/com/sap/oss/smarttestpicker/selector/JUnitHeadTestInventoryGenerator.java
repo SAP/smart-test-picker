@@ -2,16 +2,19 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.selector;
 
+import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.lang.reflect.Method;
+import java.util.function.Consumer;
 
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 import org.junit.platform.engine.support.descriptor.MethodSource;
@@ -32,6 +35,11 @@ public final class JUnitHeadTestInventoryGenerator {
 
 	public HeadTestInventory generate(String revision, Collection<Path> runtimeClasspath,
 			Collection<Path> testClassRoots) {
+		return generate(revision, runtimeClasspath, testClassRoots, ignored -> { });
+	}
+
+	public HeadTestInventory generate(String revision, Collection<Path> runtimeClasspath,
+			Collection<Path> testClassRoots, Consumer<String> diagnostics) {
 		if (testClassRoots == null || testClassRoots.isEmpty())
 			return bind(revision, HeadTestInventory.from(List.of()));
 		Set<Path> roots = new LinkedHashSet<>(testClassRoots.stream().filter(java.nio.file.Files::isDirectory).toList());
@@ -40,16 +48,16 @@ public final class JUnitHeadTestInventoryGenerator {
 		try {
 			for (Path path : runtimeClasspath) urls.add(path.toUri().toURL());
 			ClassLoader previous = Thread.currentThread().getContextClassLoader();
-			boolean targetOwnsLauncher = runtimeClasspath.stream()
-					.anyMatch(path -> path.getFileName().toString().startsWith("junit-platform-launcher-"));
-			if (targetOwnsLauncher) urls.add(JUnitHeadTestInventoryGenerator.class.getProtectionDomain()
+			boolean targetOwnsJUnit = ownsCompleteJUnitRuntime(runtimeClasspath);
+			if (targetOwnsJUnit) urls.add(JUnitHeadTestInventoryGenerator.class.getProtectionDomain()
 					.getCodeSource().getLocation());
-			try (URLClassLoader loader = targetOwnsLauncher
+			try (URLClassLoader loader = targetOwnsJUnit
 					? new TargetJUnitClassLoader(urls.toArray(URL[]::new), previous)
-					: new URLClassLoader(urls.toArray(URL[]::new), previous)) {
+					: new StpJUnitClassLoader(urls.toArray(URL[]::new), previous)) {
 				Thread.currentThread().setContextClassLoader(loader);
 				try {
-					if (targetOwnsLauncher) return bind(revision, isolated(loader, roots));
+					if (targetOwnsJUnit) return bind(revision, isolated(loader, roots, diagnostics));
+					stpJUnitRuntimeOrigins().forEach(diagnostics);
 					LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
 							.selectors(selectClasspathRoots(roots)).build();
 					Launcher launcher = LauncherFactory.create(LauncherConfig.builder()
@@ -59,8 +67,37 @@ public final class JUnitHeadTestInventoryGenerator {
 				} finally { Thread.currentThread().setContextClassLoader(previous); }
 			}
 		} catch (Exception failure) {
-			throw new IllegalStateException("JUnit head inventory discovery failed", failure);
+			throw new IllegalStateException("JUnit head inventory discovery failed with "
+					+ junitArtifacts(runtimeClasspath), failure);
 		}
+	}
+
+	private static List<String> stpJUnitRuntimeOrigins() {
+		return List.of("org.junit.jupiter.api.Test", "org.junit.jupiter.api.MethodOrderer",
+				"org.junit.platform.launcher.Launcher", "org.junit.platform.engine.TestEngine",
+				"org.junit.jupiter.engine.JupiterTestEngine").stream().map(name -> {
+			try {
+				Class<?> type = Class.forName(name, false, JUnitHeadTestInventoryGenerator.class.getClassLoader());
+				var source = type.getProtectionDomain().getCodeSource();
+				return name + " version=" + type.getPackage().getImplementationVersion() + " origin="
+						+ (source == null ? "unknown" : source.getLocation()) + " loader=" + type.getClassLoader();
+			} catch (ClassNotFoundException failure) {
+				return name + " MISSING loader=" + JUnitHeadTestInventoryGenerator.class.getClassLoader();
+			}
+		}).toList();
+	}
+
+	private static boolean ownsCompleteJUnitRuntime(Collection<Path> classpath) {
+		return List.of("junit-jupiter-api-", "junit-jupiter-engine-", "junit-platform-launcher-",
+				"junit-platform-engine-", "junit-platform-commons-").stream()
+				.allMatch(prefix -> classpath.stream().map(Path::getFileName).map(Path::toString)
+						.anyMatch(name -> name.startsWith(prefix)));
+	}
+
+	private static String junitArtifacts(Collection<Path> classpath) {
+		List<String> artifacts = classpath.stream().filter(path -> path.getFileName().toString().startsWith("junit-"))
+				.map(Path::toString).toList();
+		return artifacts.isEmpty() ? "STP-owned JUnit runtime" : "resolved JUnit artifacts " + artifacts;
 	}
 
 	private static HeadTestInventory bind(String revision, HeadTestInventory inventory) {
@@ -68,8 +105,11 @@ public final class JUnitHeadTestInventoryGenerator {
 	}
 
 	@SuppressWarnings("unchecked")
-	private HeadTestInventory isolated(ClassLoader loader, Set<Path> roots) throws Exception {
+	private HeadTestInventory isolated(ClassLoader loader, Set<Path> roots, Consumer<String> diagnostics) throws Exception {
 		Class<?> worker = Class.forName(JUnitInventoryDiscoveryWorker.class.getName(), true, loader);
+		@SuppressWarnings("unchecked")
+		List<String> origins = (List<String>) worker.getMethod("junitRuntimeOrigins").invoke(null);
+		origins.forEach(diagnostics);
 		Method method = worker.getMethod("discover", Set.class);
 		List<String[]> rows = (List<String[]>) method.invoke(null, roots);
 		List<TestIdentity> identities = rows.stream()
@@ -89,6 +129,20 @@ public final class JUnitHeadTestInventoryGenerator {
 			}
 			}
 			return super.loadClass(name, resolve);
+		}
+	}
+
+	/** Target application classes remain visible, but the parent owns every JUnit class and engine provider. */
+	private static final class StpJUnitClassLoader extends URLClassLoader {
+		private static final String ENGINE_SERVICE = "META-INF/services/org.junit.platform.engine.TestEngine";
+		StpJUnitClassLoader(URL[] urls, ClassLoader parent) { super(urls, parent); }
+		@Override protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
+			if (name.startsWith("org.junit.")) return getParent().loadClass(name);
+			return super.loadClass(name, resolve);
+		}
+		@Override public Enumeration<URL> getResources(String name) throws IOException {
+			if (ENGINE_SERVICE.equals(name)) return getParent().getResources(name);
+			return super.getResources(name);
 		}
 	}
 

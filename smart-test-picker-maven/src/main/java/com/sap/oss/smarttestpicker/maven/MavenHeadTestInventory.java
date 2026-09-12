@@ -31,12 +31,24 @@ final class MavenHeadTestInventory {
 			boolean discoveredTarget = false;
 			for (MavenProject project : projects) {
 				if ("pom".equals(project.getPackaging())) continue;
+				if (declaresTestsSkipped(project)) {
+					log.debug("[SmartTestPicker] Skipping inventory for Maven module with tests disabled: " + project.getId());
+					continue;
+				}
 				File root = new File(project.getBuild().getTestOutputDirectory());
 				if (!root.isDirectory()) continue;
 				discoveredTarget = true;
-				HeadTestInventory inventory = new JUnitHeadTestInventoryGenerator().generate(
-						project.getTestClasspathElements().stream().map(File::new).map(File::toPath).toList(),
-						List.of(root.toPath()));
+				HeadTestInventory inventory;
+				try {
+					inventory = new JUnitHeadTestInventoryGenerator().generate(null,
+							project.getTestClasspathElements().stream().map(File::new).map(File::toPath).toList(),
+							List.of(root.toPath()), origin -> log.debug("[SmartTestPicker] " + project.getId() + " " + origin));
+				} catch (Exception failure) {
+					throw new IllegalStateException("JUnit inventory discovery failed for Maven module "
+							+ project.getId() + "; the module runtime could not establish a coherent JUnit boundary", failure);
+				}
+				log.info("[SmartTestPicker] Module " + project.getId() + ": "
+						+ inventory.runnableTests().size() + " logical JUnit tests");
 				merged.addAll(inventory.runnableTests());
 			}
 			if (!discoveredTarget) throw new IllegalStateException("No compiled Maven test output is available");
@@ -50,5 +62,11 @@ final class MavenHeadTestInventory {
 			log.error("[SmartTestPicker] Head inventory discovery failed; selection will fail open", failure);
 			return false;
 		}
+	}
+
+	private static boolean declaresTestsSkipped(MavenProject project) {
+		var properties = project.getProperties();
+		return Boolean.parseBoolean(properties.getProperty("skipTests"))
+				|| Boolean.parseBoolean(properties.getProperty("maven.test.skip"));
 	}
 }

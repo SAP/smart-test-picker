@@ -79,6 +79,36 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 	}
 
 	@Test
+	void isolatesDifferentCompleteJUnitRuntimesPerModule(@TempDir Path temp) throws Exception {
+		Path fixture = copyFixture("junit-version-reactor", temp.resolve("reactor"));
+		String revision = initializeGit(fixture);
+		Result result = maven(fixture, "process-test-classes", PLUGIN + "generate-reactor-head-test-inventory",
+				"-DsmartTestPicker.prHeadRevision=" + revision, "-X");
+		assertEquals(0, result.exitCode(), result.output());
+		var inventory = new HeadTestInventoryCodec().read(fixture.resolve("target/head-test-inventory.json").toFile());
+		assertEquals(revision, inventory.revision());
+		assertEquals(Set.of(new TestIdentity("versions.a.OlderTests", "older"),
+				new TestIdentity("versions.a.OlderTests$NestedTests", "nested"),
+				new TestIdentity("versions.b.NewerTests", "parameterized", "java.lang.String")),
+				Set.copyOf(inventory.runnableTests()));
+		assertTrue(result.output().contains("junit-jupiter-api-5.9.3.jar"), result.output());
+		assertTrue(result.output().contains("junit-jupiter-api-5.10.2.jar"), result.output());
+		assertTrue(result.output().contains("Module fixture:module-zero:jar:1: 0 logical JUnit tests"), result.output());
+	}
+
+	@Test
+	void reportsModuleAndJUnitOriginsForInternallyBrokenRuntime(@TempDir Path temp) throws Exception {
+		Path fixture = copyFixture("junit-version-reactor", temp.resolve("reactor"));
+		Result result = maven(fixture, "process-test-classes", "-Pbroken",
+				PLUGIN + "generate-reactor-head-test-inventory");
+		assertTrue(result.exitCode() != 0, result.output());
+		assertTrue(result.output().contains("fixture:module-broken:jar:1"), result.output());
+		assertTrue(result.output().contains("coherent JUnit boundary"), result.output());
+		assertTrue(result.output().contains("junit-jupiter-api-5.9.3.jar"), result.output());
+		assertTrue(result.output().contains("junit-jupiter-engine-5.10.2.jar"), result.output());
+	}
+
+	@Test
 	void reactorWithNoCompiledTestOutputFailsWithoutPublishing(@TempDir Path temp) throws Exception {
 		Path fixture = copyFixture("schema-v2-reactor", temp.resolve("reactor"));
 		Path output = Files.createDirectories(fixture.resolve("target")).resolve("head-test-inventory.json");
