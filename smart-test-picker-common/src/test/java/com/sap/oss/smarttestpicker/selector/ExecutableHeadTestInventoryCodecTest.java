@@ -25,6 +25,7 @@ class ExecutableHeadTestInventoryCodecTest
 		codec.write(file, inventory); String json = Files.readString(file.toPath());
 		assertTrue(json.contains("\"version\":1")); assertTrue(json.contains("\"revision\":\"abc123\""));
 		assertTrue(json.indexOf(a.toString()) < json.indexOf(z.toString())); assertEquals(inventory, codec.read(file));
+		assertEquals(inventory, codec.deserialize(Files.readAllBytes(file.toPath())));
 		Files.writeString(file.toPath(), "[\"maven:a::com.example.Test#a\"]");
 		assertThrows(java.io.IOException.class, () -> codec.read(file));
 	}
