@@ -34,9 +34,16 @@ public final class ExecutableHeadTestInventoryCodec
 	public ExecutableHeadTestInventory read(File file) throws IOException
 	{
 		if (file == null || !file.isFile()) throw new IOException("Executable head inventory not found");
+		return deserialize(Files.readAllBytes(file.toPath()));
+	}
+
+	/** Decodes the exact bytes transported by a remote orchestration boundary. */
+	public ExecutableHeadTestInventory deserialize(byte[] bytes) throws IOException
+	{
+		if (bytes == null) throw new IOException("Executable head inventory bytes are required");
 		try
 		{
-			JsonElement parsed = JsonParser.parseString(Files.readString(file.toPath()));
+			JsonElement parsed = JsonParser.parseString(new String(bytes, StandardCharsets.UTF_8));
 			if (!parsed.isJsonObject()) throw new IOException("Executable head inventory must be a versioned object");
 			JsonObject root = parsed.getAsJsonObject();
 			if (!root.has("version") || root.get("version").getAsInt() != ARTIFACT_VERSION)
