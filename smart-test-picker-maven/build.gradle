@@ -28,6 +28,7 @@ dependencies {
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
     testImplementation 'org.apache.maven:maven-plugin-api:3.9.6'
+    testImplementation 'org.apache.maven:maven-core:3.9.6'
     testImplementation 'org.apache.maven.plugin-tools:maven-plugin-annotations:3.11.0'
 }
 

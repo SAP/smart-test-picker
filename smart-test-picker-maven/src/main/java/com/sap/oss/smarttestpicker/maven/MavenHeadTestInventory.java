@@ -15,6 +15,9 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.plugin.logging.Log;
 
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentity;
+import com.sap.oss.smarttestpicker.selector.ExecutableHeadTestInventory;
+import com.sap.oss.smarttestpicker.selector.ExecutableHeadTestInventoryCodec;
 import com.sap.oss.smarttestpicker.selector.HeadTestInventory;
 import com.sap.oss.smarttestpicker.selector.HeadTestInventoryCodec;
 import com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGenerator;
@@ -68,6 +71,41 @@ final class MavenHeadTestInventory {
 		} catch (Exception failure) {
 			try { Files.deleteIfExists(output.toPath()); } catch (Exception ignored) { }
 			log.error("[SmartTestPicker] Head inventory discovery failed; selection will fail open", failure);
+			return false;
+		}
+	}
+
+	static boolean generateExecutable(List<MavenProject> projects, File output, File reactorRoot,
+			String revision, Log log) {
+		try {
+			revision = WorkspaceRevisionVerifier.requireHead(reactorRoot, revision);
+			var resolver = new MavenExecutionTargetResolver();
+			List<ExecutableTestIdentity> discovered = new ArrayList<>();
+			boolean discoveredTarget = false;
+			for (MavenProject project : projects) {
+				if ("pom".equals(project.getPackaging()) || declaresTestsSkipped(project)) continue;
+				File root = new File(project.getBuild().getTestOutputDirectory());
+				if (!root.isDirectory()) continue;
+				discoveredTarget = true;
+				var target = resolver.resolve(reactorRoot, project);
+				HeadTestInventory inventory = new JUnitHeadTestInventoryGenerator().generate(null,
+						project.getTestClasspathElements().stream().map(File::new).map(File::toPath).toList(),
+						List.of(root.toPath()), origin -> log.debug("[SmartTestPicker] " + project.getId() + " " + origin));
+				log.info("[SmartTestPicker] Module " + target + ": " + inventory.runnableTests().size()
+						+ " logical JUnit tests");
+				for (TestIdentity identity : inventory.runnableTests())
+					discovered.add(new ExecutableTestIdentity(target, identity));
+			}
+			if (!discoveredTarget) throw new IllegalStateException("No compiled Maven test output is available");
+			if (new java.util.HashSet<>(discovered).size() != discovered.size())
+				throw new IllegalStateException("Duplicate executable Maven test identity produced at inventory boundary");
+			ExecutableHeadTestInventory inventory = ExecutableHeadTestInventory.atRevision(revision, discovered);
+			new ExecutableHeadTestInventoryCodec().write(output, inventory);
+			log.info("[SmartTestPicker] Discovered " + inventory.runnableTests().size() + " executable JUnit tests");
+			return true;
+		} catch (Exception failure) {
+			try { Files.deleteIfExists(output.toPath()); } catch (Exception ignored) { }
+			log.error("[SmartTestPicker] Executable head inventory discovery failed", failure);
 			return false;
 		}
 	}

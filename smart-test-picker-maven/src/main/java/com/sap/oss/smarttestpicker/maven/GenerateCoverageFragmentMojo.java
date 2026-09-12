@@ -38,6 +38,8 @@ import com.sap.oss.smarttestpicker.coverage.model.UnmappedTest;
 import com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec;
 import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableCoverageFragmentCodec;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget;
+import com.sap.oss.smarttestpicker.coverage.model.BuildTool;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentity;
 import com.sap.oss.smarttestpicker.coverage.ExecutableCoverageFragmentQualifier;
 import com.sap.oss.smarttestpicker.coverage.validation.CoverageMapValidator;
 import com.sap.oss.smarttestpicker.mapper.CoverageMapperJaxb;
@@ -112,7 +114,7 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 			codec.deserialize(bytes);
 		}
 		writeAtomically(bytes);
-		writeExecutionEvidence();
+		writeExecutionEvidence(target);
 		getLog().info("[SmartTestPicker] Generated schema-v" + schemaVersion + " coverage fragment: " + fragmentOutput
 				+ " (" + fragment.tests().size() + " mapped, " + fragment.unmapped().size()
 				+ " unmapped, completed=" + fragment.collectionCompleted() + ")");
@@ -128,7 +130,12 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 		}
 		if (executionTarget == null || executionTarget.isBlank())
 			throw new MojoExecutionException("Schema-v3 mapping requires an execution target");
-		try { return ExecutionTarget.parse(executionTarget); }
+		try {
+			ExecutionTarget parsed = ExecutionTarget.parse(executionTarget);
+			if (parsed.buildTool() != BuildTool.MAVEN)
+				throw new IllegalArgumentException("Maven mapping requires a Maven execution target");
+			return parsed;
+		}
 		catch (IllegalArgumentException failure) {
 			throw new MojoExecutionException("Malformed execution target: " + executionTarget, failure);
 		}
@@ -147,7 +154,7 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 		}
 	}
 
-	private void writeExecutionEvidence() throws MojoExecutionException
+	private void writeExecutionEvidence(ExecutionTarget target) throws MojoExecutionException
 	{
 		try
 		{
@@ -156,11 +163,18 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 			File[] skipped = execDir.listFiles((dir, name) -> name.startsWith("session_") && name.endsWith(".non-executed"));
 			if (identities != null) for (File file : identities) executed.add(readTestIdentity(file));
 			if (skipped != null) for (File file : skipped) nonExecuted.add(readTestIdentity(file));
-			nonExecuted.removeAll(executed);
-			JsonObject root = new JsonObject(); root.addProperty("version", 1); root.addProperty("revision", revision);
-			root.addProperty("shardId", shardId); root.addProperty("testTarget", testTarget); root.addProperty("buildTool", "maven");
-			JsonArray x = new JsonArray(); executed.forEach(id -> x.add(id.toString())); root.add("EXECUTED", x);
-			JsonArray n = new JsonArray(); nonExecuted.forEach(id -> n.add(id.toString())); root.add("NON_EXECUTED", n);
+			Set<TestIdentity> overlap = new TreeSet<>(executed); overlap.retainAll(nonExecuted);
+			if (schemaVersion == 3 && !overlap.isEmpty())
+				throw new IllegalStateException("Conflicting executable execution evidence: " + overlap);
+			nonExecuted.removeAll(executed); // Preserve evidence-v1's historical executed-wins behavior.
+			JsonObject root = new JsonObject(); root.addProperty("version", schemaVersion == 3 ? 2 : 1); root.addProperty("revision", revision);
+			root.addProperty("shardId", shardId);
+			if (schemaVersion == 2) { root.addProperty("testTarget", testTarget); root.addProperty("buildTool", "maven"); }
+			else root.addProperty("executionTarget", target.toString());
+			JsonArray x = new JsonArray(); executed.forEach(id -> x.add(schemaVersion == 3
+					? new ExecutableTestIdentity(target, id).toString() : id.toString())); root.add("EXECUTED", x);
+			JsonArray n = new JsonArray(); nonExecuted.forEach(id -> n.add(schemaVersion == 3
+					? new ExecutableTestIdentity(target, id).toString() : id.toString())); root.add("NON_EXECUTED", n);
 			File parent = evidenceOutput.getAbsoluteFile().getParentFile(); if (parent != null) Files.createDirectories(parent.toPath());
 			Files.writeString(evidenceOutput.toPath(), new GsonBuilder().setPrettyPrinting().create().toJson(root) + "\n");
 		}
