@@ -1,0 +1,53 @@
+{
+  "task": "EI-7a — Wire executable shard assignments through Maven mapping orchestration",
+  "mainStpBefore": "c05eb3ed8801819c2bb8dbf659031f24fcae9d4a",
+  "mainStpAfter": "11c7f7a",
+  "jenkinsBefore": "9086795d22678d15ada657a6c4b3f3814195f930",
+  "jenkinsAfter": "de1b1f9",
+  "schemaV2Changed": false,
+  "schemaV3OrchestrationAdded": true,
+  "inventoryCodec": "ExecutableHeadTestInventoryCodec version 1; byte-oriented deserialize added for remote FilePath transport",
+  "sharder": "ExecutableTestSharder (shared EI-3 sorted round-robin semantics)",
+  "assignmentCodec": "ExecutableShardAssignmentCodec version 1",
+  "manifestSchemaVersion": 3,
+  "assignmentNaming": "build/stp/shards/assignment-<shardId>.json",
+  "dualOwnerProof": {
+    "java-checks-common": "PRESENT",
+    "java-checks": "PRESENT",
+    "bothAssignedExactlyOnce": true,
+    "roundTrip": true
+  },
+  "multiShardProof": {
+    "fixtureTests": 6,
+    "requestedShards": 3,
+    "assignmentFiles": 3,
+    "uniqueShardIds": true,
+    "unionEqualsInventory": true,
+    "pairwiseDisjoint": true,
+    "deterministicCodecRoundTrip": true
+  },
+  "revisionMismatchProof": "inventory/mapping and assignment/mapping mismatches throw before the Maven body",
+  "shardMismatchProof": "assignment shardId mismatch throws before the Maven body",
+  "mixedVersionProof": "raw v2 text fails strict executable assignment decoding; schema-v3 manifest requires mappingSchemaVersion 3 and Maven; v2 manifests retain raw membership",
+  "workerTransportProof": "JenkinsRule boundary observed STP_MAPPING_TESTS_FILE ending in assignment-0.json and decoded the same versioned executable artifact before entering the body",
+  "mavenCommandProof": "MAVEN_OPTS contains schemaVersion=3, exact revision, exact shardId, and testsFile; STP_MAVEN_MAPPING_GOAL is the EI-5 prepare-reactor-executable-mapping goal",
+  "mavenExecutionTargetDerivedByJenkins": false,
+  "gradleV3Supported": false,
+  "sonarJavaMappingRun": false,
+  "dockerUsed": false,
+  "jenkinsRuntimeUsed": false,
+  "pushPerformed": false,
+  "testsRun": [
+    "JDK 17 ./gradlew :smart-test-picker-common:test --tests ExecutableHeadTestInventoryCodecTest --tests ExecutableShardingAndJoinTest",
+    "JDK 17 Maven compiler:compile compiler:testCompile surefire:test (Jenkins plugin full suite)",
+    "git diff --check (both repositories)"
+  ],
+  "testsPassed": {
+    "mainFocused": true,
+    "jenkinsFocused": "16 tests, 0 failures",
+    "jenkinsFull": "83 tests, 0 failures",
+    "note": "The normal package lifecycle's pre-test adapter reproducibility gate reported an unrelated bundled Maven adapter checksum mismatch; direct JDK 17 compiler and full Surefire harness passed. No external Jenkins controller was started; JenkinsRule was used only as the repository integration-test harness."
+  },
+  "result": "PASS",
+  "next": "Resume the SAME MM-2 from executable shard creation and Maven mapping; do not create MM-3."
+}
