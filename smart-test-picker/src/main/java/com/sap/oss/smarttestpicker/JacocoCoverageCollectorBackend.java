@@ -25,6 +25,9 @@ final class JacocoCoverageCollectorBackend implements CoverageCollectorBackend {
 		test.getCoverageCollector().set(type());
 		test.getCoverageRevision().set(extension.getRevision());
 		test.getCoverageShardId().set(extension.getShardId().getOrElse("gradle:" + test.getPath()));
+		test.systemProperty("stp.schemaVersion", extension.getRuntimeSchemaVersion().get());
+		if (extension.getExecutionTarget().isPresent())
+			test.systemProperty("stp.executionTarget", extension.getExecutionTarget().get());
 		test.setClasspath(test.getClasspath().plus(collectorRuntime));
 		test.systemProperty("stp.exec.dir", project.getLayout().getBuildDirectory().dir("jacoco").get().getAsFile());
 		test.systemProperty("junit.jupiter.extensions.autodetection.enabled", "true");

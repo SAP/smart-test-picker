@@ -13,12 +13,13 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 
-record AgentConfiguration(Path output, Path fragmentOutput, String revision, String shardId,
+record AgentConfiguration(Path output, Path fragmentOutput, int schemaVersion, String revision, String shardId,
+		com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget executionTarget,
 		List<String> includes, List<String> excludes, String runId, boolean debug, boolean instrumentationEnabled) {
 	private static final List<String> MANDATORY_EXCLUDES = List.of("java.", "javax.", "jakarta.", "jdk.",
 			"sun.", "org.junit.", "org.springframework.", "org.hibernate.", "org.mockito.", "net.bytebuddy.",
 			"org.jacoco.", "com.sap.oss.smarttestpicker.");
-	private static final Set<String> KEYS = Set.of("output", "fragmentOutput", "revision", "shardId", "includes",
+	private static final Set<String> KEYS = Set.of("output", "fragmentOutput", "schemaVersion", "revision", "shardId", "executionTarget", "includes",
 			"excludes", "runId", "debug", "instrumentation");
 	private static final Pattern PREFIX = Pattern.compile("(?:[A-Za-z_$][A-Za-z0-9_$]*\\.)+");
 
@@ -28,11 +29,17 @@ record AgentConfiguration(Path output, Path fragmentOutput, String revision, Str
 
 	public AgentConfiguration {
 		if (output == null) throw new NullPointerException("output");
-		boolean anyFragment = fragmentOutput != null || revision != null || shardId != null;
+		boolean anyFragment = fragmentOutput != null || revision != null || shardId != null || executionTarget != null;
 		if (anyFragment && (fragmentOutput == null || revision == null || revision.isBlank()
 				|| shardId == null || shardId.isBlank())) {
 			throw new IllegalArgumentException("fragmentOutput, revision, and shardId must be supplied together");
 		}
+		if (schemaVersion != 2 && schemaVersion != 3)
+			throw new IllegalArgumentException("Unsupported runtime schema version: " + schemaVersion);
+		if (schemaVersion == 3 && fragmentOutput != null && executionTarget == null)
+			throw new IllegalArgumentException("Schema-v3 mapping requires an execution target");
+		if (schemaVersion == 2 && executionTarget != null)
+			throw new IllegalArgumentException("Schema-v2 mapping does not accept an execution target");
 		includes = List.copyOf(includes);
 		excludes = List.copyOf(excludes);
 		if (runId == null || runId.isBlank()) throw new IllegalArgumentException("runId must not be blank");
@@ -75,7 +82,17 @@ record AgentConfiguration(Path output, Path fragmentOutput, String revision, Str
 		if (!instrumentation.equals("on") && !instrumentation.equals("off")) {
 			throw new IllegalArgumentException("instrumentation must be on or off");
 		}
-		return new AgentConfiguration(output, fragmentOutput, values.get("revision"), values.get("shardId"),
+		int schemaVersion;
+		try { schemaVersion = Integer.parseInt(values.getOrDefault("schemaVersion", "2")); }
+		catch (NumberFormatException invalid) { throw new IllegalArgumentException("schemaVersion must be an integer", invalid); }
+		com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget target = null;
+		if (values.containsKey("executionTarget")) {
+			try { target = com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget.parse(values.get("executionTarget")); }
+			catch (IllegalArgumentException invalid) {
+				throw new IllegalArgumentException("Malformed execution target: " + values.get("executionTarget"), invalid);
+			}
+		}
+		return new AgentConfiguration(output, fragmentOutput, schemaVersion, values.get("revision"), values.get("shardId"), target,
 				includes, new ArrayList<>(exclusions), runId,
 				Boolean.parseBoolean(debugValue), instrumentation.equals("on"));
 	}

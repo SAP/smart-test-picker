@@ -11,6 +11,8 @@ import com.sap.oss.smarttestpicker.runtime.AsmCoverageFragmentProjector;
 import com.sap.oss.smarttestpicker.runtime.CollectorIntegrity;
 import com.sap.oss.smarttestpicker.runtime.FragmentProjectionConfig;
 import com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec;
+import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableCoverageFragmentCodec;
+import com.sap.oss.smarttestpicker.coverage.ExecutableCoverageFragmentQualifier;
 import com.sap.oss.smarttestpicker.runtime.model.Certainty;
 import com.sap.oss.smarttestpicker.runtime.model.Evidence;
 import com.sap.oss.smarttestpicker.runtime.model.EvidenceSource;
@@ -133,10 +135,22 @@ final class AgentRuntime {
 					FragmentProjectionConfig.of(configuration.revision(), configuration.shardId()),
 					new CollectorIntegrity(true, snapshot.transformationErrors(), snapshot.methodIdCollisions(), errors));
 			errors.addAll(projected.diagnostics());
-			CoverageFragmentCodec codec = new CoverageFragmentCodec();
-			byte[] bytes = codec.serialize(projected.fragment());
+			byte[] bytes;
+			if (configuration.schemaVersion() == 2) {
+				CoverageFragmentCodec codec = new CoverageFragmentCodec();
+				bytes = codec.serialize(projected.fragment());
+				codec.deserialize(bytes);
+			} else if (configuration.schemaVersion() == 3) {
+				var qualifier = new ExecutableCoverageFragmentQualifier();
+				var executable = qualifier.qualify(projected.fragment(), configuration.executionTarget());
+				qualifier.requireTarget(executable, configuration.executionTarget());
+				ExecutableCoverageFragmentCodec codec = new ExecutableCoverageFragmentCodec();
+				bytes = codec.serialize(executable);
+				codec.deserialize(bytes);
+			} else {
+				throw new IllegalArgumentException("Unsupported runtime schema version: " + configuration.schemaVersion());
+			}
 			// Validate exactly the bytes that will be published; the final name is the commit point.
-			codec.deserialize(bytes);
 			if (!AgentOutputWriter.publish(configuration.fragmentOutput(), bytes)) {
 				errors.add("fragment-atomic-move-unsupported:platform-fallback");
 			}

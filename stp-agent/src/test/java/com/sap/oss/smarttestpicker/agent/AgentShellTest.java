@@ -67,6 +67,20 @@ class AgentShellTest {
 	}
 
 	@Test
+	void schemaV3TargetIsParsedBeforeCollectionAndV2CompatibilityRemainsExplicit() {
+		AgentConfiguration v3 = AgentConfiguration.parse("fragmentOutput=fragment.json;revision=r;shardId=s;"
+				+ "schemaVersion=3;executionTarget=maven:module-a");
+		assertEquals(3, v3.schemaVersion());
+		assertEquals("maven:module-a", v3.executionTarget().toString());
+		assertThrows(IllegalArgumentException.class,
+				() -> AgentConfiguration.parse("fragmentOutput=f;revision=r;shardId=s;schemaVersion=3"));
+		for (String malformed : List.of("maven:/absolute", "maven:../module", "gradle:spring:test", "unknown:module"))
+			assertThrows(IllegalArgumentException.class, () -> AgentConfiguration.parse(
+					"fragmentOutput=f;revision=r;shardId=s;schemaVersion=3;executionTarget=" + malformed));
+		assertEquals(2, AgentConfiguration.parse("fragmentOutput=f;revision=r;shardId=s").schemaVersion());
+	}
+
+	@Test
 	void suppliesSafeDefaults() {
 		AgentConfiguration configuration = AgentConfiguration.parse(null);
 		assertEquals(Path.of("stp-agent-output.json"), configuration.output());

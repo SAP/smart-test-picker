@@ -14,6 +14,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableCoverageFragmentCodec;
 
 import static org.gradle.testkit.runner.TaskOutcome.SUCCESS;
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,6 +34,25 @@ class GradleCollectorBackendFunctionalTest {
 		run(explicitProject, "generateSmartTestCoverage");
 		assertAsmFragment(explicitProject, "revision-explicit-asm", "fixture-explicit-asm");
 		assertFalse(Files.exists(defaultProject.resolve("build/stp/coverage/_generateSmartTestCoverage/fixture-explicit-asm")));
+	}
+
+	@Test
+	void asmProducesSchemaV3FragmentForExplicitTrustedTarget() throws Exception {
+		Path project = fixture("asm-v3", "ASM", false);
+		Path buildFile = project.resolve("build.gradle");
+		Files.writeString(buildFile, Files.readString(buildFile).replace(
+				"coverageIncludes = ['example.']",
+				"runtimeSchemaVersion = 3\n    executionTarget = 'maven:module-a'\n    coverageIncludes = ['example.']"));
+		BuildResult result = run(project, "generateSmartTestCoverage");
+		assertEquals(SUCCESS, result.task(":generateSmartTestCoverage").getOutcome());
+		Path fragment = project.resolve("build/stp/coverage/_generateSmartTestCoverage/fixture-asm-v3/fragment.json");
+		var decoded = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(fragment));
+		assertEquals(3, decoded.schemaVersion());
+		assertEquals("revision-asm-v3", decoded.revision().value());
+		assertEquals("fixture-asm-v3", decoded.shardId().value());
+		assertTrue(decoded.tests().keySet().stream().allMatch(id -> id.target().toString().equals("maven:module-a")));
+		assertTrue(decoded.tests().keySet().stream().anyMatch(id -> id.test().toString().equals(
+				"example.OverloadedServiceTest#mapsDescriptorExactly")));
 	}
 
 	@Test

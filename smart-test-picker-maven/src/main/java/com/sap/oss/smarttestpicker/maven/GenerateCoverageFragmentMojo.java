@@ -36,6 +36,9 @@ import com.sap.oss.smarttestpicker.coverage.model.TestOutcome;
 import com.sap.oss.smarttestpicker.coverage.model.UnmappedReason;
 import com.sap.oss.smarttestpicker.coverage.model.UnmappedTest;
 import com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec;
+import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableCoverageFragmentCodec;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget;
+import com.sap.oss.smarttestpicker.coverage.ExecutableCoverageFragmentQualifier;
 import com.sap.oss.smarttestpicker.coverage.validation.CoverageMapValidator;
 import com.sap.oss.smarttestpicker.mapper.CoverageMapperJaxb;
 
@@ -54,6 +57,12 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 
 	@Parameter(property = "smartTestPicker.shardId", required = true)
 	private String shardId;
+
+	@Parameter(defaultValue = "2", property = "smartTestPicker.schemaVersion", required = true)
+	private int schemaVersion = CoverageMapContract.SCHEMA_VERSION;
+
+	@Parameter(property = "smartTestPicker.executionTarget")
+	private String executionTarget;
 
 	@Parameter(defaultValue = "${project.build.directory}/coverage-fragment-v2.json",
 			property = "smartTestPicker.fragmentOutput", required = true)
@@ -77,6 +86,7 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 	{
 		if (revision == null || revision.isBlank()) throw new MojoExecutionException("smartTestPicker.revision must not be blank");
 		if (shardId == null || shardId.isBlank()) throw new MojoExecutionException("smartTestPicker.shardId must not be blank");
+		ExecutionTarget target = validateRuntimeContext();
 		selectOutputs();
 		if (evidenceOutput == null) evidenceOutput = new File(fragmentOutput.getAbsoluteFile().getParentFile(), "execution-evidence-v1.json");
 		if (testTarget == null || testTarget.isBlank()) testTarget = "test";
@@ -88,14 +98,40 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 		CoverageFragment fragment = collect();
 		var validation = CoverageMapValidator.validate(fragment);
 		if (!validation.isValid()) throw new MojoExecutionException("Invalid coverage fragment: " + validation.errors().get(0));
-		CoverageFragmentCodec codec = new CoverageFragmentCodec();
-		byte[] bytes = codec.serialize(fragment);
-		codec.deserialize(bytes);
+		byte[] bytes;
+		if (schemaVersion == CoverageMapContract.SCHEMA_VERSION) {
+			CoverageFragmentCodec codec = new CoverageFragmentCodec();
+			bytes = codec.serialize(fragment);
+			codec.deserialize(bytes);
+		} else {
+			var qualifier = new ExecutableCoverageFragmentQualifier();
+			var executable = qualifier.qualify(fragment, target);
+			qualifier.requireTarget(executable, target);
+			ExecutableCoverageFragmentCodec codec = new ExecutableCoverageFragmentCodec();
+			bytes = codec.serialize(executable);
+			codec.deserialize(bytes);
+		}
 		writeAtomically(bytes);
 		writeExecutionEvidence();
-		getLog().info("[SmartTestPicker] Generated schema-v2 coverage fragment: " + fragmentOutput
+		getLog().info("[SmartTestPicker] Generated schema-v" + schemaVersion + " coverage fragment: " + fragmentOutput
 				+ " (" + fragment.tests().size() + " mapped, " + fragment.unmapped().size()
 				+ " unmapped, completed=" + fragment.collectionCompleted() + ")");
+	}
+
+	private ExecutionTarget validateRuntimeContext() throws MojoExecutionException {
+		if (schemaVersion != CoverageMapContract.SCHEMA_VERSION && schemaVersion != CoverageMapContract.SCHEMA_V3)
+			throw new MojoExecutionException("Unsupported runtime schema version: " + schemaVersion);
+		if (schemaVersion == CoverageMapContract.SCHEMA_VERSION) {
+			if (executionTarget != null)
+				throw new MojoExecutionException("Schema-v2 mapping does not accept an execution target");
+			return null;
+		}
+		if (executionTarget == null || executionTarget.isBlank())
+			throw new MojoExecutionException("Schema-v3 mapping requires an execution target");
+		try { return ExecutionTarget.parse(executionTarget); }
+		catch (IllegalArgumentException failure) {
+			throw new MojoExecutionException("Malformed execution target: " + executionTarget, failure);
+		}
 	}
 
 	private void selectOutputs() throws MojoExecutionException
@@ -258,7 +294,7 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 		}
 		catch (IOException failure)
 		{
-			throw new MojoExecutionException("Failed to write schema-v2 coverage fragment", failure);
+			throw new MojoExecutionException("Failed to write schema-v" + schemaVersion + " coverage fragment", failure);
 		}
 	}
 

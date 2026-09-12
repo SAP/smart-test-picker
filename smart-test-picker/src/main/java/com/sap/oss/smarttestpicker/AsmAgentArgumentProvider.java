@@ -32,6 +32,13 @@ public abstract class AsmAgentArgumentProvider implements CommandLineArgumentPro
 	public abstract Property<String> getShardId();
 
 	@Input
+	public abstract Property<Integer> getSchemaVersion();
+
+	@Input
+	@org.gradle.api.tasks.Optional
+	public abstract Property<String> getExecutionTarget();
+
+	@Input
 	public abstract Property<String> getRunId();
 
 	@Input
@@ -47,7 +54,9 @@ public abstract class AsmAgentArgumentProvider implements CommandLineArgumentPro
 				.append(";fragmentOutput=").append(getFragmentOutput().get().getAsFile())
 				.append(";revision=").append(getRevision().get())
 				.append(";shardId=").append(getShardId().get())
+				.append(";schemaVersion=").append(getSchemaVersion().get())
 				.append(";runId=").append(getRunId().get());
+		if (getExecutionTarget().isPresent()) arguments.append(";executionTarget=").append(getExecutionTarget().get());
 		appendPrefixes(arguments, "includes", getIncludes().get());
 		appendPrefixes(arguments, "excludes", getExcludes().get());
 		return List.of("-javaagent:" + agent.getAbsolutePath() + "=" + arguments);

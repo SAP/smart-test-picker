@@ -3,6 +3,7 @@
 package com.sap.oss.smarttestpicker;
 
 import com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec;
+import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableCoverageFragmentCodec;
 import org.gradle.api.Project;
 import org.gradle.api.Task;
 import org.gradle.api.GradleException;
@@ -40,7 +41,8 @@ final class AsmCoverageCollectorBackend implements CoverageCollectorBackend {
 			deleteStale(fragment.get().getAsFile(), "fragment");
 			deleteStale(diagnostic.get().getAsFile(), "diagnostic");
 		});
-		test.doLast(ignored -> verifyFragment(fragment.get().getAsFile(), extension.getRevision().get(), shard));
+		test.doLast(ignored -> verifyFragment(fragment.get().getAsFile(), extension.getRuntimeSchemaVersion().get(),
+				extension.getRevision().get(), shard));
 
 		AsmAgentArgumentProvider arguments = project.getObjects().newInstance(AsmAgentArgumentProvider.class);
 		arguments.getAgentClasspath().from(agent);
@@ -48,6 +50,8 @@ final class AsmCoverageCollectorBackend implements CoverageCollectorBackend {
 		arguments.getDiagnosticOutput().set(diagnostic);
 		arguments.getRevision().set(extension.getRevision());
 		arguments.getShardId().set(shard);
+		arguments.getSchemaVersion().set(extension.getRuntimeSchemaVersion());
+		arguments.getExecutionTarget().set(extension.getExecutionTarget());
 		arguments.getRunId().set("gradle:" + test.getPath() + ":" + shard);
 		arguments.getIncludes().set(extension.getCoverageIncludes());
 		arguments.getExcludes().set(extension.getCoverageExcludes());
@@ -63,17 +67,28 @@ final class AsmCoverageCollectorBackend implements CoverageCollectorBackend {
 		}
 	}
 
-	static void verifyFragment(java.io.File file, String revision, String shard) {
+	static void verifyFragment(java.io.File file, int schemaVersion, String revision, String shard) {
 		try {
-			var value = new CoverageFragmentCodec().deserialize(java.nio.file.Files.readAllBytes(file.toPath()));
-			if (!revision.equals(value.revision().value())) throw new GradleException("ASM fragment revision mismatch");
-			if (!shard.equals(value.shardId().value())) throw new GradleException("ASM fragment shard mismatch");
-			if (!value.collectionCompleted()) throw new GradleException("ASM fragment collection is incomplete");
+			byte[] bytes = java.nio.file.Files.readAllBytes(file.toPath());
+			if (schemaVersion == 2) {
+				var value = new CoverageFragmentCodec().deserialize(bytes);
+				verifyBinding(value.revision().value(), value.shardId().value(), value.collectionCompleted(), revision, shard);
+			} else if (schemaVersion == 3) {
+				var value = new ExecutableCoverageFragmentCodec().deserialize(bytes);
+				verifyBinding(value.revision().value(), value.shardId().value(), value.collectionCompleted(), revision, shard);
+			} else throw new GradleException("Unsupported runtime schema version: " + schemaVersion);
 		} catch (GradleException failure) {
 			throw failure;
 		} catch (Exception failure) {
 			throw new GradleException("Fresh valid ASM fragment was not produced: " + file, failure);
 		}
+	}
+
+	private static void verifyBinding(String actualRevision, String actualShard, boolean complete,
+			String revision, String shard) {
+		if (!revision.equals(actualRevision)) throw new GradleException("ASM fragment revision mismatch");
+		if (!shard.equals(actualShard)) throw new GradleException("ASM fragment shard mismatch");
+		if (!complete) throw new GradleException("ASM fragment collection is incomplete");
 	}
 
 	private static String safe(String value) {
