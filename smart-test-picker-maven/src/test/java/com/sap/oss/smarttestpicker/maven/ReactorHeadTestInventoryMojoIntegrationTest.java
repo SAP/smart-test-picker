@@ -19,6 +19,8 @@ import org.junit.jupiter.api.io.TempDir;
 
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 import com.sap.oss.smarttestpicker.selector.HeadTestInventoryCodec;
+import com.sap.oss.smarttestpicker.selector.ExecutableHeadTestInventoryCodec;
+import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableCoverageFragmentCodec;
 import com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec;
 import com.google.gson.JsonParser;
 
@@ -26,6 +28,76 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 	private static final String PLUGIN = "com.sap.oss.smart-test-picker:smart-test-picker-maven:0.1.0:";
 	private static final Path LOCAL_REPOSITORY = Path.of("build/functional-test-maven-local-"
 			+ ProcessHandle.current().pid()).toAbsolutePath();
+
+	@Test
+	void schemaV3InventoryKeepsSameLogicalTestUnderBothModuleTargets(@TempDir Path temp) throws Exception {
+		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor"));
+		String revision = initializeGit(fixture);
+		Result result = maven(fixture, "process-test-classes", PLUGIN + "generate-reactor-head-test-inventory",
+				"-DsmartTestPicker.schemaVersion=3", "-DsmartTestPicker.prHeadRevision=" + revision);
+		assertEquals(0, result.exitCode(), result.output());
+		var inventory = new ExecutableHeadTestInventoryCodec().read(fixture.resolve("target/head-test-inventory.json").toFile());
+		assertEquals(revision, inventory.revision());
+		assertEquals(6, inventory.runnableTests().size());
+		assertTrue(inventory.runnableTests().stream().anyMatch(i -> i.toString().equals("maven:module-a::shared.SharedTest#same")));
+		assertTrue(inventory.runnableTests().stream().anyMatch(i -> i.toString().equals("maven:module-b::shared.SharedTest#same")));
+		assertTrue(inventory.runnableTests().stream().noneMatch(i -> i.target().targetId().equals("module-zero")));
+	}
+
+	@Test
+	void schemaV3MappingRoutesStrictSubsetAndAggregatesExecutableOwners(@TempDir Path temp) throws Exception {
+		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor")); initializeGit(fixture);
+		Path assignment = fixture.resolve("assignment.json");
+		Files.writeString(assignment, executableAssignment("maven:module-a::a.ATests#a1", "maven:module-b::b.BTests#b2",
+				"maven:module-a::shared.SharedTest#same", "maven:module-b::shared.SharedTest#same"));
+		Path fragment = fixture.resolve("target/final-fragment-v3.json"), evidence = fixture.resolve("target/final-evidence-v2.json");
+		Result result = maven(fixture, PLUGIN + "prepare-reactor-executable-mapping", "verify",
+				PLUGIN + "aggregate-reactor-coverage-fragment", "-DsmartTestPicker.schemaVersion=3",
+				"-DsmartTestPicker.testsFile=" + assignment, "-DsmartTestPicker.fragmentOutput=" + fragment,
+				"-DsmartTestPicker.evidenceOutput=" + evidence);
+		assertEquals(0, result.exitCode(), result.output());
+		var decoded = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(fragment));
+		assertEquals(Set.of("maven:module-a::a.ATests#a1", "maven:module-b::b.BTests#b2",
+				"maven:module-a::shared.SharedTest#same", "maven:module-b::shared.SharedTest#same"),
+				decoded.tests().keySet().stream().map(Object::toString).collect(java.util.stream.Collectors.toSet()));
+		assertFalse(result.output().contains("outside assignment executed"), result.output());
+		assertTrue(Files.readString(fixture.resolve("module-a/target/stp/selected-tests-surefire-v3.txt")).contains("a.ATests#a1"));
+		assertTrue(Files.readString(fixture.resolve("module-b/target/stp/selected-tests-surefire-v3.txt")).contains("b.BTests#b2"));
+		var json = JsonParser.parseString(Files.readString(evidence)).getAsJsonObject();
+		assertEquals(2, json.get("version").getAsInt()); assertEquals(4, json.getAsJsonArray("EXECUTED").size());
+		Path moduleFragment = fixture.resolve("module-b/target/stp/coverage-fragment-v3.json");
+		String originalFragment = Files.readString(moduleFragment);
+		Files.writeString(moduleFragment, originalFragment.replace("maven:module-b::", "maven:module-a::"));
+		Result wrongFragment = maven(fixture, PLUGIN + "aggregate-reactor-coverage-fragment",
+				"-DsmartTestPicker.schemaVersion=3", "-DsmartTestPicker.testsFile=" + assignment,
+				"-DsmartTestPicker.fragmentOutput=" + fragment, "-DsmartTestPicker.evidenceOutput=" + evidence);
+		assertTrue(wrongFragment.exitCode() != 0); assertTrue(wrongFragment.output().contains("Execution target mismatch"), wrongFragment.output());
+		Files.writeString(moduleFragment, originalFragment);
+		Path moduleEvidence = fixture.resolve("module-b/target/stp/execution-evidence-v2.json");
+		String originalEvidence = Files.readString(moduleEvidence);
+		Files.writeString(moduleEvidence, originalEvidence.replace("maven:module-b", "maven:module-a"));
+		Result wrongEvidence = maven(fixture, PLUGIN + "aggregate-reactor-coverage-fragment",
+				"-DsmartTestPicker.schemaVersion=3", "-DsmartTestPicker.testsFile=" + assignment,
+				"-DsmartTestPicker.fragmentOutput=" + fragment, "-DsmartTestPicker.evidenceOutput=" + evidence);
+		assertTrue(wrongEvidence.exitCode() != 0); assertTrue(wrongEvidence.output().contains("Execution target mismatch for evidence"), wrongEvidence.output());
+	}
+
+	@Test
+	void schemaV3PreparationRejectsAbsentAndNonMavenTargets(@TempDir Path temp) throws Exception {
+		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor"));
+		Path assignment = fixture.resolve("assignment.json");
+		Files.writeString(assignment, executableAssignment("maven:not-in-reactor::a.ATests#a1"));
+		Result absent = maven(fixture, PLUGIN + "prepare-reactor-executable-mapping", "-DsmartTestPicker.schemaVersion=3", "-DsmartTestPicker.testsFile=" + assignment);
+		assertTrue(absent.exitCode() != 0); assertTrue(absent.output().contains("absent from reactor"), absent.output());
+		Files.writeString(assignment, executableAssignment("gradle::module:test::a.ATests#a1"));
+		Result wrong = maven(fixture, PLUGIN + "prepare-reactor-executable-mapping", "-DsmartTestPicker.schemaVersion=3", "-DsmartTestPicker.testsFile=" + assignment);
+		assertTrue(wrong.exitCode() != 0); assertTrue(wrong.output().contains("non-Maven execution target"), wrong.output());
+	}
+
+	private static String executableAssignment(String... tests) {
+		return "{\"version\":1,\"revision\":\"reactor-revision\",\"shardId\":\"reactor-shard\",\"tests\":["
+				+ java.util.Arrays.stream(tests).map(s -> "\"" + s + "\"").collect(java.util.stream.Collectors.joining(",")) + "]}";
+	}
 
 	@Test
 	void realMavenReactorWritesOneRevisionBoundInventoryWithoutRunningTests(@TempDir Path temp) throws Exception {

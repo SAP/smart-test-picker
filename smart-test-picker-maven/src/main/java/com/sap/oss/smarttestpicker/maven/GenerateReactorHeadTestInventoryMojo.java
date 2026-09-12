@@ -21,17 +21,24 @@ public final class GenerateReactorHeadTestInventoryMojo extends AbstractMojo {
 	@Parameter(defaultValue = "${project}", readonly = true, required = true) private MavenProject project;
 	@Parameter(defaultValue = "${reactorProjects}", readonly = true, required = true)
 	private List<MavenProject> reactorProjects;
-	@Parameter(defaultValue = "${session.executionRootDirectory}/target/head-test-inventory.json", required = true)
+	@Parameter(defaultValue = "${session.executionRootDirectory}/target/head-test-inventory.json",
+			property = "smartTestPicker.outputFile", required = true)
 	private File outputFile;
 	@Parameter(property = "smartTestPicker.prHeadRevision") private String prHeadRevision;
+	@Parameter(defaultValue = "2", property = "smartTestPicker.schemaVersion", required = true) private int schemaVersion;
 
 	@Override public void execute() throws MojoExecutionException {
 		MavenProject executionRoot = reactorProjects.stream().filter(MavenProject::isExecutionRoot).findFirst()
 				.orElseGet(() -> project.isExecutionRoot() ? project : null);
 		if (executionRoot == null || executionRoot.getBasedir() == null)
 			throw new MojoExecutionException("Cannot determine the Maven execution root");
-		if (!MavenHeadTestInventory.generate(
-				reactorProjects, outputFile, executionRoot.getBasedir(), prHeadRevision, getLog()))
+		boolean generated;
+		if (schemaVersion == 2) generated = MavenHeadTestInventory.generate(
+				reactorProjects, outputFile, executionRoot.getBasedir(), prHeadRevision, getLog());
+		else if (schemaVersion == 3) generated = MavenHeadTestInventory.generateExecutable(
+				reactorProjects, outputFile, executionRoot.getBasedir(), prHeadRevision, getLog());
+		else throw new MojoExecutionException("Unsupported Maven inventory schema version: " + schemaVersion);
+		if (!generated)
 			throw new MojoExecutionException("JUnit head inventory discovery failed");
 	}
 }

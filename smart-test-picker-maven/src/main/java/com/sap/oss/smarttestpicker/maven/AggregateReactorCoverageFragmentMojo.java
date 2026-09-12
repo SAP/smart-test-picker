@@ -38,9 +38,19 @@ import com.sap.oss.smarttestpicker.coverage.model.SetupScope;
 import com.sap.oss.smarttestpicker.coverage.model.ShardId;
 import com.sap.oss.smarttestpicker.coverage.model.TestCoverage;
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
+import com.sap.oss.smarttestpicker.coverage.model.BuildTool;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutableCoverageFragment;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutableShardAssignment;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentity;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutableUnmappedTest;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget;
 import com.sap.oss.smarttestpicker.coverage.model.UnmappedTest;
 import com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec;
+import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableCoverageFragmentCodec;
+import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableShardAssignmentCodec;
 import com.sap.oss.smarttestpicker.coverage.validation.CoverageMapValidator;
+import com.sap.oss.smarttestpicker.coverage.ExecutableCoverageFragmentQualifier;
+import com.sap.oss.smarttestpicker.coverage.validation.ExecutableCoverageMapValidator;
 import com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGenerator;
 
 /** Collapses module-local schema-v2 results into one Jenkins shard result. */
@@ -56,21 +66,95 @@ public final class AggregateReactorCoverageFragmentMojo extends AbstractMojo {
 	@Parameter(property = "smartTestPicker.fragmentOutput", required = true) private File fragmentOutput;
 	@Parameter(property = "smartTestPicker.evidenceOutput", required = true) private File evidenceOutput;
 	@Parameter(defaultValue = "${env.STP_MAPPING_TESTS_FILE}", property = "smartTestPicker.testsFile") private File shardAssignments;
+	@Parameter(defaultValue = "2", property = "smartTestPicker.schemaVersion", required = true) private int schemaVersion;
 
 	@Override public void execute() throws MojoExecutionException {
 		validateParameters();
 		invalidateFinals();
 		try {
-			Set<TestIdentity> assigned = readAssignments(shardAssignments.toPath());
-			Aggregate aggregate = aggregate(assigned);
-			publishPair(new CoverageFragmentCodec().serialize(aggregate.fragment()), aggregate.evidence());
-			getLog().info("[SmartTestPicker] Aggregated " + aggregate.fragment().tests().size()
-					+ " mapped and " + aggregate.fragment().unmapped().size() + " unmapped tests into " + fragmentOutput);
+			if (schemaVersion == 2) {
+				Set<TestIdentity> assigned = readAssignments(shardAssignments.toPath());
+				Aggregate aggregate = aggregate(assigned);
+				publishPair(new CoverageFragmentCodec().serialize(aggregate.fragment()), aggregate.evidence());
+				getLog().info("[SmartTestPicker] Aggregated " + aggregate.fragment().tests().size()
+						+ " mapped and " + aggregate.fragment().unmapped().size() + " unmapped tests into " + fragmentOutput);
+			} else if (schemaVersion == 3) aggregateExecutable();
+			else throw new IllegalArgumentException("Unsupported Maven aggregation schema version: " + schemaVersion);
 		} catch (Exception failure) {
 			invalidateFinals();
 			throw failure instanceof MojoExecutionException mojo ? mojo
 					: new MojoExecutionException("Maven reactor coverage aggregation failed: " + failure.getMessage(), failure);
 		}
+	}
+
+	private void aggregateExecutable() throws Exception {
+		ExecutableShardAssignment assignment = new ExecutableShardAssignmentCodec().deserialize(Files.readAllBytes(shardAssignments.toPath()));
+		if (!revision.equals(assignment.revision().value())) throw new IllegalStateException("Executable assignment revision mismatch");
+		if (!shardId.equals(assignment.shardId().value())) throw new IllegalStateException("Executable assignment shardId mismatch");
+		MavenProject root = reactorProjects.stream().filter(MavenProject::isExecutionRoot).findFirst()
+				.orElseGet(() -> project.isExecutionRoot() ? project : null);
+		if (root == null || root.getBasedir() == null) throw new IllegalStateException("Cannot determine the Maven execution root");
+		var resolver = new MavenExecutionTargetResolver();
+		Map<ExecutionTarget,MavenProject> modules = new TreeMap<>();
+		for (MavenProject module : reactorProjects) {
+			ExecutionTarget target = resolver.resolve(root.getBasedir(), module);
+			if (modules.putIfAbsent(target, module) != null) throw new IllegalStateException("Ambiguous Maven execution target: " + target);
+		}
+		for (ExecutableTestIdentity identity : assignment.tests()) {
+			if (identity.target().buildTool() != BuildTool.MAVEN) throw new IllegalStateException("Maven mapping rejects non-Maven execution target: " + identity.target());
+			if (!modules.containsKey(identity.target())) throw new IllegalStateException("Assigned Maven execution target is absent from reactor: " + identity.target());
+		}
+		Map<ExecutableTestIdentity,TestCoverage> mapped = new TreeMap<>();
+		Map<ExecutableTestIdentity,ExecutableUnmappedTest> unmapped = new TreeMap<>();
+		Map<String,SetupScope> scopes = new TreeMap<>();
+		Set<ExecutableTestIdentity> evidenceOwners = new TreeSet<>(), executed = new TreeSet<>(), nonExecuted = new TreeSet<>();
+		var codec = new ExecutableCoverageFragmentCodec();
+		var qualifier = new ExecutableCoverageFragmentQualifier();
+		Set<ExecutionTarget> assignedTargets = new TreeSet<>(); assignment.tests().forEach(i -> assignedTargets.add(i.target()));
+		for (ExecutionTarget target : assignedTargets) {
+			MavenProject module = modules.get(target);
+			Path directory = Path.of(module.getBuild().getDirectory()).resolve("stp");
+			Path fragmentFile = directory.resolve("coverage-fragment-v3.json");
+			Path evidenceFile = directory.resolve("execution-evidence-v2.json");
+			if (!Files.isRegularFile(fragmentFile)) throw new IllegalStateException("Missing module coverage fragment for " + target);
+			if (!Files.isRegularFile(evidenceFile)) throw new IllegalStateException("Missing module execution evidence for " + target);
+			ExecutableCoverageFragment fragment = codec.deserialize(Files.readAllBytes(fragmentFile));
+			binding(fragment.revision().value(), fragment.shardId().value(), target.toString());
+			if (!fragment.collectionCompleted()) throw new IllegalStateException("Incomplete module coverage fragment for " + target);
+			qualifier.requireTarget(fragment, target);
+			if (!ExecutableCoverageMapValidator.validate(fragment).isValid()) throw new IllegalStateException("Invalid module executable fragment for " + target);
+			for (var entry : fragment.tests().entrySet()) { requireAssigned(entry.getKey(), assignment.tests()); if (mapped.containsKey(entry.getKey()) || unmapped.containsKey(entry.getKey())) duplicate(entry.getKey()); mapped.put(entry.getKey(), entry.getValue()); }
+			for (var entry : fragment.unmapped()) { requireAssigned(entry.test(), assignment.tests()); if (mapped.containsKey(entry.test()) || unmapped.containsKey(entry.test())) duplicate(entry.test()); unmapped.put(entry.test(), entry); }
+			for (SetupScope scope : fragment.setupScopes()) { SetupScope old = scopes.putIfAbsent(scope.id(), scope); if (old != null && !old.equals(scope)) throw new IllegalStateException("Incompatible duplicate setup scope: " + scope.id()); }
+			EvidenceV2 evidence = readEvidenceV2(evidenceFile, target);
+			for (ExecutableTestIdentity identity : unionExecutable(evidence.executed(), evidence.nonExecuted())) { requireAssigned(identity, assignment.tests()); if (!evidenceOwners.add(identity)) throw new IllegalStateException("Duplicate execution evidence identity: " + identity); }
+			executed.addAll(evidence.executed()); nonExecuted.addAll(evidence.nonExecuted());
+		}
+		Set<ExecutableTestIdentity> owners = new TreeSet<>(mapped.keySet()); owners.addAll(unmapped.keySet());
+		if (!owners.equals(assignment.tests())) throw new IllegalStateException("Module fragments do not own exactly the executable shard assignment");
+		if (!evidenceOwners.equals(assignment.tests())) throw new IllegalStateException("Module evidence does not own exactly the executable shard assignment");
+		ExecutableCoverageFragment result = new ExecutableCoverageFragment(CoverageMapContract.SCHEMA_V3,
+				new CoverageMapRevision(revision), new ShardId(shardId), mapped, new ArrayList<>(unmapped.values()), new ArrayList<>(scopes.values()), true);
+		publishPair(codec.serialize(result), encodeEvidenceV2(executed, nonExecuted));
+	}
+
+	private EvidenceV2 readEvidenceV2(Path file, ExecutionTarget expected) throws IOException {
+		JsonObject root = JsonParser.parseString(Files.readString(file)).getAsJsonObject();
+		if (root.get("version").getAsInt() != 2) throw new IllegalStateException("Unsupported execution evidence version");
+		binding(root.get("revision").getAsString(), root.get("shardId").getAsString(), expected.toString());
+		ExecutionTarget target = ExecutionTarget.parse(root.get("executionTarget").getAsString());
+		if (!expected.equals(target)) throw new IllegalStateException("Execution target mismatch for evidence: expected " + expected + " but was " + target);
+		Set<ExecutableTestIdentity> x = executableIdentities(root, "EXECUTED"), n = executableIdentities(root, "NON_EXECUTED");
+		Set<ExecutableTestIdentity> overlap = new TreeSet<>(x); overlap.retainAll(n); if (!overlap.isEmpty()) throw new IllegalStateException("EXECUTED/NON_EXECUTED overlap: " + overlap);
+		for (ExecutableTestIdentity identity : unionExecutable(x,n)) if (!target.equals(identity.target())) throw new IllegalStateException("Execution evidence target mismatch: " + identity);
+		return new EvidenceV2(x,n);
+	}
+
+	private byte[] encodeEvidenceV2(Set<ExecutableTestIdentity> executed, Set<ExecutableTestIdentity> nonExecuted) {
+		JsonObject root = new JsonObject(); root.addProperty("version", 2); root.addProperty("revision", revision); root.addProperty("shardId", shardId);
+		JsonArray x = new JsonArray(); executed.forEach(id -> x.add(id.toString())); root.add("EXECUTED", x);
+		JsonArray n = new JsonArray(); nonExecuted.forEach(id -> n.add(id.toString())); root.add("NON_EXECUTED", n);
+		return (new GsonBuilder().setPrettyPrinting().create().toJson(root) + "\n").getBytes(StandardCharsets.UTF_8);
 	}
 
 	private Aggregate aggregate(Set<TestIdentity> assigned) throws Exception {
@@ -218,7 +302,12 @@ public final class AggregateReactorCoverageFragmentMojo extends AbstractMojo {
 	private static Set<TestIdentity> union(Set<TestIdentity> first, Set<TestIdentity> second) { Set<TestIdentity> result = new TreeSet<>(first); result.addAll(second); return result; }
 	private static void requireAssigned(TestIdentity identity, Set<TestIdentity> assigned) { if (!assigned.contains(identity)) throw new IllegalStateException("Unexpected test identity outside shard assignment: " + identity); }
 	private static void duplicate(TestIdentity identity) { throw new IllegalStateException("Duplicate module fragment identity: " + identity); }
+	private static void duplicate(ExecutableTestIdentity identity) { throw new IllegalStateException("Duplicate module fragment identity: " + identity); }
+	private static void requireAssigned(ExecutableTestIdentity identity, Set<ExecutableTestIdentity> assigned) { if (!assigned.contains(identity)) throw new IllegalStateException("Unexpected executable identity outside shard assignment: " + identity); }
+	private static Set<ExecutableTestIdentity> executableIdentities(JsonObject root, String name) { Set<ExecutableTestIdentity> result = new TreeSet<>(); for (JsonElement value : root.getAsJsonArray(name)) { var id=ExecutableTestIdentity.parse(value.getAsString()); if (!result.add(id)) throw new IllegalStateException("Duplicate evidence identity: " + id); } return result; }
+	private static Set<ExecutableTestIdentity> unionExecutable(Set<ExecutableTestIdentity> a, Set<ExecutableTestIdentity> b) { Set<ExecutableTestIdentity> result = new TreeSet<>(a); result.addAll(b); return result; }
 	private static String coordinates(MavenProject project) { return project.getGroupId() + ":" + project.getArtifactId() + ":" + project.getVersion(); }
 	private record Evidence(String revision, String shardId, String testTarget, String buildTool, Set<TestIdentity> executed, Set<TestIdentity> nonExecuted) { }
 	private record Aggregate(CoverageFragment fragment, byte[] evidence) { }
+	private record EvidenceV2(Set<ExecutableTestIdentity> executed, Set<ExecutableTestIdentity> nonExecuted) { }
 }
