@@ -43,6 +43,7 @@ public class JacocoPerTestListener implements TestExecutionListener
 	private final ThreadLocal<DeclaredTestIdentity> currentTestIdentity = new ThreadLocal<>();
 	private final ThreadLocal<Long> startTime = new ThreadLocal<>();
 	private volatile TestPlan testPlan;
+	private JacocoExecutionDataSource executionData;
 
 	@Override
 	public void testPlanExecutionStarted(TestPlan plan) { testPlan = plan; }
@@ -55,14 +56,15 @@ public class JacocoPerTestListener implements TestExecutionListener
 			return;
 		}
 
-		active = true;
 		DeclaredTestIdentity identity = extractTestIdentity(id);
 		String sessionId = identity != null
 				? buildSessionId(identity.simpleClassName(), identity.methodName(), identity.className(), identity.methodParameterTypes())
 				: id.getDisplayName();
 		currentSessionId.set(sessionId);
 		currentTestIdentity.set(identity);
-		setJaCoCoSession(sessionId);
+		executionData = JacocoExecutionDataSource.active();
+		executionData.startSession(sessionId);
+		active = true;
 
 		if (isMetricsEnabled())
 		{
@@ -94,8 +96,10 @@ public class JacocoPerTestListener implements TestExecutionListener
 			currentTestIdentity.set(fallbackIdentity);
 		}
 
-		dumpJaCoCoData();
-		saveJaCoCoSessionData(sessionId);
+		if (executionData != null)
+		{
+			saveJaCoCoSessionData(sessionId, executionData.snapshotAndReset());
+		}
 		DeclaredTestIdentity identity = currentTestIdentity.get();
 		if (identity != null)
 		{
@@ -201,35 +205,7 @@ public class JacocoPerTestListener implements TestExecutionListener
 	private record DeclaredTestIdentity(String simpleClassName, String className, String methodName,
 			String methodParameterTypes) {}
 
-	private void setJaCoCoSession(String sessionId)
-	{
-		try
-		{
-			Class<?> rtClass = Class.forName("org.jacoco.agent.rt.RT");
-			Object agent = rtClass.getMethod("getAgent").invoke(null);
-			agent.getClass().getMethod("setSessionId", String.class).invoke(agent, sessionId);
-		}
-		catch (Exception e)
-		{
-			System.err.println("Failed to set JaCoCo session: " + e.getMessage());
-		}
-	}
-
-	private void dumpJaCoCoData()
-	{
-		try
-		{
-			Class<?> rtClass = Class.forName("org.jacoco.agent.rt.RT");
-			Object agent = rtClass.getMethod("getAgent").invoke(null);
-			agent.getClass().getMethod("dump", boolean.class).invoke(agent, true);
-		}
-		catch (Exception e)
-		{
-			System.err.println("Failed to dump JaCoCo execution data: " + e.getMessage());
-		}
-	}
-
-	private void saveJaCoCoSessionData(String sessionId)
+	private void saveJaCoCoSessionData(String sessionId, byte[] snapshot)
 	{
 		try
 		{
@@ -237,23 +213,20 @@ public class JacocoPerTestListener implements TestExecutionListener
 			Path dir = Path.of(execDir);
 			Files.createDirectories(dir);
 
-			Path execFile = dir.resolve("test.exec");
 			Path sessionFile = dir.resolve("session_" + SessionFileNames.sanitize(sessionId) + ".exec");
 
-			if (Files.exists(execFile))
+			if (snapshot.length > 0)
 			{
 				// Append to existing session file to merge coverage from multiple
 				// invocations of the same test (e.g. parameterized test invocations).
 				// JaCoCo exec format supports concatenation — ExecFileLoader merges
 				// all blocks via OR on probes when reading.
-				try (var in = Files.newInputStream(execFile);
-					 var out = Files.newOutputStream(sessionFile,
+				try (var out = Files.newOutputStream(sessionFile,
 							 java.nio.file.StandardOpenOption.CREATE,
 							 java.nio.file.StandardOpenOption.APPEND))
 				{
-					in.transferTo(out);
+					out.write(snapshot);
 				}
-				Files.deleteIfExists(execFile);
 			}
 		}
 		catch (Exception e)

@@ -12,4 +12,13 @@
       <execution><id>fragment</id><phase>verify</phase><goals><goal>generate-coverage-fragment</goal></goals></execution>
     </executions></plugin>
   </plugins></build>
+  <profiles>
+    <profile><id>literal-jacoco-argline</id><properties><jacoco.skip>true</jacoco.skip></properties><build><plugins>
+      <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-dependency-plugin</artifactId><version>3.8.1</version><executions><execution><id>copy-agent</id><phase>process-test-classes</phase><goals><goal>copy</goal></goals><configuration><artifactItems><artifactItem><groupId>org.jacoco</groupId><artifactId>org.jacoco.agent</artifactId><version>0.8.13</version><classifier>runtime</classifier><outputDirectory>${project.build.directory}/stp-fixture</outputDirectory><destFileName>jacocoagent.jar</destFileName></artifactItem></artifactItems></configuration></execution></executions></plugin>
+      <plugin><artifactId>maven-surefire-plugin</artifactId><configuration><argLine>-Xmx256m -Dsome.project.property=true -javaagent:${project.build.directory}/stp-fixture/jacocoagent.jar=destfile=${project.build.directory}/jacoco.exec</argLine></configuration></plugin>
+    </plugins></build></profile>
+    <profile><id>no-jacoco-agent</id><properties><jacoco.skip>true</jacoco.skip></properties><build><plugins>
+      <plugin><artifactId>maven-surefire-plugin</artifactId><configuration><argLine>-Xmx256m -Dsome.project.property=true</argLine></configuration></plugin>
+    </plugins></build></profile>
+  </profiles>
 </project>

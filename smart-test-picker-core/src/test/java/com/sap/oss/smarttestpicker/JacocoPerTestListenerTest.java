@@ -102,8 +102,8 @@ class JacocoPerTestListenerTest
 	@Test
 	void saveSessionData_appendsOnRepeatedInvocation(@TempDir Path tempDir) throws Exception
 	{
-		// Simulate parameterized test: two invocations produce two test.exec files
-		// that should be appended into one session file (not overwritten).
+		// Simulate two in-memory snapshots for parameterized invocations. They are
+		// appended into one session file without consulting an agent destfile.
 		System.setProperty("stp.exec.dir", tempDir.toString());
 		try
 		{
@@ -112,25 +112,18 @@ class JacocoPerTestListenerTest
 			Path sessionFile = tempDir.resolve(
 					"session_" + SessionFileNames.sanitize(sessionId) + ".exec");
 
-			// First invocation: create test.exec with some bytes
 			byte[] invocation1 = new byte[]{1, 2, 3, 4, 5};
-			Files.write(tempDir.resolve("test.exec"), invocation1);
 
 			// Call saveJaCoCoSessionData via reflection (private method)
 			var method = JacocoPerTestListener.class.getDeclaredMethod(
-					"saveJaCoCoSessionData", String.class);
+					"saveJaCoCoSessionData", String.class, byte[].class);
 			method.setAccessible(true);
-			method.invoke(listener, sessionId);
+			method.invoke(listener, sessionId, invocation1);
 
 			assertTrue(Files.exists(sessionFile), "Session file should be created");
 			assertEquals(5, Files.size(sessionFile), "Should contain first invocation data");
-			assertFalse(Files.exists(tempDir.resolve("test.exec")), "test.exec should be deleted");
-
-			// Second invocation: create another test.exec with different bytes
 			byte[] invocation2 = new byte[]{6, 7, 8};
-			Files.write(tempDir.resolve("test.exec"), invocation2);
-
-			method.invoke(listener, sessionId);
+			method.invoke(listener, sessionId, invocation2);
 
 			// Session file should now contain BOTH invocations appended
 			assertEquals(8, Files.size(sessionFile),

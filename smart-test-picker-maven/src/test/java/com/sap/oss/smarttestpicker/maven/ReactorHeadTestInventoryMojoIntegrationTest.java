@@ -83,6 +83,38 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 	}
 
 	@Test
+	void schemaV3UsesActiveAgentBytesWithProjectOwnedLiteralArgLine(@TempDir Path temp) throws Exception {
+		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor")); initializeGit(fixture);
+		Path assignment = fixture.resolve("assignment.json");
+		Files.writeString(assignment, executableAssignment("maven:module-a::a.ATests#a1"));
+		Result result = maven(fixture, "-Pliteral-jacoco-argline", PLUGIN + "prepare-reactor-executable-mapping",
+				"verify", PLUGIN + "aggregate-reactor-coverage-fragment", "-Dliteral.fixture.required=true",
+				"-DsmartTestPicker.schemaVersion=3", "-DsmartTestPicker.testsFile=" + assignment,
+				"-DsmartTestPicker.fragmentOutput=" + fixture.resolve("target/literal-fragment.json"),
+				"-DsmartTestPicker.evidenceOutput=" + fixture.resolve("target/literal-evidence.json"));
+		assertEquals(0, result.exitCode(), result.output());
+		assertTrue(Files.isRegularFile(fixture.resolve("module-a/target/jacoco.exec")));
+		assertTrue(Files.list(fixture.resolve("module-a/target/jacoco"))
+				.anyMatch(path -> path.getFileName().toString().matches("session_.*\\.exec")));
+		var fragment = new ExecutableCoverageFragmentCodec().deserialize(
+				Files.readAllBytes(fixture.resolve("target/literal-fragment.json")));
+		assertTrue(fragment.collectionCompleted());
+		assertEquals(Set.of("maven:module-a::a.ATests#a1"), fragment.tests().keySet().stream()
+				.map(Object::toString).collect(java.util.stream.Collectors.toSet()));
+	}
+
+	@Test
+	void schemaV3FailsClosedWhenTestForkHasNoActiveJacocoRuntime(@TempDir Path temp) throws Exception {
+		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor")); initializeGit(fixture);
+		Path assignment = fixture.resolve("assignment.json");
+		Files.writeString(assignment, executableAssignment("maven:module-a::a.ATests#a1"));
+		Result result = maven(fixture, "-Pno-jacoco-agent", PLUGIN + "prepare-reactor-executable-mapping", "test",
+				"-DsmartTestPicker.schemaVersion=3", "-DsmartTestPicker.testsFile=" + assignment);
+		assertTrue(result.exitCode() != 0, result.output());
+		assertTrue(result.output().contains("Active JaCoCo runtime is unavailable for STP mapping"), result.output());
+	}
+
+	@Test
 	void schemaV3PreparationRejectsAbsentAndNonMavenTargets(@TempDir Path temp) throws Exception {
 		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor"));
 		Path assignment = fixture.resolve("assignment.json");

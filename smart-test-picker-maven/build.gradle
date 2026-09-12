@@ -35,6 +35,7 @@ dependencies {
 test {
     useJUnitPlatform()
     dependsOn ':smart-test-picker-common:publishAllPublicationsToFunctionalTestRepository'
+    dependsOn ':smart-test-picker-core:publishAllPublicationsToFunctionalTestRepository'
     dependsOn 'publishAllPublicationsToFunctionalTestRepository'
     systemProperty 'smartTestPicker.functionalTestRepository',
             rootProject.layout.buildDirectory.dir('functional-test-maven-repository').get().asFile
