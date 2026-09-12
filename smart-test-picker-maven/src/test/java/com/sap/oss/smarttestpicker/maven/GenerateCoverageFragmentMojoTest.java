@@ -14,6 +14,7 @@ import com.sap.oss.smarttestpicker.coverage.model.CollectionStatus;
 import com.sap.oss.smarttestpicker.coverage.model.MethodIdentity;
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 import com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec;
+import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableCoverageFragmentCodec;
 
 import static org.junit.jupiter.api.Assertions.*;
 import com.google.gson.JsonParser;
@@ -85,6 +86,44 @@ class GenerateCoverageFragmentMojoTest
 		assertFalse(fragment.collectionCompleted());
 		assertEquals(1, fragment.unmapped().size());
 		assertTrue(fragment.tests().isEmpty());
+	}
+
+	@Test
+	void jacocoFactsProduceExecutableMappedAndUnmappedSchemaV3Fragment(@TempDir Path temp) throws Exception
+	{
+		Path exec = Files.createDirectories(temp.resolve("jacoco"));
+		Path reports = Files.createDirectories(temp.resolve("reports"));
+		Path output = temp.resolve("fragment-v3.json");
+		writeIdentity(exec.resolve("session_covered.identity"),
+				"org.sonar.java.checks.helpers.ReassignmentFinderTest", "parameter_with_usage", "", "PASS");
+		Files.write(exec.resolve("session_covered.exec"), new byte[] { 1 });
+		Files.writeString(reports.resolve("session_covered.status"), "EMPTY\n");
+		writeIdentity(exec.resolve("session_failed.identity"), "example.FailedTest", "fails", "", "FAIL");
+		Files.write(exec.resolve("session_failed.exec"), new byte[] { 1 });
+
+		GenerateCoverageFragmentMojo mojo = mojo(exec, reports, output);
+		set(mojo, "schemaVersion", 3);
+		set(mojo, "executionTarget", "maven:java-checks");
+		mojo.execute();
+		var fragment = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(output));
+		assertEquals(3, fragment.schemaVersion());
+		assertTrue(fragment.tests().keySet().stream().anyMatch(value -> value.toString().equals(
+				"maven:java-checks::org.sonar.java.checks.helpers.ReassignmentFinderTest#parameter_with_usage")));
+		assertEquals("maven:java-checks", fragment.unmapped().get(0).test().target().toString());
+	}
+
+	@Test
+	void schemaV3FailsClosedForMissingAndMalformedTarget(@TempDir Path temp) throws Exception
+	{
+		GenerateCoverageFragmentMojo missing = mojo(temp, temp, temp.resolve("missing.json"));
+		set(missing, "schemaVersion", 3);
+		assertTrue(assertThrows(org.apache.maven.plugin.MojoExecutionException.class, missing::execute)
+				.getMessage().contains("requires an execution target"));
+		GenerateCoverageFragmentMojo malformed = mojo(temp, temp, temp.resolve("malformed.json"));
+		set(malformed, "schemaVersion", 3);
+		set(malformed, "executionTarget", "gradle:spring-core:test");
+		assertTrue(assertThrows(org.apache.maven.plugin.MojoExecutionException.class, malformed::execute)
+				.getMessage().contains("Malformed execution target"));
 	}
 
 	private static GenerateCoverageFragmentMojo mojo(Path exec, Path reports, Path output) throws Exception

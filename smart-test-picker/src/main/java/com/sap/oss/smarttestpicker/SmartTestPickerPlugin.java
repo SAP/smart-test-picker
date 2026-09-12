@@ -72,6 +72,9 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 		ext.getRevision().convention(project.getProviders().systemProperty("stp.revision")
 				.orElse(project.getProviders().environmentVariable("GIT_COMMIT")).orElse("UNKNOWN"));
 		ext.getShardId().convention(project.getProviders().systemProperty("stp.shardId"));
+		ext.getRuntimeSchemaVersion().convention(project.getProviders().systemProperty("stp.schemaVersion")
+				.map(Integer::parseInt).orElse(2));
+		ext.getExecutionTarget().convention(project.getProviders().systemProperty("stp.executionTarget"));
 		ext.getCoverageIncludes().convention(java.util.List.of());
 		ext.getCoverageExcludes().convention(java.util.List.of());
 

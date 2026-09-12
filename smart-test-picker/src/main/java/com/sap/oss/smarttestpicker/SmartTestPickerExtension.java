@@ -62,6 +62,12 @@ public abstract class SmartTestPickerExtension
 	/** Optional externally orchestrated shard ID; defaults to the mapping task path. */
 	public abstract Property<String> getShardId();
 
+	/** Runtime fragment schema. Version 2 remains the compatibility default. */
+	public abstract Property<Integer> getRuntimeSchemaVersion();
+
+	/** Canonical adapter-supplied execution target; required for schema-v3 collection. */
+	public abstract Property<String> getExecutionTarget();
+
 	public abstract ListProperty<String> getCoverageIncludes();
 
 	public abstract ListProperty<String> getCoverageExcludes();

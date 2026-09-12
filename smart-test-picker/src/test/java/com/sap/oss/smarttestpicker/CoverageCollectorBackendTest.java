@@ -41,22 +41,22 @@ class CoverageCollectorBackendTest {
 	void mappingVerificationRejectsMissingMalformedStaleAndIncompleteFragments() throws Exception {
 		Path fragment = temporary.resolve("fragment.json");
 		assertThrows(GradleException.class,
-				() -> AsmCoverageCollectorBackend.verifyFragment(fragment.toFile(), "revision", "shard"));
+				() -> AsmCoverageCollectorBackend.verifyFragment(fragment.toFile(), 2, "revision", "shard"));
 		Files.writeString(fragment, "not-json");
 		assertThrows(GradleException.class,
-				() -> AsmCoverageCollectorBackend.verifyFragment(fragment.toFile(), "revision", "shard"));
+				() -> AsmCoverageCollectorBackend.verifyFragment(fragment.toFile(), 2, "revision", "shard"));
 
 		write(fragment, "old-revision", "shard", true);
 		assertThrows(GradleException.class,
-				() -> AsmCoverageCollectorBackend.verifyFragment(fragment.toFile(), "revision", "shard"));
+				() -> AsmCoverageCollectorBackend.verifyFragment(fragment.toFile(), 2, "revision", "shard"));
 		write(fragment, "revision", "wrong-shard", true);
 		assertThrows(GradleException.class,
-				() -> AsmCoverageCollectorBackend.verifyFragment(fragment.toFile(), "revision", "shard"));
+				() -> AsmCoverageCollectorBackend.verifyFragment(fragment.toFile(), 2, "revision", "shard"));
 		write(fragment, "revision", "shard", false);
 		assertThrows(GradleException.class,
-				() -> AsmCoverageCollectorBackend.verifyFragment(fragment.toFile(), "revision", "shard"));
+				() -> AsmCoverageCollectorBackend.verifyFragment(fragment.toFile(), 2, "revision", "shard"));
 		write(fragment, "revision", "shard", true);
-		AsmCoverageCollectorBackend.verifyFragment(fragment.toFile(), "revision", "shard");
+		AsmCoverageCollectorBackend.verifyFragment(fragment.toFile(), 2, "revision", "shard");
 	}
 
 	private static void write(Path path, String revision, String shard, boolean completed) throws Exception {
