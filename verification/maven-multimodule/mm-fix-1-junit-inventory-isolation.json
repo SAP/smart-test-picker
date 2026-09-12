@@ -1,0 +1,53 @@
+{
+  "task": "MM-FIX-1 — Make Maven reactor JUnit inventory discovery version-coherent per module",
+  "mainStpBefore": "92a1c613458a2dffc7beabed28de4c5203e49ee5",
+  "mainStpAfter": "SELF (the focused commit containing this verification artifact)",
+  "sonarJavaCommit": "9bbe6d04d2db75e5b864f3a424bb78bfa4f36b4c",
+  "failureReproduced": true,
+  "failureModule": "org.sonarsource.java:default:jar:8.44.0-SNAPSHOT",
+  "previousJUnitOrigins": {
+    "jupiterApi": "/tmp/mm1-m2/org/junit/jupiter/junit-jupiter-api/5.14.0/junit-jupiter-api-5.14.0.jar",
+    "jupiterEngine": "/tmp/mm1-m2/org/junit/jupiter/junit-jupiter-engine/6.1.3/junit-jupiter-engine-6.1.3.jar",
+    "platformLauncher": "/tmp/mm1-m2/org/junit/platform/junit-platform-launcher/6.1.3/junit-platform-launcher-6.1.3.jar",
+    "platformEngine": "/tmp/mm1-m2/org/junit/platform/junit-platform-engine/6.1.3/junit-platform-engine-6.1.3.jar",
+    "platformCommons": "/tmp/mm1-m2/org/junit/platform/junit-platform-commons/6.1.3/junit-platform-commons-6.1.3.jar",
+    "loader": "JUnitHeadTestInventoryGenerator.TargetJUnitClassLoader"
+  },
+  "rootCause": "The prior boundary selected target ownership from launcher presence alone and loaded all org.junit.jupiter/org.junit.platform classes child-first. SonarJava's compilation-only default module therefore combined Jupiter API 5.14.0 with engine/platform 6.1.3 and failed on MethodOrderer$Default. Modules that did not supply a launcher instead used an implicit hybrid of STP and target JUnit classes/providers.",
+  "ownershipModel": "Per module: a complete target stack owns Jupiter API/engine and Platform launcher/engine/commons; otherwise STP owns the complete stack and target JUnit classes plus TestEngine service providers are excluded.",
+  "classloaderStrategy": "Fresh loader per module. Target-complete mode is child-first only for org.junit.platform.*, org.junit.jupiter.*, and the worker. STP-owned mode is parent-only for org.junit.* and parent-only for the TestEngine provider resource. Other target classes retain normal parent-first URLClassLoader behavior.",
+  "fixture": "smart-test-picker-maven/src/test/fixtures/junit-version-reactor (module-a JUnit 5.9.3/Platform 1.9.3, module-b JUnit 5.10.2/Platform 1.10.2, module-zero, and broken-profile module)",
+  "testsRun": [
+    "JUnitHeadTestInventoryGeneratorTest",
+    "ReactorHeadTestInventoryMojoIntegrationTest"
+  ],
+  "testsPassed": true,
+  "sonarJavaInventory": "FAIL_AFTER_DISCOVERY_DUPLICATE_IDENTITY",
+  "inventoryLogicalTests": null,
+  "moduleDistribution": {
+    "test-classpath-reader": 16,
+    "java-frontend": 1509,
+    "java-checks-testkit": 229,
+    "java-checks-common": 45,
+    "java-checks": 2180,
+    "java-checks-aws": 12,
+    "check-list": 15,
+    "external-reports": 26,
+    "java-surefire": 44,
+    "java-jsp": 18,
+    "sonar-java-plugin": 52
+  },
+  "discoveredOccurrencesBeforeDuplicateValidation": 4146,
+  "duplicates": "at least 1; first is org.sonar.java.checks.helpers.ReassignmentFinderTest#parameter_with_usage, present as source in java-checks-common and java-checks",
+  "revisionMatches": true,
+  "inventoryWallTime": "42.40 seconds including process-test-classes; discovery-only three-module origin proof took Maven total 11.322 seconds",
+  "versionCoherenceProof": "test-classpath-reader and java-frontend both loaded Jupiter API/engine 5.9.3 and Platform launcher/engine 1.9.3 from the STP plugin realm; complete paths and loaders were recorded at Maven debug level in /tmp/mm-fix-1-sonar-origins.log",
+  "mainStpProductionCodeChanged": true,
+  "jenkinsProductionCodeChanged": false,
+  "sonarJavaModified": false,
+  "dockerUsed": false,
+  "jenkinsUsed": false,
+  "pushPerformed": false,
+  "result": "FAIL",
+  "next": "Resolve the acceptance conflict: SonarJava contains a real cross-module TestIdentity collision while MM-FIX-1 requires duplicate detection to remain unchanged and also requires duplicate count zero. Do not resume MM-2 yet."
+}

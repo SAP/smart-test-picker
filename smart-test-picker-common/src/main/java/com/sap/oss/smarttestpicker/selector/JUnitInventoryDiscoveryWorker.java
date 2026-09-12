@@ -17,9 +17,24 @@ import org.junit.platform.launcher.core.LauncherFactory;
 import org.junit.platform.launcher.core.LauncherConfig;
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClasspathRoots;
 
-/** Loaded in a target-owned JUnit class loader when the test runtime supplies its own launcher. */
+/** Loaded in a target-owned JUnit class loader when the test runtime supplies a complete JUnit stack. */
 public final class JUnitInventoryDiscoveryWorker {
 	private JUnitInventoryDiscoveryWorker() {}
+	public static List<String> junitRuntimeOrigins() {
+		return List.of("org.junit.jupiter.api.Test", "org.junit.jupiter.api.MethodOrderer",
+				"org.junit.platform.launcher.Launcher", "org.junit.platform.engine.TestEngine",
+				"org.junit.jupiter.engine.JupiterTestEngine").stream().map(JUnitInventoryDiscoveryWorker::origin).toList();
+	}
+	private static String origin(String name) {
+		try {
+			Class<?> type = Class.forName(name, false, JUnitInventoryDiscoveryWorker.class.getClassLoader());
+			var source = type.getProtectionDomain().getCodeSource();
+			return name + " version=" + type.getPackage().getImplementationVersion() + " origin="
+					+ (source == null ? "unknown" : source.getLocation()) + " loader=" + type.getClassLoader();
+		} catch (ClassNotFoundException failure) {
+			return name + " MISSING loader=" + JUnitInventoryDiscoveryWorker.class.getClassLoader();
+		}
+	}
 	public static List<String[]> discover(Set<Path> roots) {
 		var request = LauncherDiscoveryRequestBuilder.request().selectors(selectClasspathRoots(roots)).build();
 		TestPlan plan = LauncherFactory.create(LauncherConfig.builder()
