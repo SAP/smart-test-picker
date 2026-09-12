@@ -3,9 +3,13 @@
 package com.sap.oss.smarttestpicker.maven;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.nio.file.Files;
+import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.plugin.logging.Log;
@@ -27,7 +31,7 @@ final class MavenHeadTestInventory {
 	static boolean generate(List<MavenProject> projects, File output, File projectDir, String revision, Log log) {
 		try {
 			if (revision != null) revision = WorkspaceRevisionVerifier.requireHead(projectDir, revision);
-			List<TestIdentity> merged = new ArrayList<>();
+			Map<TestIdentity, List<MavenTestIdentityOccurrence>> occurrences = new LinkedHashMap<>();
 			boolean discoveredTarget = false;
 			for (MavenProject project : projects) {
 				if ("pom".equals(project.getPackaging())) continue;
@@ -49,11 +53,15 @@ final class MavenHeadTestInventory {
 				}
 				log.info("[SmartTestPicker] Module " + project.getId() + ": "
 						+ inventory.runnableTests().size() + " logical JUnit tests");
-				merged.addAll(inventory.runnableTests());
+				for (TestIdentity identity : inventory.runnableTests()) occurrences
+						.computeIfAbsent(identity, ignored -> new ArrayList<>())
+						.add(occurrence(identity, project, root.toPath()));
 			}
 			if (!discoveredTarget) throw new IllegalStateException("No compiled Maven test output is available");
+			rejectUnsafeDuplicates(occurrences);
+			List<TestIdentity> merged = new ArrayList<>(occurrences.keySet());
 			HeadTestInventory inventory = revision == null ? HeadTestInventory.from(merged)
-					: HeadTestInventory.atRevision(revision, merged); // exact cross-module collisions are unsafe
+					: HeadTestInventory.atRevision(revision, merged);
 			new HeadTestInventoryCodec().write(output, inventory);
 			log.info("[SmartTestPicker] Discovered " + inventory.runnableTests().size() + " logical JUnit tests");
 			return true;
@@ -63,6 +71,56 @@ final class MavenHeadTestInventory {
 			return false;
 		}
 	}
+
+	private static MavenTestIdentityOccurrence occurrence(TestIdentity identity, MavenProject project, Path root)
+			throws Exception {
+		String relativeClass = identity.className().replace('.', File.separatorChar) + ".class";
+		Path classFile = root.resolve(relativeClass);
+		Path source = source(project, identity.className());
+		return new MavenTestIdentityOccurrence(identity, project.getId(), classFile,
+				source, hash(classFile), source == null ? null : hash(source));
+	}
+
+	private static Path source(MavenProject project, String className) {
+		int nested = className.indexOf('$');
+		String topLevel = nested < 0 ? className : className.substring(0, nested);
+		String relative = topLevel.replace('.', File.separatorChar) + ".java";
+		for (String root : project.getTestCompileSourceRoots()) {
+			Path candidate = Path.of(root).resolve(relative);
+			if (Files.isRegularFile(candidate)) return candidate;
+		}
+		return null;
+	}
+
+	private static String hash(Path path) throws Exception {
+		byte[] digest = MessageDigest.getInstance("SHA-256").digest(Files.readAllBytes(path));
+		return java.util.HexFormat.of().formatHex(digest);
+	}
+
+	private static void rejectUnsafeDuplicates(Map<TestIdentity, List<MavenTestIdentityOccurrence>> occurrences) {
+		List<Map.Entry<TestIdentity, List<MavenTestIdentityOccurrence>>> duplicates = occurrences.entrySet().stream()
+				.filter(entry -> entry.getValue().size() > 1).sorted(Map.Entry.comparingByKey()).toList();
+		if (duplicates.isEmpty()) return;
+		StringBuilder message = new StringBuilder("Unsafe duplicate Maven test identities:");
+		for (var duplicate : duplicates) {
+			boolean definitionsDiffer = duplicate.getValue().stream().map(MavenTestIdentityOccurrence::classHash)
+					.distinct().count() > 1;
+			message.append("\nidentity: ").append(duplicate.getKey())
+					.append("\nreason: ").append(definitionsDiffer
+							? "compiled definitions differ and execution ownership is ambiguous"
+							: "multiple module test outputs can execute the same identity");
+			for (MavenTestIdentityOccurrence occurrence : duplicate.getValue()) message
+					.append("\nmodule: ").append(occurrence.projectId())
+					.append("\ntestOutputPath: ").append(occurrence.classFile())
+					.append("\nsourcePath: ").append(occurrence.sourceFile() == null ? "unresolved" : occurrence.sourceFile())
+					.append("\ncompiledClassSha256: ").append(occurrence.classHash())
+					.append("\nsourceSha256: ").append(occurrence.sourceHash() == null ? "unavailable" : occurrence.sourceHash());
+		}
+		throw new IllegalStateException(message.toString());
+	}
+
+	private record MavenTestIdentityOccurrence(TestIdentity identity, String projectId, Path classFile,
+			Path sourceFile, String classHash, String sourceHash) { }
 
 	private static boolean declaresTestsSkipped(MavenProject project) {
 		var properties = project.getProperties();
