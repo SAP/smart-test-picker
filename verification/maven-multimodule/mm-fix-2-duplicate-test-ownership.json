@@ -1,0 +1,127 @@
+{
+  "task": "MM-FIX-2 — Define Maven cross-module duplicate TestIdentity ownership policy",
+  "mainStpBefore": "ad46f6ab5d0a9a91f05b85eef18283ea46724778",
+  "mainStpAfter": "SELF (the focused commit containing this verification artifact)",
+  "sonarJavaCommit": "9bbe6d04d2db75e5b864f3a424bb78bfa4f36b4c",
+  "duplicateGroups": [
+    "org.sonar.java.checks.helpers.ReassignmentFinderTest#array_declaration",
+    "org.sonar.java.checks.helpers.ReassignmentFinderTest#assignment",
+    "org.sonar.java.checks.helpers.ReassignmentFinderTest#assignment_with_other_variable",
+    "org.sonar.java.checks.helpers.ReassignmentFinderTest#assignment_with_parenthesis",
+    "org.sonar.java.checks.helpers.ReassignmentFinderTest#declaration",
+    "org.sonar.java.checks.helpers.ReassignmentFinderTest#ignore_assignation_after_starting_point",
+    "org.sonar.java.checks.helpers.ReassignmentFinderTest#ignore_assignation_after_starting_point_same_line",
+    "org.sonar.java.checks.helpers.ReassignmentFinderTest#in_enum",
+    "org.sonar.java.checks.helpers.ReassignmentFinderTest#known_limitation",
+    "org.sonar.java.checks.helpers.ReassignmentFinderTest#last_assignment",
+    "org.sonar.java.checks.helpers.ReassignmentFinderTest#last_assignment_on_same_line",
+    "org.sonar.java.checks.helpers.ReassignmentFinderTest#outside_method",
+    "org.sonar.java.checks.helpers.ReassignmentFinderTest#parameter",
+    "org.sonar.java.checks.helpers.ReassignmentFinderTest#parameter_with_usage",
+    "org.sonar.java.checks.helpers.ReassignmentFinderTest#private_constructor",
+    "org.sonar.java.checks.helpers.ReassignmentFinderTest#unknown_variable"
+  ],
+  "duplicateOccurrences": {
+    "groups": 16,
+    "physicalOccurrences": 32,
+    "modulesPerGroup": ["java-checks-common", "java-checks"],
+    "classOutputs": {
+      "java-checks-common": {
+        "path": "java-checks-common/target/test-classes/org/sonar/java/checks/helpers/ReassignmentFinderTest.class",
+        "sha256": "4eba12367d861ff9f2461ceeeaa29f9a545bfa0e68d6eb0055575098a31e1e57"
+      },
+      "java-checks": {
+        "path": "java-checks/target/test-classes/org/sonar/java/checks/helpers/ReassignmentFinderTest.class",
+        "sha256": "ac99067a3b915f33610b677f9b74ae79579e25ec177f59750ae25578019faa0d"
+      }
+    },
+    "sources": {
+      "java-checks-common": {
+        "path": "java-checks-common/src/test/java/org/sonar/java/checks/helpers/ReassignmentFinderTest.java",
+        "sha256": "9e7f1ab76dd018200d7ad267adb5372972799886a726ba67867476c9f7b37de2"
+      },
+      "java-checks": {
+        "path": "java-checks/src/test/java/org/sonar/java/checks/helpers/ReassignmentFinderTest.java",
+        "sha256": "234e0779f2e743952701f4d4bcab3ebd1503083ebe25bfa1f1369a7dfb4a7b74"
+      }
+    }
+  },
+  "duplicateClassification": {
+    "classification": "IDENTICAL_SOURCE_DIFFERENT_BUILD_OUTPUT",
+    "appliesToAllGroups": true,
+    "declaringClass": "org.sonar.java.checks.helpers.ReassignmentFinderTest",
+    "methodSignature": "package-private void method(), no parameters",
+    "annotations": ["org.junit.jupiter.api.Test"],
+    "nestedClassOwnership": "not applicable",
+    "evidence": "The checked-in sources differ only by wildcard versus explicit imports. javap -v shows identical executable instructions and annotations; class bytes differ in LineNumberTable entries because the explicit imports add ten lines. Raw source and class hashes are therefore intentionally unequal."
+  },
+  "ordinaryExecutionEvidence": {
+    "source": "existing successful baseline target/surefire-reports/TEST-org.sonar.java.checks.helpers.ReassignmentFinderTest.xml",
+    "appliesToAllGroups": true,
+    "java-checks-commonExecuted": true,
+    "java-checksExecuted": true,
+    "physicalExecutionsPerIdentity": 2,
+    "totalPhysicalExecutions": 32,
+    "results": {"java-checks-common": "PASS", "java-checks": "PASS", "differed": false}
+  },
+  "rootCause": "SonarJava contains two separately compiled checked-in copies of ReassignmentFinderTest: one in java-checks-common and one in java-checks. java-checks also has a normal Maven dependency on java-checks-common, but the collision comes from both modules' own target/test-classes roots, not from transitive classpath scanning. Ordinary Surefire executes both copies.",
+  "ownershipPolicy": "FAIL_CLOSED",
+  "ownershipSelectionRule": "A logical identity has safe Maven inventory ownership only when it is discovered from exactly one module test-output root. Reuse visible only on dependency classpaths does not create another owner. Any identity discovered from two or more module test-output roots remains fatal, regardless of byte equivalence, because the existing mapping pipeline can execute and publish each root independently.",
+  "mappingSafetyAnalysis": {
+    "assignmentRouting": "A shard assignment contains only className#method and has no module coordinate. Both owning modules rediscover and accept it.",
+    "surefireIncludes": "The same logical include can match both module-local test classes.",
+    "moduleLocalExecution": "SonarJava ordinary reports prove two executions per duplicate identity.",
+    "moduleLocalFragmentProduction": "Both modules can produce a coverage/evidence entry with the same identity.",
+    "reactorAggregation": "AggregateReactorCoverageFragmentMojo rejects duplicate fragment and evidence owners.",
+    "coverageUnion": "Not safe: union would erase provenance and can combine coverage from two physical executions.",
+    "executionEvidence": "Not safe to collapse: two physical executions cannot be represented as one unambiguous owner.",
+    "assignmentAmbiguity": true,
+    "fragmentOwnershipAmbiguity": true,
+    "coverageMergeSafe": false,
+    "executionEvidenceSafe": false,
+    "decision": "Duplicate mapping must fail; no mapping changes were made."
+  },
+  "implementation": {
+    "policyLocation": "MavenHeadTestInventory",
+    "provenanceModel": "MavenTestIdentityOccurrence (Maven-local record)",
+    "behavior": "Collect every occurrence before validation and report every unsafe group deterministically with Maven coordinates, class/source paths, and SHA-256 hashes.",
+    "publicTestIdentityChanged": false,
+    "schemaChanged": false,
+    "mappingChanged": false
+  },
+  "fixtureTests": {
+    "fixture": "smart-test-picker-maven/src/test/fixtures/duplicate-ownership-reactor",
+    "safeDuplicate": "PASS — module-source test-jar is on module-consumer's test classpath but remains owned only by module-source's discovery root",
+    "conflictingDuplicate": "PASS — module-conflict defines the same identity differently and inventory fails closed with both owners and differing hashes",
+    "uniqueTests": "PASS",
+    "zeroTestModule": "PASS"
+  },
+  "regressionTests": {
+    "commands": [
+      "JDK 17 ./gradlew :smart-test-picker-maven:test --tests com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest --tests com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGeneratorTest",
+      "JDK 17 ./gradlew :smart-test-picker-common:test :smart-test-picker-maven:test"
+    ],
+    "junitInventory": "PASS",
+    "mavenReactorInventory": "PASS",
+    "mmFix1MixedJUnitFixture": "PASS",
+    "singleModuleInventory": "PASS",
+    "duplicateRejection": "PASS",
+    "revisionBinding": "PASS"
+  },
+  "sonarJavaInventoryResult": "FAIL_CLOSED_UNSAFE_DUPLICATES",
+  "rawOccurrences": 4146,
+  "uniqueLogicalTests": 4130,
+  "collapsedOccurrences": 0,
+  "unsafeDuplicates": 16,
+  "testBearingModules": 11,
+  "revisionMatches": true,
+  "ordinaryExecutionOwnershipConsistent": true,
+  "mainStpProductionCodeChanged": true,
+  "jenkinsProductionCodeChanged": false,
+  "sonarJavaModified": false,
+  "dockerUsed": false,
+  "jenkinsUsed": false,
+  "pushPerformed": false,
+  "result": "PASS",
+  "next": "MM-2 remains blocked. Resolve SonarJava's dual physical execution ownership or authorize a module-aware mapping design before shard creation; do not repeat the ordinary baseline."
+}

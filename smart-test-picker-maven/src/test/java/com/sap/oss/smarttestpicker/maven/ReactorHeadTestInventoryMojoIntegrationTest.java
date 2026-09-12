@@ -57,7 +57,7 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 				PLUGIN + "generate-reactor-head-test-inventory",
 				"-DsmartTestPicker.prHeadRevision=" + revision);
 		assertTrue(collision.exitCode() != 0, collision.output());
-		assertTrue(collision.output().contains("Duplicate head test identity"), collision.output());
+		assertTrue(collision.output().contains("Unsafe duplicate Maven test identities"), collision.output());
 		assertFalse(Files.exists(output));
 
 		Files.writeString(output, "stale");
@@ -106,6 +106,29 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		assertTrue(result.output().contains("coherent JUnit boundary"), result.output());
 		assertTrue(result.output().contains("junit-jupiter-api-5.9.3.jar"), result.output());
 		assertTrue(result.output().contains("junit-jupiter-engine-5.10.2.jar"), result.output());
+	}
+
+	@Test
+	void dependencyClasspathReuseHasOneOwnerAndConflictingOutputFailsClosed(@TempDir Path temp) throws Exception {
+		Path fixture = copyFixture("duplicate-ownership-reactor", temp.resolve("reactor"));
+		String revision = initializeGit(fixture);
+		Result safe = maven(fixture, "package", PLUGIN + "generate-reactor-head-test-inventory",
+				"-DskipTests", "-DsmartTestPicker.prHeadRevision=" + revision);
+		assertEquals(0, safe.exitCode(), safe.output());
+		var inventory = new HeadTestInventoryCodec().read(fixture.resolve("target/head-test-inventory.json").toFile());
+		assertEquals(Set.of(new TestIdentity("shared.SharedTests", "shared"),
+				new TestIdentity("consumer.ConsumerTests", "uniqueConsumer")), Set.copyOf(inventory.runnableTests()));
+		assertTrue(safe.output().contains("Module fixture:module-zero:jar:1: 0 logical JUnit tests"), safe.output());
+
+		Result conflict = maven(fixture, "process-test-classes", "-Pconflict", "-DskipTests",
+				PLUGIN + "generate-reactor-head-test-inventory", "-DsmartTestPicker.prHeadRevision=" + revision);
+		assertTrue(conflict.exitCode() != 0, conflict.output());
+		assertTrue(conflict.output().contains("Unsafe duplicate Maven test identities"), conflict.output());
+		assertTrue(conflict.output().contains("shared.SharedTests#shared"), conflict.output());
+		assertTrue(conflict.output().contains("fixture:module-source:jar:1"), conflict.output());
+		assertTrue(conflict.output().contains("fixture:module-conflict:jar:1"), conflict.output());
+		assertTrue(conflict.output().contains("compiled definitions differ"), conflict.output());
+		assertFalse(Files.exists(fixture.resolve("target/head-test-inventory.json")));
 	}
 
 	@Test
