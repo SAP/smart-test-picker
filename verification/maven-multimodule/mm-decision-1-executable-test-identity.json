@@ -1,0 +1,156 @@
+{
+  "task": "MM-DECISION-1 — Define executable test identity semantics for multimodule builds",
+  "mainStpCommit": "91fcbb9478984ebf5f0291a1b7486c6755d8d4f2",
+  "sonarJavaCommit": "9bbe6d04d2db75e5b864f3a424bb78bfa4f36b4c",
+  "currentIdentityModel": {
+    "publicTestIdentity": "logical binary class name + declared method name + optional parameter types",
+    "canonicalText": "className#methodName(parameterTypes)",
+    "executionTargetIncluded": false,
+    "globalUniquenessAssumption": true,
+    "uses": ["logical identity", "inventory key", "coverage ownership key", "mapping key", "selection key", "shard key", "evidence key", "completeness key"],
+    "runtimeIdentity": "runId + jvmId + JUnit platformUniqueId; projected and grouped into logical TestIdentity before schema-v2 fragment output",
+    "currentDuplicatePolicy": "FAIL_CLOSED"
+  },
+  "candidateModels": {
+    "MODEL_A_GLOBAL_ONLY": {
+      "rule": "one logical TestIdentity has exactly one execution owner",
+      "advantages": ["no schema change", "simple selector/map", "strong fail-closed safety", "current single-target Gradle path unchanged"],
+      "disadvantages": ["SonarJava unsupported", "ordinary duplicated execution cannot be represented", "requires build changes", "low selection precision"],
+      "longTermAcceptable": false,
+      "schemaClassification": "NO_SCHEMA_CHANGE"
+    },
+    "MODEL_B_LOGICAL_PLUS_OWNERSHIP": {
+      "rule": "logical TestIdentity remains primary and maps to one or more execution owners",
+      "safeSelection": "route a selected logical test to every owner unless coverage is also owner-scoped",
+      "coverage": "logical union loses provenance; owner-scoped coverage turns the model into Model C in substance",
+      "failureBehavior": "owner-scoped evidence is required to detect that one owner did not execute",
+      "schemaClassification": "NEW_SCHEMA_VERSION_REQUIRED",
+      "reason": "a merely additive routing extension cannot provide safe owner-scoped coverage and completeness"
+    },
+    "MODEL_C_EXECUTABLE_IDENTITY": {
+      "rule": "ExecutableTestIdentity is the pair of ExecutionTarget and logical TestIdentity",
+      "testIdentityChanges": false,
+      "newSeparateType": true,
+      "authoritativeKeys": ["inventory", "coverage", "selection", "sharding", "execution evidence", "completeness"],
+      "schemaClassification": "NEW_SCHEMA_VERSION_REQUIRED"
+    }
+  },
+  "coverageAnalysis": {
+    "example": {
+      "moduleA": ["ClassA", "ClassB"],
+      "moduleB": ["ClassA", "ClassC"]
+    },
+    "logicalUnion": "T -> {ClassA, ClassB, ClassC}; a ClassC change must execute all owners because edge provenance is lost",
+    "executionScoped": "A::T -> {ClassA, ClassB}; B::T -> {ClassA, ClassC}; a ClassC change selects only B::T",
+    "decision": "authoritative coverage is executable-scoped; logical union is derived only"
+  },
+  "selectionAnalysis": {
+    "MODEL_A_GLOBAL_ONLY": "execute the one proven owner; ambiguity is unsupported",
+    "MODEL_B_LOGICAL_PLUS_OWNERSHIP": "execute all owners of selected T unless owner-scoped coverage exists",
+    "MODEL_C_EXECUTABLE_IDENTITY": "return logical identity plus target routing metadata and execute exactly selected targets",
+    "maven": "group by reactor-relative module and test execution; use module-local Surefire/Failsafe includes and target selection",
+    "gradle": "group by fully qualified Test task path and apply per-task test filters",
+    "adapterCanSafelyRecoverPrecisionFromLogicalOnly": false
+  },
+  "shardingAnalysis": {
+    "MODEL_A_GLOBAL_ONLY": "assign logical T once to its sole owner",
+    "MODEL_B_LOGICAL_PLUS_OWNERSHIP": "logical assignment must keep all owners together; splitting owners requires executable keys",
+    "MODEL_C_EXECUTABLE_IDENTITY": "assign each target+logical occurrence exactly once; union of shards equals executable inventory",
+    "assignmentFormatNeedsTarget": true
+  },
+  "completenessAnalysis": {
+    "authoritativeUnit": "executable occurrence",
+    "invariant": "expected executable occurrences = mapped occurrences union executable-unmapped occurrences union positively proven non-executed occurrences",
+    "logicalCounterexample": "with expected {A::T, B::T}, report A::T only; logical {T} appears complete while B::T is missing",
+    "categoriesPairwiseDisjoint": true,
+    "exactShardOwnershipRequired": true
+  },
+  "gradleAnalysis": {
+    "sameLogicalTestCanExecuteMultipleTimes": true,
+    "topologies": ["multi-project duplicate classes", "reused test fixtures", "test plus integrationTest", "custom JVM test suites", "multiple Test tasks"],
+    "mavenOnlySolutionConsistent": false,
+    "canonicalTarget": "Gradle build path + fully qualified project/Test task path"
+  },
+  "backwardCompatibility": {
+    "MODEL_A_GLOBAL_ONLY": "NO_SCHEMA_CHANGE",
+    "MODEL_B_LOGICAL_PLUS_OWNERSHIP": "NEW_SCHEMA_VERSION_REQUIRED",
+    "MODEL_C_EXECUTABLE_IDENTITY": "NEW_SCHEMA_VERSION_REQUIRED",
+    "schemaV2Policy": "retain explicit v2 readers; use v2 only when exact-revision adapter analysis proves one owner for every logical identity, otherwise full suite and remap",
+    "silentOwnershipGuessingAllowed": false,
+    "storage": "version negotiation must prevent old consumers from admitting new payloads",
+    "jenkins": "transport structured executable assignments and enforce version-specific exact equality"
+  },
+  "productAdoption": {
+    "manualTargetConfiguration": "normally no; adapters derive targets, custom ambiguous executions may require configuration",
+    "reporting": "logical grouping with target-qualified occurrence rows",
+    "mapSize": "increases with repeated occurrences and their distinct coverage edges",
+    "selectionPrecision": "improves",
+    "diagnostics": "clearer because target is explicit",
+    "ordinaryBuildSemantics": "preserved by routing to actual targets"
+  },
+  "scorecard": {
+    "scale": "1 poor, 5 strong; implementation complexity score 5 means simplest",
+    "criteria": ["correctness", "safety", "optimization precision", "build-tool neutrality", "implementation complexity", "backward compatibility", "operational simplicity", "debuggability", "real-world Maven support", "real-world Gradle support"],
+    "MODEL_A_GLOBAL_ONLY": [2, 5, 1, 4, 5, 5, 3, 4, 1, 2],
+    "MODEL_B_LOGICAL_PLUS_OWNERSHIP": [3, 3, 2, 4, 3, 3, 2, 2, 4, 4],
+    "MODEL_C_EXECUTABLE_IDENTITY": [5, 5, 5, 5, 1, 2, 4, 5, 5, 5],
+    "totals": {"MODEL_A_GLOBAL_ONLY": 32, "MODEL_B_LOGICAL_PLUS_OWNERSHIP": 30, "MODEL_C_EXECUTABLE_IDENTITY": 42}
+  },
+  "recommendation": "MODEL_C_EXECUTABLE_IDENTITY",
+  "recommendedModel": {
+    "TestIdentity": ["className", "methodName", "parameterTypes"],
+    "ExecutionTarget": ["buildTool", "targetId"],
+    "ExecutableTestIdentity": ["logicalTest", "executionTarget"],
+    "testIdentityChanged": false,
+    "newTypeRequired": true,
+    "mavenTarget": "normalized reactor-relative module path + test execution ID; coordinates retained as diagnostics",
+    "gradleTarget": "stable Gradle build path + fully qualified Test task path",
+    "stability": "deterministic for the frozen revision and effective build; never absolute workspace paths or ephemeral runtime/CI IDs"
+  },
+  "recommendedInvariants": [
+    "TestIdentity is logical only and contains no execution target",
+    "each runnable target occurrence has exactly one ExecutableTestIdentity",
+    "inventory, shards, coverage, evidence, and completeness use executable identity",
+    "authoritative coverage does not union across execution targets",
+    "selection returns execution-scoped tests and adapters execute their named targets",
+    "every expected occurrence is accounted for exactly once and belongs to exactly one shard",
+    "unknown or conflicting ownership fails closed in mapping/publication and falls back to full suite in selection"
+  ],
+  "migrationStrategy": [
+    "add semantic types and canonical target rules",
+    "define new versioned inventory/fragment/map/evidence/assignment/selection contracts while retaining v2 readers",
+    "propagate trusted target context through collectors",
+    "convert exactness, joins, Maven and Gradle routing to executable identity",
+    "update Jenkins, CLI, reports, storage negotiation and compatibility gates",
+    "publish new artifacts only after the producer-consumer path is end-to-end capable",
+    "validate SonarJava and focused Gradle duplicate topologies before rollout"
+  ],
+  "impactedComponents": {
+    "smart-test-picker-common": {"size": "LARGE", "reason": "semantic types, schemas/codecs, inventory, completeness, maps, selector and compatibility"},
+    "smart-test-picker-core": {"size": "MEDIUM", "reason": "legacy listener identity files and target binding"},
+    "smart-test-picker": {"size": "LARGE", "reason": "Gradle target inventory, mapping and per-task routing"},
+    "smart-test-picker-maven": {"size": "LARGE", "reason": "reactor targets, assignments, fragments, evidence, aggregation and selection"},
+    "stp-runtime": {"size": "MEDIUM", "reason": "preserve target during runtime projection"},
+    "stp-junit-adapter": {"size": "SMALL", "reason": "carry trusted target context; logical extraction remains"},
+    "Jenkins plugin": {"size": "MEDIUM", "reason": "manifest/join structured assignments and version negotiation"},
+    "CLI": {"size": "MEDIUM", "reason": "versioned target-aware selection and reporting"},
+    "schemas/docs": {"size": "LARGE", "reason": "new contracts, canonicalization, invariants and migration"},
+    "fixtures": {"size": "LARGE", "reason": "cross-tool duplicate, routing, exactness and E2E cases"}
+  },
+  "implementationSlices": [
+    {"id": "EI-1", "name": "semantic model and target canon", "dependsOn": []},
+    {"id": "EI-2", "name": "versioned artifact contracts", "dependsOn": ["EI-1"]},
+    {"id": "EI-3", "name": "executable completeness and join", "dependsOn": ["EI-2"]},
+    {"id": "EI-4", "name": "collector target propagation", "dependsOn": ["EI-2"]},
+    {"id": "EI-5", "name": "Maven target inventory and routing", "dependsOn": ["EI-3", "EI-4"]},
+    {"id": "EI-6", "name": "Gradle target inventory and routing", "dependsOn": ["EI-3", "EI-4"]},
+    {"id": "EI-7", "name": "Jenkins, CLI and storage compatibility", "dependsOn": ["EI-3"]},
+    {"id": "EI-8", "name": "SonarJava and Gradle real-topology E2E rollout gate", "dependsOn": ["EI-5", "EI-6", "EI-7"]}
+  ],
+  "mm2Status": "PAUSED",
+  "mm2ResumeGate": "EI-1 through EI-5, relevant EI-7 join/transport, and focused SonarJava end-to-end proof",
+  "dockerUsed": false,
+  "jenkinsUsed": false,
+  "productionCodeChanged": false,
+  "pushPerformed": false
+}
