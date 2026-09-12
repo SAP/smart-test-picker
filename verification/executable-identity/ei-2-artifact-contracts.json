@@ -1,0 +1,56 @@
+{
+  "task": "EI-2 — Introduce versioned artifact contracts for executable identities",
+  "baselineCommit": "d83852001887d270e7ea10f6584fe5a37a75477b",
+  "schemaV2Changed": false,
+  "schemaV3Introduced": true,
+  "newTypes": [
+    "ExecutableTestInventory",
+    "ExecutableHeadTestInventory",
+    "ExecutableCoverageFragment",
+    "ExecutableUnmappedTest",
+    "ExecutableCoverageMap",
+    "ExecutableCompleteness",
+    "ExecutableCollectionExpectation",
+    "ExecutableCollectionSummary"
+  ],
+  "newCodecs": [
+    "ExecutableHeadTestInventoryCodec",
+    "ExecutableCoverageFragmentCodec",
+    "ExecutableCoverageMapCodec"
+  ],
+  "newValidators": ["ExecutableCoverageMapValidator"],
+  "v2Semantics": "logical TestIdentity ownership; unchanged",
+  "v3Semantics": "authoritative ExecutableTestIdentity ownership",
+  "sonarJavaDualOwnerRoundTrip": {
+    "logicalIdentity": "org.sonar.java.checks.ReassignmentFinderTest#parameter_with_usage",
+    "owners": ["maven:java-checks-common", "maven:java-checks"],
+    "entriesAfterRoundTrip": 2,
+    "coverageKeptSeparate": true,
+    "result": "PASS"
+  },
+  "completenessProof": {
+    "expected": ["common::T", "checks::T"],
+    "reported": ["common::T"],
+    "missing": ["checks::T"],
+    "positiveNonExecutionCompletes": true,
+    "result": "PASS"
+  },
+  "v2Regression": {
+    "CoverageMapContractTest": "PASS",
+    "HeadTestInventoryCodecTest": "PASS",
+    "SchemaV2SelectionAnalyzerTest": "PASS",
+    "suite": "PASS under JDK 17"
+  },
+  "v3Tests": "PASS",
+  "mavenAdapterChanged": false,
+  "gradleAdapterChanged": false,
+  "runtimeChanged": false,
+  "selectorChanged": false,
+  "jenkinsChanged": false,
+  "storageChanged": false,
+  "dockerUsed": false,
+  "jenkinsUsed": false,
+  "pushPerformed": false,
+  "result": "PASS",
+  "next": "EI-3 — Move mapping completeness, sharding, and join semantics to executable identities."
+}
