@@ -10,8 +10,9 @@ Per-test coverage is collected via two complementary mechanisms:
 2. **Jupiter Extension** (`TestLifecycleExtension`) -- registered via JUnit Jupiter extension auto-detection. Works on all platforms including Maven Surefire 3.x with JUnit Platform 6.x.
 
 Both mechanisms do the same thing:
-1. Before each test: set a unique JaCoCo session ID via reflection on `org.jacoco.agent.rt.RT`
-2. After each test: dump coverage data and save to a per-test `.exec` file
+1. Before each test: reuse the active JaCoCo runtime, set a unique session ID, and reset its probes
+2. After each test (including failures): obtain standard JaCoCo exec bytes in memory with
+   `IAgent.getExecutionData(true)` and append them to an STP-owned `session_*.exec` artifact
 3. Optionally collect per-test execution metrics (duration, status)
 
 A coordination flag prevents duplicate processing when both are active.
@@ -76,7 +77,8 @@ For parameterized tests, all invocations of the same test method share one sessi
 ## JaCoCo Agent Interaction
 
 The extension communicates with the JaCoCo runtime agent via reflection:
-- `org.jacoco.agent.rt.RT.getAgent()` -- obtains the agent instance
+- `org.jacoco.agent.rt.RT.getAgent()` -- obtains the single active agent instance
+- `IAgent.getExecutionData(true)` -- snapshots and resets without depending on the agent `destfile`
 - `setSessionId(String)` -- sets the session name for the current test
 - `dump(boolean)` -- writes accumulated coverage data
 - `reset()` -- clears coverage data between tests

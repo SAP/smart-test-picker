@@ -50,6 +50,7 @@ public class TestLifecycleExtension implements BeforeTestExecutionCallback, Afte
 
 	/** Session ID for the currently executing test ({@code ClassName#methodName}). */
 	private String sessionId;
+	private JacocoExecutionDataSource executionData;
 
 	/**
 	 * Resolves the directory where JaCoCo execution data files are written.
@@ -114,7 +115,8 @@ public class TestLifecycleExtension implements BeforeTestExecutionCallback, Afte
 		String testMethod = context.getTestMethod().map(method -> method.getName()).orElse("UnknownMethod");
 
 		sessionId = JacocoPerTestListener.buildSessionId(simpleClass, testMethod, fullClass);
-		setJaCoCoSession(sessionId);
+		executionData = JacocoExecutionDataSource.active();
+		executionData.startSession(sessionId);
 
 		if (isMetricsEnabled())
 		{
@@ -139,8 +141,7 @@ public class TestLifecycleExtension implements BeforeTestExecutionCallback, Afte
 			return;
 		}
 
-		dumpJaCoCoData();
-		saveJaCoCoSessionData(sessionId);
+		saveJaCoCoSessionData(sessionId, executionData.snapshotAndReset());
 
 		if (isMetricsEnabled())
 		{
@@ -263,100 +264,11 @@ public class TestLifecycleExtension implements BeforeTestExecutionCallback, Afte
 	}
 
 	/**
-	 * Sets the JaCoCo agent's session ID via reflection.
-	 * The session ID is embedded in the {@code .exec} file and later used to
-	 * associate coverage data with a specific test method.
-	 *
-	 * @param sessionId the session ID to set (format: {@code ClassName#methodName})
-	 */
-	private void setJaCoCoSession(String sessionId)
-	{
-		try
-		{
-			Class<?> rtClass = loadJacocoRtClass();
-			Object agent = rtClass.getMethod("getAgent").invoke(null);
-			agent.getClass().getMethod("setSessionId", String.class).invoke(agent, sessionId);
-		}
-		catch (Exception e)
-		{
-			System.err.println("Failed to set JaCoCo session: " + e.getMessage());
-		}
-	}
-
-	/**
-	 * Forces the JaCoCo agent to dump (flush) all collected execution data to the
-	 * {@code .exec} file. The {@code reset=true} parameter clears the in-memory
-	 * probes so the next test starts with a clean slate.
-	 */
-	private void dumpJaCoCoData()
-	{
-		try
-		{
-			Class<?> rtClass = loadJacocoRtClass();
-			Object agent = rtClass.getMethod("getAgent").invoke(null);
-			agent.getClass().getMethod("dump", boolean.class).invoke(agent, true);
-		}
-		catch (Exception e)
-		{
-			System.err.println("Failed to dump JaCoCo execution data: " + e.getMessage());
-		}
-	}
-
-	private Class<?> loadJacocoRtClass() throws ClassNotFoundException
-	{
-		// Try context classloader first (works in non-JPMS projects)
-		try
-		{
-			return Class.forName("org.jacoco.agent.rt.RT");
-		}
-		catch (ClassNotFoundException ignored)
-		{
-		}
-
-		// Try system classloader (JaCoCo agent loaded via -javaagent goes here)
-		try
-		{
-			return Class.forName("org.jacoco.agent.rt.RT", true, ClassLoader.getSystemClassLoader());
-		}
-		catch (ClassNotFoundException ignored)
-		{
-		}
-
-		// Walk classloader hierarchy from thread context
-		ClassLoader cl = Thread.currentThread().getContextClassLoader();
-		while (cl != null)
-		{
-			try
-			{
-				return Class.forName("org.jacoco.agent.rt.RT", true, cl);
-			}
-			catch (ClassNotFoundException ignored)
-			{
-				cl = cl.getParent();
-			}
-		}
-
-		// Last resort: try the classloader that loaded this extension
-		try
-		{
-			return Class.forName("org.jacoco.agent.rt.RT", true,
-					TestLifecycleExtension.class.getClassLoader());
-		}
-		catch (ClassNotFoundException ignored)
-		{
-		}
-
-		throw new ClassNotFoundException("org.jacoco.agent.rt.RT not found in any classloader");
-	}
-
-	/**
-	 * Copies the JaCoCo {@code test.exec} file to a per-session file
-	 * ({@code session_<sessionId>.exec}) and deletes the original.
-	 * This isolates each test's coverage data into its own file.
+	 * Writes an in-memory JaCoCo snapshot to the STP-owned per-session file.
 	 *
 	 * @param sessionId the session ID used to name the output file
 	 */
-	private void saveJaCoCoSessionData(String sessionId)
+	private void saveJaCoCoSessionData(String sessionId, byte[] snapshot)
 	{
 		try
 		{
@@ -364,27 +276,24 @@ public class TestLifecycleExtension implements BeforeTestExecutionCallback, Afte
 			Path dir = Path.of(execDir);
 			Files.createDirectories(dir);
 
-			Path execFile = dir.resolve("test.exec");
-			Path sessionFile = dir.resolve("session_" + sessionId + ".exec");
+			Path sessionFile = dir.resolve("session_" + SessionFileNames.sanitize(sessionId) + ".exec");
 
-			if (Files.exists(execFile))
+			if (snapshot.length > 0)
 			{
 				// Append to existing session file to merge coverage from multiple
 				// invocations of the same test (e.g. parameterized test invocations).
 				// JaCoCo exec format supports concatenation — ExecFileLoader merges
 				// all blocks via OR on probes when reading.
-				try (var in = Files.newInputStream(execFile);
-					 var out = Files.newOutputStream(sessionFile,
+				try (var out = Files.newOutputStream(sessionFile,
 							 java.nio.file.StandardOpenOption.CREATE,
 							 java.nio.file.StandardOpenOption.APPEND))
 				{
-					in.transferTo(out);
+					out.write(snapshot);
 				}
-				Files.deleteIfExists(execFile);
 			}
 			else
 			{
-				System.err.println("No execution data found for session: " + sessionId);
+				System.err.println("JaCoCo returned no execution data for session: " + sessionId);
 			}
 		}
 		catch (Exception e)

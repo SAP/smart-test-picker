@@ -95,6 +95,18 @@ Surefire/filter behavior. With no explicit revisions the local/worktree flow is 
 
 ## Per-Test Coverage Collection (JaCoCo)
 
+Collection reuses the JaCoCo agent active inside the Surefire/Failsafe fork. Per-test execution
+data is obtained from the runtime API and written to `session_*.exec` under `stp.exec.dir`; the
+project agent's `destfile` is neither rewritten nor used as scratch storage. A project-owned literal
+`argLine`, JaCoCo `prepare-agent` (including `@{argLine}` late evaluation), and STP's existing
+agent-supplied setup therefore share the same single-agent capture path. If no active runtime is
+visible in the test fork, mapping fails immediately with a focused diagnostic. Reset/snapshot is
+sequential and does not add support for parallel per-test mapping.
+
+The supported runtime API exposes one active agent but does not enumerate agents. STP never attaches
+a second agent; JVMs independently configured with multiple JaCoCo agents remain unsupported and
+cannot be diagnosed more precisely through that API.
+
 The Maven plugin requires `smart-test-picker-core` as a test dependency for per-test coverage. On projects using JUnit Platform 6.x or Surefire 3.x, enable Jupiter extension auto-detection in surefire:
 
 ```xml
