@@ -1,0 +1,201 @@
+{
+  "acceptedCombinationIndex": 0,
+  "candidateOrdering": "canonical class name ascending, then deterministic Fisher-Yates shuffle using Python random.Random(1111); lexicographic three-position combinations of that shuffled list",
+  "changedFiles": [
+    "java-checks/src/main/java/org/sonar/java/checks/StringOffsetMethodsCheck.java",
+    "java-checks/src/main/java/org/sonar/java/checks/PseudoRandomCheck.java",
+    "java-checks/src/main/java/org/sonar/java/checks/SQLInjectionCheck.java"
+  ],
+  "classContributions": {
+    "org.sonar.java.checks.PseudoRandomCheck": [
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_crypto_import",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_field_scope",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_no_security_context",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_security_keywords",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_static_crypto_import",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_wildcard_crypto_import",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_without_semantic"
+    ],
+    "org.sonar.java.checks.SQLInjectionCheck": [
+      "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test",
+      "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test_non_compiling",
+      "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test_with_spring_3_2",
+      "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test_without_semantic"
+    ],
+    "org.sonar.java.checks.StringOffsetMethodsCheck": [
+      "maven:java-checks::org.sonar.java.checks.StringOffsetMethodsCheckTest#test",
+      "maven:java-checks::org.sonar.java.checks.StringOffsetMethodsCheckTest#test_without_semantic"
+    ]
+  },
+  "coverageReasons": {
+    "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test": {
+      "directClassCoverage": [
+        "org.sonar.java.checks.PseudoRandomCheck"
+      ],
+      "directMethodCoverage": [],
+      "setupScopedCoverage": []
+    },
+    "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_crypto_import": {
+      "directClassCoverage": [
+        "org.sonar.java.checks.PseudoRandomCheck"
+      ],
+      "directMethodCoverage": [],
+      "setupScopedCoverage": []
+    },
+    "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_field_scope": {
+      "directClassCoverage": [
+        "org.sonar.java.checks.PseudoRandomCheck"
+      ],
+      "directMethodCoverage": [
+        "org.sonar.java.checks.PseudoRandomCheck#findDeclarationScope(Lorg/sonar/plugins/java/api/tree/Tree;)Lorg/sonar/plugins/java/api/tree/Tree;"
+      ],
+      "setupScopedCoverage": []
+    },
+    "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_no_security_context": {
+      "directClassCoverage": [
+        "org.sonar.java.checks.PseudoRandomCheck"
+      ],
+      "directMethodCoverage": [
+        "org.sonar.java.checks.PseudoRandomCheck#findDeclarationScope(Lorg/sonar/plugins/java/api/tree/Tree;)Lorg/sonar/plugins/java/api/tree/Tree;"
+      ],
+      "setupScopedCoverage": []
+    },
+    "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_security_keywords": {
+      "directClassCoverage": [
+        "org.sonar.java.checks.PseudoRandomCheck"
+      ],
+      "directMethodCoverage": [
+        "org.sonar.java.checks.PseudoRandomCheck#findDeclarationScope(Lorg/sonar/plugins/java/api/tree/Tree;)Lorg/sonar/plugins/java/api/tree/Tree;"
+      ],
+      "setupScopedCoverage": []
+    },
+    "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_static_crypto_import": {
+      "directClassCoverage": [
+        "org.sonar.java.checks.PseudoRandomCheck"
+      ],
+      "directMethodCoverage": [],
+      "setupScopedCoverage": []
+    },
+    "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_wildcard_crypto_import": {
+      "directClassCoverage": [
+        "org.sonar.java.checks.PseudoRandomCheck"
+      ],
+      "directMethodCoverage": [],
+      "setupScopedCoverage": []
+    },
+    "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_without_semantic": {
+      "directClassCoverage": [
+        "org.sonar.java.checks.PseudoRandomCheck"
+      ],
+      "directMethodCoverage": [],
+      "setupScopedCoverage": []
+    },
+    "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test": {
+      "directClassCoverage": [
+        "org.sonar.java.checks.SQLInjectionCheck"
+      ],
+      "directMethodCoverage": [
+        "org.sonar.java.checks.SQLInjectionCheck#anyMatch(Lorg/sonar/plugins/java/api/tree/Tree;)Z"
+      ],
+      "setupScopedCoverage": []
+    },
+    "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test_non_compiling": {
+      "directClassCoverage": [
+        "org.sonar.java.checks.SQLInjectionCheck"
+      ],
+      "directMethodCoverage": [
+        "org.sonar.java.checks.SQLInjectionCheck#anyMatch(Lorg/sonar/plugins/java/api/tree/Tree;)Z"
+      ],
+      "setupScopedCoverage": []
+    },
+    "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test_with_spring_3_2": {
+      "directClassCoverage": [
+        "org.sonar.java.checks.SQLInjectionCheck"
+      ],
+      "directMethodCoverage": [
+        "org.sonar.java.checks.SQLInjectionCheck#anyMatch(Lorg/sonar/plugins/java/api/tree/Tree;)Z"
+      ],
+      "setupScopedCoverage": []
+    },
+    "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test_without_semantic": {
+      "directClassCoverage": [
+        "org.sonar.java.checks.SQLInjectionCheck"
+      ],
+      "directMethodCoverage": [
+        "org.sonar.java.checks.SQLInjectionCheck#anyMatch(Lorg/sonar/plugins/java/api/tree/Tree;)Z"
+      ],
+      "setupScopedCoverage": []
+    },
+    "maven:java-checks::org.sonar.java.checks.StringOffsetMethodsCheckTest#test": {
+      "directClassCoverage": [
+        "org.sonar.java.checks.StringOffsetMethodsCheck"
+      ],
+      "directMethodCoverage": [
+        "org.sonar.java.checks.StringOffsetMethodsCheck#getMethodInvocationMatchers()Lorg/sonar/plugins/java/api/semantic/MethodMatchers;"
+      ],
+      "setupScopedCoverage": []
+    },
+    "maven:java-checks::org.sonar.java.checks.StringOffsetMethodsCheckTest#test_without_semantic": {
+      "directClassCoverage": [
+        "org.sonar.java.checks.StringOffsetMethodsCheck"
+      ],
+      "directMethodCoverage": [
+        "org.sonar.java.checks.StringOffsetMethodsCheck#getMethodInvocationMatchers()Lorg/sonar/plugins/java/api/semantic/MethodMatchers;"
+      ],
+      "setupScopedCoverage": []
+    }
+  },
+  "expectedCount": 14,
+  "expectedExecutableIdentities": [
+    "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test",
+    "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_crypto_import",
+    "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_field_scope",
+    "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_no_security_context",
+    "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_security_keywords",
+    "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_static_crypto_import",
+    "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_wildcard_crypto_import",
+    "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_without_semantic",
+    "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test",
+    "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test_non_compiling",
+    "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test_with_spring_3_2",
+    "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test_without_semantic",
+    "maven:java-checks::org.sonar.java.checks.StringOffsetMethodsCheckTest#test",
+    "maven:java-checks::org.sonar.java.checks.StringOffsetMethodsCheckTest#test_without_semantic"
+  ],
+  "expectedLogicalCount": 14,
+  "expectedLogicalTests": [
+    "org.sonar.java.checks.PseudoRandomCheckTest#test",
+    "org.sonar.java.checks.PseudoRandomCheckTest#test_crypto_import",
+    "org.sonar.java.checks.PseudoRandomCheckTest#test_field_scope",
+    "org.sonar.java.checks.PseudoRandomCheckTest#test_no_security_context",
+    "org.sonar.java.checks.PseudoRandomCheckTest#test_security_keywords",
+    "org.sonar.java.checks.PseudoRandomCheckTest#test_static_crypto_import",
+    "org.sonar.java.checks.PseudoRandomCheckTest#test_wildcard_crypto_import",
+    "org.sonar.java.checks.PseudoRandomCheckTest#test_without_semantic",
+    "org.sonar.java.checks.SQLInjectionCheckTest#test",
+    "org.sonar.java.checks.SQLInjectionCheckTest#test_non_compiling",
+    "org.sonar.java.checks.SQLInjectionCheckTest#test_with_spring_3_2",
+    "org.sonar.java.checks.SQLInjectionCheckTest#test_without_semantic",
+    "org.sonar.java.checks.StringOffsetMethodsCheckTest#test",
+    "org.sonar.java.checks.StringOffsetMethodsCheckTest#test_without_semantic"
+  ],
+  "expectedPercentage": 0.3364575823119442,
+  "fullExecutableInventoryCount": 4161,
+  "mappedCount": 4157,
+  "rejectedCombinations": [],
+  "safeCandidateCount": 969,
+  "seed": 1111,
+  "selectedClasses": [
+    "org.sonar.java.checks.StringOffsetMethodsCheck",
+    "org.sonar.java.checks.PseudoRandomCheck",
+    "org.sonar.java.checks.SQLInjectionCheck"
+  ],
+  "selectedMethods": [
+    "org.sonar.java.checks.StringOffsetMethodsCheck#getMethodInvocationMatchers()Lorg/sonar/plugins/java/api/semantic/MethodMatchers;",
+    "org.sonar.java.checks.PseudoRandomCheck#findDeclarationScope(Lorg/sonar/plugins/java/api/tree/Tree;)Lorg/sonar/plugins/java/api/tree/Tree;",
+    "org.sonar.java.checks.SQLInjectionCheck#anyMatch(Lorg/sonar/plugins/java/api/tree/Tree;)Z"
+  ],
+  "selectionSemantics": "The production explicit schema-v3 flow projects to the documented schema-v2 selector, which selects at class level for production file changes; executable identities are restored by matching selected logical identities against the authoritative Maven head inventory. Method coverage is recorded as corroborating evidence, not claimed as the selection boundary.",
+  "setupScopeCount": 0
+}

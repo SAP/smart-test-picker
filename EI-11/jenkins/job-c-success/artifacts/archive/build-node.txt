@@ -1,0 +1,2 @@
+node=stp-map-agent-3
+workspace=/home/jenkins/agent/workspace/EI-11-Job-C

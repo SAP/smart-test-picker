@@ -1,0 +1,215 @@
+Running from: /usr/share/jenkins/jenkins.war
+webroot: /var/jenkins_home/war
+2026-09-13 14:17:01.674+0000 [id=1]	INFO	winstone.Logger#logInternal: Beginning extraction from war file
+2026-09-13 14:17:01.705+0000 [id=1]	WARNING	o.e.j.ee9.nested.ContextHandler#setContextPath: Empty contextPath
+2026-09-13 14:17:01.725+0000 [id=1]	INFO	org.eclipse.jetty.server.Server#doStart: jetty-12.0.22; built: 2025-06-02T15:25:31.946Z; git: 335c9ab44a5591f0ea941bf350e139b8c4f5537c; jvm 21.0.8+9-LTS
+2026-09-13 14:17:01.870+0000 [id=1]	INFO	o.e.j.e.w.StandardDescriptorProcessor#visitServlet: NO JSP Support for /, did not find org.eclipse.jetty.ee9.jsp.JettyJspServlet
+2026-09-13 14:17:01.889+0000 [id=1]	INFO	o.e.j.s.DefaultSessionIdManager#doStart: Session workerName=node0
+2026-09-13 14:17:02.012+0000 [id=1]	INFO	hudson.WebAppMain#contextInitialized: Jenkins home directory: /var/jenkins_home found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+2026-09-13 14:17:02.041+0000 [id=1]	INFO	o.e.j.s.handler.ContextHandler#doStart: Started oeje9n.ContextHandler$CoreContextHandler@c3fa05a{Jenkins v2.516.2,/,b=file:///var/jenkins_home/war/,a=AVAILABLE,h=oeje9n.ContextHandler$CoreContextHandler$CoreToNestedHandler@7b44b63d{STARTED}}
+2026-09-13 14:17:02.045+0000 [id=1]	INFO	o.e.j.server.AbstractConnector#doStart: Started ServerConnector@34b9fc7d{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
+2026-09-13 14:17:02.049+0000 [id=1]	INFO	org.eclipse.jetty.server.Server#doStart: Started oejs.Server@51c668e3{STARTING}[12.0.22,sto=0] @594ms
+2026-09-13 14:17:02.049+0000 [id=43]	INFO	winstone.Logger#logInternal: Winstone Servlet Engine running: controlPort=disabled
+2026-09-13 14:17:02.085+0000 [id=42]	INFO	jenkins.model.Jenkins#<init>: Starting version 2.516.2
+2026-09-13 14:17:02.108+0000 [id=49]	INFO	jenkins.InitReactorRunner$1#onAttained: Started initialization
+2026-09-13 14:17:02.137+0000 [id=56]	INFO	jenkins.InitReactorRunner$1#onAttained: Listed all plugins
+2026-09-13 14:17:02.889+0000 [id=54]	INFO	jenkins.InitReactorRunner$1#onAttained: Prepared all plugins
+2026-09-13 14:17:02.894+0000 [id=48]	INFO	jenkins.InitReactorRunner$1#onAttained: Started all plugins
+2026-09-13 14:17:02.895+0000 [id=71]	INFO	jenkins.InitReactorRunner$1#onAttained: Augmented all extensions
+2026-09-13 14:17:03.098+0000 [id=62]	WARNING	hudson.model.Slave#warnPlugin: hudson.slaves.DumbSlave or one of its superclass overrides readResolve() without calling super implementation.Please file an issue against the plugin implementing it: null
+2026-09-13 14:17:03.102+0000 [id=62]	WARNING	hudson.model.Slave#warnPlugin: hudson.slaves.DumbSlave or one of its superclass overrides readResolve() without calling super implementation.Please file an issue against the plugin implementing it: null
+2026-09-13 14:17:03.103+0000 [id=62]	WARNING	hudson.model.Slave#warnPlugin: hudson.slaves.DumbSlave or one of its superclass overrides readResolve() without calling super implementation.Please file an issue against the plugin implementing it: null
+2026-09-13 14:17:03.104+0000 [id=62]	WARNING	hudson.model.Slave#warnPlugin: hudson.slaves.DumbSlave or one of its superclass overrides readResolve() without calling super implementation.Please file an issue against the plugin implementing it: null
+2026-09-13 14:17:03.108+0000 [id=62]	INFO	jenkins.InitReactorRunner$1#onAttained: System config loaded
+2026-09-13 14:17:03.434+0000 [id=63]	INFO	jenkins.InitReactorRunner$1#onAttained: System config adapted
+2026-09-13 14:17:03.434+0000 [id=56]	INFO	jenkins.InitReactorRunner$1#onAttained: Loaded all jobs
+2026-09-13 14:17:03.438+0000 [id=71]	INFO	jenkins.InitReactorRunner$1#onAttained: Configuration for all jobs updated
+2026-09-13 14:17:03.440+0000 [id=62]	INFO	j.util.groovy.GroovyHookScript#execute: Executing /var/jenkins_home/init.groovy.d/10-provision-jobs.groovy
+2026-09-13 14:17:03.587+0000 [id=62]	INFO	jenkins.InitReactorRunner$1#onAttained: Completed initialization
+2026-09-13 14:17:03.593+0000 [id=42]	INFO	hudson.lifecycle.Lifecycle#onReady: Jenkins is fully up and running
+2026-09-13 14:17:05.554+0000 [id=33]	WARNING	hudson.slaves.SlaveComputer#doJenkinsAgentJnlp: Agent "stp-map-agent-3" is connecting with the "-jnlpUrl" argument, which is deprecated. Use "-url" and "-name" instead, potentially also passing in "-webSocket", "-tunnel", and/or work directory options as needed.
+2026-09-13 14:17:05.554+0000 [id=29]	WARNING	hudson.slaves.SlaveComputer#doJenkinsAgentJnlp: Agent "stp-agent" is connecting with the "-jnlpUrl" argument, which is deprecated. Use "-url" and "-name" instead, potentially also passing in "-webSocket", "-tunnel", and/or work directory options as needed.
+2026-09-13 14:17:05.554+0000 [id=80]	WARNING	hudson.slaves.SlaveComputer#doJenkinsAgentJnlp: Agent "stp-map-agent-1" is connecting with the "-jnlpUrl" argument, which is deprecated. Use "-url" and "-name" instead, potentially also passing in "-webSocket", "-tunnel", and/or work directory options as needed.
+2026-09-13 14:17:05.554+0000 [id=81]	WARNING	hudson.slaves.SlaveComputer#doJenkinsAgentJnlp: Agent "stp-map-agent-2" is connecting with the "-jnlpUrl" argument, which is deprecated. Use "-url" and "-name" instead, potentially also passing in "-webSocket", "-tunnel", and/or work directory options as needed.
+2026-09-13 14:17:05.738+0000 [id=102]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #1 from /172.18.0.6:35650 failed: null
+2026-09-13 14:17:05.738+0000 [id=104]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #3 from /172.18.0.4:45014 failed: null
+2026-09-13 14:17:05.738+0000 [id=103]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #2 from /172.18.0.3:36588 failed: null
+2026-09-13 14:17:05.740+0000 [id=105]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #4 from /172.18.0.5:35878 failed: null
+2026-09-13 14:17:05.760+0000 [id=106]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #5 from /172.18.0.3:36598
+2026-09-13 14:17:05.762+0000 [id=107]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #6 from /172.18.0.6:35660
+2026-09-13 14:17:05.763+0000 [id=109]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #8 from /172.18.0.4:45016
+2026-09-13 14:17:05.764+0000 [id=108]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #7 from /172.18.0.5:35892
+2026-09-13 14:33:59.203+0000 [id=302]	INFO	j.s.DefaultJnlpSlaveReceiver#channelClosed: IOHub#1: Worker[channel:java.nio.channels.SocketChannel[connected local=/172.18.0.2:50000 remote=stp-plugin-agent.ei9_default/172.18.0.6:35660]] / Computer.threadPoolForRemoting [#34] for stp-agent terminated: java.nio.channels.ClosedChannelException
+2026-09-13 14:33:59.203+0000 [id=300]	INFO	j.s.DefaultJnlpSlaveReceiver#channelClosed: IOHub#1: Worker[channel:java.nio.channels.SocketChannel[connected local=/172.18.0.2:50000 remote=stp-plugin-agent-2.ei9_default/172.18.0.4:45016]] / Computer.threadPoolForRemoting [#32] for stp-map-agent-2 terminated: java.nio.channels.ClosedChannelException
+2026-09-13 14:33:59.203+0000 [id=301]	INFO	j.s.DefaultJnlpSlaveReceiver#channelClosed: IOHub#1: Worker[channel:java.nio.channels.SocketChannel[connected local=/172.18.0.2:50000 remote=stp-plugin-agent-3.ei9_default/172.18.0.5:35892]] / Computer.threadPoolForRemoting [#33] for stp-map-agent-3 terminated: java.nio.channels.ClosedChannelException
+2026-09-13 14:33:59.204+0000 [id=303]	INFO	j.s.DefaultJnlpSlaveReceiver#channelClosed: IOHub#1: Worker[channel:java.nio.channels.SocketChannel[connected local=/172.18.0.2:50000 remote=stp-plugin-agent-1.ei9_default/172.18.0.3:36598]] / Computer.threadPoolForRemoting [#35] for stp-map-agent-1 terminated: java.nio.channels.ClosedChannelException
+2026-09-13 14:34:01.630+0000 [id=32]	WARNING	hudson.slaves.SlaveComputer#doJenkinsAgentJnlp: Agent "stp-map-agent-2" is connecting with the "-jnlpUrl" argument, which is deprecated. Use "-url" and "-name" instead, potentially also passing in "-webSocket", "-tunnel", and/or work directory options as needed.
+2026-09-13 14:34:01.630+0000 [id=80]	WARNING	hudson.slaves.SlaveComputer#doJenkinsAgentJnlp: Agent "stp-map-agent-1" is connecting with the "-jnlpUrl" argument, which is deprecated. Use "-url" and "-name" instead, potentially also passing in "-webSocket", "-tunnel", and/or work directory options as needed.
+2026-09-13 14:34:01.630+0000 [id=286]	WARNING	hudson.slaves.SlaveComputer#doJenkinsAgentJnlp: Agent "stp-map-agent-3" is connecting with the "-jnlpUrl" argument, which is deprecated. Use "-url" and "-name" instead, potentially also passing in "-webSocket", "-tunnel", and/or work directory options as needed.
+2026-09-13 14:34:01.630+0000 [id=289]	WARNING	hudson.slaves.SlaveComputer#doJenkinsAgentJnlp: Agent "stp-agent" is connecting with the "-jnlpUrl" argument, which is deprecated. Use "-url" and "-name" instead, potentially also passing in "-webSocket", "-tunnel", and/or work directory options as needed.
+2026-09-13 14:34:01.829+0000 [id=306]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #9 from /172.18.0.6:56432 failed: null
+2026-09-13 14:34:01.830+0000 [id=307]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #10 from /172.18.0.3:39808 failed: null
+2026-09-13 14:34:01.837+0000 [id=309]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #12 from /172.18.0.5:34894 failed: null
+2026-09-13 14:34:01.843+0000 [id=312]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #15 from /172.18.0.4:37510 failed: null
+2026-09-13 14:34:01.859+0000 [id=308]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #11 from /172.18.0.6:56438
+2026-09-13 14:34:01.859+0000 [id=310]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #13 from /172.18.0.3:39812
+2026-09-13 14:34:01.864+0000 [id=311]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #14 from /172.18.0.5:34898
+2026-09-13 14:34:01.882+0000 [id=313]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #16 from /172.18.0.4:37512
+2026-09-13 14:47:07.333+0000 [id=44]	INFO	winstone.Logger#logInternal: JVM is terminating. Shutting down Jetty
+2026-09-13 14:47:07.335+0000 [id=44]	INFO	org.eclipse.jetty.server.Server#doStop: Stopped oejs.Server@51c668e3{STOPPING}[12.0.22,sto=0]
+2026-09-13 14:47:07.347+0000 [id=44]	INFO	o.e.j.server.AbstractConnector#doStop: Stopped ServerConnector@34b9fc7d{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
+2026-09-13 14:47:07.356+0000 [id=44]	INFO	hudson.lifecycle.Lifecycle#onStatusUpdate: Stopping Jenkins
+2026-09-13 14:47:07.373+0000 [id=44]	INFO	jenkins.model.Jenkins$17#onAttained: Started termination
+2026-09-13 14:47:07.379+0000 [id=44]	INFO	jenkins.model.Jenkins$17#onAttained: Completed termination
+2026-09-13 14:47:07.380+0000 [id=44]	INFO	jenkins.model.Jenkins#_cleanUpDisconnectComputers: Starting node disconnection
+2026-09-13 14:47:07.386+0000 [id=44]	INFO	j.s.DefaultJnlpSlaveReceiver#channelClosed: Thread-8 for stp-map-agent-2 terminated: java.nio.channels.ClosedChannelException
+2026-09-13 14:47:07.390+0000 [id=44]	INFO	j.s.DefaultJnlpSlaveReceiver#channelClosed: Thread-8 for stp-map-agent-1 terminated: java.nio.channels.ClosedChannelException
+2026-09-13 14:47:07.391+0000 [id=44]	INFO	j.s.DefaultJnlpSlaveReceiver#channelClosed: Thread-8 for stp-map-agent-3 terminated: java.nio.channels.ClosedChannelException
+2026-09-13 14:47:07.393+0000 [id=44]	INFO	j.s.DefaultJnlpSlaveReceiver#channelClosed: Thread-8 for stp-agent terminated: java.nio.channels.ClosedChannelException
+2026-09-13 14:47:07.412+0000 [id=44]	INFO	jenkins.model.Jenkins#_cleanUpShutdownPluginManager: Stopping plugin manager
+2026-09-13 14:47:07.423+0000 [id=44]	INFO	jenkins.model.Jenkins#_cleanUpPersistQueue: Persisting build queue
+2026-09-13 14:47:07.427+0000 [id=44]	INFO	jenkins.model.Jenkins#_cleanUpAwaitDisconnects: Waiting for node disconnection completion
+2026-09-13 14:47:07.427+0000 [id=44]	INFO	hudson.lifecycle.Lifecycle#onStatusUpdate: Jenkins stopped
+Running from: /usr/share/jenkins/jenkins.war
+webroot: /var/jenkins_home/war
+2026-09-13 14:47:08.460+0000 [id=1]	INFO	winstone.Logger#logInternal: Beginning extraction from war file
+2026-09-13 14:47:08.492+0000 [id=1]	WARNING	o.e.j.ee9.nested.ContextHandler#setContextPath: Empty contextPath
+2026-09-13 14:47:08.514+0000 [id=1]	INFO	org.eclipse.jetty.server.Server#doStart: jetty-12.0.22; built: 2025-06-02T15:25:31.946Z; git: 335c9ab44a5591f0ea941bf350e139b8c4f5537c; jvm 21.0.8+9-LTS
+2026-09-13 14:47:08.697+0000 [id=1]	INFO	o.e.j.e.w.StandardDescriptorProcessor#visitServlet: NO JSP Support for /, did not find org.eclipse.jetty.ee9.jsp.JettyJspServlet
+2026-09-13 14:47:08.718+0000 [id=1]	INFO	o.e.j.s.DefaultSessionIdManager#doStart: Session workerName=node0
+2026-09-13 14:47:08.870+0000 [id=1]	INFO	hudson.WebAppMain#contextInitialized: Jenkins home directory: /var/jenkins_home found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+2026-09-13 14:47:08.917+0000 [id=1]	INFO	o.e.j.s.handler.ContextHandler#doStart: Started oeje9n.ContextHandler$CoreContextHandler@c3fa05a{Jenkins v2.516.2,/,b=file:///var/jenkins_home/war/,a=AVAILABLE,h=oeje9n.ContextHandler$CoreContextHandler$CoreToNestedHandler@7b44b63d{STARTED}}
+2026-09-13 14:47:08.922+0000 [id=1]	INFO	o.e.j.server.AbstractConnector#doStart: Started ServerConnector@34b9fc7d{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
+2026-09-13 14:47:08.926+0000 [id=1]	INFO	org.eclipse.jetty.server.Server#doStart: Started oejs.Server@51c668e3{STARTING}[12.0.22,sto=0] @722ms
+2026-09-13 14:47:08.926+0000 [id=43]	INFO	winstone.Logger#logInternal: Winstone Servlet Engine running: controlPort=disabled
+2026-09-13 14:47:08.972+0000 [id=42]	INFO	jenkins.model.Jenkins#<init>: Starting version 2.516.2
+2026-09-13 14:47:08.998+0000 [id=49]	INFO	jenkins.InitReactorRunner$1#onAttained: Started initialization
+2026-09-13 14:47:09.117+0000 [id=69]	INFO	jenkins.InitReactorRunner$1#onAttained: Listed all plugins
+2026-09-13 14:47:10.012+0000 [id=48]	INFO	jenkins.InitReactorRunner$1#onAttained: Prepared all plugins
+2026-09-13 14:47:10.021+0000 [id=50]	INFO	jenkins.InitReactorRunner$1#onAttained: Started all plugins
+2026-09-13 14:47:10.022+0000 [id=56]	INFO	jenkins.InitReactorRunner$1#onAttained: Augmented all extensions
+2026-09-13 14:47:10.236+0000 [id=49]	WARNING	hudson.model.Slave#warnPlugin: hudson.slaves.DumbSlave or one of its superclass overrides readResolve() without calling super implementation.Please file an issue against the plugin implementing it: null
+2026-09-13 14:47:10.241+0000 [id=49]	WARNING	hudson.model.Slave#warnPlugin: hudson.slaves.DumbSlave or one of its superclass overrides readResolve() without calling super implementation.Please file an issue against the plugin implementing it: null
+2026-09-13 14:47:10.242+0000 [id=49]	WARNING	hudson.model.Slave#warnPlugin: hudson.slaves.DumbSlave or one of its superclass overrides readResolve() without calling super implementation.Please file an issue against the plugin implementing it: null
+2026-09-13 14:47:10.243+0000 [id=49]	WARNING	hudson.model.Slave#warnPlugin: hudson.slaves.DumbSlave or one of its superclass overrides readResolve() without calling super implementation.Please file an issue against the plugin implementing it: null
+2026-09-13 14:47:10.248+0000 [id=49]	INFO	jenkins.InitReactorRunner$1#onAttained: System config loaded
+2026-09-13 14:47:10.575+0000 [id=70]	INFO	jenkins.InitReactorRunner$1#onAttained: System config adapted
+2026-09-13 14:47:10.575+0000 [id=59]	INFO	jenkins.InitReactorRunner$1#onAttained: Loaded all jobs
+2026-09-13 14:47:10.578+0000 [id=64]	INFO	jenkins.InitReactorRunner$1#onAttained: Configuration for all jobs updated
+2026-09-13 14:47:10.581+0000 [id=51]	INFO	j.util.groovy.GroovyHookScript#execute: Executing /var/jenkins_home/init.groovy.d/10-provision-jobs.groovy
+2026-09-13 14:47:10.737+0000 [id=51]	INFO	jenkins.InitReactorRunner$1#onAttained: Completed initialization
+2026-09-13 14:47:10.744+0000 [id=42]	INFO	hudson.lifecycle.Lifecycle#onReady: Jenkins is fully up and running
+2026-09-13 14:47:18.184+0000 [id=114]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #1 from /172.18.0.6:37804 failed: null
+2026-09-13 14:47:18.204+0000 [id=116]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #3 from /172.18.0.4:46032 failed: null
+2026-09-13 14:47:18.205+0000 [id=117]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #4 from /172.18.0.5:52702 failed: null
+2026-09-13 14:47:18.206+0000 [id=119]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #6 from /172.18.0.3:37662 failed: null
+2026-09-13 14:47:18.220+0000 [id=115]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #2 from /172.18.0.6:37814
+2026-09-13 14:47:18.226+0000 [id=118]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #5 from /172.18.0.4:46040
+2026-09-13 14:47:18.229+0000 [id=120]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #7 from /172.18.0.5:52704
+2026-09-13 14:47:18.239+0000 [id=121]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #8 from /172.18.0.3:37674
+2026-09-13 14:47:46.807+0000 [id=44]	INFO	winstone.Logger#logInternal: JVM is terminating. Shutting down Jetty
+2026-09-13 14:47:46.807+0000 [id=44]	INFO	org.eclipse.jetty.server.Server#doStop: Stopped oejs.Server@51c668e3{STOPPING}[12.0.22,sto=0]
+2026-09-13 14:47:46.808+0000 [id=44]	INFO	o.e.j.server.AbstractConnector#doStop: Stopped ServerConnector@34b9fc7d{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
+2026-09-13 14:47:46.809+0000 [id=44]	INFO	hudson.lifecycle.Lifecycle#onStatusUpdate: Stopping Jenkins
+2026-09-13 14:47:46.815+0000 [id=44]	INFO	jenkins.model.Jenkins$17#onAttained: Started termination
+2026-09-13 14:47:46.818+0000 [id=44]	INFO	jenkins.model.Jenkins$17#onAttained: Completed termination
+2026-09-13 14:47:46.818+0000 [id=44]	INFO	jenkins.model.Jenkins#_cleanUpDisconnectComputers: Starting node disconnection
+2026-09-13 14:47:46.820+0000 [id=44]	INFO	j.s.DefaultJnlpSlaveReceiver#channelClosed: Thread-8 for stp-map-agent-2 terminated: java.nio.channels.ClosedChannelException
+2026-09-13 14:47:46.821+0000 [id=44]	INFO	j.s.DefaultJnlpSlaveReceiver#channelClosed: Thread-8 for stp-map-agent-1 terminated: java.nio.channels.ClosedChannelException
+2026-09-13 14:47:46.822+0000 [id=44]	INFO	j.s.DefaultJnlpSlaveReceiver#channelClosed: Thread-8 for stp-map-agent-3 terminated: java.nio.channels.ClosedChannelException
+2026-09-13 14:47:46.822+0000 [id=44]	INFO	j.s.DefaultJnlpSlaveReceiver#channelClosed: Thread-8 for stp-agent terminated: java.nio.channels.ClosedChannelException
+2026-09-13 14:47:46.827+0000 [id=44]	INFO	jenkins.model.Jenkins#_cleanUpShutdownPluginManager: Stopping plugin manager
+2026-09-13 14:47:46.828+0000 [id=44]	INFO	jenkins.model.Jenkins#_cleanUpPersistQueue: Persisting build queue
+2026-09-13 14:47:46.830+0000 [id=44]	INFO	jenkins.model.Jenkins#_cleanUpAwaitDisconnects: Waiting for node disconnection completion
+2026-09-13 14:47:46.830+0000 [id=44]	INFO	hudson.lifecycle.Lifecycle#onStatusUpdate: Jenkins stopped
+Running from: /usr/share/jenkins/jenkins.war
+webroot: /var/jenkins_home/war
+2026-09-13 14:47:47.655+0000 [id=1]	INFO	winstone.Logger#logInternal: Beginning extraction from war file
+2026-09-13 14:47:47.683+0000 [id=1]	WARNING	o.e.j.ee9.nested.ContextHandler#setContextPath: Empty contextPath
+2026-09-13 14:47:47.703+0000 [id=1]	INFO	org.eclipse.jetty.server.Server#doStart: jetty-12.0.22; built: 2025-06-02T15:25:31.946Z; git: 335c9ab44a5591f0ea941bf350e139b8c4f5537c; jvm 21.0.8+9-LTS
+2026-09-13 14:47:47.841+0000 [id=1]	INFO	o.e.j.e.w.StandardDescriptorProcessor#visitServlet: NO JSP Support for /, did not find org.eclipse.jetty.ee9.jsp.JettyJspServlet
+2026-09-13 14:47:47.861+0000 [id=1]	INFO	o.e.j.s.DefaultSessionIdManager#doStart: Session workerName=node0
+2026-09-13 14:47:47.976+0000 [id=1]	INFO	hudson.WebAppMain#contextInitialized: Jenkins home directory: /var/jenkins_home found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+2026-09-13 14:47:48.005+0000 [id=1]	INFO	o.e.j.s.handler.ContextHandler#doStart: Started oeje9n.ContextHandler$CoreContextHandler@c3fa05a{Jenkins v2.516.2,/,b=file:///var/jenkins_home/war/,a=AVAILABLE,h=oeje9n.ContextHandler$CoreContextHandler$CoreToNestedHandler@7b44b63d{STARTED}}
+2026-09-13 14:47:48.009+0000 [id=1]	INFO	o.e.j.server.AbstractConnector#doStart: Started ServerConnector@34b9fc7d{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
+2026-09-13 14:47:48.013+0000 [id=1]	INFO	org.eclipse.jetty.server.Server#doStart: Started oejs.Server@51c668e3{STARTING}[12.0.22,sto=0] @578ms
+2026-09-13 14:47:48.013+0000 [id=43]	INFO	winstone.Logger#logInternal: Winstone Servlet Engine running: controlPort=disabled
+2026-09-13 14:47:48.047+0000 [id=42]	INFO	jenkins.model.Jenkins#<init>: Starting version 2.516.2
+2026-09-13 14:47:48.069+0000 [id=49]	INFO	jenkins.InitReactorRunner$1#onAttained: Started initialization
+2026-09-13 14:47:48.100+0000 [id=69]	INFO	jenkins.InitReactorRunner$1#onAttained: Listed all plugins
+2026-09-13 14:47:48.856+0000 [id=57]	INFO	jenkins.InitReactorRunner$1#onAttained: Prepared all plugins
+2026-09-13 14:47:48.862+0000 [id=57]	INFO	jenkins.InitReactorRunner$1#onAttained: Started all plugins
+2026-09-13 14:47:48.862+0000 [id=53]	INFO	jenkins.InitReactorRunner$1#onAttained: Augmented all extensions
+2026-09-13 14:47:49.055+0000 [id=51]	WARNING	hudson.model.Slave#warnPlugin: hudson.slaves.DumbSlave or one of its superclass overrides readResolve() without calling super implementation.Please file an issue against the plugin implementing it: null
+2026-09-13 14:47:49.059+0000 [id=51]	WARNING	hudson.model.Slave#warnPlugin: hudson.slaves.DumbSlave or one of its superclass overrides readResolve() without calling super implementation.Please file an issue against the plugin implementing it: null
+2026-09-13 14:47:49.060+0000 [id=51]	WARNING	hudson.model.Slave#warnPlugin: hudson.slaves.DumbSlave or one of its superclass overrides readResolve() without calling super implementation.Please file an issue against the plugin implementing it: null
+2026-09-13 14:47:49.060+0000 [id=51]	WARNING	hudson.model.Slave#warnPlugin: hudson.slaves.DumbSlave or one of its superclass overrides readResolve() without calling super implementation.Please file an issue against the plugin implementing it: null
+2026-09-13 14:47:49.065+0000 [id=51]	INFO	jenkins.InitReactorRunner$1#onAttained: System config loaded
+2026-09-13 14:47:49.384+0000 [id=54]	INFO	jenkins.InitReactorRunner$1#onAttained: System config adapted
+2026-09-13 14:47:49.384+0000 [id=54]	INFO	jenkins.InitReactorRunner$1#onAttained: Loaded all jobs
+2026-09-13 14:47:49.388+0000 [id=69]	INFO	jenkins.InitReactorRunner$1#onAttained: Configuration for all jobs updated
+2026-09-13 14:47:49.389+0000 [id=62]	INFO	j.util.groovy.GroovyHookScript#execute: Executing /var/jenkins_home/init.groovy.d/10-provision-jobs.groovy
+2026-09-13 14:47:49.534+0000 [id=62]	INFO	jenkins.InitReactorRunner$1#onAttained: Completed initialization
+2026-09-13 14:47:49.540+0000 [id=42]	INFO	hudson.lifecycle.Lifecycle#onReady: Jenkins is fully up and running
+2026-09-13 14:47:57.505+0000 [id=115]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #1 from /172.18.0.5:49482 failed: null
+2026-09-13 14:47:57.505+0000 [id=116]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #2 from /172.18.0.6:55052 failed: null
+2026-09-13 14:47:57.505+0000 [id=117]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #3 from /172.18.0.4:44054 failed: null
+2026-09-13 14:47:57.509+0000 [id=119]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #5 from /172.18.0.3:46080 failed: null
+2026-09-13 14:47:57.532+0000 [id=122]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #8 from /172.18.0.3:46092
+2026-09-13 14:47:57.533+0000 [id=121]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #7 from /172.18.0.4:44064
+2026-09-13 14:47:57.535+0000 [id=120]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #6 from /172.18.0.5:49498
+2026-09-13 14:47:57.536+0000 [id=118]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #4 from /172.18.0.6:55064
+2026-09-13 15:18:15.678+0000 [id=44]	INFO	winstone.Logger#logInternal: JVM is terminating. Shutting down Jetty
+2026-09-13 15:18:15.680+0000 [id=44]	INFO	org.eclipse.jetty.server.Server#doStop: Stopped oejs.Server@51c668e3{STOPPING}[12.0.22,sto=0]
+2026-09-13 15:18:15.685+0000 [id=44]	INFO	o.e.j.server.AbstractConnector#doStop: Stopped ServerConnector@34b9fc7d{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
+2026-09-13 15:18:15.692+0000 [id=44]	INFO	hudson.lifecycle.Lifecycle#onStatusUpdate: Stopping Jenkins
+2026-09-13 15:18:15.704+0000 [id=44]	INFO	jenkins.model.Jenkins$17#onAttained: Started termination
+2026-09-13 15:18:15.710+0000 [id=44]	INFO	jenkins.model.Jenkins$17#onAttained: Completed termination
+2026-09-13 15:18:15.710+0000 [id=44]	INFO	jenkins.model.Jenkins#_cleanUpDisconnectComputers: Starting node disconnection
+2026-09-13 15:18:15.716+0000 [id=44]	INFO	j.s.DefaultJnlpSlaveReceiver#channelClosed: Thread-8 for stp-map-agent-2 terminated: java.nio.channels.ClosedChannelException
+2026-09-13 15:18:15.720+0000 [id=44]	INFO	j.s.DefaultJnlpSlaveReceiver#channelClosed: Thread-8 for stp-map-agent-1 terminated: java.nio.channels.ClosedChannelException
+2026-09-13 15:18:15.721+0000 [id=44]	INFO	j.s.DefaultJnlpSlaveReceiver#channelClosed: Thread-8 for stp-map-agent-3 terminated: java.nio.channels.ClosedChannelException
+2026-09-13 15:18:15.722+0000 [id=44]	INFO	j.s.DefaultJnlpSlaveReceiver#channelClosed: Thread-8 for stp-agent terminated: java.nio.channels.ClosedChannelException
+2026-09-13 15:18:15.735+0000 [id=44]	INFO	jenkins.model.Jenkins#_cleanUpShutdownPluginManager: Stopping plugin manager
+2026-09-13 15:18:15.739+0000 [id=44]	INFO	jenkins.model.Jenkins#_cleanUpPersistQueue: Persisting build queue
+2026-09-13 15:18:15.742+0000 [id=44]	INFO	jenkins.model.Jenkins#_cleanUpAwaitDisconnects: Waiting for node disconnection completion
+2026-09-13 15:18:15.742+0000 [id=44]	INFO	hudson.lifecycle.Lifecycle#onStatusUpdate: Jenkins stopped
+Running from: /usr/share/jenkins/jenkins.war
+webroot: /var/jenkins_home/war
+2026-09-13 15:18:16.760+0000 [id=1]	INFO	winstone.Logger#logInternal: Beginning extraction from war file
+2026-09-13 15:18:16.791+0000 [id=1]	WARNING	o.e.j.ee9.nested.ContextHandler#setContextPath: Empty contextPath
+2026-09-13 15:18:16.813+0000 [id=1]	INFO	org.eclipse.jetty.server.Server#doStart: jetty-12.0.22; built: 2025-06-02T15:25:31.946Z; git: 335c9ab44a5591f0ea941bf350e139b8c4f5537c; jvm 21.0.8+9-LTS
+2026-09-13 15:18:17.009+0000 [id=1]	INFO	o.e.j.e.w.StandardDescriptorProcessor#visitServlet: NO JSP Support for /, did not find org.eclipse.jetty.ee9.jsp.JettyJspServlet
+2026-09-13 15:18:17.032+0000 [id=1]	INFO	o.e.j.s.DefaultSessionIdManager#doStart: Session workerName=node0
+2026-09-13 15:18:17.197+0000 [id=1]	INFO	hudson.WebAppMain#contextInitialized: Jenkins home directory: /var/jenkins_home found at: EnvVars.masterEnvVars.get("JENKINS_HOME")
+2026-09-13 15:18:17.247+0000 [id=1]	INFO	o.e.j.s.handler.ContextHandler#doStart: Started oeje9n.ContextHandler$CoreContextHandler@c3fa05a{Jenkins v2.516.2,/,b=file:///var/jenkins_home/war/,a=AVAILABLE,h=oeje9n.ContextHandler$CoreContextHandler$CoreToNestedHandler@7b44b63d{STARTED}}
+2026-09-13 15:18:17.252+0000 [id=1]	INFO	o.e.j.server.AbstractConnector#doStart: Started ServerConnector@34b9fc7d{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
+2026-09-13 15:18:17.256+0000 [id=1]	INFO	org.eclipse.jetty.server.Server#doStart: Started oejs.Server@51c668e3{STARTING}[12.0.22,sto=0] @763ms
+2026-09-13 15:18:17.257+0000 [id=43]	INFO	winstone.Logger#logInternal: Winstone Servlet Engine running: controlPort=disabled
+2026-09-13 15:18:17.310+0000 [id=42]	INFO	jenkins.model.Jenkins#<init>: Starting version 2.516.2
+2026-09-13 15:18:17.338+0000 [id=49]	INFO	jenkins.InitReactorRunner$1#onAttained: Started initialization
+2026-09-13 15:18:17.466+0000 [id=66]	INFO	jenkins.InitReactorRunner$1#onAttained: Listed all plugins
+2026-09-13 15:18:18.392+0000 [id=68]	INFO	jenkins.InitReactorRunner$1#onAttained: Prepared all plugins
+2026-09-13 15:18:18.400+0000 [id=55]	INFO	jenkins.InitReactorRunner$1#onAttained: Started all plugins
+2026-09-13 15:18:18.401+0000 [id=64]	INFO	jenkins.InitReactorRunner$1#onAttained: Augmented all extensions
+2026-09-13 15:18:18.609+0000 [id=51]	WARNING	hudson.model.Slave#warnPlugin: hudson.slaves.DumbSlave or one of its superclass overrides readResolve() without calling super implementation.Please file an issue against the plugin implementing it: null
+2026-09-13 15:18:18.613+0000 [id=51]	WARNING	hudson.model.Slave#warnPlugin: hudson.slaves.DumbSlave or one of its superclass overrides readResolve() without calling super implementation.Please file an issue against the plugin implementing it: null
+2026-09-13 15:18:18.614+0000 [id=51]	WARNING	hudson.model.Slave#warnPlugin: hudson.slaves.DumbSlave or one of its superclass overrides readResolve() without calling super implementation.Please file an issue against the plugin implementing it: null
+2026-09-13 15:18:18.615+0000 [id=51]	WARNING	hudson.model.Slave#warnPlugin: hudson.slaves.DumbSlave or one of its superclass overrides readResolve() without calling super implementation.Please file an issue against the plugin implementing it: null
+2026-09-13 15:18:18.620+0000 [id=51]	INFO	jenkins.InitReactorRunner$1#onAttained: System config loaded
+2026-09-13 15:18:18.941+0000 [id=65]	INFO	jenkins.InitReactorRunner$1#onAttained: System config adapted
+2026-09-13 15:18:18.942+0000 [id=65]	INFO	jenkins.InitReactorRunner$1#onAttained: Loaded all jobs
+2026-09-13 15:18:18.945+0000 [id=58]	INFO	jenkins.InitReactorRunner$1#onAttained: Configuration for all jobs updated
+2026-09-13 15:18:18.947+0000 [id=58]	INFO	j.util.groovy.GroovyHookScript#execute: Executing /var/jenkins_home/init.groovy.d/10-provision-jobs.groovy
+2026-09-13 15:18:19.108+0000 [id=58]	INFO	jenkins.InitReactorRunner$1#onAttained: Completed initialization
+2026-09-13 15:18:19.115+0000 [id=42]	INFO	hudson.lifecycle.Lifecycle#onReady: Jenkins is fully up and running
+2026-09-13 15:18:26.507+0000 [id=114]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #1 from /172.18.0.3:33000 failed: null
+2026-09-13 15:18:26.507+0000 [id=115]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #2 from /172.18.0.4:37748 failed: null
+2026-09-13 15:18:26.507+0000 [id=116]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #3 from /172.18.0.6:38672 failed: null
+2026-09-13 15:18:26.510+0000 [id=117]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Connection #4 from /172.18.0.5:37618 failed: null
+2026-09-13 15:18:26.538+0000 [id=118]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #5 from /172.18.0.4:37762
+2026-09-13 15:18:26.539+0000 [id=120]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #7 from /172.18.0.6:38676
+2026-09-13 15:18:26.541+0000 [id=121]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #8 from /172.18.0.5:37626
+2026-09-13 15:18:26.543+0000 [id=119]	INFO	h.TcpSlaveAgentListener$ConnectionHandler#run: Accepted JNLP4-connect connection #6 from /172.18.0.3:33010
+2026-09-13 15:20:05.036+0000 [id=113]	WARNING	hudson.security.csrf.CrumbFilter#doFilter: Found invalid crumb dd7f34f3d2d480ced9cf6c108e72ce61a6b8d276b5669c8a21c3d345768df3b6. If you are calling this URL with a script, please use the API Token instead. More information: https://www.jenkins.io/redirect/crumb-cannot-be-used-for-script
+2026-09-13 15:20:05.036+0000 [id=113]	WARNING	hudson.security.csrf.CrumbFilter#doFilter: No valid crumb was included in request for /job/EI-11-Job-B/build by admin. Returning 403.

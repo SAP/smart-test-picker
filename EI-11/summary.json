@@ -1,0 +1,236 @@
+{
+  "id": "EI-11",
+  "result": "PASS",
+  "project": "SonarJava",
+  "buildTool": "Maven",
+  "schemaVersion": 3,
+  "repositories": {
+    "stp": {
+      "path": "/Users/d061177/work/asm-poc/codex-worktree",
+      "initialHead": "15ab0a8728bcbd8c57fb63a807a05a3df7910e73",
+      "finalHead": "11e1cde",
+      "commits": [
+        "8ddc73d",
+        "d954211",
+        "11e1cde"
+      ]
+    },
+    "jenkinsPlugin": {
+      "path": "/Users/d061177/work/stp-jenkins-plugin-poc",
+      "initialHead": "a1319cd0041099452a371e55d943d34687799b19",
+      "finalHead": "b446df5a355b92a1a893de66aae7e598ee0c8bcd",
+      "commits": [
+        "48d8954",
+        "5e86477",
+        "d34a08e",
+        "b446df5"
+      ]
+    },
+    "sonarJava": {
+      "path": "/Users/d061177/work/sonar-java-stp",
+      "R0": "9bbe6d04d2db75e5b864f3a424bb78bfa4f36b4c",
+      "temporaryBranch": "ei-11-r1",
+      "R1": "eed6922c776e5d029266459d04ed5a69e9d6fc8f",
+      "pushed": false
+    }
+  },
+  "toolchain": {
+    "jdk": "26.0.2.1",
+    "repositoryMinimumJdk": "21",
+    "maven": "3.9.16",
+    "goal": "test"
+  },
+  "hpi": {
+    "sha256": "8ad425451a2dae4bcc2221b9039a9fb66585219bb3a2992dcdb87c73a14c6972",
+    "loadedVersion": "1.0-SNAPSHOT (private-b446df5a-d061177)",
+    "mavenAdapterVersion": "0.1.0",
+    "mavenAdapterSha256": "2da632ce9f5a33249ad1af74628592407d1e66fb74b1ce77d66ccc029716260a",
+    "selectorVersion": "0.2.0+jenkins-bridge-v2",
+    "selectorSha256": "7a2b14f1cbaf34ab53efdb10b7702529e2189731d6a93016c76947e09d7933d6"
+  },
+  "docker": {
+    "composeProject": "ei9",
+    "controller": "stp-plugin-controller",
+    "mappingAgents": [
+      "stp-plugin-agent",
+      "stp-plugin-agent-1",
+      "stp-plugin-agent-2"
+    ],
+    "joinAgent": "stp-plugin-agent-3",
+    "physicallyDistinct": true,
+    "allOnlineBeforeExecution": true
+  },
+  "jobA": {
+    "number": 7,
+    "result": "SUCCESS",
+    "url": "http://localhost:8082/job/EI-11-Job-A/7/",
+    "inventoryCount": 4161,
+    "assignmentCounts": [
+      1636,
+      1279,
+      1246
+    ],
+    "executedCounts": [
+      1636,
+      1276,
+      1245
+    ],
+    "positivelyNonExecutedCounts": [
+      0,
+      3,
+      1
+    ],
+    "mappedCount": 4157,
+    "unmappedCount": 0,
+    "overlap": true,
+    "publishedMapSha256": "11b10ce13a93d8527666accd259a8e32098433c51300e7c2d2e2d37596037423",
+    "internalChecksum": "sha256:a72e2544cddc0564804bd322ba316d8094dc629f0bac926916fc86cb15e7ee20",
+    "storageKey": "SonarJava/ei11-r0/9bbe6d04d2db75e5b864f3a424bb78bfa4f36b4c"
+  },
+  "changes": {
+    "seed": 1111,
+    "safeCandidates": 969,
+    "rejectedCombinations": 0,
+    "classes": [
+      "org.sonar.java.checks.StringOffsetMethodsCheck",
+      "org.sonar.java.checks.PseudoRandomCheck",
+      "org.sonar.java.checks.SQLInjectionCheck"
+    ]
+  },
+  "jobB": {
+    "number": 3,
+    "result": "SUCCESS",
+    "url": "http://localhost:8082/job/EI-11-Job-B/3/",
+    "selectedCount": 14,
+    "executedCount": 14,
+    "runAll": false,
+    "fullSuiteFallback": false
+  },
+  "jobC": {
+    "number": 1,
+    "result": "SUCCESS",
+    "url": "http://localhost:8082/job/EI-11-Job-C/1/",
+    "canonicalSupportedExecutedCount": 4157,
+    "rawExecutedCount": 4179,
+    "skippedCount": 4,
+    "unsupportedNestedJUnitCount": 22
+  },
+  "comparison": {
+    "version": 1,
+    "R0": "9bbe6d04d2db75e5b864f3a424bb78bfa4f36b4c",
+    "R1": "eed6922c776e5d029266459d04ed5a69e9d6fc8f",
+    "canonicalFormat": "maven:<reactor-relative-module>::<test-class>#<test-method-or-signature>",
+    "inventoryCount": 4161,
+    "expectedCount": 14,
+    "selectorCount": 14,
+    "selectedExecutionCount": 14,
+    "expectedEqualsSelector": true,
+    "selectorEqualsExecution": true,
+    "expectedEqualsSelectedEqualsExecuted": true,
+    "expectedMissingFromSelector": [],
+    "selectorUnexpected": [],
+    "selectedMissingFromExecution": [],
+    "outsideAssignmentExecution": [],
+    "strictSubset": true,
+    "runAll": false,
+    "fullSuiteFallback": false,
+    "fullSuiteRawExecutedCount": 4179,
+    "fullSuiteCanonicalSupportedExecutedCount": 4157,
+    "fullSuiteSkippedCount": 4,
+    "allSelectedInFullSuite": true,
+    "selectedMissingFromFullSuite": [],
+    "selectionSmallerThanFullSuite": true,
+    "supportedInventoryNotExecuted": [
+      "maven:java-frontend::org.sonar.java.JavaFrontendTest#semantic_errors_should_be_reported_to_sonarlint",
+      "maven:sonar-java-plugin::org.sonar.plugins.java.JavaAgenticWayProfileTest#generate_ai_quality_profile",
+      "maven:sonar-java-plugin::org.sonar.plugins.java.SanityTest#scan_compiling_files",
+      "maven:sonar-java-plugin::org.sonar.plugins.java.SanityTest#scan_non_compiling_files"
+    ],
+    "unsupportedNestedJUnitReportIdentities": [
+      "maven:java-checks::org.sonar.java.checks.helpers.QuickFixHelperTest#addParenthesisIfRequired",
+      "maven:java-checks::org.sonar.java.checks.helpers.QuickFixHelperTest#content_for_empty_token",
+      "maven:java-checks::org.sonar.java.checks.helpers.QuickFixHelperTest#nextToken",
+      "maven:java-checks::org.sonar.java.checks.helpers.QuickFixHelperTest#previousToken",
+      "maven:java-checks::org.sonar.java.checks.helpers.QuickFixHelperTest$Imports#default_package",
+      "maven:java-checks::org.sonar.java.checks.helpers.QuickFixHelperTest$Imports#import_inserted_after_other_imports",
+      "maven:java-checks::org.sonar.java.checks.helpers.QuickFixHelperTest$Imports#import_inserted_after_package_when_no_imports",
+      "maven:java-checks::org.sonar.java.checks.helpers.QuickFixHelperTest$Imports#import_inserted_before_first_type_when_no_imports",
+      "maven:java-checks::org.sonar.java.checks.helpers.QuickFixHelperTest$Imports#import_inserted_middle_other_imports",
+      "maven:java-checks::org.sonar.java.checks.helpers.QuickFixHelperTest$Imports#import_inserted_on_top_of_other_imports",
+      "maven:java-checks::org.sonar.java.checks.helpers.QuickFixHelperTest$Imports#import_insertion_are_computed_only_once",
+      "maven:java-checks::org.sonar.java.checks.helpers.QuickFixHelperTest$Imports#import_not_inserted_on_empty_file",
+      "maven:java-checks::org.sonar.java.checks.helpers.QuickFixHelperTest$Imports#imported_via_explicit_import",
+      "maven:java-checks::org.sonar.java.checks.helpers.QuickFixHelperTest$Imports#imported_via_star_import",
+      "maven:java-checks::org.sonar.java.checks.helpers.QuickFixHelperTest$Imports#no_imports",
+      "maven:java-checks::org.sonar.java.checks.helpers.QuickFixHelperTest$Imports#type_already_imported_does_not_require_edits",
+      "maven:java-checks::org.sonar.java.checks.helpers.QuickFixHelperTest$NextVariable#returns_empty",
+      "maven:java-checks::org.sonar.java.checks.helpers.QuickFixHelperTest$NextVariable#returns_next",
+      "maven:java-checks::org.sonar.java.checks.helpers.QuickFixHelperTest$NextVariable#throws_an_illegal_argument_exception_when_parent_type_is_not_supported",
+      "maven:java-checks::org.sonar.java.checks.helpers.QuickFixHelperTest$PreviousVariable#returns_empty",
+      "maven:java-checks::org.sonar.java.checks.helpers.QuickFixHelperTest$PreviousVariable#returns_previous",
+      "maven:java-checks::org.sonar.java.checks.helpers.QuickFixHelperTest$PreviousVariable#throws_an_illegal_argument_exception_when_parent_type_is_not_supported"
+    ],
+    "unsupportedNestedJUnitCount": 22,
+    "ambiguousCanonicalMatches": [],
+    "moduleOwnershipPreserved": true,
+    "expectedExecutableIdentities": [
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_crypto_import",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_field_scope",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_no_security_context",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_security_keywords",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_static_crypto_import",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_wildcard_crypto_import",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_without_semantic",
+      "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test",
+      "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test_non_compiling",
+      "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test_with_spring_3_2",
+      "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test_without_semantic",
+      "maven:java-checks::org.sonar.java.checks.StringOffsetMethodsCheckTest#test",
+      "maven:java-checks::org.sonar.java.checks.StringOffsetMethodsCheckTest#test_without_semantic"
+    ],
+    "selectorExecutableIdentities": [
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_crypto_import",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_field_scope",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_no_security_context",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_security_keywords",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_static_crypto_import",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_wildcard_crypto_import",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_without_semantic",
+      "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test",
+      "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test_non_compiling",
+      "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test_with_spring_3_2",
+      "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test_without_semantic",
+      "maven:java-checks::org.sonar.java.checks.StringOffsetMethodsCheckTest#test",
+      "maven:java-checks::org.sonar.java.checks.StringOffsetMethodsCheckTest#test_without_semantic"
+    ],
+    "executedExecutableIdentities": [
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_crypto_import",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_field_scope",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_no_security_context",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_security_keywords",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_static_crypto_import",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_wildcard_crypto_import",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_without_semantic",
+      "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test",
+      "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test_non_compiling",
+      "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test_with_spring_3_2",
+      "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test_without_semantic",
+      "maven:java-checks::org.sonar.java.checks.StringOffsetMethodsCheckTest#test",
+      "maven:java-checks::org.sonar.java.checks.StringOffsetMethodsCheckTest#test_without_semantic"
+    ]
+  },
+  "regressions": {
+    "stp": "PASS",
+    "jenkinsPlugin": "PASS",
+    "flakyFailures": []
+  },
+  "forbiddenShortcuts": [],
+  "pushPerformed": false,
+  "cleanup": {
+    "containersStopped": false,
+    "remainingRunningContainers": null
+  }
+}

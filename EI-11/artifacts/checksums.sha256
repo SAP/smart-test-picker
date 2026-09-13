@@ -1,0 +1,5 @@
+8ad425451a2dae4bcc2221b9039a9fb66585219bb3a2992dcdb87c73a14c6972  EI-11/artifacts/deployed-smart-test-picker.hpi
+11b10ce13a93d8527666accd259a8e32098433c51300e7c2d2e2d37596037423  EI-11/jenkins/job-a-success/artifacts/archive/build/stp/coverage-map-ei11.json
+ba95b8d7516cbc6be0d4f925f2e1c72c91718f880c83b7f701c09eba20fb6cd6  EI-11/jenkins/job-b-success/artifacts/archive/build/stp/selection-result.json
+1c40297634a2a4f3ce5f4220249cac71ed16532cc891f765ad485a3c66ee7211  EI-11/jenkins/job-b-success/artifacts/archive/build/stp/actual-maven-execution.json
+7257ebfdf2a1e76ce0c22825feddba7e2bb521938d59bde5f653a3a719244209  EI-11/jenkins/job-c-success/artifacts/archive/full-r1-execution.json

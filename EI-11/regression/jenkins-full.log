@@ -1,0 +1,253 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------< io.github.smarttestpicker:smart-test-picker >-------------
+[INFO] Building Smart Test Picker 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ hpi ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ smart-test-picker ---
+[INFO] Deleting /Users/d061177/work/stp-jenkins-plugin-poc/target
+[INFO] 
+[INFO] --- hpi:3.1746.v2e9fe7dc4d95:validate (default-validate) @ smart-test-picker ---
+[INFO] Created marker file /Users/d061177/work/stp-jenkins-plugin-poc/target/java-level/17
+[INFO] 
+[INFO] --- hpi:3.1746.v2e9fe7dc4d95:validate-hpi (default-validate-hpi) @ smart-test-picker ---
+[INFO] 
+[INFO] --- enforcer:3.6.1:enforce (display-info) @ smart-test-picker ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[INFO] Rule 1: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/HKDF$Mappings.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/HKDF.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/PBEPBKDF2$Mappings.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/PBEPBKDF2.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/SCRYPT$Mappings.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/SCRYPT.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/hkdf/HKDFSpi$HKDFwithSHA256.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/hkdf/HKDFSpi$HKDFwithSHA384.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/hkdf/HKDFSpi$HKDFwithSHA512.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/hkdf/HKDFSpi.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2with8BIT.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withGOST3411.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA224.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA256.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA384.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA3_224.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA3_256.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA3_384.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA3_512.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA512.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA512_224.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA512_256.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSM3.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withUTF8.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/scrypt/ScryptSpi$ScryptWithUTF8.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/scrypt/ScryptSpi.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/spec/PBKDF2ParameterSpec.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/spec/ScryptParameterSpec.class: got null class-file-version
+[INFO] Rule 2: org.codehaus.mojo.extraenforcer.dependencies.EnforceBytecodeVersion passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.BannedDependencies passed
+[INFO] Rule 4: org.apache.maven.enforcer.rules.dependency.BannedDependencies passed
+[INFO] Ignoring requireUpperBoundDeps in org.ow2.asm:asm
+[INFO] Rule 5: org.apache.maven.enforcer.rules.dependency.RequireUpperBoundDeps passed
+[INFO] 
+[INFO] --- enforcer:3.6.1:enforce (no-snapshots-in-release) @ smart-test-picker ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.dependency.RequireReleaseDeps passed
+[INFO] 
+[INFO] --- localizer:1.31:generate (default) @ smart-test-picker ---
+[INFO] 
+[INFO] --- enforcer:3.6.1:enforce (check-junit-imports) @ smart-test-picker ---
+[INFO] Skipping Rule Enforcement.
+[INFO] 
+[INFO] --- antrun:3.1.0:run (verify-stp-adapter-builds) @ smart-test-picker ---
+[INFO] Executing tasks
+[INFO]      [exec] [INFO] Scanning for projects...
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] ------------< io.github.smarttestpicker:stp-maven-adapter >-------------
+[INFO]      [exec] [INFO] Building stp-maven-adapter 0.1.0
+[INFO]      [exec] [INFO]   from pom.xml
+[INFO]      [exec] [INFO] --------------------------------[ jar ]---------------------------------
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] --- clean:3.2.0:clean (default-clean) @ stp-maven-adapter ---
+[INFO]      [exec] [INFO] Deleting /Users/d061177/work/stp-jenkins-plugin-poc/adapters/maven-extension/target
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] --- resources:3.4.0:resources (default-resources) @ stp-maven-adapter ---
+[INFO]      [exec] [INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] --- compiler:3.14.1:compile (default-compile) @ stp-maven-adapter ---
+[INFO]      [exec] [INFO] Recompiling the module because of changed source code.
+[INFO]      [exec] [INFO] Compiling 1 source file with javac [debug release 8] to target/classes
+[INFO]      [exec] [WARNING] source value 8 is obsolete and will be removed in a future release
+[INFO]      [exec] [WARNING] target value 8 is obsolete and will be removed in a future release
+[INFO]      [exec] [WARNING] To suppress warnings about obsolete options, use -Xlint:-options.
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] --- resources:3.4.0:testResources (default-testResources) @ stp-maven-adapter ---
+[INFO]      [exec] [INFO] skip non existing resourceDirectory /Users/d061177/work/stp-jenkins-plugin-poc/adapters/maven-extension/src/test/resources
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ stp-maven-adapter ---
+[INFO]      [exec] [INFO] No sources to compile
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] --- surefire:3.5.4:test (default-test) @ stp-maven-adapter ---
+[INFO]      [exec] [INFO] No tests to run.
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] --- jar:3.5.0:jar (default-jar) @ stp-maven-adapter ---
+[INFO]      [exec] [INFO] Building jar: /Users/d061177/work/stp-jenkins-plugin-poc/adapters/maven-extension/target/stp-maven-adapter-0.1.0.jar
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] --- shade:3.6.1:shade (default) @ stp-maven-adapter ---
+[INFO]      [exec] [WARNING] Discovered module-info.class. Shading will break its strong encapsulation.
+[INFO]      [exec] [WARNING] jackson-annotations-2.20.jar, jackson-core-2.20.0.jar, jackson-databind-2.20.0.jar define 2 overlapping resources: 
+[INFO]      [exec] [WARNING]   - META-INF/LICENSE
+[INFO]      [exec] [WARNING]   - META-INF/NOTICE
+[INFO]      [exec] [WARNING] jackson-annotations-2.20.jar, jackson-core-2.20.0.jar, jackson-databind-2.20.0.jar, stp-maven-adapter-0.1.0.jar define 1 overlapping resource: 
+[INFO]      [exec] [WARNING]   - META-INF/MANIFEST.MF
+[INFO]      [exec] [WARNING] jackson-core-2.20.0.jar, jackson-databind-2.20.0.jar define 1 overlapping classes: 
+[INFO]      [exec] [WARNING]   - META-INF.versions.9.module-info
+[INFO]      [exec] [WARNING] maven-shade-plugin has detected that some files are
+[INFO]      [exec] [WARNING] present in two or more JARs. When this happens, only one
+[INFO]      [exec] [WARNING] single version of the file is copied to the uber jar.
+[INFO]      [exec] [WARNING] Usually this is not harmful and you can skip these warnings,
+[INFO]      [exec] [WARNING] otherwise try to manually exclude artifacts based on
+[INFO]      [exec] [WARNING] mvn dependency:tree -Ddetail=true and the above output.
+[INFO]      [exec] [WARNING] See https://maven.apache.org/plugins/maven-shade-plugin/
+[INFO]      [exec] [INFO] Replacing original artifact with shaded artifact.
+[INFO]      [exec] [INFO] ------------------------------------------------------------------------
+[INFO]      [exec] [INFO] BUILD SUCCESS
+[INFO]      [exec] [INFO] ------------------------------------------------------------------------
+[INFO]      [exec] [INFO] Total time:  1.166 s
+[INFO]      [exec] [INFO] Finished at: 2026-09-13T17:32:25+02:00
+[INFO]      [exec] [INFO] ------------------------------------------------------------------------
+[INFO]      [exec] PASS deterministic Gradle content and reproducible Maven adapter build match generated manifest
+[INFO] Executed tasks
+[INFO] 
+[INFO] --- antrun:3.1.0:run (generate-stp-adapter-manifest) @ smart-test-picker ---
+[INFO] Executing tasks
+[INFO] Executed tasks
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ smart-test-picker ---
+[INFO] Copying 15 resources from src/main/resources to target/classes
+[INFO] Copying 4 resources from target/generated-resources/stp to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ smart-test-picker ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 56 source files with javac [debug parameters release 17] to target/classes
+[INFO] io.github.smarttestpicker.jenkins.SmartTestPickerConfiguration indexed under hudson.Extension
+[INFO] io.github.smarttestpicker.jenkins.SmartTestPickerStep.DescriptorImpl indexed under hudson.Extension
+[INFO] io.github.smarttestpicker.jenkins.StpCoverageMapStep.DescriptorImpl indexed under hudson.Extension
+[INFO] io.github.smarttestpicker.jenkins.StpCoverageToolStep.DescriptorImpl indexed under hudson.Extension
+[INFO] io.github.smarttestpicker.jenkins.StpExplicitPrSelectStep.DescriptorImpl indexed under hudson.Extension
+[INFO] io.github.smarttestpicker.jenkins.StpHeadInventoryStep.DescriptorImpl indexed under hudson.Extension
+[INFO] io.github.smarttestpicker.jenkins.StpLookupCoverageMapStep.DescriptorImpl indexed under hudson.Extension
+[INFO] io.github.smarttestpicker.jenkins.StpPrSelectStep.DescriptorImpl indexed under hudson.Extension
+[INFO] io.github.smarttestpicker.jenkins.StpPrepareCoverageMappingStep.DescriptorImpl indexed under hudson.Extension
+[INFO] io.github.smarttestpicker.jenkins.StpPublishCoverageMapStep.DescriptorImpl indexed under hudson.Extension
+[INFO] io.github.smarttestpicker.jenkins.StpTestInventoryStep.DescriptorImpl indexed under hudson.Extension
+[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/SmartTestPickerStep.java:[45,12] Generating io/github/smarttestpicker/jenkins/SmartTestPickerStep.stapler
+[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpCoverageMapStep.java:[22,32] Generating io/github/smarttestpicker/jenkins/StpCoverageMapStep.stapler
+[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpCoverageToolStep.java:[4,224] Generating io/github/smarttestpicker/jenkins/StpCoverageToolStep.stapler
+[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpExplicitPrSelectStep.java:[28,34] Generating io/github/smarttestpicker/jenkins/StpExplicitPrSelectStep.stapler
+[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpHeadInventoryStep.java:[6,31] Generating io/github/smarttestpicker/jenkins/StpHeadInventoryStep.stapler
+[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpLookupCoverageMapStep.java:[22,32] Generating io/github/smarttestpicker/jenkins/StpLookupCoverageMapStep.stapler
+[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpPrSelectStep.java:[40,34] Generating io/github/smarttestpicker/jenkins/StpPrSelectStep.stapler
+[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpPrepareCoverageMappingStep.java:[6,31] Generating io/github/smarttestpicker/jenkins/StpPrepareCoverageMappingStep.stapler
+[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpPublishCoverageMapStep.java:[37,12] Generating io/github/smarttestpicker/jenkins/StpPublishCoverageMapStep.stapler
+[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpTestInventoryStep.java:[6,31] Generating io/github/smarttestpicker/jenkins/StpTestInventoryStep.stapler
+[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/JenkinsStorageCredentialResolver.java: /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/JenkinsStorageCredentialResolver.java uses or overrides a deprecated API.
+[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/JenkinsStorageCredentialResolver.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- access-modifier-checker:1.35:enforce (default-enforce) @ smart-test-picker ---
+[INFO] 
+[INFO] --- bridge-method-injector:1.32:process (default) @ smart-test-picker ---
+[INFO] 
+[INFO] --- hpi:3.1746.v2e9fe7dc4d95:insert-test (default-insert-test) @ smart-test-picker ---
+[INFO] 
+[INFO] --- antrun:3.1.0:run (createTempDir) @ smart-test-picker ---
+[INFO] Executing tasks
+[INFO]     [mkdir] Created dir: /Users/d061177/work/stp-jenkins-plugin-poc/target/tmp
+[INFO] Executed tasks
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ smart-test-picker ---
+[INFO] skip non existing resourceDirectory /Users/d061177/work/stp-jenkins-plugin-poc/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.0:testCompile (default-testCompile) @ smart-test-picker ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 16 source files with javac [debug parameters release 17] to target/test-classes
+[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/test/java/io/github/smarttestpicker/jenkins/GitHubBranchSourcePrAdapterTest.java: Some input files use or override a deprecated API.
+[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/test/java/io/github/smarttestpicker/jenkins/GitHubBranchSourcePrAdapterTest.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- hpi:3.1746.v2e9fe7dc4d95:test-hpl (default-test-hpl) @ smart-test-picker ---
+[INFO] Generating /Users/d061177/work/stp-jenkins-plugin-poc/target/test-classes/the.hpl
+[INFO] 
+[INFO] --- hpi:3.1746.v2e9fe7dc4d95:resolve-test-dependencies (default-resolve-test-dependencies) @ smart-test-picker ---
+[INFO] 
+[INFO] --- hpi:3.1746.v2e9fe7dc4d95:test-runtime (default-test-runtime) @ smart-test-picker ---
+[INFO] Setting jenkins.addOpens to --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED
+[INFO] Setting jenkins.insaneHook to --patch-module='java.base=/Users/d061177/work/stp-jenkins-plugin-poc/target/patch-modules/org-netbeans-insane-hook.jar' --add-exports=java.base/org.netbeans.insane.hook=ALL-UNNAMED
+[INFO] 
+[INFO] --- surefire:3.5.3:test (default-test) @ smart-test-picker ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+Running tests for io.github.smarttestpicker:smart-test-picker:1.0-SNAPSHOT
+[INFO] Running io.github.smarttestpicker.jenkins.AgentArtifactCacheTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.652 s -- in io.github.smarttestpicker.jenkins.AgentArtifactCacheTest
+[INFO] Running io.github.smarttestpicker.jenkins.AutomaticPrSelectionResultTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 s -- in io.github.smarttestpicker.jenkins.AutomaticPrSelectionResultTest
+[INFO] Running io.github.smarttestpicker.jenkins.CoverageMappingManifestTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.025 s -- in io.github.smarttestpicker.jenkins.CoverageMappingManifestTest
+[INFO] Running io.github.smarttestpicker.jenkins.CoverageMappingStepTest
+[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 44.58 s -- in io.github.smarttestpicker.jenkins.CoverageMappingStepTest
+[INFO] Running io.github.smarttestpicker.jenkins.ExecutableAssignmentOrchestratorTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.036 s -- in io.github.smarttestpicker.jenkins.ExecutableAssignmentOrchestratorTest
+[INFO] Running io.github.smarttestpicker.jenkins.GitHubBranchSourcePrAdapterTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.633 s -- in io.github.smarttestpicker.jenkins.GitHubBranchSourcePrAdapterTest
+[INFO] Running io.github.smarttestpicker.jenkins.GradleArtifactEnvironmentTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.178 s -- in io.github.smarttestpicker.jenkins.GradleArtifactEnvironmentTest
+[INFO] Running io.github.smarttestpicker.jenkins.HardcodedPathRegressionTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.038 s -- in io.github.smarttestpicker.jenkins.HardcodedPathRegressionTest
+[INFO] Running io.github.smarttestpicker.jenkins.JenkinsPolicyIntegrationTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.024 s -- in io.github.smarttestpicker.jenkins.JenkinsPolicyIntegrationTest
+[INFO] Running io.github.smarttestpicker.jenkins.JenkinsStorageCredentialResolverTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.488 s -- in io.github.smarttestpicker.jenkins.JenkinsStorageCredentialResolverTest
+[INFO] Running io.github.smarttestpicker.jenkins.MavenExecutableOwnershipPackagingTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 s -- in io.github.smarttestpicker.jenkins.MavenExecutableOwnershipPackagingTest
+[INFO] Running io.github.smarttestpicker.jenkins.ScmPrContextResolverTest
+[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.335 s -- in io.github.smarttestpicker.jenkins.ScmPrContextResolverTest
+[INFO] Running io.github.smarttestpicker.jenkins.SmartTestPickerConfigurationRestartTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.487 s -- in io.github.smarttestpicker.jenkins.SmartTestPickerConfigurationRestartTest
+[INFO] Running io.github.smarttestpicker.jenkins.SmartTestPickerStepTest
+[INFO] Tests run: 19, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 33.05 s -- in io.github.smarttestpicker.jenkins.SmartTestPickerStepTest
+[INFO] Running io.github.smarttestpicker.jenkins.StorageConfigurationTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.015 s -- in io.github.smarttestpicker.jenkins.StorageConfigurationTest
+[INFO] Running io.github.smarttestpicker.smart_test_picker.InjectedTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.579 s -- in io.github.smarttestpicker.smart_test_picker.InjectedTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 90, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- license:184.v19c87b_6b_a_9a_c:process (default) @ smart-test-picker ---
+[INFO] Generated /Users/d061177/work/stp-jenkins-plugin-poc/target/smart-test-picker/WEB-INF/licenses.xml
+[INFO] 
+[INFO] --- hpi:3.1746.v2e9fe7dc4d95:hpi (default-hpi) @ smart-test-picker ---
+[INFO] Generating /Users/d061177/work/stp-jenkins-plugin-poc/target/smart-test-picker/META-INF/MANIFEST.MF
+[INFO] Checking for attached .jar artifact ...
+[INFO] Generating jar /Users/d061177/work/stp-jenkins-plugin-poc/target/smart-test-picker.jar
+[INFO] Building jar: /Users/d061177/work/stp-jenkins-plugin-poc/target/smart-test-picker.jar
+[INFO] Exploding webapp...
+[INFO] Copy webapp webResources to /Users/d061177/work/stp-jenkins-plugin-poc/target/smart-test-picker
+[INFO] Assembling webapp smart-test-picker in /Users/d061177/work/stp-jenkins-plugin-poc/target/smart-test-picker
+[INFO] Bundling direct dependency smart-test-picker-common-0.2.0.jar
+[INFO] Generating hpi /Users/d061177/work/stp-jenkins-plugin-poc/target/smart-test-picker.hpi
+[INFO] Building jar: /Users/d061177/work/stp-jenkins-plugin-poc/target/smart-test-picker.hpi
+[INFO] 
+[INFO] --- jar:3.4.2:test-jar (maybe-test-jar) @ smart-test-picker ---
+[INFO] Skipping packaging of the test-jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:57 min
+[INFO] Finished at: 2026-09-13T17:34:18+02:00
+[INFO] ------------------------------------------------------------------------

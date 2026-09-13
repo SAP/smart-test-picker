@@ -1,0 +1,175 @@
+Warning: AGENT_NAME is defined twice in command-line arguments and the environment variable
+Picked up JAVA_TOOL_OPTIONS: -Xmx1024m
+Sep 13, 2026 2:34:01 PM org.jenkinsci.remoting.engine.WorkDirManager initializeWorkDir
+INFO: Using /home/jenkins/agent/remoting as a remoting work directory
+Sep 13, 2026 2:34:01 PM org.jenkinsci.remoting.engine.WorkDirManager setupLogging
+INFO: Both error and output logs will be printed to /home/jenkins/agent/remoting
+Sep 13, 2026 2:34:01 PM hudson.remoting.Launcher createEngine
+INFO: Setting up agent: stp-map-agent-2
+Sep 13, 2026 2:34:01 PM hudson.remoting.Engine startEngine
+INFO: Using Remoting version: 3386.v353e57a_1b_ea_0
+Sep 13, 2026 2:34:01 PM org.jenkinsci.remoting.engine.WorkDirManager initializeWorkDir
+INFO: Using /home/jenkins/agent/remoting as a remoting work directory
+Sep 13, 2026 2:34:01 PM hudson.remoting.Launcher$CuiListener status
+INFO: Locating server among [http://jenkins-controller:8080/, http://jenkins-controller:8080/]
+Sep 13, 2026 2:34:01 PM org.jenkinsci.remoting.engine.JnlpAgentEndpointResolver resolve
+INFO: Remoting server accepts the following protocols: [JNLP4-connect, Ping]
+Sep 13, 2026 2:34:01 PM hudson.remoting.Launcher$CuiListener status
+INFO: Agent discovery successful
+  Agent address: jenkins-controller
+  Agent port:    50000
+  Identity:      27:0f:b4:8f:28:39:a7:c2:5d:70:71:ec:9e:3f:3c:c3
+Sep 13, 2026 2:34:01 PM hudson.remoting.Launcher$CuiListener status
+INFO: Handshaking
+Sep 13, 2026 2:34:01 PM hudson.remoting.Launcher$CuiListener status
+INFO: Server reports protocol JNLP4-connect-proxy not supported, skipping
+Sep 13, 2026 2:34:01 PM hudson.remoting.Launcher$CuiListener status
+INFO: Trying protocol: JNLP4-connect
+Sep 13, 2026 2:34:01 PM hudson.remoting.Launcher$CuiListener status
+INFO: Connecting to jenkins-controller:50000
+Sep 13, 2026 2:34:01 PM org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader run
+INFO: Waiting for ProtocolStack to start.
+Sep 13, 2026 2:34:01 PM hudson.remoting.Launcher$CuiListener status
+INFO: Remote identity confirmed: 27:0f:b4:8f:28:39:a7:c2:5d:70:71:ec:9e:3f:3c:c3
+Sep 13, 2026 2:34:01 PM hudson.remoting.Launcher$CuiListener status
+INFO: Connected
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+Sep 13, 2026 2:47:07 PM hudson.remoting.Launcher$CuiListener status
+INFO: Terminated
+Sep 13, 2026 2:47:17 PM hudson.remoting.Launcher$CuiListener status
+INFO: Performing onReconnect operation.
+Sep 13, 2026 2:47:17 PM jenkins.slaves.restarter.JnlpSlaveRestarterInstaller$EngineListenerAdapterImpl onReconnect
+INFO: Restarting agent via jenkins.slaves.restarter.UnixSlaveRestarter@534192b0
+Picked up JAVA_TOOL_OPTIONS: -Xmx1024m
+Sep 13, 2026 2:47:18 PM org.jenkinsci.remoting.engine.WorkDirManager initializeWorkDir
+INFO: Using /home/jenkins/agent/remoting as a remoting work directory
+Sep 13, 2026 2:47:18 PM org.jenkinsci.remoting.engine.WorkDirManager setupLogging
+INFO: Both error and output logs will be printed to /home/jenkins/agent/remoting
+Sep 13, 2026 2:47:18 PM hudson.remoting.Launcher createEngine
+INFO: Setting up agent: stp-map-agent-2
+Sep 13, 2026 2:47:18 PM hudson.remoting.Engine startEngine
+INFO: Using Remoting version: 3386.v353e57a_1b_ea_0
+Sep 13, 2026 2:47:18 PM org.jenkinsci.remoting.engine.WorkDirManager initializeWorkDir
+INFO: Using /home/jenkins/agent/remoting as a remoting work directory
+Sep 13, 2026 2:47:18 PM hudson.remoting.Launcher$CuiListener status
+INFO: Locating server among [http://jenkins-controller:8080/, http://jenkins-controller:8080/]
+Sep 13, 2026 2:47:18 PM org.jenkinsci.remoting.engine.JnlpAgentEndpointResolver resolve
+INFO: Remoting server accepts the following protocols: [JNLP4-connect, Ping]
+Sep 13, 2026 2:47:18 PM hudson.remoting.Launcher$CuiListener status
+INFO: Agent discovery successful
+  Agent address: jenkins-controller
+  Agent port:    50000
+  Identity:      27:0f:b4:8f:28:39:a7:c2:5d:70:71:ec:9e:3f:3c:c3
+Sep 13, 2026 2:47:18 PM hudson.remoting.Launcher$CuiListener status
+INFO: Handshaking
+Sep 13, 2026 2:47:18 PM hudson.remoting.Launcher$CuiListener status
+INFO: Server reports protocol JNLP4-connect-proxy not supported, skipping
+Sep 13, 2026 2:47:18 PM hudson.remoting.Launcher$CuiListener status
+INFO: Trying protocol: JNLP4-connect
+Sep 13, 2026 2:47:18 PM hudson.remoting.Launcher$CuiListener status
+INFO: Connecting to jenkins-controller:50000
+Sep 13, 2026 2:47:18 PM org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader run
+INFO: Waiting for ProtocolStack to start.
+Sep 13, 2026 2:47:18 PM hudson.remoting.Launcher$CuiListener status
+INFO: Remote identity confirmed: 27:0f:b4:8f:28:39:a7:c2:5d:70:71:ec:9e:3f:3c:c3
+Sep 13, 2026 2:47:18 PM hudson.remoting.Launcher$CuiListener status
+INFO: Connected
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+Sep 13, 2026 2:47:46 PM hudson.remoting.Launcher$CuiListener status
+INFO: Terminated
+Sep 13, 2026 2:47:57 PM hudson.remoting.Launcher$CuiListener status
+INFO: Performing onReconnect operation.
+Sep 13, 2026 2:47:57 PM jenkins.slaves.restarter.JnlpSlaveRestarterInstaller$EngineListenerAdapterImpl onReconnect
+INFO: Restarting agent via jenkins.slaves.restarter.UnixSlaveRestarter@75a36ee3
+Picked up JAVA_TOOL_OPTIONS: -Xmx1024m
+Sep 13, 2026 2:47:57 PM org.jenkinsci.remoting.engine.WorkDirManager initializeWorkDir
+INFO: Using /home/jenkins/agent/remoting as a remoting work directory
+Sep 13, 2026 2:47:57 PM org.jenkinsci.remoting.engine.WorkDirManager setupLogging
+INFO: Both error and output logs will be printed to /home/jenkins/agent/remoting
+Sep 13, 2026 2:47:57 PM hudson.remoting.Launcher createEngine
+INFO: Setting up agent: stp-map-agent-2
+Sep 13, 2026 2:47:57 PM hudson.remoting.Engine startEngine
+INFO: Using Remoting version: 3386.v353e57a_1b_ea_0
+Sep 13, 2026 2:47:57 PM org.jenkinsci.remoting.engine.WorkDirManager initializeWorkDir
+INFO: Using /home/jenkins/agent/remoting as a remoting work directory
+Sep 13, 2026 2:47:57 PM hudson.remoting.Launcher$CuiListener status
+INFO: Locating server among [http://jenkins-controller:8080/, http://jenkins-controller:8080/]
+Sep 13, 2026 2:47:57 PM org.jenkinsci.remoting.engine.JnlpAgentEndpointResolver resolve
+INFO: Remoting server accepts the following protocols: [JNLP4-connect, Ping]
+Sep 13, 2026 2:47:57 PM hudson.remoting.Launcher$CuiListener status
+INFO: Agent discovery successful
+  Agent address: jenkins-controller
+  Agent port:    50000
+  Identity:      27:0f:b4:8f:28:39:a7:c2:5d:70:71:ec:9e:3f:3c:c3
+Sep 13, 2026 2:47:57 PM hudson.remoting.Launcher$CuiListener status
+INFO: Handshaking
+Sep 13, 2026 2:47:57 PM hudson.remoting.Launcher$CuiListener status
+INFO: Server reports protocol JNLP4-connect-proxy not supported, skipping
+Sep 13, 2026 2:47:57 PM hudson.remoting.Launcher$CuiListener status
+INFO: Trying protocol: JNLP4-connect
+Sep 13, 2026 2:47:57 PM hudson.remoting.Launcher$CuiListener status
+INFO: Connecting to jenkins-controller:50000
+Sep 13, 2026 2:47:57 PM org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader run
+INFO: Waiting for ProtocolStack to start.
+Sep 13, 2026 2:47:57 PM hudson.remoting.Launcher$CuiListener status
+INFO: Remote identity confirmed: 27:0f:b4:8f:28:39:a7:c2:5d:70:71:ec:9e:3f:3c:c3
+Sep 13, 2026 2:47:57 PM hudson.remoting.Launcher$CuiListener status
+INFO: Connected
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+Sep 13, 2026 3:18:15 PM hudson.remoting.Launcher$CuiListener status
+INFO: Terminated
+Sep 13, 2026 3:18:25 PM hudson.remoting.Launcher$CuiListener status
+INFO: Performing onReconnect operation.
+Sep 13, 2026 3:18:25 PM jenkins.slaves.restarter.JnlpSlaveRestarterInstaller$EngineListenerAdapterImpl onReconnect
+INFO: Restarting agent via jenkins.slaves.restarter.UnixSlaveRestarter@6f5b397b
+Picked up JAVA_TOOL_OPTIONS: -Xmx1024m
+Sep 13, 2026 3:18:26 PM org.jenkinsci.remoting.engine.WorkDirManager initializeWorkDir
+INFO: Using /home/jenkins/agent/remoting as a remoting work directory
+Sep 13, 2026 3:18:26 PM org.jenkinsci.remoting.engine.WorkDirManager setupLogging
+INFO: Both error and output logs will be printed to /home/jenkins/agent/remoting
+Sep 13, 2026 3:18:26 PM hudson.remoting.Launcher createEngine
+INFO: Setting up agent: stp-map-agent-2
+Sep 13, 2026 3:18:26 PM hudson.remoting.Engine startEngine
+INFO: Using Remoting version: 3386.v353e57a_1b_ea_0
+Sep 13, 2026 3:18:26 PM org.jenkinsci.remoting.engine.WorkDirManager initializeWorkDir
+INFO: Using /home/jenkins/agent/remoting as a remoting work directory
+Sep 13, 2026 3:18:26 PM hudson.remoting.Launcher$CuiListener status
+INFO: Locating server among [http://jenkins-controller:8080/, http://jenkins-controller:8080/]
+Sep 13, 2026 3:18:26 PM org.jenkinsci.remoting.engine.JnlpAgentEndpointResolver resolve
+INFO: Remoting server accepts the following protocols: [JNLP4-connect, Ping]
+Sep 13, 2026 3:18:26 PM hudson.remoting.Launcher$CuiListener status
+INFO: Agent discovery successful
+  Agent address: jenkins-controller
+  Agent port:    50000
+  Identity:      27:0f:b4:8f:28:39:a7:c2:5d:70:71:ec:9e:3f:3c:c3
+Sep 13, 2026 3:18:26 PM hudson.remoting.Launcher$CuiListener status
+INFO: Handshaking
+Sep 13, 2026 3:18:26 PM hudson.remoting.Launcher$CuiListener status
+INFO: Server reports protocol JNLP4-connect-proxy not supported, skipping
+Sep 13, 2026 3:18:26 PM hudson.remoting.Launcher$CuiListener status
+INFO: Trying protocol: JNLP4-connect
+Sep 13, 2026 3:18:26 PM hudson.remoting.Launcher$CuiListener status
+INFO: Connecting to jenkins-controller:50000
+Sep 13, 2026 3:18:26 PM org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader run
+INFO: Waiting for ProtocolStack to start.
+Sep 13, 2026 3:18:26 PM hudson.remoting.Launcher$CuiListener status
+INFO: Remote identity confirmed: 27:0f:b4:8f:28:39:a7:c2:5d:70:71:ec:9e:3f:3c:c3
+Sep 13, 2026 3:18:26 PM hudson.remoting.Launcher$CuiListener status
+INFO: Connected
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+

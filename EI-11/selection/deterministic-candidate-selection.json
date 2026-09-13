@@ -1,0 +1,39 @@
+{
+  "acceptedCombinationIndex": 0,
+  "candidateOrdering": "canonical class name ascending, then deterministic Fisher-Yates shuffle using Python random.Random(1111); lexicographic three-position combinations of that shuffled list",
+  "classContributions": {
+    "org.sonar.java.checks.PseudoRandomCheck": [
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_crypto_import",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_field_scope",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_no_security_context",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_security_keywords",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_static_crypto_import",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_wildcard_crypto_import",
+      "maven:java-checks::org.sonar.java.checks.PseudoRandomCheckTest#test_without_semantic"
+    ],
+    "org.sonar.java.checks.SQLInjectionCheck": [
+      "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test",
+      "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test_non_compiling",
+      "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test_with_spring_3_2",
+      "maven:java-checks::org.sonar.java.checks.SQLInjectionCheckTest#test_without_semantic"
+    ],
+    "org.sonar.java.checks.StringOffsetMethodsCheck": [
+      "maven:java-checks::org.sonar.java.checks.StringOffsetMethodsCheckTest#test",
+      "maven:java-checks::org.sonar.java.checks.StringOffsetMethodsCheckTest#test_without_semantic"
+    ]
+  },
+  "rejectedCombinations": [],
+  "safeCandidateCount": 969,
+  "seed": 1111,
+  "selectedClasses": [
+    "org.sonar.java.checks.StringOffsetMethodsCheck",
+    "org.sonar.java.checks.PseudoRandomCheck",
+    "org.sonar.java.checks.SQLInjectionCheck"
+  ],
+  "selectedMethods": [
+    "org.sonar.java.checks.StringOffsetMethodsCheck#getMethodInvocationMatchers()Lorg/sonar/plugins/java/api/semantic/MethodMatchers;",
+    "org.sonar.java.checks.PseudoRandomCheck#findDeclarationScope(Lorg/sonar/plugins/java/api/tree/Tree;)Lorg/sonar/plugins/java/api/tree/Tree;",
+    "org.sonar.java.checks.SQLInjectionCheck#anyMatch(Lorg/sonar/plugins/java/api/tree/Tree;)Z"
+  ]
+}

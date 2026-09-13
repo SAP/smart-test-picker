@@ -1,0 +1,36 @@
+diff --git a/java-checks/src/main/java/org/sonar/java/checks/PseudoRandomCheck.java b/java-checks/src/main/java/org/sonar/java/checks/PseudoRandomCheck.java
+index 58e55a231c..3e831cdcde 100644
+--- a/java-checks/src/main/java/org/sonar/java/checks/PseudoRandomCheck.java
++++ b/java-checks/src/main/java/org/sonar/java/checks/PseudoRandomCheck.java
+@@ -175,6 +175,7 @@ public class PseudoRandomCheck extends IssuableSubscriptionVisitor {
+   }
+ 
+   private static Tree findDeclarationScope(Tree tree) {
++    System.out.println("STP EI-11 test");
+     Tree current = tree.parent();
+     while (current != null) {
+       if (current instanceof MethodTree methodTree) {
+diff --git a/java-checks/src/main/java/org/sonar/java/checks/SQLInjectionCheck.java b/java-checks/src/main/java/org/sonar/java/checks/SQLInjectionCheck.java
+index e13d5a1b61..3634c128f8 100644
+--- a/java-checks/src/main/java/org/sonar/java/checks/SQLInjectionCheck.java
++++ b/java-checks/src/main/java/org/sonar/java/checks/SQLInjectionCheck.java
+@@ -186,6 +186,7 @@ public class SQLInjectionCheck extends IssuableSubscriptionVisitor {
+   }
+ 
+   private static boolean anyMatch(Tree tree) {
++    System.out.println("STP EI-11 test");
+     if (!hasArguments(tree)) {
+       return false;
+     }
+diff --git a/java-checks/src/main/java/org/sonar/java/checks/StringOffsetMethodsCheck.java b/java-checks/src/main/java/org/sonar/java/checks/StringOffsetMethodsCheck.java
+index b41d7bb4fc..1b50f06aac 100644
+--- a/java-checks/src/main/java/org/sonar/java/checks/StringOffsetMethodsCheck.java
++++ b/java-checks/src/main/java/org/sonar/java/checks/StringOffsetMethodsCheck.java
+@@ -38,6 +38,7 @@ public class StringOffsetMethodsCheck extends AbstractMethodDetection {
+ 
+   @Override
+   protected MethodMatchers getMethodInvocationMatchers() {
++    System.out.println("STP EI-11 test");
+     return MethodMatchers.or(
+       MethodMatchers.create()
+         .ofTypes(JAVA_LANG_STRING)

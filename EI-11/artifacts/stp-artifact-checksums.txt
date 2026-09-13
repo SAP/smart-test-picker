@@ -1,0 +1,3 @@
+c9a6ec5eb9d0c83e1ef15488963d98a68217d5d93cde6540f53fba06d364bfa3  smart-test-picker-cli/build/libs/smart-test-picker-cli-0.2.0-all.jar
+87ad4418c819ff451ab827094f12b762a9f5da314f6793b9fa13b4a18c05bd0a  smart-test-picker-common/build/libs/smart-test-picker-common-0.2.0.jar
+10615180a9486228cf6a3d5b68d1df8073f9341db18a5527c51b70ce8d98ec08  smart-test-picker-maven/build/libs/smart-test-picker-maven-0.1.0.jar

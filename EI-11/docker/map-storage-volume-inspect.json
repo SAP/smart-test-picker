@@ -1,0 +1,16 @@
+[
+    {
+        "CreatedAt": "2026-09-13T14:08:31Z",
+        "Driver": "local",
+        "Labels": {
+            "com.docker.compose.config-hash": "69ce0439fa0732b9ee928499f3773086186966f1b82152eef487517a3d48d572",
+            "com.docker.compose.project": "ei9",
+            "com.docker.compose.version": "5.5.0",
+            "com.docker.compose.volume": "ei11_map_storage"
+        },
+        "Mountpoint": "/var/lib/docker/volumes/ei11_map_storage/_data",
+        "Name": "ei11_map_storage",
+        "Options": null,
+        "Scope": "local"
+    }
+]

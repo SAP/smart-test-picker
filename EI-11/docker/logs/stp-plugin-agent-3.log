@@ -1,0 +1,535 @@
+Warning: AGENT_NAME is defined twice in command-line arguments and the environment variable
+Picked up JAVA_TOOL_OPTIONS: -Xmx1024m
+Sep 13, 2026 2:34:01 PM org.jenkinsci.remoting.engine.WorkDirManager initializeWorkDir
+INFO: Using /home/jenkins/agent/remoting as a remoting work directory
+Sep 13, 2026 2:34:01 PM org.jenkinsci.remoting.engine.WorkDirManager setupLogging
+INFO: Both error and output logs will be printed to /home/jenkins/agent/remoting
+Sep 13, 2026 2:34:01 PM hudson.remoting.Launcher createEngine
+INFO: Setting up agent: stp-map-agent-3
+Sep 13, 2026 2:34:01 PM hudson.remoting.Engine startEngine
+INFO: Using Remoting version: 3386.v353e57a_1b_ea_0
+Sep 13, 2026 2:34:01 PM org.jenkinsci.remoting.engine.WorkDirManager initializeWorkDir
+INFO: Using /home/jenkins/agent/remoting as a remoting work directory
+Sep 13, 2026 2:34:01 PM hudson.remoting.Launcher$CuiListener status
+INFO: Locating server among [http://jenkins-controller:8080/, http://jenkins-controller:8080/]
+Sep 13, 2026 2:34:01 PM org.jenkinsci.remoting.engine.JnlpAgentEndpointResolver resolve
+INFO: Remoting server accepts the following protocols: [JNLP4-connect, Ping]
+Sep 13, 2026 2:34:01 PM hudson.remoting.Launcher$CuiListener status
+INFO: Agent discovery successful
+  Agent address: jenkins-controller
+  Agent port:    50000
+  Identity:      27:0f:b4:8f:28:39:a7:c2:5d:70:71:ec:9e:3f:3c:c3
+Sep 13, 2026 2:34:01 PM hudson.remoting.Launcher$CuiListener status
+INFO: Handshaking
+Sep 13, 2026 2:34:01 PM hudson.remoting.Launcher$CuiListener status
+INFO: Server reports protocol JNLP4-connect-proxy not supported, skipping
+Sep 13, 2026 2:34:01 PM hudson.remoting.Launcher$CuiListener status
+INFO: Trying protocol: JNLP4-connect
+Sep 13, 2026 2:34:01 PM hudson.remoting.Launcher$CuiListener status
+INFO: Connecting to jenkins-controller:50000
+Sep 13, 2026 2:34:01 PM org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader run
+INFO: Waiting for ProtocolStack to start.
+Sep 13, 2026 2:34:01 PM hudson.remoting.Launcher$CuiListener status
+INFO: Remote identity confirmed: 27:0f:b4:8f:28:39:a7:c2:5d:70:71:ec:9e:3f:3c:c3
+Sep 13, 2026 2:34:01 PM hudson.remoting.Launcher$CuiListener status
+INFO: Connected
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+Sep 13, 2026 2:47:07 PM hudson.remoting.Launcher$CuiListener status
+INFO: Terminated
+Sep 13, 2026 2:47:07 PM hudson.remoting.ProxyOutputStream$CleanupState cleanup
+WARNING: Failed to unexport ProxyOutputStream
+hudson.remoting.ChannelClosedException: Channel "hudson.remoting.Channel@4b32e9f5:JNLP4-connect connection to jenkins-controller/172.18.0.2:50000": channel is already closed
+	at hudson.remoting.Channel.send(Channel.java:823)
+	at hudson.remoting.ProxyOutputStream$CleanupState.cleanup(ProxyOutputStream.java:486)
+	at hudson.remoting.ProxyOutputStream$CleanupChecker.run(ProxyOutputStream.java:505)
+	at java.base/jdk.internal.ref.CleanerImpl$PhantomCleanableRef.performCleanup(CleanerImpl.java:176)
+	at java.base/jdk.internal.ref.PhantomCleanable.clean(PhantomCleanable.java:96)
+	at java.base/jdk.internal.ref.CleanerImpl.run(CleanerImpl.java:148)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+	at java.base/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:148)
+Caused by: java.nio.channels.ClosedChannelException
+	at org.jenkinsci.remoting.protocol.NetworkLayer.onRecvClosed(NetworkLayer.java:155)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer.access$700(BIONetworkLayer.java:50)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader.run(BIONetworkLayer.java:256)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:312)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+
+Sep 13, 2026 2:47:07 PM hudson.remoting.ProxyOutputStream$CleanupState cleanup
+WARNING: Failed to unexport ProxyOutputStream
+hudson.remoting.ChannelClosedException: Channel "hudson.remoting.Channel@4b32e9f5:JNLP4-connect connection to jenkins-controller/172.18.0.2:50000": channel is already closed
+	at hudson.remoting.Channel.send(Channel.java:823)
+	at hudson.remoting.ProxyOutputStream$CleanupState.cleanup(ProxyOutputStream.java:486)
+	at hudson.remoting.ProxyOutputStream$CleanupChecker.run(ProxyOutputStream.java:505)
+	at java.base/jdk.internal.ref.CleanerImpl$PhantomCleanableRef.performCleanup(CleanerImpl.java:176)
+	at java.base/jdk.internal.ref.PhantomCleanable.clean(PhantomCleanable.java:96)
+	at java.base/jdk.internal.ref.CleanerImpl.run(CleanerImpl.java:148)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+	at java.base/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:148)
+Caused by: java.nio.channels.ClosedChannelException
+	at org.jenkinsci.remoting.protocol.NetworkLayer.onRecvClosed(NetworkLayer.java:155)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer.access$700(BIONetworkLayer.java:50)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader.run(BIONetworkLayer.java:256)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:312)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+
+Sep 13, 2026 2:47:07 PM hudson.remoting.ProxyOutputStream$CleanupState cleanup
+WARNING: Failed to unexport ProxyOutputStream
+hudson.remoting.ChannelClosedException: Channel "hudson.remoting.Channel@4b32e9f5:JNLP4-connect connection to jenkins-controller/172.18.0.2:50000": channel is already closed
+	at hudson.remoting.Channel.send(Channel.java:823)
+	at hudson.remoting.ProxyOutputStream$CleanupState.cleanup(ProxyOutputStream.java:486)
+	at hudson.remoting.ProxyOutputStream$CleanupChecker.run(ProxyOutputStream.java:505)
+	at java.base/jdk.internal.ref.CleanerImpl$PhantomCleanableRef.performCleanup(CleanerImpl.java:176)
+	at java.base/jdk.internal.ref.PhantomCleanable.clean(PhantomCleanable.java:96)
+	at java.base/jdk.internal.ref.CleanerImpl.run(CleanerImpl.java:148)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+	at java.base/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:148)
+Caused by: java.nio.channels.ClosedChannelException
+	at org.jenkinsci.remoting.protocol.NetworkLayer.onRecvClosed(NetworkLayer.java:155)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer.access$700(BIONetworkLayer.java:50)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader.run(BIONetworkLayer.java:256)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:312)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+
+Sep 13, 2026 2:47:07 PM hudson.remoting.ProxyOutputStream$CleanupState cleanup
+WARNING: Failed to unexport ProxyOutputStream
+hudson.remoting.ChannelClosedException: Channel "hudson.remoting.Channel@4b32e9f5:JNLP4-connect connection to jenkins-controller/172.18.0.2:50000": channel is already closed
+	at hudson.remoting.Channel.send(Channel.java:823)
+	at hudson.remoting.ProxyOutputStream$CleanupState.cleanup(ProxyOutputStream.java:486)
+	at hudson.remoting.ProxyOutputStream$CleanupChecker.run(ProxyOutputStream.java:505)
+	at java.base/jdk.internal.ref.CleanerImpl$PhantomCleanableRef.performCleanup(CleanerImpl.java:176)
+	at java.base/jdk.internal.ref.PhantomCleanable.clean(PhantomCleanable.java:96)
+	at java.base/jdk.internal.ref.CleanerImpl.run(CleanerImpl.java:148)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+	at java.base/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:148)
+Caused by: java.nio.channels.ClosedChannelException
+	at org.jenkinsci.remoting.protocol.NetworkLayer.onRecvClosed(NetworkLayer.java:155)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer.access$700(BIONetworkLayer.java:50)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader.run(BIONetworkLayer.java:256)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:312)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+
+Sep 13, 2026 2:47:07 PM hudson.remoting.ProxyOutputStream$CleanupState cleanup
+WARNING: Failed to unexport ProxyOutputStream
+hudson.remoting.ChannelClosedException: Channel "hudson.remoting.Channel@4b32e9f5:JNLP4-connect connection to jenkins-controller/172.18.0.2:50000": channel is already closed
+	at hudson.remoting.Channel.send(Channel.java:823)
+	at hudson.remoting.ProxyOutputStream$CleanupState.cleanup(ProxyOutputStream.java:486)
+	at hudson.remoting.ProxyOutputStream$CleanupChecker.run(ProxyOutputStream.java:505)
+	at java.base/jdk.internal.ref.CleanerImpl$PhantomCleanableRef.performCleanup(CleanerImpl.java:176)
+	at java.base/jdk.internal.ref.PhantomCleanable.clean(PhantomCleanable.java:96)
+	at java.base/jdk.internal.ref.CleanerImpl.run(CleanerImpl.java:148)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+	at java.base/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:148)
+Caused by: java.nio.channels.ClosedChannelException
+	at org.jenkinsci.remoting.protocol.NetworkLayer.onRecvClosed(NetworkLayer.java:155)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer.access$700(BIONetworkLayer.java:50)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader.run(BIONetworkLayer.java:256)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:312)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+
+Sep 13, 2026 2:47:07 PM hudson.remoting.ProxyOutputStream$CleanupState cleanup
+WARNING: Failed to unexport ProxyOutputStream
+hudson.remoting.ChannelClosedException: Channel "hudson.remoting.Channel@4b32e9f5:JNLP4-connect connection to jenkins-controller/172.18.0.2:50000": channel is already closed
+	at hudson.remoting.Channel.send(Channel.java:823)
+	at hudson.remoting.ProxyOutputStream$CleanupState.cleanup(ProxyOutputStream.java:486)
+	at hudson.remoting.ProxyOutputStream$CleanupChecker.run(ProxyOutputStream.java:505)
+	at java.base/jdk.internal.ref.CleanerImpl$PhantomCleanableRef.performCleanup(CleanerImpl.java:176)
+	at java.base/jdk.internal.ref.PhantomCleanable.clean(PhantomCleanable.java:96)
+	at java.base/jdk.internal.ref.CleanerImpl.run(CleanerImpl.java:148)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+	at java.base/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:148)
+Caused by: java.nio.channels.ClosedChannelException
+	at org.jenkinsci.remoting.protocol.NetworkLayer.onRecvClosed(NetworkLayer.java:155)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer.access$700(BIONetworkLayer.java:50)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader.run(BIONetworkLayer.java:256)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:312)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+
+Sep 13, 2026 2:47:07 PM hudson.remoting.ProxyOutputStream$CleanupState cleanup
+WARNING: Failed to unexport ProxyOutputStream
+hudson.remoting.ChannelClosedException: Channel "hudson.remoting.Channel@4b32e9f5:JNLP4-connect connection to jenkins-controller/172.18.0.2:50000": channel is already closed
+	at hudson.remoting.Channel.send(Channel.java:823)
+	at hudson.remoting.ProxyOutputStream$CleanupState.cleanup(ProxyOutputStream.java:486)
+	at hudson.remoting.ProxyOutputStream$CleanupChecker.run(ProxyOutputStream.java:505)
+	at java.base/jdk.internal.ref.CleanerImpl$PhantomCleanableRef.performCleanup(CleanerImpl.java:176)
+	at java.base/jdk.internal.ref.PhantomCleanable.clean(PhantomCleanable.java:96)
+	at java.base/jdk.internal.ref.CleanerImpl.run(CleanerImpl.java:148)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+	at java.base/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:148)
+Caused by: java.nio.channels.ClosedChannelException
+	at org.jenkinsci.remoting.protocol.NetworkLayer.onRecvClosed(NetworkLayer.java:155)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer.access$700(BIONetworkLayer.java:50)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader.run(BIONetworkLayer.java:256)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:312)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+
+Sep 13, 2026 2:47:07 PM hudson.remoting.ProxyOutputStream$CleanupState cleanup
+WARNING: Failed to unexport ProxyOutputStream
+hudson.remoting.ChannelClosedException: Channel "hudson.remoting.Channel@4b32e9f5:JNLP4-connect connection to jenkins-controller/172.18.0.2:50000": channel is already closed
+	at hudson.remoting.Channel.send(Channel.java:823)
+	at hudson.remoting.ProxyOutputStream$CleanupState.cleanup(ProxyOutputStream.java:486)
+	at hudson.remoting.ProxyOutputStream$CleanupChecker.run(ProxyOutputStream.java:505)
+	at java.base/jdk.internal.ref.CleanerImpl$PhantomCleanableRef.performCleanup(CleanerImpl.java:176)
+	at java.base/jdk.internal.ref.PhantomCleanable.clean(PhantomCleanable.java:96)
+	at java.base/jdk.internal.ref.CleanerImpl.run(CleanerImpl.java:148)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+	at java.base/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:148)
+Caused by: java.nio.channels.ClosedChannelException
+	at org.jenkinsci.remoting.protocol.NetworkLayer.onRecvClosed(NetworkLayer.java:155)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer.access$700(BIONetworkLayer.java:50)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader.run(BIONetworkLayer.java:256)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:312)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+
+Sep 13, 2026 2:47:07 PM hudson.remoting.ProxyOutputStream$CleanupState cleanup
+WARNING: Failed to unexport ProxyOutputStream
+hudson.remoting.ChannelClosedException: Channel "hudson.remoting.Channel@4b32e9f5:JNLP4-connect connection to jenkins-controller/172.18.0.2:50000": channel is already closed
+	at hudson.remoting.Channel.send(Channel.java:823)
+	at hudson.remoting.ProxyOutputStream$CleanupState.cleanup(ProxyOutputStream.java:486)
+	at hudson.remoting.ProxyOutputStream$CleanupChecker.run(ProxyOutputStream.java:505)
+	at java.base/jdk.internal.ref.CleanerImpl$PhantomCleanableRef.performCleanup(CleanerImpl.java:176)
+	at java.base/jdk.internal.ref.PhantomCleanable.clean(PhantomCleanable.java:96)
+	at java.base/jdk.internal.ref.CleanerImpl.run(CleanerImpl.java:148)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+	at java.base/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:148)
+Caused by: java.nio.channels.ClosedChannelException
+	at org.jenkinsci.remoting.protocol.NetworkLayer.onRecvClosed(NetworkLayer.java:155)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer.access$700(BIONetworkLayer.java:50)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader.run(BIONetworkLayer.java:256)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:312)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+
+Sep 13, 2026 2:47:07 PM hudson.remoting.ProxyOutputStream$CleanupState cleanup
+WARNING: Failed to unexport ProxyOutputStream
+hudson.remoting.ChannelClosedException: Channel "hudson.remoting.Channel@4b32e9f5:JNLP4-connect connection to jenkins-controller/172.18.0.2:50000": channel is already closed
+	at hudson.remoting.Channel.send(Channel.java:823)
+	at hudson.remoting.ProxyOutputStream$CleanupState.cleanup(ProxyOutputStream.java:486)
+	at hudson.remoting.ProxyOutputStream$CleanupChecker.run(ProxyOutputStream.java:505)
+	at java.base/jdk.internal.ref.CleanerImpl$PhantomCleanableRef.performCleanup(CleanerImpl.java:176)
+	at java.base/jdk.internal.ref.PhantomCleanable.clean(PhantomCleanable.java:96)
+	at java.base/jdk.internal.ref.CleanerImpl.run(CleanerImpl.java:148)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+	at java.base/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:148)
+Caused by: java.nio.channels.ClosedChannelException
+	at org.jenkinsci.remoting.protocol.NetworkLayer.onRecvClosed(NetworkLayer.java:155)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer.access$700(BIONetworkLayer.java:50)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader.run(BIONetworkLayer.java:256)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:312)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+
+Sep 13, 2026 2:47:07 PM hudson.remoting.ProxyOutputStream$CleanupState cleanup
+WARNING: Failed to unexport ProxyOutputStream
+hudson.remoting.ChannelClosedException: Channel "hudson.remoting.Channel@4b32e9f5:JNLP4-connect connection to jenkins-controller/172.18.0.2:50000": channel is already closed
+	at hudson.remoting.Channel.send(Channel.java:823)
+	at hudson.remoting.ProxyOutputStream$CleanupState.cleanup(ProxyOutputStream.java:486)
+	at hudson.remoting.ProxyOutputStream$CleanupChecker.run(ProxyOutputStream.java:505)
+	at java.base/jdk.internal.ref.CleanerImpl$PhantomCleanableRef.performCleanup(CleanerImpl.java:176)
+	at java.base/jdk.internal.ref.PhantomCleanable.clean(PhantomCleanable.java:96)
+	at java.base/jdk.internal.ref.CleanerImpl.run(CleanerImpl.java:148)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+	at java.base/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:148)
+Caused by: java.nio.channels.ClosedChannelException
+	at org.jenkinsci.remoting.protocol.NetworkLayer.onRecvClosed(NetworkLayer.java:155)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer.access$700(BIONetworkLayer.java:50)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader.run(BIONetworkLayer.java:256)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:312)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+
+Sep 13, 2026 2:47:17 PM hudson.remoting.Launcher$CuiListener status
+INFO: Performing onReconnect operation.
+Sep 13, 2026 2:47:17 PM jenkins.slaves.restarter.JnlpSlaveRestarterInstaller$EngineListenerAdapterImpl onReconnect
+INFO: Restarting agent via jenkins.slaves.restarter.UnixSlaveRestarter@764b4cf
+Sep 13, 2026 2:47:17 PM hudson.remoting.ProxyOutputStream$CleanupState cleanup
+WARNING: Failed to unexport ProxyOutputStream
+hudson.remoting.ChannelClosedException: Channel "hudson.remoting.Channel@4b32e9f5:JNLP4-connect connection to jenkins-controller/172.18.0.2:50000": channel is already closed
+	at hudson.remoting.Channel.send(Channel.java:823)
+	at hudson.remoting.ProxyOutputStream$CleanupState.cleanup(ProxyOutputStream.java:486)
+	at hudson.remoting.ProxyOutputStream$CleanupChecker.run(ProxyOutputStream.java:505)
+	at java.base/jdk.internal.ref.CleanerImpl$PhantomCleanableRef.performCleanup(CleanerImpl.java:176)
+	at java.base/jdk.internal.ref.PhantomCleanable.clean(PhantomCleanable.java:96)
+	at java.base/jdk.internal.ref.CleanerImpl.run(CleanerImpl.java:148)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+	at java.base/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:148)
+Caused by: java.nio.channels.ClosedChannelException
+	at org.jenkinsci.remoting.protocol.NetworkLayer.onRecvClosed(NetworkLayer.java:155)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer.access$700(BIONetworkLayer.java:50)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader.run(BIONetworkLayer.java:256)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:312)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+
+Sep 13, 2026 2:47:17 PM hudson.remoting.ProxyOutputStream$CleanupState cleanup
+WARNING: Failed to unexport ProxyOutputStream
+hudson.remoting.ChannelClosedException: Channel "hudson.remoting.Channel@4b32e9f5:JNLP4-connect connection to jenkins-controller/172.18.0.2:50000": channel is already closed
+	at hudson.remoting.Channel.send(Channel.java:823)
+	at hudson.remoting.ProxyOutputStream$CleanupState.cleanup(ProxyOutputStream.java:486)
+	at hudson.remoting.ProxyOutputStream$CleanupChecker.run(ProxyOutputStream.java:505)
+	at java.base/jdk.internal.ref.CleanerImpl$PhantomCleanableRef.performCleanup(CleanerImpl.java:176)
+	at java.base/jdk.internal.ref.PhantomCleanable.clean(PhantomCleanable.java:96)
+	at java.base/jdk.internal.ref.CleanerImpl.run(CleanerImpl.java:148)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+	at java.base/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:148)
+Caused by: java.nio.channels.ClosedChannelException
+	at org.jenkinsci.remoting.protocol.NetworkLayer.onRecvClosed(NetworkLayer.java:155)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer.access$700(BIONetworkLayer.java:50)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader.run(BIONetworkLayer.java:256)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:312)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+
+Sep 13, 2026 2:47:17 PM hudson.remoting.ProxyOutputStream$CleanupState cleanup
+WARNING: Failed to unexport ProxyOutputStream
+hudson.remoting.ChannelClosedException: Channel "hudson.remoting.Channel@4b32e9f5:JNLP4-connect connection to jenkins-controller/172.18.0.2:50000": channel is already closed
+	at hudson.remoting.Channel.send(Channel.java:823)
+	at hudson.remoting.ProxyOutputStream$CleanupState.cleanup(ProxyOutputStream.java:486)
+	at hudson.remoting.ProxyOutputStream$CleanupChecker.run(ProxyOutputStream.java:505)
+	at java.base/jdk.internal.ref.CleanerImpl$PhantomCleanableRef.performCleanup(CleanerImpl.java:176)
+	at java.base/jdk.internal.ref.PhantomCleanable.clean(PhantomCleanable.java:96)
+	at java.base/jdk.internal.ref.CleanerImpl.run(CleanerImpl.java:148)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+	at java.base/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:148)
+Caused by: java.nio.channels.ClosedChannelException
+	at org.jenkinsci.remoting.protocol.NetworkLayer.onRecvClosed(NetworkLayer.java:155)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer.access$700(BIONetworkLayer.java:50)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader.run(BIONetworkLayer.java:256)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:312)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+
+Sep 13, 2026 2:47:17 PM hudson.remoting.ProxyOutputStream$CleanupState cleanup
+WARNING: Failed to unexport ProxyOutputStream
+hudson.remoting.ChannelClosedException: Channel "hudson.remoting.Channel@4b32e9f5:JNLP4-connect connection to jenkins-controller/172.18.0.2:50000": channel is already closed
+	at hudson.remoting.Channel.send(Channel.java:823)
+	at hudson.remoting.ProxyOutputStream$CleanupState.cleanup(ProxyOutputStream.java:486)
+	at hudson.remoting.ProxyOutputStream$CleanupChecker.run(ProxyOutputStream.java:505)
+	at java.base/jdk.internal.ref.CleanerImpl$PhantomCleanableRef.performCleanup(CleanerImpl.java:176)
+	at java.base/jdk.internal.ref.PhantomCleanable.clean(PhantomCleanable.java:96)
+	at java.base/jdk.internal.ref.CleanerImpl.run(CleanerImpl.java:148)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+	at java.base/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:148)
+Caused by: java.nio.channels.ClosedChannelException
+	at org.jenkinsci.remoting.protocol.NetworkLayer.onRecvClosed(NetworkLayer.java:155)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer.access$700(BIONetworkLayer.java:50)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader.run(BIONetworkLayer.java:256)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:312)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+
+Picked up JAVA_TOOL_OPTIONS: -Xmx1024m
+Sep 13, 2026 2:47:18 PM org.jenkinsci.remoting.engine.WorkDirManager initializeWorkDir
+INFO: Using /home/jenkins/agent/remoting as a remoting work directory
+Sep 13, 2026 2:47:18 PM org.jenkinsci.remoting.engine.WorkDirManager setupLogging
+INFO: Both error and output logs will be printed to /home/jenkins/agent/remoting
+Sep 13, 2026 2:47:18 PM hudson.remoting.Launcher createEngine
+INFO: Setting up agent: stp-map-agent-3
+Sep 13, 2026 2:47:18 PM hudson.remoting.Engine startEngine
+INFO: Using Remoting version: 3386.v353e57a_1b_ea_0
+Sep 13, 2026 2:47:18 PM org.jenkinsci.remoting.engine.WorkDirManager initializeWorkDir
+INFO: Using /home/jenkins/agent/remoting as a remoting work directory
+Sep 13, 2026 2:47:18 PM hudson.remoting.Launcher$CuiListener status
+INFO: Locating server among [http://jenkins-controller:8080/, http://jenkins-controller:8080/]
+Sep 13, 2026 2:47:18 PM org.jenkinsci.remoting.engine.JnlpAgentEndpointResolver resolve
+INFO: Remoting server accepts the following protocols: [JNLP4-connect, Ping]
+Sep 13, 2026 2:47:18 PM hudson.remoting.Launcher$CuiListener status
+INFO: Agent discovery successful
+  Agent address: jenkins-controller
+  Agent port:    50000
+  Identity:      27:0f:b4:8f:28:39:a7:c2:5d:70:71:ec:9e:3f:3c:c3
+Sep 13, 2026 2:47:18 PM hudson.remoting.Launcher$CuiListener status
+INFO: Handshaking
+Sep 13, 2026 2:47:18 PM hudson.remoting.Launcher$CuiListener status
+INFO: Server reports protocol JNLP4-connect-proxy not supported, skipping
+Sep 13, 2026 2:47:18 PM hudson.remoting.Launcher$CuiListener status
+INFO: Trying protocol: JNLP4-connect
+Sep 13, 2026 2:47:18 PM hudson.remoting.Launcher$CuiListener status
+INFO: Connecting to jenkins-controller:50000
+Sep 13, 2026 2:47:18 PM org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader run
+INFO: Waiting for ProtocolStack to start.
+Sep 13, 2026 2:47:18 PM hudson.remoting.Launcher$CuiListener status
+INFO: Remote identity confirmed: 27:0f:b4:8f:28:39:a7:c2:5d:70:71:ec:9e:3f:3c:c3
+Sep 13, 2026 2:47:18 PM hudson.remoting.Launcher$CuiListener status
+INFO: Connected
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+Sep 13, 2026 2:47:46 PM hudson.remoting.Launcher$CuiListener status
+INFO: Terminated
+Sep 13, 2026 2:47:57 PM hudson.remoting.Launcher$CuiListener status
+INFO: Performing onReconnect operation.
+Sep 13, 2026 2:47:57 PM jenkins.slaves.restarter.JnlpSlaveRestarterInstaller$EngineListenerAdapterImpl onReconnect
+INFO: Restarting agent via jenkins.slaves.restarter.UnixSlaveRestarter@766d82cd
+Picked up JAVA_TOOL_OPTIONS: -Xmx1024m
+Sep 13, 2026 2:47:57 PM org.jenkinsci.remoting.engine.WorkDirManager initializeWorkDir
+INFO: Using /home/jenkins/agent/remoting as a remoting work directory
+Sep 13, 2026 2:47:57 PM org.jenkinsci.remoting.engine.WorkDirManager setupLogging
+INFO: Both error and output logs will be printed to /home/jenkins/agent/remoting
+Sep 13, 2026 2:47:57 PM hudson.remoting.Launcher createEngine
+INFO: Setting up agent: stp-map-agent-3
+Sep 13, 2026 2:47:57 PM hudson.remoting.Engine startEngine
+INFO: Using Remoting version: 3386.v353e57a_1b_ea_0
+Sep 13, 2026 2:47:57 PM org.jenkinsci.remoting.engine.WorkDirManager initializeWorkDir
+INFO: Using /home/jenkins/agent/remoting as a remoting work directory
+Sep 13, 2026 2:47:57 PM hudson.remoting.Launcher$CuiListener status
+INFO: Locating server among [http://jenkins-controller:8080/, http://jenkins-controller:8080/]
+Sep 13, 2026 2:47:57 PM org.jenkinsci.remoting.engine.JnlpAgentEndpointResolver resolve
+INFO: Remoting server accepts the following protocols: [JNLP4-connect, Ping]
+Sep 13, 2026 2:47:57 PM hudson.remoting.Launcher$CuiListener status
+INFO: Agent discovery successful
+  Agent address: jenkins-controller
+  Agent port:    50000
+  Identity:      27:0f:b4:8f:28:39:a7:c2:5d:70:71:ec:9e:3f:3c:c3
+Sep 13, 2026 2:47:57 PM hudson.remoting.Launcher$CuiListener status
+INFO: Handshaking
+Sep 13, 2026 2:47:57 PM hudson.remoting.Launcher$CuiListener status
+INFO: Server reports protocol JNLP4-connect-proxy not supported, skipping
+Sep 13, 2026 2:47:57 PM hudson.remoting.Launcher$CuiListener status
+INFO: Trying protocol: JNLP4-connect
+Sep 13, 2026 2:47:57 PM hudson.remoting.Launcher$CuiListener status
+INFO: Connecting to jenkins-controller:50000
+Sep 13, 2026 2:47:57 PM org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader run
+INFO: Waiting for ProtocolStack to start.
+Sep 13, 2026 2:47:57 PM hudson.remoting.Launcher$CuiListener status
+INFO: Remote identity confirmed: 27:0f:b4:8f:28:39:a7:c2:5d:70:71:ec:9e:3f:3c:c3
+Sep 13, 2026 2:47:57 PM hudson.remoting.Launcher$CuiListener status
+INFO: Connected
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+Sep 13, 2026 3:18:15 PM hudson.remoting.Launcher$CuiListener status
+INFO: Terminated
+Sep 13, 2026 3:18:25 PM hudson.remoting.Launcher$CuiListener status
+INFO: Performing onReconnect operation.
+Sep 13, 2026 3:18:25 PM jenkins.slaves.restarter.JnlpSlaveRestarterInstaller$EngineListenerAdapterImpl onReconnect
+INFO: Restarting agent via jenkins.slaves.restarter.UnixSlaveRestarter@72e7b0c
+Sep 13, 2026 3:18:26 PM hudson.remoting.ProxyOutputStream$CleanupState cleanup
+WARNING: Failed to unexport ProxyOutputStream
+hudson.remoting.ChannelClosedException: Channel "hudson.remoting.Channel@2aa0135a:JNLP4-connect connection to jenkins-controller/172.18.0.2:50000": channel is already closed
+	at hudson.remoting.Channel.send(Channel.java:823)
+	at hudson.remoting.ProxyOutputStream$CleanupState.cleanup(ProxyOutputStream.java:486)
+	at hudson.remoting.ProxyOutputStream$CleanupChecker.run(ProxyOutputStream.java:505)
+	at java.base/jdk.internal.ref.CleanerImpl$PhantomCleanableRef.performCleanup(CleanerImpl.java:176)
+	at java.base/jdk.internal.ref.PhantomCleanable.clean(PhantomCleanable.java:96)
+	at java.base/jdk.internal.ref.CleanerImpl.run(CleanerImpl.java:148)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+	at java.base/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:148)
+Caused by: java.nio.channels.ClosedChannelException
+	at org.jenkinsci.remoting.protocol.NetworkLayer.onRecvClosed(NetworkLayer.java:155)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer.access$700(BIONetworkLayer.java:50)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader.run(BIONetworkLayer.java:256)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:312)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+
+Sep 13, 2026 3:18:26 PM hudson.remoting.ProxyOutputStream$CleanupState cleanup
+WARNING: Failed to unexport ProxyOutputStream
+hudson.remoting.ChannelClosedException: Channel "hudson.remoting.Channel@2aa0135a:JNLP4-connect connection to jenkins-controller/172.18.0.2:50000": channel is already closed
+	at hudson.remoting.Channel.send(Channel.java:823)
+	at hudson.remoting.ProxyOutputStream$CleanupState.cleanup(ProxyOutputStream.java:486)
+	at hudson.remoting.ProxyOutputStream$CleanupChecker.run(ProxyOutputStream.java:505)
+	at java.base/jdk.internal.ref.CleanerImpl$PhantomCleanableRef.performCleanup(CleanerImpl.java:176)
+	at java.base/jdk.internal.ref.PhantomCleanable.clean(PhantomCleanable.java:96)
+	at java.base/jdk.internal.ref.CleanerImpl.run(CleanerImpl.java:148)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+	at java.base/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:148)
+Caused by: java.nio.channels.ClosedChannelException
+	at org.jenkinsci.remoting.protocol.NetworkLayer.onRecvClosed(NetworkLayer.java:155)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer.access$700(BIONetworkLayer.java:50)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader.run(BIONetworkLayer.java:256)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:312)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+
+Sep 13, 2026 3:18:26 PM hudson.remoting.ProxyOutputStream$CleanupState cleanup
+WARNING: Failed to unexport ProxyOutputStream
+hudson.remoting.ChannelClosedException: Channel "hudson.remoting.Channel@2aa0135a:JNLP4-connect connection to jenkins-controller/172.18.0.2:50000": channel is already closed
+	at hudson.remoting.Channel.send(Channel.java:823)
+	at hudson.remoting.ProxyOutputStream$CleanupState.cleanup(ProxyOutputStream.java:486)
+	at hudson.remoting.ProxyOutputStream$CleanupChecker.run(ProxyOutputStream.java:505)
+	at java.base/jdk.internal.ref.CleanerImpl$PhantomCleanableRef.performCleanup(CleanerImpl.java:176)
+	at java.base/jdk.internal.ref.PhantomCleanable.clean(PhantomCleanable.java:96)
+	at java.base/jdk.internal.ref.CleanerImpl.run(CleanerImpl.java:148)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+	at java.base/jdk.internal.misc.InnocuousThread.run(InnocuousThread.java:148)
+Caused by: java.nio.channels.ClosedChannelException
+	at org.jenkinsci.remoting.protocol.NetworkLayer.onRecvClosed(NetworkLayer.java:155)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer.access$700(BIONetworkLayer.java:50)
+	at org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader.run(BIONetworkLayer.java:256)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at hudson.remoting.Engine$1.lambda$newThread$0(Engine.java:312)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+
+Picked up JAVA_TOOL_OPTIONS: -Xmx1024m
+Sep 13, 2026 3:18:26 PM org.jenkinsci.remoting.engine.WorkDirManager initializeWorkDir
+INFO: Using /home/jenkins/agent/remoting as a remoting work directory
+Sep 13, 2026 3:18:26 PM org.jenkinsci.remoting.engine.WorkDirManager setupLogging
+INFO: Both error and output logs will be printed to /home/jenkins/agent/remoting
+Sep 13, 2026 3:18:26 PM hudson.remoting.Launcher createEngine
+INFO: Setting up agent: stp-map-agent-3
+Sep 13, 2026 3:18:26 PM hudson.remoting.Engine startEngine
+INFO: Using Remoting version: 3386.v353e57a_1b_ea_0
+Sep 13, 2026 3:18:26 PM org.jenkinsci.remoting.engine.WorkDirManager initializeWorkDir
+INFO: Using /home/jenkins/agent/remoting as a remoting work directory
+Sep 13, 2026 3:18:26 PM hudson.remoting.Launcher$CuiListener status
+INFO: Locating server among [http://jenkins-controller:8080/, http://jenkins-controller:8080/]
+Sep 13, 2026 3:18:26 PM org.jenkinsci.remoting.engine.JnlpAgentEndpointResolver resolve
+INFO: Remoting server accepts the following protocols: [JNLP4-connect, Ping]
+Sep 13, 2026 3:18:26 PM hudson.remoting.Launcher$CuiListener status
+INFO: Agent discovery successful
+  Agent address: jenkins-controller
+  Agent port:    50000
+  Identity:      27:0f:b4:8f:28:39:a7:c2:5d:70:71:ec:9e:3f:3c:c3
+Sep 13, 2026 3:18:26 PM hudson.remoting.Launcher$CuiListener status
+INFO: Handshaking
+Sep 13, 2026 3:18:26 PM hudson.remoting.Launcher$CuiListener status
+INFO: Server reports protocol JNLP4-connect-proxy not supported, skipping
+Sep 13, 2026 3:18:26 PM hudson.remoting.Launcher$CuiListener status
+INFO: Trying protocol: JNLP4-connect
+Sep 13, 2026 3:18:26 PM hudson.remoting.Launcher$CuiListener status
+INFO: Connecting to jenkins-controller:50000
+Sep 13, 2026 3:18:26 PM org.jenkinsci.remoting.protocol.impl.BIONetworkLayer$Reader run
+INFO: Waiting for ProtocolStack to start.
+Sep 13, 2026 3:18:26 PM hudson.remoting.Launcher$CuiListener status
+INFO: Remote identity confirmed: 27:0f:b4:8f:28:39:a7:c2:5d:70:71:ec:9e:3f:3c:c3
+Sep 13, 2026 3:18:26 PM hudson.remoting.Launcher$CuiListener status
+INFO: Connected
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+

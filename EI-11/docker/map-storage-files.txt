@@ -1,0 +1,6 @@
+/opt/ei11/map-storage/projects/SonarJava--fcbc46d617434bf8/branches/ei11-r0--79f9ffdb0b11413e/revisions/9bbe6d04d2db75e5b864f3a424bb78bfa4f36b4c--38a70dd72330b716/coverage-map-v2.json
+11b10ce13a93d8527666accd259a8e32098433c51300e7c2d2e2d37596037423  /opt/ei11/map-storage/projects/SonarJava--fcbc46d617434bf8/branches/ei11-r0--79f9ffdb0b11413e/revisions/9bbe6d04d2db75e5b864f3a424bb78bfa4f36b4c--38a70dd72330b716/coverage-map-v2.json
+/opt/ei11/map-storage/projects/SonarJava--fcbc46d617434bf8/branches/ei11-r0--79f9ffdb0b11413e/pointers/latest.json
+c048443c2dfebce563c362f402c6cb55451ca6e10e0080a9d334bd0f6bdf22ae  /opt/ei11/map-storage/projects/SonarJava--fcbc46d617434bf8/branches/ei11-r0--79f9ffdb0b11413e/pointers/latest.json
+/opt/ei11/map-storage/projects/SonarJava--fcbc46d617434bf8/branches/ei11-r0--79f9ffdb0b11413e/pointers/latest.json.lock
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  /opt/ei11/map-storage/projects/SonarJava--fcbc46d617434bf8/branches/ei11-r0--79f9ffdb0b11413e/pointers/latest.json.lock
