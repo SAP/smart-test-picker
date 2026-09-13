@@ -31,8 +31,10 @@ public final class ExecutableFragmentAssignmentValidator
 		if (!assignment.tests().containsAll(intentionallyNonExecutable))
 			throw new IllegalArgumentException("Positive non-execution does not belong to this shard assignment");
 		Set<ExecutableTestIdentity> reported = new TreeSet<>(fragment.tests().keySet());
-		for (var unmapped : fragment.unmapped())
+		for (var unmapped : fragment.unmapped()) {
+			if (unmapped.reason() == com.sap.oss.smarttestpicker.coverage.model.UnmappedReason.SKIPPED) continue;
 			if (!reported.add(unmapped.test())) throw new IllegalArgumentException("Executable identity reported as both mapped and unmapped: " + unmapped.test());
+		}
 		TreeSet<ExecutableTestIdentity> contradictory = new TreeSet<>(reported);
 		contradictory.retainAll(intentionallyNonExecutable);
 		if (!contradictory.isEmpty()) throw new IllegalArgumentException(

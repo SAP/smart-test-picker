@@ -78,6 +78,7 @@ public final class ExecutableCoverageFragmentJoiner
 			}
 			for (ExecutableUnmappedTest entry : fragment.unmapped())
 			{
+				if (entry.reason() == com.sap.oss.smarttestpicker.coverage.model.UnmappedReason.SKIPPED) continue;
 				if (owners.putIfAbsent(entry.test(), fragment.shardId()) != null) duplicates.add(entry.test());
 				else unmapped.put(entry.test(), entry);
 			}
