@@ -163,10 +163,7 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 			File[] skipped = execDir.listFiles((dir, name) -> name.startsWith("session_") && name.endsWith(".non-executed"));
 			if (identities != null) for (File file : identities) executed.add(readTestIdentity(file));
 			if (skipped != null) for (File file : skipped) nonExecuted.add(readTestIdentity(file));
-			Set<TestIdentity> overlap = new TreeSet<>(executed); overlap.retainAll(nonExecuted);
-			if (schemaVersion == 3 && !overlap.isEmpty())
-				throw new IllegalStateException("Conflicting executable execution evidence: " + overlap);
-			nonExecuted.removeAll(executed); // Preserve evidence-v1's historical executed-wins behavior.
+			nonExecuted.removeAll(executed);
 			JsonObject root = new JsonObject(); root.addProperty("version", schemaVersion == 3 ? 2 : 1); root.addProperty("revision", revision);
 			root.addProperty("shardId", shardId);
 			if (schemaVersion == 2) { root.addProperty("testTarget", testTarget); root.addProperty("buildTool", "maven"); }

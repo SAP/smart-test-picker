@@ -63,7 +63,8 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 	private static void configure(MavenProject module, ExecutionTarget target, TreeSet<TestIdentity> tests) throws Exception {
 		File output = new File(module.getBuild().getDirectory(), "stp/selected-tests-surefire-v3.txt");
 		Files.createDirectories(output.getParentFile().toPath());
-		List<String> patterns = tests.isEmpty() ? List.of("__stp_no_assigned_tests__") : tests.stream().map(TestIdentity::toString).toList();
+		List<String> patterns = tests.isEmpty() ? List.of("__stp_no_assigned_tests__")
+				: tests.stream().map(test -> test.className() + "#" + test.methodName()).distinct().toList();
 		Files.write(output.toPath(), patterns);
 		module.getProperties().setProperty("surefire.includesFile", output.getAbsolutePath());
 		module.getProperties().setProperty("surefire.failIfNoSpecifiedTests", "false");

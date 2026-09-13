@@ -125,8 +125,12 @@ public class JacocoPerTestListener implements TestExecutionListener
 
 	private void markNonExecuted(TestIdentifier id)
 	{
-		List<TestIdentifier> skipped = id.isTest() ? List.of(id)
-				: testPlan == null ? List.of() : testPlan.getDescendants(id).stream().filter(TestIdentifier::isTest).toList();
+		List<TestIdentifier> skipped;
+		if (id.isTest() || extractTestIdentity(id) != null)
+			skipped = List.of(id);
+		else
+			skipped = testPlan == null ? List.of()
+					: testPlan.getDescendants(id).stream().filter(TestIdentifier::isTest).toList();
 		for (TestIdentifier skippedId : skipped)
 		try
 		{
