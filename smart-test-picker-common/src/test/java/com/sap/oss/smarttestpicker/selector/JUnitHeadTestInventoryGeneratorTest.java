@@ -4,6 +4,7 @@ package com.sap.oss.smarttestpicker.selector;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.net.URL;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
@@ -51,6 +52,22 @@ class JUnitHeadTestInventoryGeneratorTest {
 		assertTrue(result.runnableTests().contains(new TestIdentity(JUnitSixFixture.NestedFixture.class.getName(),
 				"parameterized", "java.lang.String")));
 		assertTrue(result.runnableTests().contains(new TestIdentity(JUnitFourFixture.class.getName(), "legacy")));
+	}
+
+	@Test void targetRuntimeOwnsVintageEngineAndItsPlatformApi() throws Exception {
+		URL[] runtime = Arrays.stream(System.getProperty("java.class.path").split(
+				System.getProperty("path.separator"))).map(Path::of).map(path -> {
+			try { return path.toUri().toURL(); }
+			catch (java.net.MalformedURLException failure) { throw new IllegalArgumentException(failure); }
+		}).toArray(URL[]::new);
+		try (var loader = new JUnitHeadTestInventoryGenerator.TargetJUnitClassLoader(runtime,
+				JUnitHeadTestInventoryGenerator.class.getClassLoader())) {
+			Class<?> engine = loader.loadClass("org.junit.platform.engine.TestEngine");
+			Class<?> vintage = loader.loadClass("org.junit.vintage.engine.VintageTestEngine");
+			assertSame(loader, engine.getClassLoader());
+			assertSame(loader, vintage.getClassLoader());
+			assertTrue(engine.isAssignableFrom(vintage));
+		}
 	}
 
 	@Disabled("fixture is discovered programmatically; Gradle must never execute it")

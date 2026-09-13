@@ -131,11 +131,11 @@ public final class JUnitHeadTestInventoryGenerator {
 		return new HeadTestInventory(new LinkedHashSet<>(identities));
 	}
 
-	private static final class TargetJUnitClassLoader extends URLClassLoader {
+	static final class TargetJUnitClassLoader extends URLClassLoader {
 		private static final String ENGINE_SERVICE = "META-INF/services/org.junit.platform.engine.TestEngine";
 		TargetJUnitClassLoader(URL[] urls, ClassLoader parent) { super(urls, parent); }
 		@Override protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
-			if (name.startsWith("org.junit.platform.") || name.startsWith("org.junit.jupiter.")
+			if (name.startsWith("org.junit.")
 					|| name.equals(JUnitInventoryDiscoveryWorker.class.getName())) {
 				synchronized (getClassLoadingLock(name)) {
 					Class<?> loaded = findLoadedClass(name);
