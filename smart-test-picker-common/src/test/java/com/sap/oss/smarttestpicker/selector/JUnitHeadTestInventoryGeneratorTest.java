@@ -50,6 +50,7 @@ class JUnitHeadTestInventoryGeneratorTest {
 		assertTrue(result.runnableTests().contains(new TestIdentity(JUnitSixFixture.class.getName(), "outer")));
 		assertTrue(result.runnableTests().contains(new TestIdentity(JUnitSixFixture.NestedFixture.class.getName(),
 				"parameterized", "java.lang.String")));
+		assertTrue(result.runnableTests().contains(new TestIdentity(JUnitFourFixture.class.getName(), "legacy")));
 	}
 
 	@Disabled("fixture is discovered programmatically; Gradle must never execute it")
@@ -84,5 +85,9 @@ class JUnitHeadTestInventoryGeneratorTest {
 				ExtensionContext context) {
 			throw new AssertionError("discovery invoked arguments");
 		}
+	}
+
+	public static class JUnitFourFixture {
+		@org.junit.Test public void legacy() { fail("discovery executed a body"); }
 	}
 }
