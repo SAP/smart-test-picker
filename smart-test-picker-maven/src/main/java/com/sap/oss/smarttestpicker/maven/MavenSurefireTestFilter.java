@@ -36,7 +36,7 @@ final class MavenSurefireTestFilter {
 			boolean excluded = token.startsWith("!");
 			if (excluded) token = token.substring(1).trim();
 			if (token.isEmpty()) throw new IllegalArgumentException("Malformed Maven Surefire test expression: " + expression);
-			Pattern pattern = Pattern.compile(glob(token));
+			Pattern pattern = Pattern.compile(glob(token.contains("#") ? token : token + "#*"));
 			Predicate<TestIdentity> predicate = test -> pattern.matcher(projection(test)).matches();
 			(excluded ? excludes : includes).add(predicate);
 		}

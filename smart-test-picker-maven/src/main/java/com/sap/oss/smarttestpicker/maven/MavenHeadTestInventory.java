@@ -82,6 +82,11 @@ final class MavenHeadTestInventory {
 
 	static boolean generateExecutable(List<MavenProject> projects, File output, File reactorRoot,
 			String revision, String executionType, String executionId, String profile, Log log) {
+		return generateExecutable(projects, output, reactorRoot, revision, executionType, executionId, profile, null, log);
+	}
+
+	static boolean generateExecutable(List<MavenProject> projects, File output, File reactorRoot,
+			String revision, String executionType, String executionId, String profile, String testFilter, Log log) {
 		try {
 			revision = WorkspaceRevisionVerifier.requireHead(reactorRoot, revision);
 			var resolver = new MavenExecutionTargetResolver();
@@ -98,6 +103,8 @@ final class MavenHeadTestInventory {
 						List.of(root.toPath()), origin -> log.debug("[SmartTestPicker] " + project.getId() + " " + origin));
 				if ("surefire".equals(executionType)) inventory = HeadTestInventory.from(inventory.runnableTests().stream()
 						.filter(MavenSurefireTestFilter.from(project)).toList());
+				if (testFilter != null && !testFilter.isBlank()) inventory = HeadTestInventory.from(
+						inventory.runnableTests().stream().filter(MavenSurefireTestFilter.parse(testFilter)).toList());
 				log.info("[SmartTestPicker] Module " + target + ": " + inventory.runnableTests().size()
 						+ " logical JUnit tests");
 				for (TestIdentity identity : inventory.runnableTests())
