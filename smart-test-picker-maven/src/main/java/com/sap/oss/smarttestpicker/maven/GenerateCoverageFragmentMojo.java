@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.AtomicMoveNotSupportedException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilderFactory;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -41,6 +44,7 @@ import com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget;
 import com.sap.oss.smarttestpicker.coverage.model.BuildTool;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentity;
 import com.sap.oss.smarttestpicker.coverage.ExecutableCoverageFragmentQualifier;
+import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableShardAssignmentCodec;
 import com.sap.oss.smarttestpicker.coverage.validation.CoverageMapValidator;
 import com.sap.oss.smarttestpicker.mapper.CoverageMapperJaxb;
 
@@ -53,6 +57,15 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 
 	@Parameter(defaultValue = "${project.build.directory}/jacoco-xml", required = true)
 	private File reportsDir;
+
+	@Parameter(defaultValue = "${project.build.directory}/surefire-reports")
+	private File surefireReportsDir;
+
+	@Parameter(defaultValue = "${project.build.directory}/failsafe-reports")
+	private File failsafeReportsDir;
+
+	@Parameter(defaultValue = "${env.STP_MAPPING_TESTS_FILE}", property = "smartTestPicker.testsFile")
+	private File assignmentFile;
 
 	@Parameter(property = "smartTestPicker.revision", required = true)
 	private String revision;
@@ -96,6 +109,7 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 		catch (IOException failure) { throw new MojoExecutionException("Failed to invalidate previous coverage fragment", failure); }
 		try { Files.deleteIfExists(evidenceOutput.toPath()); }
 		catch (IOException failure) { throw new MojoExecutionException("Failed to invalidate previous execution evidence", failure); }
+		if (schemaVersion == CoverageMapContract.SCHEMA_V3) reconcileSkippedReports(target);
 
 		CoverageFragment fragment = collect();
 		var validation = CoverageMapValidator.validate(fragment);
@@ -118,6 +132,59 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 		getLog().info("[SmartTestPicker] Generated schema-v" + schemaVersion + " coverage fragment: " + fragmentOutput
 				+ " (" + fragment.tests().size() + " mapped, " + fragment.unmapped().size()
 				+ " unmapped, completed=" + fragment.collectionCompleted() + ")");
+	}
+
+	private void reconcileSkippedReports(ExecutionTarget target) throws MojoExecutionException
+	{
+		if (assignmentFile == null || !assignmentFile.isFile()) return;
+		try
+		{
+			var assignment = new ExecutableShardAssignmentCodec().deserialize(Files.readAllBytes(assignmentFile.toPath()));
+			Set<TestIdentity> assigned = new TreeSet<>();
+			assignment.tests().stream().filter(test -> test.target().equals(target))
+					.forEach(test -> assigned.add(test.test()));
+			Set<String> skipped = new HashSet<>();
+			readSkippedReports(surefireReportsDir, skipped);
+			readSkippedReports(failsafeReportsDir, skipped);
+			for (TestIdentity identity : assigned)
+			{
+				String key = identity.className() + "#" + identity.methodName();
+				if (!skipped.contains(key)) continue;
+				String fileName = "session_report-skipped-" + Integer.toHexString(identity.toString().hashCode()) + ".non-executed";
+				Path file = execDir.toPath().resolve(fileName);
+				Files.createDirectories(file.getParent());
+				Files.writeString(file, "format=1\nclassName=" + identity.className() + "\nmethodName="
+						+ identity.methodName() + "\nmethodParameterTypes=" + identity.methodParameterTypes() + "\n");
+			}
+		}
+		catch (Exception failure)
+		{
+			throw new MojoExecutionException("Failed to reconcile authoritative Maven skipped-test reports", failure);
+		}
+	}
+
+	private static void readSkippedReports(File directory, Set<String> skipped) throws Exception
+	{
+		if (directory == null || !directory.isDirectory()) return;
+		File[] reports = directory.listFiles((dir, name) -> name.startsWith("TEST-") && name.endsWith(".xml"));
+		if (reports == null) return;
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+		factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+		factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+		factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+		factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+		for (File report : reports)
+		{
+			var cases = factory.newDocumentBuilder().parse(report).getElementsByTagName("testcase");
+			for (int index = 0; index < cases.getLength(); index++)
+			{
+				var testCase = (org.w3c.dom.Element) cases.item(index);
+				if (testCase.getElementsByTagName("skipped").getLength() == 0) continue;
+				String method = testCase.getAttribute("name").replaceFirst("[\\[(].*$", "");
+				skipped.add(testCase.getAttribute("classname") + "#" + method);
+			}
+		}
 	}
 
 	private ExecutionTarget validateRuntimeContext() throws MojoExecutionException {
