@@ -132,6 +132,7 @@ public final class JUnitHeadTestInventoryGenerator {
 	}
 
 	private static final class TargetJUnitClassLoader extends URLClassLoader {
+		private static final String ENGINE_SERVICE = "META-INF/services/org.junit.platform.engine.TestEngine";
 		TargetJUnitClassLoader(URL[] urls, ClassLoader parent) { super(urls, parent); }
 		@Override protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
 			if (name.startsWith("org.junit.platform.") || name.startsWith("org.junit.jupiter.")
@@ -143,6 +144,10 @@ public final class JUnitHeadTestInventoryGenerator {
 			}
 			}
 			return super.loadClass(name, resolve);
+		}
+		@Override public Enumeration<URL> getResources(String name) throws IOException {
+			if (ENGINE_SERVICE.equals(name)) return findResources(name);
+			return super.getResources(name);
 		}
 	}
 
