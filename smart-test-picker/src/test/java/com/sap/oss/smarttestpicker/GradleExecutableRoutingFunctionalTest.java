@@ -42,6 +42,7 @@ class GradleExecutableRoutingFunctionalTest {
 		Path project = discoveryFixture("two-targets");
 		String revision = command(project, "git", "rev-parse", "HEAD").trim();
 		GradleRunner.create().withProjectDir(project.toFile()).withPluginClasspath()
+				.withGradleVersion("9.7.1")
 				.withArguments("generateGradleExecutableHeadTestInventory", "-Dstp.schemaVersion=3",
 						"-Dstp.executableInventoryDiscovery=true", "-Dstp.revision=" + revision,
 						"-Dstp.mappingTestTasks=:test,:integrationTest").build();
@@ -132,6 +133,7 @@ class GradleExecutableRoutingFunctionalTest {
 			]}
 			""".formatted(revision));
 		GradleRunner.create().withProjectDir(project.toFile()).withPluginClasspath()
+				.withGradleVersion("9.7.1")
 				.withArguments("generateGradleExecutableHeadTestInventory", "-Dstp.schemaVersion=3",
 						"-Dstp.executableInventoryDiscovery=true", "-Dfixture.revision=" + revision).build();
 
@@ -205,6 +207,7 @@ class GradleExecutableRoutingFunctionalTest {
 			"gradle::module-a:test::example.SharedTest#same","gradle::module-b:test::example.SharedTest#same"]}
 			""".formatted(revision));
 		GradleRunner.create().withProjectDir(project.toFile()).withPluginClasspath()
+				.withGradleVersion("9.7.1")
 				.withArguments("generateGradleExecutableHeadTestInventory", "-Dstp.schemaVersion=3",
 						"-Dstp.executableInventoryDiscovery=true", "-Dfixture.revision=" + revision).build();
 		var result = GradleRunner.create().withProjectDir(project.toFile()).withPluginClasspath()

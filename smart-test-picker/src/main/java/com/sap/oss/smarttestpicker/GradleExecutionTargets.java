@@ -46,4 +46,9 @@ final class GradleExecutionTargets {
 		if (targets.isEmpty()) throw new GradleException("Schema-v3 Gradle mapping found no enabled Test tasks in configured scope");
 		return targets;
 	}
+
+	static boolean participates(Test task, List<String> configuredTaskPaths) {
+		return !(task instanceof StpCoverageTest) && !task.getName().equals("smartTest")
+				&& task.getEnabled() && (configuredTaskPaths.isEmpty() || configuredTaskPaths.contains(task.getPath()));
+	}
 }
