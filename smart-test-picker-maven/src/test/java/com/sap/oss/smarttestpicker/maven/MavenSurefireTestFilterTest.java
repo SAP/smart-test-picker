@@ -24,4 +24,13 @@ class MavenSurefireTestFilterTest {
 		assertFalse(only.test(VIBEBOT));
 		assertFalse(only.test(GUAVA));
 	}
+
+	@Test void appliesAnExplicitClassOrMethodExecutionFilter() {
+		var sanity = MavenSurefireTestFilter.parse("org.sonar.java.SanityTest");
+		assertTrue(sanity.test(TestIdentity.parse("org.sonar.java.SanityTest#verify")));
+		assertFalse(sanity.test(SERVER));
+		var vibebot = MavenSurefireTestFilter.parse("org.sonar.java.it.JavaRulingTest#vibebot");
+		assertTrue(vibebot.test(VIBEBOT));
+		assertFalse(vibebot.test(GUAVA));
+	}
 }

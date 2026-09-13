@@ -29,6 +29,7 @@ public final class GenerateReactorHeadTestInventoryMojo extends AbstractMojo {
 	@Parameter(property = "smartTestPicker.executionType") private String executionType;
 	@Parameter(property = "smartTestPicker.executionId") private String executionId;
 	@Parameter(property = "smartTestPicker.executionProfile") private String executionProfile;
+	@Parameter(property = "smartTestPicker.testFilter") private String testFilter;
 	@Parameter(property = "smartTestPicker.reactorRoot") private File reactorRoot;
 
 	@Override public void execute() throws MojoExecutionException {
@@ -42,7 +43,7 @@ public final class GenerateReactorHeadTestInventoryMojo extends AbstractMojo {
 				reactorProjects, outputFile, canonicalRoot, prHeadRevision, getLog());
 		else if (schemaVersion == 3) generated = MavenHeadTestInventory.generateExecutable(
 				reactorProjects, outputFile, canonicalRoot, prHeadRevision,
-				executionType, executionId, executionProfile, getLog());
+				executionType, executionId, executionProfile, testFilter, getLog());
 		else throw new MojoExecutionException("Unsupported Maven inventory schema version: " + schemaVersion);
 		if (!generated)
 			throw new MojoExecutionException("JUnit head inventory discovery failed");
