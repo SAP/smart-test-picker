@@ -8,7 +8,8 @@
     "stp": {
       "path": "/Users/d061177/work/asm-poc/codex-worktree",
       "initialHead": "15ab0a8728bcbd8c57fb63a807a05a3df7910e73",
-      "finalHead": "11e1cde",
+      "productionHead": "11e1cdeaae7951137c56f1ffc3008c066e0adc64",
+      "validationEvidenceCommit": "cbfe238",
       "commits": [
         "8ddc73d",
         "d954211",
@@ -58,7 +59,11 @@
     ],
     "joinAgent": "stp-plugin-agent-3",
     "physicallyDistinct": true,
-    "allOnlineBeforeExecution": true
+    "allOnlineBeforeExecution": true,
+    "containersStoppedAfterValidation": true,
+    "remainingRunningContainers": [],
+    "controllerStateVolumePreserved": "ei9_controller_home",
+    "mapStorageVolumePreserved": "ei11_map_storage"
   },
   "jobA": {
     "number": 7,

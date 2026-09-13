@@ -27,3 +27,4 @@ Execution:
 - Surefire also reports 22 JUnit nested identities intentionally outside the production inventory-discovery contract. They are retained separately as raw evidence.
 - Complete STP Gradle regression suite passed: 68 tasks.
 - Complete Jenkins plugin Maven regression suite passed: 90 tests.
+- Copied Jenkins artifacts and Docker logs, restored SonarJava master while preserving ei-11-r1, stopped the five EI-11 containers, and verified both persistent volumes remain.
