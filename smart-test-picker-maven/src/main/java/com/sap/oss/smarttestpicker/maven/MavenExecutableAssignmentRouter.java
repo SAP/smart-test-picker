@@ -15,12 +15,19 @@ import com.sap.oss.smarttestpicker.coverage.model.ExecutableShardAssignment;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget;
 import com.sap.oss.smarttestpicker.coverage.model.ShardId;
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentity;
 
 /** Strict Maven adapter validation and exact reactor-module partitioning. */
 final class MavenExecutableAssignmentRouter
 {
 	Map<ExecutionTarget, Set<TestIdentity>> partition(ExecutableShardAssignment assignment, String revision,
 			String shardId, Collection<ExecutionTarget> knownTargets)
+	{
+		return partition(assignment, revision, shardId, knownTargets, null);
+	}
+
+	Map<ExecutionTarget, Set<TestIdentity>> partition(ExecutableShardAssignment assignment, String revision,
+			String shardId, Collection<ExecutionTarget> knownTargets, Set<ExecutableTestIdentity> completeInventory)
 	{
 		if (!assignment.revision().equals(new CoverageMapRevision(revision)))
 			throw new IllegalArgumentException("Maven executable assignment revision mismatch");
@@ -34,8 +41,13 @@ final class MavenExecutableAssignmentRouter
 		assignment.tests().forEach(identity -> {
 			if (identity.target().buildTool() != BuildTool.MAVEN)
 				throw new IllegalArgumentException("Maven mapping rejects non-Maven execution target: " + identity.target());
+			if (completeInventory != null && !completeInventory.contains(identity))
+				throw new IllegalArgumentException("Assigned Maven executable identity is absent from complete inventory: " + identity);
 			Set<TestIdentity> tests = result.get(identity.target());
-			if (tests == null) throw new IllegalArgumentException("Assigned Maven target is absent from reactor: " + identity.target());
+			if (tests == null) {
+				if (completeInventory != null) return;
+				throw new IllegalArgumentException("Assigned Maven target is absent from reactor: " + identity.target());
+			}
 			tests.add(identity.test());
 		});
 		Map<ExecutionTarget, Set<TestIdentity>> frozen = new TreeMap<>();

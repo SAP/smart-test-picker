@@ -14,7 +14,12 @@ class MavenExecutionTargetResolverTest {
 		assertEquals("maven:.", resolver.resolve(root.toFile(), project(root)).toString());
 		assertEquals("maven:child", resolver.resolve(root.toFile(), project(root.resolve("child"))).toString());
 		assertEquals("maven:parent/child", resolver.resolve(root.toFile(), project(root.resolve("parent/child"))).toString());
+		assertEquals("maven:parent/child@surefire@default-test", resolver.resolve(root.toFile(),
+				project(root.resolve("parent/child")), "surefire", "default-test", null).toString());
+		assertEquals("maven:parent/child@surefire@default-test@it-plugin", resolver.resolve(root.toFile(),
+				project(root.resolve("parent/child")), "surefire", "default-test", "it-plugin").toString());
 		assertThrows(IllegalArgumentException.class, () -> resolver.resolve(root.toFile(), project(root.resolveSibling("escape"))));
+		assertThrows(IllegalArgumentException.class, () -> resolver.resolve(root.toFile(), project(root), "failsafe", "", null));
 	}
 	@Test void rejectsMissingModuleBaseDirectory(@TempDir Path root) {
 		assertThrows(IllegalArgumentException.class, () -> new MavenExecutionTargetResolver().resolve(root.toFile(), new MavenProject()));

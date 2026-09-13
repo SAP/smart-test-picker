@@ -77,6 +77,11 @@ final class MavenHeadTestInventory {
 
 	static boolean generateExecutable(List<MavenProject> projects, File output, File reactorRoot,
 			String revision, Log log) {
+		return generateExecutable(projects, output, reactorRoot, revision, null, null, null, log);
+	}
+
+	static boolean generateExecutable(List<MavenProject> projects, File output, File reactorRoot,
+			String revision, String executionType, String executionId, String profile, Log log) {
 		try {
 			revision = WorkspaceRevisionVerifier.requireHead(reactorRoot, revision);
 			var resolver = new MavenExecutionTargetResolver();
@@ -87,7 +92,7 @@ final class MavenHeadTestInventory {
 				File root = new File(project.getBuild().getTestOutputDirectory());
 				if (!root.isDirectory()) continue;
 				discoveredTarget = true;
-				var target = resolver.resolve(reactorRoot, project);
+				var target = resolver.resolve(reactorRoot, project, executionType, executionId, profile);
 				HeadTestInventory inventory = new JUnitHeadTestInventoryGenerator().generate(null,
 						project.getTestClasspathElements().stream().map(File::new).map(File::toPath).toList(),
 						List.of(root.toPath()), origin -> log.debug("[SmartTestPicker] " + project.getId() + " " + origin));
