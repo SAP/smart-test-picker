@@ -38,10 +38,34 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		assertEquals(0, result.exitCode(), result.output());
 		var inventory = new ExecutableHeadTestInventoryCodec().read(fixture.resolve("target/head-test-inventory.json").toFile());
 		assertEquals(revision, inventory.revision());
-		assertEquals(6, inventory.runnableTests().size());
+		assertEquals(8, inventory.runnableTests().size());
 		assertTrue(inventory.runnableTests().stream().anyMatch(i -> i.toString().equals("maven:module-a::shared.SharedTest#same")));
 		assertTrue(inventory.runnableTests().stream().anyMatch(i -> i.toString().equals("maven:module-b::shared.SharedTest#same")));
 		assertTrue(inventory.runnableTests().stream().noneMatch(i -> i.target().targetId().equals("module-zero")));
+	}
+
+	@Test
+	void schemaV3ExecutesParameterizedMethodsAndAccountsDisabledParameterizedContainers(@TempDir Path temp) throws Exception {
+		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor")); initializeGit(fixture);
+		Path assignment = fixture.resolve("assignment.json");
+		Files.writeString(assignment, executableAssignment(
+				"maven:module-a::a.ATests#parameterized(java.lang.String)",
+				"maven:module-a::a.ATests#disabledParameterized(java.lang.String)"));
+		Path fragment = fixture.resolve("target/final-fragment-v3.json"), evidence = fixture.resolve("target/final-evidence-v2.json");
+		Result result = maven(fixture, PLUGIN + "prepare-reactor-executable-mapping", "verify",
+				PLUGIN + "aggregate-reactor-coverage-fragment", "-DsmartTestPicker.schemaVersion=3",
+				"-DsmartTestPicker.testsFile=" + assignment, "-DsmartTestPicker.fragmentOutput=" + fragment,
+				"-DsmartTestPicker.evidenceOutput=" + evidence);
+		assertEquals(0, result.exitCode(), result.output());
+		assertEquals(List.of("a.ATests#disabledParameterized", "a.ATests#parameterized"),
+				Files.readAllLines(fixture.resolve("module-a/target/stp/selected-tests-surefire-v3.txt")));
+		var decoded = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(fragment));
+		assertEquals(Set.of("maven:module-a::a.ATests#parameterized(java.lang.String)"),
+				decoded.tests().keySet().stream().map(Object::toString).collect(java.util.stream.Collectors.toSet()));
+		var json = JsonParser.parseString(Files.readString(evidence)).getAsJsonObject();
+		assertEquals(1, json.getAsJsonArray("EXECUTED").size());
+		assertEquals("maven:module-a::a.ATests#disabledParameterized(java.lang.String)",
+				json.getAsJsonArray("NON_EXECUTED").get(0).getAsString());
 	}
 
 	@Test

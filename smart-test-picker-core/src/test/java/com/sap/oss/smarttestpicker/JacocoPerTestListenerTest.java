@@ -8,8 +8,11 @@ import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.io.TempDir;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.platform.launcher.Launcher;
 import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.junit.platform.launcher.core.LauncherFactory;
@@ -167,10 +170,44 @@ class JacocoPerTestListenerTest
 		}
 	}
 
+	@Test
+	void disabledParameterizedContainerWritesPositiveNonExecutionForDeclaredMethod(@TempDir Path tempDir) throws Exception
+	{
+		System.setProperty("stp.exec.dir", tempDir.toString());
+		try
+		{
+			JacocoPerTestListener listener = new JacocoPerTestListener();
+			Launcher launcher = LauncherFactory.create();
+			launcher.registerTestExecutionListeners(listener);
+			launcher.execute(LauncherDiscoveryRequestBuilder.request()
+					.selectors(selectClass(DisabledParameterizedFixture.class)).build());
+
+			var markers = Files.list(tempDir)
+					.filter(path -> path.getFileName().toString().endsWith(".non-executed"))
+					.toList();
+			assertEquals(1, markers.size());
+			String marker = Files.readString(markers.get(0));
+			assertTrue(marker.contains("methodName=disabled\n"));
+			assertTrue(marker.contains("methodParameterTypes=java.lang.String\n"));
+		}
+		finally
+		{
+			System.clearProperty("stp.exec.dir");
+		}
+	}
+
 	static class BeforeAllAbortFixture
 	{
 		@BeforeAll static void setup() { Assumptions.assumeTrue(false); }
 		@Test void testOne() { }
 		@Test void testTwo() { }
+	}
+
+	static class DisabledParameterizedFixture
+	{
+		@Disabled
+		@ParameterizedTest
+		@ValueSource(strings = "value")
+		void disabled(String value) { }
 	}
 }

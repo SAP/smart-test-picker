@@ -51,6 +51,7 @@ import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableShardAssignm
 import com.sap.oss.smarttestpicker.coverage.validation.CoverageMapValidator;
 import com.sap.oss.smarttestpicker.coverage.ExecutableCoverageFragmentQualifier;
 import com.sap.oss.smarttestpicker.coverage.validation.ExecutableCoverageMapValidator;
+import com.sap.oss.smarttestpicker.coverage.validation.ExecutableFragmentAssignmentValidator;
 import com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGenerator;
 
 /** Collapses module-local schema-v2 results into one Jenkins shard result. */
@@ -131,8 +132,18 @@ public final class AggregateReactorCoverageFragmentMojo extends AbstractMojo {
 			executed.addAll(evidence.executed()); nonExecuted.addAll(evidence.nonExecuted());
 		}
 		Set<ExecutableTestIdentity> owners = new TreeSet<>(mapped.keySet()); owners.addAll(unmapped.keySet());
-		if (!owners.equals(assignment.tests())) throw new IllegalStateException("Module fragments do not own exactly the executable shard assignment");
+		ExecutableFragmentAssignmentValidator.validate(
+				new ExecutableCoverageFragment(CoverageMapContract.SCHEMA_V3,
+						new CoverageMapRevision(revision), new ShardId(shardId), mapped,
+						new ArrayList<>(unmapped.values()), new ArrayList<>(scopes.values()), true),
+				assignment, nonExecuted);
 		if (!evidenceOwners.equals(assignment.tests())) throw new IllegalStateException("Module evidence does not own exactly the executable shard assignment");
+		if (!executed.equals(owners)) {
+			Set<ExecutableTestIdentity> missingCoverage = new TreeSet<>(executed); missingCoverage.removeAll(owners);
+			Set<ExecutableTestIdentity> coverageWithoutExecution = new TreeSet<>(owners); coverageWithoutExecution.removeAll(executed);
+			throw new IllegalStateException("EXECUTED evidence and coverage owners differ; missingCoverage="
+					+ missingCoverage + ", coverageWithoutExecution=" + coverageWithoutExecution);
+		}
 		ExecutableCoverageFragment result = new ExecutableCoverageFragment(CoverageMapContract.SCHEMA_V3,
 				new CoverageMapRevision(revision), new ShardId(shardId), mapped, new ArrayList<>(unmapped.values()), new ArrayList<>(scopes.values()), true);
 		publishPair(codec.serialize(result), encodeEvidenceV2(executed, nonExecuted));
