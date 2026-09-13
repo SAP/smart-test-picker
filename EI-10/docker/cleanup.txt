@@ -1,0 +1,12 @@
+EI-10 cleanup completed: 2026-09-13
+
+Stopped containers:
+- stp-plugin-controller (e62361f89cd7), Exited (143)
+- stp-plugin-agent (0efcde3c498f), Exited (143)
+- stp-plugin-agent-1 (68ab3109bb05), Exited (143)
+- stp-plugin-agent-2 (6344267bca29), Exited (143)
+- stp-plugin-agent-3 (34ac25b02044), Exited (143)
+
+Relevant EI-10 containers still running: none.
+Containers, images, networks, volumes, Jenkins state, and the ei10_map_storage
+shared map volume were preserved for reproducible inspection and restart.

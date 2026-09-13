@@ -28,3 +28,4 @@ Production fixes and runtime reruns
 - R1 full-suite build 1: SUCCESS, 4,317 executed cases; all 228 selected identities included.
 - Full STP suite: PASS in 2m03s.
 - Full Jenkins suite initially exposed a stale EI-8 worker fixture using malformed target `test` and manual inventory. a1319cd replaced it with canonical `:test` and real discovery. Focused test PASS; full Jenkins suite PASS, 88 tests.
+2026-09-13 CLEANUP: Stopped stp-plugin-controller and all four stp-plugin-agent containers. Verified all five are exited (143); preserved containers, images, networks, Jenkins state, and ei10_map_storage.
