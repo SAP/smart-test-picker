@@ -96,6 +96,8 @@ final class MavenHeadTestInventory {
 				HeadTestInventory inventory = new JUnitHeadTestInventoryGenerator().generate(null,
 						project.getTestClasspathElements().stream().map(File::new).map(File::toPath).toList(),
 						List.of(root.toPath()), origin -> log.debug("[SmartTestPicker] " + project.getId() + " " + origin));
+				if ("surefire".equals(executionType)) inventory = HeadTestInventory.from(inventory.runnableTests().stream()
+						.filter(MavenSurefireTestFilter.from(project)).toList());
 				log.info("[SmartTestPicker] Module " + target + ": " + inventory.runnableTests().size()
 						+ " logical JUnit tests");
 				for (TestIdentity identity : inventory.runnableTests())
