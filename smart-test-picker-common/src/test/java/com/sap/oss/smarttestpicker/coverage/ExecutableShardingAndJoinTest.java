@@ -18,12 +18,14 @@ import com.sap.oss.smarttestpicker.coverage.model.ExecutableShardAssignment;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutableShardPlan;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentity;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutableTestInventory;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutableUnmappedTest;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget;
 import com.sap.oss.smarttestpicker.coverage.model.GeneratorProvenance;
 import com.sap.oss.smarttestpicker.coverage.model.ShardId;
 import com.sap.oss.smarttestpicker.coverage.model.TestCoverage;
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 import com.sap.oss.smarttestpicker.coverage.model.TestOutcome;
+import com.sap.oss.smarttestpicker.coverage.model.UnmappedReason;
 import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableShardAssignmentCodec;
 
 import org.junit.jupiter.api.Test;
@@ -128,6 +130,17 @@ class ExecutableShardingAndJoinTest
 		IllegalArgumentException contradiction = assertThrows(IllegalArgumentException.class,
 				() -> join(split, List.of(fragment(S0, Map.of(A, covered("A"))), fragment(S1, Map.of(B, covered("B")))), Set.of(B)));
 		assertTrue(contradiction.getMessage().contains("both reported and positively non-executable"));
+	}
+
+	@Test void skippedCollectorRecordIsAccountedOnlyByPositiveExecutionEvidence()
+	{
+		ExecutableShardPlan split = plan(Map.of(S0, Set.of(A), S1, Set.of(B)));
+		var skipped = new ExecutableCoverageFragment(CoverageMapContract.SCHEMA_V3, REV, S1, Map.of(),
+				List.of(new ExecutableUnmappedTest(B, UnmappedReason.SKIPPED)), List.of(), true);
+		ExecutableCoverageMap map = join(split,
+				List.of(fragment(S0, Map.of(A, covered("A"))), skipped), Set.of(B));
+		assertTrue(map.completeness().isComplete());
+		assertTrue(map.unmapped().isEmpty());
 	}
 
 	private static ExecutableCoverageMap join(ExecutableShardPlan plan, List<ExecutableCoverageFragment> fragments,
