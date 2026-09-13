@@ -8,6 +8,7 @@ import org.gradle.api.Project;
 import org.gradle.api.Task;
 import org.gradle.api.GradleException;
 import org.gradle.api.artifacts.Configuration;
+import org.gradle.api.tasks.testing.Test;
 
 final class AsmCoverageCollectorBackend implements CoverageCollectorBackend {
 	private final Configuration agent;
@@ -23,16 +24,19 @@ final class AsmCoverageCollectorBackend implements CoverageCollectorBackend {
 	}
 
 	@Override
-	public void configure(Project project, SmartTestPickerExtension extension, StpCoverageTest test, Task mappingTask) {
+	public void configure(Project project, SmartTestPickerExtension extension, Test test, Task mappingTask,
+			String executionTarget) {
 		String taskSegment = safe(test.getPath());
 		String shard = extension.getShardId().getOrElse("gradle:" + test.getPath());
 		String shardSegment = safe(shard);
 		var outputDir = project.getLayout().getBuildDirectory().dir("stp/coverage/" + taskSegment + "/" + shardSegment);
 
-		test.getCoverageCollector().set(type());
-		test.getCoverageRevision().set(extension.getRevision());
-		test.getCoverageShardId().set(shard);
-		test.getAgentConfigurationVersion().set(project.getVersion().toString());
+		if (test instanceof StpCoverageTest tracked) {
+			tracked.getCoverageCollector().set(type());
+			tracked.getCoverageRevision().set(extension.getRevision());
+			tracked.getCoverageShardId().set(shard);
+			tracked.getAgentConfigurationVersion().set(project.getVersion().toString());
+		}
 		test.setMaxParallelForks(1);
 		var fragment = outputDir.map(dir -> dir.file("fragment.json"));
 		var diagnostic = outputDir.map(dir -> dir.file("agent-diagnostic.json"));
@@ -51,7 +55,8 @@ final class AsmCoverageCollectorBackend implements CoverageCollectorBackend {
 		arguments.getRevision().set(extension.getRevision());
 		arguments.getShardId().set(shard);
 		arguments.getSchemaVersion().set(extension.getRuntimeSchemaVersion());
-		arguments.getExecutionTarget().set(extension.getExecutionTarget());
+		if (executionTarget != null) arguments.getExecutionTarget().set(executionTarget);
+		else arguments.getExecutionTarget().set(extension.getExecutionTarget());
 		arguments.getRunId().set("gradle:" + test.getPath() + ":" + shard);
 		arguments.getIncludes().set(extension.getCoverageIncludes());
 		arguments.getExcludes().set(extension.getCoverageExcludes());
@@ -91,7 +96,7 @@ final class AsmCoverageCollectorBackend implements CoverageCollectorBackend {
 		if (!complete) throw new GradleException("ASM fragment collection is incomplete");
 	}
 
-	private static String safe(String value) {
+	static String safe(String value) {
 		String safe = value.replaceAll("[^A-Za-z0-9._-]", "_");
 		return safe.isBlank() ? "default" : safe;
 	}

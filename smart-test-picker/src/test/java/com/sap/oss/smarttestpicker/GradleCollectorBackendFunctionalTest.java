@@ -37,22 +37,15 @@ class GradleCollectorBackendFunctionalTest {
 	}
 
 	@Test
-	void asmProducesSchemaV3FragmentForExplicitTrustedTarget() throws Exception {
+	void schemaV3FailsClosedWithoutExecutableAssignment() throws Exception {
 		Path project = fixture("asm-v3", "ASM", false);
 		Path buildFile = project.resolve("build.gradle");
 		Files.writeString(buildFile, Files.readString(buildFile).replace(
 				"coverageIncludes = ['example.']",
-				"runtimeSchemaVersion = 3\n    executionTarget = 'maven:module-a'\n    coverageIncludes = ['example.']"));
-		BuildResult result = run(project, "generateSmartTestCoverage");
-		assertEquals(SUCCESS, result.task(":generateSmartTestCoverage").getOutcome());
-		Path fragment = project.resolve("build/stp/coverage/_generateSmartTestCoverage/fixture-asm-v3/fragment.json");
-		var decoded = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(fragment));
-		assertEquals(3, decoded.schemaVersion());
-		assertEquals("revision-asm-v3", decoded.revision().value());
-		assertEquals("fixture-asm-v3", decoded.shardId().value());
-		assertTrue(decoded.tests().keySet().stream().allMatch(id -> id.target().toString().equals("maven:module-a")));
-		assertTrue(decoded.tests().keySet().stream().anyMatch(id -> id.test().toString().equals(
-				"example.OverloadedServiceTest#mapsDescriptorExactly")));
+				"runtimeSchemaVersion = 3\n    coverageIncludes = ['example.']"));
+		BuildResult result = GradleRunner.create().withProjectDir(project.toFile()).withPluginClasspath()
+				.withArguments("generateSmartTestCoverage", "--stacktrace").buildAndFail();
+		assertTrue(result.getOutput().contains("requires -Dstp.executableAssignment"));
 	}
 
 	@Test

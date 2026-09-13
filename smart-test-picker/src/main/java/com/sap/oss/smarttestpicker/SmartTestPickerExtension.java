@@ -68,6 +68,12 @@ public abstract class SmartTestPickerExtension
 	/** Canonical adapter-supplied execution target; required for schema-v3 collection. */
 	public abstract Property<String> getExecutionTarget();
 
+	/** Schema-v3 executable shard assignment produced by the shared orchestrator. */
+	public abstract Property<String> getExecutableAssignmentFile();
+
+	/** Optional fully-qualified Test-task paths defining this mapping invocation's scope. */
+	public abstract ListProperty<String> getMappingTestTasks();
+
 	public abstract ListProperty<String> getCoverageIncludes();
 
 	public abstract ListProperty<String> getCoverageExcludes();
