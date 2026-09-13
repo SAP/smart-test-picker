@@ -75,8 +75,10 @@ public final class JUnitHeadTestInventoryGenerator {
 	private static HeadTestInventory concreteOnly(ClassLoader loader, HeadTestInventory inventory) {
 		return HeadTestInventory.from(inventory.runnableTests().stream().filter(test -> {
 			try {
-				return !java.lang.reflect.Modifier.isAbstract(
-						Class.forName(test.className(), false, loader).getModifiers());
+				Class<?> type = Class.forName(test.className(), false, loader);
+				for (Class<?> container = type; container != null; container = container.getEnclosingClass())
+					if (java.lang.reflect.Modifier.isAbstract(container.getModifiers())) return false;
+				return true;
 			}
 			catch (ClassNotFoundException failure) {
 				throw new IllegalStateException("Cannot resolve discovered JUnit test class: " + test.className(), failure);
