@@ -87,6 +87,7 @@ class JUnitHeadTestInventoryGeneratorTest {
 		}
 	}
 
+	@org.junit.Ignore("fixture is discovered programmatically; Gradle must never execute it")
 	public static class JUnitFourFixture {
 		@org.junit.Test public void legacy() { fail("discovery executed a body"); }
 	}
