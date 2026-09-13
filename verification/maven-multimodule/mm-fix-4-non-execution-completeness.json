@@ -1,0 +1,88 @@
+{
+  "task": "MM-FIX-4 — Complete executable non-execution evidence and schema-v3 aggregation accounting",
+  "mainStpBefore": "84c331e24aaf1abd396c63e0537246c0be4c33b9",
+  "mainStpAfter": "d9834b0",
+  "rootCause": "All 22 missing shard-0 identities were the complete set of assigned methods with declared parameters. PrepareReactorExecutableMappingMojo wrote full TestIdentity strings, including parameter signatures, to Surefire's name-pattern includes file. Surefire did not materialize those signature-bearing selectors, so the methods produced no JUnit leaf callbacks. Separately, JacocoPerTestListener ignored a skipped method-backed container itself and only inspected test descendants, leaving disabled parameterized templates without positive NON_EXECUTED evidence.",
+  "previousShard0": {
+    "assignment": 1382,
+    "coverageOwners": 1358,
+    "evidenceOwners": 1360,
+    "executed": 1358,
+    "nonExecuted": 2,
+    "missing": 22
+  },
+  "missingIdentityCount": 22,
+  "missingIdentityGroups": [
+    {
+      "category": "JUnit parameterized/template methods filtered before materialization by signature-bearing Surefire selectors",
+      "count": 19,
+      "identities": [
+        "maven:external-reports::org.sonar.java.externalreport.CheckstyleSensorTest#no_issues_with_invalid_report(java.lang.String)",
+        "maven:java-checks::org.sonar.java.checks.DefaultEncodingUsageCheckTest#test_since_java_version_18_or_not_set(int)",
+        "maven:java-checks::org.sonar.java.checks.ImportDeclarationOrderCheckTest#hasProblematicImport_test(java.util.List, boolean, java.lang.String)",
+        "maven:java-checks::org.sonar.java.checks.MultipleMainInstancesCheckTest#test_java_24(java.lang.String)",
+        "maven:java-checks::org.sonar.java.checks.helpers.RandomnessDetectorTest#test_progressive_entropy_score_sensibility(java.lang.String, int)",
+        "maven:java-checks::org.sonar.java.checks.spring.MissingPathVariableAnnotationCheckTest#test_extractRecordProperties(java.lang.String, java.util.Set)",
+        "maven:java-frontend::org.sonar.java.JavaFrontendTest#exceptions_outside_rules_as_batch_should_be_logged(java.lang.String, java.lang.String)",
+        "maven:java-frontend::org.sonar.java.JavaFrontendTest#should_handle_analysis_cancellation_batch_mode(java.lang.String, java.lang.String)",
+        "maven:java-frontend::org.sonar.java.JavaFrontendTest#test_end_of_analysis_should_be_called_once_with_batch(java.lang.String, java.lang.String)",
+        "maven:java-frontend::org.sonar.java.SonarComponentsTest#canSkipUnchangedFiles(java.lang.Boolean, java.lang.Boolean, java.lang.Boolean)",
+        "maven:java-frontend::org.sonar.java.ast.JavaAstScannerTest#should_interrupt_analysis_when_specific_exception_are_thrown_as_batch(java.lang.Class)",
+        "maven:java-frontend::org.sonar.java.cfg.VariableReadExtractorTest#should_extract_correctly(java.lang.String, boolean, int)",
+        "maven:java-frontend::org.sonar.java.classpath.ClasspathForMainTest#should_include_jdk_in_libraries_when_specified(java.lang.String, java.lang.String)",
+        "maven:java-frontend::org.sonar.java.model.DefaultModuleScannerContextTest#should_properly_report_sonar_product(org.sonar.api.SonarProduct)",
+        "maven:java-frontend::org.sonar.java.model.JParserSemanticTest#test_abstract_type_tree_is_not_null(java.lang.String)",
+        "maven:java-frontend::org.sonar.java.model.expression.LambdaExpressionTreeImplTest#lambda_method_symbol_and_return_type(java.lang.String, java.lang.String, java.lang.String)",
+        "maven:java-frontend::org.sonar.java.testing.JavaFileScannerContextForTestsTest#reportIssue_between_trees_with_flows(boolean)",
+        "maven:java-frontend::org.sonar.java.testing.JavaFileScannerContextForTestsTest#reportIssue_on_tree_with_secondaries(boolean)",
+        "maven:java-frontend::org.sonar.java.model.JParserTest#dont_include_running_VM_Bootclasspath_if_jvm_rt_jar_already_provided_in_classpath(java.nio.file.Path)"
+      ]
+    },
+    {
+      "category": "Ordinary Jupiter tests with extension-injected @TempDir parameters filtered before materialization by signature-bearing Surefire selectors",
+      "count": 3,
+      "identities": [
+        "maven:java-checks-test-sources/test-classpath-reader::org.sonar.java.test.classpath.TestClasspathUtilsTest#find_module_jar_in_target_folder(java.nio.file.Path)",
+        "maven:java-checks-test-sources/test-classpath-reader::org.sonar.java.test.classpath.TestClasspathUtilsTest#read_xml_node_value(java.nio.file.Path)",
+        "maven:sonar-java-plugin::org.sonar.plugins.java.ProjectEndOfAnalysisSensorTest#test_telemetry(java.nio.file.Path)"
+      ]
+    }
+  ],
+  "positiveNonExecutionMechanism": "JUnit Platform executionSkipped now records a method-backed container's supported MethodSource directly; class/container aborts continue to record discovered test descendants. Module evidence qualifies the declared TestIdentity with the exact Maven ExecutionTarget. Executed physical invocations win over skipped invocations for the same logical parameterized identity.",
+  "assignmentMinusExecutedUsedAsProof": false,
+  "aggregatorCompletenessBefore": "mapped union executable-unmapped == assignment",
+  "aggregatorCompletenessAfter": "mapped union executable-unmapped union explicit NON_EXECUTED == assignment",
+  "overlapValidation": {
+    "mappedVsUnmapped": "PASS",
+    "mappedVsNonExecuted": "PASS",
+    "unmappedVsNonExecuted": "PASS",
+    "executedVsNonExecuted": "PASS",
+    "executedEqualsMappedUnionUnmapped": "PASS"
+  },
+  "schemaV2Regression": "PASS",
+  "schemaV3Regression": "PASS",
+  "sonarJavaRevision": "9bbe6d04d2db75e5b864f3a424bb78bfa4f36b4c",
+  "shard0": {
+    "assignment": 1382,
+    "mapped": 1380,
+    "unmapped": 0,
+    "nonExecuted": 2,
+    "missing": 0,
+    "unexpected": 0,
+    "duplicates": 0,
+    "wrongTarget": 0,
+    "collectionCompleted": true,
+    "result": "PASS"
+  },
+  "former22Resolved": true,
+  "stage1Rerun": false,
+  "stage2Rerun": false,
+  "stage3Shard1Run": false,
+  "stage3Shard2Run": false,
+  "joinRun": false,
+  "dockerUsed": false,
+  "jenkinsUsed": false,
+  "pushPerformed": false,
+  "result": "PASS",
+  "next": "Resume the same MM-2 from Stage-3 shard 1, then shard 2 and the final executable join and completeness."
+}
