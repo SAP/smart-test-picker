@@ -14,12 +14,17 @@ import java.util.Map;
 import java.util.concurrent.Callable;
 
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import com.sap.oss.smarttestpicker.selector.ExplicitPrSelectionResult;
 import com.sap.oss.smarttestpicker.selector.ExplicitPrSelectionStatus;
 import com.sap.oss.smarttestpicker.selector.ExplicitPrSelectorFlow;
 import com.sap.oss.smarttestpicker.selector.HeadTestInventory;
 import com.sap.oss.smarttestpicker.selector.HeadTestInventoryCodec;
+import com.sap.oss.smarttestpicker.selector.ExecutableHeadTestInventory;
+import com.sap.oss.smarttestpicker.selector.ExecutableHeadTestInventoryCodec;
 import com.sap.oss.smarttestpicker.selector.SchemaV2SelectorFlow;
 import com.sap.oss.smarttestpicker.selector.SelectionOutput;
 import com.sap.oss.smarttestpicker.store.CoverageMapResolver;
@@ -183,9 +188,19 @@ public class SelectTestsCommand implements Callable<Integer>
 	private int selectExplicitPr(ConsoleLogger logger)
 	{
 		ExplicitPrSelectionResult result;
+		ExecutableHeadTestInventory executableInventory = null;
 		try
 		{
-			HeadTestInventory inventory = new HeadTestInventoryCodec().read(headInventoryFile);
+			int schema = JsonParser.parseReader(new java.io.FileReader(mapFile)).getAsJsonObject()
+					.get("schemaVersion").getAsInt();
+			HeadTestInventory inventory;
+			if (schema == 3)
+			{
+				executableInventory = new ExecutableHeadTestInventoryCodec().read(headInventoryFile);
+				inventory = HeadTestInventory.atRevision(executableInventory.revision(),
+						executableInventory.runnableTests().stream().map(value -> value.test()).distinct().toList());
+			}
+			else inventory = new HeadTestInventoryCodec().read(headInventoryFile);
 			result = new ExplicitPrSelectorFlow().select(mapFile, projectDir, inventory,
 					integrationRevision, prBaseRevision, prHeadRevision, maxCommitDistance, fullSuiteTriggers);
 		}
@@ -203,7 +218,21 @@ public class SelectTestsCommand implements Callable<Integer>
 			FileUtils.ensureParentDirExists(output);
 			try (FileWriter writer = new FileWriter(output))
 			{
-				new GsonBuilder().setPrettyPrinting().create().toJson(outputResult, writer);
+				var gson = new GsonBuilder().setPrettyPrinting().create();
+				JsonObject json = gson.toJsonTree(outputResult).getAsJsonObject();
+				if (executableInventory != null && result.output().isPresent())
+				{
+					SelectionOutput selection = result.output().orElseThrow();
+					java.util.Set<String> logical = new java.util.TreeSet<>();
+					if (selection.getSelectedTests() != null) logical.addAll(selection.getSelectedTests());
+					if (selection.getUnmappedTests() != null) logical.addAll(selection.getUnmappedTests().keySet());
+					JsonArray executable = new JsonArray();
+					executableInventory.runnableTests().stream()
+							.filter(value -> logical.contains(value.test().toString()))
+							.sorted().forEach(value -> executable.add(value.toString()));
+					json.getAsJsonObject("selectionOutput").add("selectedExecutableTests", executable);
+				}
+				gson.toJson(json, writer);
 			}
 			return 0;
 		}

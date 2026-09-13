@@ -32,6 +32,14 @@ import com.sap.oss.smarttestpicker.coverage.model.TestCoverage;
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 import com.sap.oss.smarttestpicker.coverage.model.TestOutcome;
 import com.sap.oss.smarttestpicker.coverage.serialization.CoverageMapCodec;
+import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableCoverageMapCodec;
+import com.sap.oss.smarttestpicker.coverage.model.BuildTool;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutableCompleteness;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutableCoverageMap;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentity;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget;
+import com.sap.oss.smarttestpicker.selector.ExecutableHeadTestInventory;
+import com.sap.oss.smarttestpicker.selector.ExecutableHeadTestInventoryCodec;
 import com.sap.oss.smarttestpicker.selector.HeadTestInventory;
 import com.sap.oss.smarttestpicker.selector.HeadTestInventoryCodec;
 
@@ -98,6 +106,35 @@ class ExplicitPrSelectTestsCommandTest
 		JsonObject invalid = execute(repo, base, integration, integration, side, side, 10, List.of(), false);
 		assertEquals("BASE_OUT_OF_DATE", status(invalid));
 		assertFalse(invalid.has("selectionOutput"));
+	}
+
+	@Test void schemaThreeInventoryPreservesDistinctMavenModuleOwnership() throws Exception
+	{
+		Repo repo = repo(); String r0 = repo.head();
+		repo.commitFile("module-a/src/main/java/com/example/Service.java", "package com.example; class Service { int changed; }", "R1");
+		String r1 = repo.head();
+		var a = new ExecutableTestIdentity(new ExecutionTarget(BuildTool.MAVEN, "module-a"), TEST);
+		var b = new ExecutableTestIdentity(new ExecutionTarget(BuildTool.MAVEN, "module-b"), TEST);
+		Set<ExecutableTestIdentity> tests = Set.of(a, b); ShardId shard = new ShardId("one");
+		TestCoverage coverage = new TestCoverage(Set.of("com.example.Service"), Set.of(), TestOutcome.PASS,
+				CollectionStatus.COLLECTED_WITH_COVERAGE);
+		var complete = new ExecutableCompleteness(tests, tests, Set.of(shard), Set.of(shard), Set.of(), Set.of(), Set.of(), Set.of(), Set.of());
+		var map = new ExecutableCoverageMap(3, new CoverageMapRevision(r0), Instant.EPOCH,
+				new GeneratorProvenance("test", "test", "test", "17"), Map.of(a, coverage, b, coverage),
+				List.of(), List.of(), complete, new MapStatistics(2, 2, 0, 0, 2, 0),
+				CoverageMapLifecycleState.PUBLISHED, null);
+		Path mapFile = temporary.resolve("executable-map.json");
+		Files.write(mapFile, new ExecutableCoverageMapCodec().serialize(map));
+		Path inventory = temporary.resolve("executable-inventory.json");
+		new ExecutableHeadTestInventoryCodec().write(inventory.toFile(), ExecutableHeadTestInventory.atRevision(r1, tests));
+		Path output = temporary.resolve("executable-output.json");
+		assertEquals(0, new CommandLine(new SelectTestsCommand()).execute("--map", mapFile.toString(),
+				"--head-inventory", inventory.toString(), "--project-dir", repo.root.toString(), "--output", output.toString(),
+				"--integration-revision", r0, "--pr-base-revision", r0, "--pr-head-revision", r1));
+		var selected = JsonParser.parseString(Files.readString(output)).getAsJsonObject()
+				.getAsJsonObject("selectionOutput").getAsJsonArray("selectedExecutableTests");
+		assertEquals(Set.of(a.toString(), b.toString()), java.util.stream.StreamSupport.stream(selected.spliterator(), false)
+				.map(value -> value.getAsString()).collect(java.util.stream.Collectors.toSet()));
 	}
 
 	private JsonObject execute(Repo repo, String mapRevision, String integration, String base, String head,
