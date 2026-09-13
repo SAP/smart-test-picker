@@ -7,13 +7,13 @@ import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableCoverageFrag
 import org.gradle.api.Project;
 import org.gradle.api.Task;
 import org.gradle.api.GradleException;
-import org.gradle.api.artifacts.Configuration;
+import org.gradle.api.file.FileCollection;
 import org.gradle.api.tasks.testing.Test;
 
 final class AsmCoverageCollectorBackend implements CoverageCollectorBackend {
-	private final Configuration agent;
+	private final FileCollection agent;
 
-	AsmCoverageCollectorBackend(Configuration agent) {
+	AsmCoverageCollectorBackend(FileCollection agent) {
 		this.agent = agent;
 	}
 
