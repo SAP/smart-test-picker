@@ -71,6 +71,9 @@ public abstract class SmartTestPickerExtension
 	/** Schema-v3 executable shard assignment produced by the shared orchestrator. */
 	public abstract Property<String> getExecutableAssignmentFile();
 
+	/** Assignment-free schema-v3 executable inventory discovery mode. */
+	public abstract Property<Boolean> getExecutableInventoryDiscovery();
+
 	/** Optional fully-qualified Test-task paths defining this mapping invocation's scope. */
 	public abstract ListProperty<String> getMappingTestTasks();
 

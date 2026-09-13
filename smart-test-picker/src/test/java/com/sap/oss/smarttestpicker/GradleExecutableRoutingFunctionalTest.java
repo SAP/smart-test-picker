@@ -20,6 +20,53 @@ import static org.junit.jupiter.api.Assertions.*;
 class GradleExecutableRoutingFunctionalTest {
 	@TempDir Path temporary;
 
+	@Test void discoversScopedTaskAwareInventoryWithoutAssignmentOrCoverage() throws Exception {
+		Path project = discoveryFixture("discovery");
+		String revision = command(project, "git", "rev-parse", "HEAD").trim();
+		var result = GradleRunner.create().withProjectDir(project.toFile()).withPluginClasspath()
+				.withArguments("generateGradleExecutableHeadTestInventory", "-Dstp.schemaVersion=3",
+						"-Dstp.executableInventoryDiscovery=true", "-Dstp.revision=" + revision,
+						"-Dstp.mappingTestTasks=:integrationTest", "--stacktrace")
+				.forwardOutput().build();
+		assertNotNull(result.task(":generateGradleExecutableHeadTestInventory"));
+		var inventory = new ExecutableHeadTestInventoryCodec().read(
+				project.resolve("build/executable-head-test-inventory.json").toFile());
+		assertEquals(revision, inventory.revision());
+		assertEquals(Set.of("gradle::integrationTest::example.SharedTest#same"), inventory.runnableTests().stream()
+				.map(Object::toString).collect(java.util.stream.Collectors.toSet()));
+		assertFalse(Files.exists(project.resolve("build/stp/executable-fragment.json")));
+		assertFalse(Files.exists(project.resolve("build/test-results/integrationTest")));
+	}
+
+	@Test void discoveryPreservesSameLogicalTestUnderTwoTargets() throws Exception {
+		Path project = discoveryFixture("two-targets");
+		String revision = command(project, "git", "rev-parse", "HEAD").trim();
+		GradleRunner.create().withProjectDir(project.toFile()).withPluginClasspath()
+				.withArguments("generateGradleExecutableHeadTestInventory", "-Dstp.schemaVersion=3",
+						"-Dstp.executableInventoryDiscovery=true", "-Dstp.revision=" + revision,
+						"-Dstp.mappingTestTasks=:test,:integrationTest").build();
+		var inventory = new ExecutableHeadTestInventoryCodec().read(
+				project.resolve("build/executable-head-test-inventory.json").toFile());
+		assertEquals(Set.of("gradle::test::example.SharedTest#same",
+				"gradle::integrationTest::example.SharedTest#same"), inventory.runnableTests().stream()
+				.map(Object::toString).collect(java.util.stream.Collectors.toSet()));
+	}
+
+	@Test void discoveryFailsClosedForWrongRevisionAndUnknownOrMalformedScope() throws Exception {
+		Path project = discoveryFixture("fail-closed");
+		for (List<String> arguments : List.of(
+				List.of("-Dstp.revision=0000000000000000000000000000000000000000", "-Dstp.mappingTestTasks=:test"),
+				List.of("-Dstp.revision=" + command(project, "git", "rev-parse", "HEAD").trim(), "-Dstp.mappingTestTasks=:missing"),
+				List.of("-Dstp.revision=" + command(project, "git", "rev-parse", "HEAD").trim(), "-Dstp.mappingTestTasks=test"))) {
+			var invocation = new java.util.ArrayList<>(List.of("generateGradleExecutableHeadTestInventory",
+					"-Dstp.schemaVersion=3", "-Dstp.executableInventoryDiscovery=true"));
+			invocation.addAll(arguments);
+			assertThrows(org.gradle.testkit.runner.UnexpectedBuildFailure.class, () -> GradleRunner.create()
+					.withProjectDir(project.toFile()).withPluginClasspath().withArguments(invocation).build());
+			assertFalse(Files.exists(project.resolve("build/executable-head-test-inventory.json")));
+		}
+	}
+
 	@Test void routesSameLogicalTestSeparatelyAcrossRootTestTasks() throws Exception {
 		Path project = temporary.resolve("multi-task");
 		Files.createDirectories(project.resolve("src/main/java/example"));
@@ -84,6 +131,9 @@ class GradleExecutableRoutingFunctionalTest {
 			 "gradle::test::example.SharedTest#skipped"
 			]}
 			""".formatted(revision));
+		GradleRunner.create().withProjectDir(project.toFile()).withPluginClasspath()
+				.withArguments("generateGradleExecutableHeadTestInventory", "-Dstp.schemaVersion=3",
+						"-Dstp.executableInventoryDiscovery=true", "-Dfixture.revision=" + revision).build();
 
 		var result = GradleRunner.create().withProjectDir(project.toFile()).withPluginClasspath()
 				.withArguments("generateSmartTestMapping", "-Dfixture.revision=" + revision, "--stacktrace")
@@ -154,6 +204,9 @@ class GradleExecutableRoutingFunctionalTest {
 			{"version":1,"revision":"%s","shardId":"fixture-shard","tests":[
 			"gradle::module-a:test::example.SharedTest#same","gradle::module-b:test::example.SharedTest#same"]}
 			""".formatted(revision));
+		GradleRunner.create().withProjectDir(project.toFile()).withPluginClasspath()
+				.withArguments("generateGradleExecutableHeadTestInventory", "-Dstp.schemaVersion=3",
+						"-Dstp.executableInventoryDiscovery=true", "-Dfixture.revision=" + revision).build();
 		var result = GradleRunner.create().withProjectDir(project.toFile()).withPluginClasspath()
 				.withArguments("generateSmartTestMapping", "-Dfixture.revision=" + revision, "--stacktrace")
 				.forwardOutput().build();
@@ -207,6 +260,30 @@ class GradleExecutableRoutingFunctionalTest {
 	}
 
 	private static void git(Path directory, String... command) throws Exception { command(directory, "git", command); }
+	private Path discoveryFixture(String name) throws Exception {
+		Path project = temporary.resolve(name);
+		Files.createDirectories(project.resolve("src/test/java/example"));
+		Files.writeString(project.resolve("settings.gradle"), "rootProject.name='" + name + "'\n");
+		Files.writeString(project.resolve("build.gradle"), """
+			plugins { id 'java'; id 'com.sap.oss.smart-test-picker' }
+			repositories { mavenCentral() }
+			dependencies {
+			 testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+			 testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.9.3'
+			}
+			test { useJUnitPlatform() }
+			tasks.register('integrationTest', Test) {
+			 useJUnitPlatform(); testClassesDirs=sourceSets.test.output.classesDirs
+			 classpath=sourceSets.test.runtimeClasspath
+			}
+			""");
+		Files.writeString(project.resolve("src/test/java/example/SharedTest.java"),
+				"package example; import org.junit.jupiter.api.Test; class SharedTest { @Test void same() {} }\n");
+		git(project, "init", "-q"); git(project, "config", "user.email", "fixture@example.invalid");
+		git(project, "config", "user.name", "Fixture"); git(project, "add", ".");
+		git(project, "commit", "-qm", "fixture");
+		return project;
+	}
 	private static String command(Path directory, String executable, String... args) throws Exception {
 		String[] command = new String[args.length + 1]; command[0] = executable;
 		System.arraycopy(args, 0, command, 1, args.length);
