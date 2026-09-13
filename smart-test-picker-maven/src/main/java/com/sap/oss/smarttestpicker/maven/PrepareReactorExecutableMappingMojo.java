@@ -34,6 +34,7 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 	@Parameter(property = "smartTestPicker.executionId") private String executionId;
 	@Parameter(property = "smartTestPicker.executionProfile") private String executionProfile;
 	@Parameter(property = "smartTestPicker.completeInventoryFile") private File completeInventoryFile;
+	@Parameter(property = "smartTestPicker.reactorRoot") private File reactorRoot;
 
 	@Override public void execute() throws MojoExecutionException {
 		try {
@@ -44,10 +45,11 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 			MavenProject root = reactorProjects.stream().filter(MavenProject::isExecutionRoot).findFirst()
 					.orElseGet(() -> project.isExecutionRoot() ? project : null);
 			if (root == null || root.getBasedir() == null) throw new IllegalArgumentException("Cannot determine the Maven execution root");
+			File canonicalRoot = reactorRoot == null ? root.getBasedir() : reactorRoot;
 			var resolver = new MavenExecutionTargetResolver();
 			Map<ExecutionTarget,MavenProject> modules = new TreeMap<>();
 			for (MavenProject module : reactorProjects) {
-				ExecutionTarget target = resolver.resolve(root.getBasedir(), module,
+				ExecutionTarget target = resolver.resolve(canonicalRoot, module,
 						executionType, executionId, executionProfile);
 				if (modules.putIfAbsent(target, module) != null) throw new IllegalArgumentException("Ambiguous Maven execution target: " + target);
 			}
