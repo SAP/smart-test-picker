@@ -15,6 +15,14 @@ import com.sap.oss.smarttestpicker.coverage.model.MethodIdentity;
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 import com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec;
 import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableCoverageFragmentCodec;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutableShardAssignment;
+import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableShardAssignmentCodec;
+import com.sap.oss.smarttestpicker.coverage.model.BuildTool;
+import com.sap.oss.smarttestpicker.coverage.model.CoverageMapRevision;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentity;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget;
+import com.sap.oss.smarttestpicker.coverage.model.ShardId;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import com.google.gson.JsonParser;
@@ -70,6 +78,33 @@ class GenerateCoverageFragmentMojoTest
 		var evidence=JsonParser.parseString(Files.readString(temp.resolve("execution-evidence-v1.json"))).getAsJsonObject();
 		assertEquals("example.Parameters#mixed(java.lang.String)",evidence.getAsJsonArray("EXECUTED").get(0).getAsString());
 		assertEquals("example.Parameters#allSkipped(int)",evidence.getAsJsonArray("NON_EXECUTED").get(0).getAsString());
+	}
+
+	@Test
+	void schemaV3ReconcilesAssignedSkippedSurefireTestsWithExactDescriptor(@TempDir Path temp) throws Exception
+	{
+		Path exec = Files.createDirectories(temp.resolve("jacoco"));
+		Path reports = Files.createDirectories(temp.resolve("reports"));
+		Path surefire = Files.createDirectories(temp.resolve("surefire-reports"));
+		Files.writeString(surefire.resolve("TEST-example.DisabledTests.xml"), """
+				<testsuite><testcase classname="example.DisabledTests" name="disabled(java.lang.String)[1]">
+				<skipped message="disabled"/></testcase></testsuite>
+				""");
+		var target = new ExecutionTarget(BuildTool.MAVEN, "module-a");
+		var identity = new TestIdentity("example.DisabledTests", "disabled", "java.lang.String");
+		Path assignment = temp.resolve("assignment.json");
+		Files.write(assignment, new ExecutableShardAssignmentCodec().serialize(new ExecutableShardAssignment(
+				ExecutableShardAssignment.CURRENT_VERSION, new CoverageMapRevision("rev-1"), new ShardId("shard-1"),
+				Set.of(new ExecutableTestIdentity(target, identity)))));
+		GenerateCoverageFragmentMojo mojo = mojo(exec, reports, temp.resolve("fragment-v3.json"));
+		set(mojo, "schemaVersion", 3);
+		set(mojo, "executionTarget", target.toString());
+		set(mojo, "assignmentFile", assignment.toFile());
+		set(mojo, "surefireReportsDir", surefire.toFile());
+		mojo.execute();
+		var evidence = JsonParser.parseString(Files.readString(temp.resolve("execution-evidence-v1.json"))).getAsJsonObject();
+		assertEquals("maven:module-a::example.DisabledTests#disabled(java.lang.String)",
+				evidence.getAsJsonArray("NON_EXECUTED").get(0).getAsString());
 	}
 
 	@Test

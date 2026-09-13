@@ -14,4 +14,5 @@ class ATests {
 	@Test void a2() { throw new AssertionError("A2 outside assignment executed"); }
 	@ParameterizedTest @ValueSource(strings = {"one", "two"}) void parameterized(String value) { new AValue().value(); }
 	@Disabled @ParameterizedTest @ValueSource(strings = "unused") void disabledParameterized(String value) { }
+	@Disabled @Test void disabledOrdinary() { }
 }
