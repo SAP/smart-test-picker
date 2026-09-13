@@ -55,6 +55,19 @@ class ExecutableFragmentAssignmentValidatorTest
 				() -> validate(Set.of(A), fragment(Map.of(A, coverage()), List.of()), Set.of(OUTSIDE))), "does not belong");
 	}
 
+	@Test void workerValidationAccountsForSkippedCollectorRecordsBeforeEvidenceIsJoined()
+	{
+		var skipped = new ExecutableUnmappedTest(A, UnmappedReason.SKIPPED);
+		var assignment = new ExecutableShardAssignment(1, REVISION, SHARD, Set.of(A));
+		assertDoesNotThrow(() -> ExecutableFragmentAssignmentValidator.validate(
+				fragment(Map.of(), List.of(skipped)), assignment));
+		assertContains(assertThrows(IllegalArgumentException.class,
+				() -> ExecutableFragmentAssignmentValidator.validate(
+						fragment(Map.of(), List.of(skipped)), assignment, Set.of())), "missing", A.toString());
+		assertDoesNotThrow(() -> ExecutableFragmentAssignmentValidator.validate(
+				fragment(Map.of(), List.of(skipped)), assignment, Set.of(A)));
+	}
+
 	private static void validate(Set<ExecutableTestIdentity> assigned, ExecutableCoverageFragment fragment,
 			Set<ExecutableTestIdentity> nonExecuted)
 	{

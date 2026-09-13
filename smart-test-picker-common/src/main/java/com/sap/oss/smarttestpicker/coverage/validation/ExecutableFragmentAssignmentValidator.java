@@ -17,12 +17,18 @@ public final class ExecutableFragmentAssignmentValidator
 	private ExecutableFragmentAssignmentValidator() {}
 	public static void validate(ExecutableCoverageFragment fragment, ExecutableShardAssignment assignment)
 	{
-		validate(fragment, assignment, Set.of());
+		validate(fragment, assignment, Set.of(), false);
 	}
 
 	/** Explicit non-execution is orchestrator input and is never inferred from fragment absence. */
 	public static void validate(ExecutableCoverageFragment fragment, ExecutableShardAssignment assignment,
 			Set<ExecutableTestIdentity> intentionallyNonExecutable)
+	{
+		validate(fragment, assignment, intentionallyNonExecutable, true);
+	}
+
+	private static void validate(ExecutableCoverageFragment fragment, ExecutableShardAssignment assignment,
+			Set<ExecutableTestIdentity> intentionallyNonExecutable, boolean requirePositiveNonExecution)
 	{
 		if (fragment.schemaVersion() != CoverageMapContract.SCHEMA_V3) throw new IllegalArgumentException("Fragment schema must be 3");
 		if (!fragment.revision().equals(assignment.revision())) throw new IllegalArgumentException("Fragment revision does not match assignment revision");
@@ -32,7 +38,8 @@ public final class ExecutableFragmentAssignmentValidator
 			throw new IllegalArgumentException("Positive non-execution does not belong to this shard assignment");
 		Set<ExecutableTestIdentity> reported = new TreeSet<>(fragment.tests().keySet());
 		for (var unmapped : fragment.unmapped()) {
-			if (unmapped.reason() == com.sap.oss.smarttestpicker.coverage.model.UnmappedReason.SKIPPED) continue;
+			if (requirePositiveNonExecution
+					&& unmapped.reason() == com.sap.oss.smarttestpicker.coverage.model.UnmappedReason.SKIPPED) continue;
 			if (!reported.add(unmapped.test())) throw new IllegalArgumentException("Executable identity reported as both mapped and unmapped: " + unmapped.test());
 		}
 		TreeSet<ExecutableTestIdentity> contradictory = new TreeSet<>(reported);
