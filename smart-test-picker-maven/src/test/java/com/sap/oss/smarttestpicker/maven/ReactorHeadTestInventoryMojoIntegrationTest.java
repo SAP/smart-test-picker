@@ -38,7 +38,7 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		assertEquals(0, result.exitCode(), result.output());
 		var inventory = new ExecutableHeadTestInventoryCodec().read(fixture.resolve("target/head-test-inventory.json").toFile());
 		assertEquals(revision, inventory.revision());
-		assertEquals(9, inventory.runnableTests().size());
+		assertEquals(10, inventory.runnableTests().size());
 		assertTrue(inventory.runnableTests().stream().anyMatch(i -> i.toString().equals("maven:module-a::shared.SharedTest#same")));
 		assertTrue(inventory.runnableTests().stream().anyMatch(i -> i.toString().equals("maven:module-b::shared.SharedTest#same")));
 		assertTrue(inventory.runnableTests().stream().noneMatch(i -> i.target().targetId().equals("module-zero")));
