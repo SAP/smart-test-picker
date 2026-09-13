@@ -56,20 +56,32 @@ public final class JUnitHeadTestInventoryGenerator {
 					: new StpJUnitClassLoader(urls.toArray(URL[]::new), previous)) {
 				Thread.currentThread().setContextClassLoader(loader);
 				try {
-					if (targetOwnsJUnit) return bind(revision, isolated(loader, roots, diagnostics));
+					if (targetOwnsJUnit) return bind(revision, concreteOnly(loader, isolated(loader, roots, diagnostics)));
 					stpJUnitRuntimeOrigins().forEach(diagnostics);
 					LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
 							.selectors(selectClasspathRoots(roots)).build();
 					Launcher launcher = LauncherFactory.create(LauncherConfig.builder()
 							.enableTestExecutionListenerAutoRegistration(false)
 							.enableLauncherSessionListenerAutoRegistration(false).build());
-					return bind(revision, inventory(launcher.discover(request)));
+					return bind(revision, concreteOnly(loader, inventory(launcher.discover(request))));
 				} finally { Thread.currentThread().setContextClassLoader(previous); }
 			}
 		} catch (Exception failure) {
 			throw new IllegalStateException("JUnit head inventory discovery failed with "
 					+ junitArtifacts(runtimeClasspath), failure);
 		}
+	}
+
+	private static HeadTestInventory concreteOnly(ClassLoader loader, HeadTestInventory inventory) {
+		return HeadTestInventory.from(inventory.runnableTests().stream().filter(test -> {
+			try {
+				return !java.lang.reflect.Modifier.isAbstract(
+						Class.forName(test.className(), false, loader).getModifiers());
+			}
+			catch (ClassNotFoundException failure) {
+				throw new IllegalStateException("Cannot resolve discovered JUnit test class: " + test.className(), failure);
+			}
+		}).toList());
 	}
 
 	private static List<String> stpJUnitRuntimeOrigins() {

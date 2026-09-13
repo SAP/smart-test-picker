@@ -39,6 +39,8 @@ class JUnitHeadTestInventoryGeneratorTest {
 				new TestIdentity(InventoryFixture.class.getName(), "parameterized", "java.lang.String"),
 				new TestIdentity(InventoryFixture.NestedFixture.class.getName(), "nested")), fixture);
 		assertFalse(java.nio.file.Files.exists(temporary.resolve("executed")));
+		assertFalse(result.runnableTests().stream().anyMatch(id -> id.className().equals(AbstractFixture.class.getName())));
+		assertTrue(result.runnableTests().contains(new TestIdentity(ConcreteFixture.class.getName(), "inherited")));
 	}
 
 	@Disabled("fixture is discovered programmatically; Gradle must never execute it")
@@ -51,4 +53,8 @@ class JUnitHeadTestInventoryGeneratorTest {
 		static Stream<String> values() { throw new AssertionError("discovery invoked arguments"); }
 		@Nested class NestedFixture { @Test void nested() { fail("discovery executed a body"); } }
 	}
+
+	abstract static class AbstractFixture { @Test void inherited() { fail("discovery executed a body"); } }
+	@Disabled("fixture is discovered programmatically; Gradle must never execute it")
+	static class ConcreteFixture extends AbstractFixture { }
 }
