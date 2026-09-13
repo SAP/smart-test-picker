@@ -14,8 +14,13 @@ import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.ArgumentsProvider;
+import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.support.ParameterDeclarations;
 import org.junit.jupiter.api.io.TempDir;
 
 class JUnitHeadTestInventoryGeneratorTest {
@@ -42,6 +47,9 @@ class JUnitHeadTestInventoryGeneratorTest {
 		assertFalse(result.runnableTests().stream().anyMatch(id -> id.className().equals(AbstractFixture.class.getName())));
 		assertFalse(result.runnableTests().stream().anyMatch(id -> id.className().equals(AbstractFixture.AbstractNested.class.getName())));
 		assertTrue(result.runnableTests().contains(new TestIdentity(ConcreteFixture.class.getName(), "inherited")));
+		assertTrue(result.runnableTests().contains(new TestIdentity(JUnitSixFixture.class.getName(), "outer")));
+		assertTrue(result.runnableTests().contains(new TestIdentity(JUnitSixFixture.NestedFixture.class.getName(),
+				"parameterized", "java.lang.String")));
 	}
 
 	@Disabled("fixture is discovered programmatically; Gradle must never execute it")
@@ -61,4 +69,20 @@ class JUnitHeadTestInventoryGeneratorTest {
 	}
 	@Disabled("fixture is discovered programmatically; Gradle must never execute it")
 	static class ConcreteFixture extends AbstractFixture { }
+
+	@Disabled("fixture is discovered programmatically; Gradle must never execute it")
+	static class JUnitSixFixture {
+		@Test void outer() { fail("discovery executed a body"); }
+		@Nested class NestedFixture {
+			@ParameterizedTest @ArgumentsSource(JUnitSixArguments.class)
+			void parameterized(String value) { fail("discovery executed a body"); }
+		}
+	}
+
+	static class JUnitSixArguments implements ArgumentsProvider {
+		@Override public Stream<? extends Arguments> provideArguments(ParameterDeclarations parameters,
+				ExtensionContext context) {
+			throw new AssertionError("discovery invoked arguments");
+		}
+	}
 }
