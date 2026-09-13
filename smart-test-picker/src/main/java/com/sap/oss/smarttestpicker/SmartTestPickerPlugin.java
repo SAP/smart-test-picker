@@ -185,6 +185,13 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 						task.getOutputFile().set(project.getLayout().getBuildDirectory()
 								.file("executable-head-test-inventory.json"));
 					}) : null;
+		project.getTasks().register("generateGradleExecutableProjectInventory",
+				GenerateGradleExecutableProjectInventoryTask.class, task -> {
+			task.setGroup("verification");
+			task.setDescription("Discovers project-local executable JUnit identities");
+			task.getOutputFile().set(project.getLayout().getBuildDirectory()
+					.file("stp/executable-project-inventory.json"));
+		});
 		TaskProvider<AggregateGradleExecutableCoverageTask> executableAggregate =
 				project == project.getRootProject() ? project.getTasks().register(
 						"aggregateGradleExecutableCoverage", AggregateGradleExecutableCoverageTask.class, task -> {
@@ -192,13 +199,6 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 							task.getOutputFile().set(project.getLayout().getBuildDirectory()
 									.file("stp/executable-fragment.json"));
 						}) : null;
-		if (project == project.getRootProject()) project.allprojects(candidate -> candidate.afterEvaluate(ignored -> {
-			if (ext.getRuntimeSchemaVersion().get() != 3) return;
-			candidate.getTasks().withType(Test.class).stream()
-					.filter(task -> GradleExecutionTargets.participates(task, ext.getMappingTestTasks().get()))
-					.sorted(java.util.Comparator.comparing(Test::getPath)).forEach(executableInventory.get()::addTarget);
-		}));
-
 		project.getTasks().register("generateTestCoverageJson", GenerateTestCoverageJsonTask.class, task -> {
 			task.getReportsDir().set(project.file("build/jacoco-xml"));
 			task.getOutputFile().set(project.getLayout().getBuildDirectory().file("test-coverage-map.json"));
@@ -321,6 +321,22 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 
 		if (project == project.getRootProject()) project.getGradle().projectsEvaluated(gradle -> {
 			if (ext.getRuntimeSchemaVersion().get() != 3) return;
+			var targets = GradleExecutionTargets.resolve(project, ext.getMappingTestTasks().get());
+			targets.stream().collect(java.util.stream.Collectors.groupingBy(Test::getProject)).forEach((owner, owned) -> {
+				var existingPart = owner.getTasks().findByName("generateGradleExecutableProjectInventory");
+				var part = existingPart instanceof GenerateGradleExecutableProjectInventoryTask inventoryPart
+						? inventoryPart : owner.getTasks().create("generateGradleExecutableProjectInventory",
+								GenerateGradleExecutableProjectInventoryTask.class);
+				if (!part.getOutputFile().isPresent()) part.getOutputFile().set(owner.getLayout().getBuildDirectory()
+						.file("stp/executable-project-inventory.json"));
+				part.setRevision(ext.getRevision().get());
+				owned.stream().sorted(java.util.Comparator.comparing(Test::getPath)).forEach(task -> {
+					part.addTarget(task);
+					task.getTestClassesDirs().getBuildDependencies().getDependencies(task).forEach(part::dependsOn);
+				});
+				executableInventory.get().dependsOn(part);
+				executableInventory.get().getProjectInventories().from(part.getOutputFile());
+			});
 			configureExecutableGradleMapping(project, ext, mappingTask.get(), executableInventory.get(),
 					executableAggregate.get(), stpAgent, stpJacocoCollector);
 		});
