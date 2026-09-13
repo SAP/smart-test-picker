@@ -29,6 +29,7 @@ public final class GenerateReactorHeadTestInventoryMojo extends AbstractMojo {
 	@Parameter(property = "smartTestPicker.executionType") private String executionType;
 	@Parameter(property = "smartTestPicker.executionId") private String executionId;
 	@Parameter(property = "smartTestPicker.executionProfile") private String executionProfile;
+	@Parameter(property = "smartTestPicker.reactorRoot") private File reactorRoot;
 
 	@Override public void execute() throws MojoExecutionException {
 		MavenProject executionRoot = reactorProjects.stream().filter(MavenProject::isExecutionRoot).findFirst()
@@ -36,10 +37,11 @@ public final class GenerateReactorHeadTestInventoryMojo extends AbstractMojo {
 		if (executionRoot == null || executionRoot.getBasedir() == null)
 			throw new MojoExecutionException("Cannot determine the Maven execution root");
 		boolean generated;
+		File canonicalRoot = reactorRoot == null ? executionRoot.getBasedir() : reactorRoot;
 		if (schemaVersion == 2) generated = MavenHeadTestInventory.generate(
-				reactorProjects, outputFile, executionRoot.getBasedir(), prHeadRevision, getLog());
+				reactorProjects, outputFile, canonicalRoot, prHeadRevision, getLog());
 		else if (schemaVersion == 3) generated = MavenHeadTestInventory.generateExecutable(
-				reactorProjects, outputFile, executionRoot.getBasedir(), prHeadRevision,
+				reactorProjects, outputFile, canonicalRoot, prHeadRevision,
 				executionType, executionId, executionProfile, getLog());
 		else throw new MojoExecutionException("Unsupported Maven inventory schema version: " + schemaVersion);
 		if (!generated)
