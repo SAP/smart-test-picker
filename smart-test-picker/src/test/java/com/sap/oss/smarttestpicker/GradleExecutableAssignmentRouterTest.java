@@ -10,6 +10,9 @@ import org.junit.jupiter.api.Test;
 import com.sap.oss.smarttestpicker.coverage.model.BuildTool;
 import com.sap.oss.smarttestpicker.coverage.model.CoverageMapRevision;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutableShardAssignment;
+import com.sap.oss.smarttestpicker.coverage.ExecutableAssignmentOrchestrator;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutableSelectionResult;
+import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableShardAssignmentCodec;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentity;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget;
 import com.sap.oss.smarttestpicker.coverage.model.ShardId;
@@ -18,6 +21,19 @@ import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GradleExecutableAssignmentRouterTest {
+	@Test void productionSelectionAssignmentTransportAndDispatchPreservesStrictSubset() {
+		ExecutionTarget test = new ExecutionTarget(BuildTool.GRADLE, ":test");
+		ExecutionTarget integration = new ExecutionTarget(BuildTool.GRADLE, ":integrationTest");
+		TestIdentity logical = TestIdentity.parse("example.SharedTest#works");
+		byte[][] transported = new byte[1][];
+		new ExecutableAssignmentOrchestrator().dispatch(new ExecutableSelectionResult(
+				new CoverageMapRevision("r"), Set.of(new ExecutableTestIdentity(integration, logical))),
+				new CoverageMapRevision("r"), new ShardId("s"), BuildTool.GRADLE, bytes -> transported[0] = bytes);
+		var decoded = new ExecutableShardAssignmentCodec().deserialize(transported[0]);
+		var partitions = new GradleExecutableAssignmentRouter().partition(decoded, "r", "s", Set.of(test, integration));
+		assertEquals(Set.of(), partitions.get(test));
+		assertEquals(Set.of(logical), partitions.get(integration));
+	}
 	private static final ExecutionTarget TEST = new ExecutionTarget(BuildTool.GRADLE, ":module-a:test");
 	private static final ExecutionTarget IT = new ExecutionTarget(BuildTool.GRADLE, ":module-a:integrationTest");
 	private static final TestIdentity SHARED = new TestIdentity("example.SharedTest", "same", "java.lang.String");

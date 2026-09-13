@@ -6,8 +6,8 @@ import java.io.File;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -16,7 +16,6 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
-import com.sap.oss.smarttestpicker.coverage.model.BuildTool;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutableShardAssignment;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget;
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
@@ -46,21 +45,15 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 				ExecutionTarget target = resolver.resolve(root.getBasedir(), module);
 				if (modules.putIfAbsent(target, module) != null) throw new IllegalArgumentException("Ambiguous Maven execution target: " + target);
 			}
-			Map<ExecutionTarget,TreeSet<TestIdentity>> partitioned = new TreeMap<>();
-			assignment.tests().forEach(identity -> {
-				if (identity.target().buildTool() != BuildTool.MAVEN)
-					throw new IllegalArgumentException("Maven mapping rejects non-Maven execution target: " + identity.target());
-				if (!modules.containsKey(identity.target()))
-					throw new IllegalArgumentException("Assigned Maven execution target is absent from reactor: " + identity.target());
-				partitioned.computeIfAbsent(identity.target(), ignored -> new TreeSet<>()).add(identity.test());
-			});
-			for (var entry : modules.entrySet()) configure(entry.getValue(), entry.getKey(), partitioned.getOrDefault(entry.getKey(), new TreeSet<>()));
+			Map<ExecutionTarget,Set<TestIdentity>> partitioned = new MavenExecutableAssignmentRouter()
+					.partition(assignment, revision, shardId, modules.keySet());
+			for (var entry : modules.entrySet()) configure(entry.getValue(), entry.getKey(), partitioned.get(entry.getKey()));
 		} catch (Exception failure) {
 			throw new MojoExecutionException("Cannot prepare schema-v3 Maven mapping: " + failure.getMessage(), failure);
 		}
 	}
 
-	private static void configure(MavenProject module, ExecutionTarget target, TreeSet<TestIdentity> tests) throws Exception {
+	private static void configure(MavenProject module, ExecutionTarget target, Set<TestIdentity> tests) throws Exception {
 		File output = new File(module.getBuild().getDirectory(), "stp/selected-tests-surefire-v3.txt");
 		Files.createDirectories(output.getParentFile().toPath());
 		List<String> patterns = tests.isEmpty() ? List.of("__stp_no_assigned_tests__")
