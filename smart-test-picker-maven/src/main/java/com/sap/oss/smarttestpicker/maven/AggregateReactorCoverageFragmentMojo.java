@@ -163,6 +163,7 @@ public final class AggregateReactorCoverageFragmentMojo extends AbstractMojo {
 
 	private byte[] encodeEvidenceV2(Set<ExecutableTestIdentity> executed, Set<ExecutableTestIdentity> nonExecuted) {
 		JsonObject root = new JsonObject(); root.addProperty("version", 2); root.addProperty("revision", revision); root.addProperty("shardId", shardId);
+		root.addProperty("testTarget", testTarget); root.addProperty("buildTool", "maven");
 		JsonArray x = new JsonArray(); executed.forEach(id -> x.add(id.toString())); root.add("EXECUTED", x);
 		JsonArray n = new JsonArray(); nonExecuted.forEach(id -> n.add(id.toString())); root.add("NON_EXECUTED", n);
 		return (new GsonBuilder().setPrettyPrinting().create().toJson(root) + "\n").getBytes(StandardCharsets.UTF_8);

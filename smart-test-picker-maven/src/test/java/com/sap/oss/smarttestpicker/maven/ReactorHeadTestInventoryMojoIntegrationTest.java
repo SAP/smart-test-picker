@@ -64,6 +64,8 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		assertEquals(Set.of("maven:module-a::a.ATests#parameterized(java.lang.String)"),
 				decoded.tests().keySet().stream().map(Object::toString).collect(java.util.stream.Collectors.toSet()));
 		var json = JsonParser.parseString(Files.readString(evidence)).getAsJsonObject();
+		assertEquals("test", json.get("testTarget").getAsString());
+		assertEquals("maven", json.get("buildTool").getAsString());
 		assertEquals(1, json.getAsJsonArray("EXECUTED").size());
 		assertEquals(Set.of("maven:module-a::a.ATests#disabledOrdinary",
 				"maven:module-a::a.ATests#disabledParameterized(java.lang.String)"),
