@@ -78,7 +78,12 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 				.map(Integer::parseInt).orElse(2));
 		ext.getExecutionTarget().convention(project.getProviders().systemProperty("stp.executionTarget"));
 		ext.getExecutableAssignmentFile().convention(project.getProviders().systemProperty("stp.executableAssignment"));
+		ext.getExecutableInventoryDiscovery().convention(project.getProviders()
+				.systemProperty("stp.executableInventoryDiscovery").map(Boolean::parseBoolean).orElse(false));
 		ext.getMappingTestTasks().convention(java.util.List.of());
+		String mappingScope = System.getProperty("stp.mappingTestTasks");
+		if (mappingScope != null) ext.getMappingTestTasks().set(
+				java.util.Arrays.stream(mappingScope.split(",", -1)).map(String::trim).toList());
 		ext.getCoverageIncludes().convention(java.util.List.of());
 		ext.getCoverageExcludes().convention(java.util.List.of());
 
@@ -320,17 +325,8 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 			Task mappingTask, GenerateGradleExecutableHeadTestInventoryTask inventoryTask,
 			AggregateGradleExecutableCoverageTask aggregateTask,
 			Configuration stpAgent, Configuration stpJacocoCollector) {
-		if (!ext.getExecutableAssignmentFile().isPresent())
-			throw new GradleException("Schema-v3 Gradle mapping requires -Dstp.executableAssignment=<file>");
-		if (root.getGradle().getIncludedBuilds().size() > 0)
-			throw new GradleException("Schema-v3 Gradle executable routing does not support composite/included builds");
-		Set<String> configuredScope = Set.copyOf(ext.getMappingTestTasks().get());
-		java.util.List<Test> targets = root.getAllprojects().stream()
-				.flatMap(candidate -> candidate.getTasks().withType(Test.class).stream())
-				.filter(task -> !(task instanceof StpCoverageTest) && !task.getName().equals("smartTest"))
-				.filter(task -> configuredScope.isEmpty() || configuredScope.contains(task.getPath()))
-				.filter(Test::getEnabled).sorted(java.util.Comparator.comparing(Test::getPath)).toList();
-		if (targets.isEmpty()) throw new GradleException("Schema-v3 Gradle mapping found no enabled Test tasks");
+		boolean discovery = ext.getExecutableInventoryDiscovery().get();
+		java.util.List<Test> targets = GradleExecutionTargets.resolve(root, ext.getMappingTestTasks().get());
 		// The v2 synthetic task is deliberately absent from v3: every JVM must correspond
 		// to one real Test-task execution target.
 		mappingTask.setDependsOn(java.util.List.of());
@@ -339,6 +335,12 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 		targets.forEach(task -> task.getTestClassesDirs().getBuildDependencies().getDependencies(task)
 				.forEach(inventoryTask::dependsOn));
 
+		if (discovery) {
+			mappingTask.setEnabled(false);
+			return;
+		}
+		if (!ext.getExecutableAssignmentFile().isPresent())
+			throw new GradleException("Schema-v3 Gradle mapping requires -Dstp.executableAssignment=<file>");
 		com.sap.oss.smarttestpicker.coverage.model.ExecutableShardAssignment assignment;
 		try {
 			assignment = new ExecutableShardAssignmentCodec().deserialize(Files.readAllBytes(
@@ -390,7 +392,6 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 			mappingTask.dependsOn(task);
 		}
 		mappingTask.dependsOn(aggregateTask);
-		mappingTask.dependsOn(inventoryTask);
 	}
 
 	static void applyExplicitExecutionGate(Test smartTest, File resultFile,
