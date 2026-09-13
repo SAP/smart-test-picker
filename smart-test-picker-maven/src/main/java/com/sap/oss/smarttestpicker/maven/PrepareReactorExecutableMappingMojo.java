@@ -60,25 +60,40 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 			Map<ExecutionTarget,Set<TestIdentity>> partitioned = new MavenExecutableAssignmentRouter()
 					.partition(assignment, revision, shardId, modules.keySet(),
 							completeInventory == null ? null : completeInventory.runnableTests());
-			for (var entry : modules.entrySet()) configure(entry.getValue(), entry.getKey(), partitioned.get(entry.getKey()));
+			for (var entry : modules.entrySet()) configure(entry.getValue(), entry.getKey(),
+					partitioned.get(entry.getKey()), executionType);
 		} catch (Exception failure) {
 			throw new MojoExecutionException("Cannot prepare schema-v3 Maven mapping: " + failure.getMessage(), failure);
 		}
 	}
 
-	private static void configure(MavenProject module, ExecutionTarget target, Set<TestIdentity> tests) throws Exception {
-		File output = new File(module.getBuild().getDirectory(), "stp/selected-tests-surefire-v3.txt");
+	private static void configure(MavenProject module, ExecutionTarget target, Set<TestIdentity> tests,
+			String executionType) throws Exception {
+		String provider = executionType == null || executionType.isBlank() ? "surefire" : executionType;
+		if (!provider.equals("surefire") && !provider.equals("failsafe"))
+			throw new IllegalArgumentException("Unsupported Maven test execution type: " + provider);
+		boolean qualified = executionType != null && !executionType.isBlank();
+		String scope = target.targetId().replaceAll("[^A-Za-z0-9_.-]", "_");
+		String suffix = qualified ? "-" + scope : "";
+		File output = new File(module.getBuild().getDirectory(),
+				"stp/selected-tests-" + provider + "-v3" + suffix + ".txt");
 		Files.createDirectories(output.getParentFile().toPath());
 		List<String> patterns = tests.isEmpty() ? List.of("__stp_no_assigned_tests__")
 				: tests.stream().map(test -> test.className() + "#" + test.methodName()).distinct().toList();
 		Files.write(output.toPath(), patterns);
-		module.getProperties().setProperty("surefire.includesFile", output.getAbsolutePath());
-		module.getProperties().setProperty("surefire.failIfNoSpecifiedTests", "false");
+		String otherProvider = provider.equals("surefire") ? "failsafe" : "surefire";
+		File suppressed = new File(module.getBuild().getDirectory(),
+				"stp/selected-tests-" + otherProvider + "-v3" + suffix + ".txt");
+		Files.write(suppressed.toPath(), List.of("__stp_no_assigned_tests__"));
+		module.getProperties().setProperty(otherProvider + ".includesFile", suppressed.getAbsolutePath());
+		module.getProperties().setProperty(otherProvider + ".failIfNoSpecifiedTests", "false");
+		module.getProperties().setProperty(provider + ".includesFile", output.getAbsolutePath());
+		module.getProperties().setProperty(provider + ".failIfNoSpecifiedTests", "false");
 		module.getProperties().setProperty("smartTestPicker.schemaVersion", "3");
 		module.getProperties().setProperty("smartTestPicker.executionTarget", target.toString());
 		module.getProperties().setProperty("smartTestPicker.moduleFragmentOutput",
-				new File(module.getBuild().getDirectory(), "stp/coverage-fragment-v3.json").getAbsolutePath());
+				new File(module.getBuild().getDirectory(), "stp/coverage-fragment-v3" + suffix + ".json").getAbsolutePath());
 		module.getProperties().setProperty("smartTestPicker.moduleEvidenceOutput",
-				new File(module.getBuild().getDirectory(), "stp/execution-evidence-v2.json").getAbsolutePath());
+				new File(module.getBuild().getDirectory(), "stp/execution-evidence-v2" + suffix + ".json").getAbsolutePath());
 	}
 }
