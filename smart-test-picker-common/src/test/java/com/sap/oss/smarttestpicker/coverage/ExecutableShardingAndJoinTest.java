@@ -71,6 +71,19 @@ class ExecutableShardingAndJoinTest
 		assertThrows(IllegalArgumentException.class, () -> codec.deserialize("{\"version\":1,\"revision\":\"x\",\"shardId\":\"0\",\"tests\":[\"bad\"]}".getBytes(StandardCharsets.UTF_8)));
 	}
 
+	@Test void shardingKeepsEnclosingAndNestedTestClassesOnOneShard()
+	{
+		var first = new ExecutableTestIdentity(A.target(), new TestIdentity("example.StatefulTests", "first"));
+		var second = new ExecutableTestIdentity(A.target(), new TestIdentity("example.StatefulTests", "second"));
+		var nested = new ExecutableTestIdentity(A.target(), new TestIdentity("example.StatefulTests$Nested", "third"));
+		var other = new ExecutableTestIdentity(A.target(), new TestIdentity("example.OtherTests", "test"));
+		var plan = ExecutableTestSharder.shard(new ExecutableTestInventory(REV, Set.of(first, second, nested, other)), 3);
+		var owners = plan.assignments().entrySet().stream().filter(entry -> entry.getValue().contains(first)
+				|| entry.getValue().contains(second) || entry.getValue().contains(nested)).toList();
+		assertEquals(1, owners.size());
+		assertTrue(owners.get(0).getValue().containsAll(Set.of(first, second, nested)));
+	}
+
 	@Test void sonarJavaDualOwnerJoinsAcrossDifferentShardsWithoutCoverageUnion()
 	{
 		ExecutableCoverageMap map = join(plan(Map.of(S0, Set.of(A), S1, Set.of(B))),
