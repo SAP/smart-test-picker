@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.Collections;
 
 import com.sap.oss.smarttestpicker.coverage.model.BuildTool;
 import com.sap.oss.smarttestpicker.coverage.model.CoverageMapRevision;
@@ -38,7 +39,8 @@ final class MavenExecutableAssignmentRouter
 			tests.add(identity.test());
 		});
 		Map<ExecutionTarget, Set<TestIdentity>> frozen = new TreeMap<>();
-		result.forEach((target, tests) -> frozen.put(target, Set.copyOf(tests)));
+		result.forEach((target, tests) -> frozen.put(target,
+				Collections.unmodifiableSortedSet(new TreeSet<>(tests))));
 		return Map.copyOf(frozen);
 	}
 }
