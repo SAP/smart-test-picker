@@ -112,6 +112,36 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 	}
 
 	@Test
+	void schemaV3RoutesFailsafeWithoutEnablingSurefireAndKeepsQualifiedOutputs(@TempDir Path temp) throws Exception {
+		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor"));
+		String revision = initializeGit(fixture);
+		Path inventory = fixture.resolve("complete-inventory.json");
+		Result discovery = maven(fixture, "-Pfailsafe", "process-test-classes",
+				PLUGIN + "generate-reactor-head-test-inventory", "-DsmartTestPicker.schemaVersion=3",
+				"-DsmartTestPicker.prHeadRevision=" + revision, "-DsmartTestPicker.executionType=failsafe",
+				"-DsmartTestPicker.executionId=fixture-it", "-DsmartTestPicker.outputFile=" + inventory);
+		assertEquals(0, discovery.exitCode(), discovery.output());
+		Path assignment = fixture.resolve("assignment.json");
+		Files.writeString(assignment, executableAssignmentAtRevision(revision,
+				"maven:module-a@failsafe@fixture-it::a.AValueIT#integrationValue"));
+		Result result = maven(fixture, "-Pfailsafe", PLUGIN + "prepare-reactor-executable-mapping",
+				"verify", "-DsmartTestPicker.schemaVersion=3", "-DsmartTestPicker.testsFile=" + assignment,
+				"-DsmartTestPicker.revision=" + revision,
+				"-DsmartTestPicker.completeInventoryFile=" + inventory, "-DsmartTestPicker.executionType=failsafe",
+				"-DsmartTestPicker.executionId=fixture-it");
+		assertEquals(0, result.exitCode(), result.output());
+		Path directory = fixture.resolve("module-a/target/stp");
+		assertTrue(Files.isRegularFile(directory.resolve(
+				"selected-tests-failsafe-v3-module-a_failsafe_fixture-it.txt")));
+		assertTrue(Files.isRegularFile(directory.resolve(
+				"coverage-fragment-v3-module-a_failsafe_fixture-it.json")));
+		assertEquals(List.of("__stp_no_assigned_tests__"), Files.readAllLines(directory.resolve(
+				"selected-tests-surefire-v3-module-a_failsafe_fixture-it.txt")));
+		assertFalse(Files.exists(fixture.resolve("module-a/target/surefire-reports/TEST-a.AValueIT.xml")));
+		assertTrue(Files.isRegularFile(fixture.resolve("module-a/target/failsafe-reports/TEST-a.AValueIT.xml")));
+	}
+
+	@Test
 	void schemaV3UsesActiveAgentBytesWithProjectOwnedLiteralArgLine(@TempDir Path temp) throws Exception {
 		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor")); initializeGit(fixture);
 		Path assignment = fixture.resolve("assignment.json");
@@ -156,7 +186,11 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 	}
 
 	private static String executableAssignment(String... tests) {
-		return "{\"version\":1,\"revision\":\"reactor-revision\",\"shardId\":\"reactor-shard\",\"tests\":["
+		return executableAssignmentAtRevision("reactor-revision", tests);
+	}
+
+	private static String executableAssignmentAtRevision(String revision, String... tests) {
+		return "{\"version\":1,\"revision\":\"" + revision + "\",\"shardId\":\"reactor-shard\",\"tests\":["
 				+ java.util.Arrays.stream(tests).map(s -> "\"" + s + "\"").collect(java.util.stream.Collectors.joining(",")) + "]}";
 	}
 
