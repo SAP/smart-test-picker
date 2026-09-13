@@ -189,9 +189,15 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 				project == project.getRootProject() ? project.getTasks().register(
 						"aggregateGradleExecutableCoverage", AggregateGradleExecutableCoverageTask.class, task -> {
 						task.setGroup("verification");
-						task.getOutputFile().set(project.getLayout().getBuildDirectory()
-								.file("stp/executable-fragment.json"));
-					}) : null;
+							task.getOutputFile().set(project.getLayout().getBuildDirectory()
+									.file("stp/executable-fragment.json"));
+						}) : null;
+		if (project == project.getRootProject()) project.allprojects(candidate -> candidate.afterEvaluate(ignored -> {
+			if (ext.getRuntimeSchemaVersion().get() != 3) return;
+			candidate.getTasks().withType(Test.class).stream()
+					.filter(task -> GradleExecutionTargets.participates(task, ext.getMappingTestTasks().get()))
+					.sorted(java.util.Comparator.comparing(Test::getPath)).forEach(executableInventory.get()::addTarget);
+		}));
 
 		project.getTasks().register("generateTestCoverageJson", GenerateTestCoverageJsonTask.class, task -> {
 			task.getReportsDir().set(project.file("build/jacoco-xml"));
@@ -331,7 +337,6 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 		// to one real Test-task execution target.
 		mappingTask.setDependsOn(java.util.List.of());
 		inventoryTask.setRevision(ext.getRevision().get());
-		inventoryTask.getTestTasks().addAll(targets);
 		targets.forEach(task -> task.getTestClassesDirs().getBuildDependencies().getDependencies(task)
 				.forEach(inventoryTask::dependsOn));
 
