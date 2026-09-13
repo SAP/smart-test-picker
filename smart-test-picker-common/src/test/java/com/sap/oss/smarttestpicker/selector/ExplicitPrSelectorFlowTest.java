@@ -23,6 +23,11 @@ import com.sap.oss.smarttestpicker.coverage.model.Completeness;
 import com.sap.oss.smarttestpicker.coverage.model.CoverageMap;
 import com.sap.oss.smarttestpicker.coverage.model.CoverageMapLifecycleState;
 import com.sap.oss.smarttestpicker.coverage.model.CoverageMapRevision;
+import com.sap.oss.smarttestpicker.coverage.model.BuildTool;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutableCompleteness;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutableCoverageMap;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentity;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget;
 import com.sap.oss.smarttestpicker.coverage.model.GeneratorProvenance;
 import com.sap.oss.smarttestpicker.coverage.model.MapStatistics;
 import com.sap.oss.smarttestpicker.coverage.model.ShardId;
@@ -30,6 +35,7 @@ import com.sap.oss.smarttestpicker.coverage.model.TestCoverage;
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 import com.sap.oss.smarttestpicker.coverage.model.TestOutcome;
 import com.sap.oss.smarttestpicker.coverage.serialization.CoverageMapCodec;
+import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableCoverageMapCodec;
 
 class ExplicitPrSelectorFlowTest
 {
@@ -45,6 +51,30 @@ class ExplicitPrSelectorFlowTest
 		SelectionContext context = result.context().orElseThrow();
 		assertEquals(r1, context.revision().value());
 		assertEquals(r2, context.headRevision());
+	}
+
+	@Test void schemaV3MapProjectsTaskAwareIdentityIntoExplicitSelection() throws Exception
+	{
+		Repo repo = repo(); String r0 = repo.head();
+		repo.write("src/main/java/com/example/Service.java", "package com.example; class Service { void changed() {} }");
+		repo.commit("R1"); String r1 = repo.head();
+		var executable = new ExecutableTestIdentity(new ExecutionTarget(BuildTool.GRADLE, ":spring-core:test"), TEST);
+		var shard = new ShardId("one");
+		var completeness = new ExecutableCompleteness(Set.of(executable), Set.of(executable), Set.of(shard),
+				Set.of(shard), Set.of(), Set.of(), Set.of(), Set.of(), Set.of());
+		var coverage = new TestCoverage(Set.of("com.example.Service"), Set.of(), TestOutcome.PASS,
+				CollectionStatus.COLLECTED_WITH_COVERAGE);
+		var map = new ExecutableCoverageMap(CoverageMapContract.SCHEMA_V3, new CoverageMapRevision(r0), Instant.EPOCH,
+				new GeneratorProvenance("test", "test", "test", "17"), Map.of(executable, coverage), List.of(),
+				List.of(), completeness, new MapStatistics(1, 1, 0, 0, 1, 0),
+				CoverageMapLifecycleState.PUBLISHED, null);
+		Path mapFile = repo.root.resolve("schema-v3-map.json");
+		Files.write(mapFile, new ExecutableCoverageMapCodec().serialize(map));
+		ExplicitPrSelectionResult result = new ExplicitPrSelectorFlow().select(mapFile.toFile(), repo.root.toFile(),
+				HeadTestInventory.atRevision(r1, List.of(TEST)), r0, r0, r1, 10, List.of());
+		assertEquals(ExplicitPrSelectionStatus.SELECTION_RESULT, result.status());
+		assertEquals("SELECTED", result.output().orElseThrow().getStatus());
+		assertEquals(List.of(TEST.toString()), result.output().orElseThrow().getSelectedTests());
 	}
 
 	@Test void staleMapDiffIncludesIntegrationAndPrChangesAndIgnoresWorkspace() throws Exception
