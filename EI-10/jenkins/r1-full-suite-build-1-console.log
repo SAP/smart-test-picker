@@ -1,0 +1,107 @@
+Started by user admin
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on stp-map-agent-3 in /home/jenkins/agent/workspace/EI-10-R1-Full-Suite
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout R1)
+[Pipeline] deleteDir
+[Pipeline] sh
++ git clone --no-hardlinks /opt/ei10/spring-framework .
+Cloning into '.'...
+done.
++ git checkout --detach a11311c52a72cf1a6cef50f2942ffb79dfc4a69d
+HEAD is now at a11311c52a Add EI-10 diagnostic output to mapped Spring Core classes
++ git rev-parse HEAD
++ test a11311c52a72cf1a6cef50f2942ffb79dfc4a69d = a11311c52a72cf1a6cef50f2942ffb79dfc4a69d
+[Pipeline] sh
++ hostname
++ printf node=%s\nworkspace=%s\n stp-map-agent-3 /home/jenkins/agent/workspace/EI-10-R1-Full-Suite
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Run complete Spring Core suite)
+[Pipeline] sh
++ ./gradlew :spring-core:test --no-daemon --stacktrace
+Fetching distribution.
+Downloading https://services.gradle.org/distributions/gradle-9.7.1-bin.zip
+..............10%..............20%...............30%..............40%...............50%..............60%...............70%..............80%..............90%...............100%
+
+Welcome to Gradle 9.7.1!
+
+Here are the highlights of this release:
+ - Isolated Projects graduates to incubating
+ - Broader Configuration Cache compatibility
+ - Resilient Sync helps you fix broken builds
+ - More source locations in problem reports
+
+For more details see https://docs.gradle.org/9.7.1/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.7.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :buildSrc:compileJava
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors
+> Task :buildSrc:processResources
+> Task :buildSrc:classes
+> Task :buildSrc:checkstyleMain
+> Task :buildSrc:compileTestJava
+> Task :buildSrc:compileTestGroovy NO-SOURCE
+> Task :buildSrc:processTestResources NO-SOURCE
+> Task :buildSrc:testClasses
+> Task :buildSrc:checkstyleTest
+> Task :buildSrc:pluginUnderTestMetadata
+> Task :buildSrc:test
+> Task :buildSrc:validatePlugins
+> Task :buildSrc:check
+> Task :buildSrc:jar
+> Task :spring-core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :spring-core:javapoetRepackJar
+> Task :spring-core:objenesisRepackJar
+> Task :spring-core:processResources
+> Task :spring-core:processJava21Resources NO-SOURCE
+> Task :spring-core:processJava24Resources NO-SOURCE
+> Task :spring-core:processTestFixturesResources NO-SOURCE
+> Task :spring-core:processTestResources
+> Task :spring-core:compileKotlin
+> Task :spring-core:compileJava
+> Task :spring-core:classes
+> Task :spring-core:compileJava21Kotlin NO-SOURCE
+> Task :spring-core:compileJava21Java
+> Task :spring-core:compileJava24Kotlin NO-SOURCE
+> Task :spring-core:compileJava24Java
+> Task :spring-core:java21Classes
+> Task :spring-core:java24Classes
+> Task :spring-core:jar
+> Task :spring-core:compileTestFixturesKotlin NO-SOURCE
+> Task :spring-core:compileTestFixturesJava
+> Task :spring-core:testFixturesClasses
+> Task :spring-core:testFixturesJar
+> Task :spring-core:compileTestKotlin
+> Task :spring-core:compileTestJava
+> Task :spring-core:testClasses
+
+> Task :spring-core:test
+OpenJDK 64-Bit Server VM warning: Option AllowRedefinitionToAddDeleteMethods was deprecated in version 13.0 and will likely be removed in a future release.
+
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by net.bytebuddy.dynamic.loading.ClassInjector$UsingUnsafe$Dispatcher$CreationAction (file:/home/jenkins/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.18.3/c35b2e4bf0e22e4d492936d46506bb2e6d8fafc8/byte-buddy-1.18.3.jar)
+WARNING: Please consider reporting this to the maintainers of class net.bytebuddy.dynamic.loading.ClassInjector$UsingUnsafe$Dispatcher$CreationAction
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+
+BUILD SUCCESSFUL in 2m
+24 actionable tasks: 24 executed
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.7.1/userguide/configuration_cache_enabling.html
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Archive full-suite evidence)
+[Pipeline] archiveArtifacts
+Archiving artifacts
+Recording fingerprints
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

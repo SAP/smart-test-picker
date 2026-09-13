@@ -1,0 +1,30 @@
+EI-10 chronological execution log
+2026-09-13 Europe/Berlin
+
+Continuity check
+- STP: /Users/d061177/work/asm-poc/codex-worktree, branch research/asm-codex, HEAD fddc5cb57162ceac11b9add06a11bc634548b040, only known untracked EI-9/ evidence.
+- Jenkins plugin: /Users/d061177/work/stp-jenkins-plugin-poc, branch main, HEAD 744ac5513350e01077062bb5b257520f05fa0bea, clean.
+- Spring Framework: /Users/d061177/work/asm-poc/codex-worktree/EI-9/spring-framework, branch main, R0 a099debca9e59eb562cb3298690423dbb9d0127e, clean.
+- Docker controller e62361f89cd7 stp-plugin-controller Up; agents 5e0a0825754b stp-plugin-agent Up, bb8c2a6283d9 stp-plugin-agent-1 Up, 050e2de09ea6 stp-plugin-agent-2 Up, 094ce7119614 stp-plugin-agent-3 Up.
+
+Gradle discovery implementation checkpoint
+- Added explicit assignment-free schema-v3 discovery mode.
+- Extracted shared strict Gradle Test-task scope resolution.
+- Worker mapping no longer regenerates/overwrites the authoritative inventory.
+- Initial test run inherited JDK 26 and failed because Gradle 8.14 and JaCoCo 0.8.13 do not support class-file major 70; reran on installed JDK 21.
+- Focused JDK 21 regression suite: 17 tests, PASS.
+
+Production fixes and runtime reruns
+- a245e1c implemented assignment-free schema-v3 Gradle discovery; subsequent Gradle 9, project-lock, class-cohesion, and abstract-container fixes were committed independently and repackaged after focused tests.
+- Job A builds 1-10 exposed and drove the task-scoped runtime fixes recorded in Git history.
+- b4a3c96 and 09e1412 made positive NON_EXECUTED evidence authoritative for skipped identities while allowing worker-local fragment aggregation.
+- Jenkins artifact bundles were rebuilt after every STP fix; aed954b corrected a stale separately packaged join runtime.
+- Job A build 13 joined 4,123 mapped tests but exposed root-owned FILE-volume permissions. The dedicated ei10_map_storage volume was initialized to UID/GID 1000; no map from the failed build was reused.
+- Job A build 14: SUCCESS. Discovery inventory 4,127; assignments 1,488/1,392/1,247; all shards started 12:51:15Z and finished 12:53:42Z/12:53:48Z/12:53:52Z; executable join 4,123; immutable FILE publication succeeded.
+- 89d1b2b fixed schema-v3 published-map lookup and added a FILE publish/lookup regression. Job B then resolved the R0 map and generated a real 4,127-test R1 head inventory.
+- 45bda5d added schema-v3 explicit selector projection with a regression. HPI 4b9acaa534ee3b84e6981e0e917f75123d7e146298f2f71c3bed4f728763581c was deployed.
+- Job B build 4 selected and executed 228 tests successfully; only its optional, unavailable junit presentation step failed. Job B was corrected to archive the raw XML directly.
+- Job B build 5: SUCCESS. Independent expectation, production selection, and Gradle XML execution are exactly equal at 228 identities; no extras or omissions; mode SELECT.
+- R1 full-suite build 1: SUCCESS, 4,317 executed cases; all 228 selected identities included.
+- Full STP suite: PASS in 2m03s.
+- Full Jenkins suite initially exposed a stale EI-8 worker fixture using malformed target `test` and manual inventory. a1319cd replaced it with canonical `:test` and real discovery. Focused test PASS; full Jenkins suite PASS, 88 tests.

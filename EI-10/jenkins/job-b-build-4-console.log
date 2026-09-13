@@ -1,0 +1,423 @@
+Started by user admin
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on stp-map-agent-3 in /home/jenkins/agent/workspace/EI-10-Job-B
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout R1)
+[Pipeline] deleteDir
+[Pipeline] sh
++ git clone --no-hardlinks /opt/ei10/spring-framework .
+Cloning into '.'...
+done.
++ git checkout --detach a11311c52a72cf1a6cef50f2942ffb79dfc4a69d
+HEAD is now at a11311c52a Add EI-10 diagnostic output to mapped Spring Core classes
++ git rev-parse HEAD
++ test a11311c52a72cf1a6cef50f2942ffb79dfc4a69d = a11311c52a72cf1a6cef50f2942ffb79dfc4a69d
+[Pipeline] sh
++ hostname
++ printf node=%s\nworkspace=%s\n stp-map-agent-3 /home/jenkins/agent/workspace/EI-10-Job-B
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Lookup R0 map)
+[Pipeline] stpLookupCoverageMap
+[EI-10-Job-B] $ java -jar /home/jenkins/agent/workspace/EI-10-Job-B@tmp/stp-mapping-tool-18fc967b-011b-4185-ac92-89ff1ad3510f.jar lookup-latest /opt/ei10/map-storage spring-framework ei10-r0 /home/jenkins/agent/workspace/EI-10-Job-B/build/stp/resolved-r0-map.json a099debca9e59eb562cb3298690423dbb9d0127e
+LOOKUP PASS revision=a099debca9e59eb562cb3298690423dbb9d0127e
+[STP] policy source=STORAGE outcome=FOUND context=MAP_LOOKUP action=CONTINUE reasonCode=SAFE_DOMAIN_RESULT retryability=NOT_RETRYABLE fallbackOccurred=false userActionRequired=false
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Generate R1 head inventory)
+[Pipeline] stpHeadInventory
+[EI-10-Job-B] $ git rev-parse --verify HEAD^{commit}
+[EI-10-Job-B] $ git rev-parse --verify a11311c52a72cf1a6cef50f2942ffb79dfc4a69d^{commit}
+[Pipeline] {
+[Pipeline] sh
++ ./gradlew :spring-core:generateHeadTestInventory --no-daemon --stacktrace
+Fetching distribution.
+Downloading https://services.gradle.org/distributions/gradle-9.7.1-bin.zip
+..............10%..............20%...............30%..............40%...............50%..............60%...............70%..............80%..............90%...............100%
+
+Welcome to Gradle 9.7.1!
+
+Here are the highlights of this release:
+ - Isolated Projects graduates to incubating
+ - Broader Configuration Cache compatibility
+ - Resilient Sync helps you fix broken builds
+ - More source locations in problem reports
+
+For more details see https://docs.gradle.org/9.7.1/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.7.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :buildSrc
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+
+> Task :buildSrc:compileJava
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors
+> Task :buildSrc:processResources
+> Task :buildSrc:classes
+> Task :buildSrc:checkstyleMain
+> Task :buildSrc:compileTestJava
+> Task :buildSrc:compileTestGroovy NO-SOURCE
+> Task :buildSrc:processTestResources NO-SOURCE
+> Task :buildSrc:testClasses
+> Task :buildSrc:checkstyleTest
+> Task :buildSrc:pluginUnderTestMetadata
+> Task :buildSrc:test
+> Task :buildSrc:validatePlugins
+> Task :buildSrc:check
+> Task :buildSrc:jar
+
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :framework-docs
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+
+> Configure project :integration-tests
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-aop
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-aspects
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-beans
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-context
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-context-indexer
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-context-support
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-core
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-core-test
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-expression
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-instrument
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-jdbc
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-jms
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-messaging
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-orm
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-oxm
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-r2dbc
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-test
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-tx
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-web
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-webflux
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-webmvc
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-websocket
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Task :spring-core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :spring-core:javapoetRepackJar
+> Task :spring-core:objenesisRepackJar
+> Task :spring-core:processResources
+> Task :spring-core:processJava21Resources NO-SOURCE
+> Task :spring-core:processJava24Resources NO-SOURCE
+> Task :spring-core:processTestFixturesResources NO-SOURCE
+> Task :spring-core:processTestResources
+> Task :spring-core:compileKotlin
+> Task :spring-core:compileJava
+> Task :spring-core:classes
+> Task :spring-core:compileJava21Kotlin NO-SOURCE
+> Task :spring-core:compileJava21Java
+> Task :spring-core:compileJava24Kotlin NO-SOURCE
+> Task :spring-core:compileJava24Java
+> Task :spring-core:java21Classes
+> Task :spring-core:java24Classes
+> Task :spring-core:jar
+> Task :spring-core:compileTestFixturesKotlin NO-SOURCE
+> Task :spring-core:compileTestFixturesJava
+> Task :spring-core:testFixturesClasses
+> Task :spring-core:testFixturesJar
+> Task :spring-core:compileTestKotlin
+> Task :spring-core:compileTestJava
+> Task :spring-core:testClasses
+
+> Task :spring-core:generateHeadTestInventory
+[SmartTestPicker] Discovered 4127 logical JUnit tests
+
+[Incubating] Problems report is available at: file:///home/jenkins/agent/workspace/EI-10-Job-B/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1m 50s
+24 actionable tasks: 24 executed
+[Pipeline] }
+[EI-10-Job-B] $ git rev-parse --verify HEAD^{commit}
+[STP] Revision-bound head inventory: revision=a11311c52a72cf1a6cef50f2942ffb79dfc4a69d tests=4127
+[Pipeline] // stpHeadInventory
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Explicit R0 to R1 selection)
+[Pipeline] stpExplicitPrSelect
+[EI-10-Job-B] $ git rev-parse --verify HEAD^{commit}
+[EI-10-Job-B] $ git rev-parse --verify a11311c52a72cf1a6cef50f2942ffb79dfc4a69d^{commit}
+[EI-10-Job-B] $ java -jar /home/jenkins/agent/workspace/EI-10-Job-B@tmp/stp-explicit-selector-8d7dd931-a28e-44f7-9604-f77c5b444177/stp-selector.jar explicit-select --workspace /home/jenkins/agent/workspace/EI-10-Job-B --coverage-map /home/jenkins/agent/workspace/EI-10-Job-B/build/stp/resolved-r0-map.json --head-inventory /home/jenkins/agent/workspace/EI-10-Job-B/spring-core/build/head-test-inventory.json --integration-revision a099debca9e59eb562cb3298690423dbb9d0127e --pr-base-revision a099debca9e59eb562cb3298690423dbb9d0127e --pr-head-revision a11311c52a72cf1a6cef50f2942ffb79dfc4a69d --max-commit-distance 500 --result-output /home/jenkins/agent/workspace/EI-10-Job-B/build/stp/selection-result.json --plan-output /home/jenkins/agent/workspace/EI-10-Job-B/build/stp/execution-plan.json --raw-output /home/jenkins/agent/workspace/EI-10-Job-B@tmp/stp-explicit-selector-8d7dd931-a28e-44f7-9604-f77c5b444177/raw-result.json
+[SmartTestPicker] Using explicit map: /home/jenkins/agent/workspace/EI-10-Job-B/build/stp/resolved-r0-map.json
+Coverage map:      /home/jenkins/agent/workspace/EI-10-Job-B/build/stp/resolved-r0-map.json
+Head inventory:    /home/jenkins/agent/workspace/EI-10-Job-B/spring-core/build/head-test-inventory.json
+Project dir:       /home/jenkins/agent/workspace/EI-10-Job-B
+Output:            /home/jenkins/agent/workspace/EI-10-Job-B@tmp/stp-explicit-selector-8d7dd931-a28e-44f7-9604-f77c5b444177/raw-result.json
+Format:            json
+Max commit dist:   500
+Status:  SELECTED
+Reason:  228 mandatory test(s) selected
+[STP] Explicit PR outer status: SELECTION_RESULT
+[STP] Explicit PR selector status: SELECTED
+[STP] policy source=SELECTOR outcome=SELECTED context=TEST_SELECTION action=CONTINUE reasonCode=SAFE_DOMAIN_RESULT retryability=NOT_RETRYABLE fallbackOccurred=false userActionRequired=false
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Execute exactly selected tests)
+[Pipeline] smartTestPicker
+[STP] Preparing Gradle adapter on agent /home/jenkins/agent/workspace/EI-10-Job-B
+[STP] Gradle adapter cache miss: 0.1.0
+[STP] Gradle adapter cached and verified: 0.1.0
+[STP] Gradle adapter: 0.1.0 (contract 1)
+[STP] Gradle adapter SHA-256 verified: dceedc9f0965bed42caaf88051b0bca7da19e70fad5ba7c3b33f10555c0a606e
+[STP] Transferred and cached Gradle adapter 0.1.0 at /home/jenkins/agent/.stp-cache/runtime/adapters/gradle/0.1.0/dceedc9f0965bed42caaf88051b0bca7da19e70fad5ba7c3b33f10555c0a606e/stp.init.gradle
+[STP] Execution plan: /home/jenkins/agent/workspace/EI-10-Job-B@tmp/stp/EI-10-Job-B_4-90cb1ab6-63b8-49e5-8700-accd4974c400/execution-plan.json
+[STP] STP environment active
+[Pipeline] {
+[Pipeline] sh
++ ./gradlew :spring-core:test --no-daemon --stacktrace
+Fetching distribution.
+Downloading https://services.gradle.org/distributions/gradle-9.7.1-bin.zip
+..............10%..............20%...............30%..............40%...............50%..............60%...............70%..............80%..............90%...............100%
+
+Welcome to Gradle 9.7.1!
+
+Here are the highlights of this release:
+ - Isolated Projects graduates to incubating
+ - Broader Configuration Cache compatibility
+ - Resilient Sync helps you fix broken builds
+ - More source locations in problem reports
+
+For more details see https://docs.gradle.org/9.7.1/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.7.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :buildSrc
+STP: SELECT 228 test(s) from /home/jenkins/agent/workspace/EI-10-Job-B@tmp/stp/EI-10-Job-B_4-90cb1ab6-63b8-49e5-8700-accd4974c400/execution-plan.json
+
+> Task :buildSrc:compileJava UP-TO-DATE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources UP-TO-DATE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:checkstyleMain UP-TO-DATE
+> Task :buildSrc:compileTestJava UP-TO-DATE
+> Task :buildSrc:compileTestGroovy NO-SOURCE
+> Task :buildSrc:processTestResources NO-SOURCE
+> Task :buildSrc:testClasses UP-TO-DATE
+> Task :buildSrc:checkstyleTest UP-TO-DATE
+> Task :buildSrc:pluginUnderTestMetadata
+> Task :buildSrc:test
+> Task :buildSrc:validatePlugins UP-TO-DATE
+> Task :buildSrc:check
+> Task :buildSrc:jar UP-TO-DATE
+
+> Configure project :
+STP: SELECT 228 test(s) from /home/jenkins/agent/workspace/EI-10-Job-B@tmp/stp/EI-10-Job-B_4-90cb1ab6-63b8-49e5-8700-accd4974c400/execution-plan.json
+
+> Task :spring-core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :spring-core:javapoetRepackJar UP-TO-DATE
+> Task :spring-core:objenesisRepackJar UP-TO-DATE
+> Task :spring-core:compileKotlin UP-TO-DATE
+> Task :spring-core:compileJava UP-TO-DATE
+> Task :spring-core:processResources UP-TO-DATE
+> Task :spring-core:classes UP-TO-DATE
+> Task :spring-core:compileJava21Kotlin NO-SOURCE
+> Task :spring-core:compileJava21Java UP-TO-DATE
+> Task :spring-core:compileJava24Kotlin NO-SOURCE
+> Task :spring-core:compileJava24Java UP-TO-DATE
+> Task :spring-core:processJava21Resources NO-SOURCE
+> Task :spring-core:java21Classes UP-TO-DATE
+> Task :spring-core:processJava24Resources NO-SOURCE
+> Task :spring-core:java24Classes UP-TO-DATE
+> Task :spring-core:jar UP-TO-DATE
+> Task :spring-core:compileTestFixturesKotlin NO-SOURCE
+> Task :spring-core:compileTestFixturesJava UP-TO-DATE
+> Task :spring-core:processTestFixturesResources NO-SOURCE
+> Task :spring-core:testFixturesClasses UP-TO-DATE
+> Task :spring-core:testFixturesJar UP-TO-DATE
+> Task :spring-core:compileTestKotlin UP-TO-DATE
+> Task :spring-core:compileTestJava UP-TO-DATE
+> Task :spring-core:processTestResources UP-TO-DATE
+> Task :spring-core:testClasses UP-TO-DATE
+
+> Task :spring-core:test
+OpenJDK 64-Bit Server VM warning: Option AllowRedefinitionToAddDeleteMethods was deprecated in version 13.0 and will likely be removed in a future release.
+
+BUILD SUCCESSFUL in 1m 24s
+24 actionable tasks: 3 executed, 21 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.7.1/userguide/configuration_cache_enabling.html
+[Pipeline] }
+[STP] Cleaning build-local STP files: /home/jenkins/agent/workspace/EI-10-Job-B@tmp/stp/EI-10-Job-B_4-90cb1ab6-63b8-49e5-8700-accd4974c400
+[Pipeline] // smartTestPicker
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Publish evidence)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Also:   org.jenkinsci.plugins.workflow.actions.ErrorAction$ErrorId: c2e7fd0b-0b81-4300-b990-4f6b8475827e
+java.lang.NoSuchMethodError: No such DSL method 'junit' found among steps [archive, bat, build, catchError, checkout, deleteDir, dir, echo, envVarsForTool, error, fileExists, getContext, git, input, isUnix, library, libraryResource, load, mail, milestone, node, parallel, powershell, properties, pwd, pwsh, readFile, readScmFile, readTrusted, resolveScm, retry, script, sh, sleep, smartTestPicker, stage, stash, step, stpCoverageMap, stpCoverageTool, stpExplicitPrSelect, stpHeadInventory, stpLookupCoverageMap, stpPrSelect, stpPrepareCoverageMapping, stpPublishCoverageMap, stpTestInventory, timeout, tm, tool, unarchive, unstable, unstash, validateDeclarativePipeline, waitForBuild, waitUntil, warnError, withContext, withCredentials, withEnv, wrap, writeFile, ws] or symbols [GitUsernamePassword, agent, all, allBranchesSame, allOf, always, any, anyOf, apiToken, apiTokenProperty, architecture, archiveArtifacts, artifactManager, assembla, authorInChangelog, batchFile, bitbucket, bitbucketServer, booleanParam, branch, browser, buildButton, buildDiscarder, buildDiscarders, buildRetention, buildSingleRevisionOnly, buildingTag, builtInNode, caseInsensitive, caseSensitive, certificate, cgit, changeRequest, changelog, changelogBase, changelogToBranch, changeset, checkoutOption, checkoutToSubdirectory, choice, choiceParam, cleanAfterCheckout, cleanBeforeCheckout, clock, cloneOption, command, computerRetentionCheckInterval, consoleUrlProvider, cps, credentials, cron, crumb, default, defaultDisplayUrlProvider, defaultFolderConfiguration, defaultView, demand, disableConcurrentBuilds, disableRestartFromStage, disableResume, discoverOtherRefs, discoverOtherRefsTrait, diskSpace, diskSpaceMonitor, downstream, dumb, durabilityHint, envVars, envVarsFilter, environment, equals, experimentalFlags, expression, file, fileParam, filePath, fingerprint, fingerprints, firstBuildChangelog, fisheye, frameOptions, freeStyle, freeStyleJob, fromScm, fromSource, git, gitBranchDiscovery, gitHooks, gitHubBranchDiscovery, gitHubBranchHeadAuthority, gitHubExcludeArchivedRepositories, gitHubExcludeForkedRepositories, gitHubExcludePrivateRepositories, gitHubExcludePublicRepositories, gitHubForkDiscovery, gitHubIgnoreDraftPullRequestFilter, gitHubPullRequestDiscovery, gitHubSshCheckout, gitHubTagDiscovery, gitHubTopicsFilter, gitHubTrustContributors, gitHubTrustEveryone, gitHubTrustNobody, gitHubTrustPermissions, gitLab, gitList, gitSCM, gitTagDiscovery, gitTool, gitUsernamePassword, gitWeb, gitblit, github, githubProjectProperty, githubPush, gitiles, gogs, headRegexFilter, headWildcardFilter, hyperlink, hyperlinkToModels, ignoreOnPush, inbound, inferOwner, inferRepository, installSource, isRestartedRun, jdk, jgit, jgitapache, jnlp, jobBuildDiscarder, jobName, kiln, label, lastDuration, lastFailure, lastGrantedAuthorities, lastStable, lastSuccess, legacy, legacySCM, lfs, list, local, localBranch, localBranchTrait, location, logRotator, loggedInUsersCanDoAnything, mailer, masterBuild, maven, maven3Mojos, mavenErrors, mavenGlobalConfig, mavenMojos, mavenWarnings, modernSCM, multiBranchProjectDisplayNaming, multibranch, myView, namedBranchesDifferent, node, nodeProperties, none, nonresumable, not, organizationFolder, overrideIndexTriggers, paneStatus, parallelsAlwaysFailFast, parameters, password, pattern, perBuildTag, permanent, phabricator, pipelineTriggers, plainText, plugin, pollSCM, preserveStashes, prism, projectNamingStrategy, proxy, pruneStaleBranch, pruneStaleTag, pruneTags, queueItemAuthenticator, quietPeriod, rateLimit, rateLimitBuilds, redmine, refSpecs, remoteName, resourceRoot, responseTime, retainOnlyVariables, rhodeCode, run, runParam, schedule, scmGit, scmRetryCount, scriptApproval, scriptApprovalLink, search, security, shell, simpleBuildDiscarder, skipDefaultCheckout, skipStagesAfterUnstable, slave, sourceRegexFilter, sourceWildcardFilter, sparseCheckout, sparseCheckoutPaths, specificRepositories, sshUserPrivateKey, standard, status, string, stringParam, submodule, submoduleOption, suppressAutomaticTriggering, suppressFolderAutomaticTriggering, swapSpace, tag, teamFoundation, teamSlugFilter, text, textParam, timezone, tmpSpace, toolLocation, triggeredBy, unsecured, untrusted, upstream, userIdentity, userSeed, usernameColonPassword, usernamePassword, viewgit, viewsTabBar, weather, zip] or globals [currentBuild, env, params, pipeline, scm]
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.DSL.invokeMethod(DSL.java:223)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsScript.invokeMethod(CpsScript.java:124)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:98)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:325)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1225)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1034)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.call(PogoMetaClassSite.java:41)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:47)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:116)
+	at PluginClassLoader for script-security//org.kohsuke.groovy.sandbox.impl.Checker$1.call(Checker.java:180)
+	at PluginClassLoader for script-security//org.kohsuke.groovy.sandbox.GroovyInterceptor.onMethodCall(GroovyInterceptor.java:23)
+	at PluginClassLoader for script-security//org.jenkinsci.plugins.scriptsecurity.sandbox.groovy.SandboxInterceptor.onMethodCall(SandboxInterceptor.java:163)
+	at PluginClassLoader for script-security//org.kohsuke.groovy.sandbox.impl.Checker$1.call(Checker.java:178)
+	at PluginClassLoader for script-security//org.kohsuke.groovy.sandbox.impl.Checker.checkedCall(Checker.java:182)
+	at PluginClassLoader for script-security//org.kohsuke.groovy.sandbox.impl.Checker.checkedCall(Checker.java:152)
+	at PluginClassLoader for script-security//org.kohsuke.groovy.sandbox.impl.Checker.checkedCall(Checker.java:152)
+	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.sandbox.SandboxInvoker.methodCall(SandboxInvoker.java:17)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.LoggingInvoker.methodCall(LoggingInvoker.java:124)
+	at WorkflowScript.run(WorkflowScript:37)
+	at ___cps.transform___(Native Method)
+	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.ContinuationGroup.methodCall(ContinuationGroup.java:107)
+	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.FunctionCallBlock$ContinuationImpl.dispatchOrArg(FunctionCallBlock.java:118)
+	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.FunctionCallBlock$ContinuationImpl.fixArg(FunctionCallBlock.java:87)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.ContinuationPtr$ContinuationImpl.receive(ContinuationPtr.java:71)
+	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.CollectionLiteralBlock$ContinuationImpl.dispatch(CollectionLiteralBlock.java:54)
+	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.CollectionLiteralBlock$ContinuationImpl.item(CollectionLiteralBlock.java:45)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.ContinuationPtr$ContinuationImpl.receive(ContinuationPtr.java:71)
+	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.ConstantBlock.eval(ConstantBlock.java:21)
+	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.Next.step(Next.java:84)
+	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.Continuable.run0(Continuable.java:142)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.SandboxContinuable.access$001(SandboxContinuable.java:17)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.SandboxContinuable.run0(SandboxContinuable.java:48)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsThread.runNextChunk(CpsThread.java:188)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsThreadGroup.run(CpsThreadGroup.java:464)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsThreadGroup$2.call(CpsThreadGroup.java:372)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsThreadGroup$2.call(CpsThreadGroup.java:302)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService.lambda$wrap$4(CpsVmExecutorService.java:143)
+	at java.base/java.util.concurrent.FutureTask.run(Unknown Source)
+	at hudson.remoting.SingleLaneExecutorService$1.run(SingleLaneExecutorService.java:139)
+	at jenkins.util.ContextResettingExecutorService$1.run(ContextResettingExecutorService.java:28)
+	at jenkins.security.ImpersonatingExecutorService$1.run(ImpersonatingExecutorService.java:68)
+	at jenkins.util.ErrorLoggingExecutorService.lambda$wrap$0(ErrorLoggingExecutorService.java:51)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.base/java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService$1.call(CpsVmExecutorService.java:53)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService$1.call(CpsVmExecutorService.java:50)
+	at org.codehaus.groovy.runtime.GroovyCategorySupport$ThreadCategoryInfo.use(GroovyCategorySupport.java:136)
+	at org.codehaus.groovy.runtime.GroovyCategorySupport.use(GroovyCategorySupport.java:275)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService.lambda$categoryThreadFactory$0(CpsVmExecutorService.java:50)
+	at java.base/java.lang.Thread.run(Unknown Source)
+Finished: FAILURE

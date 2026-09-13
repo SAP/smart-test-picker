@@ -1,0 +1,554 @@
+Started by user admin
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on stp-map-agent-3 in /home/jenkins/agent/workspace/EI-10-Job-A
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Prepare)
+[Pipeline] deleteDir
+[Pipeline] sh
++ git clone --no-hardlinks /opt/ei10/spring-framework .
+Cloning into '.'...
+done.
+[Pipeline] sh
++ git checkout --detach a099debca9e59eb562cb3298690423dbb9d0127e
+HEAD is now at a099debca9 Upgrade to Kotlin 2.4.20
++ git rev-parse HEAD
++ test a099debca9e59eb562cb3298690423dbb9d0127e = a099debca9e59eb562cb3298690423dbb9d0127e
+[Pipeline] stpPrepareCoverageMapping
+[EI-10-Job-A] $ git rev-parse HEAD
+[Pipeline] {
+[Pipeline] sh
++ ./gradlew generateGradleExecutableHeadTestInventory --no-daemon --stacktrace
+Fetching distribution.
+Downloading https://services.gradle.org/distributions/gradle-9.7.1-bin.zip
+..............10%..............20%...............30%..............40%...............50%..............60%...............70%..............80%..............90%...............100%
+
+Welcome to Gradle 9.7.1!
+
+Here are the highlights of this release:
+ - Isolated Projects graduates to incubating
+ - Broader Configuration Cache compatibility
+ - Resilient Sync helps you fix broken builds
+ - More source locations in problem reports
+
+For more details see https://docs.gradle.org/9.7.1/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.7.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :buildSrc:compileJava
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors
+> Task :buildSrc:processResources
+> Task :buildSrc:classes
+> Task :buildSrc:checkstyleMain
+> Task :buildSrc:compileTestJava
+> Task :buildSrc:compileTestGroovy NO-SOURCE
+> Task :buildSrc:processTestResources NO-SOURCE
+> Task :buildSrc:testClasses
+> Task :buildSrc:checkstyleTest
+> Task :buildSrc:pluginUnderTestMetadata
+> Task :buildSrc:test
+> Task :buildSrc:validatePlugins
+> Task :buildSrc:check
+> Task :buildSrc:jar
+
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+
+> Task :spring-core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :spring-core:javapoetRepackJar
+> Task :spring-core:objenesisRepackJar
+> Task :spring-core:processResources
+> Task :spring-core:processJava21Resources NO-SOURCE
+> Task :spring-core:processJava24Resources NO-SOURCE
+> Task :spring-core:processTestFixturesResources NO-SOURCE
+> Task :spring-core:compileKotlin
+> Task :spring-core:compileJava
+> Task :spring-core:classes
+> Task :spring-core:compileJava21Kotlin NO-SOURCE
+> Task :spring-core:compileJava21Java
+> Task :spring-core:compileJava24Kotlin NO-SOURCE
+> Task :spring-core:compileJava24Java
+> Task :spring-core:java21Classes
+> Task :spring-core:java24Classes
+> Task :spring-core:jar
+> Task :spring-core:compileTestFixturesKotlin NO-SOURCE
+> Task :spring-core:compileTestFixturesJava
+> Task :spring-core:testFixturesClasses
+> Task :spring-core:testFixturesJar
+> Task :spring-core:compileTestKotlin
+> Task :spring-core:compileTestJava
+> Task :spring-core:generateGradleExecutableProjectInventory
+
+> Task :generateGradleExecutableHeadTestInventory
+[SmartTestPicker] Aggregated 4127 Gradle executable JUnit tests from 1 projects
+
+[Incubating] Problems report is available at: file:///home/jenkins/agent/workspace/EI-10-Job-A/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1m 50s
+24 actionable tasks: 24 executed
+[Pipeline] }
+[EI-10-Job-A] $ git rev-parse HEAD
+[STP] Mapping prepared after authoritative discovery: tests=4127 shards=3
+[Pipeline] // stpPrepareCoverageMapping
+[Pipeline] sh
++ python3 -
+EI10_ASSIGNMENT 0 1488
+EI10_ASSIGNMENT 1 1392
+EI10_ASSIGNMENT 2 1247
+EI10_INVENTORY 4127
+[Pipeline] stash
+Stashed 5 file(s)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] parallel
+[Pipeline] { (Branch: shard-0)
+[Pipeline] { (Branch: shard-1)
+[Pipeline] { (Branch: shard-2)
+[Pipeline] node
+Running on stp-agent in /home/jenkins/agent/workspace/EI-10-Job-A
+[Pipeline] node
+Running on stp-map-agent-1 in /home/jenkins/agent/workspace/EI-10-Job-A
+[Pipeline] node
+Running on stp-map-agent-2 in /home/jenkins/agent/workspace/EI-10-Job-A
+[Pipeline] {
+[Pipeline] {
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Map 0)
+[Pipeline] stage
+[Pipeline] { (Map 1)
+[Pipeline] stage
+[Pipeline] { (Map 2)
+[Pipeline] deleteDir
+[Pipeline] deleteDir
+[Pipeline] deleteDir
+[Pipeline] sh
+[Pipeline] sh
+[Pipeline] sh
++ git clone --no-hardlinks /opt/ei10/spring-framework .
+Cloning into '.'...
++ git clone --no-hardlinks /opt/ei10/spring-framework .
+Cloning into '.'...
+done.
++ git clone --no-hardlinks /opt/ei10/spring-framework .
+Cloning into '.'...
+done.
+done.
+Updating files:  91% (10409/11421)Updating files:  92% (10508/11421)Updating files:  93% (10622/11421)Updating files:  94% (10736/11421)Updating files:  95% (10850/11421)Updating files:  96% (10965/11421)Updating files:  97% (11079/11421)Updating files:  98% (11193/11421)Updating files:  99% (11307/11421)Updating files: 100% (11421/11421)Updating files: 100% (11421/11421), done.
+[Pipeline] sh
+Updating files:  99% (11327/11421)Updating files: 100% (11421/11421)Updating files: 100% (11421/11421), done.
+Updating files:  99% (11338/11421)Updating files: 100% (11421/11421)Updating files: 100% (11421/11421), done.
+[Pipeline] sh
++ git checkout --detach a099debca9e59eb562cb3298690423dbb9d0127e
+HEAD is now at a099debca9 Upgrade to Kotlin 2.4.20
++ git rev-parse HEAD
++ test a099debca9e59eb562cb3298690423dbb9d0127e = a099debca9e59eb562cb3298690423dbb9d0127e
+[Pipeline] sh
+[Pipeline] unstash
+[Pipeline] sh
++ git checkout --detach a099debca9e59eb562cb3298690423dbb9d0127e
+HEAD is now at a099debca9 Upgrade to Kotlin 2.4.20
++ git rev-parse HEAD
++ test a099debca9e59eb562cb3298690423dbb9d0127e = a099debca9e59eb562cb3298690423dbb9d0127e
++ git checkout --detach a099debca9e59eb562cb3298690423dbb9d0127e
+HEAD is now at a099debca9 Upgrade to Kotlin 2.4.20
++ git rev-parse HEAD
++ test a099debca9e59eb562cb3298690423dbb9d0127e = a099debca9e59eb562cb3298690423dbb9d0127e
+[Pipeline] unstash
+[Pipeline] sh
+[Pipeline] unstash
++ mkdir -p build/stp
++ echo shard=0
++ echo node=stp-agent
++ hostname
++ echo hostname=jenkins-agent
++ pwd
++ echo workspace=/home/jenkins/agent/workspace/EI-10-Job-A
++ date -u +%Y-%m-%dT%H:%M:%SZ
++ echo start=2026-09-13T12:51:15Z
+[Pipeline] stpCoverageMap
+[EI-10-Job-A] $ git rev-parse HEAD
+[STP] ASM mapping adapter active for shard 0 at revision a099debca9e59eb562cb3298690423dbb9d0127e
+[Pipeline] {
+[Pipeline] sh
+[Pipeline] sh
++ mkdir -p build/stp
++ echo shard=1
++ echo node=stp-map-agent-1
++ hostname
++ echo hostname=jenkins-agent-1
++ pwd
++ echo workspace=/home/jenkins/agent/workspace/EI-10-Job-A
++ date -u +%Y-%m-%dT%H:%M:%SZ
++ echo start=2026-09-13T12:51:15Z
+[Pipeline] stpCoverageMap
+[EI-10-Job-A] $ git rev-parse HEAD
+[STP] ASM mapping adapter active for shard 1 at revision a099debca9e59eb562cb3298690423dbb9d0127e
+[Pipeline] {
+[Pipeline] sh
++ mkdir -p build/stp
++ echo shard=2
++ echo node=stp-map-agent-2
++ hostname
++ echo hostname=jenkins-agent-2
++ pwd
++ echo workspace=/home/jenkins/agent/workspace/EI-10-Job-A
++ date -u +%Y-%m-%dT%H:%M:%SZ
++ echo start=2026-09-13T12:51:15Z
+[Pipeline] stpCoverageMap
+[EI-10-Job-A] $ git rev-parse HEAD
++ ./gradlew generateSmartTestMapping --no-daemon --stacktrace
+Fetching distribution.
+Downloading https://services.gradle.org/distributions/gradle-9.7.1-bin.zip
+[STP] ASM mapping adapter active for shard 2 at revision a099debca9e59eb562cb3298690423dbb9d0127e
+[Pipeline] {
+[Pipeline] sh
++ ./gradlew generateSmartTestMapping --no-daemon --stacktrace
+Fetching distribution.
+Downloading https://services.gradle.org/distributions/gradle-9.7.1-bin.zip
++ ./gradlew generateSmartTestMapping --no-daemon --stacktrace
+Fetching distribution.
+Downloading https://services.gradle.org/distributions/gradle-9.7.1-bin.zip
+......................10%..............................10%...10%...................20%.....20%....................20%...............30%....................30%..............30%......40%.............................40%..40%............50%............................50%........60%....50%.........................60%..............70%.....60%..............................80%.70%.....................70%............90%..........80%..................80%...............100%
+............90%...........90%...........
+Welcome to Gradle 9.7.1!
+
+Here are the highlights of this release:
+ - Isolated Projects graduates to incubating
+ - Broader Configuration Cache compatibility
+ - Resilient Sync helps you fix broken builds
+ - More source locations in problem reports
+
+For more details see https://docs.gradle.org/9.7.1/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.7.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+.100%
+.........100%
+Daemon will be stopped at the end of the build 
+
+Welcome to Gradle 9.7.1!
+
+Here are the highlights of this release:
+ - Isolated Projects graduates to incubating
+ - Broader Configuration Cache compatibility
+ - Resilient Sync helps you fix broken builds
+ - More source locations in problem reports
+
+For more details see https://docs.gradle.org/9.7.1/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.7.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+
+Welcome to Gradle 9.7.1!
+
+Here are the highlights of this release:
+ - Isolated Projects graduates to incubating
+ - Broader Configuration Cache compatibility
+ - Resilient Sync helps you fix broken builds
+ - More source locations in problem reports
+
+For more details see https://docs.gradle.org/9.7.1/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.7.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Daemon will be stopped at the end of the build 
+> Task :buildSrc:compileJava
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors
+> Task :buildSrc:processResources
+> Task :buildSrc:classes
+> Task :buildSrc:checkstyleMain
+> Task :buildSrc:compileJava
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors
+> Task :buildSrc:processResources
+> Task :buildSrc:classes
+> Task :buildSrc:checkstyleMain
+> Task :buildSrc:compileTestJava
+> Task :buildSrc:compileTestGroovy NO-SOURCE
+> Task :buildSrc:processTestResources NO-SOURCE
+> Task :buildSrc:testClasses
+> Task :buildSrc:compileJava
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors
+> Task :buildSrc:processResources
+> Task :buildSrc:classes
+> Task :buildSrc:checkstyleTest
+> Task :buildSrc:checkstyleMain
+> Task :buildSrc:compileTestJava
+> Task :buildSrc:compileTestGroovy NO-SOURCE
+> Task :buildSrc:processTestResources NO-SOURCE
+> Task :buildSrc:testClasses
+> Task :buildSrc:compileTestJava
+> Task :buildSrc:compileTestGroovy NO-SOURCE
+> Task :buildSrc:processTestResources NO-SOURCE
+> Task :buildSrc:testClasses
+> Task :buildSrc:checkstyleTest
+> Task :buildSrc:checkstyleTest
+> Task :buildSrc:pluginUnderTestMetadata
+> Task :buildSrc:pluginUnderTestMetadata
+> Task :buildSrc:pluginUnderTestMetadata
+> Task :buildSrc:test
+> Task :buildSrc:validatePlugins
+> Task :buildSrc:check
+> Task :buildSrc:jar
+> Task :buildSrc:test
+> Task :buildSrc:validatePlugins
+> Task :buildSrc:check
+> Task :buildSrc:jar
+
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+> Task :buildSrc:test
+> Task :buildSrc:validatePlugins
+> Task :buildSrc:check
+> Task :buildSrc:jar
+
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+Smart Test Picker coverage collector: ASM
+
+> Task :spring-core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :resolveStpAgentArtifact
+> Task :spring-core:javapoetRepackJar
+> Task :spring-core:objenesisRepackJar
+
+> Task :spring-core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :resolveStpAgentArtifact
+> Task :spring-core:javapoetRepackJar
+> Task :spring-core:objenesisRepackJar
+Smart Test Picker coverage collector: ASM
+
+> Task :spring-core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :resolveStpAgentArtifact
+> Task :spring-core:javapoetRepackJar
+> Task :spring-core:objenesisRepackJar
+> Task :spring-core:processResources
+> Task :spring-core:processJava21Resources NO-SOURCE
+> Task :spring-core:processJava24Resources NO-SOURCE
+> Task :spring-core:processTestFixturesResources NO-SOURCE
+> Task :spring-core:processTestResources
+> Task :spring-core:compileKotlin
+> Task :spring-core:processResources
+> Task :spring-core:processJava21Resources NO-SOURCE
+> Task :spring-core:processJava24Resources NO-SOURCE
+> Task :spring-core:processTestFixturesResources NO-SOURCE
+> Task :spring-core:processTestResources
+> Task :spring-core:compileKotlin
+> Task :spring-core:processResources
+> Task :spring-core:processJava21Resources NO-SOURCE
+> Task :spring-core:processJava24Resources NO-SOURCE
+> Task :spring-core:processTestFixturesResources NO-SOURCE
+> Task :spring-core:processTestResources
+> Task :spring-core:compileKotlin
+> Task :spring-core:compileJava
+> Task :spring-core:classes
+> Task :spring-core:compileJava21Kotlin NO-SOURCE
+> Task :spring-core:compileJava21Java
+> Task :spring-core:compileJava24Kotlin NO-SOURCE
+> Task :spring-core:compileJava24Java
+> Task :spring-core:java21Classes
+> Task :spring-core:java24Classes
+> Task :spring-core:jar
+> Task :spring-core:compileTestFixturesKotlin NO-SOURCE
+> Task :spring-core:compileTestFixturesJava
+> Task :spring-core:testFixturesClasses
+> Task :spring-core:testFixturesJar
+> Task :spring-core:compileJava
+> Task :spring-core:classes
+> Task :spring-core:compileJava21Kotlin NO-SOURCE
+> Task :spring-core:compileJava21Java
+> Task :spring-core:compileJava24Kotlin NO-SOURCE
+> Task :spring-core:compileJava24Java
+> Task :spring-core:java21Classes
+> Task :spring-core:java24Classes
+> Task :spring-core:jar
+> Task :spring-core:compileTestFixturesKotlin NO-SOURCE
+> Task :spring-core:compileJava
+> Task :spring-core:classes
+> Task :spring-core:compileJava21Kotlin NO-SOURCE
+> Task :spring-core:compileJava21Java
+> Task :spring-core:compileJava24Kotlin NO-SOURCE
+> Task :spring-core:compileJava24Java
+> Task :spring-core:java21Classes
+> Task :spring-core:java24Classes
+> Task :spring-core:jar
+> Task :spring-core:compileTestFixturesKotlin NO-SOURCE
+> Task :spring-core:compileTestFixturesJava
+> Task :spring-core:testFixturesClasses
+> Task :spring-core:testFixturesJar
+> Task :spring-core:compileTestFixturesJava
+> Task :spring-core:testFixturesClasses
+> Task :spring-core:testFixturesJar
+> Task :spring-core:compileTestKotlin
+> Task :spring-core:compileTestJava
+> Task :spring-core:testClasses
+
+> Task :spring-core:test
+OpenJDK 64-Bit Server VM warning: Option AllowRedefinitionToAddDeleteMethods was deprecated in version 13.0 and will likely be removed in a future release.
+> Task :spring-core:compileTestKotlin
+> Task :spring-core:compileTestKotlin
+> Task :spring-core:compileTestJava
+> Task :spring-core:testClasses
+
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by net.bytebuddy.dynamic.loading.ClassInjector$UsingUnsafe$Dispatcher$CreationAction (file:/home/jenkins/agent/workspace/EI-10-Job-A@tmp/stp-mapping/EI-10-Job-A_14-9b691b63-fb1e-422e-b317-56b1675607e7/gradle/user-home/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.18.3/c35b2e4bf0e22e4d492936d46506bb2e6d8fafc8/byte-buddy-1.18.3.jar)
+WARNING: Please consider reporting this to the maintainers of class net.bytebuddy.dynamic.loading.ClassInjector$UsingUnsafe$Dispatcher$CreationAction
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+> Task :spring-core:compileTestJava
+> Task :spring-core:testClasses
+
+> Task :spring-core:test
+OpenJDK 64-Bit Server VM warning: Option AllowRedefinitionToAddDeleteMethods was deprecated in version 13.0 and will likely be removed in a future release.
+
+> Task :aggregateGradleExecutableCoverage
+> Task :generateSmartTestMapping
+
+BUILD SUCCESSFUL in 2m 24s
+26 actionable tasks: 26 executed
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.7.1/userguide/configuration_cache_enabling.html
+[Pipeline] }
+
+> Task :spring-core:test
+OpenJDK 64-Bit Server VM warning: Option AllowRedefinitionToAddDeleteMethods was deprecated in version 13.0 and will likely be removed in a future release.
+[EI-10-Job-A] $ java -jar /home/jenkins/agent/workspace/EI-10-Job-A@tmp/stp-mapping-tool-655c2d5f-e482-4447-ac1b-d467ed6cf2e0.jar executable-evidence-from-fragment /home/jenkins/agent/workspace/EI-10-Job-A/build/stp/fragment-0.json /home/jenkins/agent/workspace/EI-10-Job-A/build/stp/execution-evidence-0.json a099debca9e59eb562cb3298690423dbb9d0127e 0 :spring-core:test gradle
+[EI-10-Job-A] $ java -jar /home/jenkins/agent/workspace/EI-10-Job-A@tmp/stp-mapping-tool-20f21df7-873a-4e10-81e1-4a681b010aac.jar validate-fragment /home/jenkins/agent/workspace/EI-10-Job-A/build/stp/fragment-0.json a099debca9e59eb562cb3298690423dbb9d0127e 0
+FRAGMENT PASS schemaVersion=3 revision=CoverageMapRevision[value=a099debca9e59eb562cb3298690423dbb9d0127e] shard=ShardId[value=0] completed=true
+[EI-10-Job-A] $ java -jar /home/jenkins/agent/workspace/EI-10-Job-A@tmp/stp-mapping-tool-55b50bb5-690a-448e-808c-657f0bc4ce7a.jar validate-evidence /home/jenkins/agent/workspace/EI-10-Job-A/build/stp/execution-evidence-0.json a099debca9e59eb562cb3298690423dbb9d0127e 0 :spring-core:test gradle /home/jenkins/agent/workspace/EI-10-Job-A/build/stp/shards/assignment-0.json
+EXECUTABLE EVIDENCE PASS identities=1488
+Stashed 2 file(s)
+[Pipeline] // stpCoverageMap
+[Pipeline] sh
++ date -u +%Y-%m-%dT%H:%M:%SZ
++ echo finish=2026-09-13T12:53:42Z
+[Pipeline] stash
+Stashed 1 file(s)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+
+> Task :aggregateGradleExecutableCoverage
+> Task :generateSmartTestMapping
+
+BUILD SUCCESSFUL in 2m 30s
+26 actionable tasks: 26 executed
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.7.1/userguide/configuration_cache_enabling.html
+[Pipeline] }
+[EI-10-Job-A] $ java -jar /home/jenkins/agent/workspace/EI-10-Job-A@tmp/stp-mapping-tool-86296369-5020-4238-9dbb-4a8f9a84dbd2.jar executable-evidence-from-fragment /home/jenkins/agent/workspace/EI-10-Job-A/build/stp/fragment-1.json /home/jenkins/agent/workspace/EI-10-Job-A/build/stp/execution-evidence-1.json a099debca9e59eb562cb3298690423dbb9d0127e 1 :spring-core:test gradle
+[EI-10-Job-A] $ java -jar /home/jenkins/agent/workspace/EI-10-Job-A@tmp/stp-mapping-tool-ecc08d88-369b-4898-9c09-475d504868ba.jar validate-fragment /home/jenkins/agent/workspace/EI-10-Job-A/build/stp/fragment-1.json a099debca9e59eb562cb3298690423dbb9d0127e 1
+FRAGMENT PASS schemaVersion=3 revision=CoverageMapRevision[value=a099debca9e59eb562cb3298690423dbb9d0127e] shard=ShardId[value=1] completed=true
+[EI-10-Job-A] $ java -jar /home/jenkins/agent/workspace/EI-10-Job-A@tmp/stp-mapping-tool-11b97d31-c5e6-46cf-818d-4f799a28fae8.jar validate-evidence /home/jenkins/agent/workspace/EI-10-Job-A/build/stp/execution-evidence-1.json a099debca9e59eb562cb3298690423dbb9d0127e 1 :spring-core:test gradle /home/jenkins/agent/workspace/EI-10-Job-A/build/stp/shards/assignment-1.json
+EXECUTABLE EVIDENCE PASS identities=1392
+Stashed 2 file(s)
+[Pipeline] // stpCoverageMap
+[Pipeline] sh
++ date -u +%Y-%m-%dT%H:%M:%SZ
++ echo finish=2026-09-13T12:53:48Z
+[Pipeline] stash
+Stashed 1 file(s)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by net.bytebuddy.dynamic.loading.ClassInjector$UsingUnsafe$Dispatcher$CreationAction (file:/home/jenkins/agent/workspace/EI-10-Job-A@tmp/stp-mapping/EI-10-Job-A_14-3e3d50cd-ab51-4cc9-a651-bac9dc50d139/gradle/user-home/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.18.3/c35b2e4bf0e22e4d492936d46506bb2e6d8fafc8/byte-buddy-1.18.3.jar)
+WARNING: Please consider reporting this to the maintainers of class net.bytebuddy.dynamic.loading.ClassInjector$UsingUnsafe$Dispatcher$CreationAction
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+
+> Task :aggregateGradleExecutableCoverage
+> Task :generateSmartTestMapping
+
+BUILD SUCCESSFUL in 2m 34s
+26 actionable tasks: 26 executed
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.7.1/userguide/configuration_cache_enabling.html
+[Pipeline] }
+[EI-10-Job-A] $ java -jar /home/jenkins/agent/workspace/EI-10-Job-A@tmp/stp-mapping-tool-8fcd7400-9721-40be-af44-2c3e98163447.jar executable-evidence-from-fragment /home/jenkins/agent/workspace/EI-10-Job-A/build/stp/fragment-2.json /home/jenkins/agent/workspace/EI-10-Job-A/build/stp/execution-evidence-2.json a099debca9e59eb562cb3298690423dbb9d0127e 2 :spring-core:test gradle
+[EI-10-Job-A] $ java -jar /home/jenkins/agent/workspace/EI-10-Job-A@tmp/stp-mapping-tool-df4a5afa-d957-4a60-9355-6a3f2f8a9d80.jar validate-fragment /home/jenkins/agent/workspace/EI-10-Job-A/build/stp/fragment-2.json a099debca9e59eb562cb3298690423dbb9d0127e 2
+FRAGMENT PASS schemaVersion=3 revision=CoverageMapRevision[value=a099debca9e59eb562cb3298690423dbb9d0127e] shard=ShardId[value=2] completed=true
+[EI-10-Job-A] $ java -jar /home/jenkins/agent/workspace/EI-10-Job-A@tmp/stp-mapping-tool-feeaf0ad-f7ec-4069-8201-6749ad169b44.jar validate-evidence /home/jenkins/agent/workspace/EI-10-Job-A/build/stp/execution-evidence-2.json a099debca9e59eb562cb3298690423dbb9d0127e 2 :spring-core:test gradle /home/jenkins/agent/workspace/EI-10-Job-A/build/stp/shards/assignment-2.json
+EXECUTABLE EVIDENCE PASS identities=1247
+Stashed 2 file(s)
+[Pipeline] // stpCoverageMap
+[Pipeline] sh
++ date -u +%Y-%m-%dT%H:%M:%SZ
++ echo finish=2026-09-13T12:53:52Z
+[Pipeline] stash
+Stashed 1 file(s)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] node
+Running on stp-map-agent-3 in /home/jenkins/agent/workspace/EI-10-Job-A
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Join and publish)
+[Pipeline] deleteDir
+[Pipeline] sh
++ git clone --no-hardlinks /opt/ei10/spring-framework .
+Cloning into '.'...
+done.
+[Pipeline] sh
++ git checkout --detach a099debca9e59eb562cb3298690423dbb9d0127e
+HEAD is now at a099debca9 Upgrade to Kotlin 2.4.20
++ git rev-parse HEAD
++ test a099debca9e59eb562cb3298690423dbb9d0127e = a099debca9e59eb562cb3298690423dbb9d0127e
+[Pipeline] unstash
+[Pipeline] unstash
+[Pipeline] unstash
+[Pipeline] unstash
+[Pipeline] stpPublishCoverageMap
+[EI-10-Job-A] $ git rev-parse HEAD
+[EI-10-Job-A] $ java -jar /home/jenkins/agent/workspace/EI-10-Job-A@tmp/stp-mapping-tool-56781222-3bbe-4e3d-b5a0-8b1377781805.jar validate-evidence /home/jenkins/agent/workspace/EI-10-Job-A/build/stp/execution-evidence-0.json a099debca9e59eb562cb3298690423dbb9d0127e 0 :spring-core:test gradle /home/jenkins/agent/workspace/EI-10-Job-A/build/stp/shards/assignment-0.json
+EXECUTABLE EVIDENCE PASS identities=1488
+[EI-10-Job-A] $ java -jar /home/jenkins/agent/workspace/EI-10-Job-A@tmp/stp-mapping-tool-b84b503f-fcde-41c2-88ed-c434ae955f51.jar validate-evidence /home/jenkins/agent/workspace/EI-10-Job-A/build/stp/execution-evidence-1.json a099debca9e59eb562cb3298690423dbb9d0127e 1 :spring-core:test gradle /home/jenkins/agent/workspace/EI-10-Job-A/build/stp/shards/assignment-1.json
+EXECUTABLE EVIDENCE PASS identities=1392
+[EI-10-Job-A] $ java -jar /home/jenkins/agent/workspace/EI-10-Job-A@tmp/stp-mapping-tool-0a3f10d8-a41a-4c4d-9de0-9ef7d5cae349.jar validate-evidence /home/jenkins/agent/workspace/EI-10-Job-A/build/stp/execution-evidence-2.json a099debca9e59eb562cb3298690423dbb9d0127e 2 :spring-core:test gradle /home/jenkins/agent/workspace/EI-10-Job-A/build/stp/shards/assignment-2.json
+EXECUTABLE EVIDENCE PASS identities=1247
+[EI-10-Job-A] $ java -jar /home/jenkins/agent/workspace/EI-10-Job-A@tmp/stp-mapping-tool-0fdc5655-0ea6-4ac2-b996-0abacf0dcec3.jar join a099debca9e59eb562cb3298690423dbb9d0127e build/stp/coverage-map-ei10.json build/executable-head-test-inventory.json 0,1,2 build/stp/fragment-0.json build/stp/execution-evidence-0.json build/stp/fragment-1.json build/stp/execution-evidence-1.json build/stp/fragment-2.json build/stp/execution-evidence-2.json
+EXECUTABLE JOIN PASS tests=4123 shards=[ShardId[value=0], ShardId[value=1], ShardId[value=2]]
+[EI-10-Job-A] $ java -jar /home/jenkins/agent/workspace/EI-10-Job-A@tmp/stp-mapping-tool-81cbcc0b-8b3e-423d-a44a-d69076a221f2.jar publish-store build/stp/coverage-map-ei10.json /opt/ei10/map-storage spring-framework ei10-r0 a099debca9e59eb562cb3298690423dbb9d0127e
+PUBLISH STORE PASS map=StoredObject[logicalObjectKey=spring-framework/ei10-r0/a099debca9e59eb562cb3298690423dbb9d0127e, backendRelativeKey=projects/spring-framework--7a4820c0d965ff9b/branches/ei10-r0--132bfc8cd696d580/revisions/a099debca9e59eb562cb3298690423dbb9d0127e--4e5f21f341db4195/coverage-map-v2.json, sha256=f5e875b33d550fb8dda1d68b416719c3a3b4ca0d9b9c8bd42886ee2929ab4749, status=STORED] pointer=PointerUpdateResult[status=POINTER_UPDATED, pointer=CoverageMapPointer[schemaVersion=1, project=spring-framework, branch=ei10-r0, revision=a099debca9e59eb562cb3298690423dbb9d0127e, mapSha256=f5e875b33d550fb8dda1d68b416719c3a3b4ca0d9b9c8bd42886ee2929ab4749]]
+[STP] policy source=STORAGE outcome=POINTER_UPDATED context=MAP_PUBLICATION action=CONTINUE reasonCode=SAFE_DOMAIN_RESULT retryability=NOT_RETRYABLE fallbackOccurred=false userActionRequired=false
+[Pipeline] echo
+EI10_STORAGE_ROOT=/opt/ei10/map-storage
+[Pipeline] sh
++ sha256sum build/stp/coverage-map-ei10.json
+f5e875b33d550fb8dda1d68b416719c3a3b4ca0d9b9c8bd42886ee2929ab4749  build/stp/coverage-map-ei10.json
++ python3 -
+EI10_PUBLISHED_REVISION a099debca9e59eb562cb3298690423dbb9d0127e
+EI10_PUBLISHED_TESTS 4123
+EI10_FRAGMENT fragment-0.json 0f8ce666d3b4f22dea0b0b0f21af6d65e18ef348292140b09c3caa6d1b3d0ca1
+EI10_FRAGMENT fragment-1.json 0cbd07ccb0c89a7f017546338c68339ba6dbc935d139d1924f23dcfe07a1ba4d
+EI10_FRAGMENT fragment-2.json 7c7eb317d2832ce1cf37ab5cb658e2ee68682abb1c720ba2418eb505d9f74f89
+EI10_EVIDENCE execution-evidence-0.json 1487 9dd86253e5e349663b7e6f53a5e697f4e0e5398f453fe422508e4dba3762c208
+EI10_EVIDENCE execution-evidence-1.json 1389 4b283148cd895dd11a0722c7a5dedecc7184f9af46caaf72cb261c5aa16be110
+EI10_EVIDENCE execution-evidence-2.json 1247 2d1b4a26c28aa3ada5ca93c0e9f3a1efebd5889b988a7f0662d87ee1090f42aa
+[Pipeline] archiveArtifacts
+Archiving artifacts
+Recording fingerprints
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

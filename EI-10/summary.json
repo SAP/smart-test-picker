@@ -1,0 +1,12 @@
+{
+  "result": "PASS",
+  "stp": {"initial": "fddc5cb57162ceac11b9add06a11bc634548b040", "final": "45bda5d7e9a50fa9bddb744dd8a99f531ba93628"},
+  "jenkinsPlugin": {"initial": "744ac5513350e01077062bb5b257520f05fa0bea", "final": "a1319cd0041099452a371e55d943d34687799b19", "e2eHpiSource": "a56a4c99", "hpiSha256": "4b9acaa534ee3b84e6981e0e917f75123d7e146298f2f71c3bed4f728763581c"},
+  "spring": {"r0": "a099debca9e59eb562cb3298690423dbb9d0127e", "r1": "a11311c52a72cf1a6cef50f2942ffb79dfc4a69d", "branch": "ei10-simulated-pr", "pushed": false},
+  "jobA": {"number": 14, "result": "SUCCESS", "inventory": 4127, "assignments": [1488, 1392, 1247], "mapped": 4123, "overlap": true, "mapSha256": "f5e875b33d550fb8dda1d68b416719c3a3b4ca0d9b9c8bd42886ee2929ab4749"},
+  "selection": {"seed": 1010, "candidateCount": 299, "expected": 228, "selected": 228, "executed": 228, "inventory": 4127, "mode": "SELECT", "equal": true},
+  "jobB": {"number": 5, "result": "SUCCESS"},
+  "fullSuite": {"number": 1, "result": "SUCCESS", "executed": 4317, "selectedIncluded": true},
+  "tests": {"stpFull": "PASS", "jenkinsFull": {"tests": 88, "failures": 0, "errors": 0}},
+  "forbiddenShortcuts": []
+}

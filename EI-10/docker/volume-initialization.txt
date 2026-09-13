@@ -1,0 +1,6 @@
+Dedicated named volume: ei10_map_storage
+Shared absolute path: /opt/ei10/map-storage
+Initialization required after first creation: chown -R 1000:1000 /opt/ei10/map-storage
+Initialization was performed from stp-plugin-agent-3 as container root.
+Jenkins UID/GID 1000 write check passed before accepted Job A build 14.
+The named volume is preserved during cleanup for reproducible inspection/restart.

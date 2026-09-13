@@ -1,0 +1,21 @@
+Smart Test Picker repository
+path: /Users/d061177/work/asm-poc/codex-worktree
+branch: research/asm-codex
+initial HEAD: fddc5cb57162ceac11b9add06a11bc634548b040
+initial status: ?? EI-9/ (known preserved EI-9 task evidence)
+final production HEAD before evidence commit: 45bda5d7e9a50fa9bddb744dd8a99f531ba93628
+
+Jenkins plugin repository
+path: /Users/d061177/work/stp-jenkins-plugin-poc
+branch: main
+initial HEAD: 744ac5513350e01077062bb5b257520f05fa0bea
+final HEAD: a1319cd0041099452a371e55d943d34687799b19
+final status: clean
+
+Spring Framework validation repository
+path: /Users/d061177/work/asm-poc/codex-worktree/EI-9/spring-framework
+R0: a099debca9e59eb562cb3298690423dbb9d0127e
+R1: a11311c52a72cf1a6cef50f2942ffb79dfc4a69d
+branch: ei10-simulated-pr
+final status: clean
+push performed: no

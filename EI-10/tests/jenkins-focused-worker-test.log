@@ -1,0 +1,192 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------< io.github.smarttestpicker:smart-test-picker >-------------
+[INFO] Building Smart Test Picker 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ hpi ]---------------------------------
+[INFO] 
+[INFO] --- hpi:3.1746.v2e9fe7dc4d95:validate (default-validate) @ smart-test-picker ---
+[INFO] 
+[INFO] --- hpi:3.1746.v2e9fe7dc4d95:validate-hpi (default-validate-hpi) @ smart-test-picker ---
+[INFO] 
+[INFO] --- enforcer:3.6.1:enforce (display-info) @ smart-test-picker ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[INFO] Rule 1: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/HKDF$Mappings.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/HKDF.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/PBEPBKDF2$Mappings.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/PBEPBKDF2.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/SCRYPT$Mappings.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/SCRYPT.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/hkdf/HKDFSpi$HKDFwithSHA256.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/hkdf/HKDFSpi$HKDFwithSHA384.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/hkdf/HKDFSpi$HKDFwithSHA512.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/hkdf/HKDFSpi.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2with8BIT.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withGOST3411.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA224.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA256.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA384.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA3_224.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA3_256.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA3_384.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA3_512.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA512.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA512_224.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA512_256.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSM3.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withUTF8.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/scrypt/ScryptSpi$ScryptWithUTF8.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/scrypt/ScryptSpi.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/spec/PBKDF2ParameterSpec.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/spec/ScryptParameterSpec.class: got null class-file-version
+[INFO] Rule 2: org.codehaus.mojo.extraenforcer.dependencies.EnforceBytecodeVersion passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.BannedDependencies passed
+[INFO] Rule 4: org.apache.maven.enforcer.rules.dependency.BannedDependencies passed
+[INFO] Ignoring requireUpperBoundDeps in org.ow2.asm:asm
+[INFO] Rule 5: org.apache.maven.enforcer.rules.dependency.RequireUpperBoundDeps passed
+[INFO] 
+[INFO] --- enforcer:3.6.1:enforce (no-snapshots-in-release) @ smart-test-picker ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.dependency.RequireReleaseDeps passed
+[INFO] 
+[INFO] --- localizer:1.31:generate (default) @ smart-test-picker ---
+[INFO] 
+[INFO] --- enforcer:3.6.1:enforce (check-junit-imports) @ smart-test-picker ---
+[INFO] Skipping Rule Enforcement.
+[INFO] 
+[INFO] --- antrun:3.1.0:run (verify-stp-adapter-builds) @ smart-test-picker ---
+[INFO] Executing tasks
+[INFO]      [exec] [INFO] Scanning for projects...
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] ------------< io.github.smarttestpicker:stp-maven-adapter >-------------
+[INFO]      [exec] [INFO] Building stp-maven-adapter 0.1.0
+[INFO]      [exec] [INFO]   from pom.xml
+[INFO]      [exec] [INFO] --------------------------------[ jar ]---------------------------------
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] --- clean:3.2.0:clean (default-clean) @ stp-maven-adapter ---
+[INFO]      [exec] [INFO] Deleting /Users/d061177/work/stp-jenkins-plugin-poc/adapters/maven-extension/target
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] --- resources:3.4.0:resources (default-resources) @ stp-maven-adapter ---
+[INFO]      [exec] [INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] --- compiler:3.14.1:compile (default-compile) @ stp-maven-adapter ---
+[INFO]      [exec] [INFO] Recompiling the module because of changed source code.
+[INFO]      [exec] [INFO] Compiling 1 source file with javac [debug release 8] to target/classes
+[INFO]      [exec] [WARNING] source value 8 is obsolete and will be removed in a future release
+[INFO]      [exec] [WARNING] target value 8 is obsolete and will be removed in a future release
+[INFO]      [exec] [WARNING] To suppress warnings about obsolete options, use -Xlint:-options.
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] --- resources:3.4.0:testResources (default-testResources) @ stp-maven-adapter ---
+[INFO]      [exec] [INFO] skip non existing resourceDirectory /Users/d061177/work/stp-jenkins-plugin-poc/adapters/maven-extension/src/test/resources
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ stp-maven-adapter ---
+[INFO]      [exec] [INFO] No sources to compile
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] --- surefire:3.5.4:test (default-test) @ stp-maven-adapter ---
+[INFO]      [exec] [INFO] No tests to run.
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] --- jar:3.5.0:jar (default-jar) @ stp-maven-adapter ---
+[INFO]      [exec] [INFO] Building jar: /Users/d061177/work/stp-jenkins-plugin-poc/adapters/maven-extension/target/stp-maven-adapter-0.1.0.jar
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] --- shade:3.6.1:shade (default) @ stp-maven-adapter ---
+[INFO]      [exec] [WARNING] Discovered module-info.class. Shading will break its strong encapsulation.
+[INFO]      [exec] [WARNING] jackson-annotations-2.20.jar, jackson-core-2.20.0.jar, jackson-databind-2.20.0.jar define 2 overlapping resources: 
+[INFO]      [exec] [WARNING]   - META-INF/LICENSE
+[INFO]      [exec] [WARNING]   - META-INF/NOTICE
+[INFO]      [exec] [WARNING] jackson-annotations-2.20.jar, jackson-core-2.20.0.jar, jackson-databind-2.20.0.jar, stp-maven-adapter-0.1.0.jar define 1 overlapping resource: 
+[INFO]      [exec] [WARNING]   - META-INF/MANIFEST.MF
+[INFO]      [exec] [WARNING] jackson-core-2.20.0.jar, jackson-databind-2.20.0.jar define 1 overlapping classes: 
+[INFO]      [exec] [WARNING]   - META-INF.versions.9.module-info
+[INFO]      [exec] [WARNING] maven-shade-plugin has detected that some files are
+[INFO]      [exec] [WARNING] present in two or more JARs. When this happens, only one
+[INFO]      [exec] [WARNING] single version of the file is copied to the uber jar.
+[INFO]      [exec] [WARNING] Usually this is not harmful and you can skip these warnings,
+[INFO]      [exec] [WARNING] otherwise try to manually exclude artifacts based on
+[INFO]      [exec] [WARNING] mvn dependency:tree -Ddetail=true and the above output.
+[INFO]      [exec] [WARNING] See https://maven.apache.org/plugins/maven-shade-plugin/
+[INFO]      [exec] [INFO] Replacing original artifact with shaded artifact.
+[INFO]      [exec] [INFO] ------------------------------------------------------------------------
+[INFO]      [exec] [INFO] BUILD SUCCESS
+[INFO]      [exec] [INFO] ------------------------------------------------------------------------
+[INFO]      [exec] [INFO] Total time:  1.117 s
+[INFO]      [exec] [INFO] Finished at: 2026-09-13T15:37:29+02:00
+[INFO]      [exec] [INFO] ------------------------------------------------------------------------
+[INFO]      [exec] PASS deterministic Gradle content and reproducible Maven adapter build match generated manifest
+[INFO] Executed tasks
+[INFO] 
+[INFO] --- antrun:3.1.0:run (generate-stp-adapter-manifest) @ smart-test-picker ---
+[INFO] Executing tasks
+[INFO] Executed tasks
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ smart-test-picker ---
+[INFO] Copying 15 resources from src/main/resources to target/classes
+[INFO] Copying 4 resources from target/generated-resources/stp to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ smart-test-picker ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- access-modifier-checker:1.35:enforce (default-enforce) @ smart-test-picker ---
+[INFO] 
+[INFO] --- bridge-method-injector:1.32:process (default) @ smart-test-picker ---
+[INFO] 
+[INFO] --- hpi:3.1746.v2e9fe7dc4d95:insert-test (default-insert-test) @ smart-test-picker ---
+[INFO] 
+[INFO] --- antrun:3.1.0:run (createTempDir) @ smart-test-picker ---
+[INFO] Executing tasks
+[INFO] Executed tasks
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ smart-test-picker ---
+[INFO] skip non existing resourceDirectory /Users/d061177/work/stp-jenkins-plugin-poc/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.0:testCompile (default-testCompile) @ smart-test-picker ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 15 source files with javac [debug parameters release 17] to target/test-classes
+[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/test/java/io/github/smarttestpicker/jenkins/GitHubBranchSourcePrAdapterTest.java: Some input files use or override a deprecated API.
+[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/test/java/io/github/smarttestpicker/jenkins/GitHubBranchSourcePrAdapterTest.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- hpi:3.1746.v2e9fe7dc4d95:test-hpl (default-test-hpl) @ smart-test-picker ---
+[INFO] Generating /Users/d061177/work/stp-jenkins-plugin-poc/target/test-classes/the.hpl
+[INFO] 
+[INFO] --- hpi:3.1746.v2e9fe7dc4d95:resolve-test-dependencies (default-resolve-test-dependencies) @ smart-test-picker ---
+[INFO] 
+[INFO] --- hpi:3.1746.v2e9fe7dc4d95:test-runtime (default-test-runtime) @ smart-test-picker ---
+[INFO] Setting jenkins.addOpens to --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED
+[INFO] Setting jenkins.insaneHook to --patch-module='java.base=/Users/d061177/work/stp-jenkins-plugin-poc/target/patch-modules/org-netbeans-insane-hook.jar' --add-exports=java.base/org.netbeans.insane.hook=ALL-UNNAMED
+[INFO] 
+[INFO] --- surefire:3.5.3:test (default-test) @ smart-test-picker ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running io.github.smarttestpicker.jenkins.CoverageMappingStepTest
+   0.053 [id=1]	INFO	o.jvnet.hudson.test.WarExploder#explode: Picking up existing exploded jenkins.war at /Users/d061177/work/stp-jenkins-plugin-poc/target/jenkins-for-test
+   0.206 [id=1]	INFO	o.jvnet.hudson.test.JenkinsRule#createWebServer2: Running on http://localhost:50605/jenkins/
+   0.255 [id=1]	INFO	jenkins.model.Jenkins#<init>: Starting version 2.516.2
+   0.321 [id=51]	INFO	jenkins.InitReactorRunner$1#onAttained: Started initialization
+   0.786 [id=51]	INFO	jenkins.InitReactorRunner$1#onAttained: Listed all plugins
+   0.792 [id=56]	INFO	j.b.api.BouncyCastlePlugin#start: /Users/d061177/work/stp-jenkins-plugin-poc/target/tmp/j h10157233065027059153/plugins/bouncycastle-api/WEB-INF/optional-lib not found; for non RealJenkinsRule this is fine and can be ignored.
+   1.278 [id=63]	INFO	jenkins.InitReactorRunner$1#onAttained: Prepared all plugins
+   1.282 [id=71]	INFO	jenkins.InitReactorRunner$1#onAttained: Started all plugins
+   1.283 [id=55]	INFO	jenkins.InitReactorRunner$1#onAttained: Augmented all extensions
+   1.661 [id=55]	INFO	jenkins.InitReactorRunner$1#onAttained: System config loaded
+   1.662 [id=69]	INFO	jenkins.InitReactorRunner$1#onAttained: System config adapted
+   1.662 [id=72]	INFO	jenkins.InitReactorRunner$1#onAttained: Loaded all jobs
+   1.664 [id=71]	INFO	jenkins.InitReactorRunner$1#onAttained: Configuration for all jobs updated
+   1.735 [id=56]	INFO	jenkins.InitReactorRunner$1#onAttained: Completed initialization
+  15.109 [id=1]	INFO	hudson.lifecycle.Lifecycle#onStatusUpdate: Stopping Jenkins
+  15.138 [id=1]	INFO	hudson.lifecycle.Lifecycle#onStatusUpdate: Jenkins stopped
+  15.159 [id=1]	INFO	o.j.h.t.TemporaryDirectoryAllocator#dispose: deleting /Users/d061177/work/stp-jenkins-plugin-poc/target/tmp/j h10157233065027059153
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 15.48 s -- in io.github.smarttestpicker.jenkins.CoverageMappingStepTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  21.094 s
+[INFO] Finished at: 2026-09-13T15:37:47+02:00
+[INFO] ------------------------------------------------------------------------

@@ -1,0 +1,1435 @@
+[
+    {
+        "Id": "e62361f89cd7de23c3b041dbe8f7f2a6dc1f1dc82515f88b9b191d5306c9980d",
+        "Created": "2026-09-13T09:20:04.34126842Z",
+        "Path": "/usr/bin/tini",
+        "Args": [
+            "--",
+            "/usr/local/bin/jenkins.sh"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 99581,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-09-13T13:18:06.042673544Z",
+            "FinishedAt": "2026-09-13T13:18:05.936140878Z"
+        },
+        "Image": "sha256:d79d574a00c517f590ea17459fdb49b84d699c43a39ff2713d8252921217ef1a",
+        "ResolvConfPath": "/var/lib/docker/containers/e62361f89cd7de23c3b041dbe8f7f2a6dc1f1dc82515f88b9b191d5306c9980d/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/e62361f89cd7de23c3b041dbe8f7f2a6dc1f1dc82515f88b9b191d5306c9980d/hostname",
+        "HostsPath": "/var/lib/docker/containers/e62361f89cd7de23c3b041dbe8f7f2a6dc1f1dc82515f88b9b191d5306c9980d/hosts",
+        "LogPath": "/var/lib/docker/containers/e62361f89cd7de23c3b041dbe8f7f2a6dc1f1dc82515f88b9b191d5306c9980d/e62361f89cd7de23c3b041dbe8f7f2a6dc1f1dc82515f88b9b191d5306c9980d-json.log",
+        "Name": "/stp-plugin-controller",
+        "RestartCount": 0,
+        "Driver": "overlayfs",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "ei9_controller_home:/var/jenkins_home:rw"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "ei9_default",
+            "PortBindings": {
+                "8080/tcp": [
+                    {
+                        "HostIp": "",
+                        "HostPort": "8082"
+                    },
+                    {
+                        "HostIp": "",
+                        "HostPort": "18082"
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "unless-stopped",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": null,
+            "DnsOptions": null,
+            "DnsSearch": null,
+            "ExtraHosts": [],
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": null,
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": null,
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "MaskedPaths": [
+                "/proc/acpi",
+                "/proc/asound",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/sys/devices/virtual/powercap",
+                "/sys/firmware"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "Storage": {
+            "RootFS": {
+                "Snapshot": {
+                    "Name": "overlayfs"
+                }
+            }
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "ei9_controller_home",
+                "Source": "/var/lib/docker/volumes/ei9_controller_home/_data",
+                "Destination": "/var/jenkins_home",
+                "Driver": "local",
+                "Mode": "rw",
+                "RW": true,
+                "Propagation": ""
+            }
+        ],
+        "Config": {
+            "Hostname": "jenkins-controller",
+            "Domainname": "",
+            "User": "jenkins",
+            "AttachStdin": false,
+            "AttachStdout": true,
+            "AttachStderr": true,
+            "ExposedPorts": {
+                "50000/tcp": {},
+                "8080/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "JAVA_OPTS=-Djenkins.install.runSetupWizard=false -Dstp.storage.coordination.trace=true",
+                "JENKINS_ADMIN_ID=admin",
+                "JENKINS_ADMIN_PASSWORD=stp-plugin-poc-admin",
+                "CASC_JENKINS_CONFIG=/usr/share/jenkins/ref/casc/jenkins.yaml",
+                "PATH=/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=C.UTF-8",
+                "JENKINS_HOME=/var/jenkins_home",
+                "JENKINS_SLAVE_AGENT_PORT=50000",
+                "REF=/usr/share/jenkins/ref",
+                "JENKINS_VERSION=2.516.2",
+                "JENKINS_UC=https://updates.jenkins.io",
+                "JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental",
+                "JENKINS_INCREMENTALS_REPO_MIRROR=https://repo.jenkins-ci.org/incrementals",
+                "COPY_REFERENCE_FILE_LOG=/var/jenkins_home/copy_reference_file.log",
+                "JAVA_HOME=/opt/java/openjdk"
+            ],
+            "Cmd": null,
+            "Image": "ei9-jenkins-controller",
+            "Volumes": {
+                "/var/jenkins_home": {}
+            },
+            "WorkingDir": "",
+            "Entrypoint": [
+                "/usr/bin/tini",
+                "--",
+                "/usr/local/bin/jenkins.sh"
+            ],
+            "Labels": {
+                "com.docker.compose.config-hash": "2c92e7a296a0674e0261c0566387890edcd2e1f2f4546f29178a0f1bb3d5e4ea",
+                "com.docker.compose.container-number": "1",
+                "com.docker.compose.depends_on": "",
+                "com.docker.compose.image": "sha256:ea5ef0920573daee4fbb902dafac84447896a8aac3577ef35ae5a80933aaac88",
+                "com.docker.compose.oneoff": "False",
+                "com.docker.compose.project": "ei9",
+                "com.docker.compose.project.config_files": "/Users/d061177/work/stp-jenkins-plugin-poc/docker-compose.yml,/Users/d061177/work/asm-poc/codex-worktree/EI-9/docker/docker-compose.override.yml",
+                "com.docker.compose.project.working_dir": "/Users/d061177/work/stp-jenkins-plugin-poc",
+                "com.docker.compose.service": "jenkins-controller",
+                "com.docker.compose.version": "5.5.0",
+                "org.opencontainers.image.description": "The Jenkins Continuous Integration and Delivery server",
+                "org.opencontainers.image.licenses": "MIT",
+                "org.opencontainers.image.revision": "6be30088e1b49cb80824fea67e27ab32b8645717",
+                "org.opencontainers.image.source": "https://github.com/jenkinsci/docker",
+                "org.opencontainers.image.title": "Official Jenkins Docker image",
+                "org.opencontainers.image.url": "https://www.jenkins.io/",
+                "org.opencontainers.image.vendor": "Jenkins project",
+                "org.opencontainers.image.version": "2.516.2"
+            }
+        },
+        "NetworkSettings": {
+            "SandboxID": "cedeef5d1dc12a05c8a20110e2fed64a8670d6193559871a8288d2a7eb230553",
+            "SandboxKey": "/var/run/docker/netns/cedeef5d1dc1",
+            "Ports": {
+                "8080/tcp": [
+                    {
+                        "HostIp": "0.0.0.0",
+                        "HostPort": "8082"
+                    },
+                    {
+                        "HostIp": "::",
+                        "HostPort": "8082"
+                    },
+                    {
+                        "HostIp": "0.0.0.0",
+                        "HostPort": "18082"
+                    },
+                    {
+                        "HostIp": "::",
+                        "HostPort": "18082"
+                    }
+                ]
+            },
+            "Networks": {
+                "ei9_default": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": [
+                        "stp-plugin-controller",
+                        "jenkins-controller"
+                    ],
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "54894da59c823408af2e28fb93d870e0df7a36beb1be66725173d3e34d58059f",
+                    "EndpointID": "84e8b295d066ef1c1fce3b48c9dcd752380a5a83ed1cb10e8caac283a40c66b1",
+                    "Gateway": "172.18.0.1",
+                    "IPAddress": "172.18.0.2",
+                    "MacAddress": "5a:e3:d1:5a:c1:22",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": [
+                        "stp-plugin-controller",
+                        "jenkins-controller",
+                        "e62361f89cd7"
+                    ]
+                }
+            }
+        },
+        "ImageManifestDescriptor": {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:ea5ef0920573daee4fbb902dafac84447896a8aac3577ef35ae5a80933aaac88",
+            "size": 3716,
+            "platform": {
+                "architecture": "arm64",
+                "os": "linux"
+            }
+        }
+    },
+    {
+        "Id": "0efcde3c498f8e76389d5d2c9645dc33ec992ecc5b6e139a5b15ef68afab80a5",
+        "Created": "2026-09-13T10:22:27.173199214Z",
+        "Path": "/usr/local/bin/stp-connect-agent",
+        "Args": [],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 9973,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-09-13T10:22:27.951817298Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:1bc18d3cc85387c810b912deb881bd16e0b8de100d2acf7aa250a63550ab9538",
+        "ResolvConfPath": "/var/lib/docker/containers/0efcde3c498f8e76389d5d2c9645dc33ec992ecc5b6e139a5b15ef68afab80a5/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/0efcde3c498f8e76389d5d2c9645dc33ec992ecc5b6e139a5b15ef68afab80a5/hostname",
+        "HostsPath": "/var/lib/docker/containers/0efcde3c498f8e76389d5d2c9645dc33ec992ecc5b6e139a5b15ef68afab80a5/hosts",
+        "LogPath": "/var/lib/docker/containers/0efcde3c498f8e76389d5d2c9645dc33ec992ecc5b6e139a5b15ef68afab80a5/0efcde3c498f8e76389d5d2c9645dc33ec992ecc5b6e139a5b15ef68afab80a5-json.log",
+        "Name": "/stp-plugin-agent",
+        "RestartCount": 0,
+        "Driver": "overlayfs",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "/Users/d061177/work/stp-jenkins-plugin-poc/fixtures:/opt/application-fixtures:ro",
+                "/Users/d061177/work/asm-poc/codex-worktree/EI-9/spring-framework:/opt/ei10/spring-framework:ro",
+                "ei10_map_storage:/opt/ei10/map-storage:rw"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "ei9_default",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "unless-stopped",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": null,
+            "DnsOptions": null,
+            "DnsSearch": null,
+            "ExtraHosts": [],
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": null,
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": null,
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "Mounts": [
+                {
+                    "Type": "volume",
+                    "Source": "e56ca146c0b598c5e7d28beb91d407d0998c00a337d5c2593f53efb1aec757e1",
+                    "Target": "/home/jenkins/.jenkins"
+                },
+                {
+                    "Type": "volume",
+                    "Source": "823a8f36b0c66f73b38e36cd64f329f79344a0484d06b4c464ca9879066a6483",
+                    "Target": "/home/jenkins/agent"
+                }
+            ],
+            "MaskedPaths": [
+                "/proc/acpi",
+                "/proc/asound",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/sys/devices/virtual/powercap",
+                "/sys/firmware"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ],
+            "Init": true
+        },
+        "Storage": {
+            "RootFS": {
+                "Snapshot": {
+                    "Name": "overlayfs"
+                }
+            }
+        },
+        "Mounts": [
+            {
+                "Type": "bind",
+                "Source": "/Users/d061177/work/stp-jenkins-plugin-poc/fixtures",
+                "Destination": "/opt/application-fixtures",
+                "Mode": "ro",
+                "RW": false,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "bind",
+                "Source": "/Users/d061177/work/asm-poc/codex-worktree/EI-9/spring-framework",
+                "Destination": "/opt/ei10/spring-framework",
+                "Mode": "ro",
+                "RW": false,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "volume",
+                "Name": "ei10_map_storage",
+                "Source": "/var/lib/docker/volumes/ei10_map_storage/_data",
+                "Destination": "/opt/ei10/map-storage",
+                "Driver": "local",
+                "Mode": "rw",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "volume",
+                "Name": "e56ca146c0b598c5e7d28beb91d407d0998c00a337d5c2593f53efb1aec757e1",
+                "Source": "/var/lib/docker/volumes/e56ca146c0b598c5e7d28beb91d407d0998c00a337d5c2593f53efb1aec757e1/_data",
+                "Destination": "/home/jenkins/.jenkins",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "volume",
+                "Name": "823a8f36b0c66f73b38e36cd64f329f79344a0484d06b4c464ca9879066a6483",
+                "Source": "/var/lib/docker/volumes/823a8f36b0c66f73b38e36cd64f329f79344a0484d06b4c464ca9879066a6483/_data",
+                "Destination": "/home/jenkins/agent",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            }
+        ],
+        "Config": {
+            "Hostname": "jenkins-agent",
+            "Domainname": "",
+            "User": "jenkins",
+            "AttachStdin": false,
+            "AttachStdout": true,
+            "AttachStderr": true,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "JENKINS_URL=http://jenkins-controller:8080",
+                "JENKINS_AGENT_NAME=stp-agent",
+                "JENKINS_ADMIN_ID=admin",
+                "JENKINS_ADMIN_PASSWORD=stp-plugin-poc-admin",
+                "PATH=/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "TZ=Etc/UTC",
+                "LANG=C.UTF-8",
+                "JAVA_HOME=/opt/java/openjdk",
+                "AGENT_WORKDIR=/home/jenkins/agent",
+                "USER=jenkins"
+            ],
+            "Cmd": null,
+            "Image": "ei9-jenkins-agent",
+            "Volumes": {
+                "/home/jenkins/.jenkins": {},
+                "/home/jenkins/agent": {}
+            },
+            "WorkingDir": "/home/jenkins",
+            "Entrypoint": [
+                "/usr/local/bin/stp-connect-agent"
+            ],
+            "Labels": {
+                "com.docker.compose.config-hash": "060737a427ee0cad6932841afd537ce0243a9219c215badd47dea38b9130e6d2",
+                "com.docker.compose.container-number": "1",
+                "com.docker.compose.depends_on": "jenkins-controller:service_started:false",
+                "com.docker.compose.image": "sha256:e91956151232193e4e7151bc986e61bc168b576101141f694b55a42b12461e6c",
+                "com.docker.compose.oneoff": "False",
+                "com.docker.compose.project": "ei9",
+                "com.docker.compose.project.config_files": "/Users/d061177/work/stp-jenkins-plugin-poc/docker-compose.yml,/Users/d061177/work/asm-poc/codex-worktree/EI-10/docker/docker-compose.override.yml",
+                "com.docker.compose.project.working_dir": "/Users/d061177/work/stp-jenkins-plugin-poc",
+                "com.docker.compose.replace": "stp-plugin-agent",
+                "com.docker.compose.service": "jenkins-agent",
+                "com.docker.compose.version": "5.5.0",
+                "org.opencontainers.image.description": "This is an image for Jenkins agents using TCP or WebSockets to establish inbound connection to the Jenkins controller",
+                "org.opencontainers.image.licenses": "MIT",
+                "org.opencontainers.image.source": "https://github.com/jenkinsci/docker-agents",
+                "org.opencontainers.image.title": "Official Jenkins Inbound Agent Base Docker image",
+                "org.opencontainers.image.url": "https://www.jenkins.io/",
+                "org.opencontainers.image.vendor": "Jenkins project",
+                "org.opencontainers.image.version": "3386.v353e57a_1b_ea_0"
+            }
+        },
+        "NetworkSettings": {
+            "SandboxID": "f2b5276088e94c59c0a18ecaa2fc7445db89402940d813e93a8b507d8be5bf1d",
+            "SandboxKey": "/var/run/docker/netns/f2b5276088e9",
+            "Ports": {},
+            "Networks": {
+                "ei9_default": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": [
+                        "stp-plugin-agent",
+                        "jenkins-agent"
+                    ],
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "54894da59c823408af2e28fb93d870e0df7a36beb1be66725173d3e34d58059f",
+                    "EndpointID": "1d82f0584230e597347746146f16f93a339e666cff72ca45aa976a4b8af48680",
+                    "Gateway": "172.18.0.1",
+                    "IPAddress": "172.18.0.5",
+                    "MacAddress": "3e:a3:3e:ef:9c:c4",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": [
+                        "stp-plugin-agent",
+                        "jenkins-agent",
+                        "0efcde3c498f"
+                    ]
+                }
+            }
+        },
+        "ImageManifestDescriptor": {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:e91956151232193e4e7151bc986e61bc168b576101141f694b55a42b12461e6c",
+            "size": 3343,
+            "platform": {
+                "architecture": "arm64",
+                "os": "linux"
+            }
+        }
+    },
+    {
+        "Id": "68ab3109bb05ae63bc36308478f38279ea5b435f9a2ac0d77e96cdba7026c14a",
+        "Created": "2026-09-13T10:22:27.173686506Z",
+        "Path": "/usr/local/bin/stp-connect-agent",
+        "Args": [],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 9968,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-09-13T10:22:27.951339631Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:1b440c6f6504603963ed530c6be6f198c2d067cea08c5eacdb33ffa7fbf4d16b",
+        "ResolvConfPath": "/var/lib/docker/containers/68ab3109bb05ae63bc36308478f38279ea5b435f9a2ac0d77e96cdba7026c14a/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/68ab3109bb05ae63bc36308478f38279ea5b435f9a2ac0d77e96cdba7026c14a/hostname",
+        "HostsPath": "/var/lib/docker/containers/68ab3109bb05ae63bc36308478f38279ea5b435f9a2ac0d77e96cdba7026c14a/hosts",
+        "LogPath": "/var/lib/docker/containers/68ab3109bb05ae63bc36308478f38279ea5b435f9a2ac0d77e96cdba7026c14a/68ab3109bb05ae63bc36308478f38279ea5b435f9a2ac0d77e96cdba7026c14a-json.log",
+        "Name": "/stp-plugin-agent-1",
+        "RestartCount": 0,
+        "Driver": "overlayfs",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "/Users/d061177/work/stp-jenkins-plugin-poc/fixtures:/opt/application-fixtures:ro",
+                "/Users/d061177/work/asm-poc/codex-worktree/EI-9/spring-framework:/opt/ei10/spring-framework:ro",
+                "ei10_map_storage:/opt/ei10/map-storage:rw"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "ei9_default",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "unless-stopped",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": null,
+            "DnsOptions": null,
+            "DnsSearch": null,
+            "ExtraHosts": [],
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": null,
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": null,
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "Mounts": [
+                {
+                    "Type": "volume",
+                    "Source": "a0cf5d3df98884eeb995f759e8c8dde4b6e844c4d741bf245468363ae07430d7",
+                    "Target": "/home/jenkins/.jenkins"
+                },
+                {
+                    "Type": "volume",
+                    "Source": "12d2212b54d5f2b33ebf63ae255f08129ddefc1842596ec28d65a712e4d283a9",
+                    "Target": "/home/jenkins/agent"
+                }
+            ],
+            "MaskedPaths": [
+                "/proc/acpi",
+                "/proc/asound",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/sys/devices/virtual/powercap",
+                "/sys/firmware"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ],
+            "Init": true
+        },
+        "Storage": {
+            "RootFS": {
+                "Snapshot": {
+                    "Name": "overlayfs"
+                }
+            }
+        },
+        "Mounts": [
+            {
+                "Type": "bind",
+                "Source": "/Users/d061177/work/stp-jenkins-plugin-poc/fixtures",
+                "Destination": "/opt/application-fixtures",
+                "Mode": "ro",
+                "RW": false,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "bind",
+                "Source": "/Users/d061177/work/asm-poc/codex-worktree/EI-9/spring-framework",
+                "Destination": "/opt/ei10/spring-framework",
+                "Mode": "ro",
+                "RW": false,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "volume",
+                "Name": "ei10_map_storage",
+                "Source": "/var/lib/docker/volumes/ei10_map_storage/_data",
+                "Destination": "/opt/ei10/map-storage",
+                "Driver": "local",
+                "Mode": "rw",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "volume",
+                "Name": "a0cf5d3df98884eeb995f759e8c8dde4b6e844c4d741bf245468363ae07430d7",
+                "Source": "/var/lib/docker/volumes/a0cf5d3df98884eeb995f759e8c8dde4b6e844c4d741bf245468363ae07430d7/_data",
+                "Destination": "/home/jenkins/.jenkins",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "volume",
+                "Name": "12d2212b54d5f2b33ebf63ae255f08129ddefc1842596ec28d65a712e4d283a9",
+                "Source": "/var/lib/docker/volumes/12d2212b54d5f2b33ebf63ae255f08129ddefc1842596ec28d65a712e4d283a9/_data",
+                "Destination": "/home/jenkins/agent",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            }
+        ],
+        "Config": {
+            "Hostname": "jenkins-agent-1",
+            "Domainname": "",
+            "User": "jenkins",
+            "AttachStdin": false,
+            "AttachStdout": true,
+            "AttachStderr": true,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "JENKINS_ADMIN_ID=admin",
+                "JENKINS_ADMIN_PASSWORD=stp-plugin-poc-admin",
+                "JENKINS_URL=http://jenkins-controller:8080",
+                "JENKINS_AGENT_NAME=stp-map-agent-1",
+                "PATH=/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "TZ=Etc/UTC",
+                "LANG=C.UTF-8",
+                "JAVA_HOME=/opt/java/openjdk",
+                "AGENT_WORKDIR=/home/jenkins/agent",
+                "USER=jenkins"
+            ],
+            "Cmd": null,
+            "Image": "ei9-jenkins-agent-1",
+            "Volumes": {
+                "/home/jenkins/.jenkins": {},
+                "/home/jenkins/agent": {}
+            },
+            "WorkingDir": "/home/jenkins",
+            "Entrypoint": [
+                "/usr/local/bin/stp-connect-agent"
+            ],
+            "Labels": {
+                "com.docker.compose.config-hash": "1a8c34818dbd38235e8ada5c887f199ee4d890e9511e76295e416cd5fd9f3d1a",
+                "com.docker.compose.container-number": "1",
+                "com.docker.compose.depends_on": "jenkins-controller:service_started:false",
+                "com.docker.compose.image": "sha256:ca6712ed04e04b57a14c7beb9ca780b9ab2a2d524e353bfb64f7f08b428d6023",
+                "com.docker.compose.oneoff": "False",
+                "com.docker.compose.project": "ei9",
+                "com.docker.compose.project.config_files": "/Users/d061177/work/stp-jenkins-plugin-poc/docker-compose.yml,/Users/d061177/work/asm-poc/codex-worktree/EI-10/docker/docker-compose.override.yml",
+                "com.docker.compose.project.working_dir": "/Users/d061177/work/stp-jenkins-plugin-poc",
+                "com.docker.compose.replace": "stp-plugin-agent-1",
+                "com.docker.compose.service": "jenkins-agent-1",
+                "com.docker.compose.version": "5.5.0",
+                "org.opencontainers.image.description": "This is an image for Jenkins agents using TCP or WebSockets to establish inbound connection to the Jenkins controller",
+                "org.opencontainers.image.licenses": "MIT",
+                "org.opencontainers.image.source": "https://github.com/jenkinsci/docker-agents",
+                "org.opencontainers.image.title": "Official Jenkins Inbound Agent Base Docker image",
+                "org.opencontainers.image.url": "https://www.jenkins.io/",
+                "org.opencontainers.image.vendor": "Jenkins project",
+                "org.opencontainers.image.version": "3386.v353e57a_1b_ea_0"
+            }
+        },
+        "NetworkSettings": {
+            "SandboxID": "f0b25bf6e4b84b12994421e1d2d50dcc3e852534d30247bec5c2d58ec5747448",
+            "SandboxKey": "/var/run/docker/netns/f0b25bf6e4b8",
+            "Ports": {},
+            "Networks": {
+                "ei9_default": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": [
+                        "stp-plugin-agent-1",
+                        "jenkins-agent-1"
+                    ],
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "54894da59c823408af2e28fb93d870e0df7a36beb1be66725173d3e34d58059f",
+                    "EndpointID": "eb400a26ab12a258d57fbaf0b01e91362323e2db0a43c1e65c400c687d023166",
+                    "Gateway": "172.18.0.1",
+                    "IPAddress": "172.18.0.4",
+                    "MacAddress": "3e:ad:7f:a6:71:fd",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": [
+                        "stp-plugin-agent-1",
+                        "jenkins-agent-1",
+                        "68ab3109bb05"
+                    ]
+                }
+            }
+        },
+        "ImageManifestDescriptor": {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:ca6712ed04e04b57a14c7beb9ca780b9ab2a2d524e353bfb64f7f08b428d6023",
+            "size": 3343,
+            "platform": {
+                "architecture": "arm64",
+                "os": "linux"
+            }
+        }
+    },
+    {
+        "Id": "6344267bca29d70962b5d7101f40669d26ac0ae9b2d6df0f08d4094ee53dde5a",
+        "Created": "2026-09-13T10:22:27.174306922Z",
+        "Path": "/usr/local/bin/stp-connect-agent",
+        "Args": [],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 9966,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-09-13T10:22:27.948197048Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:b1462240d1ad41548b2a4d9199f6cc75e532bfac98f64703926ebecb55d5d985",
+        "ResolvConfPath": "/var/lib/docker/containers/6344267bca29d70962b5d7101f40669d26ac0ae9b2d6df0f08d4094ee53dde5a/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/6344267bca29d70962b5d7101f40669d26ac0ae9b2d6df0f08d4094ee53dde5a/hostname",
+        "HostsPath": "/var/lib/docker/containers/6344267bca29d70962b5d7101f40669d26ac0ae9b2d6df0f08d4094ee53dde5a/hosts",
+        "LogPath": "/var/lib/docker/containers/6344267bca29d70962b5d7101f40669d26ac0ae9b2d6df0f08d4094ee53dde5a/6344267bca29d70962b5d7101f40669d26ac0ae9b2d6df0f08d4094ee53dde5a-json.log",
+        "Name": "/stp-plugin-agent-2",
+        "RestartCount": 0,
+        "Driver": "overlayfs",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "/Users/d061177/work/asm-poc/codex-worktree/EI-9/spring-framework:/opt/ei10/spring-framework:ro",
+                "ei10_map_storage:/opt/ei10/map-storage:rw",
+                "/host_mnt/Users/d061177/work/stp-jenkins-plugin-poc/fixtures:/opt/application-fixtures:ro"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "ei9_default",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "unless-stopped",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": null,
+            "DnsOptions": null,
+            "DnsSearch": null,
+            "ExtraHosts": [],
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": null,
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": null,
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "Mounts": [
+                {
+                    "Type": "volume",
+                    "Source": "f212e4ee90d3dbfde29664830e4efbbf58af09dd7b0466530a43b3df669c3d22",
+                    "Target": "/home/jenkins/.jenkins"
+                },
+                {
+                    "Type": "volume",
+                    "Source": "461646cfa215e642cd234684e0457ee6450330ec69bc50cc301b00ed4a7044d8",
+                    "Target": "/home/jenkins/agent"
+                }
+            ],
+            "MaskedPaths": [
+                "/proc/acpi",
+                "/proc/asound",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/sys/devices/virtual/powercap",
+                "/sys/firmware"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ],
+            "Init": true
+        },
+        "Storage": {
+            "RootFS": {
+                "Snapshot": {
+                    "Name": "overlayfs"
+                }
+            }
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "f212e4ee90d3dbfde29664830e4efbbf58af09dd7b0466530a43b3df669c3d22",
+                "Source": "/var/lib/docker/volumes/f212e4ee90d3dbfde29664830e4efbbf58af09dd7b0466530a43b3df669c3d22/_data",
+                "Destination": "/home/jenkins/.jenkins",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "volume",
+                "Name": "461646cfa215e642cd234684e0457ee6450330ec69bc50cc301b00ed4a7044d8",
+                "Source": "/var/lib/docker/volumes/461646cfa215e642cd234684e0457ee6450330ec69bc50cc301b00ed4a7044d8/_data",
+                "Destination": "/home/jenkins/agent",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "bind",
+                "Source": "/Users/d061177/work/asm-poc/codex-worktree/EI-9/spring-framework",
+                "Destination": "/opt/ei10/spring-framework",
+                "Mode": "ro",
+                "RW": false,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "volume",
+                "Name": "ei10_map_storage",
+                "Source": "/var/lib/docker/volumes/ei10_map_storage/_data",
+                "Destination": "/opt/ei10/map-storage",
+                "Driver": "local",
+                "Mode": "rw",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "bind",
+                "Source": "/host_mnt/Users/d061177/work/stp-jenkins-plugin-poc/fixtures",
+                "Destination": "/opt/application-fixtures",
+                "Mode": "ro",
+                "RW": false,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "jenkins-agent-2",
+            "Domainname": "",
+            "User": "jenkins",
+            "AttachStdin": false,
+            "AttachStdout": true,
+            "AttachStderr": true,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "JENKINS_ADMIN_ID=admin",
+                "JENKINS_ADMIN_PASSWORD=stp-plugin-poc-admin",
+                "JENKINS_URL=http://jenkins-controller:8080",
+                "JENKINS_AGENT_NAME=stp-map-agent-2",
+                "PATH=/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "TZ=Etc/UTC",
+                "LANG=C.UTF-8",
+                "JAVA_HOME=/opt/java/openjdk",
+                "AGENT_WORKDIR=/home/jenkins/agent",
+                "USER=jenkins"
+            ],
+            "Cmd": null,
+            "Image": "ei9-jenkins-agent-2",
+            "Volumes": {
+                "/home/jenkins/.jenkins": {},
+                "/home/jenkins/agent": {}
+            },
+            "WorkingDir": "/home/jenkins",
+            "Entrypoint": [
+                "/usr/local/bin/stp-connect-agent"
+            ],
+            "Labels": {
+                "com.docker.compose.config-hash": "39ef494fbb0d91cb0c80273e84627174b39a39ada57a35ece55b3bfa1999b216",
+                "com.docker.compose.container-number": "1",
+                "com.docker.compose.depends_on": "jenkins-controller:service_started:false",
+                "com.docker.compose.image": "sha256:277dddc6cc1b017ce39d3e4a0587262ddcbdf8e89809675b6da8eba64002d5f8",
+                "com.docker.compose.oneoff": "False",
+                "com.docker.compose.project": "ei9",
+                "com.docker.compose.project.config_files": "/Users/d061177/work/stp-jenkins-plugin-poc/docker-compose.yml,/Users/d061177/work/asm-poc/codex-worktree/EI-10/docker/docker-compose.override.yml",
+                "com.docker.compose.project.working_dir": "/Users/d061177/work/stp-jenkins-plugin-poc",
+                "com.docker.compose.replace": "stp-plugin-agent-2",
+                "com.docker.compose.service": "jenkins-agent-2",
+                "com.docker.compose.version": "5.5.0",
+                "org.opencontainers.image.description": "This is an image for Jenkins agents using TCP or WebSockets to establish inbound connection to the Jenkins controller",
+                "org.opencontainers.image.licenses": "MIT",
+                "org.opencontainers.image.source": "https://github.com/jenkinsci/docker-agents",
+                "org.opencontainers.image.title": "Official Jenkins Inbound Agent Base Docker image",
+                "org.opencontainers.image.url": "https://www.jenkins.io/",
+                "org.opencontainers.image.vendor": "Jenkins project",
+                "org.opencontainers.image.version": "3386.v353e57a_1b_ea_0"
+            }
+        },
+        "NetworkSettings": {
+            "SandboxID": "46affbb0789b53338bef703a9b6be9fa5143b976312d655c2b0a5d5a1f910790",
+            "SandboxKey": "/var/run/docker/netns/46affbb0789b",
+            "Ports": {},
+            "Networks": {
+                "ei9_default": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": [
+                        "stp-plugin-agent-2",
+                        "jenkins-agent-2"
+                    ],
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "54894da59c823408af2e28fb93d870e0df7a36beb1be66725173d3e34d58059f",
+                    "EndpointID": "d9453a6a869932bf24bcf7daae52671ddb365f83b9b507fd8c3acbf646cdfa89",
+                    "Gateway": "172.18.0.1",
+                    "IPAddress": "172.18.0.3",
+                    "MacAddress": "fe:0d:46:07:28:37",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": [
+                        "stp-plugin-agent-2",
+                        "jenkins-agent-2",
+                        "6344267bca29"
+                    ]
+                }
+            }
+        },
+        "ImageManifestDescriptor": {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:277dddc6cc1b017ce39d3e4a0587262ddcbdf8e89809675b6da8eba64002d5f8",
+            "size": 3343,
+            "platform": {
+                "architecture": "arm64",
+                "os": "linux"
+            }
+        }
+    },
+    {
+        "Id": "34ac25b020440bd88a90dbbf9a032191b33d38779d15e2ce9001933560a2a085",
+        "Created": "2026-09-13T10:22:27.158439131Z",
+        "Path": "/usr/local/bin/stp-connect-agent",
+        "Args": [],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 9972,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-09-13T10:22:27.950850964Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:29c2d70a509fc414420aec0eed2f333856bb9da1c12940e88b51e85e128b3a75",
+        "ResolvConfPath": "/var/lib/docker/containers/34ac25b020440bd88a90dbbf9a032191b33d38779d15e2ce9001933560a2a085/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/34ac25b020440bd88a90dbbf9a032191b33d38779d15e2ce9001933560a2a085/hostname",
+        "HostsPath": "/var/lib/docker/containers/34ac25b020440bd88a90dbbf9a032191b33d38779d15e2ce9001933560a2a085/hosts",
+        "LogPath": "/var/lib/docker/containers/34ac25b020440bd88a90dbbf9a032191b33d38779d15e2ce9001933560a2a085/34ac25b020440bd88a90dbbf9a032191b33d38779d15e2ce9001933560a2a085-json.log",
+        "Name": "/stp-plugin-agent-3",
+        "RestartCount": 0,
+        "Driver": "overlayfs",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "/Users/d061177/work/asm-poc/codex-worktree/EI-9/spring-framework:/opt/ei10/spring-framework:ro",
+                "ei10_map_storage:/opt/ei10/map-storage:rw"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "ei9_default",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "unless-stopped",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": null,
+            "DnsOptions": null,
+            "DnsSearch": null,
+            "ExtraHosts": [],
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": null,
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": null,
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "Mounts": [
+                {
+                    "Type": "volume",
+                    "Source": "562d4106cbbbcee959c20840472347c2573a6f5e07a5d9fc1886ff86f2b56861",
+                    "Target": "/home/jenkins/.jenkins"
+                },
+                {
+                    "Type": "volume",
+                    "Source": "cb05215b1e7a6ab262fef5c005b5df0c091866dcfe7e094b33fa6070149e5c27",
+                    "Target": "/home/jenkins/agent"
+                }
+            ],
+            "MaskedPaths": [
+                "/proc/acpi",
+                "/proc/asound",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/sys/devices/virtual/powercap",
+                "/sys/firmware"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ],
+            "Init": true
+        },
+        "Storage": {
+            "RootFS": {
+                "Snapshot": {
+                    "Name": "overlayfs"
+                }
+            }
+        },
+        "Mounts": [
+            {
+                "Type": "bind",
+                "Source": "/Users/d061177/work/asm-poc/codex-worktree/EI-9/spring-framework",
+                "Destination": "/opt/ei10/spring-framework",
+                "Mode": "ro",
+                "RW": false,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "volume",
+                "Name": "ei10_map_storage",
+                "Source": "/var/lib/docker/volumes/ei10_map_storage/_data",
+                "Destination": "/opt/ei10/map-storage",
+                "Driver": "local",
+                "Mode": "rw",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "volume",
+                "Name": "562d4106cbbbcee959c20840472347c2573a6f5e07a5d9fc1886ff86f2b56861",
+                "Source": "/var/lib/docker/volumes/562d4106cbbbcee959c20840472347c2573a6f5e07a5d9fc1886ff86f2b56861/_data",
+                "Destination": "/home/jenkins/.jenkins",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "volume",
+                "Name": "cb05215b1e7a6ab262fef5c005b5df0c091866dcfe7e094b33fa6070149e5c27",
+                "Source": "/var/lib/docker/volumes/cb05215b1e7a6ab262fef5c005b5df0c091866dcfe7e094b33fa6070149e5c27/_data",
+                "Destination": "/home/jenkins/agent",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            }
+        ],
+        "Config": {
+            "Hostname": "jenkins-agent-3",
+            "Domainname": "",
+            "User": "jenkins",
+            "AttachStdin": false,
+            "AttachStdout": true,
+            "AttachStderr": true,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "JENKINS_AGENT_NAME=stp-map-agent-3",
+                "JENKINS_ADMIN_ID=admin",
+                "JENKINS_ADMIN_PASSWORD=stp-plugin-poc-admin",
+                "JENKINS_URL=http://jenkins-controller:8080",
+                "PATH=/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "TZ=Etc/UTC",
+                "LANG=C.UTF-8",
+                "JAVA_HOME=/opt/java/openjdk",
+                "AGENT_WORKDIR=/home/jenkins/agent",
+                "USER=jenkins"
+            ],
+            "Cmd": null,
+            "Image": "ei9-jenkins-agent-3",
+            "Volumes": {
+                "/home/jenkins/.jenkins": {},
+                "/home/jenkins/agent": {}
+            },
+            "WorkingDir": "/home/jenkins",
+            "Entrypoint": [
+                "/usr/local/bin/stp-connect-agent"
+            ],
+            "Labels": {
+                "com.docker.compose.config-hash": "1c8c025be560335629659acc75e45e102aa5b12689f83cce06a1723f941a511a",
+                "com.docker.compose.container-number": "1",
+                "com.docker.compose.depends_on": "jenkins-controller:service_started:false",
+                "com.docker.compose.image": "sha256:058a66c381345bfaa8b4a851de0d1a68b395044c1edc5f0c75ab9fdb4db5acfd",
+                "com.docker.compose.oneoff": "False",
+                "com.docker.compose.project": "ei9",
+                "com.docker.compose.project.config_files": "/Users/d061177/work/stp-jenkins-plugin-poc/docker-compose.yml,/Users/d061177/work/asm-poc/codex-worktree/EI-10/docker/docker-compose.override.yml",
+                "com.docker.compose.project.working_dir": "/Users/d061177/work/stp-jenkins-plugin-poc",
+                "com.docker.compose.replace": "stp-plugin-agent-3",
+                "com.docker.compose.service": "jenkins-agent-3",
+                "com.docker.compose.version": "5.5.0",
+                "org.opencontainers.image.description": "This is an image for Jenkins agents using TCP or WebSockets to establish inbound connection to the Jenkins controller",
+                "org.opencontainers.image.licenses": "MIT",
+                "org.opencontainers.image.source": "https://github.com/jenkinsci/docker-agents",
+                "org.opencontainers.image.title": "Official Jenkins Inbound Agent Base Docker image",
+                "org.opencontainers.image.url": "https://www.jenkins.io/",
+                "org.opencontainers.image.vendor": "Jenkins project",
+                "org.opencontainers.image.version": "3386.v353e57a_1b_ea_0"
+            }
+        },
+        "NetworkSettings": {
+            "SandboxID": "cf3b34baa830e47648bf7d4e3f798ae14171ac7261e3ad31c691a5497dfe6838",
+            "SandboxKey": "/var/run/docker/netns/cf3b34baa830",
+            "Ports": {},
+            "Networks": {
+                "ei9_default": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": [
+                        "stp-plugin-agent-3",
+                        "jenkins-agent-3"
+                    ],
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "54894da59c823408af2e28fb93d870e0df7a36beb1be66725173d3e34d58059f",
+                    "EndpointID": "e4f4bb4015ca55e33469c90c31d72e86af18f910e15c123751817e61ddd799a6",
+                    "Gateway": "172.18.0.1",
+                    "IPAddress": "172.18.0.6",
+                    "MacAddress": "ae:f1:e1:d9:60:b2",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": [
+                        "stp-plugin-agent-3",
+                        "jenkins-agent-3",
+                        "34ac25b02044"
+                    ]
+                }
+            }
+        },
+        "ImageManifestDescriptor": {
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "digest": "sha256:058a66c381345bfaa8b4a851de0d1a68b395044c1edc5f0c75ab9fdb4db5acfd",
+            "size": 3343,
+            "platform": {
+                "architecture": "arm64",
+                "os": "linux"
+            }
+        }
+    }
+]

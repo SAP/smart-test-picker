@@ -1,0 +1,50 @@
+From a11311c52a72cf1a6cef50f2942ffb79dfc4a69d Mon Sep 17 00:00:00 2001
+From: ljubisap <ljubisa.punosevac@gmail.com>
+Date: Sun, 13 Sep 2026 14:56:13 +0200
+Subject: [PATCH] Add EI-10 diagnostic output to mapped Spring Core classes
+
+---
+ .../springframework/core/convert/support/MapToMapConverter.java  | 1 +
+ .../core/io/support/DefaultPropertySourceFactory.java            | 1 +
+ .../core/io/support/PathMatchingResourcePatternResolver.java     | 1 +
+ 3 files changed, 3 insertions(+)
+
+diff --git a/spring-core/src/main/java/org/springframework/core/convert/support/MapToMapConverter.java b/spring-core/src/main/java/org/springframework/core/convert/support/MapToMapConverter.java
+index 08f7ac9fe4..37b312b04f 100644
+--- a/spring-core/src/main/java/org/springframework/core/convert/support/MapToMapConverter.java
++++ b/spring-core/src/main/java/org/springframework/core/convert/support/MapToMapConverter.java
+@@ -63,6 +63,7 @@ final class MapToMapConverter implements ConditionalGenericConverter {
+ 
+ 	@Override
+ 	public @Nullable Object convert(@Nullable Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
++		System.out.println("STP EI-10 test");
+ 		if (source == null) {
+ 			return null;
+ 		}
+diff --git a/spring-core/src/main/java/org/springframework/core/io/support/DefaultPropertySourceFactory.java b/spring-core/src/main/java/org/springframework/core/io/support/DefaultPropertySourceFactory.java
+index c388baabf2..c5124c5178 100644
+--- a/spring-core/src/main/java/org/springframework/core/io/support/DefaultPropertySourceFactory.java
++++ b/spring-core/src/main/java/org/springframework/core/io/support/DefaultPropertySourceFactory.java
+@@ -35,6 +35,7 @@ public class DefaultPropertySourceFactory implements PropertySourceFactory {
+ 
+ 	@Override
+ 	public PropertySource<?> createPropertySource(@Nullable String name, EncodedResource resource) throws IOException {
++		System.out.println("STP EI-10 test");
+ 		return (name != null ? new ResourcePropertySource(name, resource) : new ResourcePropertySource(resource));
+ 	}
+ 
+diff --git a/spring-core/src/main/java/org/springframework/core/io/support/PathMatchingResourcePatternResolver.java b/spring-core/src/main/java/org/springframework/core/io/support/PathMatchingResourcePatternResolver.java
+index 6a81602871..3fe8616afc 100644
+--- a/spring-core/src/main/java/org/springframework/core/io/support/PathMatchingResourcePatternResolver.java
++++ b/spring-core/src/main/java/org/springframework/core/io/support/PathMatchingResourcePatternResolver.java
+@@ -354,6 +354,7 @@ public class PathMatchingResourcePatternResolver implements ResourcePatternResol
+ 
+ 	@Override
+ 	public Resource getResource(String location) {
++		System.out.println("STP EI-10 test");
+ 		Resource resource = getResourceLoader().getResource(location);
+ 		if (this.useCaches != null && resource instanceof UrlResource urlResource) {
+ 			urlResource.setUseCaches(this.useCaches);
+-- 
+2.50.1 (Apple Git-155)
+

@@ -1,0 +1,365 @@
+Started by user admin
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on stp-map-agent-3 in /home/jenkins/agent/workspace/EI-10-Job-B
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout R1)
+[Pipeline] deleteDir
+[Pipeline] sh
++ git clone --no-hardlinks /opt/ei10/spring-framework .
+Cloning into '.'...
+done.
++ git checkout --detach a11311c52a72cf1a6cef50f2942ffb79dfc4a69d
+HEAD is now at a11311c52a Add EI-10 diagnostic output to mapped Spring Core classes
++ git rev-parse HEAD
++ test a11311c52a72cf1a6cef50f2942ffb79dfc4a69d = a11311c52a72cf1a6cef50f2942ffb79dfc4a69d
+[Pipeline] sh
++ hostname
++ printf node=%s\nworkspace=%s\n stp-map-agent-3 /home/jenkins/agent/workspace/EI-10-Job-B
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Lookup R0 map)
+[Pipeline] stpLookupCoverageMap
+[EI-10-Job-B] $ java -jar /home/jenkins/agent/workspace/EI-10-Job-B@tmp/stp-mapping-tool-ee07b029-1dc5-4f1e-8ca6-3c5189fd217d.jar lookup-latest /opt/ei10/map-storage spring-framework ei10-r0 /home/jenkins/agent/workspace/EI-10-Job-B/build/stp/resolved-r0-map.json a099debca9e59eb562cb3298690423dbb9d0127e
+LOOKUP PASS revision=a099debca9e59eb562cb3298690423dbb9d0127e
+[STP] policy source=STORAGE outcome=FOUND context=MAP_LOOKUP action=CONTINUE reasonCode=SAFE_DOMAIN_RESULT retryability=NOT_RETRYABLE fallbackOccurred=false userActionRequired=false
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Generate R1 head inventory)
+[Pipeline] stpHeadInventory
+[EI-10-Job-B] $ git rev-parse --verify HEAD^{commit}
+[EI-10-Job-B] $ git rev-parse --verify a11311c52a72cf1a6cef50f2942ffb79dfc4a69d^{commit}
+[Pipeline] {
+[Pipeline] sh
++ ./gradlew :spring-core:generateHeadTestInventory --no-daemon --stacktrace
+Fetching distribution.
+Downloading https://services.gradle.org/distributions/gradle-9.7.1-bin.zip
+..............10%..............20%...............30%..............40%...............50%..............60%...............70%..............80%..............90%...............100%
+
+Welcome to Gradle 9.7.1!
+
+Here are the highlights of this release:
+ - Isolated Projects graduates to incubating
+ - Broader Configuration Cache compatibility
+ - Resilient Sync helps you fix broken builds
+ - More source locations in problem reports
+
+For more details see https://docs.gradle.org/9.7.1/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.7.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :buildSrc
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+
+> Task :buildSrc:compileJava
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors
+> Task :buildSrc:processResources
+> Task :buildSrc:classes
+> Task :buildSrc:checkstyleMain
+> Task :buildSrc:compileTestJava
+> Task :buildSrc:compileTestGroovy NO-SOURCE
+> Task :buildSrc:processTestResources NO-SOURCE
+> Task :buildSrc:testClasses
+> Task :buildSrc:checkstyleTest
+> Task :buildSrc:pluginUnderTestMetadata
+> Task :buildSrc:test
+> Task :buildSrc:validatePlugins
+> Task :buildSrc:check
+> Task :buildSrc:jar
+
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :framework-docs
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+
+> Configure project :integration-tests
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-aop
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-aspects
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-beans
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-context
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-context-indexer
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-context-support
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-core
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-core-test
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-expression
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-instrument
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-jdbc
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-jms
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-messaging
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-orm
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-oxm
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-r2dbc
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-test
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-tx
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-web
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-webflux
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-webmvc
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Configure project :spring-websocket
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+
+> Task :spring-core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :spring-core:javapoetRepackJar
+> Task :spring-core:objenesisRepackJar
+> Task :spring-core:processResources
+> Task :spring-core:processJava21Resources NO-SOURCE
+> Task :spring-core:processJava24Resources NO-SOURCE
+> Task :spring-core:processTestFixturesResources NO-SOURCE
+> Task :spring-core:processTestResources
+> Task :spring-core:compileKotlin
+> Task :spring-core:compileJava
+> Task :spring-core:classes
+> Task :spring-core:compileJava21Kotlin NO-SOURCE
+> Task :spring-core:compileJava21Java
+> Task :spring-core:compileJava24Kotlin NO-SOURCE
+> Task :spring-core:compileJava24Java
+> Task :spring-core:java21Classes
+> Task :spring-core:java24Classes
+> Task :spring-core:jar
+> Task :spring-core:compileTestFixturesKotlin NO-SOURCE
+> Task :spring-core:compileTestFixturesJava
+> Task :spring-core:testFixturesClasses
+> Task :spring-core:testFixturesJar
+> Task :spring-core:compileTestKotlin
+> Task :spring-core:compileTestJava
+> Task :spring-core:testClasses
+
+> Task :spring-core:generateHeadTestInventory
+[SmartTestPicker] Discovered 4127 logical JUnit tests
+
+[Incubating] Problems report is available at: file:///home/jenkins/agent/workspace/EI-10-Job-B/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1m 55s
+24 actionable tasks: 24 executed
+[Pipeline] }
+[EI-10-Job-B] $ git rev-parse --verify HEAD^{commit}
+[STP] Revision-bound head inventory: revision=a11311c52a72cf1a6cef50f2942ffb79dfc4a69d tests=4127
+[Pipeline] // stpHeadInventory
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Explicit R0 to R1 selection)
+[Pipeline] stpExplicitPrSelect
+[EI-10-Job-B] $ git rev-parse --verify HEAD^{commit}
+[EI-10-Job-B] $ git rev-parse --verify a11311c52a72cf1a6cef50f2942ffb79dfc4a69d^{commit}
+[EI-10-Job-B] $ java -jar /home/jenkins/agent/workspace/EI-10-Job-B@tmp/stp-explicit-selector-ff677007-fd26-4d5c-9775-63f0023bd311/stp-selector.jar explicit-select --workspace /home/jenkins/agent/workspace/EI-10-Job-B --coverage-map /home/jenkins/agent/workspace/EI-10-Job-B/build/stp/resolved-r0-map.json --head-inventory /home/jenkins/agent/workspace/EI-10-Job-B/spring-core/build/head-test-inventory.json --integration-revision a099debca9e59eb562cb3298690423dbb9d0127e --pr-base-revision a099debca9e59eb562cb3298690423dbb9d0127e --pr-head-revision a11311c52a72cf1a6cef50f2942ffb79dfc4a69d --max-commit-distance 500 --result-output /home/jenkins/agent/workspace/EI-10-Job-B/build/stp/selection-result.json --plan-output /home/jenkins/agent/workspace/EI-10-Job-B/build/stp/execution-plan.json --raw-output /home/jenkins/agent/workspace/EI-10-Job-B@tmp/stp-explicit-selector-ff677007-fd26-4d5c-9775-63f0023bd311/raw-result.json
+[SmartTestPicker] Using explicit map: /home/jenkins/agent/workspace/EI-10-Job-B/build/stp/resolved-r0-map.json
+Coverage map:      /home/jenkins/agent/workspace/EI-10-Job-B/build/stp/resolved-r0-map.json
+Head inventory:    /home/jenkins/agent/workspace/EI-10-Job-B/spring-core/build/head-test-inventory.json
+Project dir:       /home/jenkins/agent/workspace/EI-10-Job-B
+Output:            /home/jenkins/agent/workspace/EI-10-Job-B@tmp/stp-explicit-selector-ff677007-fd26-4d5c-9775-63f0023bd311/raw-result.json
+Format:            json
+Max commit dist:   500
+Status:  SELECTED
+Reason:  228 mandatory test(s) selected
+[STP] Explicit PR outer status: SELECTION_RESULT
+[STP] Explicit PR selector status: SELECTED
+[STP] policy source=SELECTOR outcome=SELECTED context=TEST_SELECTION action=CONTINUE reasonCode=SAFE_DOMAIN_RESULT retryability=NOT_RETRYABLE fallbackOccurred=false userActionRequired=false
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Execute exactly selected tests)
+[Pipeline] smartTestPicker
+[STP] Preparing Gradle adapter on agent /home/jenkins/agent/workspace/EI-10-Job-B
+[STP] Gradle adapter cache hit: 0.1.0
+[STP] Gradle adapter: 0.1.0 (contract 1)
+[STP] Gradle adapter SHA-256 verified: dceedc9f0965bed42caaf88051b0bca7da19e70fad5ba7c3b33f10555c0a606e
+[STP] Reusing cached Gradle adapter 0.1.0 at /home/jenkins/agent/.stp-cache/runtime/adapters/gradle/0.1.0/dceedc9f0965bed42caaf88051b0bca7da19e70fad5ba7c3b33f10555c0a606e/stp.init.gradle
+[STP] Execution plan: /home/jenkins/agent/workspace/EI-10-Job-B@tmp/stp/EI-10-Job-B_5-d401a17a-2e93-4103-b27c-62807664216c/execution-plan.json
+[STP] STP environment active
+[Pipeline] {
+[Pipeline] sh
++ ./gradlew :spring-core:test --no-daemon --stacktrace
+Fetching distribution.
+Downloading https://services.gradle.org/distributions/gradle-9.7.1-bin.zip
+..............10%..............20%...............30%..............40%...............50%..............60%...............70%..............80%..............90%...............100%
+
+Welcome to Gradle 9.7.1!
+
+Here are the highlights of this release:
+ - Isolated Projects graduates to incubating
+ - Broader Configuration Cache compatibility
+ - Resilient Sync helps you fix broken builds
+ - More source locations in problem reports
+
+For more details see https://docs.gradle.org/9.7.1/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.7.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :buildSrc
+STP: SELECT 228 test(s) from /home/jenkins/agent/workspace/EI-10-Job-B@tmp/stp/EI-10-Job-B_5-d401a17a-2e93-4103-b27c-62807664216c/execution-plan.json
+
+> Task :buildSrc:compileJava UP-TO-DATE
+> Task :buildSrc:compileGroovy NO-SOURCE
+> Task :buildSrc:pluginDescriptors UP-TO-DATE
+> Task :buildSrc:processResources UP-TO-DATE
+> Task :buildSrc:classes UP-TO-DATE
+> Task :buildSrc:checkstyleMain UP-TO-DATE
+> Task :buildSrc:compileTestJava UP-TO-DATE
+> Task :buildSrc:compileTestGroovy NO-SOURCE
+> Task :buildSrc:processTestResources NO-SOURCE
+> Task :buildSrc:testClasses UP-TO-DATE
+> Task :buildSrc:checkstyleTest UP-TO-DATE
+> Task :buildSrc:pluginUnderTestMetadata
+> Task :buildSrc:test
+> Task :buildSrc:validatePlugins UP-TO-DATE
+> Task :buildSrc:check
+> Task :buildSrc:jar UP-TO-DATE
+
+> Configure project :
+STP: SELECT 228 test(s) from /home/jenkins/agent/workspace/EI-10-Job-B@tmp/stp/EI-10-Job-B_5-d401a17a-2e93-4103-b27c-62807664216c/execution-plan.json
+
+> Task :spring-core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :spring-core:javapoetRepackJar UP-TO-DATE
+> Task :spring-core:objenesisRepackJar UP-TO-DATE
+> Task :spring-core:compileKotlin UP-TO-DATE
+> Task :spring-core:compileJava UP-TO-DATE
+> Task :spring-core:processResources UP-TO-DATE
+> Task :spring-core:classes UP-TO-DATE
+> Task :spring-core:compileJava21Kotlin NO-SOURCE
+> Task :spring-core:compileJava21Java UP-TO-DATE
+> Task :spring-core:compileJava24Kotlin NO-SOURCE
+> Task :spring-core:compileJava24Java UP-TO-DATE
+> Task :spring-core:processJava21Resources NO-SOURCE
+> Task :spring-core:java21Classes UP-TO-DATE
+> Task :spring-core:processJava24Resources NO-SOURCE
+> Task :spring-core:java24Classes UP-TO-DATE
+> Task :spring-core:jar UP-TO-DATE
+> Task :spring-core:compileTestFixturesKotlin NO-SOURCE
+> Task :spring-core:compileTestFixturesJava UP-TO-DATE
+> Task :spring-core:processTestFixturesResources NO-SOURCE
+> Task :spring-core:testFixturesClasses UP-TO-DATE
+> Task :spring-core:testFixturesJar UP-TO-DATE
+> Task :spring-core:compileTestKotlin UP-TO-DATE
+> Task :spring-core:compileTestJava UP-TO-DATE
+> Task :spring-core:processTestResources UP-TO-DATE
+> Task :spring-core:testClasses UP-TO-DATE
+
+> Task :spring-core:test
+OpenJDK 64-Bit Server VM warning: Option AllowRedefinitionToAddDeleteMethods was deprecated in version 13.0 and will likely be removed in a future release.
+
+BUILD SUCCESSFUL in 1m 21s
+24 actionable tasks: 3 executed, 21 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.7.1/userguide/configuration_cache_enabling.html
+[Pipeline] }
+[STP] Cleaning build-local STP files: /home/jenkins/agent/workspace/EI-10-Job-B@tmp/stp/EI-10-Job-B_5-d401a17a-2e93-4103-b27c-62807664216c
+[Pipeline] // smartTestPicker
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Publish evidence)
+[Pipeline] archiveArtifacts
+Archiving artifacts
+Recording fingerprints
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
