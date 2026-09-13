@@ -20,6 +20,7 @@ import com.sap.oss.smarttestpicker.coverage.model.ExecutableShardAssignment;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget;
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableShardAssignmentCodec;
+import com.sap.oss.smarttestpicker.selector.ExecutableHeadTestInventoryCodec;
 
 /** Validates and partitions a schema-v3 assignment before Maven test execution. */
 @Mojo(name = "prepare-reactor-executable-mapping", aggregator = true, defaultPhase = LifecyclePhase.INITIALIZE)
@@ -29,6 +30,10 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 	@Parameter(defaultValue = "${env.STP_MAPPING_TESTS_FILE}", property = "smartTestPicker.testsFile", required = true) private File assignmentFile;
 	@Parameter(property = "smartTestPicker.revision", required = true) private String revision;
 	@Parameter(property = "smartTestPicker.shardId", required = true) private String shardId;
+	@Parameter(property = "smartTestPicker.executionType") private String executionType;
+	@Parameter(property = "smartTestPicker.executionId") private String executionId;
+	@Parameter(property = "smartTestPicker.executionProfile") private String executionProfile;
+	@Parameter(property = "smartTestPicker.completeInventoryFile") private File completeInventoryFile;
 
 	@Override public void execute() throws MojoExecutionException {
 		try {
@@ -42,11 +47,17 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 			var resolver = new MavenExecutionTargetResolver();
 			Map<ExecutionTarget,MavenProject> modules = new TreeMap<>();
 			for (MavenProject module : reactorProjects) {
-				ExecutionTarget target = resolver.resolve(root.getBasedir(), module);
+				ExecutionTarget target = resolver.resolve(root.getBasedir(), module,
+						executionType, executionId, executionProfile);
 				if (modules.putIfAbsent(target, module) != null) throw new IllegalArgumentException("Ambiguous Maven execution target: " + target);
 			}
+			var completeInventory = completeInventoryFile == null ? null
+					: new ExecutableHeadTestInventoryCodec().read(completeInventoryFile);
+			if (completeInventory != null && !completeInventory.revision().equals(revision))
+				throw new IllegalArgumentException("Complete Maven inventory revision mismatch");
 			Map<ExecutionTarget,Set<TestIdentity>> partitioned = new MavenExecutableAssignmentRouter()
-					.partition(assignment, revision, shardId, modules.keySet());
+					.partition(assignment, revision, shardId, modules.keySet(),
+							completeInventory == null ? null : completeInventory.runnableTests());
 			for (var entry : modules.entrySet()) configure(entry.getValue(), entry.getKey(), partitioned.get(entry.getKey()));
 		} catch (Exception failure) {
 			throw new MojoExecutionException("Cannot prepare schema-v3 Maven mapping: " + failure.getMessage(), failure);

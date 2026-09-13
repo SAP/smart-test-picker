@@ -14,6 +14,11 @@ import com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget;
 /** Canonical Maven execution-target derivation shared by inventory and mapping. */
 final class MavenExecutionTargetResolver {
 	ExecutionTarget resolve(File reactorRoot, MavenProject module) {
+		return resolve(reactorRoot, module, null, null, null);
+	}
+
+	ExecutionTarget resolve(File reactorRoot, MavenProject module, String executionType, String executionId,
+			String profile) {
 		if (reactorRoot == null) throw new IllegalArgumentException("Maven reactor root is required");
 		if (module == null || module.getBasedir() == null)
 			throw new IllegalArgumentException("Maven module base directory is required");
@@ -24,6 +29,15 @@ final class MavenExecutionTargetResolver {
 				throw new IllegalArgumentException("Maven module is outside reactor root: " + base);
 			Path relative = root.relativize(base);
 			String id = relative.toString().isEmpty() ? "." : relative.toString().replace(File.separatorChar, '/');
+			if (executionType != null && !executionType.isBlank()) {
+				validateQualifier("execution type", executionType);
+				validateQualifier("execution ID", executionId);
+				id += "@" + executionType + "@" + executionId;
+				if (profile != null && !profile.isBlank()) {
+					validateQualifier("profile", profile);
+					id += "@" + profile;
+				}
+			}
 			ExecutionTarget target = new ExecutionTarget(BuildTool.MAVEN, id);
 			if (!target.equals(ExecutionTarget.parse(target.toString())))
 				throw new IllegalArgumentException("Maven execution target does not round-trip: " + target);
@@ -31,5 +45,10 @@ final class MavenExecutionTargetResolver {
 		} catch (IOException failure) {
 			throw new IllegalArgumentException("Cannot resolve canonical Maven module base directory", failure);
 		}
+	}
+
+	private static void validateQualifier(String label, String value) {
+		if (value == null || !value.matches("[A-Za-z0-9_.-]+"))
+			throw new IllegalArgumentException("Malformed Maven " + label + ": " + value);
 	}
 }

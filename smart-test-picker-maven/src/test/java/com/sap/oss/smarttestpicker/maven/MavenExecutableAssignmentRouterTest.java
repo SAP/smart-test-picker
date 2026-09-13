@@ -29,6 +29,17 @@ class MavenExecutableAssignmentRouterTest
 		assertTrue(result.values().stream().allMatch(Set::isEmpty));
 	}
 
+	@Test void completeInventoryAllowsAnotherValidatedExecutionScope()
+	{
+		ExecutionTarget integration = new ExecutionTarget(BuildTool.MAVEN, "module-a@surefire@default-test@it-plugin");
+		ExecutableTestIdentity other = new ExecutableTestIdentity(integration, B);
+		var result = new MavenExecutableAssignmentRouter().partition(assignment(Set.of(other)), "r", "s",
+				Set.of(MODULE), Set.of(other));
+		assertEquals(Set.of(), result.get(MODULE));
+		assertThrows(IllegalArgumentException.class, () -> new MavenExecutableAssignmentRouter().partition(
+				assignment(Set.of(other)), "r", "s", Set.of(MODULE), Set.of()));
+	}
+
 	@Test void failsClosedForRevisionShardUnknownAndGradleTarget()
 	{
 		var valid = assignment(Set.of(new ExecutableTestIdentity(MODULE, A)));
