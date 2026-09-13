@@ -26,6 +26,8 @@ import org.gradle.api.GradleException;
 
 import com.sap.oss.smarttestpicker.engine.ExecToXmlEngine;
 import com.sap.oss.smarttestpicker.selector.SelectionOutput;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget;
+import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableShardAssignmentCodec;
 
 
 /**
@@ -75,6 +77,8 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 		ext.getRuntimeSchemaVersion().convention(project.getProviders().systemProperty("stp.schemaVersion")
 				.map(Integer::parseInt).orElse(2));
 		ext.getExecutionTarget().convention(project.getProviders().systemProperty("stp.executionTarget"));
+		ext.getExecutableAssignmentFile().convention(project.getProviders().systemProperty("stp.executableAssignment"));
+		ext.getMappingTestTasks().convention(java.util.List.of());
 		ext.getCoverageIncludes().convention(java.util.List.of());
 		ext.getCoverageExcludes().convention(java.util.List.of());
 
@@ -167,6 +171,23 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 			task.dependsOn(coverageTest);
 		});
 
+		TaskProvider<GenerateGradleExecutableHeadTestInventoryTask> executableInventory =
+				project == project.getRootProject() ? project.getTasks().register(
+						"generateGradleExecutableHeadTestInventory",
+						GenerateGradleExecutableHeadTestInventoryTask.class, task -> {
+						task.setGroup("verification");
+						task.setDescription("Discovers executable JUnit identities by concrete Gradle Test task");
+						task.getOutputFile().set(project.getLayout().getBuildDirectory()
+								.file("executable-head-test-inventory.json"));
+					}) : null;
+		TaskProvider<AggregateGradleExecutableCoverageTask> executableAggregate =
+				project == project.getRootProject() ? project.getTasks().register(
+						"aggregateGradleExecutableCoverage", AggregateGradleExecutableCoverageTask.class, task -> {
+						task.setGroup("verification");
+						task.getOutputFile().set(project.getLayout().getBuildDirectory()
+								.file("stp/executable-fragment.json"));
+					}) : null;
+
 		project.getTasks().register("generateTestCoverageJson", GenerateTestCoverageJsonTask.class, task -> {
 			task.getReportsDir().set(project.file("build/jacoco-xml"));
 			task.getOutputFile().set(project.getLayout().getBuildDirectory().file("test-coverage-map.json"));
@@ -252,6 +273,7 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 		// Apply test filters at configuration time (afterEvaluate) — reads selected-tests.json
 		// which must exist from a prior ./gradlew selectTests invocation
 		project.afterEvaluate(p -> {
+			if (ext.getRuntimeSchemaVersion().get() == 3) return;
 			Test standardTest = (Test) p.getTasks().getByName("test");
 			GenerateHeadTestInventoryTask inventory = inventoryTask.get();
 			inventory.getTestClassesDirs().setFrom(standardTest.getTestClassesDirs());
@@ -268,7 +290,7 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 				case ASM -> new AsmCoverageCollectorBackend(stpAgent);
 				case JACOCO -> new JacocoCoverageCollectorBackend(stpJacocoCollector);
 			};
-			backend.configure(p, ext, mappingTest, mappingTask.get());
+			backend.configure(p, ext, mappingTest, mappingTask.get(), null);
 
 			p.getTasks().named("smartTest", Test.class, smartTest -> {
 				// Mirror classpath from the standard test task
@@ -286,6 +308,89 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 			});
 		});
 
+		if (project == project.getRootProject()) project.getGradle().projectsEvaluated(gradle -> {
+			if (ext.getRuntimeSchemaVersion().get() != 3) return;
+			configureExecutableGradleMapping(project, ext, mappingTask.get(), executableInventory.get(),
+					executableAggregate.get(), stpAgent, stpJacocoCollector);
+		});
+
+	}
+
+	private static void configureExecutableGradleMapping(Project root, SmartTestPickerExtension ext,
+			Task mappingTask, GenerateGradleExecutableHeadTestInventoryTask inventoryTask,
+			AggregateGradleExecutableCoverageTask aggregateTask,
+			Configuration stpAgent, Configuration stpJacocoCollector) {
+		if (!ext.getExecutableAssignmentFile().isPresent())
+			throw new GradleException("Schema-v3 Gradle mapping requires -Dstp.executableAssignment=<file>");
+		if (root.getGradle().getIncludedBuilds().size() > 0)
+			throw new GradleException("Schema-v3 Gradle executable routing does not support composite/included builds");
+		Set<String> configuredScope = Set.copyOf(ext.getMappingTestTasks().get());
+		java.util.List<Test> targets = root.getAllprojects().stream()
+				.flatMap(candidate -> candidate.getTasks().withType(Test.class).stream())
+				.filter(task -> !(task instanceof StpCoverageTest) && !task.getName().equals("smartTest"))
+				.filter(task -> configuredScope.isEmpty() || configuredScope.contains(task.getPath()))
+				.filter(Test::getEnabled).sorted(java.util.Comparator.comparing(Test::getPath)).toList();
+		if (targets.isEmpty()) throw new GradleException("Schema-v3 Gradle mapping found no enabled Test tasks");
+		// The v2 synthetic task is deliberately absent from v3: every JVM must correspond
+		// to one real Test-task execution target.
+		mappingTask.setDependsOn(java.util.List.of());
+		inventoryTask.setRevision(ext.getRevision().get());
+		inventoryTask.getTestTasks().addAll(targets);
+		targets.forEach(task -> task.getTestClassesDirs().getBuildDependencies().getDependencies(task)
+				.forEach(inventoryTask::dependsOn));
+
+		com.sap.oss.smarttestpicker.coverage.model.ExecutableShardAssignment assignment;
+		try {
+			assignment = new ExecutableShardAssignmentCodec().deserialize(Files.readAllBytes(
+					root.file(ext.getExecutableAssignmentFile().get()).toPath()));
+		} catch (Exception failure) {
+			throw new GradleException("Cannot decode schema-v3 Gradle executable assignment", failure);
+		}
+		java.util.List<ExecutionTarget> known = targets.stream().map(GradleExecutionTargets::forTask).toList();
+		var partitions = new GradleExecutableAssignmentRouter().partition(assignment, ext.getRevision().get(),
+				ext.getShardId().getOrElse("gradle:" + mappingTask.getPath()), known);
+		CoverageCollectorBackend backend = switch (CoverageCollectorType.parse(ext.getCoverageCollector().get())) {
+			case ASM -> new AsmCoverageCollectorBackend(stpAgent);
+			case JACOCO -> new JacocoCoverageCollectorBackend(stpJacocoCollector);
+		};
+		aggregateTask.setAssignmentFile(root.file(ext.getExecutableAssignmentFile().get()));
+		for (Test task : targets) {
+			ExecutionTarget target = GradleExecutionTargets.forTask(task);
+			Set<com.sap.oss.smarttestpicker.coverage.model.TestIdentity> assigned = partitions.get(target);
+			task.getFilter().setIncludePatterns();
+			if (assigned.isEmpty()) task.getFilter().includeTestsMatching("__stp_no_tests_assigned__");
+			else assigned.stream().map(GradleExecutableAssignmentRouter::gradleFilter)
+					.forEach(task.getFilter()::includeTestsMatching);
+			task.getFilter().setFailOnNoMatchingTests(false);
+			task.systemProperty("smartTestPicker.executionTarget", target.toString());
+			if (!assigned.isEmpty()) backend.configure(task.getProject(), ext, task, mappingTask, target.toString());
+			if (!assigned.isEmpty() && backend.type() == CoverageCollectorType.ASM) {
+				String shard = ext.getShardId().getOrElse("gradle:" + task.getPath());
+				aggregateTask.getFragments().add(new File(task.getProject().getBuildDir(), "stp/coverage/"
+						+ AsmCoverageCollectorBackend.safe(task.getPath()) + "/"
+						+ AsmCoverageCollectorBackend.safe(shard) + "/fragment.json"));
+				aggregateTask.dependsOn(task);
+			}
+			if (!assigned.isEmpty() && backend.type() == CoverageCollectorType.JACOCO) {
+				String shard = ext.getShardId().getOrElse("gradle:" + task.getPath());
+				String segment = AsmCoverageCollectorBackend.safe(task.getPath());
+				File base = new File(task.getProject().getBuildDir(), "stp/jacoco/" + segment + "/"
+						+ AsmCoverageCollectorBackend.safe(shard));
+				GenerateGradleJacocoExecutableFragmentTask conversion = root.getTasks().create(
+						"generateStpJacocoExecutableFragment" + segment, GenerateGradleJacocoExecutableFragmentTask.class);
+				conversion.setExecDir(new File(base, "exec")); conversion.setReportsDir(new File(base, "reports"));
+				conversion.setSourceDir(new File(task.getProject().getProjectDir(), "src/main/java"));
+				var java = task.getProject().getExtensions().getByType(org.gradle.api.plugins.JavaPluginExtension.class);
+				conversion.setClassesDirs(java.getSourceSets().getByName("main").getOutput().getClassesDirs().getFiles().stream().toList());
+				conversion.setRevision(ext.getRevision().get()); conversion.setShardId(shard);
+				conversion.setTarget(target); conversion.setAssigned(assigned);
+				conversion.getOutputFile().set(new File(base, "fragment.json")); conversion.dependsOn(task);
+				aggregateTask.getFragments().add(new File(base, "fragment.json")); aggregateTask.dependsOn(conversion);
+			}
+			mappingTask.dependsOn(task);
+		}
+		mappingTask.dependsOn(aggregateTask);
+		mappingTask.dependsOn(inventoryTask);
 	}
 
 	static void applyExplicitExecutionGate(Test smartTest, File resultFile,

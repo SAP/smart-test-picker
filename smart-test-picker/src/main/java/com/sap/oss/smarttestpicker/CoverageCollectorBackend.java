@@ -4,6 +4,7 @@ package com.sap.oss.smarttestpicker;
 
 import org.gradle.api.Project;
 import org.gradle.api.Task;
+import org.gradle.api.tasks.testing.Test;
 
 /** Internal Gradle-facing setup boundary for exactly one STP collector. */
 interface CoverageCollectorBackend {
@@ -11,6 +12,6 @@ interface CoverageCollectorBackend {
 
 	CollectorCapabilities capabilities();
 
-	void configure(Project project, SmartTestPickerExtension extension, StpCoverageTest coverageTest,
-			Task mappingTask);
+	void configure(Project project, SmartTestPickerExtension extension, Test coverageTest,
+			Task mappingTask, String executionTarget);
 }
