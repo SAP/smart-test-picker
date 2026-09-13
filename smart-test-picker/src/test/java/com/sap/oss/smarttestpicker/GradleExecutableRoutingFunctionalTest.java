@@ -53,6 +53,24 @@ class GradleExecutableRoutingFunctionalTest {
 				.map(Object::toString).collect(java.util.stream.Collectors.toSet()));
 	}
 
+	@Test void discoveryWaitsForLateConfigurationMutationBeforeResolvingClasspath() throws Exception {
+		Path project = discoveryFixture("late-configuration");
+		Files.writeString(project.resolve("build.gradle"), """
+
+			configurations { lateParent; lateClasspath { canBeResolved = true; extendsFrom testRuntimeClasspath } }
+			tasks.named('integrationTest') { classpath = configurations.lateClasspath }
+			afterEvaluate { configurations.lateClasspath.extendsFrom(configurations.lateParent) }
+			""", java.nio.file.StandardOpenOption.APPEND);
+		git(project, "add", "build.gradle"); git(project, "commit", "-qm", "late configuration");
+		String revision = command(project, "git", "rev-parse", "HEAD").trim();
+		var result = GradleRunner.create().withProjectDir(project.toFile()).withPluginClasspath()
+				.withGradleVersion("9.7.1")
+				.withArguments("generateGradleExecutableHeadTestInventory", "-Dstp.schemaVersion=3",
+						"-Dstp.executableInventoryDiscovery=true", "-Dstp.revision=" + revision,
+						"-Dstp.mappingTestTasks=:integrationTest").build();
+		assertNotNull(result.task(":generateGradleExecutableHeadTestInventory"));
+	}
+
 	@Test void discoveryFailsClosedForWrongRevisionAndUnknownOrMalformedScope() throws Exception {
 		Path project = discoveryFixture("fail-closed");
 		for (List<String> arguments : List.of(
