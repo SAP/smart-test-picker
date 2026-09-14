@@ -1,0 +1,7 @@
+/checkouts/
+/jenkins/
+/stp-m2/
+/worktrees/
+/evidence/*
+!/evidence/Jenkinsfile.r0-mapping.ei13
+!/evidence/independent-expected-selection.json
