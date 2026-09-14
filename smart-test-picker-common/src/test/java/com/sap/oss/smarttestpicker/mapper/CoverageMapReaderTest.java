@@ -103,6 +103,18 @@ class CoverageMapReaderTest
 	}
 
 	@Test
+	void rejectsVersionedSchemaInsteadOfSilentlyReadingItAsAnEmptyLegacyMap(@TempDir Path tempDir) throws IOException
+	{
+		File mapFile = tempDir.resolve("schema-v3.json").toFile();
+		try (FileWriter writer = new FileWriter(mapFile))
+		{
+			writer.write("{\"schemaVersion\":3,\"revision\":\"abc\",\"tests\":[]}");
+		}
+		IOException failure = assertThrows(IOException.class, () -> CoverageMapReader.load(mapFile));
+		assertTrue(failure.getMessage().contains("does not support declared schemaVersion 3"));
+	}
+
+	@Test
 	void resolvesIndexedReferencesCorrectly(@TempDir Path tempDir) throws IOException
 	{
 		File mapFile = writeIndexedMap(tempDir.resolve("indexed.json").toFile(), false);
