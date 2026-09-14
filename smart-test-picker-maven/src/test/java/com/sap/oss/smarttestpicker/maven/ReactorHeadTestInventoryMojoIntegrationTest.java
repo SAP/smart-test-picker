@@ -114,6 +114,9 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 	@Test
 	void schemaV3PreventsTestsInAReactorModuleWithNoAssignment(@TempDir Path temp) throws Exception {
 		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor")); initializeGit(fixture);
+		Path pom = fixture.resolve("pom.xml");
+		Files.writeString(pom, Files.readString(pom).replace("<includesFile>${surefire.includesFile}</includesFile>",
+				"<includes><include>**/*Test.java</include></includes><includesFile>${surefire.includesFile}</includesFile>"));
 		Path assignment = fixture.resolve("assignment.json");
 		Files.writeString(assignment, executableAssignment("maven:module-a::a.ATests#a1"));
 		Path fragment = fixture.resolve("target/final-fragment-v3.json"), evidence = fixture.resolve("target/final-evidence-v2.json");
@@ -125,6 +128,7 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		assertFalse(Files.exists(fixture.resolve("module-b/target/surefire-reports/TEST-b.BTests.xml")), result.output());
 		assertEquals(List.of("**/__stp_no_assigned_tests__*.java"),
 				Files.readAllLines(fixture.resolve("module-b/target/stp/selected-tests-surefire-v3.txt")));
+		assertEquals(List.of("**/*"), Files.readAllLines(fixture.resolve("module-b/target/stp/suppress-all-surefire-v3.txt")));
 	}
 
 	@Test
