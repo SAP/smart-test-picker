@@ -23,14 +23,20 @@ public final class ExecutableCoverageFragmentQualifier {
 		List<ExecutableUnmappedTest> unmapped = logical.unmapped().stream()
 				.map(value -> new ExecutableUnmappedTest(new ExecutableTestIdentity(target, value.test()), value.reason()))
 				.toList();
+		List<com.sap.oss.smarttestpicker.coverage.model.SetupScope> scopes = logical.setupScopes().stream()
+				.map(scope -> scope.ownedBy(target)).toList();
 		return new ExecutableCoverageFragment(CoverageMapContract.SCHEMA_V3, logical.revision(), logical.shardId(),
-				mapped, unmapped, logical.setupScopes(), logical.collectionCompleted());
+				mapped, unmapped, scopes, logical.collectionCompleted());
 	}
 
 	public void requireTarget(ExecutableCoverageFragment fragment, ExecutionTarget expected) {
 		if (fragment == null || expected == null) throw new IllegalArgumentException("Fragment and execution target are required");
 		fragment.tests().keySet().forEach(identity -> require(identity, expected));
 		fragment.unmapped().forEach(value -> require(value.test(), expected));
+		fragment.setupScopes().forEach(scope -> {
+			if (!expected.equals(scope.owner())) throw new IllegalArgumentException("Setup scope target mismatch: configured "
+					+ expected + " but scope " + scope.id() + " belongs to " + scope.owner());
+		});
 	}
 
 	private static void require(ExecutableTestIdentity identity, ExecutionTarget expected) {

@@ -49,6 +49,36 @@ class GradleCollectorBackendFunctionalTest {
 	}
 
 	@Test
+	void asmFailedTestPublishesNoPartialMappedEntry(@TempDir Path ignored) throws Exception {
+		Path project = fixture("failed-asm", "ASM", false);
+		Files.writeString(project.resolve("src/main/java/example/LaterService.java"),
+				"package example; public class LaterService { public void unreached() {} }\n");
+		Files.writeString(project.resolve("src/test/java/example/OverloadedServiceTest.java"), """
+			package example;
+			import org.junit.jupiter.api.Test;
+			class OverloadedServiceTest {
+			 @Test void mapsDescriptorExactly() {
+			   new OverloadedService().value("observed A");
+			   throw new AssertionError("stop before production B");
+			 }
+			}
+			""");
+		Files.writeString(project.resolve("build.gradle"), Files.readString(project.resolve("build.gradle"))
+				+ "\ntasks.named('generateSmartTestCoverage') { ignoreFailures = true }\n");
+		run(project, "generateSmartTestCoverage", "--rerun-tasks");
+		Path fragmentFile = project.resolve("build/stp/coverage/_generateSmartTestCoverage/fixture-failed-asm/fragment.json");
+		var fragment = new com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec()
+				.deserialize(Files.readAllBytes(fragmentFile));
+		assertTrue(fragment.collectionCompleted());
+		assertTrue(fragment.tests().isEmpty());
+		assertEquals(com.sap.oss.smarttestpicker.coverage.model.UnmappedReason.FAILED,
+				fragment.unmapped().get(0).reason());
+		assertFalse(Files.readString(fragmentFile).contains("LaterService"));
+		assertTrue(Files.readString(project.resolve("build/test-results/generateSmartTestCoverage/TEST-example.OverloadedServiceTest.xml"))
+				.contains("failure"));
+	}
+
+	@Test
 	void externalPublishedConsumerAutomaticallyResolvesTheShadedAgent() throws Exception {
 		Path project = fixture("external-published", "ASM", false);
 		String repository = slash(new File(System.getProperty("stp.test.maven.repository")));

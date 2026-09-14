@@ -83,7 +83,11 @@ public final class ExecutableCoverageFragmentJoiner
 				else unmapped.put(entry.test(), entry);
 			}
 			for (SetupScope scope : fragment.setupScopes())
-				if (scopes.putIfAbsent(scope.id(), scope) != null) errors.add("duplicate setup-scope id: " + scope.id());
+			{
+				String key = scope.owner() + "::" + scope.id();
+				if (scope.owner() == null) errors.add("executable setup scope is missing owner: " + scope.id());
+				else if (scopes.putIfAbsent(key, scope) != null) errors.add("duplicate setup-scope owner/id: " + key);
+			}
 		}
 		if (!duplicates.isEmpty()) errors.add("duplicate executable ownership: " + duplicates);
 		TreeSet<ExecutableTestIdentity> reported = new TreeSet<>(owners.keySet());

@@ -60,14 +60,17 @@ public final class AsmCoverageFragmentProjector {
 				unmapped.add(new UnmappedTest(entry.getKey(), UnmappedReason.SKIPPED));
 				continue;
 			}
+			if (group.failed) {
+				unmapped.add(new UnmappedTest(entry.getKey(), UnmappedReason.FAILED));
+				continue;
+			}
 			Set<String> classes = new TreeSet<>();
 			Set<com.sap.oss.smarttestpicker.coverage.model.MethodIdentity> methods = new TreeSet<>();
 			for (MethodIdentity method : group.methods) {
 				classes.add(method.binaryClassName());
 				methods.add(projectedMethod(method));
 			}
-			tests.put(entry.getKey(), new TestCoverage(classes, methods,
-					group.failed ? TestOutcome.FAIL : TestOutcome.PASS,
+			tests.put(entry.getKey(), new TestCoverage(classes, methods, TestOutcome.PASS,
 					classes.isEmpty() ? CollectionStatus.COLLECTED_EMPTY : CollectionStatus.COLLECTED_WITH_COVERAGE));
 		}
 

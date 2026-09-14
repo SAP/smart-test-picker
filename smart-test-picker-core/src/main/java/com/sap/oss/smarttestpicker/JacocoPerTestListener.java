@@ -11,6 +11,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.engine.TestSource;
 import org.junit.platform.engine.support.descriptor.MethodSource;
+import org.junit.platform.engine.support.descriptor.ClassSource;
 import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestIdentifier;
 import org.junit.platform.launcher.TestPlan;
@@ -42,6 +43,7 @@ public class JacocoPerTestListener implements TestExecutionListener
 	private final ThreadLocal<String> currentSessionId = new ThreadLocal<>();
 	private final ThreadLocal<DeclaredTestIdentity> currentTestIdentity = new ThreadLocal<>();
 	private final ThreadLocal<Long> startTime = new ThreadLocal<>();
+	private final ThreadLocal<String> setupContainer = new ThreadLocal<>();
 	private volatile TestPlan testPlan;
 	private JacocoExecutionDataSource executionData;
 
@@ -53,7 +55,18 @@ public class JacocoPerTestListener implements TestExecutionListener
 	{
 		if (!id.isTest())
 		{
+			id.getSource().filter(ClassSource.class::isInstance).map(ClassSource.class::cast).ifPresent(source -> {
+				executionData = JacocoExecutionDataSource.active();
+				setupContainer.set(source.getClassName());
+				executionData.startSession("setup:" + source.getClassName());
+			});
 			return;
+		}
+
+		if (executionData != null && setupContainer.get() != null)
+		{
+			writeSetupCoverage(setupContainer.get(), executionData.snapshotAndReset());
+			setupContainer.remove();
 		}
 
 		DeclaredTestIdentity identity = extractTestIdentity(id);
@@ -214,6 +227,23 @@ public class JacocoPerTestListener implements TestExecutionListener
 		catch (Exception e)
 		{
 			System.err.println("Failed to save authoritative test identity: " + e.getMessage());
+		}
+	}
+
+	private synchronized void writeSetupCoverage(String container, byte[] snapshot)
+	{
+		try
+		{
+			String base = "session_setup_" + Integer.toHexString(container.hashCode() & 0x7fffffff);
+			Path directory = Path.of(resolveExecDir());
+			Files.createDirectories(directory);
+			Files.writeString(directory.resolve(base + ".setup"), "format=1\ncontainer=" + container + "\n");
+			if (snapshot.length > 0) Files.write(directory.resolve(base + ".exec"), snapshot,
+					java.nio.file.StandardOpenOption.CREATE, java.nio.file.StandardOpenOption.APPEND);
+		}
+		catch (Exception e)
+		{
+			System.err.println("Failed to save bounded setup coverage: " + e.getMessage());
 		}
 	}
 

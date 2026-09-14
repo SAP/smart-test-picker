@@ -126,7 +126,7 @@ public final class AggregateReactorCoverageFragmentMojo extends AbstractMojo {
 			if (!ExecutableCoverageMapValidator.validate(fragment).isValid()) throw new IllegalStateException("Invalid module executable fragment for " + target);
 			for (var entry : fragment.tests().entrySet()) { requireAssigned(entry.getKey(), assignment.tests()); if (mapped.containsKey(entry.getKey()) || unmapped.containsKey(entry.getKey())) duplicate(entry.getKey()); mapped.put(entry.getKey(), entry.getValue()); }
 			for (var entry : fragment.unmapped()) { requireAssigned(entry.test(), assignment.tests()); if (mapped.containsKey(entry.test()) || unmapped.containsKey(entry.test())) duplicate(entry.test()); unmapped.put(entry.test(), entry); }
-			for (SetupScope scope : fragment.setupScopes()) { SetupScope old = scopes.putIfAbsent(scope.id(), scope); if (old != null && !old.equals(scope)) throw new IllegalStateException("Incompatible duplicate setup scope: " + scope.id()); }
+			for (SetupScope scope : fragment.setupScopes()) { String key = scope.owner() + "::" + scope.id(); SetupScope old = scopes.putIfAbsent(key, scope); if (old != null && !old.equals(scope)) throw new IllegalStateException("Incompatible duplicate setup scope: " + key); }
 			EvidenceV2 evidence = readEvidenceV2(evidenceFile, target);
 			for (ExecutableTestIdentity identity : unionExecutable(evidence.executed(), evidence.nonExecuted())) { requireAssigned(identity, assignment.tests()); if (!evidenceOwners.add(identity)) throw new IllegalStateException("Duplicate execution evidence identity: " + identity); }
 			executed.addAll(evidence.executed()); nonExecuted.addAll(evidence.nonExecuted());

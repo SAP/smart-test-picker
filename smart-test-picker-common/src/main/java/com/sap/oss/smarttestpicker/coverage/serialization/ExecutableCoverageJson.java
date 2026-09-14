@@ -106,8 +106,12 @@ final class ExecutableCoverageJson
 
 	static JsonArray scopes(List<SetupScope> values)
 	{
-		JsonArray result = new JsonArray(); values.stream().sorted((a, b) -> a.id().compareTo(b.id())).forEach(scope -> {
+		JsonArray result = new JsonArray(); values.stream().sorted(java.util.Comparator
+				.comparing((SetupScope scope) -> scope.owner() == null ? "" : scope.owner().toString())
+				.thenComparing(SetupScope::id)).forEach(scope -> {
 			JsonObject value = new JsonObject(); value.addProperty("id", scope.id()); value.addProperty("type", scope.type().name());
+			if (scope.owner() == null) throw new IllegalArgumentException("Executable setup scope is missing owner: " + scope.id());
+			value.addProperty("owner", scope.owner().toString());
 			value.add("coveredClasses", GSON.toJsonTree(scope.coveredClasses().stream().sorted().toList()));
 			value.add("affectedContainers", GSON.toJsonTree(scope.affectedContainers().stream()
 					.map(TestContainer::binaryName).sorted().toList())); result.add(value);
@@ -122,7 +126,8 @@ final class ExecutableCoverageJson
 			JsonObject value = element.getAsJsonObject(); Set<TestContainer> containers = new TreeSet<>();
 			strings(value, "affectedContainers").forEach(name -> containers.add(new TestContainer(name)));
 			result.add(new SetupScope(required(value, "id"), SetupScopeType.valueOf(required(value, "type")),
-					strings(value, "coveredClasses"), containers));
+					strings(value, "coveredClasses"), containers,
+					com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget.parse(required(value, "owner"))));
 		}
 		return result;
 	}

@@ -120,6 +120,10 @@ class GradleExecutableRoutingFunctionalTest {
 			""".formatted(slash(new File(System.getProperty("stp.test.agent.jar")))));
 		Files.writeString(project.resolve("src/main/java/example/Service.java"),
 				"package example; public class Service { public int value() { return 1; } }\n");
+		Files.writeString(project.resolve("src/main/java/example/ProductionA.java"),
+				"package example; public class ProductionA { public static void setupOnly() {} }\n");
+		Files.writeString(project.resolve("src/main/java/example/ProductionB.java"),
+				"package example; public class ProductionB { public static void setupOnly() {} }\n");
 		Files.writeString(project.resolve("src/test/java/example/SharedTest.java"), """
 			package example;
 			import org.junit.jupiter.api.*;
@@ -127,8 +131,12 @@ class GradleExecutableRoutingFunctionalTest {
 			import org.junit.jupiter.params.provider.ValueSource;
 			import static org.junit.jupiter.api.Assertions.*;
 			class SharedTest {
+			 @BeforeAll static void setup() {
+			   if (System.getProperty("smartTestPicker.executionTarget").equals("gradle::test")) ProductionA.setupOnly();
+			   else ProductionB.setupOnly();
+			 }
 			 @Test void same() throws Exception {
-			   assertEquals(1, new Service().value());
+			   assertTrue(System.getProperty("smartTestPicker.executionTarget").startsWith("gradle::"));
 			   Files.writeString(Path.of("executed.txt"), System.getProperty("smartTestPicker.executionTarget") + "\\n",
 			     java.nio.file.StandardOpenOption.CREATE, java.nio.file.StandardOpenOption.APPEND);
 			 }
@@ -178,11 +186,17 @@ class GradleExecutableRoutingFunctionalTest {
 			assertEquals(task.equals("_test") ? 3 : 1, decoded.tests().size());
 			assertTrue(decoded.tests().keySet().iterator().next().target().toString().equals(
 					task.equals("_test") ? "gradle::test" : "gradle::integrationTest"));
+			String expectedTarget = task.equals("_test") ? "gradle::test" : "gradle::integrationTest";
+			String expectedSetupClass = task.equals("_test") ? "example.ProductionA" : "example.ProductionB";
+			assertTrue(decoded.setupScopes().stream().allMatch(scope -> expectedTarget.equals(scope.owner().toString())));
+			assertTrue(decoded.setupScopes().stream().anyMatch(scope -> scope.coveredClasses().contains(expectedSetupClass)));
 		}
 		assertFalse(Files.exists(project.resolve("build/test-results/componentTest/TEST-example.SharedTest.xml")));
 		var aggregate = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(
 				project.resolve("build/stp/executable-fragment.json")));
 		assertEquals(4, aggregate.tests().size());
+		assertEquals(Set.of("gradle::test", "gradle::integrationTest"), aggregate.setupScopes().stream()
+				.map(scope -> scope.owner().toString()).collect(java.util.stream.Collectors.toSet()));
 		assertEquals(Set.of("gradle::test::example.SharedTest#skipped"), aggregate.unmapped().stream()
 				.map(value -> value.test().toString()).collect(java.util.stream.Collectors.toSet()));
 	}

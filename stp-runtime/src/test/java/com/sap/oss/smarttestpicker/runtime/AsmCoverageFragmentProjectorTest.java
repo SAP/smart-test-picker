@@ -27,7 +27,7 @@ class AsmCoverageFragmentProjectorTest {
 	private final AsmCoverageFragmentProjector projector = new AsmCoverageFragmentProjector();
 
 	@Test
-	void mergesInvocationsRetainsFailedCoverageAndProjectsJvmMethodKinds() {
+	void mixedInvocationsAreFailureDominantWithoutPublishingPartialCoverage() {
 		RuntimeEventAggregator aggregator = new RuntimeEventAggregator("run", "jvm");
 		TestIdentity first = test("[engine:junit-jupiter]/[class:com.foo.PriceTest]/[test-template:calculates(java.lang.String)]/[test-template-invocation:#1]",
 				"com.foo.PriceTest", "calculates", "java.lang.String");
@@ -40,14 +40,25 @@ class AsmCoverageFragmentProjectorTest {
 
 		var result = project(aggregator, CollectorIntegrity.healthy());
 		var identity = new com.sap.oss.smarttestpicker.coverage.model.TestIdentity("com.foo.PriceTest", "calculates", "java.lang.String");
-		var coverage = result.fragment().tests().get(identity);
-		assertEquals(TestOutcome.FAIL, coverage.outcome());
-		assertEquals(CollectionStatus.COLLECTED_WITH_COVERAGE, coverage.collectionStatus());
-		assertEquals(java.util.Set.of(schemaMethod("com.foo.Price", "<init>", "()V"),
-				schemaMethod("com.foo.Price", "<clinit>", "()V"), schemaMethod("com.foo.Price", "calculate", "(I)I"),
-				schemaMethod("com.foo.Price$Helper", "lambda$calculate$0", "()V")), coverage.coveredMethods());
+		assertFalse(result.fragment().tests().containsKey(identity));
+		assertEquals(List.of(new com.sap.oss.smarttestpicker.coverage.model.UnmappedTest(identity,
+				UnmappedReason.FAILED)), result.fragment().unmapped());
 		assertTrue(result.fragment().collectionCompleted());
 		assertTrue(CoverageMapValidator.validate(result.fragment()).isValid());
+	}
+
+	@Test
+	void mixedInvocationFailureIsOrderIndependent() {
+		RuntimeEventAggregator aggregator = new RuntimeEventAggregator("run", "jvm");
+		TestIdentity failed = test("failed", "com.foo.PriceTest", "calculates", "java.lang.String");
+		TestIdentity passed = test("passed", "com.foo.PriceTest", "calculates", "java.lang.String");
+		run(aggregator, failed, TestExecutionStatus.FAILED, method("com.foo.Price", "beforeFailure", "()V"));
+		run(aggregator, passed, TestExecutionStatus.SUCCESSFUL, method("com.foo.Price", "after", "()V"));
+
+		var fragment = project(aggregator, CollectorIntegrity.healthy()).fragment();
+		assertTrue(fragment.tests().isEmpty());
+		assertEquals(UnmappedReason.FAILED, fragment.unmapped().get(0).reason());
+		assertTrue(fragment.collectionCompleted());
 	}
 
 	@Test

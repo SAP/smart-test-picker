@@ -112,6 +112,77 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 	}
 
 	@Test
+	void schemaV3FailedTestRetainsNoPartialJacocoCoverage(@TempDir Path temp) throws Exception {
+		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor")); initializeGit(fixture);
+		Files.writeString(fixture.resolve("module-a/src/main/java/a/ProductionB.java"),
+				"package a; public final class ProductionB { public void unreached() {} }\n");
+		Files.writeString(fixture.resolve("module-a/src/test/java/a/FailedCoverageTest.java"), """
+			package a;
+			import org.junit.jupiter.api.Test;
+			class FailedCoverageTest {
+			 @Test void partial() {
+			   new AValue().value();
+			   throw new AssertionError("stop before production B");
+			 }
+			}
+			""");
+		Path assignment = fixture.resolve("assignment.json");
+		Files.writeString(assignment, executableAssignment("maven:module-a::a.FailedCoverageTest#partial"));
+		Path fragmentPath = fixture.resolve("target/failed-fragment-v3.json");
+		Result result = maven(fixture, PLUGIN + "prepare-reactor-executable-mapping", "verify",
+				PLUGIN + "aggregate-reactor-coverage-fragment", "-Dmaven.test.failure.ignore=true",
+				"-DsmartTestPicker.schemaVersion=3", "-DsmartTestPicker.testsFile=" + assignment,
+				"-DsmartTestPicker.fragmentOutput=" + fragmentPath,
+				"-DsmartTestPicker.evidenceOutput=" + fixture.resolve("target/failed-evidence.json"));
+		assertEquals(0, result.exitCode(), result.output());
+		var fragment = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(fragmentPath));
+		assertTrue(fragment.collectionCompleted());
+		assertTrue(fragment.tests().isEmpty());
+		assertEquals("maven:module-a::a.FailedCoverageTest#partial", fragment.unmapped().get(0).test().toString());
+		assertEquals(com.sap.oss.smarttestpicker.coverage.model.UnmappedReason.FAILED,
+				fragment.unmapped().get(0).reason());
+		assertFalse(Files.readString(fragmentPath).contains("ProductionB"));
+		assertTrue(Files.readString(fixture.resolve("module-a/target/surefire-reports/TEST-a.FailedCoverageTest.xml"))
+				.contains("failure"));
+	}
+
+	@Test
+	void schemaV3KeepsSameContainerSetupOwnedByEachMavenTarget(@TempDir Path temp) throws Exception {
+		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor")); initializeGit(fixture);
+		for (String module : List.of("module-a", "module-b")) {
+			String production = module.equals("module-a") ? "ProductionA" : "ProductionB";
+			Files.createDirectories(fixture.resolve(module + "/src/main/java/shared"));
+			Files.writeString(fixture.resolve(module + "/src/main/java/shared/" + production + ".java"),
+					"package shared; public final class " + production + " { public static void setupOnly() {} }\n");
+			Files.writeString(fixture.resolve(module + "/src/test/java/shared/SharedTest.java"), """
+				package shared;
+				import org.junit.jupiter.api.BeforeAll;
+				import org.junit.jupiter.api.Test;
+				class SharedTest {
+				 @BeforeAll static void setup() { %s.setupOnly(); }
+				 @Test void same() { }
+				}
+				""".formatted(production));
+		}
+		Path assignment = fixture.resolve("assignment.json");
+		Files.writeString(assignment, executableAssignment("maven:module-a::shared.SharedTest#same",
+				"maven:module-b::shared.SharedTest#same"));
+		Path fragmentPath = fixture.resolve("target/setup-fragment-v3.json");
+		Result result = maven(fixture, PLUGIN + "prepare-reactor-executable-mapping", "verify",
+				PLUGIN + "aggregate-reactor-coverage-fragment", "-DsmartTestPicker.schemaVersion=3",
+				"-DsmartTestPicker.testsFile=" + assignment, "-DsmartTestPicker.fragmentOutput=" + fragmentPath,
+				"-DsmartTestPicker.evidenceOutput=" + fixture.resolve("target/setup-evidence.json"));
+		assertEquals(0, result.exitCode(), result.output());
+		var fragment = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(fragmentPath));
+		assertEquals(Set.of("maven:module-a", "maven:module-b"), fragment.setupScopes().stream()
+				.map(scope -> scope.owner().toString()).collect(java.util.stream.Collectors.toSet()));
+		assertTrue(fragment.setupScopes().stream().anyMatch(scope -> scope.owner().toString().equals("maven:module-a")
+				&& scope.coveredClasses().contains("shared.ProductionA")));
+		assertTrue(fragment.setupScopes().stream().anyMatch(scope -> scope.owner().toString().equals("maven:module-b")
+				&& scope.coveredClasses().contains("shared.ProductionB")));
+	}
+
+	@Test
 	void schemaV3PreventsTestsInAReactorModuleWithNoAssignment(@TempDir Path temp) throws Exception {
 		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor")); initializeGit(fixture);
 		Path pom = fixture.resolve("pom.xml");
