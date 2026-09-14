@@ -45,6 +45,8 @@ public final class MergeExecutableTargetFragmentsMojo extends AbstractMojo {
 	@Parameter(property = "smartTestPicker.shardId", required = true) private String shardId;
 	@Parameter(property = "smartTestPicker.fragmentOutput", required = true) private File fragmentOutput;
 	@Parameter(property = "smartTestPicker.evidenceOutput", required = true) private File evidenceOutput;
+	@Parameter(defaultValue = "${env.STP_MAPPING_TEST_TARGET}", property = "smartTestPicker.testTarget", required = true)
+	private String testTarget;
 
 	@Override public void execute() throws MojoExecutionException {
 		try {
@@ -54,7 +56,7 @@ public final class MergeExecutableTargetFragmentsMojo extends AbstractMojo {
 				throw new IllegalArgumentException("Fragment and evidence file lists must be non-empty and aligned");
 			var assignment = new ExecutableShardAssignmentCodec().deserialize(Files.readAllBytes(assignmentFile.toPath()));
 			binding(assignment.revision().value(), assignment.shardId().value());
-			merge(fragments, evidence, assignment, revision, shardId, fragmentOutput, evidenceOutput);
+			merge(fragments, evidence, assignment, revision, shardId, testTarget, fragmentOutput, evidenceOutput);
 		} catch (Exception failure) {
 			try { Files.deleteIfExists(fragmentOutput.toPath()); Files.deleteIfExists(evidenceOutput.toPath()); }
 			catch (Exception ignored) { }
@@ -64,6 +66,12 @@ public final class MergeExecutableTargetFragmentsMojo extends AbstractMojo {
 
 	static void merge(java.util.List<File> fragmentFiles, java.util.List<File> evidenceFiles,
 			ExecutableShardAssignment assignment, String revision, String shardId, File fragmentOutput,
+			File evidenceOutput) throws Exception {
+		merge(fragmentFiles, evidenceFiles, assignment, revision, shardId, "test", fragmentOutput, evidenceOutput);
+	}
+
+	static void merge(java.util.List<File> fragmentFiles, java.util.List<File> evidenceFiles,
+			ExecutableShardAssignment assignment, String revision, String shardId, String testTarget, File fragmentOutput,
 			File evidenceOutput) throws Exception {
 		Map<ExecutableTestIdentity,TestCoverage> mapped = new TreeMap<>();
 		Map<ExecutableTestIdentity,ExecutableUnmappedTest> unmapped = new TreeMap<>();
@@ -108,6 +116,7 @@ public final class MergeExecutableTargetFragmentsMojo extends AbstractMojo {
 		Files.write(fragmentOutput.toPath(), codec.serialize(result));
 		JsonObject root = new JsonObject(); root.addProperty("version", 2); root.addProperty("revision", revision);
 		root.addProperty("shardId", shardId); root.addProperty("buildTool", "maven");
+		root.addProperty("testTarget", testTarget);
 		root.add("EXECUTED", array(executed)); root.add("NON_EXECUTED", array(nonExecuted));
 		Files.createDirectories(evidenceOutput.toPath().getParent());
 		Files.writeString(evidenceOutput.toPath(), new GsonBuilder().setPrettyPrinting().create().toJson(root) + "\n",

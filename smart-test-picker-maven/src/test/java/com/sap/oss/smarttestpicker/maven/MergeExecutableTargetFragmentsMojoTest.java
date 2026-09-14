@@ -27,6 +27,7 @@ import com.sap.oss.smarttestpicker.coverage.model.TestCoverage;
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 import com.sap.oss.smarttestpicker.coverage.model.TestOutcome;
 import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableCoverageFragmentCodec;
+import com.google.gson.JsonParser;
 
 class MergeExecutableTargetFragmentsMojoTest {
 	@Test void mergesDifferentExecutionTargetsAndRejectsDuplicateOwners(@TempDir Path root) throws Exception {
@@ -42,6 +43,8 @@ class MergeExecutableTargetFragmentsMojoTest {
 				output.toFile(), outputEvidence.toFile());
 		assertEquals(Set.of(unit, integration), new ExecutableCoverageFragmentCodec()
 				.deserialize(Files.readAllBytes(output)).tests().keySet());
+		assertEquals("test", JsonParser.parseString(Files.readString(outputEvidence)).getAsJsonObject()
+				.get("testTarget").getAsString());
 		assertThrows(IllegalArgumentException.class, () -> MergeExecutableTargetFragmentsMojo.merge(
 				List.of(first.toFile(), first.toFile()), List.of(firstEvidence.toFile(), firstEvidence.toFile()),
 				assignment, "r", "s", output.toFile(), outputEvidence.toFile()));
