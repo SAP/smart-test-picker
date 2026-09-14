@@ -1,0 +1,68 @@
+def r0 = '2937eb2e711483d8ea9dc216af45c16fd0066b77'
+def manifest = 'build/stp/mapping-manifest.json'
+def stp = 'com.sap.oss.smart-test-picker:smart-test-picker-maven:0.1.0:'
+
+def checkoutR0 = {
+  deleteDir()
+  sh """git clone --no-hardlinks /opt/ei13/commons-statistics .
+git checkout --detach ${r0}
+test "\$(git rev-parse HEAD)" = ${r0}
+mvn -version"""
+}
+
+node('stp-map-agent-3') {
+  stage('Authoritative R0 inventory') {
+    checkoutR0()
+    manifest = stpPrepareCoverageMapping(shards: 3, schemaVersion: 3, revision: r0,
+      buildTool: 'maven', collector: 'JACOCO', testTarget: 'surefire@default-test@examples',
+      inventory: 'target/head-test-inventory.json', project: 'apache-commons-statistics', branch: 'ei14-r0-reconciliation') {
+      sh """mvn -B -ntp -Dmaven.repo.local=/opt/stp-m2 -Pexamples -DskipTests process-test-classes \
+        ${stp}generate-reactor-head-test-inventory \
+        -DsmartTestPicker.schemaVersion=3 -DsmartTestPicker.prHeadRevision=${r0} \
+        -DsmartTestPicker.executionType=surefire -DsmartTestPicker.executionId=default-test \
+        -DsmartTestPicker.executionProfile=examples -DsmartTestPicker.reactorRoot=\$WORKSPACE"""
+    }
+    stash name: 'ei14-r0-preparation', includes: 'target/head-test-inventory.json,build/stp/**/*.json'
+  }
+}
+
+def runShard = { String nodeName, String shardId ->
+  node(nodeName) {
+    stage("Map shard ${shardId}") {
+      checkoutR0(); unstash 'ei14-r0-preparation'
+      stpCoverageMap(tool: 'maven', mapping: manifest, shardId: shardId) {
+        sh """mvn -B -ntp -Dmaven.repo.local=/opt/stp-m2 -Pexamples \
+          -Dmaven.test.additionalClasspath=/opt/stp-m2/com/sap/oss/smart-test-picker/smart-test-picker-core/0.1.0/smart-test-picker-core-0.1.0.jar \
+          -Djunit.platform.listeners.autodetection.enabled=true -Djunit.jupiter.extensions.autodetection.enabled=true \
+          -DsmartTestPicker.completeInventoryFile=\$STP_MAVEN_COMPLETE_INVENTORY \
+          -DsmartTestPicker.executionType=surefire -DsmartTestPicker.executionId=default-test \
+          -DsmartTestPicker.executionProfile=examples -DsmartTestPicker.reactorRoot=\$WORKSPACE \
+          org.jacoco:jacoco-maven-plugin:0.8.14:prepare-agent "\$STP_MAVEN_MAPPING_GOAL" test ${stp}generate-reports ${stp}generate-coverage-fragment
+FRAGMENTS=\$(find . -path '*/target/stp/coverage-fragment-v3-*.json' -type f | sort | paste -sd, -)
+EVIDENCE=\$(find . -path '*/target/stp/execution-evidence-v2-*.json' -type f | sort | paste -sd, -)
+mvn -B -ntp -Dmaven.repo.local=/opt/stp-m2 "\$STP_MAVEN_MERGE_GOAL" \
+  -DsmartTestPicker.fragmentFiles="\$FRAGMENTS" -DsmartTestPicker.evidenceFiles="\$EVIDENCE"
+tar -czf build/stp/surefire-reports-${shardId}.tar.gz \$(find . -path '*/target/surefire-reports/TEST-*.xml' -type f | sort)"""
+      }
+      stash name: "ei14-r0-reports-${shardId}", includes: "build/stp/surefire-reports-${shardId}.tar.gz"
+    }
+  }
+}
+
+parallel(
+  'shard-0': { runShard('stp-agent', '0') },
+  'shard-1': { runShard('stp-map-agent-1', '1') },
+  'shard-2': { runShard('stp-map-agent-2', '2') }
+)
+
+node('stp-map-agent-3') {
+  stage('Join and isolated publication') {
+    checkoutR0(); unstash 'ei14-r0-preparation'
+    ['0','1','2'].each { unstash "ei14-r0-reports-${it}" }
+    def location = stpPublishCoverageMap(mapping: manifest, project: 'apache-commons-statistics',
+      branch: 'ei14-r0-reconciliation', build: env.BUILD_NUMBER, output: 'build/stp/coverage-map-ei14.json')
+    echo "EI14_PUBLISHED=${location}"
+    sh 'sha256sum build/stp/coverage-map-ei14.json build/stp/surefire-reports-*.tar.gz'
+    archiveArtifacts artifacts: 'target/head-test-inventory.json,build/stp/**', fingerprint: true
+  }
+}

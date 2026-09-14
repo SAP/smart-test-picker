@@ -1,0 +1,119 @@
+def r0 = '2937eb2e711483d8ea9dc216af45c16fd0066b77'
+def source = '/home/jenkins/agent/workspace/EI-14-R0-Publication'
+
+def prepare = { String scenario, String branch ->
+  deleteDir()
+  sh """git clone --no-hardlinks /opt/ei13/commons-statistics .
+git checkout --detach ${r0}
+test \"\$(git rev-parse HEAD)\" = ${r0}
+mkdir -p build target evidence/${scenario}
+cp -R ${source}/build/stp build/
+cp ${source}/target/head-test-inventory.json target/
+python3 - '${branch}' '${scenario}' <<'PY'
+import json,sys
+p='build/stp/mapping-manifest.json'; x=json.load(open(p)); x['branch']=sys.argv[1]
+x['stashPattern']='ei14-negative-'+sys.argv[2]+'-{shardId}'
+open(p,'w').write(json.dumps(x,indent=2)+'\\n')
+PY
+sha256sum build/stp/fragment-*.json build/stp/execution-evidence-*.json build/stp/shards/assignment-*.json target/head-test-inventory.json > evidence/${scenario}/valid-start.sha256
+cp build/stp/mapping-manifest.json evidence/${scenario}/manifest.json"""
+}
+
+def storageSnapshot = { String scenario, String branch, String when ->
+  withCredentials([usernamePassword(credentialsId: 'ei13-nexus-storage', usernameVariable: 'NEXUS_USER', passwordVariable: 'NEXUS_PASSWORD')]) {
+    sh """set +x
+snapshot=evidence/${scenario}/storage-${when}.txt
+: > \"\$snapshot\"
+for object in revisions/${r0}/coverage-map-v2.json pointers/latest.json; do
+  url=http://nexus:8081/repository/stp-coverage-maps/projects/apache-commons-statistics/branches/${branch}/\$object
+  code=\$(curl -sS -u \"\$NEXUS_USER:\$NEXUS_PASSWORD\" -o evidence/${scenario}/response.tmp -w '%{http_code}' \"\$url\")
+  sha=ABSENT; test \"\$code\" = 200 && sha=\$(sha256sum evidence/${scenario}/response.tmp | cut -d' ' -f1)
+  printf '%s status=%s sha256=%s\\n' \"\$object\" \"\$code\" \"\$sha\" >> \"\$snapshot\"
+done
+rm -f evidence/${scenario}/response.tmp"""
+  }
+}
+
+def stashAll = { String scenario ->
+  ['0','1','2'].each { shard ->
+    stash name: "ei14-negative-${scenario}-${shard}",
+      includes: "build/stp/fragment-${shard}.json,build/stp/execution-evidence-${shard}.json"
+  }
+  sh 'rm -f build/stp/fragment-*.json build/stp/execution-evidence-*.json'
+}
+
+node('stp-map-agent-3') {
+  stage('Unknown Maven execution target') {
+    def scenario='unknown-target', branch='ei14-negative-unknown-target'
+    prepare(scenario, branch); storageSnapshot(scenario, branch, 'before')
+    sh """python3 - <<'PY'
+import json
+p='build/stp/shards/assignment-0.json'; x=json.load(open(p)); old=x['tests'][0]
+head,test=old.split('::',1); module=head.split('@',1)[0]
+x['tests'][0]=module+'@surefire@ei14-unknown@examples::'+test
+open(p,'w').write(json.dumps(x,indent=2)+'\\n')
+open('evidence/unknown-target/mutation.txt','w').write(old+'\\n=>\\n'+x['tests'][0]+'\\n')
+PY
+rm -f evidence/unknown-target/test-body-entered"""
+    boolean rejected=false
+    try {
+      stpCoverageMap(tool: 'maven', mapping: 'build/stp/mapping-manifest.json', shardId: '0') {
+        sh 'touch evidence/unknown-target/test-body-entered; exit 91'
+      }
+    } catch (Exception expected) {
+      rejected=true
+      assert expected.message.contains('absent from authoritative inventory')
+      echo "EI14_UNKNOWN_TARGET_PASS boundary=pre-body reason=${expected.message}"
+      writeFile file:'evidence/unknown-target/rejection.txt', text:expected.message+'\n'
+    }
+    assert rejected; assert !fileExists('evidence/unknown-target/test-body-entered')
+    sh "test -z \"\$(find . -path '*/target/surefire-reports/TEST-*.xml' -print -quit)\" && printf 'testBodyEntered=false\\nfullSuiteFallback=false\\n' > evidence/unknown-target/execution.txt"
+    storageSnapshot(scenario, branch, 'after'); archiveArtifacts artifacts:'evidence/unknown-target/**', fingerprint:true
+  }
+
+  stage('Duplicate fragment ownership') {
+    def scenario='duplicate-fragment', branch='ei14-negative-duplicate-fragment'
+    prepare(scenario, branch); storageSnapshot(scenario, branch, 'before')
+    sh """python3 - <<'PY'
+import json
+p='build/stp/fragment-2.json'; x=json.load(open(p)); x['shardId']='1'; open(p,'w').write(json.dumps(x,indent=2)+'\\n')
+ids=[json.load(open('build/stp/fragment-'+s+'.json'))['shardId'] for s in '012']
+assert ids == ['0','1','1']; open('evidence/duplicate-fragment/mutation.txt','w').write('fragment transport shardIds='+repr(ids)+'\\n')
+PY"""
+    stashAll(scenario)
+    boolean rejected=false
+    try { stpPublishCoverageMap(mapping:'build/stp/mapping-manifest.json', project:'apache-commons-statistics', branch:branch, build:env.BUILD_NUMBER, output:'build/stp/duplicate.json') }
+    catch(Exception expected) { rejected=true; echo "EI14_DUPLICATE_FRAGMENT_PASS boundary=fragment-binding-validator reason=${expected.message}"; writeFile file:'evidence/duplicate-fragment/rejection.txt', text:expected.message+'\n' }
+    assert rejected; assert !fileExists('build/stp/duplicate.json')
+    storageSnapshot(scenario, branch, 'after'); archiveArtifacts artifacts:'evidence/duplicate-fragment/**', fingerprint:true
+  }
+
+  stage('Missing expected fragment') {
+    def scenario='missing-fragment', branch='ei14-negative-missing-fragment'
+    prepare(scenario, branch); storageSnapshot(scenario, branch, 'before')
+    sh "cp build/stp/mapping-manifest.json evidence/missing-fragment/authoritative-manifest.json; printf 'removed transport stash for expected shard 2\\n' > evidence/missing-fragment/mutation.txt"
+    ['0','1'].each { shard -> stash name:"ei14-negative-${scenario}-${shard}", includes:"build/stp/fragment-${shard}.json,build/stp/execution-evidence-${shard}.json" }
+    sh 'rm -f build/stp/fragment-*.json build/stp/execution-evidence-*.json'
+    boolean rejected=false
+    try { stpPublishCoverageMap(mapping:'build/stp/mapping-manifest.json', project:'apache-commons-statistics', branch:branch, build:env.BUILD_NUMBER, output:'build/stp/missing.json') }
+    catch(Exception expected) { rejected=true; echo "EI14_MISSING_FRAGMENT_PASS boundary=production-retrieval reason=${expected.message}"; writeFile file:'evidence/missing-fragment/rejection.txt', text:expected.message+'\n' }
+    assert rejected; assert !fileExists('build/stp/missing.json')
+    storageSnapshot(scenario, branch, 'after'); archiveArtifacts artifacts:'evidence/missing-fragment/**', fingerprint:true
+  }
+
+  stage('Incomplete publication') {
+    def scenario='incomplete-publication', branch='ei14-negative-incomplete-publication'
+    prepare(scenario, branch); storageSnapshot(scenario, branch, 'before')
+    sh """python3 - <<'PY'
+import json
+p='build/stp/fragment-2.json'; x=json.load(open(p)); assert x['collection']['completed']; x['collection']['completed']=False
+open(p,'w').write(json.dumps(x,indent=2)+'\\n'); open('evidence/incomplete-publication/mutation.txt','w').write('fragment-2 collection.completed: true => false\\n')
+PY"""
+    stashAll(scenario)
+    boolean rejected=false
+    try { stpPublishCoverageMap(mapping:'build/stp/mapping-manifest.json', project:'apache-commons-statistics', branch:branch, build:env.BUILD_NUMBER, output:'build/stp/incomplete.json') }
+    catch(Exception expected) { rejected=true; echo "EI14_INCOMPLETE_PUBLICATION_PASS boundary=completeness-validator reason=${expected.message}"; writeFile file:'evidence/incomplete-publication/rejection.txt', text:expected.message+'\n' }
+    assert rejected; assert !fileExists('build/stp/incomplete.json')
+    storageSnapshot(scenario, branch, 'after'); archiveArtifacts artifacts:'evidence/incomplete-publication/**', fingerprint:true
+  }
+}

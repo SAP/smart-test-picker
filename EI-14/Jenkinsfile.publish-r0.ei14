@@ -1,0 +1,27 @@
+def r0 = '2937eb2e711483d8ea9dc216af45c16fd0066b77'
+def source = '/home/jenkins/agent/workspace/EI-14-R0-Mapping'
+
+node('stp-map-agent-3') {
+  stage('Copy valid mapping build 2 artifacts') {
+    deleteDir()
+    sh """git clone --no-hardlinks /opt/ei13/commons-statistics .
+git checkout --detach ${r0}
+test \"\$(git rev-parse HEAD)\" = ${r0}
+mkdir -p build target
+cp -R ${source}/build/stp build/
+cp ${source}/target/head-test-inventory.json target/
+sha256sum build/stp/fragment-*.json build/stp/execution-evidence-*.json target/head-test-inventory.json"""
+    ['0','1','2'].each { shard ->
+      stash name: "stp-map-apache-commons-statistics-4edb50d72b7c305c-${shard}",
+        includes: "build/stp/fragment-${shard}.json,build/stp/execution-evidence-${shard}.json"
+    }
+  }
+  stage('Production publication only') {
+    def location = stpPublishCoverageMap(mapping: 'build/stp/mapping-manifest.json',
+      project: 'apache-commons-statistics', branch: 'ei14-r0-reconciliation', build: env.BUILD_NUMBER,
+      output: 'build/stp/coverage-map-ei14.json')
+    echo "EI14_PUBLISHED=${location}"
+    sh 'sha256sum build/stp/coverage-map-ei14.json'
+    archiveArtifacts artifacts: 'target/head-test-inventory.json,build/stp/**', fingerprint: true
+  }
+}
