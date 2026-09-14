@@ -78,13 +78,13 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 		File output = new File(module.getBuild().getDirectory(),
 				"stp/selected-tests-" + provider + "-v3" + suffix + ".txt");
 		Files.createDirectories(output.getParentFile().toPath());
-		List<String> patterns = tests.isEmpty() ? List.of("__stp_no_assigned_tests__")
+		List<String> patterns = tests.isEmpty() ? List.of("**/__stp_no_assigned_tests__*.java")
 				: tests.stream().map(test -> test.className() + "#" + test.methodName()).distinct().toList();
 		Files.write(output.toPath(), patterns);
 		String otherProvider = provider.equals("surefire") ? "failsafe" : "surefire";
 		File suppressed = new File(module.getBuild().getDirectory(),
 				"stp/selected-tests-" + otherProvider + "-v3" + suffix + ".txt");
-		Files.write(suppressed.toPath(), List.of("__stp_no_assigned_tests__"));
+		Files.write(suppressed.toPath(), List.of("**/__stp_no_assigned_tests__*.java"));
 		module.getProperties().setProperty(otherProvider + ".includesFile", suppressed.getAbsolutePath());
 		module.getProperties().setProperty(otherProvider + ".failIfNoSpecifiedTests", "false");
 		module.getProperties().setProperty(provider + ".includesFile", output.getAbsolutePath());

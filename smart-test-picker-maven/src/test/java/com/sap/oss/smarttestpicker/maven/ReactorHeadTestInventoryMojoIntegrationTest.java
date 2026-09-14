@@ -112,6 +112,22 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 	}
 
 	@Test
+	void schemaV3PreventsTestsInAReactorModuleWithNoAssignment(@TempDir Path temp) throws Exception {
+		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor")); initializeGit(fixture);
+		Path assignment = fixture.resolve("assignment.json");
+		Files.writeString(assignment, executableAssignment("maven:module-a::a.ATests#a1"));
+		Path fragment = fixture.resolve("target/final-fragment-v3.json"), evidence = fixture.resolve("target/final-evidence-v2.json");
+		Result result = maven(fixture, PLUGIN + "prepare-reactor-executable-mapping", "verify",
+				PLUGIN + "aggregate-reactor-coverage-fragment", "-DsmartTestPicker.schemaVersion=3",
+				"-DsmartTestPicker.testsFile=" + assignment, "-DsmartTestPicker.fragmentOutput=" + fragment,
+				"-DsmartTestPicker.evidenceOutput=" + evidence);
+		assertEquals(0, result.exitCode(), result.output());
+		assertFalse(Files.exists(fixture.resolve("module-b/target/surefire-reports/TEST-b.BTests.xml")), result.output());
+		assertEquals(List.of("**/__stp_no_assigned_tests__*.java"),
+				Files.readAllLines(fixture.resolve("module-b/target/stp/selected-tests-surefire-v3.txt")));
+	}
+
+	@Test
 	void schemaV3RoutesFailsafeWithoutEnablingSurefireAndKeepsQualifiedOutputs(@TempDir Path temp) throws Exception {
 		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor"));
 		String revision = initializeGit(fixture);
@@ -135,7 +151,7 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 				"selected-tests-failsafe-v3-module-a_failsafe_fixture-it.txt")));
 		assertTrue(Files.isRegularFile(directory.resolve(
 				"coverage-fragment-v3-module-a_failsafe_fixture-it.json")));
-		assertEquals(List.of("__stp_no_assigned_tests__"), Files.readAllLines(directory.resolve(
+		assertEquals(List.of("**/__stp_no_assigned_tests__*.java"), Files.readAllLines(directory.resolve(
 				"selected-tests-surefire-v3-module-a_failsafe_fixture-it.txt")));
 		assertFalse(Files.exists(fixture.resolve("module-a/target/surefire-reports/TEST-a.AValueIT.xml")));
 		assertTrue(Files.isRegularFile(fixture.resolve("module-a/target/failsafe-reports/TEST-a.AValueIT.xml")));
