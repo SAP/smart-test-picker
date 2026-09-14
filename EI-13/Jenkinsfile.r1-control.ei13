@@ -1,0 +1,13 @@
+def r1 = '04e9e5d9d66da5dcbaa9a635674926ae71b4ea77'
+node('stp-map-agent-3') {
+  stage('Clean uninstrumented full R1 control') {
+    deleteDir()
+    sh """git clone --no-hardlinks /opt/ei13/commons-statistics .
+git checkout --detach ${r1}
+test \"\$(git rev-parse HEAD)\" = ${r1}
+rm -rf /tmp/ei13-r1-control-m2
+mkdir -p /tmp/ei13-r1-control-m2
+mvn --show-version --batch-mode --no-transfer-progress -Dmaven.repo.local=/tmp/ei13-r1-control-m2 -Pexamples clean verify"""
+    archiveArtifacts artifacts: '**/target/surefire-reports/**', fingerprint: true
+  }
+}

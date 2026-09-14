@@ -1,0 +1,69 @@
+def r0 = '2937eb2e711483d8ea9dc216af45c16fd0066b77'
+def r1 = '04e9e5d9d66da5dcbaa9a635674926ae71b4ea77'
+def stp = 'com.sap.oss.smart-test-picker:smart-test-picker-maven:0.1.0:'
+
+node('stp-map-agent-3') {
+  stage('Valid empty selected assignment') {
+    deleteDir()
+    sh "git clone --no-hardlinks /opt/ei13/commons-statistics . && git checkout --detach ${r1}"
+    writeFile file: 'build/stp/empty-plan.json', text: '{"version":1,"mode":"SELECT","tests":[]}'
+    smartTestPicker(tool: 'maven', plan: 'build/stp/empty-plan.json') {
+      sh 'mvn -B -ntp -Dmaven.repo.local=/opt/stp-m2 -Pexamples test'
+    }
+    sh """test -z \"\$(find . -path '*/target/surefire-reports/TEST-*.xml' -print -quit)\"
+echo 'EI13_EMPTY_ASSIGNMENT_PASS tests=0'"""
+  }
+
+  stage('Incompatible durable-map revision') {
+    deleteDir()
+    sh "git clone --no-hardlinks /opt/ei13/commons-statistics . && git checkout --detach ${r1}"
+    boolean rejected = false
+    try {
+      stpLookupCoverageMap(project: 'apache-commons-statistics', branch: 'ei13-r0-surefire-final',
+        requiredRevision: '0000000000000000000000000000000000000000', output: 'build/stp/incompatible.json')
+    } catch (Exception expected) {
+      rejected = true
+      assert expected.message.contains('STORAGE_INTEGRITY_VIOLATION')
+      echo "EI13_INCOMPATIBLE_MAP_PASS action=FAIL_BUILD message=${expected.message}"
+    }
+    assert rejected
+    assert !fileExists('build/stp/incompatible.json')
+  }
+
+  stage('Automatic assignments reject tampering') {
+    deleteDir()
+    sh "git clone --no-hardlinks /opt/ei13/commons-statistics . && git checkout --detach ${r0}"
+    def manifest = stpPrepareCoverageMapping(shards: 3, schemaVersion: 3, revision: r0,
+      buildTool: 'maven', collector: 'JACOCO', testTarget: 'surefire@default-test@examples',
+      inventory: 'target/head-test-inventory.json') {
+      sh """mvn -B -ntp -Dmaven.repo.local=/opt/stp-m2 -Pexamples -DskipTests process-test-classes \
+        ${stp}generate-reactor-head-test-inventory \
+        -DsmartTestPicker.schemaVersion=3 -DsmartTestPicker.prHeadRevision=${r0} \
+        -DsmartTestPicker.executionType=surefire -DsmartTestPicker.executionId=default-test \
+        -DsmartTestPicker.executionProfile=examples -DsmartTestPicker.reactorRoot=\$WORKSPACE"""
+    }
+    sh 'cp build/stp/shards/assignment-0.json build/stp/shards/assignment-0.original.json'
+    def scenarios = [
+      wrongRevision: '''python3 -c "import json; p='build/stp/shards/assignment-0.json'; x=json.load(open(p)); x['revision']='wrong'; open(p,'w').write(json.dumps(x))"''',
+      wrongShard: '''python3 -c "import json; p='build/stp/shards/assignment-0.json'; x=json.load(open(p)); x['shardId']='wrong'; open(p,'w').write(json.dumps(x))"''',
+      malformed: '''printf '{broken' > build/stp/shards/assignment-0.json''',
+      missing: '''rm build/stp/shards/assignment-0.json'''
+    ]
+    scenarios.each { name, mutation ->
+      sh 'cp build/stp/shards/assignment-0.original.json build/stp/shards/assignment-0.json'
+      sh mutation
+      sh 'rm -f accidental-test-body-ran'
+      boolean rejected = false
+      try {
+        stpCoverageMap(tool: 'maven', mapping: manifest, shardId: '0') {
+          sh 'touch accidental-test-body-ran; exit 91'
+        }
+      } catch (Exception expected) {
+        rejected = true
+        echo "EI13_INVALID_ASSIGNMENT_PASS scenario=${name} message=${expected.message}"
+      }
+      assert rejected
+      assert !fileExists('accidental-test-body-ran')
+    }
+  }
+}

@@ -1,0 +1,88 @@
+def r0 = '2937eb2e711483d8ea9dc216af45c16fd0066b77'
+def manifest = 'build/stp/mapping-manifest.json'
+def stp = 'com.sap.oss.smart-test-picker:smart-test-picker-maven:0.1.0:'
+
+def checkoutR0 = {
+  deleteDir()
+  sh """git clone --no-hardlinks /opt/ei13/commons-statistics .
+git checkout --detach ${r0}
+test \"\$(git rev-parse HEAD)\" = ${r0}
+hostname
+mvn -version"""
+}
+
+node('stp-map-agent-3') {
+  stage('Authoritative full-reactor inventory and plan') {
+    checkoutR0()
+    manifest = stpPrepareCoverageMapping(shards: 3, schemaVersion: 3, revision: r0,
+      buildTool: 'maven', collector: 'JACOCO', testTarget: 'surefire@default-test@examples',
+      inventory: 'target/head-test-inventory.json', project: 'apache-commons-statistics', branch: 'ei13-r0-surefire-final') {
+      sh """mvn -B -ntp -Dmaven.repo.local=/opt/stp-m2 -Pexamples -DskipTests process-test-classes \
+        ${stp}generate-reactor-head-test-inventory \
+        -DsmartTestPicker.schemaVersion=3 -DsmartTestPicker.prHeadRevision=${r0} \
+        -DsmartTestPicker.executionType=surefire -DsmartTestPicker.executionId=default-test \
+        -DsmartTestPicker.executionProfile=examples -DsmartTestPicker.reactorRoot=\$WORKSPACE"""
+    }
+    sh '''python3 - <<'PY'
+import json
+from pathlib import Path
+i=json.loads(Path('target/head-test-inventory.json').read_text())
+a=[]
+for p in sorted(Path('build/stp/shards').glob('assignment-*.json')):
+ v=json.loads(p.read_text()); a += v['tests']; print('EI13_ASSIGNMENT',v['shardId'],len(v['tests']))
+assert len(a)==len(set(a))==len(i['tests']) and set(a)==set(i['tests'])
+print('EI13_INVENTORY',len(i['tests']))
+PY'''
+    stash name: 'ei13-r0-preparation', includes: 'target/head-test-inventory.json,build/stp/**/*.json'
+  }
+}
+
+def runShard = { String nodeName, String shardId ->
+  node(nodeName) {
+    stage("Map shard ${shardId}") {
+      checkoutR0(); unstash 'ei13-r0-preparation'
+      sh "mkdir -p build/stp && printf 'shard=${shardId}\\nnode=${nodeName}\\nhostname=%s\\nworkspace=%s\\nstart=%s\\nstart_epoch=%s\\n' \"\$(hostname)\" \"\$(pwd)\" \"\$(date -u +%Y-%m-%dT%H:%M:%SZ)\" \"\$(date +%s)\" > build/stp/timeline-${shardId}.txt"
+      stpCoverageMap(tool: 'maven', mapping: manifest, shardId: shardId) {
+        sh """mvn -B -ntp -Dmaven.repo.local=/opt/stp-m2 -Pexamples \
+          -Dmaven.test.additionalClasspath=/opt/stp-m2/com/sap/oss/smart-test-picker/smart-test-picker-core/0.1.0/smart-test-picker-core-0.1.0.jar \
+          -Djunit.platform.listeners.autodetection.enabled=true -Djunit.jupiter.extensions.autodetection.enabled=true \
+          -DsmartTestPicker.completeInventoryFile=\$STP_MAVEN_COMPLETE_INVENTORY \
+          -DsmartTestPicker.executionType=surefire -DsmartTestPicker.executionId=default-test \
+          -DsmartTestPicker.executionProfile=examples -DsmartTestPicker.reactorRoot=\$WORKSPACE \
+          org.jacoco:jacoco-maven-plugin:0.8.14:prepare-agent "\$STP_MAVEN_MAPPING_GOAL" test ${stp}generate-reports ${stp}generate-coverage-fragment
+FRAGMENTS=\$(find . -path '*/target/stp/coverage-fragment-v3-*.json' -type f | sort | paste -sd, -)
+EVIDENCE=\$(find . -path '*/target/stp/execution-evidence-v2-*.json' -type f | sort | paste -sd, -)
+test -n \"\$FRAGMENTS\" && test -n \"\$EVIDENCE\"
+mvn -B -ntp -Dmaven.repo.local=/opt/stp-m2 \"\$STP_MAVEN_MERGE_GOAL\" \
+  -DsmartTestPicker.fragmentFiles=\"\$FRAGMENTS\" -DsmartTestPicker.evidenceFiles=\"\$EVIDENCE\""""
+      }
+      sh "printf 'finish=%s\\nfinish_epoch=%s\\n' \"\$(date -u +%Y-%m-%dT%H:%M:%SZ)\" \"\$(date +%s)\" >> build/stp/timeline-${shardId}.txt"
+      stash name: "ei13-r0-timeline-${shardId}", includes: "build/stp/timeline-${shardId}.txt"
+    }
+  }
+}
+
+parallel(
+  'shard-0': { runShard('stp-agent', '0') },
+  'shard-1': { runShard('stp-map-agent-1', '1') },
+  'shard-2': { runShard('stp-map-agent-2', '2') }
+)
+
+node('stp-map-agent-3') {
+  stage('Fourth-agent join and durable publication') {
+    checkoutR0(); unstash 'ei13-r0-preparation'
+    ['0','1','2'].each { unstash "ei13-r0-timeline-${it}" }
+    def location = stpPublishCoverageMap(mapping: manifest, project: 'apache-commons-statistics',
+      branch: 'ei13-r0-surefire-final', build: env.BUILD_NUMBER, output: 'build/stp/coverage-map-ei13.json')
+    echo "EI13_PUBLISHED=${location}"
+    sh '''sha256sum build/stp/coverage-map-ei13.json
+python3 - <<'PY'
+import json
+from pathlib import Path
+m=json.loads(Path('build/stp/coverage-map-ei13.json').read_text())
+assert m['revision']=='2937eb2e711483d8ea9dc216af45c16fd0066b77'
+print('EI13_PUBLISHED_TESTS',len(m['tests']))
+PY'''
+    archiveArtifacts artifacts: 'target/head-test-inventory.json,build/stp/**', fingerprint: true
+  }
+}

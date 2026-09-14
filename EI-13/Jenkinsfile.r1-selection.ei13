@@ -1,0 +1,81 @@
+def r0 = '2937eb2e711483d8ea9dc216af45c16fd0066b77'
+def r1 = '04e9e5d9d66da5dcbaa9a635674926ae71b4ea77'
+def stp = 'com.sap.oss.smart-test-picker:smart-test-picker-maven:0.1.0:'
+
+def checkoutR1 = {
+  deleteDir()
+  sh """git clone --no-hardlinks /opt/ei13/commons-statistics .
+git checkout --detach ${r1}
+test \"\$(git rev-parse HEAD)\" = ${r1}
+hostname
+mvn -version"""
+}
+
+node('stp-map-agent-3') {
+  stage('Durable lookup and production PR selection') {
+    checkoutR1()
+    def lookup = stpLookupCoverageMap(project: 'apache-commons-statistics', branch: 'ei13-r0-surefire-final',
+      requiredRevision: r0, output: 'build/stp/coverage-map.json')
+    assert fileExists('build/stp/coverage-map.json')
+    echo "EI13_LOOKUP_RESULT=${lookup}"
+    def selected = stpPrSelect(coverageMap: 'build/stp/coverage-map.json', buildTool: 'maven', shards: 3,
+      headInventory: 'target/head-test-inventory.json', result: 'build/stp/selection-result.json',
+      plan: 'build/stp/execution-plan.json', shardPlanPattern: 'build/stp/execution-plan-{shardId}.json') {
+      sh """mvn -B -ntp -Dmaven.repo.local=/opt/stp-m2 -Pexamples -DskipTests process-test-classes \
+        ${stp}generate-reactor-head-test-inventory \
+        -DsmartTestPicker.executionType=surefire -DsmartTestPicker.executionId=default-test \
+        -DsmartTestPicker.executionProfile=examples -DsmartTestPicker.reactorRoot=\$WORKSPACE"""
+    }
+    assert selected.automaticStatus == 'SELECTION_COMPLETE'
+    assert selected.selectorStatus == 'SELECTED'
+    assert selected.prBaseRevision == r0
+    assert selected.prHeadRevision == r1
+    sh '''python3 - <<'PY'
+import hashlib,json
+from pathlib import Path
+r=json.loads(Path('build/stp/selection-result.json').read_text())
+p=json.loads(Path('build/stp/execution-plan.json').read_text())
+tests=sorted(r['selectionOutput']['selectedTests'])
+plan_ids=sorted(x['target']+'::'+x['class']+'#'+x['method'] for x in p['tests'])
+effective=sorted(set(x.split('(',1)[0] for x in tests))
+assert sorted(x['class']+'#'+x['method'] for x in p['tests']) == effective
+canonical=''.join(x+chr(10) for x in plan_ids)
+print('EI13_PRODUCTION_DECLARED_SIGNATURES',len(tests))
+print('EI13_PRODUCTION_SELECTED',len(effective))
+print('EI13_PRODUCTION_SELECTED_SHA256',hashlib.sha256(canonical.encode()).hexdigest())
+for path in sorted(Path('build/stp').glob('execution-plan-[0-9].json')):
+ plan=json.loads(path.read_text()); print('EI13_SELECTION_SHARD',path.stem.rsplit('-',1)[1],len(plan['tests']))
+PY'''
+    stash name: 'ei13-r1-selection', includes: 'target/head-test-inventory.json,build/stp/**'
+  }
+}
+
+def executeShard = { String nodeName, String shardId ->
+  node(nodeName) {
+    stage("Selected shard ${shardId}") {
+      checkoutR1()
+      unstash 'ei13-r1-selection'
+      sh "mkdir -p build/stp && printf 'shard=${shardId}\\nnode=${nodeName}\\nhostname=%s\\nworkspace=%s\\nstart=%s\\nstart_epoch=%s\\n' \"\$(hostname)\" \"\$(pwd)\" \"\$(date -u +%Y-%m-%dT%H:%M:%SZ)\" \"\$(date +%s)\" > build/stp/selected-timeline-${shardId}.txt"
+      smartTestPicker(tool: 'maven', plan: "build/stp/execution-plan-${shardId}.json") {
+        sh 'mvn -B -ntp -Dmaven.repo.local=/opt/stp-m2 -Pexamples test'
+      }
+      sh """printf 'finish=%s\\nfinish_epoch=%s\\n' \"\$(date -u +%Y-%m-%dT%H:%M:%SZ)\" \"\$(date +%s)\" >> build/stp/selected-timeline-${shardId}.txt
+mkdir -p build/stp/reports-${shardId}
+find . -path '*/target/surefire-reports/TEST-*.xml' -type f -exec cp --parents -t build/stp/reports-${shardId} {} +"""
+      archiveArtifacts artifacts: "build/stp/execution-plan-${shardId}.json,build/stp/selected-timeline-${shardId}.txt,build/stp/reports-${shardId}/**", fingerprint: true
+    }
+  }
+}
+
+parallel(
+  'selected-0': { executeShard('stp-agent', '0') },
+  'selected-1': { executeShard('stp-map-agent-1', '1') },
+  'selected-2': { executeShard('stp-map-agent-2', '2') }
+)
+
+node('stp-map-agent-3') {
+  stage('Archive production selection decision') {
+    checkoutR1(); unstash 'ei13-r1-selection'
+    archiveArtifacts artifacts: 'target/head-test-inventory.json,build/stp/**', fingerprint: true
+  }
+}
