@@ -74,18 +74,24 @@ public final class MergeExecutableTargetFragmentsMojo extends AbstractMojo {
 			ExecutableCoverageFragment fragment = codec.deserialize(Files.readAllBytes(fragmentFiles.get(index).toPath()));
 			if (!revision.equals(fragment.revision().value()) || !shardId.equals(fragment.shardId().value()))
 				throw new IllegalArgumentException("Execution-target fragment binding mismatch");
-			if (!fragment.collectionCompleted() || !ExecutableCoverageMapValidator.validate(fragment).isValid())
-				throw new IllegalArgumentException("Invalid or incomplete execution-target fragment");
+			JsonObject root = JsonParser.parseString(Files.readString(evidenceFiles.get(index).toPath())).getAsJsonObject();
+			if (root.get("version").getAsInt() != 2 || !revision.equals(root.get("revision").getAsString())
+					|| !shardId.equals(root.get("shardId").getAsString()))
+				throw new IllegalArgumentException("Execution-target evidence binding mismatch");
+			if (!fragment.collectionCompleted()) {
+				if (!fragment.tests().isEmpty() || !fragment.unmapped().isEmpty() || !fragment.setupScopes().isEmpty()
+						|| !root.getAsJsonArray("EXECUTED").isEmpty() || !root.getAsJsonArray("NON_EXECUTED").isEmpty())
+					throw new IllegalArgumentException("Invalid or incomplete execution-target fragment");
+				continue;
+			}
+			if (!ExecutableCoverageMapValidator.validate(fragment).isValid())
+				throw new IllegalArgumentException("Invalid execution-target fragment");
 			for (var entry : fragment.tests().entrySet()) put(mapped, unmapped, entry.getKey(), entry.getValue(), null);
 			for (var entry : fragment.unmapped()) put(mapped, unmapped, entry.test(), null, entry);
 			for (var scope : fragment.setupScopes()) {
 				var old = scopes.putIfAbsent(scope.id(), scope);
 				if (old != null && !old.equals(scope)) throw new IllegalArgumentException("Incompatible setup scope: " + scope.id());
 			}
-			JsonObject root = JsonParser.parseString(Files.readString(evidenceFiles.get(index).toPath())).getAsJsonObject();
-			if (root.get("version").getAsInt() != 2 || !revision.equals(root.get("revision").getAsString())
-					|| !shardId.equals(root.get("shardId").getAsString()))
-				throw new IllegalArgumentException("Execution-target evidence binding mismatch");
 			add(root, "EXECUTED", executed, evidenceOwners);
 			add(root, "NON_EXECUTED", nonExecuted, evidenceOwners);
 		}
