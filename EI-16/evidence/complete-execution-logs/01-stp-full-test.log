@@ -1,0 +1,109 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :smart-test-picker-common:compileJava UP-TO-DATE
+> Task :smart-test-picker-common:processResources NO-SOURCE
+> Task :smart-test-picker-common:classes UP-TO-DATE
+> Task :smart-test-picker-common:jar UP-TO-DATE
+> Task :smart-test-picker-core:compileJava UP-TO-DATE
+> Task :smart-test-picker-core:processResources UP-TO-DATE
+> Task :smart-test-picker-core:classes UP-TO-DATE
+> Task :smart-test-picker-core:jar UP-TO-DATE
+> Task :smart-test-picker:compileJava UP-TO-DATE
+> Task :smart-test-picker:pluginDescriptors UP-TO-DATE
+> Task :smart-test-picker:processResources UP-TO-DATE
+> Task :smart-test-picker:writePluginVersion UP-TO-DATE
+> Task :smart-test-picker:classes UP-TO-DATE
+> Task :smart-test-picker:jar UP-TO-DATE
+> Task :smart-test-picker:compileTestJava UP-TO-DATE
+> Task :smart-test-picker:pluginUnderTestMetadata
+> Task :smart-test-picker:generateMetadataFileForPluginMavenPublication
+> Task :smart-test-picker:generatePomFileForPluginMavenPublication
+> Task :smart-test-picker:publishPluginMavenPublicationToFunctionalTestRepository
+> Task :smart-test-picker:generatePomFileForSmartTestPickerPluginMarkerMavenPublication
+> Task :smart-test-picker:publishSmartTestPickerPluginMarkerMavenPublicationToFunctionalTestRepository
+> Task :smart-test-picker:processTestResources NO-SOURCE
+> Task :smart-test-picker:testClasses UP-TO-DATE
+> Task :smart-test-picker-common:generateMetadataFileForMavenJavaPublication
+> Task :smart-test-picker-common:generatePomFileForMavenJavaPublication
+> Task :smart-test-picker-common:publishMavenJavaPublicationToFunctionalTestRepository
+> Task :smart-test-picker-core:generateMetadataFileForMavenJavaPublication
+> Task :smart-test-picker-core:generatePomFileForMavenJavaPublication
+> Task :smart-test-picker-core:publishMavenJavaPublicationToFunctionalTestRepository
+> Task :stp-agent:generatePomFileForAgentPublication
+> Task :stp-runtime:compileJava UP-TO-DATE
+> Task :stp-junit-adapter:compileJava UP-TO-DATE
+> Task :stp-agent:compileJava UP-TO-DATE
+> Task :stp-agent:processResources NO-SOURCE
+> Task :stp-agent:classes UP-TO-DATE
+> Task :stp-junit-adapter:processResources UP-TO-DATE
+> Task :stp-junit-adapter:classes UP-TO-DATE
+> Task :stp-runtime:processResources NO-SOURCE
+> Task :stp-runtime:classes UP-TO-DATE
+> Task :stp-runtime:jar UP-TO-DATE
+> Task :stp-agent:shadowJar UP-TO-DATE
+> Task :stp-agent:publishAgentPublicationToFunctionalTestRepository
+> Task :smart-test-picker:test
+> Task :smart-test-picker-cli:compileJava UP-TO-DATE
+> Task :smart-test-picker-cli:processResources NO-SOURCE
+> Task :smart-test-picker-cli:classes UP-TO-DATE
+> Task :smart-test-picker-cli:compileTestJava UP-TO-DATE
+> Task :smart-test-picker-cli:processTestResources NO-SOURCE
+> Task :smart-test-picker-cli:testClasses UP-TO-DATE
+> Task :smart-test-picker:jacocoTestReport
+> Task :smart-test-picker-cli:test
+> Task :smart-test-picker-common:compileTestJava UP-TO-DATE
+> Task :smart-test-picker-common:processTestResources UP-TO-DATE
+> Task :smart-test-picker-common:testClasses UP-TO-DATE
+> Task :smart-test-picker-cli:jacocoTestReport
+> Task :smart-test-picker-common:test
+> Task :smart-test-picker-core:compileTestJava UP-TO-DATE
+> Task :smart-test-picker-core:processTestResources NO-SOURCE
+> Task :smart-test-picker-core:testClasses UP-TO-DATE
+> Task :smart-test-picker-core:test UP-TO-DATE
+> Task :smart-test-picker-core:jacocoTestReport UP-TO-DATE
+> Task :smart-test-picker-maven:generateMavenPluginHelpMojoSources UP-TO-DATE
+> Task :smart-test-picker-maven:compileJava UP-TO-DATE
+> Task :smart-test-picker-maven:processResources NO-SOURCE
+> Task :smart-test-picker-maven:classes UP-TO-DATE
+> Task :smart-test-picker-maven:generateMavenPluginDescriptor UP-TO-DATE
+> Task :smart-test-picker-maven:jar UP-TO-DATE
+> Task :smart-test-picker-common:publishAllPublicationsToFunctionalTestRepository
+> Task :smart-test-picker-core:publishAllPublicationsToFunctionalTestRepository
+> Task :smart-test-picker-maven:compileTestJava UP-TO-DATE
+> Task :smart-test-picker-maven:generateMetadataFileForMavenPluginPublication
+> Task :smart-test-picker-maven:generatePomFileForMavenPluginPublication
+> Task :smart-test-picker-maven:publishMavenPluginPublicationToFunctionalTestRepository
+> Task :smart-test-picker-maven:publishAllPublicationsToFunctionalTestRepository
+> Task :smart-test-picker-maven:processTestResources UP-TO-DATE
+> Task :smart-test-picker-maven:testClasses UP-TO-DATE
+> Task :smart-test-picker-common:jacocoTestReport
+> Task :smart-test-picker-maven:test
+> Task :stp-agent:agentJar UP-TO-DATE
+> Task :smart-test-picker-maven:jacocoTestReport
+> Task :stp-agent:compileTestJava
+> Task :stp-agent:processTestResources UP-TO-DATE
+> Task :stp-agent:testClasses
+> Task :stp-junit-adapter:jar UP-TO-DATE
+> Task :stp-agent:test
+> Task :stp-junit-adapter:compileTestJava
+> Task :stp-junit-adapter:processTestResources UP-TO-DATE
+> Task :stp-junit-adapter:testClasses
+> Task :stp-agent:jacocoTestReport
+> Task :stp-junit-adapter:test
+> Task :stp-runtime:compileTestJava UP-TO-DATE
+> Task :stp-runtime:processTestResources UP-TO-DATE
+> Task :stp-runtime:testClasses UP-TO-DATE
+> Task :stp-junit-adapter:jacocoTestReport
+> Task :stp-runtime:test
+> Task :stp-runtime:jacocoTestReport
+
+[Incubating] Problems report is available at: file:///Users/d061177/work/asm-poc/codex-worktree/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 2m 44s
+68 actionable tasks: 33 executed, 35 up-to-date
