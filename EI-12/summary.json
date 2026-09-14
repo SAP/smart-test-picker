@@ -1,0 +1,41 @@
+{
+  "task": "EI-12",
+  "status": "BLOCKED",
+  "blocker": {
+    "target": "maven:its/plugin/tests@surefire@default-test@it-plugin",
+    "job": "EI-12-Job-A #6",
+    "missingCapabilities": [
+      "SonarSource Artifactory private-reader access to sonarqube-enterprise-lw",
+      "SonarSource licenses-ro token required by activateLicense()"
+    ],
+    "endpointStatusFromAgent": 401,
+    "licenseTokenPresent": false,
+    "localDockerEquivalent": false
+  },
+  "repositories": {
+    "stpInitial": "fbffb973151864a64f5834b157bc2866315e6f01",
+    "stpFinal": "ac9a14e",
+    "jenkinsInitial": "b446df5a355b92a1a893de66aae7e598ee0c8bcd",
+    "jenkinsFinal": "b72766c4e9efeecb27b935722af70f87fe1fbe80",
+    "sonarJavaR0": "9bbe6d04d2db75e5b864f3a424bb78bfa4f36b4c",
+    "ei11Preserved": "eed6922c776e5d029266459d04ed5a69e9d6fc8f",
+    "pushPerformed": false
+  },
+  "matrix": {
+    "reactorProjects": 27,
+    "additionalCiTargets": 7,
+    "unitInventory": 4183,
+    "completeInventory": 4261,
+    "assignmentCounts": [1641, 1341, 1279],
+    "nestedExecutableIdentities": 22,
+    "sonarOwnedFailsafeExecutions": 0
+  },
+  "regressions": {
+    "stpComplete": "PASS",
+    "jenkinsComplete": "PASS: 90 tests",
+    "jobA": "FAIL: mandatory private Enterprise capability",
+    "jobB": "NOT RUN: no valid complete published map",
+    "jobC": "NOT RUN: mandatory private Enterprise capability"
+  },
+  "dockerStopped": true
+}

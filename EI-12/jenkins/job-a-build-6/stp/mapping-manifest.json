@@ -1,0 +1,24 @@
+{
+  "manifestVersion": 3,
+  "revision": "9bbe6d04d2db75e5b864f3a424bb78bfa4f36b4c",
+  "inventory": "target/head-test-inventory.json",
+  "fragmentPattern": "build/stp/fragment-{shardId}.json",
+  "mappingSchemaVersion": 3,
+  "requestedShards": 3,
+  "inventoryArtifactVersion": 1,
+  "assignmentArtifactVersion": 1,
+  "assignmentPattern": "build/stp/shards/assignment-{shardId}.json",
+  "expectedShardIds":   [
+    "0",
+    "1",
+    "2"
+  ],
+  "project": "SonarJava",
+  "branch": "ei12-r0",
+  "buildTool": "maven",
+  "testTarget": "complete-ci-matrix",
+  "collector": "JACOCO",
+  "diagnosticPattern": "build/stp/diagnostic-{shardId}.json",
+  "evidencePattern": "build/stp/execution-evidence-{shardId}.json",
+  "stashPattern": "stp-map-SonarJava-38a70dd72330b716-{shardId}"
+}

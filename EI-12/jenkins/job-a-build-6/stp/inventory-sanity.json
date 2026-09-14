@@ -1,0 +1,1 @@
+{"version":1,"revision":"9bbe6d04d2db75e5b864f3a424bb78bfa4f36b4c","tests":["maven:sonar-java-plugin@surefire@default-test@sanity::org.sonar.plugins.java.SanityTest#scan_compiling_files","maven:sonar-java-plugin@surefire@default-test@sanity::org.sonar.plugins.java.SanityTest#scan_non_compiling_files"]}

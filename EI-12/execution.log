@@ -1,0 +1,7 @@
+2026-09-13T00:00:00+02:00 EI-12 started. Timestamp placeholder is superseded by command-level logs captured below.
+Initial STP HEAD: fbffb973151864a64f5834b157bc2866315e6f01; worktree: untracked EI-9 only.
+Initial Jenkins plugin HEAD: b446df5a355b92a1a893de66aae7e598ee0c8bcd; worktree clean.
+Initial SonarJava HEAD: 9bbe6d04d2db75e5b864f3a424bb78bfa4f36b4c; master clean.
+EI-11 SonarJava branch preserved: ei-11-r1 at eed6922c776e5d029266459d04ed5a69e9d6fc8f.
+Preserved Docker Jenkins controller and four physical agents found stopped (exit 143); ei9_controller_home and ei11_map_storage preserved.
+Host Maven: Apache Maven 3.9.16. Maven runtime Java: 26.0.2.1. SonarJava declares jdk.min.version=21; official ruling/plugin CI selects Java 21.
