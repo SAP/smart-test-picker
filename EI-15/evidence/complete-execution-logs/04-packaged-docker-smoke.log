@@ -1,0 +1,1346 @@
+^DTraceback (most recent call last):
+  File "/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 231, in <module>
+    if __name__=="__main__":main()
+  File "/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 142, in main
+    cmd(MAVEN,"-s",".mvn/settings.xml","-B","-ntp",f"-Dmaven.repo.local={MAVEN_REPO_LOCAL}","clean","package")
+  File "/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 19, in cmd
+    if r.returncode: raise AssertionError(f"{' '.join(args)} failed\n{r.stdout}")
+AssertionError: /Users/d061177/Programs/apache-maven-3.9.16/bin/mvn -s .mvn/settings.xml -B -ntp -Dmaven.repo.local=/tmp/ei15-maven-cache clean package failed
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------< io.github.smarttestpicker:smart-test-picker >-------------
+[INFO] Building Smart Test Picker 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ hpi ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ smart-test-picker ---
+[INFO] Deleting /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target
+[INFO] 
+[INFO] --- hpi:3.1746.v2e9fe7dc4d95:validate (default-validate) @ smart-test-picker ---
+[INFO] Created marker file /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/java-level/17
+[INFO] 
+[INFO] --- hpi:3.1746.v2e9fe7dc4d95:validate-hpi (default-validate-hpi) @ smart-test-picker ---
+[INFO] 
+[INFO] --- enforcer:3.6.1:enforce (display-info) @ smart-test-picker ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[INFO] Rule 1: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/HKDF$Mappings.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/HKDF.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/PBEPBKDF2$Mappings.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/PBEPBKDF2.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/SCRYPT$Mappings.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/SCRYPT.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/hkdf/HKDFSpi$HKDFwithSHA256.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/hkdf/HKDFSpi$HKDFwithSHA384.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/hkdf/HKDFSpi$HKDFwithSHA512.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/hkdf/HKDFSpi.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2with8BIT.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withGOST3411.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA224.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA256.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA384.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA3_224.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA3_256.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA3_384.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA3_512.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA512.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA512_224.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSHA512_256.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withSM3.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi$PBKDF2withUTF8.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/pbepbkdf2/PBEPBKDF2Spi.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/scrypt/ScryptSpi$ScryptWithUTF8.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/provider/kdf/scrypt/ScryptSpi.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/spec/PBKDF2ParameterSpec.class: got null class-file-version
+[WARNING] Unknown bytecodeVersion for org.bouncycastle:bcprov-jdk18on:jar:1.83:compile : META-INF/versions/25/org/bouncycastle/jcajce/spec/ScryptParameterSpec.class: got null class-file-version
+[INFO] Rule 2: org.codehaus.mojo.extraenforcer.dependencies.EnforceBytecodeVersion passed
+[INFO] Rule 3: org.apache.maven.enforcer.rules.dependency.BannedDependencies passed
+[INFO] Rule 4: org.apache.maven.enforcer.rules.dependency.BannedDependencies passed
+[INFO] Ignoring requireUpperBoundDeps in org.ow2.asm:asm
+[INFO] Rule 5: org.apache.maven.enforcer.rules.dependency.RequireUpperBoundDeps passed
+[INFO] 
+[INFO] --- enforcer:3.6.1:enforce (no-snapshots-in-release) @ smart-test-picker ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.dependency.RequireReleaseDeps passed
+[INFO] 
+[INFO] --- localizer:1.31:generate (default) @ smart-test-picker ---
+[INFO] 
+[INFO] --- enforcer:3.6.1:enforce (check-junit-imports) @ smart-test-picker ---
+[INFO] Skipping Rule Enforcement.
+[INFO] 
+[INFO] --- antrun:3.1.0:run (verify-stp-adapter-builds) @ smart-test-picker ---
+[INFO] Executing tasks
+[INFO]      [exec] [INFO] Scanning for projects...
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] ------------< io.github.smarttestpicker:stp-maven-adapter >-------------
+[INFO]      [exec] [INFO] Building stp-maven-adapter 0.1.0
+[INFO]      [exec] [INFO]   from pom.xml
+[INFO]      [exec] [INFO] --------------------------------[ jar ]---------------------------------
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] --- clean:3.2.0:clean (default-clean) @ stp-maven-adapter ---
+[INFO]      [exec] [INFO] Deleting /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/adapters/maven-extension/target
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] --- resources:3.4.0:resources (default-resources) @ stp-maven-adapter ---
+[INFO]      [exec] [INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] --- compiler:3.14.1:compile (default-compile) @ stp-maven-adapter ---
+[INFO]      [exec] [INFO] Recompiling the module because of changed source code.
+[INFO]      [exec] [INFO] Compiling 1 source file with javac [debug release 8] to target/classes
+[INFO]      [exec] [WARNING] source value 8 is obsolete and will be removed in a future release
+[INFO]      [exec] [WARNING] target value 8 is obsolete and will be removed in a future release
+[INFO]      [exec] [WARNING] To suppress warnings about obsolete options, use -Xlint:-options.
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] --- resources:3.4.0:testResources (default-testResources) @ stp-maven-adapter ---
+[INFO]      [exec] [INFO] skip non existing resourceDirectory /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/adapters/maven-extension/src/test/resources
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ stp-maven-adapter ---
+[INFO]      [exec] [INFO] No sources to compile
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] --- surefire:3.5.4:test (default-test) @ stp-maven-adapter ---
+[INFO]      [exec] [INFO] No tests to run.
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] --- jar:3.5.0:jar (default-jar) @ stp-maven-adapter ---
+[INFO]      [exec] [INFO] Building jar: /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/adapters/maven-extension/target/stp-maven-adapter-0.1.0.jar
+[INFO]      [exec] [INFO] 
+[INFO]      [exec] [INFO] --- shade:3.6.1:shade (default) @ stp-maven-adapter ---
+[INFO]      [exec] [WARNING] Discovered module-info.class. Shading will break its strong encapsulation.
+[INFO]      [exec] [WARNING] jackson-annotations-2.20.jar, jackson-core-2.20.0.jar, jackson-databind-2.20.0.jar, stp-maven-adapter-0.1.0.jar define 1 overlapping resource: 
+[INFO]      [exec] [WARNING]   - META-INF/MANIFEST.MF
+[INFO]      [exec] [WARNING] jackson-core-2.20.0.jar, jackson-databind-2.20.0.jar define 1 overlapping classes: 
+[INFO]      [exec] [WARNING]   - META-INF.versions.9.module-info
+[INFO]      [exec] [WARNING] jackson-annotations-2.20.jar, jackson-core-2.20.0.jar, jackson-databind-2.20.0.jar define 2 overlapping resources: 
+[INFO]      [exec] [WARNING]   - META-INF/LICENSE
+[INFO]      [exec] [WARNING]   - META-INF/NOTICE
+[INFO]      [exec] [WARNING] maven-shade-plugin has detected that some files are
+[INFO]      [exec] [WARNING] present in two or more JARs. When this happens, only one
+[INFO]      [exec] [WARNING] single version of the file is copied to the uber jar.
+[INFO]      [exec] [WARNING] Usually this is not harmful and you can skip these warnings,
+[INFO]      [exec] [WARNING] otherwise try to manually exclude artifacts based on
+[INFO]      [exec] [WARNING] mvn dependency:tree -Ddetail=true and the above output.
+[INFO]      [exec] [WARNING] See https://maven.apache.org/plugins/maven-shade-plugin/
+[INFO]      [exec] [INFO] Replacing original artifact with shaded artifact.
+[INFO]      [exec] [INFO] ------------------------------------------------------------------------
+[INFO]      [exec] [INFO] BUILD SUCCESS
+[INFO]      [exec] [INFO] ------------------------------------------------------------------------
+[INFO]      [exec] [INFO] Total time:  44.159 s
+[INFO]      [exec] [INFO] Finished at: 2026-09-14T16:03:39+02:00
+[INFO]      [exec] [INFO] ------------------------------------------------------------------------
+[INFO]      [exec] PASS deterministic Gradle content and reproducible Maven adapter build match generated manifest
+[INFO] Executed tasks
+[INFO] 
+[INFO] --- antrun:3.1.0:run (generate-stp-adapter-manifest) @ smart-test-picker ---
+[INFO] Executing tasks
+[INFO] Executed tasks
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ smart-test-picker ---
+[INFO] Copying 15 resources from src/main/resources to target/classes
+[INFO] Copying 4 resources from target/generated-resources/stp to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ smart-test-picker ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 57 source files with javac [debug parameters release 17] to target/classes
+[INFO] io.github.smarttestpicker.jenkins.SmartTestPickerConfiguration indexed under hudson.Extension
+[INFO] io.github.smarttestpicker.jenkins.SmartTestPickerStep.DescriptorImpl indexed under hudson.Extension
+[INFO] io.github.smarttestpicker.jenkins.StpCoverageMapStep.DescriptorImpl indexed under hudson.Extension
+[INFO] io.github.smarttestpicker.jenkins.StpCoverageToolStep.DescriptorImpl indexed under hudson.Extension
+[INFO] io.github.smarttestpicker.jenkins.StpExplicitPrSelectStep.DescriptorImpl indexed under hudson.Extension
+[INFO] io.github.smarttestpicker.jenkins.StpHeadInventoryStep.DescriptorImpl indexed under hudson.Extension
+[INFO] io.github.smarttestpicker.jenkins.StpLookupCoverageMapStep.DescriptorImpl indexed under hudson.Extension
+[INFO] io.github.smarttestpicker.jenkins.StpPrSelectStep.DescriptorImpl indexed under hudson.Extension
+[INFO] io.github.smarttestpicker.jenkins.StpPrepareCoverageMappingStep.DescriptorImpl indexed under hudson.Extension
+[INFO] io.github.smarttestpicker.jenkins.StpPublishCoverageMapStep.DescriptorImpl indexed under hudson.Extension
+[INFO] io.github.smarttestpicker.jenkins.StpTestInventoryStep.DescriptorImpl indexed under hudson.Extension
+[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/SmartTestPickerStep.java:[45,12] Generating io/github/smarttestpicker/jenkins/SmartTestPickerStep.stapler
+[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpCoverageMapStep.java:[22,32] Generating io/github/smarttestpicker/jenkins/StpCoverageMapStep.stapler
+[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpCoverageToolStep.java:[4,224] Generating io/github/smarttestpicker/jenkins/StpCoverageToolStep.stapler
+[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpExplicitPrSelectStep.java:[28,34] Generating io/github/smarttestpicker/jenkins/StpExplicitPrSelectStep.stapler
+[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpHeadInventoryStep.java:[6,31] Generating io/github/smarttestpicker/jenkins/StpHeadInventoryStep.stapler
+[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpLookupCoverageMapStep.java:[22,32] Generating io/github/smarttestpicker/jenkins/StpLookupCoverageMapStep.stapler
+[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpPrSelectStep.java:[44,34] Generating io/github/smarttestpicker/jenkins/StpPrSelectStep.stapler
+[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpPrepareCoverageMappingStep.java:[6,31] Generating io/github/smarttestpicker/jenkins/StpPrepareCoverageMappingStep.stapler
+[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpPublishCoverageMapStep.java:[37,12] Generating io/github/smarttestpicker/jenkins/StpPublishCoverageMapStep.stapler
+[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpTestInventoryStep.java:[6,31] Generating io/github/smarttestpicker/jenkins/StpTestInventoryStep.stapler
+[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/JenkinsStorageCredentialResolver.java: /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/JenkinsStorageCredentialResolver.java uses or overrides a deprecated API.
+[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/JenkinsStorageCredentialResolver.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- access-modifier-checker:1.35:enforce (default-enforce) @ smart-test-picker ---
+[INFO] 
+[INFO] --- bridge-method-injector:1.32:process (default) @ smart-test-picker ---
+[INFO] 
+[INFO] --- hpi:3.1746.v2e9fe7dc4d95:insert-test (default-insert-test) @ smart-test-picker ---
+[INFO] 
+[INFO] --- antrun:3.1.0:run (createTempDir) @ smart-test-picker ---
+[INFO] Executing tasks
+[INFO] Executed tasks
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ smart-test-picker ---
+[INFO] skip non existing resourceDirectory /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.0:testCompile (default-testCompile) @ smart-test-picker ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 17 source files with javac [debug parameters release 17] to target/test-classes
+[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/test/java/io/github/smarttestpicker/jenkins/GitHubBranchSourcePrAdapterTest.java: Some input files use or override a deprecated API.
+[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/test/java/io/github/smarttestpicker/jenkins/GitHubBranchSourcePrAdapterTest.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- hpi:3.1746.v2e9fe7dc4d95:test-hpl (default-test-hpl) @ smart-test-picker ---
+[INFO] Generating /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/test-classes/the.hpl
+[INFO] 
+[INFO] --- hpi:3.1746.v2e9fe7dc4d95:resolve-test-dependencies (default-resolve-test-dependencies) @ smart-test-picker ---
+[INFO] 
+[INFO] --- hpi:3.1746.v2e9fe7dc4d95:test-runtime (default-test-runtime) @ smart-test-picker ---
+[INFO] Setting jenkins.addOpens to --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED
+[INFO] Setting jenkins.insaneHook to --patch-module='java.base=/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/patch-modules/org-netbeans-insane-hook.jar' --add-exports=java.base/org.netbeans.insane.hook=ALL-UNNAMED
+[INFO] 
+[INFO] --- surefire:3.5.3:test (default-test) @ smart-test-picker ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+Running tests for io.github.smarttestpicker:smart-test-picker:1.0-SNAPSHOT
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider (file:/tmp/ei15-maven-cache/com/thoughtworks/xstream/xstream/1.4.21/xstream-1.4.21.jar)
+WARNING: Please consider reporting this to the maintainers of class com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[INFO] Running io.github.smarttestpicker.jenkins.AgentArtifactCacheTest
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module (file:/tmp/ei15-maven-cache/net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider (file:/tmp/ei15-maven-cache/com/thoughtworks/xstream/xstream/1.4.21/xstream-1.4.21.jar)
+WARNING: Please consider reporting this to the maintainers of class com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.332 s -- in io.github.smarttestpicker.jenkins.AgentArtifactCacheTest
+[INFO] Running io.github.smarttestpicker.jenkins.AutomaticPrSelectionResultTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.017 s -- in io.github.smarttestpicker.jenkins.AutomaticPrSelectionResultTest
+[INFO] Running io.github.smarttestpicker.jenkins.CoverageMappingManifestTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.025 s -- in io.github.smarttestpicker.jenkins.CoverageMappingManifestTest
+[INFO] Running io.github.smarttestpicker.jenkins.CoverageMappingStepTest
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module (file:/tmp/ei15-maven-cache/net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider (file:/tmp/ei15-maven-cache/com/thoughtworks/xstream/xstream/1.4.21/xstream-1.4.21.jar)
+WARNING: Please consider reporting this to the maintainers of class com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[ERROR] Tests run: 14, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 69.92 s <<< FAILURE! -- in io.github.smarttestpicker.jenkins.CoverageMappingStepTest
+[ERROR] io.github.smarttestpicker.jenkins.CoverageMappingStepTest.schemaThreeGradleWorkerInvokesRealEi6Entrypoint(JenkinsRule) -- Time elapsed: 27.21 s <<< FAILURE!
+java.lang.AssertionError: 
+unexpected build status; build log was:
+------
+Started
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j h9667587323481128949/workspace/gradle-executable-production
+[Pipeline] {
+[Pipeline] writeFile
+[Pipeline] writeFile
+[Pipeline] writeFile
+[Pipeline] writeFile
+[Pipeline] sh
++ git init -q
++ git config user.email test@example.com
++ git config user.name Test
++ git add .
++ git commit -qm baseline
+[Pipeline] sh
++ git rev-parse HEAD
+[Pipeline] stpPrepareCoverageMapping
+[gradle-executable-production] $ git rev-parse HEAD
+[Pipeline] {
+[Pipeline] sh
++ /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/fixtures/gradle-app/gradlew generateGradleExecutableHeadTestInventory --no-daemon
+Fetching distribution.
+Downloading https://services.gradle.org/distributions/gradle-9.7.1-bin.zip
+..............10%..............20%...............30%..............40%...............50%..............60%...............70%..............80%..............90%...............100%
+
+Welcome to Gradle 9.7.1!
+
+Here are the highlights of this release:
+ - Isolated Projects graduates to incubating
+ - Broader Configuration Cache compatibility
+ - Resilient Sync helps you fix broken builds
+ - More source locations in problem reports
+
+For more details see https://docs.gradle.org/9.7.1/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.7.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+
+> Task :compileJava NO-SOURCE
+> Task :processResources NO-SOURCE
+> Task :classes UP-TO-DATE
+> Task :compileTestJava
+> Task :generateGradleExecutableProjectInventory
+
+> Task :generateGradleExecutableHeadTestInventory
+[SmartTestPicker] Aggregated 2 Gradle executable JUnit tests from 1 projects
+
+[Incubating] Problems report is available at: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j%20h9667587323481128949/workspace/gradle-executable-production/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 12s
+3 actionable tasks: 3 executed
+[Pipeline] }
+[gradle-executable-production] $ git rev-parse HEAD
+[STP] Mapping prepared after authoritative discovery: tests=2 shards=2
+[Pipeline] // stpPrepareCoverageMapping
+[Pipeline] stpCoverageMap
+[gradle-executable-production] $ git rev-parse HEAD
+[STP] ASM mapping adapter active for shard 0 at revision aebfe2579c7749b5e3299b358e5b0b74b1eb24a7
+[Pipeline] {
+[Pipeline] sh
++ /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/fixtures/gradle-app/gradlew generateSmartTestMapping --no-daemon
+Fetching distribution.
+Downloading https://services.gradle.org/distributions/gradle-9.7.1-bin.zip
+..............10%..............20%...............30%..............40%...............50%..............60%...............70%..............80%..............90%...............100%
+
+Welcome to Gradle 9.7.1!
+
+Here are the highlights of this release:
+ - Isolated Projects graduates to incubating
+ - Broader Configuration Cache compatibility
+ - Resilient Sync helps you fix broken builds
+ - More source locations in problem reports
+
+For more details see https://docs.gradle.org/9.7.1/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.7.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+
+> Task :compileJava NO-SOURCE
+> Task :processResources NO-SOURCE
+> Task :classes UP-TO-DATE
+> Task :compileTestJava UP-TO-DATE
+> Task :resolveStpAgentArtifact
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':test' (registered by plugin 'org.gradle.jvm-test-suite').
+> ASM fragment collection is incomplete
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 11s
+3 actionable tasks: 2 executed, 1 up-to-date
+[Pipeline] }
+[Pipeline] // stpCoverageMap
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 1
+Finished: FAILURE
+
+------
+
+Expected: is <SUCCESS>
+     but: was <FAILURE>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.jvnet.hudson.test.JenkinsRule.assertBuildStatus(JenkinsRule.java:1462)
+	at org.jvnet.hudson.test.JenkinsRule.assertBuildStatusSuccess(JenkinsRule.java:1490)
+	at io.github.smarttestpicker.jenkins.CoverageMappingStepTest.schemaThreeGradleWorkerInvokesRealEi6Entrypoint(CoverageMappingStepTest.java:221)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+
+[INFO] Running io.github.smarttestpicker.jenkins.ExecutableAssignmentOrchestratorTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.034 s -- in io.github.smarttestpicker.jenkins.ExecutableAssignmentOrchestratorTest
+[INFO] Running io.github.smarttestpicker.jenkins.ExecutionPlanSharderTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.054 s -- in io.github.smarttestpicker.jenkins.ExecutionPlanSharderTest
+[INFO] Running io.github.smarttestpicker.jenkins.GitHubBranchSourcePrAdapterTest
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module (file:/tmp/ei15-maven-cache/net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider (file:/tmp/ei15-maven-cache/com/thoughtworks/xstream/xstream/1.4.21/xstream-1.4.21.jar)
+WARNING: Please consider reporting this to the maintainers of class com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.617 s -- in io.github.smarttestpicker.jenkins.GitHubBranchSourcePrAdapterTest
+[INFO] Running io.github.smarttestpicker.jenkins.GradleArtifactEnvironmentTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.174 s -- in io.github.smarttestpicker.jenkins.GradleArtifactEnvironmentTest
+[INFO] Running io.github.smarttestpicker.jenkins.HardcodedPathRegressionTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.028 s -- in io.github.smarttestpicker.jenkins.HardcodedPathRegressionTest
+[INFO] Running io.github.smarttestpicker.jenkins.JenkinsPolicyIntegrationTest
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.021 s -- in io.github.smarttestpicker.jenkins.JenkinsPolicyIntegrationTest
+[INFO] Running io.github.smarttestpicker.jenkins.JenkinsStorageCredentialResolverTest
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module (file:/tmp/ei15-maven-cache/net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider (file:/tmp/ei15-maven-cache/com/thoughtworks/xstream/xstream/1.4.21/xstream-1.4.21.jar)
+WARNING: Please consider reporting this to the maintainers of class com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.088 s -- in io.github.smarttestpicker.jenkins.JenkinsStorageCredentialResolverTest
+[INFO] Running io.github.smarttestpicker.jenkins.MavenExecutableOwnershipPackagingTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.015 s -- in io.github.smarttestpicker.jenkins.MavenExecutableOwnershipPackagingTest
+[INFO] Running io.github.smarttestpicker.jenkins.ScmPrContextResolverTest
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module (file:/tmp/ei15-maven-cache/net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider (file:/tmp/ei15-maven-cache/com/thoughtworks/xstream/xstream/1.4.21/xstream-1.4.21.jar)
+WARNING: Please consider reporting this to the maintainers of class com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.945 s -- in io.github.smarttestpicker.jenkins.ScmPrContextResolverTest
+[INFO] Running io.github.smarttestpicker.jenkins.SmartTestPickerConfigurationRestartTest
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module (file:/tmp/ei15-maven-cache/net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider (file:/tmp/ei15-maven-cache/com/thoughtworks/xstream/xstream/1.4.21/xstream-1.4.21.jar)
+WARNING: Please consider reporting this to the maintainers of class com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.614 s -- in io.github.smarttestpicker.jenkins.SmartTestPickerConfigurationRestartTest
+[INFO] Running io.github.smarttestpicker.jenkins.SmartTestPickerStepTest
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module (file:/tmp/ei15-maven-cache/net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider (file:/tmp/ei15-maven-cache/com/thoughtworks/xstream/xstream/1.4.21/xstream-1.4.21.jar)
+WARNING: Please consider reporting this to the maintainers of class com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[INFO] Tests run: 19, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 34.64 s -- in io.github.smarttestpicker.jenkins.SmartTestPickerStepTest
+[INFO] Running io.github.smarttestpicker.jenkins.StorageConfigurationTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.017 s -- in io.github.smarttestpicker.jenkins.StorageConfigurationTest
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by com.sun.jna.Native in an unnamed module (file:/tmp/ei15-maven-cache/net/java/dev/jna/jna/5.17.0/jna-5.17.0.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider (file:/tmp/ei15-maven-cache/com/thoughtworks/xstream/xstream/1.4.21/xstream-1.4.21.jar)
+WARNING: Please consider reporting this to the maintainers of class com.thoughtworks.xstream.converters.reflection.SunUnsafeReflectionProvider
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[INFO] Running io.github.smarttestpicker.smart_test_picker.InjectedTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.812 s -- in io.github.smarttestpicker.smart_test_picker.InjectedTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   CoverageMappingStepTest.schemaThreeGradleWorkerInvokesRealEi6Entrypoint:221 unexpected build status; build log was:
+------
+Started
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j h9667587323481128949/workspace/gradle-executable-production
+[Pipeline] {
+[Pipeline] writeFile
+[Pipeline] writeFile
+[Pipeline] writeFile
+[Pipeline] writeFile
+[Pipeline] sh
++ git init -q
++ git config user.email test@example.com
++ git config user.name Test
++ git add .
++ git commit -qm baseline
+[Pipeline] sh
++ git rev-parse HEAD
+[Pipeline] stpPrepareCoverageMapping
+[gradle-executable-production] $ git rev-parse HEAD
+[Pipeline] {
+[Pipeline] sh
++ /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/fixtures/gradle-app/gradlew generateGradleExecutableHeadTestInventory --no-daemon
+Fetching distribution.
+Downloading https://services.gradle.org/distributions/gradle-9.7.1-bin.zip
+..............10%..............20%...............30%..............40%...............50%..............60%...............70%..............80%..............90%...............100%
+
+Welcome to Gradle 9.7.1!
+
+Here are the highlights of this release:
+ - Isolated Projects graduates to incubating
+ - Broader Configuration Cache compatibility
+ - Resilient Sync helps you fix broken builds
+ - More source locations in problem reports
+
+For more details see https://docs.gradle.org/9.7.1/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.7.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+
+> Task :compileJava NO-SOURCE
+> Task :processResources NO-SOURCE
+> Task :classes UP-TO-DATE
+> Task :compileTestJava
+> Task :generateGradleExecutableProjectInventory
+
+> Task :generateGradleExecutableHeadTestInventory
+[SmartTestPicker] Aggregated 2 Gradle executable JUnit tests from 1 projects
+
+[Incubating] Problems report is available at: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j%20h9667587323481128949/workspace/gradle-executable-production/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 12s
+3 actionable tasks: 3 executed
+[Pipeline] }
+[gradle-executable-production] $ git rev-parse HEAD
+[STP] Mapping prepared after authoritative discovery: tests=2 shards=2
+[Pipeline] // stpPrepareCoverageMapping
+[Pipeline] stpCoverageMap
+[gradle-executable-production] $ git rev-parse HEAD
+[STP] ASM mapping adapter active for shard 0 at revision aebfe2579c7749b5e3299b358e5b0b74b1eb24a7
+[Pipeline] {
+[Pipeline] sh
++ /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/fixtures/gradle-app/gradlew generateSmartTestMapping --no-daemon
+Fetching distribution.
+Downloading https://services.gradle.org/distributions/gradle-9.7.1-bin.zip
+..............10%..............20%...............30%..............40%...............50%..............60%...............70%..............80%..............90%...............100%
+
+Welcome to Gradle 9.7.1!
+
+Here are the highlights of this release:
+ - Isolated Projects graduates to incubating
+ - Broader Configuration Cache compatibility
+ - Resilient Sync helps you fix broken builds
+ - More source locations in problem reports
+
+For more details see https://docs.gradle.org/9.7.1/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.7.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+
+> Task :compileJava NO-SOURCE
+> Task :processResources NO-SOURCE
+> Task :classes UP-TO-DATE
+> Task :compileTestJava UP-TO-DATE
+> Task :resolveStpAgentArtifact
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':test' (registered by plugin 'org.gradle.jvm-test-suite').
+> ASM fragment collection is incomplete
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 11s
+3 actionable tasks: 2 executed, 1 up-to-date
+[Pipeline] }
+[Pipeline] // stpCoverageMap
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 1
+Finished: FAILURE
+
+------
+
+Expected: is <SUCCESS>
+     but: was <FAILURE>
+[INFO] 
+[ERROR] Tests run: 96, Failures: 1, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  03:06 min
+[INFO] Finished at: 2026-09-14T16:05:58+02:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.3:test (default-test) on project smart-test-picker: There are test failures.
+[ERROR] 
+[ERROR] See /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+
+askImpl.run(TaskMethodFinder.java:185)
+	at org.jvnet.hudson.reactor.Reactor.runTask(Reactor.java:304)
+	at jenkins.model.Jenkins$5.runTask(Jenkins.java:1151)
+	at org.jvnet.hudson.reactor.Reactor$2.run(Reactor.java:221)
+	at org.jvnet.hudson.reactor.Reactor$Node.run(Reactor.java:120)
+	at jenkins.security.ImpersonatingExecutorService$1.run(ImpersonatingExecutorService.java:68)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+Caused by: java.lang.reflect.InvocationTargetException
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at hudson.init.TaskMethodFinder.invoke(TaskMethodFinder.java:109)
+	... 9 more
+Caused by: java.nio.file.NoSuchFileException: /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j h6748490121952368047/users
+	at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:92)
+	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:108)
+	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:113)
+	at java.base/sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:450)
+	at java.base/java.nio.file.Files.createDirectory(Files.java:649)
+	at hudson.model.UserIdMapper.createUsersDirectoryAsNeeded(UserIdMapper.java:164)
+	at hudson.model.UserIdMapper.init(UserIdMapper.java:76)
+	... 11 more
+
+[ERROR] io.github.smarttestpicker.jenkins.SmartTestPickerStepTest.gradleEnvironmentIsScopedAndTempPathsAreUnique(JenkinsRule) -- Time elapsed: 0.002 s <<< ERROR!
+org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:64)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	Suppressed: java.lang.RuntimeException: One or more problems while shutting down Jenkins
+		at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:552)
+		at org.jvnet.hudson.test.JenkinsRule.after(JenkinsRule.java:522)
+		at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.afterEach(JenkinsExtension.java:29)
+		... 2 more
+		Suppressed: java.lang.NullPointerException: Cannot invoke "org.eclipse.jetty.server.Server.stop()" because "server" is null
+			at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:556)
+			... 4 more
+Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:741)
+	at org.eclipse.jetty.ee9.nested.ContextHandler$CoreContextHandler.doStart(ContextHandler.java:2836)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:120)
+	at org.eclipse.jetty.server.Handler$Abstract.doStart(Handler.java:491)
+	at org.eclipse.jetty.server.handler.gzip.GzipHandler.doStart(GzipHandler.java:132)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.server.Server.start(Server.java:643)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:120)
+	at org.eclipse.jetty.server.Handler$Abstract.doStart(Handler.java:491)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:584)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.jvnet.hudson.test.jetty.Jetty12EE9Provider.createWebServer(Jetty12EE9Provider.java:75)
+	at org.jvnet.hudson.test.JenkinsRule.createWebServer2(JenkinsRule.java:795)
+	at org.jvnet.hudson.test.JenkinsRule.newHudson(JenkinsRule.java:744)
+	at org.jvnet.hudson.test.JenkinsRule.before(JenkinsRule.java:402)
+	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:61)
+	... 2 more
+
+[ERROR] io.github.smarttestpicker.jenkins.SmartTestPickerStepTest.missingCoverageMapFailsBeforeSelector(JenkinsRule) -- Time elapsed: 0.002 s <<< ERROR!
+org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:64)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	Suppressed: java.lang.RuntimeException: One or more problems while shutting down Jenkins
+		at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:552)
+		at org.jvnet.hudson.test.JenkinsRule.after(JenkinsRule.java:522)
+		at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.afterEach(JenkinsExtension.java:29)
+		... 2 more
+		Suppressed: java.lang.NullPointerException: Cannot invoke "org.eclipse.jetty.server.Server.stop()" because "server" is null
+			at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:556)
+			... 4 more
+Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:741)
+	at org.eclipse.jetty.ee9.nested.ContextHandler$CoreContextHandler.doStart(ContextHandler.java:2836)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:120)
+	at org.eclipse.jetty.server.Handler$Abstract.doStart(Handler.java:491)
+	at org.eclipse.jetty.server.handler.gzip.GzipHandler.doStart(GzipHandler.java:132)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.server.Server.start(Server.java:643)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:120)
+	at org.eclipse.jetty.server.Handler$Abstract.doStart(Handler.java:491)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:584)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.jvnet.hudson.test.jetty.Jetty12EE9Provider.createWebServer(Jetty12EE9Provider.java:75)
+	at org.jvnet.hudson.test.JenkinsRule.createWebServer2(JenkinsRule.java:795)
+	at org.jvnet.hudson.test.JenkinsRule.newHudson(JenkinsRule.java:744)
+	at org.jvnet.hudson.test.JenkinsRule.before(JenkinsRule.java:402)
+	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:61)
+	... 2 more
+
+[ERROR] io.github.smarttestpicker.jenkins.SmartTestPickerStepTest.selectorFailuresAndMalformedOutputPreventBodyAndClean(JenkinsRule) -- Time elapsed: 0.002 s <<< ERROR!
+org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:64)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	Suppressed: java.lang.RuntimeException: One or more problems while shutting down Jenkins
+		at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:552)
+		at org.jvnet.hudson.test.JenkinsRule.after(JenkinsRule.java:522)
+		at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.afterEach(JenkinsExtension.java:29)
+		... 2 more
+		Suppressed: java.lang.NullPointerException: Cannot invoke "org.eclipse.jetty.server.Server.stop()" because "server" is null
+			at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:556)
+			... 4 more
+Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:741)
+	at org.eclipse.jetty.ee9.nested.ContextHandler$CoreContextHandler.doStart(ContextHandler.java:2836)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:120)
+	at org.eclipse.jetty.server.Handler$Abstract.doStart(Handler.java:491)
+	at org.eclipse.jetty.server.handler.gzip.GzipHandler.doStart(GzipHandler.java:132)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.server.Server.start(Server.java:643)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:120)
+	at org.eclipse.jetty.server.Handler$Abstract.doStart(Handler.java:491)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:584)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.jvnet.hudson.test.jetty.Jetty12EE9Provider.createWebServer(Jetty12EE9Provider.java:75)
+	at org.jvnet.hudson.test.JenkinsRule.createWebServer2(JenkinsRule.java:795)
+	at org.jvnet.hudson.test.JenkinsRule.newHudson(JenkinsRule.java:744)
+	at org.jvnet.hudson.test.JenkinsRule.before(JenkinsRule.java:402)
+	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:61)
+	... 2 more
+
+[ERROR] io.github.smarttestpicker.jenkins.SmartTestPickerStepTest.selectorAndPlanModesAreMutuallyExclusiveAndInputsAreRequired(JenkinsRule) -- Time elapsed: 0.002 s <<< ERROR!
+org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:64)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	Suppressed: java.lang.RuntimeException: One or more problems while shutting down Jenkins
+		at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:552)
+		at org.jvnet.hudson.test.JenkinsRule.after(JenkinsRule.java:522)
+		at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.afterEach(JenkinsExtension.java:29)
+		... 2 more
+		Suppressed: java.lang.NullPointerException: Cannot invoke "org.eclipse.jetty.server.Server.stop()" because "server" is null
+			at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:556)
+			... 4 more
+Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:741)
+	at org.eclipse.jetty.ee9.nested.ContextHandler$CoreContextHandler.doStart(ContextHandler.java:2836)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:120)
+	at org.eclipse.jetty.server.Handler$Abstract.doStart(Handler.java:491)
+	at org.eclipse.jetty.server.handler.gzip.GzipHandler.doStart(GzipHandler.java:132)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.server.Server.start(Server.java:643)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:120)
+	at org.eclipse.jetty.server.Handler$Abstract.doStart(Handler.java:491)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:584)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.jvnet.hudson.test.jetty.Jetty12EE9Provider.createWebServer(Jetty12EE9Provider.java:75)
+	at org.jvnet.hudson.test.JenkinsRule.createWebServer2(JenkinsRule.java:795)
+	at org.jvnet.hudson.test.JenkinsRule.newHudson(JenkinsRule.java:744)
+	at org.jvnet.hudson.test.JenkinsRule.before(JenkinsRule.java:402)
+	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:61)
+	... 2 more
+
+[ERROR] io.github.smarttestpicker.jenkins.SmartTestPickerStepTest.globalCoverageMapDefaultIsUsedAndPipelineValueOverridesIt(JenkinsRule) -- Time elapsed: 0.001 s <<< ERROR!
+org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:64)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	Suppressed: java.lang.RuntimeException: One or more problems while shutting down Jenkins
+		at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:552)
+		at org.jvnet.hudson.test.JenkinsRule.after(JenkinsRule.java:522)
+		at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.afterEach(JenkinsExtension.java:29)
+		... 2 more
+		Suppressed: java.lang.NullPointerException: Cannot invoke "org.eclipse.jetty.server.Server.stop()" because "server" is null
+			at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:556)
+			... 4 more
+Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:741)
+	at org.eclipse.jetty.ee9.nested.ContextHandler$CoreContextHandler.doStart(ContextHandler.java:2836)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:120)
+	at org.eclipse.jetty.server.Handler$Abstract.doStart(Handler.java:491)
+	at org.eclipse.jetty.server.handler.gzip.GzipHandler.doStart(GzipHandler.java:132)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.server.Server.start(Server.java:643)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:120)
+	at org.eclipse.jetty.server.Handler$Abstract.doStart(Handler.java:491)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:584)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.jvnet.hudson.test.jetty.Jetty12EE9Provider.createWebServer(Jetty12EE9Provider.java:75)
+	at org.jvnet.hudson.test.JenkinsRule.createWebServer2(JenkinsRule.java:795)
+	at org.jvnet.hudson.test.JenkinsRule.newHudson(JenkinsRule.java:744)
+	at org.jvnet.hudson.test.JenkinsRule.before(JenkinsRule.java:402)
+	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:61)
+	... 2 more
+
+[ERROR] io.github.smarttestpicker.jenkins.SmartTestPickerStepTest.selectorHeadMustMatchCheckedOutWorkspaceHead(JenkinsRule) -- Time elapsed: 0.001 s <<< ERROR!
+org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:64)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	Suppressed: java.lang.RuntimeException: One or more problems while shutting down Jenkins
+		at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:552)
+		at org.jvnet.hudson.test.JenkinsRule.after(JenkinsRule.java:522)
+		at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.afterEach(JenkinsExtension.java:29)
+		... 2 more
+		Suppressed: java.lang.NullPointerException: Cannot invoke "org.eclipse.jetty.server.Server.stop()" because "server" is null
+			at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:556)
+			... 4 more
+Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:741)
+	at org.eclipse.jetty.ee9.nested.ContextHandler$CoreContextHandler.doStart(ContextHandler.java:2836)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:120)
+	at org.eclipse.jetty.server.Handler$Abstract.doStart(Handler.java:491)
+	at org.eclipse.jetty.server.handler.gzip.GzipHandler.doStart(GzipHandler.java:132)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.server.Server.start(Server.java:643)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:120)
+	at org.eclipse.jetty.server.Handler$Abstract.doStart(Handler.java:491)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:584)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.jvnet.hudson.test.jetty.Jetty12EE9Provider.createWebServer(Jetty12EE9Provider.java:75)
+	at org.jvnet.hudson.test.JenkinsRule.createWebServer2(JenkinsRule.java:795)
+	at org.jvnet.hudson.test.JenkinsRule.newHudson(JenkinsRule.java:744)
+	at org.jvnet.hudson.test.JenkinsRule.before(JenkinsRule.java:402)
+	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:61)
+	... 2 more
+
+[ERROR] io.github.smarttestpicker.jenkins.SmartTestPickerStepTest.selectorModeGeneratesAndPropagatesPlan(JenkinsRule) -- Time elapsed: 0.002 s <<< ERROR!
+org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:64)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	Suppressed: java.lang.RuntimeException: One or more problems while shutting down Jenkins
+		at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:552)
+		at org.jvnet.hudson.test.JenkinsRule.after(JenkinsRule.java:522)
+		at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.afterEach(JenkinsExtension.java:29)
+		... 2 more
+		Suppressed: java.lang.NullPointerException: Cannot invoke "org.eclipse.jetty.server.Server.stop()" because "server" is null
+			at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:556)
+			... 4 more
+Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:741)
+	at org.eclipse.jetty.ee9.nested.ContextHandler$CoreContextHandler.doStart(ContextHandler.java:2836)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:120)
+	at org.eclipse.jetty.server.Handler$Abstract.doStart(Handler.java:491)
+	at org.eclipse.jetty.server.handler.gzip.GzipHandler.doStart(GzipHandler.java:132)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.server.Server.start(Server.java:643)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:120)
+	at org.eclipse.jetty.server.Handler$Abstract.doStart(Handler.java:491)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:584)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.jvnet.hudson.test.jetty.Jetty12EE9Provider.createWebServer(Jetty12EE9Provider.java:75)
+	at org.jvnet.hudson.test.JenkinsRule.createWebServer2(JenkinsRule.java:795)
+	at org.jvnet.hudson.test.JenkinsRule.newHudson(JenkinsRule.java:744)
+	at org.jvnet.hudson.test.JenkinsRule.before(JenkinsRule.java:402)
+	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:61)
+	... 2 more
+
+[ERROR] io.github.smarttestpicker.jenkins.SmartTestPickerStepTest.missingBundledResourcesFailBeforeBody(JenkinsRule) -- Time elapsed: 0.002 s <<< ERROR!
+org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:64)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	Suppressed: java.lang.RuntimeException: One or more problems while shutting down Jenkins
+		at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:552)
+		at org.jvnet.hudson.test.JenkinsRule.after(JenkinsRule.java:522)
+		at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.afterEach(JenkinsExtension.java:29)
+		... 2 more
+		Suppressed: java.lang.NullPointerException: Cannot invoke "org.eclipse.jetty.server.Server.stop()" because "server" is null
+			at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:556)
+			... 4 more
+Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:741)
+	at org.eclipse.jetty.ee9.nested.ContextHandler$CoreContextHandler.doStart(ContextHandler.java:2836)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:120)
+	at org.eclipse.jetty.server.Handler$Abstract.doStart(Handler.java:491)
+	at org.eclipse.jetty.server.handler.gzip.GzipHandler.doStart(GzipHandler.java:132)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.server.Server.start(Server.java:643)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:120)
+	at org.eclipse.jetty.server.Handler$Abstract.doStart(Handler.java:491)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:584)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.jvnet.hudson.test.jetty.Jetty12EE9Provider.createWebServer(Jetty12EE9Provider.java:75)
+	at org.jvnet.hudson.test.JenkinsRule.createWebServer2(JenkinsRule.java:795)
+	at org.jvnet.hudson.test.JenkinsRule.newHudson(JenkinsRule.java:744)
+	at org.jvnet.hudson.test.JenkinsRule.before(JenkinsRule.java:402)
+	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:61)
+	... 2 more
+
+[ERROR] io.github.smarttestpicker.jenkins.SmartTestPickerStepTest.resolverProducesImmutableEffectiveConfigurationWithExplicitPrecedence(JenkinsRule) -- Time elapsed: 0.002 s <<< ERROR!
+org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:64)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	Suppressed: java.lang.RuntimeException: One or more problems while shutting down Jenkins
+		at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:552)
+		at org.jvnet.hudson.test.JenkinsRule.after(JenkinsRule.java:522)
+		at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.afterEach(JenkinsExtension.java:29)
+		... 2 more
+		Suppressed: java.lang.NullPointerException: Cannot invoke "org.eclipse.jetty.server.Server.stop()" because "server" is null
+			at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:556)
+			... 4 more
+Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:741)
+	at org.eclipse.jetty.ee9.nested.ContextHandler$CoreContextHandler.doStart(ContextHandler.java:2836)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:120)
+	at org.eclipse.jetty.server.Handler$Abstract.doStart(Handler.java:491)
+	at org.eclipse.jetty.server.handler.gzip.GzipHandler.doStart(GzipHandler.java:132)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.server.Server.start(Server.java:643)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:120)
+	at org.eclipse.jetty.server.Handler$Abstract.doStart(Handler.java:491)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:584)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.jvnet.hudson.test.jetty.Jetty12EE9Provider.createWebServer(Jetty12EE9Provider.java:75)
+	at org.jvnet.hudson.test.JenkinsRule.createWebServer2(JenkinsRule.java:795)
+	at org.jvnet.hudson.test.JenkinsRule.newHudson(JenkinsRule.java:744)
+	at org.jvnet.hudson.test.JenkinsRule.before(JenkinsRule.java:402)
+	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:61)
+	... 2 more
+
+[ERROR] io.github.smarttestpicker.jenkins.SmartTestPickerStepTest.globallyDisabledToolIntegrationsFailBeforeBody(JenkinsRule) -- Time elapsed: 0.001 s <<< ERROR!
+org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:64)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	Suppressed: java.lang.RuntimeException: One or more problems while shutting down Jenkins
+		at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:552)
+		at org.jvnet.hudson.test.JenkinsRule.after(JenkinsRule.java:522)
+		at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.afterEach(JenkinsExtension.java:29)
+		... 2 more
+		Suppressed: java.lang.NullPointerException: Cannot invoke "org.eclipse.jetty.server.Server.stop()" because "server" is null
+			at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:556)
+			... 4 more
+Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:741)
+	at org.eclipse.jetty.ee9.nested.ContextHandler$CoreContextHandler.doStart(ContextHandler.java:2836)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:120)
+	at org.eclipse.jetty.server.Handler$Abstract.doStart(Handler.java:491)
+	at org.eclipse.jetty.server.handler.gzip.GzipHandler.doStart(GzipHandler.java:132)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.server.Server.start(Server.java:643)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:120)
+	at org.eclipse.jetty.server.Handler$Abstract.doStart(Handler.java:491)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:584)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.jvnet.hudson.test.jetty.Jetty12EE9Provider.createWebServer(Jetty12EE9Provider.java:75)
+	at org.jvnet.hudson.test.JenkinsRule.createWebServer2(JenkinsRule.java:795)
+	at org.jvnet.hudson.test.JenkinsRule.newHudson(JenkinsRule.java:744)
+	at org.jvnet.hudson.test.JenkinsRule.before(JenkinsRule.java:402)
+	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:61)
+	... 2 more
+
+[ERROR] io.github.smarttestpicker.jenkins.SmartTestPickerStepTest.missingPlanAndDisabledConfigurationFailBeforeBody(JenkinsRule) -- Time elapsed: 0.001 s <<< ERROR!
+org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:64)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	Suppressed: java.lang.RuntimeException: One or more problems while shutting down Jenkins
+		at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:552)
+		at org.jvnet.hudson.test.JenkinsRule.after(JenkinsRule.java:522)
+		at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.afterEach(JenkinsExtension.java:29)
+		... 2 more
+		Suppressed: java.lang.NullPointerException: Cannot invoke "org.eclipse.jetty.server.Server.stop()" because "server" is null
+			at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:556)
+			... 4 more
+Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:741)
+	at org.eclipse.jetty.ee9.nested.ContextHandler$CoreContextHandler.doStart(ContextHandler.java:2836)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:120)
+	at org.eclipse.jetty.server.Handler$Abstract.doStart(Handler.java:491)
+	at org.eclipse.jetty.server.handler.gzip.GzipHandler.doStart(GzipHandler.java:132)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.server.Server.start(Server.java:643)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:120)
+	at org.eclipse.jetty.server.Handler$Abstract.doStart(Handler.java:491)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:584)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.jvnet.hudson.test.jetty.Jetty12EE9Provider.createWebServer(Jetty12EE9Provider.java:75)
+	at org.jvnet.hudson.test.JenkinsRule.createWebServer2(JenkinsRule.java:795)
+	at org.jvnet.hudson.test.JenkinsRule.newHudson(JenkinsRule.java:744)
+	at org.jvnet.hudson.test.JenkinsRule.before(JenkinsRule.java:402)
+	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:61)
+	... 2 more
+
+[ERROR] io.github.smarttestpicker.jenkins.SmartTestPickerStepTest.configurationRoundTrips(JenkinsRule) -- Time elapsed: 0.002 s <<< ERROR!
+org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:64)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
+	Suppressed: java.lang.RuntimeException: One or more problems while shutting down Jenkins
+		at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:552)
+		at org.jvnet.hudson.test.JenkinsRule.after(JenkinsRule.java:522)
+		at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.afterEach(JenkinsExtension.java:29)
+		... 2 more
+		Suppressed: java.lang.NullPointerException: Cannot invoke "org.eclipse.jetty.server.Server.stop()" because "server" is null
+			at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:556)
+			... 4 more
+Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:741)
+	at org.eclipse.jetty.ee9.nested.ContextHandler$CoreContextHandler.doStart(ContextHandler.java:2836)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:120)
+	at org.eclipse.jetty.server.Handler$Abstract.doStart(Handler.java:491)
+	at org.eclipse.jetty.server.handler.gzip.GzipHandler.doStart(GzipHandler.java:132)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:169)
+	at org.eclipse.jetty.server.Server.start(Server.java:643)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:120)
+	at org.eclipse.jetty.server.Handler$Abstract.doStart(Handler.java:491)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:584)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
+	at org.jvnet.hudson.test.jetty.Jetty12EE9Provider.createWebServer(Jetty12EE9Provider.java:75)
+	at org.jvnet.hudson.test.JenkinsRule.createWebServer2(JenkinsRule.java:795)
+	at org.jvnet.hudson.test.JenkinsRule.newHudson(JenkinsRule.java:744)
+	at org.jvnet.hudson.test.JenkinsRule.before(JenkinsRule.java:402)
+	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:61)
+	... 2 more
+
+WARNING: package org.netbeans.insane.hook not in java.base
+[ERROR] java.lang.ClassNotFoundException: io.github.smarttestpicker.jenkins.StorageConfigurationTest
+WARNING: package org.netbeans.insane.hook not in java.base
+[ERROR] java.lang.ClassNotFoundException: io.github.smarttestpicker.smart_test_picker.InjectedTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   CoverageMappingStepTest.schemaThreeGradleWorkerInvokesRealEi6Entrypoint:221 unexpected build status; build log was:
+------
+Started
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j h5632610857065042710/workspace/gradle-executable-production
+[Pipeline] {
+[Pipeline] writeFile
+[Pipeline] writeFile
+[Pipeline] writeFile
+[Pipeline] writeFile
+[Pipeline] sh
++ git init -q
++ git config user.email test@example.com
++ git config user.name Test
++ git add .
++ git commit -qm baseline
+[Pipeline] sh
++ git rev-parse HEAD
+[Pipeline] stpPrepareCoverageMapping
+[gradle-executable-production] $ git rev-parse HEAD
+[Pipeline] {
+[Pipeline] sh
++ /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/fixtures/gradle-app/gradlew generateGradleExecutableHeadTestInventory --no-daemon
+Fetching distribution.
+Downloading https://services.gradle.org/distributions/gradle-9.7.1-bin.zip
+..............10%..............20%...............30%..............40%...............50%..............60%...............70%..............80%..............90%...............100%
+
+Welcome to Gradle 9.7.1!
+
+Here are the highlights of this release:
+ - Isolated Projects graduates to incubating
+ - Broader Configuration Cache compatibility
+ - Resilient Sync helps you fix broken builds
+ - More source locations in problem reports
+
+For more details see https://docs.gradle.org/9.7.1/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.7.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+
+> Task :compileJava NO-SOURCE
+> Task :processResources NO-SOURCE
+> Task :classes UP-TO-DATE
+> Task :compileTestJava
+> Task :generateGradleExecutableProjectInventory
+
+> Task :generateGradleExecutableHeadTestInventory
+[SmartTestPicker] Aggregated 2 Gradle executable JUnit tests from 1 projects
+
+[Incubating] Problems report is available at: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j%20h5632610857065042710/workspace/gradle-executable-production/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.7.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 11s
+3 actionable tasks: 3 executed
+[Pipeline] }
+[gradle-executable-production] $ git rev-parse HEAD
+[STP] Mapping prepared after authoritative discovery: tests=2 shards=2
+[Pipeline] // stpPrepareCoverageMapping
+[Pipeline] stpCoverageMap
+[gradle-executable-production] $ git rev-parse HEAD
+[STP] ASM mapping adapter active for shard 0 at revision c76b31f53595629e7337e35386fc9417b431f9b0
+[Pipeline] {
+[Pipeline] sh
++ /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/fixtures/gradle-app/gradlew generateSmartTestMapping --no-daemon
+Fetching distribution.
+Downloading https://services.gradle.org/distributions/gradle-9.7.1-bin.zip
+..............10%..............20%...............30%..............40%...............50%..............60%...............70%..............80%..............90%...............100%
+
+Welcome to Gradle 9.7.1!
+
+Here are the highlights of this release:
+ - Isolated Projects graduates to incubating
+ - Broader Configuration Cache compatibility
+ - Resilient Sync helps you fix broken builds
+ - More source locations in problem reports
+
+For more details see https://docs.gradle.org/9.7.1/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.7.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+
+> Task :compileJava NO-SOURCE
+> Task :processResources NO-SOURCE
+> Task :classes UP-TO-DATE
+> Task :compileTestJava UP-TO-DATE
+> Task :resolveStpAgentArtifact
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':test' (registered by plugin 'org.gradle.jvm-test-suite').
+> ASM fragment collection is incomplete
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 10s
+3 actionable tasks: 2 executed, 1 up-to-date
+[Pipeline] }
+[Pipeline] // stpCoverageMap
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 1
+Finished: FAILURE
+
+------
+
+Expected: is <SUCCESS>
+     but: was <FAILURE>
+[ERROR]   SmartTestPickerStepTest.cleanupRunsAfterBodyFailure:106 
+Expected: a string containing "EXPECTED_BODY_FAILURE"
+     but: was "Started
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j h6643698032855834472/workspace/body-failure
+[Pipeline] {
+[Pipeline] writeFile
+[Pipeline] smartTestPicker
+[STP] Preparing Gradle adapter on agent /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j h6643698032855834472/workspace/body-failure
+[STP] Cleaning build-local STP files: /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j h6643698032855834472/workspace/body-failure@tmp/stp/body-failure_1-d772b911-6d09-436e-a6f9-c4437e7acaa7
+[Pipeline] // smartTestPicker
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Also:   org.jenkinsci.plugins.workflow.actions.ErrorAction$ErrorId: 69c18d66-c58d-4588-afcf-abac871548df
+java.io.IOException: missing generated adapter manifest
+	at io.github.smarttestpicker.jenkins.AdapterManifest.entry(AdapterManifest.java:16)
+	at io.github.smarttestpicker.jenkins.AdapterResources.metadataWithoutOverrides(AdapterResources.java:38)
+	at io.github.smarttestpicker.jenkins.AdapterResources.metadata(AdapterResources.java:22)
+	at io.github.smarttestpicker.jenkins.SmartTestPickerStep$Execution.start(SmartTestPickerStep.java:148)
+	at org.jenkinsci.plugins.workflow.cps.DSL.invokeStep(DSL.java:333)
+	at org.jenkinsci.plugins.workflow.cps.DSL.invokeMethod(DSL.java:194)
+	at org.jenkinsci.plugins.workflow.cps.CpsScript.invokeMethod(CpsScript.java:124)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:98)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:325)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1225)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1034)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.call(PogoMetaClassSite.java:41)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:47)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:116)
+	at org.kohsuke.groovy.sandbox.impl.Checker$1.call(Checker.java:180)
+	at org.kohsuke.groovy.sandbox.GroovyInterceptor.onMethodCall(GroovyInterceptor.java:23)
+	at org.jenkinsci.plugins.scriptsecurity.sandbox.groovy.SandboxInterceptor.onMethodCall(SandboxInterceptor.java:163)
+	at org.kohsuke.groovy.sandbox.impl.Checker$1.call(Checker.java:178)
+	at org.kohsuke.groovy.sandbox.impl.Checker.checkedCall(Checker.java:182)
+	at org.kohsuke.groovy.sandbox.impl.Checker.checkedCall(Checker.java:152)
+	at com.cloudbees.groovy.cps.sandbox.SandboxInvoker.methodCall(SandboxInvoker.java:17)
+	at org.jenkinsci.plugins.workflow.cps.LoggingInvoker.methodCall(LoggingInvoker.java:120)
+	at WorkflowScript.run(WorkflowScript:3)
+	at ___cps.transform___(Native Method)
+	at com.cloudbees.groovy.cps.impl.ContinuationGroup.methodCall(ContinuationGroup.java:107)
+	at com.cloudbees.groovy.cps.impl.FunctionCallBlock$ContinuationImpl.dispatchOrArg(FunctionCallBlock.java:118)
+	at com.cloudbees.groovy.cps.impl.FunctionCallBlock$ContinuationImpl.fixArg(FunctionCallBlock.java:87)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at com.cloudbees.groovy.cps.impl.ContinuationPtr$ContinuationImpl.receive(ContinuationPtr.java:71)
+	at com.cloudbees.groovy.cps.impl.ClosureBlock.eval(ClosureBlock.java:49)
+	at com.cloudbees.groovy.cps.Next.step(Next.java:84)
+	at com.cloudbees.groovy.cps.Continuable.run0(Continuable.java:142)
+	at org.jenkinsci.plugins.workflow.cps.SandboxContinuable.access$001(SandboxContinuable.java:17)
+	at org.jenkinsci.plugins.workflow.cps.SandboxContinuable.run0(SandboxContinuable.java:48)
+	at org.jenkinsci.plugins.workflow.cps.CpsThread.runNextChunk(CpsThread.java:188)
+	at org.jenkinsci.plugins.workflow.cps.CpsThreadGroup.run(CpsThreadGroup.java:464)
+	at org.jenkinsci.plugins.workflow.cps.CpsThreadGroup$2.call(CpsThreadGroup.java:372)
+	at org.jenkinsci.plugins.workflow.cps.CpsThreadGroup$2.call(CpsThreadGroup.java:302)
+	at org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService.lambda$wrap$4(CpsVmExecutorService.java:143)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:330)
+	at hudson.remoting.SingleLaneExecutorService$1.run(SingleLaneExecutorService.java:139)
+	at jenkins.util.ContextResettingExecutorService$1.run(ContextResettingExecutorService.java:28)
+	at jenkins.security.ImpersonatingExecutorService$1.run(ImpersonatingExecutorService.java:68)
+	at jenkins.util.ErrorLoggingExecutorService.lambda$wrap$0(ErrorLoggingExecutorService.java:51)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:330)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService$1.call(CpsVmExecutorService.java:53)
+	at org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService$1.call(CpsVmExecutorService.java:50)
+	at org.codehaus.groovy.runtime.GroovyCategorySupport$ThreadCategoryInfo.use(GroovyCategorySupport.java:136)
+	at org.codehaus.groovy.runtime.GroovyCategorySupport.use(GroovyCategorySupport.java:275)
+	at org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService.lambda$categoryThreadFactory$0(CpsVmExecutorService.java:50)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+Finished: FAILURE
+"
+[ERROR] Errors: 
+[ERROR]   SmartTestPickerStepTest.configurationRoundTrips(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+[ERROR]   SmartTestPickerStepTest.globalCoverageMapDefaultIsUsedAndPipelineValueOverridesIt(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+[ERROR]   SmartTestPickerStepTest.globallyDisabledToolIntegrationsFailBeforeBody(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+[ERROR]   SmartTestPickerStepTest.gradleEnvironmentIsScopedAndTempPathsAreUnique(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+[ERROR]   SmartTestPickerStepTest.invalidToolAndTraversalFailBeforeBody(JenkinsRule) » ParameterResolution java.lang.Error: java.lang.reflect.InvocationTargetException
+[ERROR]   SmartTestPickerStepTest.missingBundledResourcesFailBeforeBody(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+[ERROR]   SmartTestPickerStepTest.missingCoverageMapFailsBeforeSelector(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+[ERROR]   SmartTestPickerStepTest.missingPlanAndDisabledConfigurationFailBeforeBody(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+[ERROR]   SmartTestPickerStepTest.resolverProducesImmutableEffectiveConfigurationWithExplicitPrecedence(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+[ERROR]   SmartTestPickerStepTest.selectorAndPlanModesAreMutuallyExclusiveAndInputsAreRequired(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+[ERROR]   SmartTestPickerStepTest.selectorFailuresAndMalformedOutputPreventBodyAndClean(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+[ERROR]   SmartTestPickerStepTest.selectorHeadMustMatchCheckedOutWorkspaceHead(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+[ERROR]   SmartTestPickerStepTest.selectorModeGeneratesAndPropagatesPlan(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+[INFO] 
+[ERROR] Tests run: 91, Failures: 2, Errors: 13, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  02:40 min
+[INFO] Finished at: 2026-09-14T16:02:55+02:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.3:test (default-test) on project smart-test-picker: 
+[ERROR] 
+[ERROR] See /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] ExecutionException There was an error in the forked process
+[ERROR] Error occurred in starting fork, check output in log
+[ERROR] java.lang.ClassNotFoundException: io.github.smarttestpicker.jenkins.StorageConfigurationTest
+[ERROR] ExecutionException There was an error in the forked process
+[ERROR] Error occurred in starting fork, check output in log
+[ERROR] java.lang.ClassNotFoundException: io.github.smarttestpicker.smart_test_picker.InjectedTest
+[ERROR] org.apache.maven.surefire.booter.SurefireBooterForkException: ExecutionException There was an error in the forked process
+[ERROR] Error occurred in starting fork, check output in log
+[ERROR] java.lang.ClassNotFoundException: io.github.smarttestpicker.jenkins.StorageConfigurationTest
+[ERROR] ExecutionException There was an error in the forked process
+[ERROR] Error occurred in starting fork, check output in log
+[ERROR] java.lang.ClassNotFoundException: io.github.smarttestpicker.smart_test_picker.InjectedTest
+[ERROR] 	at org.apache.maven.plugin.surefire.booterclient.ForkStarter.awaitResultsDone(ForkStarter.java:456)
+[ERROR] 	at org.apache.maven.plugin.surefire.booterclient.ForkStarter.runSuitesForkPerTestSet(ForkStarter.java:418)
+[ERROR] 	at org.apache.maven.plugin.surefire.booterclient.ForkStarter.run(ForkStarter.java:297)
+[ERROR] 	at org.apache.maven.plugin.surefire.booterclient.ForkStarter.run(ForkStarter.java:250)
+[ERROR] 	at org.apache.maven.plugin.surefire.AbstractSurefireMojo.executeProvider(AbstractSurefireMojo.java:1337)
+[ERROR] 	at org.apache.maven.plugin.surefire.AbstractSurefireMojo.executeAfterPreconditionsChecked(AbstractSurefireMojo.java:1135)
+[ERROR] 	at org.apache.maven.plugin.surefire.AbstractSurefireMojo.execute(AbstractSurefireMojo.java:969)
+[ERROR] 	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:126)
+[ERROR] 	at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2(MojoExecutor.java:328)
+[ERROR] 	at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute(MojoExecutor.java:316)
+[ERROR] 	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:212)
+[ERROR] 	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:174)
+[ERROR] 	at org.apache.maven.lifecycle.internal.MojoExecutor.access$000(MojoExecutor.java:75)
+[ERROR] 	at org.apache.maven.lifecycle.internal.MojoExecutor$1.run(MojoExecutor.java:162)
+[ERROR] 	at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute(DefaultMojosExecutionStrategy.java:39)
+[ERROR] 	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:159)
+[ERROR] 	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:105)
+[ERROR] 	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:73)
+[ERROR] 	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:53)
+[ERROR] 	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:118)
+[ERROR] 	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:261)
+[ERROR] 	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:173)
+[ERROR] 	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:101)
+[ERROR] 	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:919)
+[ERROR] 	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:285)
+[ERROR] 	at org.apache.maven.cli.MavenCli.main(MavenCli.java:207)
+[ERROR] 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+[ERROR] 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+[ERROR] 	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:255)
+[ERROR] 	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:201)
+[ERROR] 	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:362)
+[ERROR] 	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:314)
+[ERROR] Caused by: org.apache.maven.surefire.booter.SurefireBooterForkException: There was an error in the forked process
+[ERROR] Error occurred in starting fork, check output in log
+[ERROR] java.lang.ClassNotFoundException: io.github.smarttestpicker.smart_test_picker.InjectedTest
+[ERROR] 	at org.apache.maven.plugin.surefire.booterclient.ForkStarter.fork(ForkStarter.java:628)
+[ERROR] 	at org.apache.maven.plugin.surefire.booterclient.ForkStarter.lambda$null$7(ForkStarter.java:401)
+[ERROR] 	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:330)
+[ERROR] 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+[ERROR] 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+[ERROR] 	at java.base/java.lang.Thread.run(Thread.java:1516)
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+

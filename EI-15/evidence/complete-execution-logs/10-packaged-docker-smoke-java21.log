@@ -1,0 +1,63 @@
+PASS HPI contains selector provenance, versioned adapters, metadata, and checksum-valid manifest
+PASS fresh controller/agent bootstrap, HPI install, zero controller executors
+PASS stp-plugin-gradle baseline #1 tests=13
+PASS stp-plugin-gradle select #2 tests=2
+PASS stp-plugin-gradle empty #3 tests=0
+PASS stp-plugin-gradle invalid #4 tests=13
+PASS stp-plugin-gradle run_all #5 tests=13
+PASS stp-plugin-gradle excluded #6 tests=1
+PASS stp-plugin-gradle block_isolation #7 tests=13
+PASS stp-plugin-gradle selector_select #8 tests=13
+PASS stp-plugin-gradle direct selector without authoritative head inventory -> RUN_ALL
+PASS stp-plugin-maven baseline #1 tests=12
+PASS stp-plugin-maven select #2 tests=2
+PASS stp-plugin-maven empty #3 tests=0
+PASS stp-plugin-maven invalid #4 tests=12
+PASS stp-plugin-maven run_all #5 tests=12
+PASS stp-plugin-maven excluded #6 tests=1
+PASS stp-plugin-maven block_isolation #7 tests=12
+PASS stp-plugin-maven failsafe #8 tests=1
+PASS stp-plugin-maven selector_select #9 tests=12
+PASS stp-plugin-maven direct selector without authoritative head inventory -> RUN_ALL
+PASS stp-plugin-gradle select #9 tests=2
+PASS stp-plugin-maven select #10 tests=2
+PASS second Gradle/Maven builds reuse valid cache without duplicate transfer
+PASS stp-plugin-gradle select #10 tests=2
+PASS stp-plugin-maven select #11 tests=2
+PASS corrupt Gradle/Maven cache entries repaired and reverified
+PASS plugin-upgrade simulation ignored harmless old-version and same-version/different-checksum cache identities
+PASS stp-plugin-gradle selector_global_default #11 tests=13
+PASS stp-plugin-maven selector_global_default #12 tests=12
+PASS stp-plugin-gradle selector_override #12 tests=13
+PASS stp-plugin-maven selector_override #13 tests=12
+PASS Gradle globally disabled before Pipeline body
+PASS Maven globally disabled before Pipeline body
+PASS incompatible adapter contract and transferred checksum corruption fail before body
+PASS configured headRevision mismatch rejected before selector/body
+PASS coverage-map workspace traversal rejected
+PASS selector provenance recorded; agent Java runtime: /opt/java/openjdk/bin/java
+PASS stp-plugin-gradle select #22 tests=2
+PASS stp-plugin-maven baseline #21 tests=12
+PASS stp-plugin-maven select #22 tests=2
+PASS stp-plugin-gradle baseline #23 tests=13
+PASS stp-plugin-gradle selector_global_default #24 tests=13
+PASS stp-plugin-maven selector_global_default #23 tests=12
+PASS controller restart reused existing valid agent cache
+PASS stp-plugin-gradle select #25 tests=2
+PASS stp-plugin-maven select #24 tests=2
+PASS stp-plugin-gradle selector_select #26 tests=13
+PASS stp-plugin-maven selector_select #25 tests=12
+Direct selector without authoritative head inventory -> safe RUN_ALL: PASS
+Coverage-map workspace traversal rejected: PASS
+Selector duration logged: PASS
+Selector provenance recorded: PASS
+Versioned Gradle/Maven metadata and SHA-256 transfer verification: PASS
+HPI adapter content and manifest verification: PASS
+headRevision equals workspace HEAD enforcement: PASS
+Global configuration default/override/disable/persistence: PASS
+Agent cache miss/hit/no-duplicate-transfer: PASS
+Corrupt cache repair: PASS
+Upgrade and same-version/different-checksum identity: PASS
+Controller/agent restart cache reuse: PASS
+Fresh agent cache repopulation: PASS
+ALL SMART TEST PICKER HPI ACCEPTANCE CHECKS PASSED

@@ -1,5 +1,7 @@
 # Current architecture
 
+> **Superseded snapshot.** This chronological implementation record contains status statements from earlier tasks. The EI-15 [current supported state](../EI-15/current-state.md) is the current cross-repository authority; retain this file as historical design evidence.
+
 ## TASK76 item-8 central failure-policy closure
 
 Item 8 Central failure policy is **DONE**.

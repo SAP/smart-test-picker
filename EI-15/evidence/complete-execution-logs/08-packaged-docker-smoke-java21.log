@@ -1,0 +1,220 @@
+PASS HPI contains selector provenance, versioned adapters, metadata, and checksum-valid manifest
+Traceback (most recent call last):
+  File "/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 231, in <module>
+    if __name__=="__main__":main()
+  File "/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 146, in main
+    compose("down","--volumes","--remove-orphans");compose("up","--build","-d");j=Jenkins();j.wait();clean_agent();assert_cache_empty();seed_stale_upgrade_cache()
+  File "/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 21, in compose
+    def compose(*args): return cmd("docker","compose","-f",str(COMPOSE),*args)
+  File "/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 19, in cmd
+    if r.returncode: raise AssertionError(f"{' '.join(args)} failed\n{r.stdout}")
+AssertionError: docker compose -f /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/docker-compose.yml up --build -d failed
+ Image stp-jenkins-plugin-poc-jenkins-agent-1 Building 
+ Image stp-jenkins-plugin-poc-jenkins-agent-2 Building 
+ Image stp-jenkins-plugin-poc-jenkins-agent-3 Building 
+ Image stp-jenkins-plugin-poc-jenkins-controller Building 
+ Image stp-jenkins-plugin-poc-jenkins-agent Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 3.44kB done
+#1 DONE 0.0s
+
+#2 [jenkins-controller internal] load build definition from Dockerfile
+#2 transferring dockerfile: 587B done
+#2 DONE 0.0s
+
+#3 [jenkins-agent-1 internal] load build definition from Dockerfile
+#3 transferring dockerfile: 785B done
+#3 DONE 0.0s
+
+#4 [jenkins-agent-3 internal] load metadata for docker.io/library/eclipse-temurin:17-jdk-jammy
+#4 ...
+
+#5 [auth] jenkins/jenkins:pull token for registry-1.docker.io
+#5 DONE 0.0s
+
+#6 [auth] library/eclipse-temurin:pull token for registry-1.docker.io
+#6 DONE 0.0s
+
+#7 [auth] jenkins/inbound-agent:pull token for registry-1.docker.io
+#7 DONE 0.0s
+
+#8 [jenkins-agent-3 internal] load metadata for docker.io/library/eclipse-temurin:25-jdk-jammy
+#8 ...
+
+#9 [jenkins-controller internal] load metadata for docker.io/jenkins/jenkins:2.516.2-lts-jdk21
+#9 DONE 1.0s
+
+#10 [jenkins-agent-1 internal] load metadata for docker.io/jenkins/inbound-agent:3386.v353e57a_1b_ea_0-2-jdk21
+#10 DONE 1.0s
+
+#11 [jenkins-controller internal] load .dockerignore
+#11 transferring context: 2B done
+#11 DONE 0.0s
+
+#12 [jenkins-controller 1/7] FROM docker.io/jenkins/jenkins:2.516.2-lts-jdk21@sha256:4b4a5eb0f69af5e48c9f55c0aa58da5d098eae1a4156d1e540f2f35c933b8695
+#12 resolve docker.io/jenkins/jenkins:2.516.2-lts-jdk21@sha256:4b4a5eb0f69af5e48c9f55c0aa58da5d098eae1a4156d1e540f2f35c933b8695 done
+#12 DONE 0.0s
+
+#13 [jenkins-controller internal] load build context
+#13 transferring context: 10.51MB 0.1s done
+#13 DONE 0.1s
+
+#14 [jenkins-controller 2/7] COPY docker/controller/plugins.txt /usr/share/jenkins/ref/plugins.txt
+#14 CACHED
+
+#15 [jenkins-controller 3/7] RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/plugins.txt
+#15 CACHED
+
+#16 [jenkins-controller 4/7] COPY --chown=jenkins:jenkins target/smart-test-picker.hpi /usr/share/jenkins/ref/plugins/smart-test-picker.jpi
+#16 DONE 0.0s
+
+#17 [jenkins-agent-2 internal] load metadata for docker.io/library/eclipse-temurin:26-jdk-jammy
+#17 DONE 1.1s
+
+#18 [jenkins-controller 5/7] COPY --chown=jenkins:jenkins docker/controller/casc /usr/share/jenkins/ref/casc
+#18 DONE 0.0s
+
+#8 [jenkins-agent-2 internal] load metadata for docker.io/library/eclipse-temurin:25-jdk-jammy
+#8 DONE 1.2s
+
+#19 [jenkins-controller 6/7] COPY --chown=jenkins:jenkins docker/controller/init.groovy.d /usr/share/jenkins/ref/init.groovy.d
+#19 DONE 0.0s
+
+#20 [jenkins-controller 7/7] COPY --chown=jenkins:jenkins pipelines /opt/stp-plugin/pipelines
+#20 DONE 0.0s
+
+#4 [jenkins-agent-3 internal] load metadata for docker.io/library/eclipse-temurin:17-jdk-jammy
+#4 DONE 1.3s
+
+#11 [jenkins-agent internal] load .dockerignore
+#11 transferring context: 2B done
+#11 DONE 0.0s
+
+#21 [jenkins-agent-2 internal] load build context
+#21 transferring context: 4.34kB done
+#21 DONE 0.0s
+
+#22 [jenkins-agent stage-3 1/7] FROM docker.io/jenkins/inbound-agent:3386.v353e57a_1b_ea_0-2-jdk21@sha256:4503047a74ef7fccf5d2e88e0d47295948c0db6a1fde2849c5a0a3997beecfe5
+#22 resolve docker.io/jenkins/inbound-agent:3386.v353e57a_1b_ea_0-2-jdk21@sha256:4503047a74ef7fccf5d2e88e0d47295948c0db6a1fde2849c5a0a3997beecfe5 0.0s done
+#22 DONE 0.0s
+
+#23 [jenkins-agent-2 jdk26 1/1] FROM docker.io/library/eclipse-temurin:26-jdk-jammy@sha256:c096711d3c4ed546226cf8139d9f00d1928850143cb4fc8d83b38c30d0dfc450
+#23 resolve docker.io/library/eclipse-temurin:26-jdk-jammy@sha256:c096711d3c4ed546226cf8139d9f00d1928850143cb4fc8d83b38c30d0dfc450 0.0s done
+#23 DONE 0.0s
+
+#24 [jenkins-agent-1 jdk17 1/1] FROM docker.io/library/eclipse-temurin:17-jdk-jammy@sha256:ef4374b4b6b9d813dd3f5b593a35ec9a820cfb64a55994798147cc73435a0208
+#24 resolve docker.io/library/eclipse-temurin:17-jdk-jammy@sha256:ef4374b4b6b9d813dd3f5b593a35ec9a820cfb64a55994798147cc73435a0208 0.0s done
+#24 DONE 0.0s
+
+#25 [jenkins-agent jdk25 1/1] FROM docker.io/library/eclipse-temurin:25-jdk-jammy@sha256:02eecc58b9c7cb20e55765c7bcdcdee0c6d210440aca1b0a1fbd81ecfe8e772e
+#25 resolve docker.io/library/eclipse-temurin:25-jdk-jammy@sha256:02eecc58b9c7cb20e55765c7bcdcdee0c6d210440aca1b0a1fbd81ecfe8e772e 0.0s done
+#25 DONE 0.0s
+
+#26 [jenkins-agent stage-3 2/7] RUN apt-get update && apt-get install --no-install-recommends -y python3 curl git ca-certificates && rm -rf /var/lib/apt/lists/*
+#26 CACHED
+
+#27 [jenkins-agent stage-3 3/7] COPY --from=jdk17 /opt/java/openjdk /usr/lib/jvm/temurin-17-jdk
+#27 CACHED
+
+#28 [jenkins-agent stage-3 6/7] COPY --chmod=755 docker/agent/connect.sh /usr/local/bin/stp-connect-agent
+#28 CACHED
+
+#29 [jenkins-agent stage-3 4/7] COPY --from=jdk25 /opt/java/openjdk /usr/lib/jvm/temurin-25-jdk
+#29 CACHED
+
+#30 [jenkins-agent stage-3 5/7] COPY --from=jdk26 /opt/java/openjdk /usr/lib/jvm/temurin-26-jdk
+#30 CACHED
+
+#31 [jenkins-agent stage-3 7/7] COPY --chown=jenkins:jenkins verification/fingerprint.py /opt/stp-verification/fingerprint.py
+#31 CACHED
+
+#32 [jenkins-agent-3] exporting to image
+#32 exporting layers done
+#32 exporting manifest sha256:c0704f50a15db5d8f1cadc4f2774f8bf0490594e9e8a4c0342cba59f3d155150 0.0s done
+#32 exporting config sha256:c71426d3b7e0d61a1f40016d6238ad2679d4e30433447d038c48d7980b9f660e 0.0s done
+#32 exporting attestation manifest sha256:f19072e87990e0ca0451992457d61c4e319d83873c02c4b4504a99095c043927 0.0s done
+#32 exporting manifest list sha256:abb0e36ce07d7f68aa3174f5313a78e2dea6245a355af507bc2fcb8df5b1889e 0.0s done
+#32 naming to docker.io/library/stp-jenkins-plugin-poc-jenkins-agent-3:latest done
+#32 unpacking to docker.io/library/stp-jenkins-plugin-poc-jenkins-agent-3:latest done
+#32 DONE 0.1s
+
+#33 [jenkins-agent] exporting to image
+#33 exporting layers done
+#33 exporting manifest sha256:5bdb4bcee158d551937547e45cb93cddeb159ec6aff859b5c84733d19835b691 0.0s done
+#33 exporting config sha256:0ec268b6318f76d43db7e66e639608c80e9fbf3d21929404ade36e50e0910bca 0.0s done
+#33 exporting attestation manifest sha256:4784a9a00cdb48dd83e6c4f28f01b0bdce2e31fcbeb6294033fd4c43b0b1fff0 0.0s done
+#33 exporting manifest list sha256:b39f4ff866283fbda0e324c5cf2ab1b1e3d444b25336bfc2e8b1e1dd22fb587a 0.0s done
+#33 naming to docker.io/library/stp-jenkins-plugin-poc-jenkins-agent:latest done
+#33 unpacking to docker.io/library/stp-jenkins-plugin-poc-jenkins-agent:latest done
+#33 DONE 0.1s
+
+#34 [jenkins-agent-2] exporting to image
+#34 exporting layers done
+#34 exporting manifest sha256:562e1065c5d258cbf5927d1c6e29a837393d0ce1e394573ca878d42a0059b594 0.0s done
+#34 exporting config sha256:960857e580b3efdf9e16a2f95156ef56c08cdd4ab05476140310e1d17929bed7 0.0s done
+#34 exporting attestation manifest sha256:df328712357c39027e6b238b0f9543918658a23b46d13040eed062b7e086c6fd 0.0s done
+#34 exporting manifest list sha256:435a750e3f066ab26aca462282fa122fe0651de6d5eee1fbf6c876fa597aca9d 0.0s done
+#34 naming to docker.io/library/stp-jenkins-plugin-poc-jenkins-agent-2:latest done
+#34 unpacking to docker.io/library/stp-jenkins-plugin-poc-jenkins-agent-2:latest done
+#34 DONE 0.1s
+
+#35 [jenkins-agent-1] exporting to image
+#35 exporting layers done
+#35 exporting manifest sha256:b294b189bacfc68b5c5d0fcd607471a784aa83b12b86703da9825cecbc60da36 0.0s done
+#35 exporting config sha256:c177cec5f2b6cd4a89f426db3f96401398ca2d908cfded9d2fc0b7e4c0f2ad1e 0.0s done
+#35 exporting attestation manifest sha256:9c3936f30d3697e2c56c506e40a4f18113634655c8572fdd8136efa0ef14de05 0.0s done
+#35 exporting manifest list sha256:7674040956138ee2be24ea6410dc48a5409727e8ec19fbd6109ac96c9b596434 0.0s done
+#35 naming to docker.io/library/stp-jenkins-plugin-poc-jenkins-agent-1:latest done
+#35 unpacking to docker.io/library/stp-jenkins-plugin-poc-jenkins-agent-1:latest done
+#35 DONE 0.1s
+
+#36 [jenkins-controller] exporting to image
+#36 exporting layers 0.2s done
+#36 exporting manifest sha256:5a1a5001ea78965feba9d547c3b0d5aacd4b8c627c11b29e1952ea6f3b0a9161 0.0s done
+#36 exporting config sha256:cf4ab58aa62bfe8b7e0712b1f50d6883111ca5ffed1f7489f263d62a38ce8792 0.0s done
+#36 exporting attestation manifest sha256:da5f3eaa10ce6d1e9444590e3c56fad879dfde15198d52393075d2ebcb183b20 0.0s done
+#36 exporting manifest list sha256:1a7510ba3e6cb41166942119165871e200ec06c2dc7b6de3dfcc87a2af6a2ced 0.0s done
+#36 naming to docker.io/library/stp-jenkins-plugin-poc-jenkins-controller:latest done
+#36 unpacking to docker.io/library/stp-jenkins-plugin-poc-jenkins-controller:latest 0.1s done
+#36 DONE 0.3s
+
+#37 [jenkins-agent-2] resolving provenance for metadata file
+#37 DONE 0.0s
+
+#38 [jenkins-agent-3] resolving provenance for metadata file
+#38 DONE 0.0s
+
+#39 [jenkins-agent] resolving provenance for metadata file
+#39 DONE 0.0s
+
+#40 [jenkins-agent-1] resolving provenance for metadata file
+#40 DONE 0.0s
+
+#41 [jenkins-controller] resolving provenance for metadata file
+#41 DONE 0.0s
+ Image stp-jenkins-plugin-poc-jenkins-controller Built 
+ Image stp-jenkins-plugin-poc-jenkins-agent Built 
+ Image stp-jenkins-plugin-poc-jenkins-agent-1 Built 
+ Image stp-jenkins-plugin-poc-jenkins-agent-2 Built 
+ Image stp-jenkins-plugin-poc-jenkins-agent-3 Built 
+ Volume stp-jenkins-plugin-poc_nexus_data Creating 
+ Network stp-jenkins-plugin-poc_default Creating 
+ Volume stp-jenkins-plugin-poc_controller_home Creating 
+ Volume stp-jenkins-plugin-poc_controller_home Creating 
+ Network stp-jenkins-plugin-poc_default Creating 
+ Volume stp-jenkins-plugin-poc_nexus_data Creating 
+ Volume stp-jenkins-plugin-poc_controller_home Created 
+ Volume stp-jenkins-plugin-poc_controller_home Created 
+ Volume stp-jenkins-plugin-poc_nexus_data Created 
+ Volume stp-jenkins-plugin-poc_nexus_data Created 
+ Network stp-jenkins-plugin-poc_default Created 
+ Network stp-jenkins-plugin-poc_default Created 
+ Container stp-plugin-nexus Creating 
+ Container stp-plugin-controller Creating 
+ service:jenkins-controller:1 Error response from daemon: Conflict. The container name "/stp-plugin-controller" is already in use by container "dead9529291c592ce5b8de3b9f4fea4c4a82aa53cffc05d392f7b5a06b53debe". You have to remove (or rename) that container to be able to reuse that name. 
+ Container stp-plugin-agent-2 Creating 
+ Container stp-plugin-agent Creating 
+ Container stp-plugin-agent-3 Creating 
+ Container stp-plugin-agent-1 Creating 
+Error response from daemon: Conflict. The container name "/stp-plugin-controller" is already in use by container "dead9529291c592ce5b8de3b9f4fea4c4a82aa53cffc05d392f7b5a06b53debe". You have to remove (or rename) that container to be able to reuse that name.
+

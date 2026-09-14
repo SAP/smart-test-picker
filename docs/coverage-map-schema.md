@@ -1,5 +1,7 @@
 # Coverage map schema v2
 
+> **Historical schema-v2 design record.** Schema v2 remains supported, but executable schema v3 and its explicit selector projection were added later. See the EI-15 [current supported state](../EI-15/current-state.md) for the current producer/consumer contract table. “Provisional” and backlog language below records the state when this document was written.
+
 Schema v1 was the first frozen coverage-map contract. Schema v2 preserves exact JVM descriptors
 for inline method coverage and distinguishes overloaded declared JUnit methods. It otherwise extends
 the indexed JSON format. Legacy maps without `schemaVersion` remain readable only through the legacy reader

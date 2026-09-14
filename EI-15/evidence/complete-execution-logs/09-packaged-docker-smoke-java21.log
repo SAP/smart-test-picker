@@ -1,0 +1,19 @@
+PASS HPI contains selector provenance, versioned adapters, metadata, and checksum-valid manifest
+PASS fresh controller/agent bootstrap, HPI install, zero controller executors
+PASS stp-plugin-gradle baseline #1 tests=13
+PASS stp-plugin-gradle select #2 tests=2
+PASS stp-plugin-gradle empty #3 tests=0
+PASS stp-plugin-gradle invalid #4 tests=13
+PASS stp-plugin-gradle run_all #5 tests=13
+PASS stp-plugin-gradle excluded #6 tests=1
+PASS stp-plugin-gradle block_isolation #7 tests=13
+Traceback (most recent call last):
+  File "/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 231, in <module>
+    if __name__=="__main__":main()
+  File "/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 155, in main
+    plans={scenario:success(j,job,scenario) for scenario in ("selector_select","selector_bar","selector_unmapped","selector_run_all","selector_empty")}
+  File "/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 155, in <dictcomp>
+    plans={scenario:success(j,job,scenario) for scenario in ("selector_select","selector_bar","selector_unmapped","selector_run_all","selector_empty")}
+  File "/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 75, in success
+    if actual!=EXPECTED[job][scenario]:raise AssertionError(f"{job}/{scenario} expected={EXPECTED[job][scenario]} actual={actual}")
+AssertionError: stp-plugin-gradle/selector_select expected={'com.example.modulea.FooTest#foo()'} actual={'com.example.modulea.NestedExampleTest$Inner#otherNested()', 'com.example.modulea.FooTest#foo()', 'com.example.modulea.NestedExampleTest$Inner#nested()', 'com.example.modulea.ParameterizedExampleTest#[2] beta', 'com.example.modulea.ParameterizedExampleTest#[2] 2', 'com.example.moduleb.BazTest#baz()', 'com.example.moduleb.BazTest#notSelected()', 'com.example.modulea.NestedExampleTest#outer()', 'com.example.modulea.ParameterizedExampleTest#[3] gamma', 'com.example.modulea.ParameterizedExampleTest#[1] 1', 'com.example.modulea.ParameterizedExampleTest#[1] alpha', 'com.example.modulea.BarTest#bar()', 'com.example.modulea.FooTest#notSelected()'}

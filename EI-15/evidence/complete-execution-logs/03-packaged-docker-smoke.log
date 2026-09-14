@@ -1,0 +1,33 @@
+^DTraceback (most recent call last):
+  File "/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 230, in <module>
+    if __name__=="__main__":main()
+  File "/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 141, in main
+    cmd(MAVEN,"-s",".mvn/settings.xml","-B","-ntp","-Dmaven.repo.local=/tmp/stp-jenkins-plugin-m2","clean","package")
+  File "/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 18, in cmd
+    if r.returncode: raise AssertionError(f"{' '.join(args)} failed\n{r.stdout}")
+AssertionError: /Users/d061177/Programs/apache-maven-3.9.16/bin/mvn -s .mvn/settings.xml -B -ntp -Dmaven.repo.local=/tmp/stp-jenkins-plugin-m2 clean package failed
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------< io.github.smarttestpicker:smart-test-picker >-------------
+[INFO] Building Smart Test Picker 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ hpi ]---------------------------------
+[WARNING] The POM for com.sap.oss.smart-test-picker:smart-test-picker-common:jar:0.2.0 is missing, no dependency information available
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  02:07 min
+[INFO] Finished at: 2026-09-14T15:59:38+02:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal on project smart-test-picker: Could not resolve dependencies for project io.github.smarttestpicker:smart-test-picker:hpi:1.0-SNAPSHOT
+[ERROR] dependency: com.sap.oss.smart-test-picker:smart-test-picker-common:jar:0.2.0 (compile)
+[ERROR] 	Could not find artifact com.sap.oss.smart-test-picker:smart-test-picker-common:jar:0.2.0 in repo.jenkins-ci.org (https://repo.jenkins-ci.org/public/)
+[ERROR] 	Could not find artifact com.sap.oss.smart-test-picker:smart-test-picker-common:jar:0.2.0 in central (https://repo.maven.apache.org/maven2/)
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/DependencyResolutionException
+

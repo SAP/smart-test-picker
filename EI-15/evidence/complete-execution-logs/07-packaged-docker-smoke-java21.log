@@ -1,0 +1,22 @@
+PASS HPI contains selector provenance, versioned adapters, metadata, and checksum-valid manifest
+Traceback (most recent call last):
+  File "/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 231, in <module>
+    if __name__=="__main__":main()
+  File "/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 146, in main
+    compose("down","--volumes","--remove-orphans");compose("up","--build","-d");j=Jenkins();j.wait();clean_agent();assert_cache_empty();seed_stale_upgrade_cache()
+  File "/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 21, in compose
+    def compose(*args): return cmd("docker","compose","-f",str(COMPOSE),*args)
+  File "/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 19, in cmd
+    if r.returncode: raise AssertionError(f"{' '.join(args)} failed\n{r.stdout}")
+AssertionError: docker compose -f /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/docker-compose.yml up --build -d failed
+ Image stp-jenkins-plugin-poc-jenkins-agent Building 
+ Image stp-jenkins-plugin-poc-jenkins-agent-1 Building 
+ Image stp-jenkins-plugin-poc-jenkins-agent-2 Building 
+ Image stp-jenkins-plugin-poc-jenkins-agent-3 Building 
+ Image stp-jenkins-plugin-poc-jenkins-controller Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 3.60kB done
+#1 DONE 0.0s
+failed to get build context stp: stat /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/asm-poc/codex-worktree: no such file or directory
+
+
