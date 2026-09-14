@@ -55,6 +55,11 @@ public class CoverageMapReader
 		try (Reader reader = openReader(file))
 		{
 			JsonObject root = JsonParser.parseReader(reader).getAsJsonObject();
+			if (root.has("schemaVersion"))
+			{
+				throw new IOException("Legacy coverage-map reader does not support declared schemaVersion "
+						+ root.get("schemaVersion") + "; use the matching versioned coverage-map codec");
+			}
 
 			if (root.has("classIndex"))
 			{
@@ -64,6 +69,10 @@ public class CoverageMapReader
 			}
 
 			CoverageMap map = new Gson().fromJson(root, CoverageMap.class);
+			if (map == null || map.getTestMappings() == null)
+			{
+				throw new IOException("Legacy coverage map is missing testMappings");
+			}
 			TestClassFilter.filterAll(map.getTestMappings());
 			return map;
 		}
