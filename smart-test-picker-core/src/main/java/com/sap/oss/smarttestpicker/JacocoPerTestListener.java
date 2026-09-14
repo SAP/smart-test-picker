@@ -98,13 +98,24 @@ public class JacocoPerTestListener implements TestExecutionListener
 
 		if (executionData != null)
 		{
-			saveJaCoCoSessionData(sessionId, executionData.snapshotAndReset());
+			byte[] snapshot = executionData.snapshotAndReset();
+			if (result.getStatus() != TestExecutionResult.Status.ABORTED)
+			{
+				saveJaCoCoSessionData(sessionId, snapshot);
+			}
 		}
 		DeclaredTestIdentity identity = currentTestIdentity.get();
 		if (identity != null)
 		{
-			writeTestIdentity(sessionId, identity,
-					result.getStatus() == TestExecutionResult.Status.SUCCESSFUL ? "PASS" : "FAIL");
+			if (result.getStatus() == TestExecutionResult.Status.ABORTED)
+			{
+				markNonExecuted(id);
+			}
+			else
+			{
+				writeTestIdentity(sessionId, identity,
+						result.getStatus() == TestExecutionResult.Status.SUCCESSFUL ? "PASS" : "FAIL");
+			}
 		}
 
 		if (isMetricsEnabled())

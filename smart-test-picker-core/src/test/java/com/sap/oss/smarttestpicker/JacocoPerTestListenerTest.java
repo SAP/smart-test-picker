@@ -196,6 +196,31 @@ class JacocoPerTestListenerTest
 		}
 	}
 
+	@Test
+	void abortedTestWritesNonExecutionWithoutExecutedIdentity(@TempDir Path tempDir) throws Exception
+	{
+		System.setProperty("stp.exec.dir", tempDir.toString());
+		try
+		{
+			JacocoPerTestListener listener = new JacocoPerTestListener();
+			Launcher launcher = LauncherFactory.create();
+			launcher.registerTestExecutionListeners(listener);
+			launcher.execute(LauncherDiscoveryRequestBuilder.request()
+					.selectors(selectClass(AbortedTestFixture.class)).build());
+
+			var files = Files.list(tempDir).map(path -> path.getFileName().toString()).toList();
+			assertTrue(files.stream().anyMatch(name -> name.endsWith(".non-executed")));
+			assertFalse(files.stream().anyMatch(name -> name.endsWith(".identity")),
+					"an assumption-aborted test must not be reported as executed");
+			assertFalse(files.stream().anyMatch(name -> name.endsWith(".exec")),
+					"an assumption-aborted test must not leave orphan coverage data");
+		}
+		finally
+		{
+			System.clearProperty("stp.exec.dir");
+		}
+	}
+
 	static class BeforeAllAbortFixture
 	{
 		@BeforeAll static void setup() { Assumptions.assumeTrue(false); }
@@ -209,5 +234,10 @@ class JacocoPerTestListenerTest
 		@ParameterizedTest
 		@ValueSource(strings = "value")
 		void disabled(String value) { }
+	}
+
+	static class AbortedTestFixture
+	{
+		@Test void aborted() { Assumptions.assumeTrue(false); }
 	}
 }
