@@ -57,8 +57,10 @@ public abstract class AggregateGradleExecutableCoverageTask extends DefaultTask 
 						throw new GradleException("Duplicate executable identity across Gradle Test tasks: " + value.test());
 				});
 				fragment.setupScopes().forEach(scope -> {
-					if (scopes.putIfAbsent(scope.id(), scope) != null)
-						throw new GradleException("Duplicate setup scope across Gradle Test tasks: " + scope.id());
+					String key = scope.owner() + "::" + scope.id();
+					if (scope.owner() == null) throw new GradleException("Executable setup scope is missing owner: " + scope.id());
+					if (scopes.putIfAbsent(key, scope) != null)
+						throw new GradleException("Duplicate setup scope across Gradle Test tasks: " + key);
 				});
 			}
 			ExecutableCoverageFragment result = new ExecutableCoverageFragment(3, assignment.revision(),

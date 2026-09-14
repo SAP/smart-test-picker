@@ -21,6 +21,7 @@ import com.sap.oss.smarttestpicker.coverage.model.BuildTool;
 import com.sap.oss.smarttestpicker.coverage.model.CoverageMapRevision;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentity;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget;
+import com.sap.oss.smarttestpicker.coverage.model.UnmappedReason;
 import com.sap.oss.smarttestpicker.coverage.model.ShardId;
 import java.util.Set;
 
@@ -145,6 +146,28 @@ class GenerateCoverageFragmentMojoTest
 		assertTrue(fragment.tests().keySet().stream().anyMatch(value -> value.toString().equals(
 				"maven:java-checks::org.sonar.java.checks.helpers.ReassignmentFinderTest#parameter_with_usage")));
 		assertEquals("maven:java-checks", fragment.unmapped().get(0).test().target().toString());
+		assertEquals(UnmappedReason.FAILED, fragment.unmapped().get(0).reason());
+		assertFalse(fragment.tests().keySet().stream().anyMatch(value -> value.test().className().equals("example.FailedTest")));
+	}
+
+	@Test
+	void failedParameterizedInvocationDominatesSuccessfulSiblingRegardlessOfOrder(@TempDir Path temp) throws Exception
+	{
+		Path exec = Files.createDirectories(temp.resolve("jacoco"));
+		Path reports = Files.createDirectories(temp.resolve("reports"));
+		writeIdentity(exec.resolve("session_failed.identity"), "example.Parameters", "mixed", "java.lang.String", "FAIL");
+		Files.write(exec.resolve("session_failed.exec"), new byte[] { 1 });
+		Files.writeString(reports.resolve("session_failed.status"), "EMPTY\n");
+		writeIdentity(exec.resolve("session_passed.identity"), "example.Parameters", "mixed", "java.lang.String", "PASS");
+		Files.write(exec.resolve("session_passed.exec"), new byte[] { 1 });
+		Files.writeString(reports.resolve("session_passed.status"), "EMPTY\n");
+
+		Path output = temp.resolve("fragment.json");
+		mojo(exec, reports, output).execute();
+		var fragment = new CoverageFragmentCodec().deserialize(Files.readAllBytes(output));
+		assertTrue(fragment.collectionCompleted());
+		assertTrue(fragment.tests().isEmpty());
+		assertEquals(UnmappedReason.FAILED, fragment.unmapped().get(0).reason());
 	}
 
 	@Test

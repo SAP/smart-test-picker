@@ -81,6 +81,10 @@ public abstract class GenerateGradleJacocoExecutableFragmentTask extends Default
 				if (!status.isFile() || !exec.isFile()) { complete = false; unmapped.add(new ExecutableUnmappedTest(executable, UnmappedReason.COLLECTION_FAILED)); continue; }
 				String state = Files.readString(status.toPath(), StandardCharsets.UTF_8).trim();
 				TestOutcome outcome = TestOutcome.valueOf(read(identityFile).get("outcome"));
+				if (outcome == TestOutcome.FAIL) {
+					unmapped.add(new ExecutableUnmappedTest(executable, UnmappedReason.FAILED));
+					continue;
+				}
 				if ("EMPTY".equals(state)) mapped.put(executable, new TestCoverage(Set.of(), Set.of(), outcome, CollectionStatus.COLLECTED_EMPTY));
 				else if ("COVERED".equals(state)) {
 					var coverage = mapper.readSchemaV2Coverage(new File(reportsDir, base + ".xml"));

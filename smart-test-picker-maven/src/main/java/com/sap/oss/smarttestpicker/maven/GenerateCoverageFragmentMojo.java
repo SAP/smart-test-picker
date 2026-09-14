@@ -33,6 +33,9 @@ import com.sap.oss.smarttestpicker.coverage.model.CollectionStatus;
 import com.sap.oss.smarttestpicker.coverage.model.CoverageFragment;
 import com.sap.oss.smarttestpicker.coverage.model.CoverageMapRevision;
 import com.sap.oss.smarttestpicker.coverage.model.ShardId;
+import com.sap.oss.smarttestpicker.coverage.model.SetupScope;
+import com.sap.oss.smarttestpicker.coverage.model.SetupScopeType;
+import com.sap.oss.smarttestpicker.coverage.model.TestContainer;
 import com.sap.oss.smarttestpicker.coverage.model.TestCoverage;
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 import com.sap.oss.smarttestpicker.coverage.model.TestOutcome;
@@ -258,11 +261,13 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 		Set<TestIdentity> seen = new HashSet<>();
 		boolean completed = execDir.isDirectory() && reportsDir.isDirectory();
 		File[] identities = execDir.listFiles((dir, name) -> name.startsWith("session_") && name.endsWith(".identity"));
-		File[] execFiles = execDir.listFiles((dir, name) -> name.startsWith("session_") && name.endsWith(".exec"));
+		File[] execFiles = execDir.listFiles((dir, name) -> name.startsWith("session_")
+				&& !name.startsWith("session_setup_") && name.endsWith(".exec"));
 		if (identities == null) identities = new File[0];
 		if (execFiles == null) execFiles = new File[0];
 		Set<String> identityBases = new HashSet<>();
 		CoverageMapperJaxb mapper = new CoverageMapperJaxb(reportsDir);
+		List<SetupScope> setupScopes = new ArrayList<>();
 
 		for (File identityFile : identities)
 		{
@@ -284,8 +289,18 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 				continue;
 			}
 
+			if (outcome == TestOutcome.FAIL)
+			{
+				seen.add(identity);
+				tests.remove(identity);
+				unmapped.put(identity, new UnmappedTest(identity, UnmappedReason.FAILED));
+				continue;
+			}
+
 			if (!seen.add(identity))
 			{
+				if (unmapped.containsKey(identity) && unmapped.get(identity).reason() == UnmappedReason.FAILED)
+					continue;
 				completed = false;
 				tests.remove(identity);
 				unmapped.put(identity, new UnmappedTest(identity, UnmappedReason.COLLECTION_FAILED));
@@ -333,9 +348,32 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 			if (!identityBases.contains(stripSuffix(exec.getName(), ".exec"))) completed = false;
 		File[] nonExecuted = execDir.listFiles((dir, name) -> name.startsWith("session_") && name.endsWith(".non-executed"));
 		if (identities.length == 0 && execFiles.length == 0 && (nonExecuted == null || nonExecuted.length == 0)) completed = false;
+		File[] setup = execDir.listFiles((dir, name) -> name.startsWith("session_setup_") && name.endsWith(".setup"));
+		if (setup != null) for (File setupFile : setup)
+		{
+			String base = stripSuffix(setupFile.getName(), ".setup");
+			try
+			{
+				String container = required(readIdentity(setupFile), "container");
+				File status = new File(reportsDir, base + ".status");
+				if (!status.isFile()) throw new IllegalArgumentException("missing setup report status");
+				String state = Files.readString(status.toPath(), StandardCharsets.UTF_8).trim();
+				Set<String> classes = Set.of();
+				if ("COVERED".equals(state)) classes = mapper.readSchemaV2Coverage(
+						new File(reportsDir, base + ".xml")).coveredClasses();
+				else if (!"EMPTY".equals(state)) throw new IllegalArgumentException("unsafe setup report status " + state);
+				if (!classes.isEmpty()) setupScopes.add(new SetupScope("junit-container:" + container,
+						SetupScopeType.FRAMEWORK_SETUP, classes, Set.of(new TestContainer(container))));
+			}
+			catch (Exception unsafe)
+			{
+				completed = false;
+				getLog().warn("[SmartTestPicker] Unsafe setup coverage artifact " + setupFile + ": " + unsafe.getMessage());
+			}
+		}
 
 		return new CoverageFragment(CoverageMapContract.SCHEMA_VERSION, new CoverageMapRevision(revision),
-				new ShardId(shardId), tests, new ArrayList<>(unmapped.values()), List.of(), completed);
+				new ShardId(shardId), tests, new ArrayList<>(unmapped.values()), setupScopes, completed);
 	}
 
 	private static Map<String, String> readIdentity(File file) throws IOException

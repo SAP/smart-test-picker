@@ -67,8 +67,12 @@ public final class ExecutableCoverageMapValidator
 		if (!overlap.isEmpty()) errors.add(error(ValidationCategory.INVALID_STRUCTURE,
 				ValidationCode.TEST_MAPPED_AND_UNMAPPED, "Executable tests cannot be mapped and unmapped: " + overlap));
 		Set<String> scopeIds = new HashSet<>();
-		for (var scope : scopes) if (!scopeIds.add(scope.id())) errors.add(error(ValidationCategory.INVALID_STRUCTURE,
-				ValidationCode.DUPLICATE_SETUP_SCOPE_ID, "Duplicate setup scope: " + scope.id()));
+		for (var scope : scopes) {
+			if (scope.owner() == null) errors.add(error(ValidationCategory.INVALID_STRUCTURE,
+					ValidationCode.MISSING_SETUP_SCOPE_OWNER, "Executable setup scope is missing owner: " + scope.id()));
+			else if (!scopeIds.add(scope.owner() + "::" + scope.id())) errors.add(error(ValidationCategory.INVALID_STRUCTURE,
+					ValidationCode.DUPLICATE_SETUP_SCOPE_ID, "Duplicate setup scope: " + scope.owner() + "::" + scope.id()));
+		}
 		return errors;
 	}
 

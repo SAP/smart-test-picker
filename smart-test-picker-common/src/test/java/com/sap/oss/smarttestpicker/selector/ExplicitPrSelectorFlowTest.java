@@ -27,6 +27,7 @@ import com.sap.oss.smarttestpicker.coverage.model.BuildTool;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutableCompleteness;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutableCoverageMap;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentity;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutableUnmappedTest;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget;
 import com.sap.oss.smarttestpicker.coverage.model.GeneratorProvenance;
 import com.sap.oss.smarttestpicker.coverage.model.MapStatistics;
@@ -34,6 +35,7 @@ import com.sap.oss.smarttestpicker.coverage.model.ShardId;
 import com.sap.oss.smarttestpicker.coverage.model.TestCoverage;
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 import com.sap.oss.smarttestpicker.coverage.model.TestOutcome;
+import com.sap.oss.smarttestpicker.coverage.model.UnmappedReason;
 import com.sap.oss.smarttestpicker.coverage.serialization.CoverageMapCodec;
 import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableCoverageMapCodec;
 
@@ -75,6 +77,34 @@ class ExplicitPrSelectorFlowTest
 		assertEquals(ExplicitPrSelectionStatus.SELECTION_RESULT, result.status());
 		assertEquals("SELECTED", result.output().orElseThrow().getStatus());
 		assertEquals(List.of(TEST.toString()), result.output().orElseThrow().getSelectedTests());
+	}
+
+	@Test void schemaV3FailedOccurrenceSelectsLogicalIdentityDespiteMissingUnreachedEdge() throws Exception
+	{
+		Repo repo = repo(); String r0 = repo.head();
+		repo.write("src/main/java/com/example/Later.java", "package com.example; class Later { void changed() {} }");
+		repo.commit("change unreached production B"); String r1 = repo.head();
+		var targetA = new ExecutionTarget(BuildTool.GRADLE, ":targetA:test");
+		var targetB = new ExecutionTarget(BuildTool.GRADLE, ":targetB:test");
+		var failed = new ExecutableTestIdentity(targetA, TEST);
+		var passed = new ExecutableTestIdentity(targetB, TEST);
+		var shard = new ShardId("one");
+		var completeness = new ExecutableCompleteness(Set.of(failed, passed), Set.of(failed, passed), Set.of(shard),
+				Set.of(shard), Set.of(), Set.of(), Set.of(), Set.of(), Set.of());
+		var observedOnlyA = new TestCoverage(Set.of("com.example.Service"), Set.of(), TestOutcome.PASS,
+				CollectionStatus.COLLECTED_WITH_COVERAGE);
+		var map = new ExecutableCoverageMap(CoverageMapContract.SCHEMA_V3, new CoverageMapRevision(r0), Instant.EPOCH,
+				new GeneratorProvenance("test", "test", "test", "17"), Map.of(passed, observedOnlyA),
+				List.of(new ExecutableUnmappedTest(failed, UnmappedReason.FAILED)), List.of(), completeness,
+				new MapStatistics(2, 1, 1, 0, 1, 0), CoverageMapLifecycleState.PUBLISHED, null);
+		Path mapFile = repo.root.resolve("failed-schema-v3-map.json");
+		Files.write(mapFile, new ExecutableCoverageMapCodec().serialize(map));
+
+		var result = new ExplicitPrSelectorFlow().select(mapFile.toFile(), repo.root.toFile(),
+				HeadTestInventory.atRevision(r1, List.of(TEST)), r0, r0, r1, 10, List.of());
+		assertEquals("SELECTED", result.output().orElseThrow().getStatus());
+		assertEquals(List.of(TEST.toString()), result.output().orElseThrow().getSelectedTests());
+		assertEquals("FAILED", result.output().orElseThrow().getUnmappedTests().get(TEST.toString()));
 	}
 
 	@Test void staleMapDiffIncludesIntegrationAndPrChangesAndIgnoresWorkspace() throws Exception

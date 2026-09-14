@@ -110,6 +110,16 @@ class ExecutableCoverageMapContractTest
 				.deserialize(json.getBytes(StandardCharsets.UTF_8)));
 	}
 
+	@Test void ownerlessSchemaV3SetupScopeIsRejectedInsteadOfGuessed()
+	{
+		String json = "{\"schemaVersion\":3,\"revision\":\"abc123\",\"shardId\":\"01\","
+				+ "\"tests\":{},\"unmapped\":[],\"setupScopes\":[{\"id\":\"scope\",\"type\":\"CONTAINER\","
+				+ "\"coveredClasses\":[\"ProductionA\"],\"affectedContainers\":[\"example.SharedTest\"]}],"
+				+ "\"collection\":{\"completed\":true}}";
+		assertThrows(IllegalArgumentException.class,
+				() -> new ExecutableCoverageFragmentCodec().deserialize(json.getBytes(StandardCharsets.UTF_8)));
+	}
+
 	@Test void v2AndV3ReadersRejectTheOtherVersion()
 	{
 		byte[] v3Map = new ExecutableCoverageMapCodec().serialize(map(Map.of(COMMON, covered("ClassA")), List.of(), complete(Set.of(COMMON))));

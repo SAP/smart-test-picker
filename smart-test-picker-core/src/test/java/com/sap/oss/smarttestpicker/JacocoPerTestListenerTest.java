@@ -212,7 +212,7 @@ class JacocoPerTestListenerTest
 			assertTrue(files.stream().anyMatch(name -> name.endsWith(".non-executed")));
 			assertFalse(files.stream().anyMatch(name -> name.endsWith(".identity")),
 					"an assumption-aborted test must not be reported as executed");
-			assertFalse(files.stream().anyMatch(name -> name.endsWith(".exec")),
+			assertFalse(files.stream().anyMatch(name -> name.endsWith(".exec") && !name.startsWith("session_setup_")),
 					"an assumption-aborted test must not leave orphan coverage data");
 		}
 		finally

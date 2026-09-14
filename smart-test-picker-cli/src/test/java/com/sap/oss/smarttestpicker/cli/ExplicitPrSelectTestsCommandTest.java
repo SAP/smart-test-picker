@@ -111,16 +111,18 @@ class ExplicitPrSelectTestsCommandTest
 	@Test void schemaThreeInventoryPreservesDistinctMavenModuleOwnership() throws Exception
 	{
 		Repo repo = repo(); String r0 = repo.head();
-		repo.commitFile("module-a/src/main/java/com/example/Service.java", "package com.example; class Service { int changed; }", "R1");
+		repo.commitFile("module-a/src/main/java/com/example/ProductionA.java", "package com.example; class ProductionA { int changed; }", "R1");
 		String r1 = repo.head();
 		var a = new ExecutableTestIdentity(new ExecutionTarget(BuildTool.MAVEN, "module-a"), TEST);
 		var b = new ExecutableTestIdentity(new ExecutionTarget(BuildTool.MAVEN, "module-b"), TEST);
 		Set<ExecutableTestIdentity> tests = Set.of(a, b); ShardId shard = new ShardId("one");
-		TestCoverage coverage = new TestCoverage(Set.of("com.example.Service"), Set.of(), TestOutcome.PASS,
+		TestCoverage coverageA = new TestCoverage(Set.of("com.example.ProductionA"), Set.of(), TestOutcome.PASS,
+				CollectionStatus.COLLECTED_WITH_COVERAGE);
+		TestCoverage coverageB = new TestCoverage(Set.of("com.example.ProductionB"), Set.of(), TestOutcome.PASS,
 				CollectionStatus.COLLECTED_WITH_COVERAGE);
 		var complete = new ExecutableCompleteness(tests, tests, Set.of(shard), Set.of(shard), Set.of(), Set.of(), Set.of(), Set.of(), Set.of());
 		var map = new ExecutableCoverageMap(3, new CoverageMapRevision(r0), Instant.EPOCH,
-				new GeneratorProvenance("test", "test", "test", "17"), Map.of(a, coverage, b, coverage),
+				new GeneratorProvenance("test", "test", "test", "17"), Map.of(a, coverageA, b, coverageB),
 				List.of(), List.of(), complete, new MapStatistics(2, 2, 0, 0, 2, 0),
 				CoverageMapLifecycleState.PUBLISHED, null);
 		Path mapFile = temporary.resolve("executable-map.json");

@@ -88,6 +88,7 @@ public final class ExplicitPrSelectorFlow
 		Map<TestIdentity, UnmappedTest> unmapped = new TreeMap<>();
 		source.unmapped().forEach(value -> unmapped.putIfAbsent(value.test().test(),
 				new UnmappedTest(value.test().test(), value.reason())));
+		unmapped.keySet().forEach(tests::remove);
 		Set<TestIdentity> expected = logical(source.completeness().expectedTests());
 		Set<TestIdentity> reported = logical(source.completeness().reportedTests());
 		Completeness completeness = new Completeness(expected, reported,
@@ -97,8 +98,12 @@ public final class ExplicitPrSelectorFlow
 				logical(source.completeness().duplicateTests()));
 		long classEdges = tests.values().stream().mapToLong(value -> value.coveredClasses().size()).sum();
 		long methodEdges = tests.values().stream().mapToLong(value -> value.coveredMethods().size()).sum();
+		List<com.sap.oss.smarttestpicker.coverage.model.SetupScope> scopes = source.setupScopes().stream()
+				.map(scope -> new com.sap.oss.smarttestpicker.coverage.model.SetupScope(
+						scope.owner() + "::" + scope.id(), scope.type(), scope.coveredClasses(),
+						scope.affectedContainers(), scope.owner())).toList();
 		return new CoverageMap(CoverageMapContract.SCHEMA_VERSION, source.revision(), source.generatedAt(),
-				source.generator(), tests, new ArrayList<>(unmapped.values()), source.setupScopes(), completeness,
+				source.generator(), tests, new ArrayList<>(unmapped.values()), scopes, completeness,
 				new MapStatistics(expected.size(), tests.size(), unmapped.size(), source.setupScopes().size(),
 						classEdges, methodEdges), source.lifecycleState(), source.methodCoverageReference());
 	}

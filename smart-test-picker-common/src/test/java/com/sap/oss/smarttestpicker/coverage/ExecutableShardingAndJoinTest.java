@@ -22,6 +22,9 @@ import com.sap.oss.smarttestpicker.coverage.model.ExecutableUnmappedTest;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget;
 import com.sap.oss.smarttestpicker.coverage.model.GeneratorProvenance;
 import com.sap.oss.smarttestpicker.coverage.model.ShardId;
+import com.sap.oss.smarttestpicker.coverage.model.SetupScope;
+import com.sap.oss.smarttestpicker.coverage.model.SetupScopeType;
+import com.sap.oss.smarttestpicker.coverage.model.TestContainer;
 import com.sap.oss.smarttestpicker.coverage.model.TestCoverage;
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 import com.sap.oss.smarttestpicker.coverage.model.TestOutcome;
@@ -102,6 +105,28 @@ class ExecutableShardingAndJoinTest
 		ExecutableCoverageMap map = join(plan(Map.of(S0, Set.of(A, B))),
 				List.of(fragment(S0, Map.of(A, covered("ClassA"), B, covered("ClassB")))), Set.of());
 		assertEquals(Set.of(A, B), map.tests().keySet()); assertTrue(map.completeness().isComplete());
+	}
+
+	@Test void sameSetupScopeIdentityInDifferentTargetsRoundTripsAndJoinsWithoutCollision()
+	{
+		SetupScope scopeA = new SetupScope("junit-container:" + T.className(), SetupScopeType.CONTAINER,
+				Set.of("ProductionA"), Set.of(new TestContainer(T.className())), A.target());
+		SetupScope scopeB = new SetupScope("junit-container:" + T.className(), SetupScopeType.CONTAINER,
+				Set.of("ProductionB"), Set.of(new TestContainer(T.className())), B.target());
+		var codec = new com.sap.oss.smarttestpicker.coverage.serialization.ExecutableCoverageFragmentCodec();
+		var first = new ExecutableCoverageFragment(CoverageMapContract.SCHEMA_V3, REV, S0,
+				Map.of(A, covered("BodyA")), List.of(), List.of(scopeA), true);
+		var second = new ExecutableCoverageFragment(CoverageMapContract.SCHEMA_V3, REV, S1,
+				Map.of(B, covered("BodyB")), List.of(), List.of(scopeB), true);
+		first = codec.deserialize(codec.serialize(first));
+		second = codec.deserialize(codec.serialize(second));
+		assertEquals(A.target(), first.setupScopes().get(0).owner());
+		assertEquals(B.target(), second.setupScopes().get(0).owner());
+
+		ExecutableCoverageMap map = join(plan(Map.of(S0, Set.of(A), S1, Set.of(B))), List.of(first, second), Set.of());
+		assertEquals(2, map.setupScopes().size());
+		assertEquals(Set.of(A.target(), B.target()), map.setupScopes().stream().map(SetupScope::owner)
+				.collect(java.util.stream.Collectors.toSet()));
 	}
 
 	@Test void wrongTargetDuplicateExecutableDuplicateShardAndMissingOwnerFailClosed()
