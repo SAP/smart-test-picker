@@ -86,8 +86,10 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 				"stp/selected-tests-" + otherProvider + "-v3" + suffix + ".txt");
 		Files.write(suppressed.toPath(), List.of("**/__stp_no_assigned_tests__*.java"));
 		module.getProperties().setProperty(otherProvider + ".includesFile", suppressed.getAbsolutePath());
+		module.getProperties().setProperty(otherProvider + ".excludesFile", suppressAll(module, otherProvider, suffix));
 		module.getProperties().setProperty(otherProvider + ".failIfNoSpecifiedTests", "false");
 		module.getProperties().setProperty(provider + ".includesFile", output.getAbsolutePath());
+		if (tests.isEmpty()) module.getProperties().setProperty(provider + ".excludesFile", suppressAll(module, provider, suffix));
 		module.getProperties().setProperty(provider + ".failIfNoSpecifiedTests", "false");
 		module.getProperties().setProperty("smartTestPicker.schemaVersion", "3");
 		module.getProperties().setProperty("smartTestPicker.executionTarget", target.toString());
@@ -95,5 +97,11 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 				new File(module.getBuild().getDirectory(), "stp/coverage-fragment-v3" + suffix + ".json").getAbsolutePath());
 		module.getProperties().setProperty("smartTestPicker.moduleEvidenceOutput",
 				new File(module.getBuild().getDirectory(), "stp/execution-evidence-v2" + suffix + ".json").getAbsolutePath());
+	}
+
+	private static String suppressAll(MavenProject module, String provider, String suffix) throws Exception {
+		File file = new File(module.getBuild().getDirectory(), "stp/suppress-all-" + provider + "-v3" + suffix + ".txt");
+		Files.write(file.toPath(), List.of("**/*"));
+		return file.getAbsolutePath();
 	}
 }
