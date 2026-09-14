@@ -47,6 +47,22 @@ class MergeExecutableTargetFragmentsMojoTest {
 				assignment, "r", "s", output.toFile(), outputEvidence.toFile()));
 	}
 
+	@Test void ignoresOnlyEmptyNonExecutableTargets(@TempDir Path root) throws Exception {
+		var unit = identity("module@surefire@unit", "example.Tests#unit");
+		Path complete = fragment(root, "complete", unit), completeEvidence = evidence(root, "complete", unit);
+		Path empty = emptyFragment(root, "empty"), emptyEvidence = emptyEvidence(root, "empty");
+		Path output = root.resolve("joined.json"), outputEvidence = root.resolve("joined-evidence.json");
+		var assignment = new ExecutableShardAssignment(1, new CoverageMapRevision("r"), new ShardId("s"), Set.of(unit));
+		MergeExecutableTargetFragmentsMojo.merge(List.of(empty.toFile(), complete.toFile()),
+				List.of(emptyEvidence.toFile(), completeEvidence.toFile()), assignment, "r", "s",
+				output.toFile(), outputEvidence.toFile());
+		assertEquals(Set.of(unit), new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(output)).tests().keySet());
+		Files.writeString(emptyEvidence, "{\"version\":2,\"revision\":\"r\",\"shardId\":\"s\",\"EXECUTED\":[],\"NON_EXECUTED\":[\"" + unit + "\"]}");
+		assertThrows(IllegalArgumentException.class, () -> MergeExecutableTargetFragmentsMojo.merge(
+				List.of(empty.toFile()), List.of(emptyEvidence.toFile()), assignment, "r", "s",
+				output.toFile(), outputEvidence.toFile()));
+	}
+
 	private static Path fragment(Path root, String name, ExecutableTestIdentity identity) throws Exception {
 		Path file = root.resolve(name + ".json");
 		var coverage = new TestCoverage(Set.of("example.Production"), Set.of(), TestOutcome.PASS,
@@ -60,6 +76,18 @@ class MergeExecutableTargetFragmentsMojoTest {
 		Path file = root.resolve(name + "-evidence.json");
 		Files.writeString(file, "{\"version\":2,\"revision\":\"r\",\"shardId\":\"s\",\"EXECUTED\":[\""
 				+ identity + "\"],\"NON_EXECUTED\":[]}"); return file;
+	}
+
+	private static Path emptyFragment(Path root, String name) throws Exception {
+		Path file = root.resolve(name + ".json");
+		var fragment = new ExecutableCoverageFragment(CoverageMapContract.SCHEMA_V3,
+				new CoverageMapRevision("r"), new ShardId("s"), Map.of(), List.of(), List.of(), false);
+		Files.write(file, new ExecutableCoverageFragmentCodec().serialize(fragment)); return file;
+	}
+
+	private static Path emptyEvidence(Path root, String name) throws Exception {
+		Path file = root.resolve(name + "-evidence.json");
+		Files.writeString(file, "{\"version\":2,\"revision\":\"r\",\"shardId\":\"s\",\"EXECUTED\":[],\"NON_EXECUTED\":[]}"); return file;
 	}
 
 	private static ExecutableTestIdentity identity(String target, String test) {
