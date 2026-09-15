@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import org.junit.platform.engine.support.descriptor.ClassSource;
 import org.junit.platform.engine.support.descriptor.MethodSource;
 import org.junit.platform.launcher.TestIdentifier;
 import org.junit.platform.launcher.TestPlan;
@@ -41,18 +42,30 @@ public final class JUnitInventoryDiscoveryWorker {
 				.enableTestExecutionListenerAutoRegistration(false)
 				.enableLauncherSessionListenerAutoRegistration(false).build()).discover(request);
 		Map<String, String[]> rows = new LinkedHashMap<>();
-		for (TestIdentifier root : plan.getRoots()) visit(plan, root, null, rows);
+		for (TestIdentifier root : plan.getRoots()) visit(plan, root, null, null, rows);
 		return new ArrayList<>(rows.values());
 	}
-	private static void visit(TestPlan plan, TestIdentifier id, MethodSource inherited, Map<String, String[]> rows) {
+	private static void visit(TestPlan plan, TestIdentifier id, MethodSource inheritedMethod,
+			ClassSource inheritedClass, Map<String, String[]> rows) {
 		Optional<MethodSource> own = id.getSource().filter(MethodSource.class::isInstance).map(MethodSource.class::cast);
-		MethodSource source = own.orElse(inherited);
+		Optional<ClassSource> ownClass = id.getSource().filter(ClassSource.class::isInstance).map(ClassSource.class::cast);
+		MethodSource source = own.orElse(inheritedMethod);
+		ClassSource testClass = ownClass.orElse(inheritedClass);
 		if (own.isPresent()) add(own.get(), rows);
 		if (id.isTest()) {
-			if (source == null) throw new IllegalStateException("Executable JUnit test has no authoritative MethodSource: " + id.getUniqueId());
-			add(source, rows);
+			if (source != null) add(source, rows);
+			else addVintage(id, testClass, rows);
 		}
-		for (TestIdentifier child : plan.getChildren(id)) visit(plan, child, source, rows);
+		for (TestIdentifier child : plan.getChildren(id)) visit(plan, child, source, testClass, rows);
+	}
+	private static void addVintage(TestIdentifier id, ClassSource testClass, Map<String, String[]> rows) {
+		if (testClass == null || !id.getUniqueId().contains("[engine:junit-vintage]"))
+			throw new IllegalStateException("Executable JUnit test has no authoritative MethodSource: " + id.getUniqueId());
+		String method = JUnitHeadTestInventoryGenerator.vintageMethodName(id.getLegacyReportingName())
+				.orElseThrow(() -> new IllegalStateException(
+						"Executable JUnit Vintage test has no usable method identity: " + id.getUniqueId()));
+		String[] row = { testClass.getClassName(), method, "" };
+		rows.putIfAbsent(row[0] + "\u0000" + row[1] + "\u0000", row);
 	}
 	private static void add(MethodSource source, Map<String, String[]> rows) {
 		String[] row = { source.getClassName(), source.getMethodName(), source.getMethodParameterTypes() };
