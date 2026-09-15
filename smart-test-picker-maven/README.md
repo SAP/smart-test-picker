@@ -8,7 +8,7 @@ Maven plugin providing mojo implementations for the coverage pipeline.
 <plugin>
     <groupId>com.sap.oss.smart-test-picker</groupId>
     <artifactId>smart-test-picker-maven</artifactId>
-    <version>0.1.0</version>
+    <version>0.3.0-SNAPSHOT</version>
 </plugin>
 ```
 
@@ -32,7 +32,7 @@ Use the aggregator inventory goal after test compilation to write exactly one in
 Maven execution root (by default, `target/head-test-inventory.json`):
 
 ```bash
-mvn process-test-classes com.sap.oss.smart-test-picker:smart-test-picker-maven:0.1.0:generate-reactor-head-test-inventory \
+mvn process-test-classes com.sap.oss.smart-test-picker:smart-test-picker-maven:0.3.0-SNAPSHOT:generate-reactor-head-test-inventory \
   -DsmartTestPicker.prHeadRevision="$GIT_COMMIT"
 ```
 
@@ -51,7 +51,7 @@ The merge is typically bound to the last module in the reactor using the `isLast
 <plugin>
     <groupId>com.sap.oss.smart-test-picker</groupId>
     <artifactId>smart-test-picker-maven</artifactId>
-    <version>0.1.0</version>
+    <version>0.3.0-SNAPSHOT</version>
     <executions>
         <execution>
             <id>generate-map</id>
@@ -114,7 +114,7 @@ The Maven plugin requires `smart-test-picker-core` as a test dependency for per-
     <dependency>
         <groupId>com.sap.oss.smart-test-picker</groupId>
         <artifactId>smart-test-picker-core</artifactId>
-        <version>0.1.0</version>
+        <version>0.3.0-SNAPSHOT</version>
         <scope>test</scope>
     </dependency>
 </dependencies>

@@ -7,9 +7,6 @@ plugins {
 }
 
 description = 'STP ASM mapping agent'
-group = 'com.sap.oss.smart-test-picker'
-version = '0.1.0'
-
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
@@ -42,6 +39,7 @@ tasks.named('shadowJar') {
     manifest {
         attributes(
                 'Premain-Class': 'com.sap.oss.smarttestpicker.agent.StpAgent',
+                'Implementation-Version': project.version,
                 'Can-Redefine-Classes': 'false',
                 'Can-Retransform-Classes': 'false'
         )

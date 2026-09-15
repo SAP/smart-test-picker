@@ -5,12 +5,21 @@ plugins {
     id 'jacoco'
 }
 
+allprojects {
+    group = 'com.sap.oss.smart-test-picker'
+    version = providers.gradleProperty('stpVersion').get()
+}
+
 subprojects {
     repositories {
         mavenCentral()
     }
 
     apply plugin: 'jacoco'
+
+    tasks.withType(Jar).configureEach {
+        manifest { attributes('Implementation-Version': project.version) }
+    }
 
     jacoco {
         toolVersion = '0.8.13'
@@ -78,6 +87,83 @@ subprojects {
                 }
             }
         }
+    }
+}
+
+tasks.register('verifyStpVersionConsistency') {
+    group = 'verification'
+    description = 'Verifies STP module, publication POM, and internal dependency version alignment.'
+    dependsOn subprojects.collectMany { project ->
+        project.tasks.matching { it.name.startsWith('generatePomFileFor') }.toList()
+    }
+    doLast {
+        def expected = providers.gradleProperty('stpVersion').get()
+        def failures = []
+        subprojects.each { project ->
+            if (project.version.toString() != expected) {
+                failures << "${project.path} uses ${project.version}, expected ${expected}"
+            }
+            project.configurations.each { configuration ->
+                configuration.dependencies.withType(ExternalModuleDependency).each { dependency ->
+                    if (dependency.group == 'com.sap.oss.smart-test-picker' && dependency.version != expected) {
+                        failures << "${project.path}:${configuration.name} references ${dependency.group}:${dependency.name}:${dependency.version}"
+                    }
+                }
+            }
+            project.fileTree(project.layout.buildDirectory.dir('publications')).matching { include '**/pom-default.xml' }.files.each { pom ->
+                def parsed = new XmlSlurper().parse(pom)
+                if (parsed.version.text() != expected) {
+                    failures << "${pom} publishes ${parsed.version.text()}, expected ${expected}"
+                }
+                parsed.dependencies.dependency.findAll { it.groupId.text() == 'com.sap.oss.smart-test-picker' }.each { dependency ->
+                    if (dependency.version.text() != expected) {
+                        failures << "${pom} references ${dependency.groupId}:${dependency.artifactId}:${dependency.version}"
+                    }
+                }
+            }
+        }
+        if (failures) throw new GradleException('STP version consistency failed:\n' + failures.join('\n'))
+        logger.lifecycle("STP version consistency PASS: ${expected}")
+    }
+}
+
+tasks.named('check') { dependsOn tasks.named('verifyStpVersionConsistency') }
+
+tasks.register('publishStpToIsolatedRepository') {
+    group = 'publishing'
+    description = 'Publishes the matching STP set and adds Maven-local SNAPSHOT aliases for Docker consumers.'
+    dependsOn ':smart-test-picker-common:publishAllPublicationsToFunctionalTestRepository',
+            ':smart-test-picker-core:publishAllPublicationsToFunctionalTestRepository',
+            ':smart-test-picker:publishAllPublicationsToFunctionalTestRepository',
+            ':smart-test-picker-maven:publishAllPublicationsToFunctionalTestRepository',
+            ':stp-agent:publishAllPublicationsToFunctionalTestRepository', ':smart-test-picker-cli:shadowJar'
+    doLast {
+        def expected = providers.gradleProperty('stpVersion').get()
+        def repository = layout.buildDirectory.dir('functional-test-maven-repository').get().asFile
+        [
+            [project(':smart-test-picker-common'), 'mavenJava', 'smart-test-picker-common'],
+            [project(':smart-test-picker-core'), 'mavenJava', 'smart-test-picker-core'],
+            [project(':smart-test-picker'), 'pluginMaven', 'smart-test-picker'],
+            [project(':smart-test-picker-maven'), 'mavenPlugin', 'smart-test-picker-maven'],
+            [project(':stp-agent'), 'agent', 'stp-agent']
+        ].each { entry ->
+            def (sourceProject, publication, artifact) = entry
+            def destination = new File(repository,
+                    "com/sap/oss/smart-test-picker/${artifact}/${expected}")
+            destination.mkdirs()
+            copy {
+                from sourceProject.layout.buildDirectory.file(
+                        artifact == 'stp-agent' ? 'libs/stp-agent.jar' : "libs/${artifact}-${expected}.jar")
+                into destination
+                rename { "${artifact}-${expected}.jar" }
+            }
+            copy {
+                from sourceProject.layout.buildDirectory.file("publications/${publication}/pom-default.xml")
+                into destination
+                rename { "${artifact}-${expected}.pom" }
+            }
+        }
+        logger.lifecycle("Published Docker/Maven-local SNAPSHOT aliases for ${expected} to ${repository}")
     }
 }
 

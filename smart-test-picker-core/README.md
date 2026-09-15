@@ -26,7 +26,7 @@ No additional configuration needed. The plugin applies `jacoco`, adds the core d
 ```groovy
 plugins {
     id 'jacoco'
-    id 'com.sap.oss.smart-test-picker' version '0.1.0'
+    id 'com.sap.oss.smart-test-picker' version '0.3.0-SNAPSHOT'
 }
 ```
 
@@ -38,7 +38,7 @@ Add the core module as a test dependency and enable Jupiter extension auto-detec
 <dependency>
     <groupId>com.sap.oss.smart-test-picker</groupId>
     <artifactId>smart-test-picker-core</artifactId>
-    <version>0.1.0</version>
+    <version>0.3.0-SNAPSHOT</version>
     <scope>test</scope>
 </dependency>
 ```
@@ -60,7 +60,7 @@ In your surefire configuration:
 Add the dependency and enable auto-detection:
 
 ```groovy
-testRuntimeOnly 'com.sap.oss.smart-test-picker:smart-test-picker-core:0.1.0'
+testRuntimeOnly 'com.sap.oss.smart-test-picker:smart-test-picker-core:0.3.0-SNAPSHOT'
 
 tasks.named('test') {
     systemProperty 'junit.jupiter.extensions.autodetection.enabled', 'true'
