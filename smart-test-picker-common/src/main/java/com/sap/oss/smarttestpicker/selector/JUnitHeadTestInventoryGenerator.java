@@ -17,6 +17,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
+import org.junit.platform.engine.support.descriptor.ClassSource;
 import org.junit.platform.engine.support.descriptor.MethodSource;
 import org.junit.platform.launcher.Launcher;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
@@ -167,25 +168,46 @@ public final class JUnitHeadTestInventoryGenerator {
 
 	HeadTestInventory inventory(TestPlan plan) {
 		Set<TestIdentity> identities = new LinkedHashSet<>();
-		for (TestIdentifier root : plan.getRoots()) visit(plan, root, null, identities);
+		for (TestIdentifier root : plan.getRoots()) visit(plan, root, null, null, identities);
 		return new HeadTestInventory(identities);
 	}
 
-	private void visit(TestPlan plan, TestIdentifier id, MethodSource inherited, Set<TestIdentity> identities) {
+	private void visit(TestPlan plan, TestIdentifier id, MethodSource inheritedMethod,
+			ClassSource inheritedClass, Set<TestIdentity> identities) {
 		Optional<MethodSource> ownMethod = methodSource(id);
-		MethodSource method = ownMethod.orElse(inherited);
+		MethodSource method = ownMethod.orElse(inheritedMethod);
+		ClassSource testClass = classSource(id).orElse(inheritedClass);
 		// Template descriptors are containers at discovery time; their authoritative declared
 		// MethodSource is itself the logical test even before invocation children exist.
 		ownMethod.map(JUnitMethodSourceIdentity::from).ifPresent(identities::add);
 		if (id.isTest()) {
-			if (method == null) throw new IllegalStateException(
-					"Executable JUnit test has no authoritative MethodSource: " + id.getUniqueId());
-			identities.add(JUnitMethodSourceIdentity.from(method));
+			if (method != null) identities.add(JUnitMethodSourceIdentity.from(method));
+			else identities.add(vintageIdentity(id, testClass).orElseThrow(() -> new IllegalStateException(
+					"Executable JUnit test has no authoritative MethodSource: " + id.getUniqueId())));
 		}
-		for (TestIdentifier child : plan.getChildren(id)) visit(plan, child, method, identities);
+		for (TestIdentifier child : plan.getChildren(id)) visit(plan, child, method, testClass, identities);
 	}
 
 	private Optional<MethodSource> methodSource(TestIdentifier id) {
 		return id.getSource().filter(MethodSource.class::isInstance).map(MethodSource.class::cast);
+	}
+
+	private Optional<ClassSource> classSource(TestIdentifier id) {
+		return id.getSource().filter(ClassSource.class::isInstance).map(ClassSource.class::cast);
+	}
+
+	private static Optional<TestIdentity> vintageIdentity(TestIdentifier id, ClassSource testClass) {
+		if (testClass == null || !id.getUniqueId().contains("[engine:junit-vintage]")) return Optional.empty();
+		return vintageMethodName(id.getLegacyReportingName())
+				.map(method -> new TestIdentity(testClass.getClassName(), method));
+	}
+
+	static Optional<String> vintageMethodName(String legacyReportingName) {
+		if (legacyReportingName == null) return Optional.empty();
+		String method = legacyReportingName;
+		int classSuffix = method.indexOf('(');
+		if (classSuffix >= 0) method = method.substring(0, classSuffix);
+		method = method.trim();
+		return method.isEmpty() ? Optional.empty() : Optional.of(method);
 	}
 }

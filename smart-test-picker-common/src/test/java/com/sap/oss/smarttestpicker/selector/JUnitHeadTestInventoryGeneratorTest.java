@@ -70,6 +70,14 @@ class JUnitHeadTestInventoryGeneratorTest {
 		}
 	}
 
+	@Test void derivesVintageMethodNameWhenOlderPlatformProvidesOnlyClassSource() {
+		assertEquals("allApiVersionsKnown", JUnitHeadTestInventoryGenerator
+				.vintageMethodName("allApiVersionsKnown(com.hybris.cloud.EndpointApiDeprecationTest)")
+				.orElseThrow());
+		assertEquals("legacy", JUnitHeadTestInventoryGenerator.vintageMethodName("legacy").orElseThrow());
+		assertTrue(JUnitHeadTestInventoryGenerator.vintageMethodName("  ").isEmpty());
+	}
+
 	@Disabled("fixture is discovered programmatically; Gradle must never execute it")
 	static class InventoryFixture {
 		@Test void ordinary() { fail("discovery executed a body"); }
