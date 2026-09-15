@@ -87,7 +87,8 @@ class GradleCollectorBackendFunctionalTest {
 			rootProject.name = 'external-published'
 			""".formatted(repository));
 		String build = Files.readString(project.resolve("build.gradle"));
-		build = build.replace("id 'com.sap.oss.smart-test-picker'", "id 'com.sap.oss.smart-test-picker' version '0.1.0'");
+		build = build.replace("id 'com.sap.oss.smart-test-picker'", "id 'com.sap.oss.smart-test-picker' version '"
+				+ System.getProperty("stp.test.version") + "'");
 		build = build.replace("repositories { mavenCentral() }",
 				"repositories { maven { url = uri('" + repository + "') }; mavenCentral() }");
 		build = build.replace("    stpAgent files('" + slash(agentJar()) + "')\n", "");
