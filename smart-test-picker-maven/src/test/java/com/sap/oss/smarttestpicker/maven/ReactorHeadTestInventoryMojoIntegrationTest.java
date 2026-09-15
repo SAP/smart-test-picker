@@ -25,7 +25,8 @@ import com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec;
 import com.google.gson.JsonParser;
 
 class ReactorHeadTestInventoryMojoIntegrationTest {
-	private static final String PLUGIN = "com.sap.oss.smart-test-picker:smart-test-picker-maven:0.1.0:";
+	private static final String STP_VERSION = System.getProperty("smartTestPicker.version");
+	private static final String PLUGIN = "com.sap.oss.smart-test-picker:smart-test-picker-maven:" + STP_VERSION + ":";
 	private static final Path LOCAL_REPOSITORY = Path.of("build/functional-test-maven-local-"
 			+ ProcessHandle.current().pid()).toAbsolutePath();
 
@@ -520,7 +521,12 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 			for (Path path : paths.toList()) {
 				Path target = destination.resolve(source.relativize(path).toString());
 				if (Files.isDirectory(path)) Files.createDirectories(target);
-				else Files.copy(path, target, StandardCopyOption.REPLACE_EXISTING);
+				else {
+					Files.copy(path, target, StandardCopyOption.REPLACE_EXISTING);
+					if (target.getFileName().toString().equals("pom.xml")) {
+						Files.writeString(target, Files.readString(target).replace("0.1.0", STP_VERSION));
+					}
+				}
 			}
 		}
 		return destination;

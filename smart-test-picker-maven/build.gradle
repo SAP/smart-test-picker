@@ -6,9 +6,6 @@ plugins {
     id 'org.gradlex.maven-plugin-development' version '1.0.3'
 }
 
-group = 'com.sap.oss.smart-test-picker'
-version = '0.1.0'
-
 repositories {
     mavenCentral()
     mavenLocal()
@@ -40,6 +37,7 @@ test {
     dependsOn 'publishAllPublicationsToFunctionalTestRepository'
     systemProperty 'smartTestPicker.functionalTestRepository',
             rootProject.layout.buildDirectory.dir('functional-test-maven-repository').get().asFile
+    systemProperty 'smartTestPicker.version', project.version.toString()
 }
 
 // Keep published bytecode compatible with the project's Java 17 baseline.

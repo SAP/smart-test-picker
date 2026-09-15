@@ -6,7 +6,7 @@ Gradle plugin for regression test selection. Registers tasks that automate the f
 
 ```groovy
 plugins {
-    id 'com.sap.oss.smart-test-picker' version '0.1.0'
+    id 'com.sap.oss.smart-test-picker' version '0.3.0-SNAPSHOT'
 }
 ```
 
