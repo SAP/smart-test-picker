@@ -122,6 +122,18 @@ tasks.register('verifyStpVersionConsistency') {
                 }
             }
         }
+        fileTree(rootDir) {
+            include '**/*.gradle', '**/pom.xml'
+            exclude '**/build/**', 'EI-*/**', 'stp-*-validation/**'
+        }.files.each { source ->
+            def text = source.getText('UTF-8')
+            def versions = []
+            (text =~ /(?s)<groupId>com\.sap\.oss\.smart-test-picker<\/groupId>.*?<version>([^<]+)<\/version>/).each { versions << it[1] }
+            (text =~ /com\.sap\.oss\.smart-test-picker:[^:'"\s]+:([^:'"\s]+)/).each { versions << it[1] }
+            versions.findAll { it != expected }.each { version ->
+                failures << "${source} references STP version ${version}, expected ${expected}"
+            }
+        }
         if (failures) throw new GradleException('STP version consistency failed:\n' + failures.join('\n'))
         logger.lifecycle("STP version consistency PASS: ${expected}")
     }

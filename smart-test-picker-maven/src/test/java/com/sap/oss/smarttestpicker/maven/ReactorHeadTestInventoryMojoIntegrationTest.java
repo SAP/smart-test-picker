@@ -523,9 +523,6 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 				if (Files.isDirectory(path)) Files.createDirectories(target);
 				else {
 					Files.copy(path, target, StandardCopyOption.REPLACE_EXISTING);
-					if (target.getFileName().toString().equals("pom.xml")) {
-						Files.writeString(target, Files.readString(target).replace("0.1.0", STP_VERSION));
-					}
 				}
 			}
 		}
