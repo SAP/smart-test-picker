@@ -15,7 +15,7 @@
     <dependency>
       <groupId>com.sap.oss.smart-test-picker</groupId>
       <artifactId>smart-test-picker-core</artifactId>
-      <version>0.1.0</version>
+      <version>0.3.0-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -54,7 +54,7 @@
       <plugin>
         <groupId>com.sap.oss.smart-test-picker</groupId>
         <artifactId>smart-test-picker-maven</artifactId>
-        <version>0.1.0</version>
+        <version>0.3.0-SNAPSHOT</version>
         <executions>
           <execution><id>reports</id><phase>verify</phase><goals><goal>generate-reports</goal></goals></execution>
           <execution><id>fragment</id><phase>verify</phase><goals><goal>generate-coverage-fragment</goal></goals></execution>
