@@ -101,7 +101,10 @@ final class MavenHeadTestInventory {
 				HeadTestInventory inventory = new JUnitHeadTestInventoryGenerator().generate(null,
 						project.getTestClasspathElements().stream().map(File::new).map(File::toPath).toList(),
 						List.of(root.toPath()), origin -> log.debug("[SmartTestPicker] " + project.getId() + " " + origin));
-				if ("surefire".equals(executionType)) inventory = HeadTestInventory.from(inventory.runnableTests().stream()
+				inventory = HeadTestInventory.from(inventory.runnableTests().stream()
+						.filter(identity -> ownedByTestOutput(root.toPath(), identity)).toList());
+				if (executionType == null || executionType.isBlank() || "surefire".equals(executionType))
+					inventory = HeadTestInventory.from(inventory.runnableTests().stream()
 						.filter(MavenSurefireTestFilter.from(project)).toList());
 				if (testFilter != null && !testFilter.isBlank()) inventory = HeadTestInventory.from(
 						inventory.runnableTests().stream().filter(MavenSurefireTestFilter.parse(testFilter)).toList());
@@ -122,6 +125,10 @@ final class MavenHeadTestInventory {
 			log.error("[SmartTestPicker] Executable head inventory discovery failed", failure);
 			return false;
 		}
+	}
+
+	private static boolean ownedByTestOutput(Path testOutput, TestIdentity identity) {
+		return Files.isRegularFile(testOutput.resolve(identity.className().replace('.', File.separatorChar) + ".class"));
 	}
 
 	private static MavenTestIdentityOccurrence occurrence(TestIdentity identity, MavenProject project, Path root)

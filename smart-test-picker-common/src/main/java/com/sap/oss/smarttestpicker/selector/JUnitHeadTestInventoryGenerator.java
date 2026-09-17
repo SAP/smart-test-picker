@@ -182,8 +182,14 @@ public final class JUnitHeadTestInventoryGenerator {
 		ownMethod.map(JUnitMethodSourceIdentity::from).ifPresent(identities::add);
 		if (id.isTest()) {
 			if (method != null) identities.add(JUnitMethodSourceIdentity.from(method));
-			else identities.add(vintageIdentity(id, testClass).orElseThrow(() -> new IllegalStateException(
-					"Executable JUnit test has no authoritative MethodSource: " + id.getUniqueId())));
+			else {
+				Optional<TestIdentity> vintage = vintageIdentity(id, testClass);
+				if (vintage.isPresent()) identities.add(vintage.get());
+				else if (!isVintageClassDescriptor(id.getUniqueId()) && !isVintageClassPseudoTest(id, testClass)
+						&& !isVintageInitializationError(id))
+					throw new IllegalStateException(
+						"Executable JUnit test has no authoritative MethodSource: " + id.getUniqueId());
+			}
 		}
 		for (TestIdentifier child : plan.getChildren(id)) visit(plan, child, method, testClass, identities);
 	}
@@ -197,9 +203,31 @@ public final class JUnitHeadTestInventoryGenerator {
 	}
 
 	private static Optional<TestIdentity> vintageIdentity(TestIdentifier id, ClassSource testClass) {
-		if (testClass == null || !id.getUniqueId().contains("[engine:junit-vintage]")) return Optional.empty();
+		if (testClass == null || isVintageClassDescriptor(id.getUniqueId())) return Optional.empty();
 		return vintageMethodName(id.getLegacyReportingName())
+				.filter(method -> !isClassName(method, testClass.getClassName()))
 				.map(method -> new TestIdentity(testClass.getClassName(), method));
+	}
+
+	static boolean isClassName(String candidate, String className) {
+		int separator = Math.max(className.lastIndexOf('.'), className.lastIndexOf('$'));
+		String simpleName = className.substring(separator + 1);
+		return candidate.equals(className) || candidate.equals(simpleName);
+	}
+
+	private static boolean isVintageClassPseudoTest(TestIdentifier id, ClassSource testClass) {
+		if (testClass == null || !id.getUniqueId().contains("[engine:junit-vintage]")) return false;
+		return vintageMethodName(id.getLegacyReportingName())
+				.map(name -> isClassName(name, testClass.getClassName())).orElse(false);
+	}
+
+	private static boolean isVintageInitializationError(TestIdentifier id) {
+		return id.getUniqueId().contains("[engine:junit-vintage]")
+				&& "initializationError".equals(id.getLegacyReportingName());
+	}
+
+	static boolean isVintageClassDescriptor(String uniqueId) {
+		return uniqueId.contains("[engine:junit-vintage]") && !uniqueId.contains("[test:");
 	}
 
 	static Optional<String> vintageMethodName(String legacyReportingName) {
@@ -208,6 +236,6 @@ public final class JUnitHeadTestInventoryGenerator {
 		int classSuffix = method.indexOf('(');
 		if (classSuffix >= 0) method = method.substring(0, classSuffix);
 		method = method.trim();
-		return method.isEmpty() ? Optional.empty() : Optional.of(method);
+		return method.isEmpty() || "initializationError".equals(method) ? Optional.empty() : Optional.of(method);
 	}
 }
