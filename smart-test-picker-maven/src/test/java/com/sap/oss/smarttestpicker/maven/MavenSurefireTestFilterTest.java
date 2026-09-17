@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import org.apache.maven.model.Plugin;
+import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.util.xml.Xpp3Dom;
 
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 
@@ -32,5 +35,30 @@ class MavenSurefireTestFilterTest {
 		var vibebot = MavenSurefireTestFilter.parse("org.sonar.java.it.JavaRulingTest#vibebot");
 		assertTrue(vibebot.test(VIBEBOT));
 		assertFalse(vibebot.test(GUAVA));
+	}
+
+	@Test void appliesEffectiveSurefireIncludesAndExcludes() {
+		MavenProject project = new MavenProject();
+		Plugin plugin = new Plugin();
+		plugin.setGroupId("org.apache.maven.plugins");
+		plugin.setArtifactId("maven-surefire-plugin");
+		Xpp3Dom configuration = new Xpp3Dom("configuration");
+		Xpp3Dom includes = new Xpp3Dom("includes");
+		includes.addChild(value("include", "org/sonar/java/**/*.java"));
+		configuration.addChild(includes);
+		Xpp3Dom excludes = new Xpp3Dom("excludes");
+		excludes.addChild(value("exclude", "org/sonar/java/it/**"));
+		configuration.addChild(excludes);
+		plugin.setConfiguration(configuration);
+		project.getBuild().addPlugin(plugin);
+		var filter = MavenSurefireTestFilter.from(project);
+		assertTrue(filter.test(TestIdentity.parse("org.sonar.java.SanityTest#verify")));
+		assertFalse(filter.test(SERVER));
+	}
+
+	private static Xpp3Dom value(String name, String value) {
+		Xpp3Dom result = new Xpp3Dom(name);
+		result.setValue(value);
+		return result;
 	}
 }

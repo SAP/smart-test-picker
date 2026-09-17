@@ -76,6 +76,17 @@ class JUnitHeadTestInventoryGeneratorTest {
 				.orElseThrow());
 		assertEquals("legacy", JUnitHeadTestInventoryGenerator.vintageMethodName("legacy").orElseThrow());
 		assertTrue(JUnitHeadTestInventoryGenerator.vintageMethodName("  ").isEmpty());
+		assertTrue(JUnitHeadTestInventoryGenerator.vintageMethodName("initializationError").isEmpty());
+	}
+
+	@Test void ignoresVintageClassDescriptorsReportedAsTests() {
+		assertTrue(JUnitHeadTestInventoryGenerator.isVintageClassDescriptor(
+				"[engine:junit-vintage]/[runner:com.example.IgnoredTest]"));
+		assertFalse(JUnitHeadTestInventoryGenerator.isVintageClassDescriptor(
+				"[engine:junit-vintage]/[runner:com.example.LegacyTest]/[test:works(com.example.LegacyTest)]"));
+		assertTrue(JUnitHeadTestInventoryGenerator.isClassName("com.example.IgnoredTest", "com.example.IgnoredTest"));
+		assertTrue(JUnitHeadTestInventoryGenerator.isClassName("IgnoredTest", "com.example.IgnoredTest"));
+		assertFalse(JUnitHeadTestInventoryGenerator.isClassName("works", "com.example.LegacyTest"));
 	}
 
 	@Disabled("fixture is discovered programmatically; Gradle must never execute it")
