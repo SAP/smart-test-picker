@@ -96,7 +96,9 @@ class JGraphTCoverageMapV1IntegrationTest
 				() -> codec.deserialize(corrupt.getBytes(StandardCharsets.UTF_8)));
 		assertEquals(ValidationCode.CHECKSUM_MISMATCH, corruptError.getError().code());
 
-		String higherSchema = json.replaceFirst("\\\"schemaVersion\\\":1", "\\\"schemaVersion\\\":2");
+		JsonObject higherSchemaJson = JsonParser.parseString(json).getAsJsonObject();
+		higherSchemaJson.addProperty("schemaVersion", CoverageMapContract.SCHEMA_VERSION + 1);
+		String higherSchema = higherSchemaJson.toString();
 		CoverageMapValidationException schemaError = assertThrows(CoverageMapValidationException.class,
 				() -> codec.deserialize(higherSchema.getBytes(StandardCharsets.UTF_8)));
 		assertEquals(ValidationCategory.INCOMPATIBLE_SCHEMA, schemaError.getError().category());

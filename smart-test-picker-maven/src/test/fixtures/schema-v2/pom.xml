@@ -7,6 +7,8 @@
   <version>1.0.0</version>
   <properties>
     <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <smartTestPicker.revision>fixture-revision</smartTestPicker.revision>
     <smartTestPicker.shardId>fixture-shard</smartTestPicker.shardId>
