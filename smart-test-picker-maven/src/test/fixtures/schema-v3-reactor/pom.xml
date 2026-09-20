@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0">
   <modelVersion>4.0.0</modelVersion><groupId>fixture</groupId><artifactId>executable-reactor</artifactId><version>1</version><packaging>pom</packaging>
   <modules><module>module-a</module><module>module-b</module><module>module-zero</module></modules>
-  <properties><maven.compiler.release>17</maven.compiler.release><smartTestPicker.revision>reactor-revision</smartTestPicker.revision><smartTestPicker.shardId>reactor-shard</smartTestPicker.shardId></properties>
+  <properties><maven.compiler.release>17</maven.compiler.release><maven.compiler.source>17</maven.compiler.source><maven.compiler.target>17</maven.compiler.target><smartTestPicker.revision>reactor-revision</smartTestPicker.revision><smartTestPicker.shardId>reactor-shard</smartTestPicker.shardId></properties>
   <dependencyManagement><dependencies><dependency><groupId>org.junit.jupiter</groupId><artifactId>junit-jupiter</artifactId><version>5.9.3</version></dependency></dependencies></dependencyManagement>
   <dependencies><dependency><groupId>com.sap.oss.smart-test-picker</groupId><artifactId>smart-test-picker-core</artifactId><version>0.3.0-SNAPSHOT</version><scope>test</scope></dependency></dependencies>
   <build><pluginManagement><plugins><plugin><groupId>com.sap.oss.smart-test-picker</groupId><artifactId>smart-test-picker-maven</artifactId><version>0.3.0-SNAPSHOT</version></plugin></plugins></pluginManagement><plugins>

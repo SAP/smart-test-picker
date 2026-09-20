@@ -2,6 +2,6 @@
   <modelVersion>4.0.0</modelVersion><groupId>fixture</groupId><artifactId>junit-version-reactor</artifactId><version>1</version><packaging>pom</packaging>
   <modules><module>module-a</module><module>module-b</module><module>module-zero</module></modules>
   <profiles><profile><id>broken</id><modules><module>module-broken</module></modules></profile></profiles>
-  <properties><maven.compiler.release>17</maven.compiler.release></properties>
+  <properties><maven.compiler.release>17</maven.compiler.release><maven.compiler.source>17</maven.compiler.source><maven.compiler.target>17</maven.compiler.target></properties>
   <build><pluginManagement><plugins><plugin><groupId>com.sap.oss.smart-test-picker</groupId><artifactId>smart-test-picker-maven</artifactId><version>0.3.0-SNAPSHOT</version></plugin></plugins></pluginManagement></build>
 </project>
