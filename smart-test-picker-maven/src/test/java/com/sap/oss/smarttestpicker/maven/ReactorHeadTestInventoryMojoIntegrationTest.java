@@ -37,7 +37,7 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		Result result = maven(fixture, "process-test-classes", PLUGIN + "generate-reactor-head-test-inventory",
 				"-DsmartTestPicker.schemaVersion=3", "-DsmartTestPicker.prHeadRevision=" + revision);
 		assertEquals(0, result.exitCode(), result.output());
-		var inventory = new ExecutableHeadTestInventoryCodec().read(fixture.resolve("target/head-test-inventory.json").toFile());
+		var inventory = new ExecutableHeadTestInventoryCodec().read(fixture.resolve(".stp/head-test-inventory.json").toFile());
 		assertEquals(revision, inventory.revision());
 		assertEquals(10, inventory.runnableTests().size());
 		assertTrue(inventory.runnableTests().stream().anyMatch(i -> i.toString().equals("maven:module-a::shared.SharedTest#same")));
@@ -294,7 +294,7 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		Result result = maven(fixture, "process-test-classes", PLUGIN + "generate-reactor-head-test-inventory",
 				"-DsmartTestPicker.prHeadRevision=" + revision);
 		assertEquals(0, result.exitCode(), result.output());
-		Path output = fixture.resolve("target/head-test-inventory.json");
+		Path output = fixture.resolve(".stp/head-test-inventory.json");
 		var inventory = new HeadTestInventoryCodec().read(output.toFile());
 		assertEquals(revision, inventory.revision());
 		assertEquals(List.of(new TestIdentity("a.SameNameTests", "alpha"),
@@ -309,7 +309,7 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 	void duplicateIdentityAndWrongRevisionBothDeleteStaleOutput(@TempDir Path temp) throws Exception {
 		Path fixture = copyFixture("schema-v2-reactor", temp.resolve("reactor"));
 		String revision = initializeGit(fixture);
-		Path output = Files.createDirectories(fixture.resolve("target")).resolve("head-test-inventory.json");
+		Path output = Files.createDirectories(fixture.resolve(".stp")).resolve("head-test-inventory.json");
 		Files.writeString(output, "stale");
 
 		Result collision = maven(fixture, "process-test-classes", "-Pcollision",
@@ -344,7 +344,7 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		Result result = maven(fixture, "process-test-classes", PLUGIN + "generate-reactor-head-test-inventory",
 				"-DsmartTestPicker.prHeadRevision=" + revision, "-X");
 		assertEquals(0, result.exitCode(), result.output());
-		var inventory = new HeadTestInventoryCodec().read(fixture.resolve("target/head-test-inventory.json").toFile());
+		var inventory = new HeadTestInventoryCodec().read(fixture.resolve(".stp/head-test-inventory.json").toFile());
 		assertEquals(revision, inventory.revision());
 		assertEquals(Set.of(new TestIdentity("versions.a.OlderTests", "older"),
 				new TestIdentity("versions.a.OlderTests$NestedTests", "nested"),
@@ -374,7 +374,7 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		Result safe = maven(fixture, "package", PLUGIN + "generate-reactor-head-test-inventory",
 				"-DskipTests", "-DsmartTestPicker.prHeadRevision=" + revision);
 		assertEquals(0, safe.exitCode(), safe.output());
-		var inventory = new HeadTestInventoryCodec().read(fixture.resolve("target/head-test-inventory.json").toFile());
+		var inventory = new HeadTestInventoryCodec().read(fixture.resolve(".stp/head-test-inventory.json").toFile());
 		assertEquals(Set.of(new TestIdentity("shared.SharedTests", "shared"),
 				new TestIdentity("consumer.ConsumerTests", "uniqueConsumer")), Set.copyOf(inventory.runnableTests()));
 		assertTrue(safe.output().contains("Module fixture:module-zero:jar:1: 0 logical JUnit tests"), safe.output());
@@ -387,13 +387,13 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		assertTrue(conflict.output().contains("fixture:module-source:jar:1"), conflict.output());
 		assertTrue(conflict.output().contains("fixture:module-conflict:jar:1"), conflict.output());
 		assertTrue(conflict.output().contains("compiled definitions differ"), conflict.output());
-		assertFalse(Files.exists(fixture.resolve("target/head-test-inventory.json")));
+		assertFalse(Files.exists(fixture.resolve(".stp/head-test-inventory.json")));
 	}
 
 	@Test
 	void reactorWithNoCompiledTestOutputFailsWithoutPublishing(@TempDir Path temp) throws Exception {
 		Path fixture = copyFixture("schema-v2-reactor", temp.resolve("reactor"));
-		Path output = Files.createDirectories(fixture.resolve("target")).resolve("head-test-inventory.json");
+		Path output = Files.createDirectories(fixture.resolve(".stp")).resolve("head-test-inventory.json");
 		Files.writeString(output, "stale");
 		Result result = maven(fixture, PLUGIN + "generate-reactor-head-test-inventory");
 		assertTrue(result.exitCode() != 0, result.output());
