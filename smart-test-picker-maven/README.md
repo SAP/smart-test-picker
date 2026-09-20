@@ -29,7 +29,7 @@ Maven plugin providing mojo implementations for the coverage pipeline.
 ## Multi-Module Support
 
 Use the aggregator inventory goal after test compilation to write exactly one inventory under the
-Maven execution root (by default, `target/head-test-inventory.json`):
+Maven execution root (by default, `.stp/head-test-inventory.json`):
 
 ```bash
 mvn process-test-classes com.sap.oss.smart-test-picker:smart-test-picker-maven:0.3.0-SNAPSHOT:generate-reactor-head-test-inventory \
@@ -134,6 +134,25 @@ The Maven plugin requires `smart-test-picker-core` as a test dependency for per-
     </plugins>
 </build>
 ```
+
+## Managed selected-test execution
+
+The packaged Jenkins Maven adapter registers `StpMavenLifecycleParticipant`. It is inactive unless
+the invocation-scoped `stp.maven.execution.management=true` property is supplied by
+`smartTestPicker(manageMavenExecution: true)`. In managed mode it:
+
+1. decodes and validates the common execution-plan contract;
+2. resolves canonical Maven targets against `MavenSession.getAllProjects()`;
+3. rejects unresolved targets and conflicting caller reactor selectors;
+4. restricts `SELECT` to the distinct owning modules before their lifecycles run;
+5. installs target-qualified Surefire/Failsafe method filters; and
+6. validates invocation-scoped identity sidecars against the exact plan.
+
+`RUN_ALL` leaves the reactor unrestricted, while an empty `SELECT` is handled by Jenkins as an
+explicit managed-body skip. The participant never adds `-am`. A preceding exact-head install must
+provide dependencies required by narrowed modules. Final evidence is written even after a normal
+Maven failure when the session callback is reached; it cannot make the failed Maven invocation
+successful.
 
 ## Schema-v2 fragment production and reactor aggregation
 

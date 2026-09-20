@@ -13,6 +13,14 @@ import com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget;
 
 /** Canonical Maven execution-target derivation shared by inventory and mapping. */
 final class MavenExecutionTargetResolver {
+	String reactorModuleId(ExecutionTarget target) {
+		if (target == null || target.buildTool() != BuildTool.MAVEN)
+			throw new IllegalArgumentException("Not a Maven execution target: " + target);
+		String id = target.targetId();
+		int qualifier = id.indexOf('@');
+		return qualifier < 0 ? id : id.substring(0, qualifier);
+	}
+
 	ExecutionTarget resolve(File reactorRoot, MavenProject module) {
 		return resolve(reactorRoot, module, null, null, null);
 	}

@@ -21,7 +21,7 @@ public final class GenerateReactorHeadTestInventoryMojo extends AbstractMojo {
 	@Parameter(defaultValue = "${project}", readonly = true, required = true) private MavenProject project;
 	@Parameter(defaultValue = "${reactorProjects}", readonly = true, required = true)
 	private List<MavenProject> reactorProjects;
-	@Parameter(defaultValue = "${session.executionRootDirectory}/target/head-test-inventory.json",
+	@Parameter(defaultValue = "${session.executionRootDirectory}/.stp/head-test-inventory.json",
 			property = "smartTestPicker.outputFile", required = true)
 	private File outputFile;
 	@Parameter(property = "smartTestPicker.prHeadRevision") private String prHeadRevision;
