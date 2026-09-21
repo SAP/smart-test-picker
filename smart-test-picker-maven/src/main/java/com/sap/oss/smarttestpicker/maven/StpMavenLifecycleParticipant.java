@@ -200,10 +200,20 @@ public final class StpMavenLifecycleParticipant extends AbstractMavenLifecyclePa
 		String artifactId = "maven-" + type + "-plugin";
 		Plugin plugin = project.getBuild().getPlugins().stream().filter(value -> artifactId.equals(value.getArtifactId()))
 				.findFirst().orElse(null);
-		if (plugin == null) return;
+		if (plugin == null)
+		{
+			// Surefire is supplied by Maven's default lifecycle even when it is not
+			// declared in build/plugins. Add a model entry before lifecycle planning so
+			// managed STP configuration also reaches that implicit execution.
+			if (!"surefire".equals(type)) return;
+			plugin = new Plugin();
+			plugin.setGroupId("org.apache.maven.plugins");
+			plugin.setArtifactId(artifactId);
+			project.getBuild().addPlugin(plugin);
+		}
 		Xpp3Dom configuration = plugin.getConfiguration() instanceof Xpp3Dom configured
 				? new Xpp3Dom(configured) : new Xpp3Dom("configuration");
-		enableJunitAutodetection(configuration);
+		configureRuntime(configuration, evidence, canonicalTarget);
 		plugin.setConfiguration(configuration);
 	}
 
