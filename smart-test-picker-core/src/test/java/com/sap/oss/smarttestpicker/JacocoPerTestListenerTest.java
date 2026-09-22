@@ -5,6 +5,8 @@ package com.sap.oss.smarttestpicker;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
@@ -14,8 +16,18 @@ import org.junit.jupiter.api.io.TempDir;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.platform.launcher.Launcher;
+import org.junit.platform.launcher.TestExecutionListener;
+import org.junit.platform.launcher.TestIdentifier;
 import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.junit.platform.launcher.core.LauncherFactory;
+import org.junit.platform.engine.support.descriptor.ClassSource;
+import org.junit.runner.RunWith;
+
+import com.tngtech.archunit.junit.AnalyzeClasses;
+import com.tngtech.archunit.junit.ArchTest;
+import com.tngtech.archunit.junit.ArchUnitRunner;
+import com.tngtech.archunit.lang.ArchRule;
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
 
@@ -221,6 +233,51 @@ class JacocoPerTestListenerTest
 		}
 	}
 
+	@Test
+	void vintageCustomRunnerClassSourceWritesAuthoritativeIdentity(@TempDir Path tempDir) throws Exception
+	{
+		System.setProperty("stp.exec.dir", tempDir.toString());
+		try
+		{
+			JacocoPerTestListener listener = new JacocoPerTestListener();
+			AtomicReference<Object> observedSource = new AtomicReference<>();
+			Launcher launcher = LauncherFactory.create();
+			launcher.registerTestExecutionListeners(listener, new TestExecutionListener()
+			{
+				@Override public void executionStarted(TestIdentifier identifier)
+				{
+					if (identifier.isTest()) observedSource.set(identifier.getSource().orElse(null));
+				}
+			});
+			launcher.execute(LauncherDiscoveryRequestBuilder.request()
+					.selectors(selectClass(VintageCustomRunnerFixture.class)).build());
+
+			assertInstanceOf(ClassSource.class, observedSource.get(),
+					"fixture must exercise the Vintage ClassSource fallback rather than MethodSource");
+			var identities = Files.list(tempDir)
+					.filter(path -> path.getFileName().toString().endsWith(".identity"))
+					.map(path -> {
+						try { return Files.readString(path); }
+						catch (IOException failure) { throw new java.io.UncheckedIOException(failure); }
+					})
+					.toList();
+			assertEquals(6, identities.size());
+			assertEquals(Set.of("EACH_IGNORED_TEST_HAS_REASON_TO_IGNORE",
+					"EACH_IGNORED_TEST_METHOD_HAS_REASON_TO_IGNORE", "EACH_REST_API_TEST_HAS_CODE_OWNER",
+					"EACH_TEST_CONTEXT_HAS_CODE_OWNER", "EACH_TEST_HAS_JUNIT_RULE_TO_VALIDATE_AE_LIVENESS",
+					"TEST_EXECUTION_ORDER_SET_CORRECTLY_FOR_EACH_TEST"), identities.stream().map(value -> value.lines()
+					.filter(line -> line.startsWith("methodName=")).findFirst().orElseThrow().substring("methodName=".length()))
+					.collect(java.util.stream.Collectors.toSet()));
+			assertTrue(identities.stream().allMatch(value ->
+					value.contains("className=" + VintageCustomRunnerFixture.class.getName() + "\n")
+							&& value.contains("methodParameterTypes=\n") && value.contains("outcome=PASS\n")));
+		}
+		finally
+		{
+			System.clearProperty("stp.exec.dir");
+		}
+	}
+
 	static class BeforeAllAbortFixture
 	{
 		@BeforeAll static void setup() { Assumptions.assumeTrue(false); }
@@ -239,5 +296,19 @@ class JacocoPerTestListenerTest
 	static class AbortedTestFixture
 	{
 		@Test void aborted() { Assumptions.assumeTrue(false); }
+	}
+
+	@RunWith(ArchUnitRunner.class)
+	@AnalyzeClasses(packagesOf = VintageCustomRunnerFixture.class)
+	public static class VintageCustomRunnerFixture
+	{
+		private static ArchRule passingRule() { return classes().should().haveSimpleNameNotStartingWith("DefinitelyNoClass"); }
+
+		@ArchTest public static final ArchRule EACH_IGNORED_TEST_HAS_REASON_TO_IGNORE = passingRule();
+		@ArchTest public static final ArchRule EACH_IGNORED_TEST_METHOD_HAS_REASON_TO_IGNORE = passingRule();
+		@ArchTest public static final ArchRule EACH_REST_API_TEST_HAS_CODE_OWNER = passingRule();
+		@ArchTest public static final ArchRule EACH_TEST_CONTEXT_HAS_CODE_OWNER = passingRule();
+		@ArchTest public static final ArchRule EACH_TEST_HAS_JUNIT_RULE_TO_VALIDATE_AE_LIVENESS = passingRule();
+		@ArchTest public static final ArchRule TEST_EXECUTION_ORDER_SET_CORRECTLY_FOR_EACH_TEST = passingRule();
 	}
 }

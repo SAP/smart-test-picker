@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.junit.platform.engine.TestExecutionResult;
@@ -179,7 +180,51 @@ public class JacocoPerTestListener implements TestExecutionListener
 			return new DeclaredTestIdentity(ms.getJavaClass().getSimpleName(), ms.getClassName(),
 					ms.getMethodName(), ms.getMethodParameterTypes());
 		}
-		return null;
+
+		// JUnit Vintage custom runners, including ArchUnitRunner, may expose an
+		// executable test with a ClassSource instead of a MethodSource. Inventory
+		// discovery uses the same Vintage contract: the declaring class comes from
+		// ClassSource and the declared logical test name from legacyReportingName.
+		// Do not apply this fallback to other engines, where a display name is not
+		// an authoritative declared test identity.
+		if (!id.getUniqueId().contains("[engine:junit-vintage]")) return null;
+		ClassSource testClass = classSource(id).orElse(null);
+		if (testClass == null) return null;
+		String methodName = vintageMethodName(id.getLegacyReportingName()).orElse(null);
+		if (methodName == null || isClassName(methodName, testClass.getClassName())) return null;
+		Class<?> javaClass = testClass.getJavaClass();
+		return new DeclaredTestIdentity(javaClass.getSimpleName(), testClass.getClassName(), methodName, "");
+	}
+
+	private Optional<ClassSource> classSource(TestIdentifier id)
+	{
+		TestIdentifier current = id;
+		while (current != null)
+		{
+			Optional<ClassSource> source = current.getSource().filter(ClassSource.class::isInstance)
+					.map(ClassSource.class::cast);
+			if (source.isPresent()) return source;
+			current = testPlan == null ? null : testPlan.getParent(current).orElse(null);
+		}
+		return Optional.empty();
+	}
+
+	private static Optional<String> vintageMethodName(String legacyReportingName)
+	{
+		if (legacyReportingName == null) return Optional.empty();
+		String methodName = legacyReportingName;
+		int classSuffix = methodName.indexOf('(');
+		if (classSuffix >= 0) methodName = methodName.substring(0, classSuffix);
+		methodName = methodName.trim();
+		return methodName.isEmpty() || "initializationError".equals(methodName)
+				? Optional.empty() : Optional.of(methodName);
+	}
+
+	private static boolean isClassName(String candidate, String className)
+	{
+		int separator = Math.max(className.lastIndexOf('.'), className.lastIndexOf('$'));
+		String simpleName = className.substring(separator + 1);
+		return candidate.equals(className) || candidate.equals(simpleName);
 	}
 
 	/**
