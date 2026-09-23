@@ -32,10 +32,13 @@ README files. Jenkins installation, Pipeline API, controller-side FILE storage, 
 belong to the Jenkins integration repository; the two repositories intentionally do not duplicate
 those operational references.
 
-## Last verified against
+For the Jenkins-facing boundary, use the plugin repository's
+[component ownership reference](https://github.com/ljubisap/stp-jenkins-plugin-poc/blob/main/docs/reference/component-ownership.md),
+[support matrix](https://github.com/ljubisap/stp-jenkins-plugin-poc/blob/main/docs/reference/support-validation-matrix.md),
+and [current runtime evidence](https://github.com/ljubisap/stp-jenkins-plugin-poc/blob/main/docs/validation/petclinic-docker-2026-09-23.md).
 
-- STP source: `39249f15fa8c075076195d70a2c82092e7a5b6e6`
-- Jenkins plugin source: `4bd5d60e046150757f31f917d5514f2d25372006`
+## Verification provenance
 
-These revisions identify the source inspected for this documentation update. Runtime evidence remains
-bound to the exact revisions and builds named in its own evidence record.
+This overview was reviewed on the status date above against the current repository contracts and the
+current Jenkins integration documentation. Exact source revisions, HPI checksums, Jenkins builds and
+scenario results belong to the linked evidence record rather than this stable overview.
