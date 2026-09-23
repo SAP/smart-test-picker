@@ -23,4 +23,4 @@ Arguments are semicolon-separated:
 
 Method-entry instrumentation is enabled by default. `includes` is optional and empty means any class not matched by the mandatory platform/framework/STP exclusions is eligible. `instrumentation=off` remains available only for bounded diagnostics and tests.
 
-The agent output is an internal collection format. Projection into coverage-map schema v1 and Gradle/Maven/CLI attachment are follow-up migration work; the current JaCoCo product path remains active meanwhile.
+The agent is wired into the Gradle production mapping backend. It projects runtime observations into logical schema-2 or target-qualified executable schema-3 fragments according to the invocation contract. The shaded artifact includes `stp-runtime` and the JUnit adapter; Jenkins/Gradle supply revision, shard, assignment and execution target. Maven mapping currently uses JaCoCo and deliberately rejects ASM.

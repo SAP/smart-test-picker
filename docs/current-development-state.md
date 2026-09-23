@@ -1,12 +1,13 @@
 # Current development state
 
-- Authoritative development branch: `research/asm-codex`
-- Recommended local checkout: `/Users/d061177/work/asm-poc/codex-worktree`
-- Unified STP artifact version: `0.3.0-SNAPSHOT`
-- Jenkins integration repository: `https://github.com/ljubisap/stp-jenkins-plugin-poc`, branch `ei13/maven-distributed-selection`
-- EI-19 packaging source: STP `5db62c6294c8e3f12f9cfb274a25044ce2f73b7b`; Jenkins plugin `4bc3a6b033451bd4aa706ba855f5caebd62efd64`
-- Exact validated HPI: `/Users/d061177/work/stp-jenkins-plugin-poc/verification/ei19/smart-test-picker-0.3.0-SNAPSHOT.hpi`
-- HPI SHA-256: `879f7d75733092fcd32655931b38bb70289f3ef7d3bc0addb9d90e6da003e9e1`
+Status date: 2026-09-23.
+
+- Main STP repository: [SAP/smart-test-picker](https://github.com/SAP/smart-test-picker)
+- Jenkins integration repository: [stp-jenkins-plugin-poc](https://github.com/ljubisap/stp-jenkins-plugin-poc)
+- Unified STP-owned artifact version: `0.3.0-SNAPSHOT`
+- Jenkins baseline: 2.516.2; tested runtime JDK 21; plugin/STP bytecode target Java 17
+- Coverage-map families: logical schema 2 and executable target-aware schema 3
+- Execution plan: version 1; bundled adapter contract: version 1
 
 Verify the shared STP version and generated publication POMs with:
 
@@ -14,12 +15,27 @@ Verify the shared STP version and generated publication POMs with:
 ./gradlew verifyStpVersionConsistency
 ```
 
-The EI-19 HPI above was installed byte-for-byte in Docker Jenkins and passed the
-maintained production Maven workflow plus the Maven and Gradle fixture suites.
-Its full component inventory, resolved third-party dependency tree, build IDs,
-and checksum evidence are in the Jenkins repository under `verification/ei19/`.
-Third-party versions retain their declared upstream versions; schema versions
-2/3, execution-plan version 1, and adapter contract version 1 remain independent
-of the unified STP artifact version.
+The current Maven reactor path supports revision-bound schema-3 inventory, target-qualified mapping,
+canonical reactor target resolution and managed selected execution. The Jenkins plugin owns HPI
+packaging, adapter activation/cache, controller-side FILE storage, RAW_HTTP storage integration and
+Pipeline orchestration. Application builds still own their normal Maven/Gradle command, dependency
+repositories, exact-head dependency preparation and project-specific profiles.
 
-See `docs/artifact-versioning.md` for the version ownership and update process.
+Historical EI directories and task reports retain the exact commits, versions, checksums and build
+results they validated. They are evidence snapshots, not current setup instructions. The most recent
+external Automation Engine result is documented only in the Jenkins POC evidence note and remains
+scoped to the exact builds and downloaded artifacts named there.
+
+Current STP contracts and module usage are documented by the [root README](../README.md),
+[artifact versioning](artifact-versioning.md), [compatibility table](compatibility.md), and module
+README files. Jenkins installation, Pipeline API, controller-side FILE storage, and canonical examples
+belong to the Jenkins integration repository; the two repositories intentionally do not duplicate
+those operational references.
+
+## Last verified against
+
+- STP source: `39249f15fa8c075076195d70a2c82092e7a5b6e6`
+- Jenkins plugin source: `4bd5d60e046150757f31f917d5514f2d25372006`
+
+These revisions identify the source inspected for this documentation update. Runtime evidence remains
+bound to the exact revisions and builds named in its own evidence record.

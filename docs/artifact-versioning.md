@@ -7,11 +7,11 @@ All modules in this Gradle build use the STP release version declared once as
 are derived from the shared project version.
 
 The Jenkins plugin is a separate repository and deliberately has its own HPI
-version. It copies the STP value into the clearly named `stp.version` input in
-`config/runtime-components.properties` and its Maven `pom.xml`. Its packaging
-scripts reject a source checkout with a different `stpVersion`, and
-`python3 verification/check_stp_versions.py` verifies bundled paths, coordinates,
-adapter POMs, generated manifests, and the embedded repository.
+version. It copies the STP value into `stp.version` in
+`config/runtime-components.properties` and its Maven `pom.xml`. The standard
+Maven lifecycle builds/installs the Maven adapter first, then packages the HPI,
+generates its runtime manifest and checks pinned coordinates and checksums. Python
+is not part of the HPI build lifecycle.
 
 Artifact releases are independent of coverage-map schema v2/v3, execution-plan
 v1, inventory formats, adapter contract v1, and other wire formats. Third-party,

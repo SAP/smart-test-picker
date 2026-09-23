@@ -1,5 +1,7 @@
 # Coverage map semantic model
 
+> **Historical schema-design record.** This document was introduced at revision `0039cd7e7ca7838086ae506b0709e9356b0bca2c` on 2026-09-03. Its semantic rationale and schema-2 model remain relevant, but backlog ownership, version recommendations, and implementation status describe that point in time. Current support includes logical schema 2 and executable schema 3; see the [current development state](current-development-state.md) and [compatibility table](compatibility.md).
+
 The semantic model lives under `com.sap.oss.smarttestpicker.coverage.model`; JSON construction and
 parsing live separately under `coverage.serialization`. Model records defensively copy maps, lists,
 and sets, expose no setters, and use value types for revisions, test identities, containers, and

@@ -4,6 +4,8 @@ SPDX-License-Identifier: Apache-2.0
 -->
 # EI-1: Executable test identity model
 
+> **Historical implementation stage.** EI-1 was introduced at revision `d83852001887d270e7ea10f6584fe5a37a75477b` on 2026-09-12. Later EI work integrated these identities into executable schema 3; versions, status, and non-integration statements below describe EI-1 only. The identity contract remains relevant; use the [current development state](current-development-state.md) and [compatibility table](compatibility.md) for current integration status.
+
 ## Purpose
 
 EI-1 implements the semantic foundation of `MODEL_C_EXECUTABLE_IDENTITY`. A declared test and the build location that executes it are separate concepts, allowing the same declaration to occur safely in multiple modules or tasks.
