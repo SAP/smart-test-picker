@@ -5,7 +5,7 @@
 
 # Smart Test Picker
 
-A build plugin for **regression test selection** in Java projects. It selects and runs only the tests affected by code changes, instead of the entire test suite. Selection is based on **per-test runtime coverage data** captured via JaCoCo, not static analysis, so it correctly handles reflection, dynamic proxies, and dependency injection.
+A build-tool-independent core plus Gradle, Maven, CLI and Jenkins-facing components for **regression test selection** in Java projects. Selection uses per-test runtime coverage captured by the Gradle ASM collector or the supported JaCoCo paths, rather than static call-graph analysis.
 
 ## How It Works
 
@@ -19,7 +19,7 @@ Developer changes code
   -> Generates HTML report showing what was selected and why
 ```
 
-**Safety invariant:** worst case = full suite = same as without the plugin.
+**Safety invariant:** uncertain optimization data never produces a smaller unproven test set. Availability-only cases may run the full suite; revision, integrity, security, configuration and completeness failures fail closed.
 
 ## Key Features
 
@@ -140,7 +140,7 @@ stp-junit-adapter/            Internal JUnit lifecycle listener
 | [smart-test-picker](smart-test-picker/) | Gradle plugin with tasks for the full pipeline | [README](smart-test-picker/README.md) |
 | [smart-test-picker-maven](smart-test-picker-maven/) | Maven plugin with mojos for multi-module projects | [README](smart-test-picker-maven/README.md) |
 | [smart-test-picker-cli](smart-test-picker-cli/) | Standalone CLI for non-Gradle/Maven environments | [README](smart-test-picker-cli/README.md) |
-| [stp-agent](stp-agent/) | STP ASM mapping agent (migration foundation; not yet wired into build tools) | [README](stp-agent/README.md) |
+| [stp-agent](stp-agent/) | Production ASM mapping agent bundled with its runtime and JUnit lifecycle adapter | [README](stp-agent/README.md) |
 
 ## Selection Algorithm
 
@@ -171,6 +171,18 @@ This avoids over-selection (running every test that touches a class) while maint
 # Publish to local Maven repository (for testing)
 ./gradlew publishToMavenLocal
 ```
+
+Wire and component compatibility is summarized in [docs/compatibility.md](docs/compatibility.md).
+
+## Documentation status
+
+- [Current development state](docs/current-development-state.md) is the concise current-state entry point.
+- [Compatibility](docs/compatibility.md) separates artifact versions from wire-format versions.
+- Module README files document the current Gradle, Maven, CLI, runtime, and agent surfaces.
+- `docs/task*.md`, `docs/ei-*.md`, `EI-*`, and the superseded
+  [architecture chronology](docs/current-architecture.md) are historical design or validation records;
+  they retain the versions and results that applied when written.
+- [Changelog](CHANGELOG.md) summarizes implemented but unreleased changes.
 
 ## Support, Feedback, Contributing
 

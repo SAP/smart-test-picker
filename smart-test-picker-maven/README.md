@@ -20,6 +20,10 @@ Maven plugin providing mojo implementations for the coverage pipeline.
 | `generate-coverage-fragment` | `GenerateCoverageFragmentMojo` | Generates a revision/shard-bound schema-v2 fragment |
 | `generate-head-test-inventory` | `GenerateHeadTestInventoryMojo` | Discovers exact JUnit identities for the current module without running tests |
 | `generate-reactor-head-test-inventory` | `GenerateReactorHeadTestInventoryMojo` | Writes one authoritative inventory for the effective reactor |
+| `prepare-reactor-executable-mapping` | `PrepareReactorExecutableMappingMojo` | Routes a schema-3 executable assignment to exact reactor targets before test execution |
+| `aggregate-reactor-coverage-fragment` | `AggregateReactorCoverageFragmentMojo` | Validates and atomically publishes the reactor fragment/evidence pair |
+| `merge-executable-head-test-inventories` | `MergeExecutableHeadTestInventoriesMojo` | Merges target-qualified inventory parts |
+| `merge-executable-target-fragments` | `MergeExecutableTargetFragmentsMojo` | Merges target-owned executable fragments |
 | `select-tests` | `SelectTestsMojo` | Runs test selection and writes `selected-tests.json` |
 | `generate-report` | `GenerateReportMojo` | Generates HTML dashboard report |
 | `generate-reports` | `GenerateReportsMojo` | Converts `.exec` files to XML reports |
@@ -27,6 +31,13 @@ Maven plugin providing mojo implementations for the coverage pipeline.
 | `merge-test-metrics` | `MergeTestMetricsMojo` | Merges per-test metrics from multi-module builds |
 
 ## Multi-Module Support
+
+For executable schema 3, use the reactor inventory goal with `-DsmartTestPicker.schemaVersion=3`.
+It records canonical Maven execution targets rather than inferring module ownership from package or
+class names. Jenkins executable mapping supplies an assignment, invokes
+`prepare-reactor-executable-mapping`, executes the ordinary configured test lifecycle, and invokes
+`aggregate-reactor-coverage-fragment`. Logical schema-2 goals remain supported for their existing
+contract; they are not a substitute for target-qualified ownership.
 
 Use the aggregator inventory goal after test compilation to write exactly one inventory under the
 Maven execution root (by default, `.stp/head-test-inventory.json`):

@@ -51,6 +51,9 @@ The plugin registers the following tasks:
 | `generateTestReport` | `GenerateTestReportTask` | Produces HTML dashboard + source coverage pages |
 | `generateSmartTestCoverage` | Gradle `Test` | Dedicated STP mapping execution; receives exactly one selected collector |
 | `generateSmartTestMapping` | lifecycle | Runs `generateSmartTestCoverage`; in JACOCO mode also runs the legacy report/map stages |
+| `generateGradleExecutableHeadTestInventory` | `GenerateGradleExecutableHeadTestInventoryTask` | Aggregates schema-3 identities owned by concrete Gradle test tasks |
+| `generateGradleExecutableProjectInventory` | `GenerateGradleExecutableProjectInventoryTask` | Produces one project-local executable inventory part |
+| `aggregateGradleExecutableCoverage` | `AggregateGradleExecutableCoverageTask` | Validates and joins target-owned schema-3 fragments for one assignment |
 
 ## Typical Workflow
 
@@ -77,6 +80,10 @@ open build/reports/smart-test-picker/index.html
 ## Task Details
 
 ### Coverage collectors
+
+Executable Jenkins mapping sets `stp.schemaVersion=3`, supplies an executable assignment and concrete
+test-task scope, and uses the executable inventory/aggregation tasks above. Ordinary standalone plugin
+usage remains on the logical schema-2 path unless those invocation inputs are supplied.
 
 `ASM` is the production default and emits a schema-v2 fragment directly at
 `build/stp/coverage/_generateSmartTestCoverage/<sanitized-shardId>/fragment.json`. The plugin resolves

@@ -1,5 +1,7 @@
 # EI-4 runtime execution-target propagation
 
+> **Historical implementation stage.** EI-4 was introduced at revision `7c71df8c3fe343e0beb51eed1decdb9274b51d0a` on 2026-09-12. Later work completed schema-3 orchestration and added JUnit Vintage `ClassSource` execution evidence. Preserve the findings below as stage evidence; use the [current development state](current-development-state.md) and [compatibility table](compatibility.md) for present behavior.
+
 ## Purpose
 
 EI-4 carries a trusted build execution location into mapping collection and combines it with each logical test identity. Schema-v3 fragments are therefore keyed by `ExecutableTestIdentity`; schema-v2 collection remains logical-test keyed.

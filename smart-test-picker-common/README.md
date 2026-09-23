@@ -1,6 +1,6 @@
 # smart-test-picker-common
 
-Shared engine classes used by the Gradle plugin, Maven plugin, and CLI. This module contains all pipeline logic and has no build-tool-specific dependencies.
+Shared, build-tool-neutral contracts and engines used by Gradle, Maven, CLI and the Jenkins integration. Legacy unversioned map APIs remain for local compatibility, while production mapping/selection uses validated schema-2 and schema-3 semantic models.
 
 ## Engines
 
@@ -12,7 +12,13 @@ Shared engine classes used by the Gradle plugin, Maven plugin, and CLI. This mod
 | `ReportEngine` | Generates the HTML dashboard report |
 | `NewTestDetector` | Identifies unmapped/new test classes |
 
-## Coverage Map (`mapper/`)
+## Coverage contracts
+
+Current versioned contracts include immutable logical schema-2 coverage and executable target-aware schema-3 coverage, revision-bound head inventories, shard assignments, fragments, setup scopes, unmapped tests, completeness, lifecycle state, deterministic codecs and validation. `ExecutableTestIdentity` combines a canonical build target with a logical `TestIdentity`; identities from different Maven modules or Gradle test tasks are never silently merged.
+
+`CoverageMapContract.SCHEMA_VERSION` is the retained public alias for logical schema 2. `SCHEMA_V3` is the executable family and `LATEST_SCHEMA` identifies it. Wire/schema versions are independent of the `0.3.0-SNAPSHOT` artifact version.
+
+## Legacy coverage map (`mapper/`)
 
 ### Models
 
@@ -67,7 +73,7 @@ Typical reduction: 944 MB to 67 MB (indexed) or 12 MB (indexed + gzip) for 5755 
 | `JacocoSourceFile` | `<sourcefile>` |
 | `JacocoLine` | `<line>` |
 
-## Test Selection (`selector/`)
+## Selection and policy (`selector/`, `policy/`)
 
 `TestSelector` implements the dual-granularity selection algorithm:
 
@@ -77,6 +83,8 @@ Typical reduction: 944 MB to 67 MB (indexed) or 12 MB (indexed + gzip) for 5755 
 
 `SelectionResult` wraps the outcome (FULL_SUITE, SELECTED, or NONE).
 `SelectionOutput` is the JSON model for `selected-tests.json`.
+
+The revision-bound selector validates map/inventory compatibility and projects executable schema-3 coverage conservatively to logical selection before expanding selected logical identities back to every exact executable inventory match. `CentralFailurePolicy` owns the bounded `CONTINUE`, `RUN_FULL_SUITE`, and `FAIL_BUILD` decision; CI adapters realize that decision.
 
 ## Remote Store and Local Cache (`store/`)
 

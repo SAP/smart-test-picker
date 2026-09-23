@@ -1,4 +1,6 @@
-# Smart Test Picker current supported state
+# Smart Test Picker EI-15 supported-state snapshot
+
+> **Historical validation evidence.** This snapshot was recorded at revision `164f49b76b83d37fed009993c8f0cc4d5dbb22af` on 2026-09-14. The version table, paths, statuses, checksums, and validation totals below describe EI-15 and are not the current repository/component inventory. Preserve those results as recorded. Current development uses the unified `0.3.0-SNAPSHOT` line; use the [current development state](../docs/current-development-state.md), [compatibility table](../docs/compatibility.md), and root README for present usage.
 
 Status date: 2026-09-14. This is the concise authority for the reviewed STP and Jenkins prototype. Historical task reports remain evidence for the revisions they name; they are not universal compatibility claims.
 
