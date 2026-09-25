@@ -90,6 +90,18 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		assertEquals(Set.of("maven:module-a::a.ATests#a1", "maven:module-b::b.BTests#b2",
 				"maven:module-a::shared.SharedTest#same", "maven:module-b::shared.SharedTest#same"),
 				decoded.tests().keySet().stream().map(Object::toString).collect(java.util.stream.Collectors.toSet()));
+		var moduleBCoverage = decoded.tests().entrySet().stream()
+				.filter(entry -> entry.getKey().toString().equals("maven:module-b::b.BTests#b2"))
+				.findFirst().orElseThrow().getValue();
+		assertEquals(Set.of("a.AValue", "b.BValue"), moduleBCoverage.coveredClasses());
+		assertTrue(moduleBCoverage.coveredMethods().stream()
+				.anyMatch(method -> method.binaryClassName().equals("a.AValue") && method.methodName().equals("value")));
+		assertTrue(moduleBCoverage.coveredMethods().stream()
+				.anyMatch(method -> method.binaryClassName().equals("b.BValue") && method.methodName().equals("value")));
+		var moduleACoverage = decoded.tests().entrySet().stream()
+				.filter(entry -> entry.getKey().toString().equals("maven:module-a::a.ATests#a1"))
+				.findFirst().orElseThrow().getValue();
+		assertEquals(Set.of("a.AValue"), moduleACoverage.coveredClasses());
 		assertFalse(result.output().contains("outside assignment executed"), result.output());
 		assertTrue(Files.readString(fixture.resolve("module-a/target/stp/selected-tests-surefire-v3.txt")).contains("a.ATests#a1"));
 		assertTrue(Files.readString(fixture.resolve("module-b/target/stp/selected-tests-surefire-v3.txt")).contains("b.BTests#b2"));
