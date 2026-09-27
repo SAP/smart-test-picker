@@ -147,6 +147,41 @@ class TestSelectorTest
 		assertTrue(result.getSelectedTests().contains("OwnerControllerTests#testShowOwner"));
 		assertFalse(result.getSelectedTests().contains("PetControllerTests#testCreatePet"));
 		assertFalse(result.getSelectedTests().contains("VetControllerTests#testShowVets"));
+		assertEquals(List.of(new SelectionCause(SelectionCauseType.METHOD_CHANGE,
+				"org.example.controller.OwnerController#showOwner")),
+				result.getSelectionCauses().get("OwnerControllerTests#testShowOwner"));
+	}
+
+	@Test
+	void retainsAllMethodCausesDeduplicatedAndDeterministicallyOrdered(@TempDir Path tempDir) throws Exception
+	{
+		File map = tempDir.resolve("map.json").toFile();
+		Files.writeString(map.toPath(), """
+				{"metadata":{"baseBranch":"main","commitId":"abc","timestamp":"now"},
+				 "testMappings":{"Test#both":{"classes":["z.Service","a.Service"],
+				 "methods":["z.Service#write","a.Service#read","z.Service#write"]}}}
+				""");
+		Set<String> changesA = new java.util.LinkedHashSet<>(List.of("z.Service#write", "a.Service#read"));
+		Set<String> changesB = new java.util.LinkedHashSet<>(List.of("a.Service#read", "z.Service#write"));
+		SelectionResult first = new TestSelector().selectTests(map, Set.of(), changesA);
+		SelectionResult second = new TestSelector().selectTests(map, Set.of(), changesB);
+		List<SelectionCause> expected = List.of(
+				new SelectionCause(SelectionCauseType.METHOD_CHANGE, "a.Service#read"),
+				new SelectionCause(SelectionCauseType.METHOD_CHANGE, "z.Service#write"));
+		assertEquals(expected, first.getSelectionCauses().get("Test#both"));
+		assertEquals(first.getSelectionCauses(), second.getSelectionCauses());
+		assertEquals(first.getSelectedTests(), second.getSelectedTests());
+	}
+
+	@Test
+	void classMatchHasConcreteClassCause()
+	{
+		SelectionResult result = new TestSelector().selectTests(getFixture("coverage-map-with-metadata.json"),
+				Set.of("org.example.controller.OwnerController"));
+		assertEquals(List.of(new SelectionCause(SelectionCauseType.CLASS_CHANGE,
+				"org.example.controller.OwnerController")),
+				result.getSelectionCauses().get("OwnerControllerTests#testShowOwner"));
+		assertFalse(result.getSelectionCauses().containsKey("PetControllerTests#testCreatePet"));
 	}
 
 	@Test
@@ -281,6 +316,8 @@ class TestSelectorTest
 		assertFalse(result.isFullSuiteRequired());
 		assertEquals(Set.of("ZeroCoverageTest#testNothing"), result.getSelectedTests());
 		assertEquals("NO_COVERAGE", result.getSelectionReasons().get("ZeroCoverageTest#testNothing"));
+		assertEquals(List.of(new SelectionCause(SelectionCauseType.NO_COVERAGE, null)),
+				result.getSelectionCauses().get("ZeroCoverageTest#testNothing"));
 		assertFalse(result.getSelectedTests().contains("MappedTest#testService"));
 	}
 

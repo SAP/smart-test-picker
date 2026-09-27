@@ -18,6 +18,8 @@ import com.sap.oss.smarttestpicker.mapper.CoverageMap;
 import com.sap.oss.smarttestpicker.mapper.CoverageMapMetadata;
 import com.sap.oss.smarttestpicker.mapper.CoverageMapReader;
 import com.sap.oss.smarttestpicker.selector.SelectionOutput;
+import com.sap.oss.smarttestpicker.selector.SelectionCause;
+import com.sap.oss.smarttestpicker.selector.SelectionCauseType;
 import com.sap.oss.smarttestpicker.selector.SelectionResult;
 import com.sap.oss.smarttestpicker.selector.TestSelector;
 
@@ -215,6 +217,12 @@ public class TestSelectionEngine
 				selected.size(), unmappedTests.size());
 		SelectionOutput out = new SelectionOutput("SELECTED", reason, selected, unmappedTests);
 		out.setSelectionReasons(result.getSelectionReasons());
+		Map<String, List<SelectionCause>> causes = new LinkedHashMap<>();
+		result.getSelectionCauses().entrySet().stream().sorted(Map.Entry.comparingByKey())
+				.forEach(entry -> causes.put(entry.getKey(), entry.getValue()));
+		unmappedTests.keySet().stream().sorted().forEach(test ->
+				causes.put(test, List.of(new SelectionCause(SelectionCauseType.UNMAPPED, test))));
+		out.setSelectionCauses(causes);
 		if (coverageMap.getExecutionIdentities() != null)
 		{
 			Map<String, com.sap.oss.smarttestpicker.execution.ExecutionIdentityMetadata> identities = new LinkedHashMap<>();

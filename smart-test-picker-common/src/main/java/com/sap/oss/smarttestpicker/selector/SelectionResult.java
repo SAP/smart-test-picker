@@ -3,6 +3,7 @@
 package com.sap.oss.smarttestpicker.selector;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -33,16 +34,17 @@ public class SelectionResult
 	/** Human-readable reason why the full suite is required (null if not required). */
 	private final String reason;
 
-	/** Explicit per-test reasons for conservative selections. */
-	private final Map<String, String> selectionReasons;
+	/** Complete structured causes for every selected logical test. */
+	private final Map<String, List<SelectionCause>> selectionCauses;
 
 	private SelectionResult(Set<String> selectedTests, boolean fullSuiteRequired, String reason,
-			Map<String, String> selectionReasons)
+			Map<String, List<SelectionCause>> selectionCauses)
 	{
 		this.selectedTests = Set.copyOf(selectedTests);
 		this.fullSuiteRequired = fullSuiteRequired;
 		this.reason = reason;
-		this.selectionReasons = Map.copyOf(selectionReasons);
+		this.selectionCauses = selectionCauses.entrySet().stream().collect(java.util.stream.Collectors.toUnmodifiableMap(
+				Map.Entry::getKey, entry -> List.copyOf(entry.getValue())));
 	}
 
 	/**
@@ -53,12 +55,13 @@ public class SelectionResult
 	 */
 	public static SelectionResult selected(Set<String> tests)
 	{
-		return selected(tests, Map.of());
+		return selectedWithCauses(tests, Map.of());
 	}
 
-	public static SelectionResult selected(Set<String> tests, Map<String, String> selectionReasons)
+	public static SelectionResult selectedWithCauses(Set<String> tests,
+			Map<String, List<SelectionCause>> selectionCauses)
 	{
-		return new SelectionResult(tests, false, null, selectionReasons);
+		return new SelectionResult(tests, false, null, selectionCauses);
 	}
 
 	/**
@@ -103,8 +106,18 @@ public class SelectionResult
 		return reason;
 	}
 
+	public Map<String, List<SelectionCause>> getSelectionCauses()
+	{
+		return selectionCauses;
+	}
+
+	/** Legacy conservative reason view retained for existing consumers. */
 	public Map<String, String> getSelectionReasons()
 	{
-		return selectionReasons;
+		return selectionCauses.entrySet().stream()
+				.filter(entry -> entry.getValue().size() == 1
+						&& entry.getValue().get(0).type() == SelectionCauseType.NO_COVERAGE)
+				.collect(java.util.stream.Collectors.toUnmodifiableMap(Map.Entry::getKey,
+						entry -> "NO_COVERAGE"));
 	}
 }

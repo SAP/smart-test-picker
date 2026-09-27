@@ -47,6 +47,9 @@ class SelectionOutputTest
 		SelectionOutput original = new SelectionOutput("FULL_SUITE", "Map missing",
 				List.of("TestA#m1"), Map.of("TestB", "New test"));
 		original.setChangedClasses(List.of("com.example.Changed"));
+		original.setSelectionCauses(Map.of(
+				"TestA#m1", List.of(new SelectionCause(SelectionCauseType.METHOD_CHANGE, "com.example.Changed#work")),
+				"TestB", List.of(new SelectionCause(SelectionCauseType.UNMAPPED, "TestB"))));
 
 		Gson gson = new Gson();
 		String json = gson.toJson(original);
@@ -57,6 +60,18 @@ class SelectionOutputTest
 		assertEquals(List.of("TestA#m1"), deserialized.getSelectedTests());
 		assertEquals("New test", deserialized.getUnmappedTests().get("TestB"));
 		assertEquals(List.of("com.example.Changed"), deserialized.getChangedClasses());
+		assertEquals(original.getSelectionCauses(), deserialized.getSelectionCauses());
+	}
+
+	@Test
+	void legacyJsonWithoutSelectionCausesRemainsReadable()
+	{
+		SelectionOutput output = new Gson().fromJson("""
+				{"status":"SELECTED","selectedTests":["TestA#m1"],"selectionReasons":{"TestA#m1":"NO_COVERAGE"}}
+				""", SelectionOutput.class);
+		assertEquals(List.of("TestA#m1"), output.getSelectedTests());
+		assertEquals("NO_COVERAGE", output.getSelectionReasons().get("TestA#m1"));
+		assertNull(output.getSelectionCauses());
 	}
 
 	@Test

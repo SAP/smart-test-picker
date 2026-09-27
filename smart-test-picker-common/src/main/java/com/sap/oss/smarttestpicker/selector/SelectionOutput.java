@@ -46,6 +46,9 @@ public class SelectionOutput
 	/** Explicit per-test conservative-selection reasons (for example NO_COVERAGE). */
 	private Map<String, String> selectionReasons;
 
+	/** Complete structured causes, deterministically ordered by type and symbol. */
+	private Map<String, List<SelectionCause>> selectionCauses;
+
 	/** Additive execution-only identity metadata; not a selection cause. */
 	private Map<String, ExecutionIdentityMetadata> executionIdentities;
 
@@ -122,6 +125,16 @@ public class SelectionOutput
 	public void setSelectionReasons(Map<String, String> selectionReasons)
 	{
 		this.selectionReasons = selectionReasons;
+	}
+
+	public Map<String, List<SelectionCause>> getSelectionCauses()
+	{
+		return selectionCauses;
+	}
+
+	public void setSelectionCauses(Map<String, List<SelectionCause>> selectionCauses)
+	{
+		this.selectionCauses = selectionCauses;
 	}
 
 	public Map<String, ExecutionIdentityMetadata> getExecutionIdentities() { return executionIdentities; }

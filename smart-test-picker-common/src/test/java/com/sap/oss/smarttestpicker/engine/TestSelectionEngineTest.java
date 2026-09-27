@@ -19,6 +19,7 @@ import org.junit.jupiter.api.io.TempDir;
 import com.sap.oss.smarttestpicker.mapper.CoverageMap;
 import com.sap.oss.smarttestpicker.mapper.CoverageMapMetadata;
 import com.sap.oss.smarttestpicker.selector.SelectionOutput;
+import com.sap.oss.smarttestpicker.selector.SelectionCauseType;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -124,6 +125,10 @@ class TestSelectionEngineTest
 		assertEquals("SELECTED", result.getStatus());
 		assertFalse(result.getSelectedTests().isEmpty());
 		assertTrue(result.getSelectedTests().contains("FooTest#testFoo"));
+		assertNotNull(result.getSelectionCauses().get("FooTest#testFoo"));
+		assertTrue(result.getSelectionCauses().get("FooTest#testFoo").stream()
+				.anyMatch(cause -> cause.type() == SelectionCauseType.CLASS_CHANGE
+						&& "org.example.Foo".equals(cause.symbol())));
 	}
 
 	@Test

@@ -6,9 +6,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import com.sap.oss.smarttestpicker.engine.EngineLogger;
 import com.sap.oss.smarttestpicker.mapper.CoverageMap;
@@ -119,7 +122,7 @@ public class TestSelector
 				classLevelOnlyClasses.size(), classLevelOnlyClasses);
 
 		Set<String> selectedTests = new HashSet<>();
-		Map<String, String> selectionReasons = new HashMap<>();
+		Map<String, Set<SelectionCause>> selectionCauses = new HashMap<>();
 		int methodMatchCount = 0;
 		int classMatchCount = 0;
 		int noCoverageCount = 0;
@@ -142,7 +145,7 @@ public class TestSelector
 					&& (allCoveredMethods == null || allCoveredMethods.isEmpty()))
 			{
 				selectedTests.add(testName);
-				selectionReasons.put(testName, "NO_COVERAGE");
+				addCause(selectionCauses, testName, new SelectionCause(SelectionCauseType.NO_COVERAGE, null));
 				noCoverageCount++;
 				logger.debug("[SmartTestPicker]   {} -> selected (NO_COVERAGE)", testName);
 				continue;
@@ -158,8 +161,9 @@ public class TestSelector
 					{
 						if (changedMethods.contains(coveredMethod))
 						{
-							selectedTests.add(testName);
-							methodMatchCount++;
+							if (selectedTests.add(testName)) methodMatchCount++;
+							addCause(selectionCauses, testName,
+									new SelectionCause(SelectionCauseType.METHOD_CHANGE, coveredMethod));
 							// Track which class got a hit
 							int hashIdx = coveredMethod.indexOf('#');
 							if (hashIdx > 0)
@@ -169,14 +173,13 @@ public class TestSelector
 							}
 							logger.debug("[SmartTestPicker]   {} -> selected (method-level: covers {})",
 									testName, coveredMethod);
-							break;
 						}
 					}
 				}
 			}
 
 			// Class-level fallback for classes without method info
-			if (!selectedTests.contains(testName) && !classLevelOnlyClasses.isEmpty())
+			if (!classLevelOnlyClasses.isEmpty())
 			{
 				List<String> coveredClasses = coverage.get("classes");
 				if (coveredClasses != null)
@@ -185,11 +188,11 @@ public class TestSelector
 					{
 						if (classLevelOnlyClasses.contains(coveredClass))
 						{
-							selectedTests.add(testName);
-							classMatchCount++;
+							if (selectedTests.add(testName)) classMatchCount++;
+							addCause(selectionCauses, testName,
+									new SelectionCause(SelectionCauseType.CLASS_CHANGE, coveredClass));
 							logger.debug("[SmartTestPicker]   {} -> selected (class-level: covers {})",
 									testName, coveredClass);
-							break;
 						}
 					}
 				}
@@ -217,10 +220,6 @@ public class TestSelector
 			for (Map.Entry<String, Map<String, List<String>>> entry : coverageMap.getTestMappings().entrySet())
 			{
 				String testName = entry.getKey();
-				if (selectedTests.contains(testName))
-				{
-					continue;
-				}
 				Map<String, List<String>> coverage = entry.getValue();
 				List<String> coveredClasses = coverage.get("classes");
 				if (coveredClasses != null)
@@ -229,9 +228,9 @@ public class TestSelector
 					{
 						if (escalatedClasses.contains(coveredClass))
 						{
-							selectedTests.add(testName);
-							escalatedCount++;
-							break;
+							if (selectedTests.add(testName)) escalatedCount++;
+							addCause(selectionCauses, testName,
+									new SelectionCause(SelectionCauseType.CLASS_CHANGE, coveredClass));
 						}
 					}
 				}
@@ -247,7 +246,15 @@ public class TestSelector
 				selectedTests.size(), total, methodMatchCount, classMatchCount, escalatedCount,
 				noCoverageCount, String.format("%.1f", reduction));
 
-		return SelectionResult.selected(selectedTests, selectionReasons);
+		Map<String, List<SelectionCause>> orderedCauses = new LinkedHashMap<>();
+		selectionCauses.keySet().stream().sorted().forEach(test ->
+				orderedCauses.put(test, new ArrayList<>(selectionCauses.get(test))));
+		return SelectionResult.selectedWithCauses(selectedTests, orderedCauses);
+	}
+
+	private void addCause(Map<String, Set<SelectionCause>> causes, String test, SelectionCause cause)
+	{
+		causes.computeIfAbsent(test, ignored -> new TreeSet<>()).add(cause);
 	}
 
 	/**

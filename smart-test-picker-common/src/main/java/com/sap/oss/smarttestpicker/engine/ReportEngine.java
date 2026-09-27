@@ -342,12 +342,22 @@ public class ReportEngine
 			{
 				data.setUnmappedTests(Map.of());
 			}
+
+			if (output.getSelectionCauses() != null)
+			{
+				data.setSelectionCauses(new LinkedHashMap<>(output.getSelectionCauses()));
+			}
+			else
+			{
+				data.setSelectionCauses(Map.of());
+			}
 		}
 		catch (IOException e)
 		{
 			logger.warn("[SmartTestPicker] Failed to read selected tests file: {}", e.getMessage());
 			data.setSelectedTests(Set.of());
 			data.setUnmappedTests(Map.of());
+			data.setSelectionCauses(Map.of());
 		}
 	}
 

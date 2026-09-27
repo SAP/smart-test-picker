@@ -20,6 +20,18 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class HtmlReportGeneratorTest
 {
+	@Test
+	void displaysStructuredSelectionCausesInStableOrder()
+	{
+		ReportData data = buildBasicData(Set.of("OwnerControllerTests#testShowOwner"));
+		data.setSelectionCauses(Map.of("OwnerControllerTests#testShowOwner", List.of(
+				new com.sap.oss.smarttestpicker.selector.SelectionCause(
+						com.sap.oss.smarttestpicker.selector.SelectionCauseType.CLASS_CHANGE, "a.Class"),
+				new com.sap.oss.smarttestpicker.selector.SelectionCause(
+						com.sap.oss.smarttestpicker.selector.SelectionCauseType.METHOD_CHANGE, "b.Class#method"))));
+		String html = new HtmlReportGenerator().generate(data);
+		assertTrue(html.contains("CLASS_CHANGE: a.Class; METHOD_CHANGE: b.Class#method"));
+	}
 
 	private final HtmlReportGenerator generator = new HtmlReportGenerator();
 

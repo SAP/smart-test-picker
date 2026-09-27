@@ -936,8 +936,12 @@ public class HtmlReportGenerator
 
 		for (String test : displayTests)
 		{
-			String reason = computeSelectionReason(test, data.getTestMappings().get(test),
-					changedClasses, changedMethods, classesWithMethodInfo, true);
+			String reason = structuredSelectionReason(test, data);
+			if (reason == null)
+			{
+				reason = computeSelectionReason(test, data.getTestMappings().get(test),
+						changedClasses, changedMethods, classesWithMethodInfo, true);
+			}
 
 			sb.append("    <tr>");
 			sb.append("<td class=\"test-name\" title=\"" + esc(test) + "\">" + shortTestName(test) + "</td>");
@@ -949,6 +953,16 @@ public class HtmlReportGenerator
 		sb.append("  </table>\n");
 		sb.append("</section>\n");
 		return sb.toString();
+	}
+
+	private String structuredSelectionReason(String test, ReportData data)
+	{
+		if (data.getSelectionCauses() == null || data.getSelectionCauses().get(test) == null)
+			return null;
+		return data.getSelectionCauses().get(test).stream()
+				.map(cause -> cause.symbol() == null ? cause.type().name()
+						: cause.type().name() + ": " + cause.symbol())
+				.collect(java.util.stream.Collectors.joining("; "));
 	}
 
 	/**

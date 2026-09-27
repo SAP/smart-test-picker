@@ -23,6 +23,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MavenExecutionPlannerTest
 {
+	@Test
+	void selectionCauseMetadataDoesNotChangeExecutionPlan() throws Exception
+	{
+		MavenProject module = module("one", temp.resolve("causes"));
+		copyFixture(module);
+		SelectionOutput before = output(List.of("FooTest#testA_hash"),
+				Map.of("FooTest#testA_hash", identity(FQN, "alpha", ExecutionShape.ORDINARY)));
+		SelectionOutput after = output(List.of("FooTest#testA_hash"),
+				Map.of("FooTest#testA_hash", identity(FQN, "alpha", ExecutionShape.ORDINARY)));
+		after.setSelectionCauses(Map.of("FooTest#testA_hash", List.of(
+				new com.sap.oss.smarttestpicker.selector.SelectionCause(
+						com.sap.oss.smarttestpicker.selector.SelectionCauseType.METHOD_CHANGE, "p.Service#work"))));
+		MavenExecutionPlanner planner = new MavenExecutionPlanner(List.of(module));
+		assertEquals(planner.plan(before, false), planner.plan(after, false));
+	}
 	@TempDir Path temp;
 	private static final String FQN = "com.sap.oss.smarttestpicker.maven.PlannerFixtureTest";
 

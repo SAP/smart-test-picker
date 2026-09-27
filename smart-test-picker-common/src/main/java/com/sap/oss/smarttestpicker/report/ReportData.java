@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.sap.oss.smarttestpicker.mapper.ClassCoverageMetrics;
+import com.sap.oss.smarttestpicker.selector.SelectionCause;
 
 
 /**
@@ -70,6 +71,9 @@ public class ReportData
 
 	/** Test class names found on disk but not in the coverage map (FQN → reason). */
 	private Map<String, String> unmappedTests;
+
+	/** Complete structured selection/conservative-execution causes by logical test. */
+	private Map<String, List<SelectionCause>> selectionCauses;
 
 	/** Source coverage page links: classFQN → relative HTML path (e.g. "sources/org.example.Foo.html"). */
 	private Map<String, String> sourceLinks;
@@ -226,6 +230,16 @@ public class ReportData
 	public void setUnmappedTests(Map<String, String> unmappedTests)
 	{
 		this.unmappedTests = unmappedTests;
+	}
+
+	public Map<String, List<SelectionCause>> getSelectionCauses()
+	{
+		return selectionCauses;
+	}
+
+	public void setSelectionCauses(Map<String, List<SelectionCause>> selectionCauses)
+	{
+		this.selectionCauses = selectionCauses;
 	}
 
 	public Map<String, String> getSourceLinks()
