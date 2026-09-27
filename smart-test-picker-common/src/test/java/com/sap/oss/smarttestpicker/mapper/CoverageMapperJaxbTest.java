@@ -72,6 +72,20 @@ class CoverageMapperJaxbTest
 	}
 
 	@Test
+	void validEmptyReportPreservesZeroCoverageTest(@TempDir Path tempDir) throws IOException
+	{
+		Files.writeString(tempDir.resolve("session_ZeroCoverageTest#testNothing.xml"),
+				"<?xml version=\"1.0\" encoding=\"UTF-8\"?><report name=\"smart-report\"></report>");
+
+		Map<String, Map<String, List<String>>> result =
+				new CoverageMapperJaxb(tempDir.toFile()).generateTestCoverageMapping();
+
+		assertTrue(result.containsKey("ZeroCoverageTest#testNothing"));
+		assertEquals(List.of(), result.get("ZeroCoverageTest#testNothing").get("classes"));
+		assertEquals(List.of(), result.get("ZeroCoverageTest#testNothing").get("methods"));
+	}
+
+	@Test
 	void nonSessionFilesAreIgnored(@TempDir Path tempDir) throws IOException
 	{
 		Files.writeString(tempDir.resolve("other_report.xml"), "<report/>");

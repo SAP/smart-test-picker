@@ -115,13 +115,17 @@ public class CoverageMapperJaxb
 			String testName = extractTestName(xml.getName());
 
 			JacocoReport report = parseXml(xml);
-			if (report == null || report.getPackages() == null)
+			if (report == null)
+				continue;
+			if (report.getPackages() == null && !xml.getName().startsWith("session_"))
 				continue;
 
 			Set<String> coveredClasses = new HashSet<>();
 			Set<String> coveredMethods = new HashSet<>();
 
-			for (JacocoPackage pkg : report.getPackages())
+			List<JacocoPackage> packages = report.getPackages() != null
+					? report.getPackages() : List.of();
+			for (JacocoPackage pkg : packages)
 			{
 				if (pkg.getClasses() == null)
 					continue;

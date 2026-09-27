@@ -237,6 +237,32 @@ class TestSelectorTest
 		assertTrue(result.getSelectedTests().isEmpty());
 	}
 
+	@Test
+	void alwaysSelectsZeroCoverageTestWithExplicitReason(@TempDir Path tempDir) throws IOException
+	{
+		File mapFile = tempDir.resolve("map.json").toFile();
+		Files.writeString(mapFile.toPath(), """
+				{
+				  "metadata": {"baseBranch":"main","commitId":"abc","timestamp":"now"},
+				  "testMappings": {
+				    "ZeroCoverageTest#testNothing": {"classes":[],"methods":[]},
+				    "MappedTest#testService": {
+				      "classes":["org.example.Service"],
+				      "methods":["org.example.Service#run"]
+				    }
+				  }
+				}
+				""");
+
+		SelectionResult result = new TestSelector().selectTests(
+				mapFile, Set.of("org.example.Unrelated"), Set.of());
+
+		assertFalse(result.isFullSuiteRequired());
+		assertEquals(Set.of("ZeroCoverageTest#testNothing"), result.getSelectedTests());
+		assertEquals("NO_COVERAGE", result.getSelectionReasons().get("ZeroCoverageTest#testNothing"));
+		assertFalse(result.getSelectedTests().contains("MappedTest#testService"));
+	}
+
 	private File getFixture(String name)
 	{
 		return new File(getClass().getClassLoader().getResource(name).getFile());

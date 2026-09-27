@@ -133,7 +133,7 @@ class ExecToXmlEngineTest
 	}
 
 	@Test
-	void skipsExecWithNoCoverage(@TempDir Path tempDir) throws Exception
+	void writesEmptyReportForExecWithNoCoverage(@TempDir Path tempDir) throws Exception
 	{
 		File classesDir = compileMinimalClass(tempDir);
 		File execDir = tempDir.resolve("exec").toFile();
@@ -145,11 +145,11 @@ class ExecToXmlEngineTest
 		ExecToXmlEngine engine = new ExecToXmlEngine();
 		engine.generateReports(execDir, classesDir, null, reportDir, new NoOpLogger());
 
-		if (reportDir.exists())
-		{
-			File xmlFile = new File(reportDir, "session_EmptyTest#test.xml");
-			assertFalse(xmlFile.exists(), "XML should not be generated for exec with no coverage");
-		}
+		File xmlFile = new File(reportDir, "session_EmptyTest#test.xml");
+		assertTrue(xmlFile.exists(), "An empty XML report must preserve the executed test identity");
+		String xml = Files.readString(xmlFile.toPath());
+		assertTrue(xml.contains("<report"));
+		assertFalse(xml.contains("<package"));
 	}
 
 	private File compileMinimalClass(Path tempDir) throws IOException

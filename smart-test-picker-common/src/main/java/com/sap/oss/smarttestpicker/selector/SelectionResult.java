@@ -3,6 +3,7 @@
 package com.sap.oss.smarttestpicker.selector;
 
 import java.util.Collections;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -32,11 +33,16 @@ public class SelectionResult
 	/** Human-readable reason why the full suite is required (null if not required). */
 	private final String reason;
 
-	private SelectionResult(Set<String> selectedTests, boolean fullSuiteRequired, String reason)
+	/** Explicit per-test reasons for conservative selections. */
+	private final Map<String, String> selectionReasons;
+
+	private SelectionResult(Set<String> selectedTests, boolean fullSuiteRequired, String reason,
+			Map<String, String> selectionReasons)
 	{
-		this.selectedTests = selectedTests;
+		this.selectedTests = Set.copyOf(selectedTests);
 		this.fullSuiteRequired = fullSuiteRequired;
 		this.reason = reason;
+		this.selectionReasons = Map.copyOf(selectionReasons);
 	}
 
 	/**
@@ -47,7 +53,12 @@ public class SelectionResult
 	 */
 	public static SelectionResult selected(Set<String> tests)
 	{
-		return new SelectionResult(tests, false, null);
+		return selected(tests, Map.of());
+	}
+
+	public static SelectionResult selected(Set<String> tests, Map<String, String> selectionReasons)
+	{
+		return new SelectionResult(tests, false, null, selectionReasons);
 	}
 
 	/**
@@ -58,7 +69,7 @@ public class SelectionResult
 	 */
 	public static SelectionResult fullSuite(String reason)
 	{
-		return new SelectionResult(Collections.emptySet(), true, reason);
+		return new SelectionResult(Collections.emptySet(), true, reason, Map.of());
 	}
 
 	/**
@@ -90,5 +101,10 @@ public class SelectionResult
 	public String getReason()
 	{
 		return reason;
+	}
+
+	public Map<String, String> getSelectionReasons()
+	{
+		return selectionReasons;
 	}
 }

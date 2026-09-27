@@ -119,8 +119,10 @@ public class TestSelector
 				classLevelOnlyClasses.size(), classLevelOnlyClasses);
 
 		Set<String> selectedTests = new HashSet<>();
+		Map<String, String> selectionReasons = new HashMap<>();
 		int methodMatchCount = 0;
 		int classMatchCount = 0;
+		int noCoverageCount = 0;
 
 		// Track which classesWithMethodInfo actually got method-level hits
 		Map<String, Integer> methodHitsPerClass = new HashMap<>();
@@ -134,6 +136,17 @@ public class TestSelector
 		{
 			String testName = entry.getKey();
 			Map<String, List<String>> coverage = entry.getValue();
+			List<String> allCoveredClasses = coverage.get("classes");
+			List<String> allCoveredMethods = coverage.get("methods");
+			if ((allCoveredClasses == null || allCoveredClasses.isEmpty())
+					&& (allCoveredMethods == null || allCoveredMethods.isEmpty()))
+			{
+				selectedTests.add(testName);
+				selectionReasons.put(testName, "NO_COVERAGE");
+				noCoverageCount++;
+				logger.debug("[SmartTestPicker]   {} -> selected (NO_COVERAGE)", testName);
+				continue;
+			}
 
 			// Method-level matching (precise)
 			if (!changedMethods.isEmpty())
@@ -230,10 +243,11 @@ public class TestSelector
 
 		int total = coverageMap.getTestMappings().size();
 		double reduction = total > 0 ? (1.0 - (double) selectedTests.size() / total) * 100 : 0;
-		logger.info("[SmartTestPicker] Selection complete: {} of {} tests selected ({} method-level, {} class-level, {} escalated, {}% reduction)",
-				selectedTests.size(), total, methodMatchCount, classMatchCount, escalatedCount, String.format("%.1f", reduction));
+		logger.info("[SmartTestPicker] Selection complete: {} of {} tests selected ({} method-level, {} class-level, {} escalated, {} NO_COVERAGE, {}% reduction)",
+				selectedTests.size(), total, methodMatchCount, classMatchCount, escalatedCount,
+				noCoverageCount, String.format("%.1f", reduction));
 
-		return SelectionResult.selected(selectedTests);
+		return SelectionResult.selected(selectedTests, selectionReasons);
 	}
 
 	/**

@@ -213,6 +213,7 @@ public class TestSelectionEngine
 		logger.info("[SmartTestPicker] Result: SELECTED {} tests (+ {} unmapped always-run)",
 				selected.size(), unmappedTests.size());
 		SelectionOutput out = new SelectionOutput("SELECTED", reason, selected, unmappedTests);
+		out.setSelectionReasons(result.getSelectionReasons());
 		out.setChangedClasses(new ArrayList<>(changedClasses));
 		return out;
 	}

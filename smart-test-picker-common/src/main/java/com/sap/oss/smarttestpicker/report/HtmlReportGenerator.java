@@ -968,6 +968,13 @@ public class HtmlReportGenerator
 			return "Selected (no coverage detail available)";
 		}
 
+		List<String> classes = coverage.get("classes");
+		List<String> methods = coverage.get("methods");
+		if ((classes == null || classes.isEmpty()) && (methods == null || methods.isEmpty()))
+		{
+			return "NO_COVERAGE (always selected)";
+		}
+
 		List<String> reasons = new ArrayList<>();
 
 		// Check method-level matches

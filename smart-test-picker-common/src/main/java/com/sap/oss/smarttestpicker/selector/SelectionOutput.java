@@ -40,6 +40,9 @@ public class SelectionOutput
 	/** Changed production class FQNs detected by git diff. */
 	private List<String> changedClasses;
 
+	/** Explicit per-test conservative-selection reasons (for example NO_COVERAGE). */
+	private Map<String, String> selectionReasons;
+
 	public SelectionOutput()
 	{
 	}
@@ -100,5 +103,15 @@ public class SelectionOutput
 	public void setChangedClasses(List<String> changedClasses)
 	{
 		this.changedClasses = changedClasses;
+	}
+
+	public Map<String, String> getSelectionReasons()
+	{
+		return selectionReasons;
+	}
+
+	public void setSelectionReasons(Map<String, String> selectionReasons)
+	{
+		this.selectionReasons = selectionReasons;
 	}
 }

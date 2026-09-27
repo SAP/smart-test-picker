@@ -120,7 +120,7 @@ public class ExecToXmlEngine
 				classCache.size(), classCache.values().stream().mapToLong(b -> b.length).sum() / (1024 * 1024), preloadElapsed);
 
 		AtomicInteger generated = new AtomicInteger();
-		AtomicInteger skipped = new AtomicInteger();
+		AtomicInteger empty = new AtomicInteger();
 		AtomicInteger failed = new AtomicInteger();
 		long startTime = System.currentTimeMillis();
 
@@ -139,7 +139,7 @@ public class ExecToXmlEngine
 					}
 					else
 					{
-						skipped.incrementAndGet();
+						empty.incrementAndGet();
 					}
 				}
 				catch (Exception e)
@@ -163,8 +163,8 @@ public class ExecToXmlEngine
 		}
 
 		long elapsed = System.currentTimeMillis() - startTime;
-		logger.info("[SmartTestPicker] Report generation complete: {} generated, {} skipped (no coverage), {} failed, {}ms elapsed",
-				generated.get(), skipped.get(), failed.get(), elapsed);
+		logger.info("[SmartTestPicker] Report generation complete: {} covered, {} empty (no production coverage), {} failed, {}ms elapsed",
+				generated.get(), empty.get(), failed.get(), elapsed);
 	}
 
 	/**
@@ -212,7 +212,8 @@ public class ExecToXmlEngine
 	 * preloaded class bytecode from memory.
 	 * Only classes with at least one covered line are included in the output.
 	 *
-	 * @return true if the report was written (had covered classes), false if skipped
+	 * @return true if the report had covered production classes, false for a
+	 *         deliberately written empty report
 	 */
 	private boolean generateReport(File execFile, Map<String, byte[]> classCache,
 			File sourceDir, File xmlOut) throws IOException
@@ -232,11 +233,6 @@ public class ExecToXmlEngine
 		var filteredClasses = coverageBuilder.getClasses().stream()
 				.filter(cls -> cls.getLineCounter().getCoveredCount() > 0)
 				.toList();
-
-		if (filteredClasses.isEmpty())
-		{
-			return false;
-		}
 
 		// Second pass: re-analyze only covered classes for a clean XML report
 		// without zero-coverage noise.
@@ -263,7 +259,7 @@ public class ExecToXmlEngine
 					sourceDir != null ? new DirectorySourceFileLocator(sourceDir, "utf-8", 4) : null);
 			visitor.visitEnd();
 		}
-		return true;
+		return !filteredClasses.isEmpty();
 	}
 
 }

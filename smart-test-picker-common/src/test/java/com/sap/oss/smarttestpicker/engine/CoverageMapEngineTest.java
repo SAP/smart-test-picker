@@ -167,6 +167,26 @@ class CoverageMapEngineTest
 		assertTrue(map.getTestMappings().isEmpty());
 	}
 
+	@Test
+	void zeroCoverageTestSurvivesSerializationAndDeserialization() throws IOException
+	{
+		File zeroDir = tempDir.resolve("zero-coverage-reports").toFile();
+		zeroDir.mkdirs();
+		Files.writeString(zeroDir.toPath().resolve("session_ZeroCoverageTest#testNothing.xml"),
+				"<?xml version=\"1.0\" encoding=\"UTF-8\"?><report name=\"smart-report\"></report>");
+		File output = tempDir.resolve("zero-coverage-map.json").toFile();
+
+		new CoverageMapEngine().generate(zeroDir, output, "main", projectDir, logger, false, false);
+
+		String serialized = Files.readString(output.toPath());
+		assertTrue(serialized.contains("ZeroCoverageTest#testNothing"));
+		CoverageMap map = CoverageMapReader.load(output);
+		assertEquals(java.util.List.of(),
+				map.getTestMappings().get("ZeroCoverageTest#testNothing").get("classes"));
+		assertEquals(java.util.List.of(),
+				map.getTestMappings().get("ZeroCoverageTest#testNothing").get("methods"));
+	}
+
 	private void run(String... args) throws IOException, InterruptedException
 	{
 		ProcessBuilder pb = new ProcessBuilder(args);
