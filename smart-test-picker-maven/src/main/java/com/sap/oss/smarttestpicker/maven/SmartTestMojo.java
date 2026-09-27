@@ -40,6 +40,8 @@ import com.sap.oss.smarttestpicker.mapper.ClassCoverageMetrics;
 import com.sap.oss.smarttestpicker.mapper.CoverageMap;
 import com.sap.oss.smarttestpicker.mapper.CoverageMapMetadata;
 import com.sap.oss.smarttestpicker.selector.SelectionOutput;
+import com.sap.oss.smarttestpicker.execution.ExecutionMode;
+import com.sap.oss.smarttestpicker.execution.ExecutionPlan;
 import com.sap.oss.smarttestpicker.store.RemoteStoreClient;
 
 
@@ -167,13 +169,18 @@ public class SmartTestMojo extends AbstractMojo
 				logger);
 
 		getLog().info("[SmartTestPicker] Status: " + output.getStatus() + " — " + output.getReason());
+		MavenExecutionPlanner planner = new MavenExecutionPlanner(reactorProjects);
+		ExecutionPlan executionPlan = planner.plan(output, classLevelSelection);
+		output.setExecutionPlan(executionPlan);
+		if (executionPlan.entries().stream().anyMatch(e -> e.executionMode() == ExecutionMode.NOT_EXECUTABLE_ERROR))
+			throw new MojoExecutionException("JZC-02A execution plan contains NOT_EXECUTABLE_ERROR");
 
 		// Write selected-tests.json to root
 		File selectedTestsFile = new File(rootTarget, "selected-tests.json");
 		writeJson(selectedTestsFile, output);
 
 		// Step 2: Determine affected modules
-		Set<String> affectedModules = determineAffectedModules(output);
+		Set<String> affectedModules = determineAffectedModules(output, executionPlan);
 
 		if (affectedModules.isEmpty() && "NONE".equals(output.getStatus()))
 		{
@@ -186,15 +193,25 @@ public class SmartTestMojo extends AbstractMojo
 		writeIncludesFiles(output);
 		cleanCoverageArtifactsForAffectedTests(output, affectedModules);
 
-		String moduleList = String.join(",", affectedModules);
-		getLog().info("[SmartTestPicker] Affected modules: " + moduleList);
+		Map<String, List<String>> moduleSelectors = planner.selectorBatchesByModule(executionPlan);
+		for (String module : affectedModules)
+		{
+			List<String> batches = moduleSelectors.get(module);
+			if (batches == null || batches.isEmpty()) batches = java.util.Collections.singletonList(null);
+			for (String selector : batches)
+			{
+				getLog().info("[SmartTestPicker] Execution module=" + module + " test="
+						+ (selector != null ? selector : "<FULL_SUITE>"));
+				forkMavenVerify(root.getBasedir(), module, selector);
+			}
+		}
 
-		forkMavenVerify(root.getBasedir(), moduleList);
+		// JZC-02A resolves stale/non-executable identities while constructing the
+		// execution plan. Do not mutate the selector's decision after execution:
+		// reduced runs are not coverage-collection runs and therefore do not
+		// regenerate per-test JaCoCo XML for this legacy pruning heuristic.
 
-		// Step 4: Prune tests that no longer exist (commented/deleted) from selection and coverage map
-		pruneNonExistentTests(output, selectedTestsFile);
-
-		// Step 5: Merge coverage maps + generate report
+		// Step 4: Merge coverage maps + generate report
 		mergeCoverageMapsAndReport(root, rootTarget, selectedTestsFile, logger);
 	}
 
@@ -202,11 +219,16 @@ public class SmartTestMojo extends AbstractMojo
 	 * Determines which reactor modules need to be built. For SELECTED: modules containing
 	 * selected tests or unmapped tests. For FULL_SUITE: all non-pom modules.
 	 */
-	private Set<String> determineAffectedModules(SelectionOutput output)
+	private Set<String> determineAffectedModules(SelectionOutput output, ExecutionPlan plan)
 	{
 		Set<String> modules = new LinkedHashSet<>();
+		boolean globalFallback = plan.entries().stream().anyMatch(e -> e.executionMode() == ExecutionMode.FULL_SUITE_FALLBACK
+				&& e.module() == null);
+		if (globalFallback)
+			for (MavenProject m : reactorProjects) if (!"pom".equals(m.getPackaging())) modules.add(m.getArtifactId());
+		for (var entry : plan.entries()) if (entry.module() != null) modules.add(entry.module());
 
-		if (output.getSelectedTests() != null)
+		if (modules.isEmpty() && output.getSelectedTests() != null)
 		{
 			for (String test : output.getSelectedTests())
 			{
@@ -455,12 +477,38 @@ public class SmartTestMojo extends AbstractMojo
 		}
 	}
 
-	private void forkMavenVerify(File baseDir, String moduleList) throws MojoExecutionException
+	private void forkMavenVerify(File baseDir, String moduleList, String testSelector) throws MojoExecutionException
+	{
+		InvocationRequest request = createInvocationRequest(baseDir, moduleList, testSelector);
+
+		Invoker invoker = new DefaultInvoker();
+		try
+		{
+			getLog().info("[SmartTestPicker] Forking: mvn verify -pl " + moduleList
+					+ " -Psmart-test --fail-at-end" + (testSelector != null ? " -Dtest=<JZC-02A selector>" : ""));
+			InvocationResult result = invoker.execute(request);
+			if (result.getExitCode() != 0)
+			{
+				throw new MojoExecutionException("Forked reduced-test build exited with code "
+						+ result.getExitCode() + "; zero-match/test failures are not accepted");
+			}
+		}
+		catch (MavenInvocationException e)
+		{
+			throw new MojoExecutionException("Failed to fork Maven build", e);
+		}
+	}
+
+	InvocationRequest createInvocationRequest(File baseDir, String moduleList, String testSelector)
 	{
 		InvocationRequest request = new DefaultInvocationRequest();
 		request.setPomFile(new File(baseDir, "pom.xml"));
 		request.setGoals(Collections.singletonList("verify"));
-		request.setProjects(List.of(moduleList.split(",")));
+		// Maven rejects -pl for a single-module execution-root project because it
+		// is not a child in a reactor. In that case the unqualified build is already
+		// exactly module-scoped; multi-module reactors still receive explicit -pl.
+		if (!isSingleExecutionRootModule(moduleList))
+			request.setProjects(List.of(moduleList.split(",")));
 		request.setProfiles(List.of("smart-test"));
 		request.setReactorFailureBehavior(InvocationRequest.ReactorFailureBehavior.FailAtEnd);
 		request.setRecursive(true);
@@ -476,24 +524,29 @@ public class SmartTestMojo extends AbstractMojo
 		{
 			props.setProperty("spring.profiles.active", profiles);
 		}
+		if (testSelector != null && !testSelector.isEmpty())
+		{
+			props.setProperty("test", testSelector);
+			props.setProperty("failIfNoSpecifiedTests", "true");
+		}
+		// The Invoker starts a new Maven process. Preserve an explicitly pinned
+		// local repository so the child resolves the same frozen artifacts and
+		// does not silently fall back to the user's global ~/.m2 repository.
+		String localRepository = System.getProperty("maven.repo.local");
+		if (localRepository != null && !localRepository.isBlank())
+		{
+			props.setProperty("maven.repo.local", localRepository);
+		}
 		request.setProperties(props);
+		return request;
+	}
 
-		Invoker invoker = new DefaultInvoker();
-		try
-		{
-			getLog().info("[SmartTestPicker] Forking: mvn verify -pl " + moduleList
-					+ " -Psmart-test --fail-at-end");
-			InvocationResult result = invoker.execute(request);
-			if (result.getExitCode() != 0)
-			{
-				getLog().warn("[SmartTestPicker] Forked build exited with code "
-						+ result.getExitCode() + " (--fail-at-end, continuing with report)");
-			}
-		}
-		catch (MavenInvocationException e)
-		{
-			throw new MojoExecutionException("Failed to fork Maven build", e);
-		}
+	private boolean isSingleExecutionRootModule(String moduleList)
+	{
+		if (reactorProjects == null) return false;
+		List<MavenProject> concrete = reactorProjects.stream().filter(p -> !"pom".equals(p.getPackaging())).toList();
+		return concrete.size() == 1 && concrete.get(0).isExecutionRoot()
+				&& concrete.get(0).getArtifactId().equals(moduleList);
 	}
 
 	/**
@@ -589,6 +642,8 @@ public class SmartTestMojo extends AbstractMojo
 					{
 						merged.setClassMetrics(new HashMap<>(baseline.getClassMetrics()));
 					}
+					if (baseline.getExecutionIdentities() != null)
+						merged.setExecutionIdentities(new HashMap<>(baseline.getExecutionIdentities()));
 					metadata = baseline.getMetadata();
 				}
 			}
@@ -601,6 +656,8 @@ public class SmartTestMojo extends AbstractMojo
 		Map<String, ClassCoverageMetrics> mergedClassMetrics = merged.getClassMetrics() != null
 				? new HashMap<>(merged.getClassMetrics())
 				: new HashMap<>();
+		Map<String, com.sap.oss.smarttestpicker.execution.ExecutionIdentityMetadata> mergedIdentities =
+				merged.getExecutionIdentities() != null ? new HashMap<>(merged.getExecutionIdentities()) : new HashMap<>();
 		int modulesFound = 0;
 		int updatedTests = 0;
 
@@ -645,8 +702,22 @@ public class SmartTestMojo extends AbstractMojo
 					String cls = hash > 0 ? existingTest.substring(0, hash) : existingTest;
 					return moduleTestClasses.contains(cls);
 				});
+				mergedIdentities.keySet().removeIf(existingTest ->
+				{
+					int hash = existingTest.indexOf('#');
+					String cls = hash > 0 ? existingTest.substring(0, hash) : existingTest;
+					return moduleTestClasses.contains(cls);
+				});
 
 				merged.getTestMappings().putAll(moduleData.getTestMappings());
+				if (moduleData.getExecutionIdentities() != null)
+				{
+					moduleData.getExecutionIdentities().forEach((key, identity) ->
+					{
+						identity.setModule(module.getArtifactId());
+						mergedIdentities.put(key, identity);
+					});
+				}
 				if (moduleData.getClassMetrics() != null)
 				{
 					moduleData.getClassMetrics().forEach((cls, metrics) ->
@@ -661,6 +732,7 @@ public class SmartTestMojo extends AbstractMojo
 		}
 
 		merged.setMetadata(metadata);
+		if (!mergedIdentities.isEmpty()) merged.setExecutionIdentities(mergedIdentities);
 		if (!mergedClassMetrics.isEmpty())
 		{
 			merged.setClassMetrics(mergedClassMetrics);

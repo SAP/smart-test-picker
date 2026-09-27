@@ -107,6 +107,17 @@ public class ExecToXmlEngine
 			return;
 		}
 
+		// JZC-02A identity sidecars are additive execution metadata. Keep them next
+		// to the generated XML so coverage-map generation remains a single-input step.
+		File[] identities = execDir.listFiles((dir, name) -> name.startsWith("session_")
+				&& name.endsWith(".identity.properties"));
+		if (identities != null)
+		{
+			for (File identity : identities)
+				Files.copy(identity.toPath(), new File(reportDir, identity.getName()).toPath(),
+						java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+		}
+
 		int threadCount = Math.max(1, Math.min(threads, execFiles.length));
 
 		// Preload all class bytecode into memory once to avoid repeated disk reads.

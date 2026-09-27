@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.sap.oss.smarttestpicker.execution.ExecutionIdentityMetadata;
+
 
 /**
  * Top-level model for the coverage map JSON file.
@@ -37,6 +39,9 @@ public class CoverageMap
 
 	/** Per-class aggregated coverage metrics (LINE and BRANCH counters). */
 	private Map<String, ClassCoverageMetrics> classMetrics;
+
+	/** Optional JZC-02A execution metadata, keyed by the unchanged legacy test key. */
+	private Map<String, ExecutionIdentityMetadata> executionIdentities;
 
 	public CoverageMap()
 	{
@@ -77,5 +82,15 @@ public class CoverageMap
 	public void setClassMetrics(Map<String, ClassCoverageMetrics> classMetrics)
 	{
 		this.classMetrics = classMetrics;
+	}
+
+	public Map<String, ExecutionIdentityMetadata> getExecutionIdentities()
+	{
+		return executionIdentities;
+	}
+
+	public void setExecutionIdentities(Map<String, ExecutionIdentityMetadata> executionIdentities)
+	{
+		this.executionIdentities = executionIdentities == null ? null : new TreeMap<>(executionIdentities);
 	}
 }

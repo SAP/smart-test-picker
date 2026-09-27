@@ -142,6 +142,7 @@ public class RootGenerateReportMojo extends AbstractMojo
 	{
 		CoverageMap merged = new CoverageMap();
 		Map<String, ClassCoverageMetrics> mergedClassMetrics = new HashMap<>();
+		Map<String, com.sap.oss.smarttestpicker.execution.ExecutionIdentityMetadata> mergedIdentities = new HashMap<>();
 		CoverageMapMetadata metadata = null;
 		int modulesFound = 0;
 		int totalTests = 0;
@@ -173,6 +174,11 @@ public class RootGenerateReportMojo extends AbstractMojo
 				int moduleTests = moduleData.getTestMappings().size();
 				totalTests += moduleTests;
 				merged.getTestMappings().putAll(moduleData.getTestMappings());
+				if (moduleData.getExecutionIdentities() != null) moduleData.getExecutionIdentities().forEach((key, identity) ->
+				{
+					identity.setModule(module.getArtifactId());
+					mergedIdentities.put(key, identity);
+				});
 
 				if (moduleData.getClassMetrics() != null)
 				{
@@ -196,6 +202,7 @@ public class RootGenerateReportMojo extends AbstractMojo
 		}
 
 		merged.setMetadata(metadata);
+		if (!mergedIdentities.isEmpty()) merged.setExecutionIdentities(mergedIdentities);
 		if (!mergedClassMetrics.isEmpty())
 		{
 			merged.setClassMetrics(mergedClassMetrics);

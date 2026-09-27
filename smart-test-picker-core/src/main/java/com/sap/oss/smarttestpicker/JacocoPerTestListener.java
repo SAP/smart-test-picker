@@ -5,6 +5,10 @@ package com.sap.oss.smarttestpicker;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.io.OutputStream;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.Properties;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -40,6 +44,7 @@ public class JacocoPerTestListener implements TestExecutionListener
 
 	private final ThreadLocal<String> currentSessionId = new ThreadLocal<>();
 	private final ThreadLocal<Long> startTime = new ThreadLocal<>();
+	private final ThreadLocal<ObservedIdentity> currentIdentity = new ThreadLocal<>();
 
 	@Override
 	public void executionStarted(TestIdentifier id)
@@ -52,6 +57,7 @@ public class JacocoPerTestListener implements TestExecutionListener
 		active = true;
 		String sessionId = extractSessionId(id);
 		currentSessionId.set(sessionId);
+		currentIdentity.set(observeIdentity(id, sessionId));
 		setJaCoCoSession(sessionId);
 
 		if (isMetricsEnabled())
@@ -77,6 +83,7 @@ public class JacocoPerTestListener implements TestExecutionListener
 
 		dumpJaCoCoData();
 		saveJaCoCoSessionData(sessionId);
+		saveExecutionIdentity(currentIdentity.get());
 
 		if (isMetricsEnabled())
 		{
@@ -85,6 +92,7 @@ public class JacocoPerTestListener implements TestExecutionListener
 
 		currentSessionId.remove();
 		startTime.remove();
+		currentIdentity.remove();
 	}
 
 	private String extractSessionId(TestIdentifier id)
@@ -195,6 +203,94 @@ public class JacocoPerTestListener implements TestExecutionListener
 
 		return "build/jacoco/";
 	}
+
+	private ObservedIdentity observeIdentity(TestIdentifier id, String sessionId)
+	{
+		TestSource source = id.getSource().orElse(null);
+		if (!(source instanceof MethodSource ms))
+			return new ObservedIdentity(sessionId, null, null, engine(id), "UNKNOWN");
+		return new ObservedIdentity(sessionId, ms.getClassName(), ms.getMethodName(), engine(id),
+				executionShape(ms.getJavaClass(), ms.getMethodName(), engine(id)));
+	}
+
+	private static String engine(TestIdentifier id)
+	{
+		String uniqueId = id.getUniqueId();
+		int start = uniqueId.indexOf("[engine:");
+		if (start < 0) return "unknown";
+		int end = uniqueId.indexOf(']', start);
+		return end > start ? uniqueId.substring(start + 8, end) : "unknown";
+	}
+
+	static String executionShape(Class<?> testClass, String methodName, String engine)
+	{
+		try
+		{
+			if ("junit-jupiter".equals(engine))
+			{
+				for (Method method : allMethods(testClass))
+					if (method.getName().equals(methodName) && hasAnnotation(method.getAnnotations(),
+							"org.junit.jupiter.params.ParameterizedTest")) return "JUPITER_PARAMETERIZED";
+				return "ORDINARY";
+			}
+			if ("junit-vintage".equals(engine))
+			{
+				for (Annotation annotation : testClass.getAnnotations())
+				{
+					if (!annotation.annotationType().getName().equals("org.junit.runner.RunWith")) continue;
+					Class<?> runner = (Class<?>) annotation.annotationType().getMethod("value").invoke(annotation);
+					if (!runner.getName().equals("org.junit.runners.Parameterized")) return "UNSUPPORTED_RUNNER";
+					for (Method factory : testClass.getMethods())
+						for (Annotation candidate : factory.getAnnotations())
+							if (candidate.annotationType().getName().equals("org.junit.runners.Parameterized$Parameters"))
+							{
+								String name = String.valueOf(candidate.annotationType().getMethod("name").invoke(candidate));
+								return name.matches(".*\\{[0-9]+}.*")
+										? "JUNIT4_PARAMETERIZED_NAMED" : "JUNIT4_PARAMETERIZED_INDEXED";
+							}
+					return "UNKNOWN";
+				}
+				return "ORDINARY";
+			}
+		}
+		catch (ReflectiveOperationException | LinkageError ignored) { return "UNKNOWN"; }
+		return "UNKNOWN";
+	}
+
+	private static boolean hasAnnotation(Annotation[] annotations, String name)
+	{
+		for (Annotation annotation : annotations)
+			if (annotation.annotationType().getName().equals(name)) return true;
+		return false;
+	}
+
+	private static List<Method> allMethods(Class<?> type)
+	{
+		List<Method> methods = new java.util.ArrayList<>(List.of(type.getMethods()));
+		for (Method method : type.getDeclaredMethods()) if (!methods.contains(method)) methods.add(method);
+		return methods;
+	}
+
+	private static synchronized void saveExecutionIdentity(ObservedIdentity identity)
+	{
+		if (identity == null || identity.classFqn == null || identity.methodName == null) return;
+		try
+		{
+			Path dir = Path.of(resolveExecDir()); Files.createDirectories(dir);
+			Path file = dir.resolve("session_" + SessionFileNames.sanitize(identity.sessionId) + ".identity.properties");
+			Properties properties = new Properties();
+			properties.setProperty("legacySessionId", identity.sessionId);
+			properties.setProperty("testClassFqn", identity.classFqn);
+			properties.setProperty("logicalMethodName", identity.methodName);
+			properties.setProperty("engine", identity.engine);
+			properties.setProperty("executionShape", identity.executionShape);
+			try (OutputStream out = Files.newOutputStream(file)) { properties.store(out, "JZC-02A execution identity"); }
+		}
+		catch (Exception e) { System.err.println("Failed to save execution identity: " + e.getMessage()); }
+	}
+
+	private record ObservedIdentity(String sessionId, String classFqn, String methodName,
+			String engine, String executionShape) {}
 
 	private static boolean isMetricsEnabled()
 	{

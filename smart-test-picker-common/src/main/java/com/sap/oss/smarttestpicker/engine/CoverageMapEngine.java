@@ -71,9 +71,17 @@ public class CoverageMapEngine
 	public void generate(File reportsDir, File outputFile, String baseBranch,
 			File projectDir, EngineLogger logger, boolean indexed, boolean gzip) throws IOException
 	{
+		generate(reportsDir, outputFile, baseBranch, projectDir, logger, indexed, gzip, null);
+	}
+
+	public void generate(File reportsDir, File outputFile, String baseBranch,
+			File projectDir, EngineLogger logger, boolean indexed, boolean gzip, String module) throws IOException
+	{
 		CoverageMapperJaxb mapper = new CoverageMapperJaxb(reportsDir);
 		Map<String, Map<String, List<String>>> testCoverage = mapper.generateTestCoverageMapping();
 		Map<String, ClassCoverageMetrics> classMetrics = mapper.getClassMetrics();
+		var executionIdentities = mapper.getExecutionIdentities();
+		if (module != null) executionIdentities.values().forEach(identity -> identity.setModule(module));
 		classMetrics.keySet().removeIf(TestClassFilter::isTestClass);
 
 		GitChangeDetector git = new GitChangeDetector(projectDir);
@@ -87,11 +95,11 @@ public class CoverageMapEngine
 
 		if (indexed)
 		{
-			writeIndexed(metadata, testCoverage, classMetrics, actualOutput, gzip, logger);
+			writeIndexed(metadata, testCoverage, classMetrics, executionIdentities, actualOutput, gzip, logger);
 		}
 		else
 		{
-			writePlain(metadata, testCoverage, classMetrics, actualOutput, gzip, logger);
+			writePlain(metadata, testCoverage, classMetrics, executionIdentities, actualOutput, gzip, logger);
 		}
 
 		logger.info("Generated test coverage map: {} ({} tests, commitId: {})",
@@ -100,10 +108,12 @@ public class CoverageMapEngine
 
 	private void writePlain(CoverageMapMetadata metadata, Map<String, Map<String, List<String>>> testCoverage,
 			Map<String, ClassCoverageMetrics> classMetrics,
+			Map<String, com.sap.oss.smarttestpicker.execution.ExecutionIdentityMetadata> executionIdentities,
 			File outputFile, boolean gzip, EngineLogger logger) throws IOException
 	{
 		CoverageMap coverageMap = new CoverageMap(metadata, testCoverage);
 		coverageMap.setClassMetrics(classMetrics);
+		coverageMap.setExecutionIdentities(executionIdentities);
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 		try (Writer writer = createWriter(outputFile, gzip))
@@ -114,6 +124,7 @@ public class CoverageMapEngine
 
 	private void writeIndexed(CoverageMapMetadata metadata, Map<String, Map<String, List<String>>> testCoverage,
 			Map<String, ClassCoverageMetrics> classMetrics,
+			Map<String, com.sap.oss.smarttestpicker.execution.ExecutionIdentityMetadata> executionIdentities,
 			File outputFile, boolean gzip, EngineLogger logger) throws IOException
 	{
 		// Phase 1: Collect all unique class and method FQNs across all tests.
@@ -181,6 +192,7 @@ public class CoverageMapEngine
 
 		IndexedCoverageMap indexedMap = new IndexedCoverageMap(metadata, classIndex, methodIndex, indexedMappings);
 		indexedMap.setClassMetrics(classMetrics);
+		indexedMap.setExecutionIdentities(executionIdentities);
 
 		logger.info("Index sizes: {} unique classes, {} unique methods", classIndex.size(), methodIndex.size());
 

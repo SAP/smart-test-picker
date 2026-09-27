@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.LinkedHashMap;
 
 import com.sap.oss.smarttestpicker.change.GitChangeDetector;
 import com.sap.oss.smarttestpicker.mapper.CoverageMap;
@@ -214,6 +215,14 @@ public class TestSelectionEngine
 				selected.size(), unmappedTests.size());
 		SelectionOutput out = new SelectionOutput("SELECTED", reason, selected, unmappedTests);
 		out.setSelectionReasons(result.getSelectionReasons());
+		if (coverageMap.getExecutionIdentities() != null)
+		{
+			Map<String, com.sap.oss.smarttestpicker.execution.ExecutionIdentityMetadata> identities = new LinkedHashMap<>();
+			for (String test : selected)
+				if (coverageMap.getExecutionIdentities().containsKey(test))
+					identities.put(test, coverageMap.getExecutionIdentities().get(test));
+			out.setExecutionIdentities(identities);
+		}
 		out.setChangedClasses(new ArrayList<>(changedClasses));
 		return out;
 	}

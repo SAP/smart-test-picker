@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Set;
+import java.util.Map;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -25,6 +27,25 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class TestSelectorTest
 {
+	@Test
+	void optionalExecutionMetadataDoesNotChangeSelectedSet(@TempDir Path tempDir) throws Exception
+	{
+		var metadata = new com.sap.oss.smarttestpicker.mapper.CoverageMapMetadata("main", "abc", "now");
+		var coverage = Map.of("FooTest#test_a123456", Map.of(
+				"classes", List.of("com.example.Service"),
+				"methods", List.of("com.example.Service#work")));
+		var legacy = new com.sap.oss.smarttestpicker.mapper.CoverageMap(metadata, coverage);
+		var enriched = new com.sap.oss.smarttestpicker.mapper.CoverageMap(metadata, coverage);
+		enriched.setExecutionIdentities(Map.of("FooTest#test_a123456",
+				new com.sap.oss.smarttestpicker.execution.ExecutionIdentityMetadata("m", "p.FooTest", "test",
+						"FooTest#test_a123456", "junit-vintage", com.sap.oss.smarttestpicker.execution.ExecutionShape.ORDINARY)));
+		File a = tempDir.resolve("legacy.json").toFile(), b = tempDir.resolve("enriched.json").toFile();
+		try (var w = new java.io.FileWriter(a)) { new com.google.gson.Gson().toJson(legacy, w); }
+		try (var w = new java.io.FileWriter(b)) { new com.google.gson.Gson().toJson(enriched, w); }
+		var selector = new TestSelector();
+		assertEquals(selector.selectTests(a, Set.of("com.example.Service"), Set.of("com.example.Service#work")).getSelectedTests(),
+				selector.selectTests(b, Set.of("com.example.Service"), Set.of("com.example.Service#work")).getSelectedTests());
+	}
 
 	@Test
 	void selectsTestsThatCoverChangedClass()

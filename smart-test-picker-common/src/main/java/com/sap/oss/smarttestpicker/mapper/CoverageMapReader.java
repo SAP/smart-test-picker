@@ -21,6 +21,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
+import com.sap.oss.smarttestpicker.execution.ExecutionIdentityMetadata;
 
 
 /**
@@ -141,6 +142,12 @@ public class CoverageMapReader
 					root.get("classMetrics"),
 					new TypeToken<Map<String, ClassCoverageMetrics>>(){}.getType());
 			map.setClassMetrics(metrics);
+		}
+		if (root.has("executionIdentities"))
+		{
+			Map<String, ExecutionIdentityMetadata> identities = gson.fromJson(root.get("executionIdentities"),
+					new TypeToken<Map<String, ExecutionIdentityMetadata>>(){}.getType());
+			map.setExecutionIdentities(identities);
 		}
 
 		return map;

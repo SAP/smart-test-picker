@@ -4,6 +4,7 @@ package com.sap.oss.smarttestpicker.mapper;
 
 import java.util.List;
 import java.util.Map;
+import com.sap.oss.smarttestpicker.execution.ExecutionIdentityMetadata;
 
 
 /**
@@ -40,6 +41,7 @@ public class IndexedCoverageMap
 	private List<String> methodIndex;
 	private Map<String, TestCoverageRef> testMappings;
 	private Map<String, ClassCoverageMetrics> classMetrics;
+	private Map<String, ExecutionIdentityMetadata> executionIdentities;
 
 	public IndexedCoverageMap()
 	{
@@ -103,6 +105,8 @@ public class IndexedCoverageMap
 	{
 		this.classMetrics = classMetrics;
 	}
+	public Map<String, ExecutionIdentityMetadata> getExecutionIdentities() { return executionIdentities; }
+	public void setExecutionIdentities(Map<String, ExecutionIdentityMetadata> value) { executionIdentities = value; }
 
 
 	/** Per-test coverage data using integer references into the shared class/method indexes. */

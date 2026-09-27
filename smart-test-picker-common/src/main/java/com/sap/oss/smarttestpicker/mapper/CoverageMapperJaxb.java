@@ -7,6 +7,7 @@ import javax.xml.transform.sax.SAXSource;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,6 +16,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.io.FileInputStream;
+import java.util.Properties;
+
+import com.sap.oss.smarttestpicker.execution.ExecutionIdentityMetadata;
+import com.sap.oss.smarttestpicker.execution.ExecutionShape;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
@@ -49,6 +55,7 @@ public class CoverageMapperJaxb
 
 	/** Directory containing per-test JaCoCo XML reports. */
 	private final File reportsDir;
+	private final Map<String, ExecutionIdentityMetadata> executionIdentities = new TreeMap<>();
 
 	/** Per-class aggregated coverage metrics, populated during mapping. */
 	private Map<String, ClassCoverageMetrics> classMetrics = new TreeMap<>();
@@ -113,6 +120,7 @@ public class CoverageMapperJaxb
 				continue;
 
 			String testName = extractTestName(xml.getName());
+			loadExecutionIdentity(testName, xml.getName());
 
 			JacocoReport report = parseXml(xml);
 			if (report == null)
@@ -172,6 +180,29 @@ public class CoverageMapperJaxb
 		}
 
 		return testMap;
+	}
+
+	public Map<String, ExecutionIdentityMetadata> getExecutionIdentities()
+	{
+		return new TreeMap<>(executionIdentities);
+	}
+
+	private void loadExecutionIdentity(String testName, String xmlName)
+	{
+		File file = new File(reportsDir, xmlName.substring(0, xmlName.length() - 4) + ".identity.properties");
+		if (!file.isFile()) return;
+		Properties values = new Properties();
+		try (FileInputStream input = new FileInputStream(file))
+		{
+			values.load(input);
+			ExecutionShape shape;
+			try { shape = ExecutionShape.valueOf(values.getProperty("executionShape", "UNKNOWN")); }
+			catch (IllegalArgumentException ignored) { shape = ExecutionShape.UNKNOWN; }
+			executionIdentities.put(testName, new ExecutionIdentityMetadata(null,
+					values.getProperty("testClassFqn"), values.getProperty("logicalMethodName"),
+					values.getProperty("legacySessionId", testName), values.getProperty("engine", "unknown"), shape));
+		}
+		catch (IOException ignored) { /* Missing/malformed optional metadata means conservative fallback. */ }
 	}
 
 	/**

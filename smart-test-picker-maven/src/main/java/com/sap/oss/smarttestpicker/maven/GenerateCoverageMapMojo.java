@@ -10,6 +10,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
 
 import com.sap.oss.smarttestpicker.engine.CoverageMapEngine;
 
@@ -39,6 +40,9 @@ public class GenerateCoverageMapMojo extends AbstractMojo
 	@Parameter(defaultValue = "${project.basedir}", readonly = true)
 	private File projectDir;
 
+	@Parameter(defaultValue = "${project}", readonly = true, required = true)
+	private MavenProject project;
+
 	@Override
 	public void execute() throws MojoExecutionException
 	{
@@ -55,7 +59,7 @@ public class GenerateCoverageMapMojo extends AbstractMojo
 					outputFile,
 					baseBranch,
 					projectDir,
-					new MavenEngineLogger(getLog()));
+					new MavenEngineLogger(getLog()), false, false, project.getArtifactId());
 		}
 		catch (IOException e)
 		{

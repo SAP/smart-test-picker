@@ -5,6 +5,9 @@ package com.sap.oss.smarttestpicker.selector;
 import java.util.List;
 import java.util.Map;
 
+import com.sap.oss.smarttestpicker.execution.ExecutionIdentityMetadata;
+import com.sap.oss.smarttestpicker.execution.ExecutionPlan;
+
 
 /**
  * JSON-serializable output of the selectTests task.
@@ -42,6 +45,12 @@ public class SelectionOutput
 
 	/** Explicit per-test conservative-selection reasons (for example NO_COVERAGE). */
 	private Map<String, String> selectionReasons;
+
+	/** Additive execution-only identity metadata; not a selection cause. */
+	private Map<String, ExecutionIdentityMetadata> executionIdentities;
+
+	/** Filled by the Maven adapter immediately before launching Surefire. */
+	private ExecutionPlan executionPlan;
 
 	public SelectionOutput()
 	{
@@ -114,4 +123,9 @@ public class SelectionOutput
 	{
 		this.selectionReasons = selectionReasons;
 	}
+
+	public Map<String, ExecutionIdentityMetadata> getExecutionIdentities() { return executionIdentities; }
+	public void setExecutionIdentities(Map<String, ExecutionIdentityMetadata> value) { executionIdentities = value; }
+	public ExecutionPlan getExecutionPlan() { return executionPlan; }
+	public void setExecutionPlan(ExecutionPlan value) { executionPlan = value; }
 }
