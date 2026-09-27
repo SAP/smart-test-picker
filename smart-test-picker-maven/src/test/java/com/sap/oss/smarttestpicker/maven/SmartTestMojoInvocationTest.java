@@ -3,6 +3,7 @@
 package com.sap.oss.smarttestpicker.maven;
 
 import java.io.File;
+import java.util.Properties;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.apache.maven.model.Build;
@@ -10,6 +11,70 @@ import org.apache.maven.project.MavenProject;
 
 class SmartTestMojoInvocationTest
 {
+	private static void setUserProperties(SmartTestMojo mojo, Properties properties)
+	{
+		try
+		{
+			var field = SmartTestMojo.class.getDeclaredField("userProperties");
+			field.setAccessible(true);
+			field.set(mojo, properties);
+		}
+		catch (ReflectiveOperationException e)
+		{
+			throw new AssertionError(e);
+		}
+	}
+
+	@Test void preservesGenericMavenUserPropertiesWithoutMutatingParent()
+	{
+		Properties parent = new Properties();
+		parent.setProperty("foo", "bar");
+		parent.setProperty("animal.sniffer.skip", "true");
+		parent.setProperty("skipTests", "false");
+		SmartTestMojo mojo = new SmartTestMojo();
+		setUserProperties(mojo, parent);
+
+		var request = mojo.createInvocationRequest(new File("."), "module-a", "p.T#x");
+
+		assertEquals("bar", request.getProperties().getProperty("foo"));
+		assertEquals("true", request.getProperties().getProperty("animal.sniffer.skip"));
+		assertEquals("false", request.getProperties().getProperty("skipTests"));
+		assertNotSame(parent, request.getProperties());
+		request.getProperties().setProperty("foo", "child-value");
+		assertEquals("bar", parent.getProperty("foo"));
+	}
+
+	@Test void stpOwnedPropertiesOverrideConflictingParentValues()
+	{
+		Properties parent = new Properties();
+		parent.setProperty("test", "incorrect-parent-selector");
+		parent.setProperty("failIfNoSpecifiedTests", "false");
+		parent.setProperty("maven.repo.local", "/tmp/incorrect-parent-repository");
+		SmartTestMojo mojo = new SmartTestMojo();
+		setUserProperties(mojo, parent);
+
+		String previous = System.getProperty("maven.repo.local");
+		try
+		{
+			System.setProperty("maven.repo.local", "/tmp/frozen-evaluation-repository");
+			var request = mojo.createInvocationRequest(
+					new File("."), "module-a", "GeneratedClass#selectedMethod");
+			assertEquals("GeneratedClass#selectedMethod", request.getProperties().getProperty("test"));
+			assertEquals("true", request.getProperties().getProperty("failIfNoSpecifiedTests"));
+			assertEquals("/tmp/frozen-evaluation-repository",
+					request.getProperties().getProperty("maven.repo.local"));
+		}
+		finally
+		{
+			if (previous == null) System.clearProperty("maven.repo.local");
+			else System.setProperty("maven.repo.local", previous);
+		}
+
+		assertEquals("incorrect-parent-selector", parent.getProperty("test"));
+		assertEquals("false", parent.getProperty("failIfNoSpecifiedTests"));
+		assertEquals("/tmp/incorrect-parent-repository", parent.getProperty("maven.repo.local"));
+	}
+
 	@Test void putsExactSelectorInInvocationRequestProperties()
 	{
 		String selector = "a.Outer$Inner#testFoo+testBar,b.OtherTest#testBaz[*]";

@@ -69,6 +69,14 @@ public class SmartTestMojo extends AbstractMojo
 	@Parameter(defaultValue = "${reactorProjects}", readonly = true, required = true)
 	private List<MavenProject> reactorProjects;
 
+	/**
+	 * User properties from the Maven invocation that launched this Mojo. The
+	 * forked Maven process is a new invocation, so Maven does not forward these
+	 * properties unless they are copied to its {@link InvocationRequest}.
+	 */
+	@Parameter(defaultValue = "${session.userProperties}", readonly = true)
+	private Properties userProperties;
+
 	@Parameter(defaultValue = "500", property = "smartTestPicker.maxCommitDistance")
 	private int maxCommitDistance;
 
@@ -514,7 +522,13 @@ public class SmartTestMojo extends AbstractMojo
 		request.setRecursive(true);
 		request.setBatchMode(true);
 
+		// Make a defensive copy: STP-owned execution properties below deliberately
+		// override conflicting parent values without mutating the Maven session.
 		Properties props = new Properties();
+		if (userProperties != null)
+		{
+			props.putAll(userProperties);
+		}
 		String profiles = springProfiles;
 		if (profiles == null || profiles.isEmpty())
 		{
