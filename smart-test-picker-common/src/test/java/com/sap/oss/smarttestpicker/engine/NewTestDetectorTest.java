@@ -53,7 +53,7 @@ class NewTestDetectorTest
 	}
 
 	@Test
-	void detectsNewTestNotInMap() throws IOException
+	void compiledButNonRunnableClassIsNotPromoted() throws IOException
 	{
 		Path classFile = testClassesDir.toPath().resolve("com/example/NewTest.class");
 		Files.createDirectories(classFile.getParent());
@@ -64,7 +64,7 @@ class NewTestDetectorTest
 		NewTestDetector detector = new NewTestDetector();
 		Map<String, String> result = detector.detect(map, git, null, testClassesDir, logger);
 
-		assertTrue(result.containsKey("com.example.NewTest"));
+		assertFalse(result.containsKey("com.example.NewTest"));
 	}
 
 	@Test
@@ -108,7 +108,7 @@ class NewTestDetectorTest
 		NewTestDetector detector = new NewTestDetector();
 		Map<String, String> result = detector.detect(map, git, null, testClassesDir, logger);
 
-		assertTrue(result.containsKey("com.example.MyTest"));
+		assertFalse(result.containsKey("com.example.MyTest"));
 		assertFalse(result.containsKey("com.example.MyTest$Inner"));
 	}
 
@@ -165,7 +165,7 @@ class NewTestDetectorTest
 	}
 
 	@Test
-	void classifiesUnknownTest() throws IOException
+	void unchangedCompiledClassOutsideRunnableInventoryIsIgnored() throws IOException
 	{
 		Path classFile = testClassesDir.toPath().resolve("com/example/UnknownTest.class");
 		Files.createDirectories(classFile.getParent());
@@ -177,8 +177,37 @@ class NewTestDetectorTest
 		NewTestDetector detector = new NewTestDetector();
 		Map<String, String> result = detector.detect(map, git, commitId, testClassesDir, logger);
 
-		assertTrue(result.containsKey("com.example.UnknownTest"));
-		assertEquals("Not in coverage map", result.get("com.example.UnknownTest"));
+		assertTrue(result.isEmpty());
+	}
+
+	@Test
+	void runnableZeroCoverageTestRemainsInBaseInventory() throws IOException
+	{
+		Path classFile = testClassesDir.toPath().resolve("com/example/ZeroCoverageTest.class");
+		Files.createDirectories(classFile.getParent());
+		Files.write(classFile, new byte[]{0});
+
+		CoverageMap map = buildMap("ZeroCoverageTest#doesNotTouchProduction");
+		Map<String, String> result = new NewTestDetector().detect(
+				map, git, git.getHeadCommitId(), testClassesDir, logger);
+
+		assertTrue(result.isEmpty(), "BASE-proven zero-coverage test must not be reclassified as unmapped");
+		assertTrue(map.getTestMappings().containsKey("ZeroCoverageTest#doesNotTouchProduction"));
+	}
+
+	@Test
+	void baseProvenSuiteContainerIsNotRemovedByAnnotationHeuristics() throws IOException
+	{
+		Path classFile = testClassesDir.toPath().resolve("com/example/LegacySuiteTest.class");
+		Files.createDirectories(classFile.getParent());
+		Files.write(classFile, new byte[]{0});
+
+		CoverageMap map = buildMap("LegacySuiteTest#suiteGeneratedCase");
+		Map<String, String> result = new NewTestDetector().detect(
+				map, git, git.getHeadCommitId(), testClassesDir, logger);
+
+		assertTrue(result.isEmpty());
+		assertTrue(map.getTestMappings().containsKey("LegacySuiteTest#suiteGeneratedCase"));
 	}
 
 
@@ -397,7 +426,7 @@ class NewTestDetectorTest
 	}
 
 	@Test
-	void detect_multiDir_scansAllDirectories() throws IOException
+	void detect_multiDir_doesNotPromoteUnchangedCompiledClasses() throws IOException
 	{
 		File dir1 = tempDir.resolve("classes1").toFile();
 		File dir2 = tempDir.resolve("classes2").toFile();
@@ -415,8 +444,7 @@ class NewTestDetectorTest
 		Map<String, String> result = detector.detect(map, git, null,
 				List.of(dir1, dir2), logger);
 
-		assertTrue(result.containsKey("com.a.ATest"));
-		assertTrue(result.containsKey("com.b.BTest"));
+		assertTrue(result.isEmpty());
 	}
 
 	private File writeTempSource(String relativePath, String content) throws IOException

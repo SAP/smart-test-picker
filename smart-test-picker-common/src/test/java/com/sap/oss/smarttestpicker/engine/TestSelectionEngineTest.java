@@ -235,7 +235,7 @@ class TestSelectionEngineTest
 	}
 
 	@Test
-	void selectWithMultipleTestClassDirs() throws Exception
+	void selectWithMultipleTestClassDirsDoesNotPromoteCompiledOnlyClasses() throws Exception
 	{
 		String commitId = getHeadCommit();
 		File mapFile = writeMap(commitId);
@@ -253,8 +253,7 @@ class TestSelectionEngineTest
 				projectDir, 500, List.of(), logger);
 
 		assertNotNull(result.getUnmappedTests());
-		assertTrue(result.getUnmappedTests().containsKey("com.a.ATest"));
-		assertTrue(result.getUnmappedTests().containsKey("com.b.BTest"));
+		assertTrue(result.getUnmappedTests().isEmpty());
 	}
 
 	@Test

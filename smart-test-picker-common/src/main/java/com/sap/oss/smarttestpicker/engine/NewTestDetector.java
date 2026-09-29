@@ -76,19 +76,6 @@ public class NewTestDetector
 			}
 		}
 
-		Set<String> newTestFqns = new LinkedHashSet<>();
-		Map<String, String> newTestReasons = new LinkedHashMap<>();
-
-		for (File testClassesDir : testClassesDirs)
-		{
-			if (testClassesDir == null || !testClassesDir.exists())
-			{
-				continue;
-			}
-			scanTestClasses(testClassesDir, knownTestClasses, newTestFqns, newTestReasons,
-					testSourceDirs, logger);
-		}
-
 		// Detect modified known test classes that may contain new methods
 		Map<String, String> changedTestFiles = Map.of();
 		if (commitId != null)
@@ -101,6 +88,31 @@ public class NewTestDetector
 			{
 				logger.warn("[SmartTestPicker] Failed to get test file change status: {}", e.getMessage());
 			}
+		}
+
+		/*
+		 * The coverage map is the runnable inventory produced by the canonical BASE
+		 * execution.  Compiled classes outside that inventory are not, by themselves,
+		 * evidence of runnable tests: Maven compiles excluded performance tests,
+		 * helper classes and suite factories into the same output directory.
+		 *
+		 * Only a test source added/modified since BASE may create a new conservative
+		 * class obligation.  Unchanged runnable tests (including zero-coverage and
+		 * custom-runner tests) are already represented by the map and retain their
+		 * existing selection semantics.
+		 */
+		Set<String> changedTestCandidates = new LinkedHashSet<>();
+		changedTestFiles.forEach((fqn, status) -> {
+			if ("A".equals(status) || "M".equals(status)) changedTestCandidates.add(fqn);
+		});
+
+		Set<String> newTestFqns = new LinkedHashSet<>();
+		Map<String, String> newTestReasons = new LinkedHashMap<>();
+		for (File testClassesDir : testClassesDirs)
+		{
+			if (testClassesDir == null || !testClassesDir.exists()) continue;
+			scanTestClasses(testClassesDir, knownTestClasses, changedTestCandidates,
+					newTestFqns, newTestReasons, testSourceDirs, logger);
 		}
 
 		Set<String> modifiedKnownTestClasses = new LinkedHashSet<>();
@@ -167,6 +179,7 @@ public class NewTestDetector
 	}
 
 	private void scanTestClasses(File testClassesDir, Set<String> knownTestClasses,
+			Set<String> changedTestCandidates,
 			Set<String> newTestFqns, Map<String, String> newTestReasons,
 			List<File> testSourceDirs, EngineLogger logger)
 	{
@@ -187,7 +200,9 @@ public class NewTestDetector
 						int lastDot = fqn.lastIndexOf('.');
 						String simpleName = lastDot >= 0 ? fqn.substring(lastDot + 1) : fqn;
 
-						if (!knownTestClasses.contains(simpleName) && looksLikeTestClass(simpleName))
+						if (!knownTestClasses.contains(simpleName)
+								&& changedTestCandidates.contains(fqn)
+								&& looksLikeTestClass(simpleName))
 						{
 							String javaRelPath = relativePath.replaceAll("\\.class$", ".java");
 							if (isAbstractOrInterface(javaRelPath, testSourceDirs))
