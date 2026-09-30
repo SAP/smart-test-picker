@@ -101,6 +101,7 @@ class SmartTestPickerExtensionTest
 		test.setSystemProperties(java.util.Map.of("subject.property", "preserved"));
 		test.setMaxParallelForks(4);
 		JacocoTaskExtension jacoco = test.getExtensions().getByType(JacocoTaskExtension.class);
+		jacoco.setEnabled(false);
 		jacoco.setDestinationFile(custom.file("subject-native.exec"));
 
 		((ProjectInternal) custom).evaluate();
@@ -109,7 +110,14 @@ class SmartTestPickerExtensionTest
 		assertEquals(expectedDir.getAbsolutePath(), test.getSystemProperties().get("stp.exec.dir"));
 		assertEquals("preserved", test.getSystemProperties().get("subject.property"));
 		assertEquals(1, test.getMaxParallelForks());
+		assertTrue(jacoco.isEnabled());
 		assertEquals(new java.io.File(expectedDir, "test.exec"), jacoco.getDestinationFile());
+
+		// Simulate a test-acceleration/convention plugin changing JaCoCo after
+		// project evaluation. STP's leading execution action must restore it.
+		jacoco.setEnabled(false);
+		test.getActions().get(0).execute(test);
+		assertTrue(jacoco.isEnabled());
 
 		GenerateTestCoverageJsonTask mapTask = (GenerateTestCoverageJsonTask) custom.getTasks()
 				.getByName("generateTestCoverageJson");

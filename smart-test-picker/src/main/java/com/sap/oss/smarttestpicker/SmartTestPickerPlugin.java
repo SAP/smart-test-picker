@@ -119,7 +119,19 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 				JacocoTaskExtension jacoco = test.getExtensions().findByType(JacocoTaskExtension.class);
 				if (jacoco != null)
 				{
+					// Applying STP is an explicit request for JaCoCo-based collection.
+					// Subject convention plugins may disable JaCoCo after it is applied
+					// (for example when build-cache test acceleration is enabled), so
+					// restore the agent together with STP's destination-file contract.
+					jacoco.setEnabled(true);
 					jacoco.setDestinationFile(new File(execDir, "test.exec"));
+					// Test-acceleration plugins can disable JaCoCo after project
+					// evaluation. Reassert STP's required agent at the execution
+					// boundary, before Gradle creates the forked test process.
+					test.doFirst(ignored -> {
+						jacoco.setEnabled(true);
+						jacoco.setDestinationFile(new File(execDir, "test.exec"));
+					});
 				}
 			}));
 		}
