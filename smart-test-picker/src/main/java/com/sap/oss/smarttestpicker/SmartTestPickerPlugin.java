@@ -13,6 +13,7 @@ import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.tasks.testing.Test;
+import org.gradle.testing.jacoco.plugins.JacocoTaskExtension;
 
 import com.google.gson.Gson;
 
@@ -101,11 +102,22 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 		Configuration jacocoAgent = project.getConfigurations().findByName("jacocoAgent");
 		if (jacocoAgent != null)
 		{
-			File execDir = new File(project.getLayout().getBuildDirectory().getAsFile().get(), "jacoco");
 			project.getTasks().withType(Test.class).configureEach(test -> {
-				test.systemProperty("stp.exec.dir", execDir.getAbsolutePath());
 				test.finalizedBy("generateSmartReports");
 			});
+			// Configure after the subject build has finished configuring its Test tasks.
+			// Some builds replace both systemProperties and JaCoCo's destinationFile;
+			// STP's per-test listener requires the agent to write test.exec in the
+			// same directory advertised through stp.exec.dir.
+			project.afterEvaluate(p -> p.getTasks().withType(Test.class).configureEach(test -> {
+				File execDir = new File(p.getLayout().getBuildDirectory().getAsFile().get(), "jacoco");
+				test.systemProperty("stp.exec.dir", execDir.getAbsolutePath());
+				JacocoTaskExtension jacoco = test.getExtensions().findByType(JacocoTaskExtension.class);
+				if (jacoco != null)
+				{
+					jacoco.setDestinationFile(new File(execDir, "test.exec"));
+				}
+			}));
 		}
 		else
 		{
@@ -113,7 +125,7 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 		}
 
 		project.getTasks().register("generateTestCoverageJson", GenerateTestCoverageJsonTask.class, task -> {
-			task.getReportsDir().set(project.file("build/jacoco-xml"));
+			task.getReportsDir().set(project.getLayout().getBuildDirectory().dir("jacoco-xml"));
 			task.getOutputFile().set(project.getLayout().getBuildDirectory().file("test-coverage-map.json"));
 			task.getBaseBranch().set(ext.getBaseBranch());
 		});
