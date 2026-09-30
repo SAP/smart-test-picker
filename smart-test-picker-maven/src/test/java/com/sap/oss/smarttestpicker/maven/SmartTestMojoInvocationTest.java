@@ -115,4 +115,48 @@ class SmartTestMojoInvocationTest
 			else System.setProperty("maven.repo.local", previous);
 		}
 	}
+
+	@Test void childModuleExecutionUsesParentReactorPom() throws Exception
+	{
+		File reactor = new File("build/test-reactor").getAbsoluteFile();
+		File module = new File(reactor, "module-a");
+		MavenProject parent = new MavenProject();
+		parent.setArtifactId("parent");
+		parent.setPackaging("pom");
+		parent.setFile(new File(reactor, "pom.xml"));
+		MavenProject child = new MavenProject();
+		child.setArtifactId("module-a");
+		child.setPackaging("jar");
+		child.setExecutionRoot(true);
+		child.setFile(new File(module, "pom.xml"));
+
+		SmartTestMojo mojo = new SmartTestMojo();
+		var field = SmartTestMojo.class.getDeclaredField("reactorProjects");
+		field.setAccessible(true);
+		field.set(mojo, java.util.List.of(parent, child));
+
+		assertEquals(reactor.toPath().normalize(),
+				mojo.findReactorInvocationBaseDir(module).toPath().normalize());
+	}
+
+	@Test void childModuleExecutionUsesMavenMultiModuleDirectory() throws Exception
+	{
+		File reactor = new File("build/test-maven-root").getAbsoluteFile();
+		File module = new File(reactor, "nested/module-a");
+		assertTrue(reactor.mkdirs() || reactor.isDirectory());
+		assertTrue(new File(reactor, "pom.xml").createNewFile()
+				|| new File(reactor, "pom.xml").isFile());
+		String previous = System.getProperty("maven.multiModuleProjectDirectory");
+		try
+		{
+			System.setProperty("maven.multiModuleProjectDirectory", reactor.getAbsolutePath());
+			assertEquals(reactor.toPath().normalize(), new SmartTestMojo()
+					.findReactorInvocationBaseDir(module).toPath().normalize());
+		}
+		finally
+		{
+			if (previous == null) System.clearProperty("maven.multiModuleProjectDirectory");
+			else System.setProperty("maven.multiModuleProjectDirectory", previous);
+		}
+	}
 }

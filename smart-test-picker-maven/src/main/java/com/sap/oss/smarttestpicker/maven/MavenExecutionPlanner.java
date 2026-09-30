@@ -218,7 +218,14 @@ final class MavenExecutionPlanner
 			{
 				Class<?> type = Class.forName(fqn, false, loader);
 				Set<String> methods = new LinkedHashSet<>();
-				for (var method : type.getMethods()) methods.add(fqn + "#" + method.getName());
+				for (Class<?> current = type; current != null && current != Object.class;
+						current = current.getSuperclass())
+				{
+					for (var method : current.getDeclaredMethods()) methods.add(fqn + "#" + method.getName());
+				}
+				// Include public default/interface methods without reintroducing Object helpers.
+				for (var method : type.getMethods())
+					if (method.getDeclaringClass() != Object.class) methods.add(fqn + "#" + method.getName());
 				return methods.stream().sorted().toList();
 			}
 		}

@@ -8,4 +8,5 @@ public class PlannerFixtureTest
 	public void beta() {}
 	public void gamma() {}
 	public void testFoo_abcdef0() {}
+	void packagePrivateJupiterStyle() {}
 }

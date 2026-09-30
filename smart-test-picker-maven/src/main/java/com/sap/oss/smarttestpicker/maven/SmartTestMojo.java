@@ -210,7 +210,7 @@ public class SmartTestMojo extends AbstractMojo
 			{
 				getLog().info("[SmartTestPicker] Execution module=" + module + " test="
 						+ (selector != null ? selector : "<FULL_SUITE>"));
-				forkMavenVerify(root.getBasedir(), module, selector);
+				forkMavenVerify(findReactorInvocationBaseDir(root.getBasedir()), module, selector);
 			}
 		}
 
@@ -561,6 +561,34 @@ public class SmartTestMojo extends AbstractMojo
 		List<MavenProject> concrete = reactorProjects.stream().filter(p -> !"pom".equals(p.getPackaging())).toList();
 		return concrete.size() == 1 && concrete.get(0).isExecutionRoot()
 				&& concrete.get(0).getArtifactId().equals(moduleList);
+	}
+
+	/**
+	 * Returns the reactor POM directory from which a child {@code -pl} invocation is valid.
+	 * A module selected with {@code mvn -pl module ...} may itself be Maven's execution root,
+	 * even though the child still needs the parent reactor POM to resolve that module name.
+	 */
+	File findReactorInvocationBaseDir(File selectionBaseDir)
+	{
+		String multiModuleDirectory = System.getProperty("maven.multiModuleProjectDirectory");
+		if (multiModuleDirectory != null && !multiModuleDirectory.isBlank())
+		{
+			File candidate = new File(multiModuleDirectory);
+			if (new File(candidate, "pom.xml").isFile()
+					&& selectionBaseDir.toPath().toAbsolutePath().normalize()
+							.startsWith(candidate.toPath().toAbsolutePath().normalize()))
+				return candidate;
+		}
+		if (reactorProjects == null)
+			return selectionBaseDir;
+		java.nio.file.Path selectionPath = selectionBaseDir.toPath().toAbsolutePath().normalize();
+		return reactorProjects.stream()
+				.filter(p -> "pom".equals(p.getPackaging()) && p.getBasedir() != null)
+				.map(MavenProject::getBasedir)
+				.filter(dir -> selectionPath.startsWith(dir.toPath().toAbsolutePath().normalize()))
+				.min(java.util.Comparator.comparingInt(
+						dir -> dir.toPath().toAbsolutePath().normalize().getNameCount()))
+				.orElse(selectionBaseDir);
 	}
 
 	/**

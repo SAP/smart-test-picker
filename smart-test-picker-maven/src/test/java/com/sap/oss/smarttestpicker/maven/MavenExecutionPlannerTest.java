@@ -55,6 +55,17 @@ class MavenExecutionPlannerTest
 		assertTrue(selector.contains(FQN + "#testFoo_abcdef0"));
 	}
 
+	@Test void packagePrivateJupiterMethodRemainsMethodExact() throws Exception
+	{
+		MavenProject module = module("one", temp.resolve("package-private"));
+		copyFixture(module);
+		SelectionOutput output = output(List.of("k"), Map.of(
+				"k", identity(FQN, "packagePrivateJupiterStyle", ExecutionShape.ORDINARY)));
+		var entry = new MavenExecutionPlanner(List.of(module)).plan(output, false).entries().get(0);
+		assertEquals(ExecutionMode.METHOD_EXACT, entry.executionMode());
+		assertEquals(FQN + "#packagePrivateJupiterStyle", entry.generatedSurefireSelector());
+	}
+
 	@Test void parameterizedShapesGenerateProvenForms() throws Exception
 	{
 		MavenProject module = module("one", temp.resolve("one")); copyFixture(module);
