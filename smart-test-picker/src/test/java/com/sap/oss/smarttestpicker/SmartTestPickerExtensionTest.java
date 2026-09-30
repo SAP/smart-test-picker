@@ -99,6 +99,7 @@ class SmartTestPickerExtensionTest
 		org.gradle.api.tasks.testing.Test test = (org.gradle.api.tasks.testing.Test) custom.getTasks()
 				.getByName("test");
 		test.setSystemProperties(java.util.Map.of("subject.property", "preserved"));
+		test.setMaxParallelForks(4);
 		JacocoTaskExtension jacoco = test.getExtensions().getByType(JacocoTaskExtension.class);
 		jacoco.setDestinationFile(custom.file("subject-native.exec"));
 
@@ -107,6 +108,7 @@ class SmartTestPickerExtensionTest
 		java.io.File expectedDir = custom.file("custom-target/jacoco");
 		assertEquals(expectedDir.getAbsolutePath(), test.getSystemProperties().get("stp.exec.dir"));
 		assertEquals("preserved", test.getSystemProperties().get("subject.property"));
+		assertEquals(1, test.getMaxParallelForks());
 		assertEquals(new java.io.File(expectedDir, "test.exec"), jacoco.getDestinationFile());
 
 		GenerateTestCoverageJsonTask mapTask = (GenerateTestCoverageJsonTask) custom.getTasks()

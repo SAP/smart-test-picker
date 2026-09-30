@@ -112,6 +112,10 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 			project.afterEvaluate(p -> p.getTasks().withType(Test.class).configureEach(test -> {
 				File execDir = new File(p.getLayout().getBuildDirectory().getAsFile().get(), "jacoco");
 				test.systemProperty("stp.exec.dir", execDir.getAbsolutePath());
+				// A single test.exec file is reset and moved after each logical test.
+				// Multiple Gradle test-worker JVMs would race on that file and corrupt
+				// per-test execution data, so collection must be serialized.
+				test.setMaxParallelForks(1);
 				JacocoTaskExtension jacoco = test.getExtensions().findByType(JacocoTaskExtension.class);
 				if (jacoco != null)
 				{
