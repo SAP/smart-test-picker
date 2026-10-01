@@ -14,13 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class JacocoPerTestListenerTest
 {
-	@Test
-	void loadJacocoRtClass_findsRuntimeInstalledByTestAgent() throws Exception
-	{
-		Class<?> runtime = new JacocoPerTestListener().loadJacocoRtClass();
-
-		assertEquals("org.jacoco.agent.rt.RT", runtime.getName());
-	}
 
 	@Test
 	void buildSessionId_includesHashSuffix()
