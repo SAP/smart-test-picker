@@ -570,6 +570,21 @@ public class SmartTestMojo extends AbstractMojo
 	 */
 	File findReactorInvocationBaseDir(File selectionBaseDir)
 	{
+		// With `mvn -f path/to/module/pom.xml`, Maven may still expose the
+		// repository root as maven.multiModuleProjectDirectory even though the
+		// module is the complete execution root. Fork from that module in this
+		// case; otherwise an unqualified child build applies the selected tests
+		// to every project in the repository reactor.
+		if (reactorProjects != null)
+		{
+			List<MavenProject> concrete = reactorProjects.stream()
+					.filter(p -> !"pom".equals(p.getPackaging())).toList();
+			if (reactorProjects.size() == 1 && concrete.size() == 1 && concrete.get(0).isExecutionRoot()
+					&& concrete.get(0).getBasedir() != null
+					&& concrete.get(0).getBasedir().toPath().toAbsolutePath().normalize()
+							.equals(selectionBaseDir.toPath().toAbsolutePath().normalize()))
+				return selectionBaseDir;
+		}
 		String multiModuleDirectory = System.getProperty("maven.multiModuleProjectDirectory");
 		if (multiModuleDirectory != null && !multiModuleDirectory.isBlank())
 		{

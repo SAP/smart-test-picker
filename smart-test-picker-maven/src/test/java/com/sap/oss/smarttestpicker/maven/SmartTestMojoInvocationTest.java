@@ -159,4 +159,35 @@ class SmartTestMojoInvocationTest
 			else System.setProperty("maven.multiModuleProjectDirectory", previous);
 		}
 	}
+
+	@Test void standaloneModulePomDoesNotExpandChildInvocationToRepositoryRoot() throws Exception
+	{
+		File reactor = new File("build/test-standalone-root").getAbsoluteFile();
+		File module = new File(reactor, "nested/module-a");
+		assertTrue(reactor.mkdirs() || reactor.isDirectory());
+		assertTrue(new File(reactor, "pom.xml").createNewFile()
+				|| new File(reactor, "pom.xml").isFile());
+		MavenProject child = new MavenProject();
+		child.setArtifactId("module-a");
+		child.setPackaging("jar");
+		child.setExecutionRoot(true);
+		child.setFile(new File(module, "pom.xml"));
+
+		SmartTestMojo mojo = new SmartTestMojo();
+		var field = SmartTestMojo.class.getDeclaredField("reactorProjects");
+		field.setAccessible(true);
+		field.set(mojo, java.util.List.of(child));
+		String previous = System.getProperty("maven.multiModuleProjectDirectory");
+		try
+		{
+			System.setProperty("maven.multiModuleProjectDirectory", reactor.getAbsolutePath());
+			assertEquals(module.toPath().normalize(),
+					mojo.findReactorInvocationBaseDir(module).toPath().normalize());
+		}
+		finally
+		{
+			if (previous == null) System.clearProperty("maven.multiModuleProjectDirectory");
+			else System.setProperty("maven.multiModuleProjectDirectory", previous);
+		}
+	}
 }
