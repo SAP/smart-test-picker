@@ -131,7 +131,7 @@ public class JacocoPerTestListener implements TestExecutionListener
 	{
 		try
 		{
-			Class<?> rtClass = Class.forName("org.jacoco.agent.rt.RT");
+			Class<?> rtClass = loadJacocoRtClass();
 			Object agent = rtClass.getMethod("getAgent").invoke(null);
 			agent.getClass().getMethod("setSessionId", String.class).invoke(agent, sessionId);
 		}
@@ -145,7 +145,7 @@ public class JacocoPerTestListener implements TestExecutionListener
 	{
 		try
 		{
-			Class<?> rtClass = Class.forName("org.jacoco.agent.rt.RT");
+			Class<?> rtClass = loadJacocoRtClass();
 			Object agent = rtClass.getMethod("getAgent").invoke(null);
 			agent.getClass().getMethod("dump", boolean.class).invoke(agent, true);
 		}
@@ -153,6 +153,55 @@ public class JacocoPerTestListener implements TestExecutionListener
 		{
 			System.err.println("Failed to dump JaCoCo execution data: " + e.getMessage());
 		}
+	}
+
+	/**
+	 * Resolves the JaCoCo runtime across launcher/provider class-loader boundaries.
+	 * Maven Surefire and other JUnit Platform launchers may load this listener in
+	 * an isolated provider loader while the {@code -javaagent} runtime remains
+	 * visible only from the system or a parent context loader.
+	 */
+	Class<?> loadJacocoRtClass() throws ClassNotFoundException
+	{
+		try
+		{
+			return Class.forName("org.jacoco.agent.rt.RT");
+		}
+		catch (ClassNotFoundException ignored)
+		{
+		}
+
+		try
+		{
+			return Class.forName("org.jacoco.agent.rt.RT", true, ClassLoader.getSystemClassLoader());
+		}
+		catch (ClassNotFoundException ignored)
+		{
+		}
+
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		while (classLoader != null)
+		{
+			try
+			{
+				return Class.forName("org.jacoco.agent.rt.RT", true, classLoader);
+			}
+			catch (ClassNotFoundException ignored)
+			{
+				classLoader = classLoader.getParent();
+			}
+		}
+
+		try
+		{
+			return Class.forName("org.jacoco.agent.rt.RT", true,
+					JacocoPerTestListener.class.getClassLoader());
+		}
+		catch (ClassNotFoundException ignored)
+		{
+		}
+
+		throw new ClassNotFoundException("org.jacoco.agent.rt.RT not found in any classloader");
 	}
 
 	private void saveJaCoCoSessionData(String sessionId)
