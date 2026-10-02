@@ -106,6 +106,8 @@ class ExecToXmlEngineTest
 		String xml = Files.readString(xmlFile.toPath());
 		assertTrue(xml.contains("<?xml"));
 		assertTrue(xml.contains("Dummy"));
+		assertEquals(java.util.List.of("Dummy"), Files.readAllLines(
+				reportDir.toPath().resolve(ExecToXmlEngine.PRODUCTION_CLASSES_MANIFEST)));
 	}
 
 	@Test

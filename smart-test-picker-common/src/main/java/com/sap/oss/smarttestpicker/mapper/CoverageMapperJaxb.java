@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -21,6 +23,7 @@ import java.util.Properties;
 
 import com.sap.oss.smarttestpicker.execution.ExecutionIdentityMetadata;
 import com.sap.oss.smarttestpicker.execution.ExecutionShape;
+import com.sap.oss.smarttestpicker.engine.ExecToXmlEngine;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
@@ -55,6 +58,7 @@ public class CoverageMapperJaxb
 
 	/** Directory containing per-test JaCoCo XML reports. */
 	private final File reportsDir;
+	private final Set<String> productionOutputClasses;
 	private final Map<String, ExecutionIdentityMetadata> executionIdentities = new TreeMap<>();
 
 	/** Per-class aggregated coverage metrics, populated during mapping. */
@@ -68,6 +72,22 @@ public class CoverageMapperJaxb
 	public CoverageMapperJaxb(File reportsDir)
 	{
 		this.reportsDir = reportsDir;
+		this.productionOutputClasses = loadProductionOutputClasses(reportsDir);
+	}
+
+	private static Set<String> loadProductionOutputClasses(File reportsDir)
+	{
+		File manifest = new File(reportsDir, ExecToXmlEngine.PRODUCTION_CLASSES_MANIFEST);
+		if (!manifest.isFile())
+			return Set.of();
+		try
+		{
+			return Set.copyOf(Files.readAllLines(manifest.toPath(), StandardCharsets.UTF_8));
+		}
+		catch (IOException e)
+		{
+			throw new IllegalStateException("Cannot read production class ownership manifest: " + manifest, e);
+		}
 	}
 
 	/** Shared JAXB context for all JaCoCo XML model classes — initialized once. */
@@ -174,11 +194,13 @@ public class CoverageMapperJaxb
 			coverage.put("classes", sortedClasses);
 			coverage.put("methods", sortedMethods);
 
-			TestClassFilter.filterTestClasses(coverage);
+			TestClassFilter.retainProductionClasses(coverage, productionOutputClasses);
 
 			testMap.put(testName, coverage);
 		}
 
+		if (!productionOutputClasses.isEmpty())
+			classMetrics.keySet().retainAll(productionOutputClasses);
 		return testMap;
 	}
 

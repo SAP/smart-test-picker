@@ -27,7 +27,6 @@ import com.sap.oss.smarttestpicker.mapper.CoverageMap;
 import com.sap.oss.smarttestpicker.mapper.CoverageMapMetadata;
 import com.sap.oss.smarttestpicker.mapper.CoverageMapperJaxb;
 import com.sap.oss.smarttestpicker.mapper.IndexedCoverageMap;
-import com.sap.oss.smarttestpicker.mapper.TestClassFilter;
 
 
 /**
@@ -82,7 +81,6 @@ public class CoverageMapEngine
 		Map<String, ClassCoverageMetrics> classMetrics = mapper.getClassMetrics();
 		var executionIdentities = mapper.getExecutionIdentities();
 		if (module != null) executionIdentities.values().forEach(identity -> identity.setModule(module));
-		classMetrics.keySet().removeIf(TestClassFilter::isTestClass);
 
 		GitChangeDetector git = new GitChangeDetector(projectDir);
 		String commitId = git.getHeadCommitId();

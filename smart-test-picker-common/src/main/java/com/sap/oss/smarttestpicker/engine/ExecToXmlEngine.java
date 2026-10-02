@@ -7,10 +7,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -42,6 +44,7 @@ import org.jacoco.report.xml.XMLFormatter;
  */
 public class ExecToXmlEngine
 {
+	public static final String PRODUCTION_CLASSES_MANIFEST = "production-classes.txt";
 
 	private static final int DEFAULT_THREADS = Runtime.getRuntime().availableProcessors();
 
@@ -123,6 +126,7 @@ public class ExecToXmlEngine
 		// Preload all class bytecode into memory once to avoid repeated disk reads.
 		long preloadStart = System.currentTimeMillis();
 		Map<String, byte[]> classCache = preloadClassFiles(classesDirs);
+		writeProductionClassesManifest(classCache.keySet(), reportDir);
 		long preloadElapsed = System.currentTimeMillis() - preloadStart;
 
 		logger.info("[SmartTestPicker] Generating XML reports for {} exec files using {} threads across {} classes directories",
@@ -176,6 +180,18 @@ public class ExecToXmlEngine
 		long elapsed = System.currentTimeMillis() - startTime;
 		logger.info("[SmartTestPicker] Report generation complete: {} covered, {} empty (no production coverage), {} failed, {}ms elapsed",
 				generated.get(), empty.get(), failed.get(), elapsed);
+	}
+
+	private void writeProductionClassesManifest(Set<String> classPaths, File reportDir) throws IOException
+	{
+		List<String> classes = classPaths.stream()
+				.filter(path -> path.endsWith(".class"))
+				.map(path -> path.substring(0, path.length() - ".class".length())
+						.replace('/', '.').replace('\\', '.'))
+				.sorted()
+				.toList();
+		Files.write(new File(reportDir, PRODUCTION_CLASSES_MANIFEST).toPath(), classes,
+				StandardCharsets.UTF_8);
 	}
 
 	/**

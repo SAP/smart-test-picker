@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,124 +17,81 @@ class TestClassFilterTest
 {
 
 	@Test
-	void detectsStandardTestSuffixes()
+	void packageNamesDoNotClassifyProductionCodeAsTests()
 	{
-		assertTrue(TestClassFilter.isTestClass("org.example.FooTest"));
-		assertTrue(TestClassFilter.isTestClass("org.example.FooTests"));
-		assertTrue(TestClassFilter.isTestClass("org.example.FooIT"));
-		assertTrue(TestClassFilter.isTestClass("org.example.FooTestCase"));
+		Set<String> testOutput = Set.of("org.example.RealTest");
+		assertFalse(TestClassFilter.isTestClass("com.example.test.Foo", testOutput));
+		assertFalse(TestClassFilter.isTestClass("com.example.tests.Bar", testOutput));
+		assertFalse(TestClassFilter.isTestClass("org.acme.testsupport.Baz", testOutput));
+		assertFalse(TestClassFilter.isTestClass("com.annimon.stream.test.SomeProductionClass", testOutput));
 	}
 
 	@Test
-	void detectsTestPrefix()
+	void exactTestOutputOwnershipClassifiesTestsAndHelpers()
 	{
-		assertTrue(TestClassFilter.isTestClass("com.sap.adapters.TestDefaultAdapter"));
-		assertTrue(TestClassFilter.isTestClass("com.sap.adapters.TestNoSendAdapter"));
+		Set<String> testOutput = Set.of("org.example.RealTest", "org.example.Helper");
+		assertTrue(TestClassFilter.isTestClass("org.example.RealTest", testOutput));
+		assertTrue(TestClassFilter.isTestClass("org.example.Helper", testOutput));
+		assertFalse(TestClassFilter.isTestClass("org.example.RealTest", Set.of()));
 	}
 
 	@Test
-	void detectsTestPackages()
+	void testOutputFilteringRemovesOnlyStructurallyOwnedClasses()
 	{
-		assertTrue(TestClassFilter.isTestClass("com.example.platform.testframework.jacoco.JacocoTestListener"));
-		assertTrue(TestClassFilter.isTestClass("com.example.platform.testframework.performance.PerformanceListener"));
-		assertTrue(TestClassFilter.isTestClass("org.example.test.Helper"));
-		assertTrue(TestClassFilter.isTestClass("org.example.tests.Utilities"));
-		assertTrue(TestClassFilter.isTestClass("com.sap.testsrc.Helper"));
+		Map<String, List<String>> coverage = coverage(
+				List.of("com.example.test.ProductionTest", "org.example.RealTest", "org.example.Helper"),
+				List.of("com.example.test.ProductionTest#run", "org.example.RealTest#testRun",
+						"org.example.Helper#setUp"));
+
+		TestClassFilter.filterTestClasses(coverage, Set.of("org.example.RealTest", "org.example.Helper"));
+
+		assertEquals(List.of("com.example.test.ProductionTest"), coverage.get("classes"));
+		assertEquals(List.of("com.example.test.ProductionTest#run"), coverage.get("methods"));
 	}
 
 	@Test
-	void detectsNestedTestClasses()
+	void productionOutputRetainsGeneratedAndTestNamedProductionClasses()
 	{
-		assertTrue(TestClassFilter.isTestClass("org.example.FooTest$InnerHelper"));
-		assertTrue(TestClassFilter.isTestClass("org.example.FooTest$1"));
-	}
+		Map<String, List<String>> coverage = coverage(
+				List.of("com.example.test.Foo", "com.example.generated.tests.BeanDefinition", "org.example.Helper"),
+				List.of("com.example.test.Foo#run", "com.example.generated.tests.BeanDefinition#build",
+						"org.example.Helper#setUp"));
 
-	@Test
-	void doesNotMatchProductionClasses()
-	{
-		assertFalse(TestClassFilter.isTestClass("org.example.FooService"));
-		assertFalse(TestClassFilter.isTestClass("org.example.UserController"));
-		assertFalse(TestClassFilter.isTestClass("org.example.Contest"));
-		assertFalse(TestClassFilter.isTestClass("org.example.Latest"));
-		assertFalse(TestClassFilter.isTestClass("org.example.Attestation"));
-		assertFalse(TestClassFilter.isTestClass("com.example.platform.core.Registry"));
-	}
+		TestClassFilter.retainProductionClasses(coverage,
+				Set.of("com.example.test.Foo", "com.example.generated.tests.BeanDefinition"));
 
-	@Test
-	void handlesNullAndEmpty()
-	{
-		assertFalse(TestClassFilter.isTestClass(null));
-		assertFalse(TestClassFilter.isTestClass(""));
-	}
-
-	@Test
-	void handlesSimpleNameWithoutPackage()
-	{
-		assertTrue(TestClassFilter.isTestClass("FooTest"));
-		assertFalse(TestClassFilter.isTestClass("FooService"));
-	}
-
-	@Test
-	void filterTestClassesRemovesTestClassesAndMethods()
-	{
-		Map<String, List<String>> coverage = new HashMap<>();
-		coverage.put("classes", new ArrayList<>(List.of(
-				"org.example.FooService",
-				"org.example.FooTest",
-				"org.example.BarController")));
-		coverage.put("methods", new ArrayList<>(List.of(
-				"org.example.FooService#doStuff",
-				"org.example.FooTest#setUp",
-				"org.example.FooTest#testDoStuff",
-				"org.example.BarController#handleRequest")));
-
-		TestClassFilter.filterTestClasses(coverage);
-
-		assertEquals(List.of("org.example.FooService", "org.example.BarController"),
+		assertEquals(List.of("com.example.test.Foo", "com.example.generated.tests.BeanDefinition"),
 				coverage.get("classes"));
-		assertEquals(List.of("org.example.FooService#doStuff", "org.example.BarController#handleRequest"),
+		assertEquals(List.of("com.example.test.Foo#run", "com.example.generated.tests.BeanDefinition#build"),
 				coverage.get("methods"));
 	}
 
 	@Test
-	void filterTestClassesLeavesProductionOnlyEntryUntouched()
+	void absentLegacyManifestLeavesAlreadyScopedCoverageUnchanged()
+	{
+		Map<String, List<String>> coverage = coverage(
+				List.of("org.example.FooService", "org.example.FooTest"),
+				List.of("org.example.FooService#run", "org.example.FooTest#utility"));
+
+		TestClassFilter.retainProductionClasses(coverage, Set.of());
+
+		assertEquals(List.of("org.example.FooService", "org.example.FooTest"), coverage.get("classes"));
+		assertEquals(List.of("org.example.FooService#run", "org.example.FooTest#utility"),
+				coverage.get("methods"));
+	}
+
+	@Test
+	void handlesNullCoverage()
+	{
+		assertDoesNotThrow(() -> TestClassFilter.filterTestClasses(null, Set.of("org.example.RealTest")));
+		assertDoesNotThrow(() -> TestClassFilter.retainProductionClasses(null, Set.of("org.example.Main")));
+	}
+
+	private static Map<String, List<String>> coverage(List<String> classes, List<String> methods)
 	{
 		Map<String, List<String>> coverage = new HashMap<>();
-		coverage.put("classes", new ArrayList<>(List.of("org.example.FooService")));
-		coverage.put("methods", new ArrayList<>(List.of("org.example.FooService#doStuff")));
-
-		TestClassFilter.filterTestClasses(coverage);
-
-		assertEquals(List.of("org.example.FooService"), coverage.get("classes"));
-		assertEquals(List.of("org.example.FooService#doStuff"), coverage.get("methods"));
-	}
-
-	@Test
-	void filterTestClassesHandlesNullCoverage()
-	{
-		assertDoesNotThrow(() -> TestClassFilter.filterTestClasses(null));
-	}
-
-	@Test
-	void filterAllAppliesToAllEntries()
-	{
-		Map<String, Map<String, List<String>>> testMappings = new HashMap<>();
-
-		Map<String, List<String>> cov1 = new HashMap<>();
-		cov1.put("classes", new ArrayList<>(List.of("org.example.Foo", "org.example.FooTest")));
-		cov1.put("methods", new ArrayList<>(List.of("org.example.Foo#run", "org.example.FooTest#testRun")));
-		testMappings.put("FooTest#testRun", cov1);
-
-		Map<String, List<String>> cov2 = new HashMap<>();
-		cov2.put("classes", new ArrayList<>(List.of("org.example.Bar", "org.example.BarIT")));
-		cov2.put("methods", new ArrayList<>(List.of("org.example.Bar#exec", "org.example.BarIT#testExec")));
-		testMappings.put("BarIT#testExec", cov2);
-
-		TestClassFilter.filterAll(testMappings);
-
-		assertEquals(List.of("org.example.Foo"), cov1.get("classes"));
-		assertEquals(List.of("org.example.Foo#run"), cov1.get("methods"));
-		assertEquals(List.of("org.example.Bar"), cov2.get("classes"));
-		assertEquals(List.of("org.example.Bar#exec"), cov2.get("methods"));
+		coverage.put("classes", new ArrayList<>(classes));
+		coverage.put("methods", new ArrayList<>(methods));
+		return coverage;
 	}
 }

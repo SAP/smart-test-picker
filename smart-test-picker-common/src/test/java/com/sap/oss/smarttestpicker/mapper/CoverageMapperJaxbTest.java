@@ -9,6 +9,8 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
+import com.sap.oss.smarttestpicker.engine.ExecToXmlEngine;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -94,5 +96,38 @@ class CoverageMapperJaxbTest
 		Map<String, Map<String, List<String>>> result = mapper.generateTestCoverageMapping();
 
 		assertTrue(result.isEmpty());
+	}
+
+	@Test
+	void productionOwnershipManifestKeepsTestNamedProductionAndRejectsTestOutput(@TempDir Path tempDir)
+			throws IOException
+	{
+		String xml = """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<report name="smart-report">
+				  <package name="com/example/test">
+				    <class name="com/example/test/GeneratedProductionTest" sourcefilename="GeneratedProductionTest.java">
+				      <method name="run" desc="()V" line="1"><counter type="INSTRUCTION" missed="0" covered="1"/></method>
+				    </class>
+				  </package>
+				  <package name="org/example">
+				    <class name="org/example/GenuineTest" sourcefilename="GenuineTest.java">
+				      <method name="testRun" desc="()V" line="1"><counter type="INSTRUCTION" missed="0" covered="1"/></method>
+				    </class>
+				    <class name="org/example/TestHelper" sourcefilename="TestHelper.java">
+				      <method name="setUp" desc="()V" line="1"><counter type="INSTRUCTION" missed="0" covered="1"/></method>
+				    </class>
+				  </package>
+				</report>
+				""";
+		Files.writeString(tempDir.resolve("session_GenuineTest#testRun.xml"), xml);
+		Files.writeString(tempDir.resolve(ExecToXmlEngine.PRODUCTION_CLASSES_MANIFEST),
+				"com.example.test.GeneratedProductionTest\n");
+
+		Map<String, List<String>> coverage = new CoverageMapperJaxb(tempDir.toFile())
+				.generateTestCoverageMapping().get("GenuineTest#testRun");
+
+		assertEquals(List.of("com.example.test.GeneratedProductionTest"), coverage.get("classes"));
+		assertEquals(List.of("com.example.test.GeneratedProductionTest#run"), coverage.get("methods"));
 	}
 }

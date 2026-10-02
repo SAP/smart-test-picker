@@ -59,14 +59,10 @@ public class CoverageMapReader
 
 			if (root.has("classIndex"))
 			{
-				CoverageMap map = resolveIndexed(root);
-				TestClassFilter.filterAll(map.getTestMappings());
-				return map;
+				return resolveIndexed(root);
 			}
 
-			CoverageMap map = new Gson().fromJson(root, CoverageMap.class);
-			TestClassFilter.filterAll(map.getTestMappings());
-			return map;
+			return new Gson().fromJson(root, CoverageMap.class);
 		}
 	}
 
