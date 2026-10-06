@@ -7,6 +7,10 @@ import jakarta.servlet.DispatcherType;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
+import jakarta.servlet.ReadListener;
+import jakarta.servlet.ServletInputStream;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.WriteListener;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,6 +29,7 @@ import java.util.concurrent.TimeUnit;
 /** Child JVM fixture: real HTTP requests enter a separately instrumented Servlet server. */
 public final class RemoteServletFixtureMain {
 	private static final CyclicBarrier CONCURRENT_LISTENER_BARRIER = new CyclicBarrier(2);
+	private static final CyclicBarrier CONCURRENT_IO_LISTENER_BARRIER = new CyclicBarrier(2);
 	private RemoteServletFixtureMain() { }
 	public static void main(String[] args) throws Exception {
 		Server server = new Server(0);
@@ -120,6 +125,10 @@ public final class RemoteServletFixtureMain {
 			super.service(request, response);
 		}
 		@Override protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			if (isIoPath(request.getPathInfo())) {
+				runIo(request, response);
+				return;
+			}
 			String path = request.getPathInfo();
 			if (request.getDispatcherType() == DispatcherType.INCLUDE) {
 				if (!"/include-source".equals(path)) throw new IllegalStateException("unexpected include source path: " + path);
@@ -223,6 +232,104 @@ public final class RemoteServletFixtureMain {
 			response.setStatus(200);
 			response.getWriter().write(result);
 		}
+		@Override protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			if (!isIoPath(request.getPathInfo())) { response.sendError(404); return; }
+			runIo(request, response);
+		}
+		private static boolean isIoPath(String path) { return path != null && path.startsWith("/io-"); }
+		private static void runIo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+			String scenario = request.getPathInfo().substring("/io-".length());
+			AsyncContext async = request.startAsync();
+			async.setTimeout(5000);
+			if (scenario.startsWith("read")) {
+				ServletInputStream input = request.getInputStream();
+				input.setReadListener(new FixtureReadListener(scenario, input, async, Thread.currentThread().getId()));
+			} else {
+				ServletOutputStream output = response.getOutputStream();
+				output.setWriteListener(new FixtureWriteListener(scenario, output, async, Thread.currentThread().getId()));
+			}
+		}
+	}
+
+	public static final class FixtureReadListener implements ReadListener {
+		private final String scenario;
+		private final ServletInputStream input;
+		private final AsyncContext async;
+		private final long registrationThread;
+		FixtureReadListener(String scenario, ServletInputStream input, AsyncContext async, long registrationThread) {
+			this.scenario = scenario; this.input = input; this.async = async; this.registrationThread = registrationThread;
+		}
+		@Override public void onDataAvailable() throws IOException {
+			logIoCallback("read-data", scenario, registrationThread);
+			if (scenario.equals("read-headerless")) FixtureIoListenerApplication.readHeaderlessData();
+			else FixtureIoListenerApplication.readData(scenario);
+			if (scenario.equals("read-error")) throw new IOException("fixture read callback failure");
+			while (input.isReady() && !input.isFinished()) if (input.read() < 0) break;
+		}
+		@Override public void onAllDataRead() {
+			logIoCallback("read-all", scenario, registrationThread);
+			if (scenario.equals("read-headerless")) FixtureIoListenerApplication.readHeaderlessAll();
+			else FixtureIoListenerApplication.readAll(scenario);
+			async.complete();
+		}
+		@Override public void onError(Throwable failure) {
+			logIoCallback("read-error", scenario, registrationThread);
+			FixtureIoListenerApplication.readError(scenario);
+			async.complete();
+		}
+	}
+
+	public static final class FixtureWriteListener implements WriteListener {
+		private final String scenario;
+		private final ServletOutputStream output;
+		private final AsyncContext async;
+		private final long registrationThread;
+		FixtureWriteListener(String scenario, ServletOutputStream output, AsyncContext async, long registrationThread) {
+			this.scenario = scenario; this.output = output; this.async = async; this.registrationThread = registrationThread;
+		}
+		@Override public void onWritePossible() throws IOException {
+			logIoCallback("write-possible", scenario, registrationThread);
+			FixtureIoListenerApplication.writePossible(scenario);
+			if (scenario.equals("write-error")) throw new IOException("fixture write callback failure");
+			while (output.isReady()) { output.write('o'); break; }
+			async.complete();
+		}
+		@Override public void onError(Throwable failure) {
+			logIoCallback("write-error", scenario, registrationThread);
+			FixtureIoListenerApplication.writeError(scenario);
+			async.complete();
+		}
+	}
+
+	private static void logIoCallback(String kind, String scenario, long registrationThread) {
+		System.out.println("IO_CALLBACK type=" + kind + " scenario=" + scenario + " registrationThread="
+				+ registrationThread + " callbackThread=" + Thread.currentThread().getId());
+	}
+
+	public static final class FixtureIoListenerApplication {
+		public static void readData(String scenario) { FixtureIoRepository.readData(scenario); }
+		public static void readAll(String scenario) { FixtureIoRepository.readAll(scenario); }
+		public static void readError(String scenario) { FixtureIoRepository.readError(scenario); }
+		public static void writePossible(String scenario) { FixtureIoRepository.writePossible(scenario); }
+		public static void writeError(String scenario) { FixtureIoRepository.writeError(scenario); }
+		public static void readHeaderlessData() { FixtureIoRepository.readHeaderlessData(); }
+		public static void readHeaderlessAll() { FixtureIoRepository.readHeaderlessAll(); }
+	}
+	public static final class FixtureIoRepository {
+		public static void readData(String scenario) { awaitConcurrentIo(scenario); }
+		public static void readAll(String scenario) { }
+		public static void readError(String scenario) { }
+		public static void writePossible(String scenario) { awaitConcurrentIo(scenario); }
+		public static void writeError(String scenario) { }
+		public static void readHeaderlessData() { }
+		public static void readHeaderlessAll() { }
+	}
+	private static void awaitConcurrentIo(String scenario) {
+		if (!scenario.equals("read-concurrent") && !scenario.equals("write-concurrent")) return;
+		System.out.println("IO_CALLBACK_EVENT phase=START scenario=" + scenario + " nanos=" + System.nanoTime());
+		try { CONCURRENT_IO_LISTENER_BARRIER.await(5, TimeUnit.SECONDS); }
+		catch (Exception failure) { throw new IllegalStateException("concurrent I/O callback barrier failed", failure); }
+		System.out.println("IO_CALLBACK_EVENT phase=END scenario=" + scenario + " nanos=" + System.nanoTime());
 	}
 
 	public static final class FixtureService implements FixtureGreeting {

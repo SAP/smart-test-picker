@@ -24,6 +24,12 @@ class RemoteBoundaryTransformerTest {
 		assertAsyncTaskWrapped(transformer, example.remote.jakarta.JakartaAsyncContextFixture.class);
 		assertAsyncListenerCallbacksWrapped(transformer, example.remote.javax.JavaxAsyncListenerFixture.class);
 		assertAsyncListenerCallbacksWrapped(transformer, example.remote.jakarta.JakartaAsyncListenerFixture.class);
+		assertIoBoundariesWrapped(transformer, example.remote.javax.JavaxIoFixtures.Reader.class,
+				example.remote.javax.JavaxIoFixtures.Writer.class, example.remote.javax.JavaxIoFixtures.Input.class,
+				example.remote.javax.JavaxIoFixtures.Output.class);
+		assertIoBoundariesWrapped(transformer, example.remote.jakarta.JakartaIoFixtures.Reader.class,
+				example.remote.jakarta.JakartaIoFixtures.Writer.class, example.remote.jakarta.JakartaIoFixtures.Input.class,
+				example.remote.jakarta.JakartaIoFixtures.Output.class);
 	}
 
 	@Test void requestScopesRestoreParentAndSuppressMissingIds() {
@@ -93,6 +99,45 @@ class RemoteBoundaryTransformerTest {
 		assertNull(RemoteTestContext.currentId());
 	}
 
+	@Test void listenerAssociationsAreIsolatedAndCanBeClearedOnReuse() {
+		Object listenerA = new Object();
+		Object listenerB = new Object();
+		try (var scope = RemoteTestContext.enter((HeaderRequest) ignored -> "test-A", "X-STP-Test-Execution-Id")) {
+			RemoteTestContext.associateListener(listenerA, RemoteTestContext.capture());
+		}
+		try (var scope = RemoteTestContext.enter((HeaderRequest) ignored -> "test-B", "X-STP-Test-Execution-Id")) {
+			RemoteTestContext.associateListener(listenerB, RemoteTestContext.capture());
+		}
+		java.util.concurrent.atomic.AtomicReference<Throwable> workerFailure = new java.util.concurrent.atomic.AtomicReference<>();
+		Thread worker = new Thread(() -> {
+			try {
+				try (var callback = RemoteTestContext.enterListenerCallback(listenerA)) {
+					assertEquals("test-A", RemoteTestContext.currentId());
+				}
+				assertNull(RemoteTestContext.currentId(), "worker must be restored after callback");
+				try (var callback = RemoteTestContext.enterListenerCallback(listenerB)) {
+					assertEquals("test-B", RemoteTestContext.currentId());
+				}
+				assertNull(RemoteTestContext.currentId(), "worker must be restored between callbacks");
+			} catch (Throwable failure) { workerFailure.set(failure); }
+		});
+		worker.start();
+		try { worker.join(5000); } catch (InterruptedException interrupted) { Thread.currentThread().interrupt(); fail(interrupted); }
+		assertFalse(worker.isAlive(), "listener callback worker did not finish");
+		assertNull(workerFailure.get());
+		try (var scope = RemoteTestContext.enter((HeaderRequest) ignored -> "test-B-reused", "X-STP-Test-Execution-Id")) {
+			RemoteTestContext.associateListener(listenerA, RemoteTestContext.capture());
+		}
+		try (var callback = RemoteTestContext.enterListenerCallback(listenerA)) {
+			assertEquals("test-B-reused", RemoteTestContext.currentId(), "listener re-registration replaces its old identity");
+		}
+		RemoteTestContext.associateListener(listenerA, null);
+		try (var callback = RemoteTestContext.enterListenerCallback(listenerA)) {
+			assertNull(RemoteTestContext.currentId(), "reusing an uncorrelated listener must clear its prior ID");
+		}
+		assertNull(RemoteTestContext.currentId());
+	}
+
 	private static void assertValidTransformed(RemoteHttpBoundaryTransformer transformer, Class<?> fixture) throws Exception {
 		String resource = "/" + fixture.getName().replace('.', '/') + ".class";
 		byte[] bytes;
@@ -150,6 +195,38 @@ class RemoteBoundaryTransformerTest {
 		}, 0);
 		assertEquals(java.util.Set.of("onStartAsync", "onComplete", "onTimeout", "onError"), wrappedCallbacks,
 				fixture.getName() + " must wrap all AsyncListener callbacks");
+	}
+	private static void assertIoBoundariesWrapped(RemoteHttpBoundaryTransformer transformer, Class<?> readListener,
+			Class<?> writeListener, Class<?> inputStream, Class<?> outputStream) throws Exception {
+		for (Class<?> fixture : new Class<?>[] {readListener, writeListener, inputStream, outputStream}) assertValidTransformed(transformer, fixture);
+		assertContainsCall(transformer, inputStream, "setReadListener", "associateListener");
+		assertContainsCall(transformer, outputStream, "setWriteListener", "associateListener");
+		for (String callback : new String[] {"onDataAvailable", "onAllDataRead", "onError"})
+			assertContainsCall(transformer, readListener, callback, "enterListenerCallback");
+		for (String callback : new String[] {"onWritePossible", "onError"})
+			assertContainsCall(transformer, writeListener, callback, "enterListenerCallback");
+	}
+	private static void assertContainsCall(RemoteHttpBoundaryTransformer transformer, Class<?> fixture,
+			String methodName, String called) throws Exception {
+		String resource = "/" + fixture.getName().replace('.', '/') + ".class";
+		byte[] bytes;
+		try (var in = fixture.getResourceAsStream(resource)) { bytes = in.readAllBytes(); }
+		byte[] transformed = transformer.transform(fixture.getClassLoader(), fixture.getName().replace('.', '/'),
+				null, fixture.getProtectionDomain(), bytes);
+		assertNotNull(transformed, fixture.getName());
+		java.util.concurrent.atomic.AtomicBoolean found = new java.util.concurrent.atomic.AtomicBoolean();
+		new ClassReader(transformed).accept(new org.objectweb.asm.ClassVisitor(org.objectweb.asm.Opcodes.ASM9) {
+			@Override public org.objectweb.asm.MethodVisitor visitMethod(int access, String name, String desc,
+					String signature, String[] exceptions) {
+				if (!name.equals(methodName)) return null;
+				return new org.objectweb.asm.MethodVisitor(org.objectweb.asm.Opcodes.ASM9) {
+					@Override public void visitMethodInsn(int opcode, String owner, String calledName, String descriptor, boolean isInterface) {
+						if (owner.equals("com/sap/oss/smarttestpicker/remote/RemoteTestContext") && calledName.equals(called)) found.set(true);
+					}
+				};
+			}
+		}, 0);
+		assertTrue(found.get(), fixture.getName() + "#" + methodName + " must call " + called);
 	}
 	private static final class DefiningLoader extends ClassLoader {
 		private final String target;

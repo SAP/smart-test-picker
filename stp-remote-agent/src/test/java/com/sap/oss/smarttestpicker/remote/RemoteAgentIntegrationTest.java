@@ -13,7 +13,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Flow;
 import java.util.concurrent.TimeUnit;
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -62,6 +66,15 @@ class RemoteAgentIntegrationTest {
 			CompletableFuture<String> listenerConcurrentB = async(client, root.resolve("async-listener-concurrent-b"), "listener-concurrent-B");
 			assertEquals("auto-complete", listenerConcurrentA.get(10, TimeUnit.SECONDS));
 			assertEquals("auto-complete", listenerConcurrentB.get(10, TimeUnit.SECONDS));
+			postDelayed(client, root.resolve("io-read-A"), "io-read-A", "payload");
+			post(client, root.resolve("io-write-B"), "io-write-B", "");
+			post(client, root.resolve("io-read-error"), "io-read-error", "payload");
+			post(client, root.resolve("io-write-error"), "io-write-error", "");
+			post(client, root.resolve("io-read-headerless"), null, "payload");
+			CompletableFuture<String> concurrentRead = postAsync(client, root.resolve("io-read-concurrent"), "io-read-concurrent", "payload");
+			CompletableFuture<String> concurrentWrite = postAsync(client, root.resolve("io-write-concurrent"), "io-write-concurrent", "");
+			concurrentRead.get(10, TimeUnit.SECONDS);
+			concurrentWrite.get(10, TimeUnit.SECONDS);
 		} finally {
 			process.destroy();
 			if (!process.waitFor(5, TimeUnit.SECONDS)) process.destroyForcibly();
@@ -92,6 +105,15 @@ class RemoteAgentIntegrationTest {
 				"FixtureRepository#listenerError");
 		assertMethods(json, "listener-concurrent-A", "FixtureRepository#listenerCompleteA");
 		assertMethods(json, "listener-concurrent-B", "FixtureRepository#listenerCompleteB");
+		assertMethods(json, "io-read-A", "FixtureIoListenerApplication#readData", "FixtureIoListenerApplication#readAll",
+				"FixtureIoRepository#readData", "FixtureIoRepository#readAll");
+		assertMethods(json, "io-write-B", "FixtureIoListenerApplication#writePossible", "FixtureIoRepository#writePossible");
+		assertMethods(json, "io-read-error", "FixtureIoListenerApplication#readData", "FixtureIoListenerApplication#readError",
+				"FixtureIoRepository#readData", "FixtureIoRepository#readError");
+		assertMethods(json, "io-write-error", "FixtureIoListenerApplication#writePossible", "FixtureIoListenerApplication#writeError",
+				"FixtureIoRepository#writePossible", "FixtureIoRepository#writeError");
+		assertMethods(json, "io-read-concurrent", "FixtureIoRepository#readData", "FixtureIoRepository#readAll");
+		assertMethods(json, "io-write-concurrent", "FixtureIoRepository#writePossible");
 		assertMethods(json, "test-A-concurrent", "FixtureService#handleA", "FixtureRepository#readA");
 		assertMethods(json, "test-B-concurrent", "FixtureService#handleB", "FixtureRepository#readB");
 		assertMethods(json, "test-A", "FixtureService#serviceBoundary", "FixtureRepository#servletService",
@@ -100,12 +122,13 @@ class RemoteAgentIntegrationTest {
 				"FixtureRepository#listenerInitialized", "FixtureRepository#listenerDestroyed");
 		assertMethods(json, "test-B", "FixtureService#serviceBoundary", "FixtureRepository#servletService",
 				"FixtureService#afterFilterChain", "FixtureRepository#afterFilterChain");
-		assertEquals(21, occurrences(json, "\"testExecutionId\":"), "headerless requests must have no STP observation");
+		assertEquals(27, occurrences(json, "\"testExecutionId\":"), "headerless requests must have no STP observation");
 		for (String id : new String[] {"test-A", "test-B", "test-interface", "test-fail", "test-forward",
 				"test-include", "test-async", "test-async-A", "test-async-B", "test-async-failure",
 				"test-async-concurrent-A", "test-async-concurrent-B", "test-A-concurrent", "test-B-concurrent",
 				"listener-start", "listener-complete-A", "listener-complete-B", "listener-timeout", "listener-error",
-				"listener-concurrent-A", "listener-concurrent-B"}) {
+				"listener-concurrent-A", "listener-concurrent-B", "io-read-A", "io-write-B", "io-read-error", "io-write-error",
+				"io-read-concurrent", "io-write-concurrent"}) {
 			assertEquals(1, occurrences(json, "\"testExecutionId\":\"" + id + "\""), "duplicate observation for " + id);
 		}
 		assertFalse(json.contains("FixtureRepository#readOrdinary"), "headerless request must not inherit a thread context");
@@ -117,6 +140,14 @@ class RemoteAgentIntegrationTest {
 		assertFalse(section(json, "listener-complete-B").contains("listenerCompleteA"));
 		assertFalse(section(json, "listener-concurrent-A").contains("listenerCompleteB"));
 		assertFalse(section(json, "listener-concurrent-B").contains("listenerCompleteA"));
+		assertFalse(section(json, "io-read-A").contains("FixtureIoRepository#write"));
+		assertFalse(section(json, "io-write-B").contains("FixtureIoRepository#read"));
+		assertFalse(section(json, "io-read-concurrent").contains("FixtureIoRepository#write"));
+		assertFalse(section(json, "io-write-concurrent").contains("FixtureIoRepository#read"));
+		assertFalse(json.contains("io-read-headerless"), "headerless listener registration must not create an ID");
+		assertFalse(json.contains("FixtureIoRepository#readHeaderless"), "headerless callbacks must not be attributed to another request");
+		assertIoCallbacksReached(childLog);
+		assertIoCallbacksOverlap(childLog);
 		assertFalse(section(json, "test-A").contains("handleB"));
 		assertFalse(section(json, "test-B").contains("handleA"));
 		assertFalse(section(json, "test-A-concurrent").contains("handleB"));
@@ -147,6 +178,35 @@ class RemoteAgentIntegrationTest {
 	}
 	private static CompletableFuture<String> async(HttpClient client, URI uri, String id) {
 		return client.sendAsync(request(uri, id), HttpResponse.BodyHandlers.ofString()).thenApply(HttpResponse::body);
+	}
+	private static String post(HttpClient client, URI uri, String id, String body) throws Exception {
+		return client.send(postRequest(uri, id, body), HttpResponse.BodyHandlers.ofString()).body();
+	}
+	private static String postDelayed(HttpClient client, URI uri, String id, String body) throws Exception {
+		byte[] bytes = body.getBytes(StandardCharsets.UTF_8);
+		Flow.Publisher<ByteBuffer> publisher = subscriber -> subscriber.onSubscribe(new Flow.Subscription() {
+			private final AtomicBoolean sent = new AtomicBoolean();
+			@Override public void request(long count) {
+				if (count <= 0 || !sent.compareAndSet(false, true)) return;
+				CompletableFuture.delayedExecutor(250, TimeUnit.MILLISECONDS).execute(() -> {
+					subscriber.onNext(ByteBuffer.wrap(bytes));
+					subscriber.onComplete();
+				});
+			}
+			@Override public void cancel() { sent.set(true); }
+		});
+		HttpRequest request = HttpRequest.newBuilder(uri).timeout(Duration.ofSeconds(10)).header("Content-Type", "text/plain")
+				.header("X-STP-Test-Execution-Id", id).POST(HttpRequest.BodyPublishers.fromPublisher(publisher, bytes.length)).build();
+		return client.send(request, HttpResponse.BodyHandlers.ofString()).body();
+	}
+	private static CompletableFuture<String> postAsync(HttpClient client, URI uri, String id, String body) {
+		return client.sendAsync(postRequest(uri, id, body), HttpResponse.BodyHandlers.ofString()).thenApply(HttpResponse::body);
+	}
+	private static HttpRequest postRequest(URI uri, String id, String body) {
+		HttpRequest.Builder builder = HttpRequest.newBuilder(uri).timeout(Duration.ofSeconds(10))
+				.header("Content-Type", "text/plain").POST(HttpRequest.BodyPublishers.ofString(body));
+		if (id != null) builder.header("X-STP-Test-Execution-Id", id);
+		return builder.build();
 	}
 	private static void assertDifferentThreads(String body) {
 		String[] threadIds = body.split(":", -1);
@@ -183,6 +243,33 @@ class RemoteAgentIntegrationTest {
 	}
 	private static long listenerTimestamp(String log, String phase, String scenario) {
 		String marker = "ASYNC_LISTENER_EVENT phase=" + phase + " scenario=" + scenario + " nanos=";
+		int start = log.indexOf(marker);
+		assertTrue(start >= 0, "missing callback timing marker " + marker + " in " + log);
+		start += marker.length();
+		int end = start;
+		while (end < log.length() && Character.isDigit(log.charAt(end))) end++;
+		return Long.parseLong(log.substring(start, end));
+	}
+	private static void assertIoCallbacksReached(String log) {
+		assertIoCallbackLogged(log, "read-all", "read-A");
+		assertIoCallbackLogged(log, "write-possible", "write-B");
+		assertIoCallbackLogged(log, "read-data", "read-A");
+	}
+	private static void assertIoCallbackLogged(String log, String type, String scenario) {
+		assertTrue(log.contains("IO_CALLBACK type=" + type + " scenario=" + scenario + " registrationThread="),
+				"missing non-blocking callback log for " + type + "/" + scenario);
+	}
+	private static void assertIoCallbacksOverlap(String log) {
+		long readStart = ioTimestamp(log, "START", "read-concurrent");
+		long readEnd = ioTimestamp(log, "END", "read-concurrent");
+		long writeStart = ioTimestamp(log, "START", "write-concurrent");
+		long writeEnd = ioTimestamp(log, "END", "write-concurrent");
+		assertTrue(readStart < writeEnd && writeStart < readEnd,
+				"concurrent ReadListener and WriteListener callbacks did not overlap: read="
+						+ readStart + ".." + readEnd + ", write=" + writeStart + ".." + writeEnd);
+	}
+	private static long ioTimestamp(String log, String phase, String scenario) {
+		String marker = "IO_CALLBACK_EVENT phase=" + phase + " scenario=" + scenario + " nanos=";
 		int start = log.indexOf(marker);
 		assertTrue(start >= 0, "missing callback timing marker " + marker + " in " + log);
 		start += marker.length();

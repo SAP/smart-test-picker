@@ -3,12 +3,18 @@
 package com.sap.oss.smarttestpicker.remote;
 
 import java.lang.reflect.Method;
+import java.lang.ref.ReferenceQueue;
+import java.lang.ref.WeakReference;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Request-scoped remote test identity; deliberately independent of JUnit runtime lifecycle. */
 public final class RemoteTestContext {
 	private static final ThreadLocal<String> CURRENT = new ThreadLocal<>();
 	private static final int MAX_ID_LENGTH = 256;
 	private static final String REQUEST_ID_ATTRIBUTE = "com.sap.oss.smarttestpicker.remote.testExecutionId";
+	private static final ReferenceQueue<Object> LISTENER_QUEUE = new ReferenceQueue<>();
+	private static final Map<ListenerReference, String> LISTENER_IDS = new HashMap<>();
 
 	private RemoteTestContext() { }
 
@@ -36,6 +42,31 @@ public final class RemoteTestContext {
 	}
 
 	public static String currentId() { return CURRENT.get(); }
+
+	/** Associates an unchanged Servlet I/O listener instance with the active request identity. */
+	public static void associateListener(Object listener, String id) {
+		if (listener == null) return;
+		synchronized (LISTENER_IDS) {
+			expungeListeners();
+			ListenerReference lookup = new ListenerReference(listener, true);
+			if (valid(id)) {
+				if (LISTENER_IDS.containsKey(lookup)) LISTENER_IDS.put(lookup, id);
+				else LISTENER_IDS.put(new ListenerReference(listener), id);
+			} else LISTENER_IDS.remove(lookup);
+		}
+	}
+
+	/** Temporarily installs the identity captured when a Servlet I/O listener was registered. */
+	public static Scope enterListenerCallback(Object listener) {
+		String previous = CURRENT.get();
+		String id;
+		synchronized (LISTENER_IDS) {
+			expungeListeners();
+			id = LISTENER_IDS.get(new ListenerReference(listener, true));
+		}
+		install(valid(id) ? id : null);
+		return new Scope(previous);
+	}
 
 	/** Captures the opaque ID active at submission time for Servlet-managed async work. */
 	public static String capture() { return CURRENT.get(); }
@@ -134,6 +165,24 @@ public final class RemoteTestContext {
 	private static boolean printable(String value) {
 		for (int i = 0; i < value.length(); i++) if (Character.isISOControl(value.charAt(i))) return false;
 		return true;
+	}
+
+	private static void expungeListeners() {
+		ListenerReference reference;
+		while ((reference = (ListenerReference) LISTENER_QUEUE.poll()) != null) LISTENER_IDS.remove(reference);
+	}
+
+	private static final class ListenerReference extends WeakReference<Object> {
+		private final int hash;
+		private ListenerReference(Object listener) { super(listener, LISTENER_QUEUE); hash = System.identityHashCode(listener); }
+		private ListenerReference(Object listener, boolean lookup) { super(listener); hash = System.identityHashCode(listener); }
+		@Override public int hashCode() { return hash; }
+		@Override public boolean equals(Object other) {
+			if (this == other) return true;
+			if (!(other instanceof ListenerReference reference)) return false;
+			Object listener = get();
+			return listener != null && listener == reference.get();
+		}
 	}
 
 	public static final class Scope implements AutoCloseable {

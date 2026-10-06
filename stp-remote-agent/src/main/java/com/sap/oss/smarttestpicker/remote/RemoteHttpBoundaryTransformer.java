@@ -24,6 +24,10 @@ final class RemoteHttpBoundaryTransformer implements ClassFileTransformer {
 	private static final int REQUEST_LISTENER = 4;
 	private static final int ASYNC_CONTEXT = 8;
 	private static final int ASYNC_LISTENER = 16;
+	private static final int SERVLET_INPUT_STREAM = 32;
+	private static final int SERVLET_OUTPUT_STREAM = 64;
+	private static final int READ_LISTENER = 128;
+	private static final int WRITE_LISTENER = 256;
 	private static final Type SCOPE = Type.getObjectType("com/sap/oss/smarttestpicker/remote/RemoteTestContext$Scope");
 	private static final String CONTEXT = "com/sap/oss/smarttestpicker/remote/RemoteTestContext";
 	private static final String REQUEST = "ServletRequest";
@@ -46,9 +50,13 @@ final class RemoteHttpBoundaryTransformer implements ClassFileTransformer {
 			String response = "L" + namespace + "/" + RESPONSE + ";";
 			String event = "L" + namespace + "/" + EVENT + ";";
 			String asyncEvent = "L" + namespace + "/AsyncEvent;";
+			String readListener = "L" + namespace + "/ReadListener;";
+			String writeListener = "L" + namespace + "/WriteListener;";
 			String requestResponse = "(" + request + response + ")V";
 			String eventMethod = "(" + event + ")V";
 			String asyncListenerMethod = "(" + asyncEvent + ")V";
+			String setReadListenerMethod = "(" + readListener + ")V";
+			String setWriteListenerMethod = "(" + writeListener + ")V";
 			String asyncStartMethod = "(Ljava/lang/Runnable;)V";
 			final int[] wrapped = {0};
 			ClassReader reader = new ClassReader(bytes);
@@ -59,19 +67,28 @@ final class RemoteHttpBoundaryTransformer implements ClassFileTransformer {
 						String signature, String[] exceptions) {
 					org.objectweb.asm.MethodVisitor delegate = super.visitMethod(access, name, desc, signature, exceptions);
 					if ((access & (Opcodes.ACC_ABSTRACT | Opcodes.ACC_NATIVE)) != 0) return delegate;
+					boolean readRegistration = (types.mask & SERVLET_INPUT_STREAM) != 0
+							&& name.equals("setReadListener") && desc.equals(setReadListenerMethod);
+					boolean writeRegistration = (types.mask & SERVLET_OUTPUT_STREAM) != 0
+							&& name.equals("setWriteListener") && desc.equals(setWriteListenerMethod);
 					boolean match = ((types.mask & FILTER_CHAIN) != 0 && name.equals("doFilter") && desc.equals(requestResponse))
 							|| ((types.mask & SERVLET) != 0 && name.equals("service") && desc.equals(requestResponse))
 							|| ((types.mask & REQUEST_LISTENER) != 0 &&
 								(name.equals("requestInitialized") || name.equals("requestDestroyed")) && desc.equals(eventMethod))
 							|| ((types.mask & ASYNC_CONTEXT) != 0 && name.equals("start") && desc.equals(asyncStartMethod));
-					boolean asyncListenerCallback = (types.mask & ASYNC_LISTENER) != 0
-							&& isAsyncListenerCallback(name) && desc.equals(asyncListenerMethod);
-					match |= asyncListenerCallback;
+					boolean listenerCallback = ((types.mask & READ_LISTENER) != 0 && isReadCallback(name, desc))
+							|| ((types.mask & WRITE_LISTENER) != 0 && isWriteCallback(name, desc));
+					boolean remoteCallback = ((types.mask & ASYNC_LISTENER) != 0
+							&& isAsyncListenerCallback(name) && desc.equals(asyncListenerMethod)) || listenerCallback;
+					match |= remoteCallback || readRegistration || writeRegistration;
 					if (!match) return delegate;
 					wrapped[0]++;
 					if ((types.mask & ASYNC_CONTEXT) != 0 && name.equals("start") && desc.equals(asyncStartMethod))
 						return new AsyncStartAdvice(delegate, access, name, desc);
-					return new BoundaryAdvice(delegate, access, name, desc, header, asyncListenerCallback);
+					if (readRegistration || writeRegistration)
+						return new ListenerRegistrationAdvice(delegate, access, name, desc);
+					return new BoundaryAdvice(delegate, access, name, desc, header,
+							(types.mask & ASYNC_LISTENER) != 0 && isAsyncListenerCallback(name) && desc.equals(asyncListenerMethod), listenerCallback);
 				}
 			}, ClassReader.EXPAND_FRAMES);
 			return wrapped[0] == 0 ? null : writer.toByteArray();
@@ -82,6 +99,16 @@ final class RemoteHttpBoundaryTransformer implements ClassFileTransformer {
 
 	private static boolean isAsyncListenerCallback(String name) {
 		return name.equals("onStartAsync") || name.equals("onComplete") || name.equals("onTimeout") || name.equals("onError");
+	}
+
+	private static boolean isReadCallback(String name, String desc) {
+		return (name.equals("onDataAvailable") || name.equals("onAllDataRead")) && desc.equals("()V")
+				|| name.equals("onError") && desc.equals("(Ljava/lang/Throwable;)V");
+	}
+
+	private static boolean isWriteCallback(String name, String desc) {
+		return name.equals("onWritePossible") && desc.equals("()V")
+				|| name.equals("onError") && desc.equals("(Ljava/lang/Throwable;)V");
 	}
 
 	private static BoundaryTypes boundaryTypes(ClassLoader loader, ClassNode node, Set<String> visited) {
@@ -110,6 +137,10 @@ final class RemoteHttpBoundaryTransformer implements ClassFileTransformer {
 			if (name.equals(namespace + "/ServletRequestListener")) return new BoundaryTypes(REQUEST_LISTENER, namespace);
 			if (name.equals(namespace + "/AsyncContext")) return new BoundaryTypes(ASYNC_CONTEXT, namespace);
 			if (name.equals(namespace + "/AsyncListener")) return new BoundaryTypes(ASYNC_LISTENER, namespace);
+			if (name.equals(namespace + "/ServletInputStream")) return new BoundaryTypes(SERVLET_INPUT_STREAM, namespace);
+			if (name.equals(namespace + "/ServletOutputStream")) return new BoundaryTypes(SERVLET_OUTPUT_STREAM, namespace);
+			if (name.equals(namespace + "/ReadListener")) return new BoundaryTypes(READ_LISTENER, namespace);
+			if (name.equals(namespace + "/WriteListener")) return new BoundaryTypes(WRITE_LISTENER, namespace);
 		}
 		return BoundaryTypes.NONE;
 	}
@@ -153,21 +184,25 @@ final class RemoteHttpBoundaryTransformer implements ClassFileTransformer {
 	private static final class BoundaryAdvice extends AdviceAdapter {
 		private final String header;
 		private final boolean asyncListenerCallback;
+		private final boolean ioListenerCallback;
 		private Label start;
 		private int scopeLocal;
 		private BoundaryAdvice(org.objectweb.asm.MethodVisitor visitor, int access, String name, String desc,
-				String header, boolean asyncListenerCallback) {
+				String header, boolean asyncListenerCallback, boolean ioListenerCallback) {
 			super(Opcodes.ASM9, visitor, access, name, desc);
 			this.header = header;
 			this.asyncListenerCallback = asyncListenerCallback;
+			this.ioListenerCallback = ioListenerCallback;
 		}
 		@Override protected void onMethodEnter() {
 			scopeLocal = newLocal(SCOPE);
-			loadArg(0);
-			if (asyncListenerCallback) {
-				invokeStatic(Type.getObjectType(CONTEXT), new Method("enterAsyncListener",
+			if (asyncListenerCallback || ioListenerCallback) {
+				if (asyncListenerCallback) loadArg(0);
+				else loadThis();
+				invokeStatic(Type.getObjectType(CONTEXT), new Method(asyncListenerCallback ? "enterAsyncListener" : "enterListenerCallback",
 						"(Ljava/lang/Object;)Lcom/sap/oss/smarttestpicker/remote/RemoteTestContext$Scope;"));
 			} else {
+				loadArg(0);
 				push(header);
 				invokeStatic(Type.getObjectType(CONTEXT), new Method("enter",
 						"(Ljava/lang/Object;Ljava/lang/String;)Lcom/sap/oss/smarttestpicker/remote/RemoteTestContext$Scope;"));
@@ -195,6 +230,26 @@ final class RemoteHttpBoundaryTransformer implements ClassFileTransformer {
 		private void closeScope() {
 			loadLocal(scopeLocal);
 			invokeVirtual(SCOPE, new Method("close", "()V"));
+		}
+	}
+
+	private static final class ListenerRegistrationAdvice extends AdviceAdapter {
+		private ListenerRegistrationAdvice(org.objectweb.asm.MethodVisitor visitor, int access, String name, String desc) {
+			super(Opcodes.ASM9, visitor, access, name, desc);
+		}
+		@Override protected void onMethodEnter() {
+			loadArg(0);
+			invokeStatic(Type.getObjectType(CONTEXT), new Method("capture", "()Ljava/lang/String;"));
+			invokeStatic(Type.getObjectType(CONTEXT), new Method("associateListener",
+					"(Ljava/lang/Object;Ljava/lang/String;)V"));
+		}
+		@Override protected void onMethodExit(int opcode) {
+			if (opcode == ATHROW) {
+				loadArg(0);
+				push((String) null);
+				invokeStatic(Type.getObjectType(CONTEXT), new Method("associateListener",
+						"(Ljava/lang/Object;Ljava/lang/String;)V"));
+			}
 		}
 	}
 
