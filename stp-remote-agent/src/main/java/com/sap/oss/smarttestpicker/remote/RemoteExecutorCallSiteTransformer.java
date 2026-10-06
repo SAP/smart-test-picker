@@ -29,6 +29,10 @@ final class RemoteExecutorCallSiteTransformer implements ClassFileTransformer {
 	private static final String RUNNABLE = "Ljava/lang/Runnable;";
 	private static final String CALLABLE = "Ljava/util/concurrent/Callable;";
 	private static final String FUTURE = "Ljava/util/concurrent/Future;";
+	private static final String COMPLETABLE_FUTURE = "java/util/concurrent/CompletableFuture";
+	private static final String COMPLETABLE_FUTURE_DESC = "Ljava/util/concurrent/CompletableFuture;";
+	private static final String SUPPLIER = "Ljava/util/function/Supplier;";
+	private static final String FUNCTION = "Ljava/util/function/Function;";
 	private static final Set<String> ROOTS = Set.of(EXECUTOR, EXECUTOR_SERVICE);
 	private final RemoteAgentConfiguration configuration;
 	private final Consumer<String> diagnosticSink;
@@ -56,7 +60,14 @@ final class RemoteExecutorCallSiteTransformer implements ClassFileTransformer {
 			for (MethodNode method : node.methods) {
 				for (AbstractInsnNode instruction = method.instructions.getFirst(); instruction != null;
 						instruction = instruction.getNext()) {
-					if (!(instruction instanceof MethodInsnNode call) || !supportedShape(call)) continue;
+					if (!(instruction instanceof MethodInsnNode call)) continue;
+					InsnList futureWrapping = completableFutureWrapping(call);
+					if (futureWrapping != null) {
+						method.instructions.insertBefore(call, futureWrapping);
+						changed = true;
+						continue;
+					}
+					if (!supportedShape(call)) continue;
 					Resolution resolution = hierarchy.executor(call.owner, new HashSet<>());
 					if (resolution == Resolution.UNKNOWN) {
 						report("executor-attribution-incomplete:" + className.replace('/', '.') + ":"
@@ -95,6 +106,35 @@ final class RemoteExecutorCallSiteTransformer implements ClassFileTransformer {
 				|| call.name.equals("submit") && (call.desc.equals("(" + RUNNABLE + ")" + FUTURE)
 				|| call.desc.equals("(" + RUNNABLE + "Ljava/lang/Object;)" + FUTURE)
 				|| call.desc.equals("(" + CALLABLE + ")" + FUTURE));
+	}
+
+	private static InsnList completableFutureWrapping(MethodInsnNode call) {
+		if (!call.owner.equals(COMPLETABLE_FUTURE)) return null;
+		String argument;
+		String hook;
+		if ((call.name.equals("runAsync") || call.name.equals("thenRunAsync"))
+				&& (call.desc.equals("(" + RUNNABLE + ")" + COMPLETABLE_FUTURE_DESC)
+				|| call.desc.equals("(" + RUNNABLE + "Ljava/util/concurrent/Executor;)" + COMPLETABLE_FUTURE_DESC))) {
+			argument = RUNNABLE;
+			hook = "wrap";
+		} else if (call.name.equals("supplyAsync")
+				&& (call.desc.equals("(" + SUPPLIER + ")" + COMPLETABLE_FUTURE_DESC)
+				|| call.desc.equals("(" + SUPPLIER + "Ljava/util/concurrent/Executor;)" + COMPLETABLE_FUTURE_DESC))) {
+			argument = SUPPLIER;
+			hook = "wrapSupplier";
+		} else if ((call.name.equals("thenApplyAsync"))
+				&& (call.desc.equals("(" + FUNCTION + ")" + COMPLETABLE_FUTURE_DESC)
+				|| call.desc.equals("(" + FUNCTION + "Ljava/util/concurrent/Executor;)" + COMPLETABLE_FUTURE_DESC))) {
+			argument = FUNCTION;
+			hook = "wrapFunction";
+		} else return null;
+		boolean explicitExecutor = call.desc.contains("Ljava/util/concurrent/Executor;");
+		InsnList result = new InsnList();
+		if (explicitExecutor) result.add(new InsnNode(Opcodes.SWAP));
+		result.add(new MethodInsnNode(Opcodes.INVOKESTATIC, CONTEXT, hook,
+				"(" + argument + ")" + argument, false));
+		if (explicitExecutor) result.add(new InsnNode(Opcodes.SWAP));
+		return result;
 	}
 
 	private static InsnList wrapping(MethodInsnNode call) {

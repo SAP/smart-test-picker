@@ -8,6 +8,8 @@ import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 /** Request-scoped remote test identity; deliberately independent of JUnit runtime lifecycle. */
 public final class RemoteTestContext {
@@ -92,6 +94,30 @@ public final class RemoteTestContext {
 			String previous = CURRENT.get();
 			install(captured);
 			try { return task.call(); }
+			finally { install(previous); }
+		};
+	}
+
+	/** Captures the current remote identity for a CompletableFuture supplier stage. */
+	public static <T> Supplier<T> wrapSupplier(Supplier<T> task) {
+		if (task == null) return null;
+		String captured = capture();
+		return () -> {
+			String previous = CURRENT.get();
+			install(captured);
+			try { return task.get(); }
+			finally { install(previous); }
+		};
+	}
+
+	/** Captures the current remote identity for a CompletableFuture function stage. */
+	public static <T, R> Function<T, R> wrapFunction(Function<T, R> task) {
+		if (task == null) return null;
+		String captured = capture();
+		return value -> {
+			String previous = CURRENT.get();
+			install(captured);
+			try { return task.apply(value); }
 			finally { install(previous); }
 		};
 	}

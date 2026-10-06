@@ -36,10 +36,65 @@ class RemoteExecutorCallSiteTransformerTest {
 				};
 			}
 		}, 0);
-		assertEquals(4, runnableWraps.get(), "execute, submit(Runnable), submit(Runnable,result), and custom Executor");
+		assertEquals(8, runnableWraps.get(), "four Executor call sites plus four CompletableFuture Runnable stages");
 		assertEquals(1, callableWraps.get());
 		assertDoesNotThrow(() -> new DefiningLoader(ExecutorCallSiteFixture.class.getClassLoader(),
 				ExecutorCallSiteFixture.class.getName(), transformed).loadClass(ExecutorCallSiteFixture.class.getName()));
+	}
+
+	@Test void wrapsOnlyTheSupportedCompletableFutureAsyncStages() throws Exception {
+		RemoteExecutorCallSiteTransformer transformer = transformer(message -> fail(message));
+		byte[] transformed = transform(transformer, ExecutorCallSiteFixture.class);
+		assertNotNull(transformed);
+		java.util.Map<String, Integer> hooks = new java.util.HashMap<>();
+		new ClassReader(transformed).accept(new ClassVisitor(Opcodes.ASM9) {
+			@Override public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
+				return new MethodVisitor(Opcodes.ASM9) {
+					@Override public void visitMethodInsn(int opcode, String owner, String method, String desc, boolean isInterface) {
+						if (owner.equals("com/sap/oss/smarttestpicker/remote/RemoteTestContext")) hooks.merge(method + desc, 1, Integer::sum);
+					}
+				};
+			}
+		}, 0);
+		assertEquals(8, hooks.get("wrap(Ljava/lang/Runnable;)Ljava/lang/Runnable;"));
+		assertEquals(2, hooks.get("wrapSupplier(Ljava/util/function/Supplier;)Ljava/util/function/Supplier;"));
+		assertEquals(2, hooks.get("wrapFunction(Ljava/util/function/Function;)Ljava/util/function/Function;"));
+		assertDoesNotThrow(() -> new DefiningLoader(ExecutorCallSiteFixture.class.getClassLoader(),
+				ExecutorCallSiteFixture.class.getName(), transformed).loadClass(ExecutorCallSiteFixture.class.getName()),
+				"explicit-executor stack rewriting must leave verifier-valid bytecode");
+	}
+
+	@Test void supplierAndFunctionWrappersCaptureAndRestoreContextEvenOnFailure() throws Exception {
+		var executor = java.util.concurrent.Executors.newSingleThreadExecutor();
+		try {
+			RemoteTestContext.Scope scope = RemoteTestContext.enter(new HeaderRequest("cf-A"), "X-STP-Test-Execution-Id");
+			java.util.function.Supplier<String> supplier = RemoteTestContext.wrapSupplier(() -> RemoteTestContext.currentId());
+			java.util.function.Function<String, String> function = RemoteTestContext.wrapFunction(value -> value + ":" + RemoteTestContext.currentId());
+			scope.close();
+			assertEquals("worker-prior", executor.submit(() -> {
+				try (RemoteTestContext.Scope ignored = RemoteTestContext.enter(new HeaderRequest("worker-prior"), "X-STP-Test-Execution-Id")) {
+					assertEquals("cf-A", supplier.get());
+					return RemoteTestContext.currentId();
+				}
+			}).get(), "worker context must be restored after supplier callback");
+			assertEquals("input:cf-A", executor.submit(() -> {
+				try (RemoteTestContext.Scope ignored = RemoteTestContext.enter(new HeaderRequest("worker-prior"), "X-STP-Test-Execution-Id")) {
+					String result = function.apply("input");
+					assertEquals("worker-prior", RemoteTestContext.currentId());
+					return result;
+				}
+			}).get());
+			try (RemoteTestContext.Scope ignored = RemoteTestContext.enter(new HeaderRequest("cf-B"), "X-STP-Test-Execution-Id")) {
+				var failure = RemoteTestContext.wrapSupplier(() -> { throw new IllegalStateException("expected"); });
+				String restored = executor.submit(() -> {
+					try (RemoteTestContext.Scope worker = RemoteTestContext.enter(new HeaderRequest("worker-prior"), "X-STP-Test-Execution-Id")) {
+						try { failure.get(); } catch (IllegalStateException expected) { }
+						return RemoteTestContext.currentId();
+					}
+				}).get();
+				assertEquals("worker-prior", restored, "worker context must be restored even when supplier fails");
+			}
+		} finally { executor.shutdownNow(); }
 	}
 
 	@Test void reportsUnknownExecutorHierarchyWithoutGuessing() {
@@ -88,6 +143,9 @@ class RemoteExecutorCallSiteTransformerTest {
 		method.visitEnd();
 		writer.visitEnd();
 		return writer.toByteArray();
+	}
+	private record HeaderRequest(String header) {
+		public String getHeader(String name) { return header; }
 	}
 	private static final class DefiningLoader extends ClassLoader {
 		private final String target;
