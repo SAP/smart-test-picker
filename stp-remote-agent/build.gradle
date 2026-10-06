@@ -1,0 +1,55 @@
+// SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+// SPDX-License-Identifier: Apache-2.0
+plugins {
+    id 'java-library'
+    id 'com.gradleup.shadow' version '8.3.6'
+}
+
+description = 'Isolated STP remote servlet request correlation agent POC'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+dependencies {
+    implementation 'org.ow2.asm:asm:9.8'
+    implementation 'org.ow2.asm:asm-tree:9.8'
+    implementation 'org.ow2.asm:asm-commons:9.8'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
+    testImplementation 'org.eclipse.jetty:jetty-server:11.0.25'
+    testImplementation 'org.eclipse.jetty:jetty-servlet:11.0.25'
+    testImplementation 'jakarta.servlet:jakarta.servlet-api:5.0.0'
+    testImplementation 'javax.servlet:javax.servlet-api:4.0.1'
+    testImplementation 'org.ow2.asm:asm-util:9.8'
+}
+
+tasks.named('shadowJar') {
+    archiveFileName = 'stp-remote-agent.jar'
+    archiveClassifier = ''
+    relocate 'org.objectweb.asm', 'com.sap.oss.smarttestpicker.remote.internal.asm'
+    exclude 'META-INF/*.SF', 'META-INF/*.RSA', 'META-INF/*.DSA', 'META-INF/gradle/**'
+    manifest {
+        attributes(
+                'Premain-Class': 'com.sap.oss.smarttestpicker.remote.RemoteStpAgent',
+                'Implementation-Version': project.version,
+                'Can-Redefine-Classes': 'false',
+                'Can-Retransform-Classes': 'false'
+        )
+    }
+}
+
+tasks.register('remoteAgentJar') {
+    group = 'build'
+    description = 'Builds the standalone STP remote servlet request correlation agent.'
+    dependsOn tasks.named('shadowJar')
+}
+
+tasks.test {
+    useJUnitPlatform()
+    dependsOn tasks.named('remoteAgentJar')
+    doFirst {
+        systemProperty 'stp.remote.agent.jar', tasks.named('shadowJar').get().archiveFile.get().asFile.absolutePath
+    }
+}
