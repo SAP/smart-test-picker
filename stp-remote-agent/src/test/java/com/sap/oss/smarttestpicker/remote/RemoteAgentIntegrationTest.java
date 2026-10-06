@@ -34,6 +34,7 @@ class RemoteAgentIntegrationTest {
 			assertEquals("a", get(client, root.resolve("a"), "test-A"));
 			assertEquals("a", get(client, root.resolve("a"), null));
 			assertEquals("b", get(client, root.resolve("b"), "test-B"));
+			assertEquals("interface-default", get(client, root.resolve("interface"), "test-interface"));
 			assertEquals(500, status(client, root.resolve("fail"), "test-fail"));
 			assertEquals("a", get(client, root.resolve("a"), null));
 			CompletableFuture<String> concurrentA = async(client, root.resolve("a"), "test-A-concurrent");
@@ -48,10 +49,11 @@ class RemoteAgentIntegrationTest {
 		String json = Files.readString(output);
 		assertMethods(json, "test-A", "FixtureServlet#doGet", "FixtureService#handleA", "FixtureRepository#readA");
 		assertMethods(json, "test-B", "FixtureServlet#doGet", "FixtureService#handleB", "FixtureRepository#readB");
+		assertMethods(json, "test-interface", "FixtureService#handleInterface", "FixtureGreeting#greet()Ljava/lang/String;");
 		assertMethods(json, "test-fail", "FixtureServlet#doGet", "FixtureService#fail", "FixtureRepository#fail");
 		assertMethods(json, "test-A-concurrent", "FixtureService#handleA", "FixtureRepository#readA");
 		assertMethods(json, "test-B-concurrent", "FixtureService#handleB", "FixtureRepository#readB");
-		assertEquals(5, occurrences(json, "\"testExecutionId\":"), "headerless requests must have no STP observation");
+		assertEquals(6, occurrences(json, "\"testExecutionId\":"), "headerless requests must have no STP observation");
 		assertFalse(section(json, "test-A").contains("handleB"));
 		assertFalse(section(json, "test-B").contains("handleA"));
 		assertFalse(section(json, "test-A-concurrent").contains("handleB"));

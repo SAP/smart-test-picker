@@ -42,17 +42,19 @@ public final class RemoteServletFixtureMain {
 		@Override protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 			String path = request.getPathInfo();
 			if ("/fail".equals(path)) service.fail();
-			String result = "/a".equals(path) ? service.handleA()
+			String result = "/interface".equals(path) ? service.handleInterface()
+					: "/a".equals(path) ? service.handleA()
 					: "/b".equals(path) ? service.handleB() : service.handleOrdinary();
 			response.setStatus(200);
 			response.getWriter().write(result);
 		}
 	}
 
-	public static final class FixtureService {
+	public static final class FixtureService implements FixtureGreeting {
 		public String handleA() { return FixtureRepository.readA(); }
 		public String handleB() { return FixtureRepository.readB(); }
 		public String handleOrdinary() { return FixtureRepository.readOrdinary(); }
+		public String handleInterface() { return greet(); }
 		public String fail() { return FixtureRepository.fail(); }
 	}
 

@@ -47,8 +47,9 @@ final class RemoteMethodEntryTransformer implements ClassFileTransformer {
 				instrumented++;
 			}
 			if (instrumented == 0) return null;
-			node.fields.add(new FieldNode(Opcodes.ACC_PRIVATE | Opcodes.ACC_STATIC | Opcodes.ACC_FINAL
-					| Opcodes.ACC_SYNTHETIC, MARKER, "Z", null, Boolean.TRUE));
+			int markerAccess = Opcodes.ACC_STATIC | Opcodes.ACC_FINAL | Opcodes.ACC_SYNTHETIC;
+			markerAccess |= (node.access & Opcodes.ACC_INTERFACE) != 0 ? Opcodes.ACC_PUBLIC : Opcodes.ACC_PRIVATE;
+			node.fields.add(new FieldNode(markerAccess, MARKER, "Z", null, Boolean.TRUE));
 			ClassWriter writer = new ClassWriter(new ClassReader(bytes), ClassWriter.COMPUTE_MAXS);
 			node.accept(writer);
 			return writer.toByteArray();
