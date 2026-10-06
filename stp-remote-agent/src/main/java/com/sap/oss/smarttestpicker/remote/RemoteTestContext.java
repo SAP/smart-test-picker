@@ -7,6 +7,7 @@ import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Callable;
 
 /** Request-scoped remote test identity; deliberately independent of JUnit runtime lifecycle. */
 public final class RemoteTestContext {
@@ -79,6 +80,18 @@ public final class RemoteTestContext {
 			String previous = CURRENT.get();
 			install(captured);
 			try { task.run(); }
+			finally { install(previous); }
+		};
+	}
+
+	/** Attaches the submission-time remote identity to a Callable and restores the worker afterward. */
+	public static <T> Callable<T> wrap(Callable<T> task) {
+		if (task == null) return null;
+		String captured = capture();
+		return () -> {
+			String previous = CURRENT.get();
+			install(captured);
+			try { return task.call(); }
 			finally { install(previous); }
 		};
 	}

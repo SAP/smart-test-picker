@@ -75,6 +75,19 @@ class RemoteAgentIntegrationTest {
 			CompletableFuture<String> concurrentWrite = postAsync(client, root.resolve("io-write-concurrent"), "io-write-concurrent", "");
 			concurrentRead.get(10, TimeUnit.SECONDS);
 			concurrentWrite.get(10, TimeUnit.SECONDS);
+			String executeWorker = get(client, root.resolve("executor-execute"), "executor-execute-A");
+			String runnableWorker = get(client, root.resolve("executor-submit-runnable"), "executor-submit-B");
+			assertEquals(executeWorker, runnableWorker, "single executor must reuse the worker without retaining the old ID");
+			assertEquals("runnable-result", get(client, root.resolve("executor-submit-result"), "executor-submit-result"));
+			assertEquals("callable-result", get(client, root.resolve("executor-callable"), "executor-callable-C"));
+			assertEquals("task-failed", get(client, root.resolve("executor-failure"), "executor-failure"));
+			String afterFailureWorker = get(client, root.resolve("executor-after-failure"), "executor-after-failure");
+			assertEquals(executeWorker, afterFailureWorker, "single executor worker must survive task failure and be reused");
+			assertEquals("done", get(client, root.resolve("executor-no-context"), null));
+			CompletableFuture<String> executorA = async(client, root.resolve("executor-concurrent-a"), "executor-concurrent-A");
+			CompletableFuture<String> executorB = async(client, root.resolve("executor-concurrent-b"), "executor-concurrent-B");
+			assertNotEquals(executorA.get(10, TimeUnit.SECONDS), executorB.get(10, TimeUnit.SECONDS),
+					"parallel executor must run concurrent tasks on separate workers");
 		} finally {
 			process.destroy();
 			if (!process.waitFor(5, TimeUnit.SECONDS)) process.destroyForcibly();
@@ -114,6 +127,14 @@ class RemoteAgentIntegrationTest {
 				"FixtureIoRepository#writePossible", "FixtureIoRepository#writeError");
 		assertMethods(json, "io-read-concurrent", "FixtureIoRepository#readData", "FixtureIoRepository#readAll");
 		assertMethods(json, "io-write-concurrent", "FixtureIoRepository#writePossible");
+		assertMethods(json, "executor-execute-A", "FixtureExecutorApplication#executeTask", "FixtureExecutorRepository#executeTask");
+		assertMethods(json, "executor-submit-B", "FixtureExecutorApplication#submitRunnableTask", "FixtureExecutorRepository#submitRunnableTask");
+		assertMethods(json, "executor-submit-result", "FixtureExecutorApplication#submitResultTask", "FixtureExecutorRepository#submitResultTask");
+		assertMethods(json, "executor-callable-C", "FixtureExecutorApplication#callableTask", "FixtureExecutorRepository#callableTask");
+		assertMethods(json, "executor-failure", "FixtureExecutorApplication#failingTask", "FixtureExecutorRepository#failingTask");
+		assertMethods(json, "executor-after-failure", "FixtureExecutorApplication#afterFailureTask", "FixtureExecutorRepository#afterFailureTask");
+		assertMethods(json, "executor-concurrent-A", "FixtureExecutorApplication#concurrentTaskA", "FixtureExecutorRepository#concurrentTaskA");
+		assertMethods(json, "executor-concurrent-B", "FixtureExecutorApplication#concurrentTaskB", "FixtureExecutorRepository#concurrentTaskB");
 		assertMethods(json, "test-A-concurrent", "FixtureService#handleA", "FixtureRepository#readA");
 		assertMethods(json, "test-B-concurrent", "FixtureService#handleB", "FixtureRepository#readB");
 		assertMethods(json, "test-A", "FixtureService#serviceBoundary", "FixtureRepository#servletService",
@@ -122,13 +143,14 @@ class RemoteAgentIntegrationTest {
 				"FixtureRepository#listenerInitialized", "FixtureRepository#listenerDestroyed");
 		assertMethods(json, "test-B", "FixtureService#serviceBoundary", "FixtureRepository#servletService",
 				"FixtureService#afterFilterChain", "FixtureRepository#afterFilterChain");
-		assertEquals(27, occurrences(json, "\"testExecutionId\":"), "headerless requests must have no STP observation");
+		assertEquals(35, occurrences(json, "\"testExecutionId\":"), "headerless requests must have no STP observation");
 		for (String id : new String[] {"test-A", "test-B", "test-interface", "test-fail", "test-forward",
 				"test-include", "test-async", "test-async-A", "test-async-B", "test-async-failure",
 				"test-async-concurrent-A", "test-async-concurrent-B", "test-A-concurrent", "test-B-concurrent",
 				"listener-start", "listener-complete-A", "listener-complete-B", "listener-timeout", "listener-error",
 				"listener-concurrent-A", "listener-concurrent-B", "io-read-A", "io-write-B", "io-read-error", "io-write-error",
-				"io-read-concurrent", "io-write-concurrent"}) {
+				"io-read-concurrent", "io-write-concurrent", "executor-execute-A", "executor-submit-B", "executor-submit-result",
+				"executor-callable-C", "executor-failure", "executor-after-failure", "executor-concurrent-A", "executor-concurrent-B"}) {
 			assertEquals(1, occurrences(json, "\"testExecutionId\":\"" + id + "\""), "duplicate observation for " + id);
 		}
 		assertFalse(json.contains("FixtureRepository#readOrdinary"), "headerless request must not inherit a thread context");
@@ -146,6 +168,14 @@ class RemoteAgentIntegrationTest {
 		assertFalse(section(json, "io-write-concurrent").contains("FixtureIoRepository#read"));
 		assertFalse(json.contains("io-read-headerless"), "headerless listener registration must not create an ID");
 		assertFalse(json.contains("FixtureIoRepository#readHeaderless"), "headerless callbacks must not be attributed to another request");
+		assertFalse(json.contains("executor-no-context"));
+		assertFalse(json.contains("FixtureExecutorRepository#noContextTask"), "task without request context must remain unattributed");
+		assertFalse(section(json, "executor-concurrent-A").contains("concurrentTaskB"));
+		assertFalse(section(json, "executor-concurrent-B").contains("concurrentTaskA"));
+		assertFalse(section(json, "executor-execute-A").contains("submitRunnableTask"));
+		assertFalse(section(json, "executor-submit-B").contains("executeTask"));
+		assertFalse(section(json, "executor-failure").contains("afterFailureTask"));
+		assertFalse(section(json, "executor-after-failure").contains("failingTask"));
 		assertIoCallbacksReached(childLog);
 		assertIoCallbacksOverlap(childLog);
 		assertFalse(section(json, "test-A").contains("handleB"));

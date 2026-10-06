@@ -24,13 +24,28 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import java.io.IOException;
 import java.util.EnumSet;
 import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 /** Child JVM fixture: real HTTP requests enter a separately instrumented Servlet server. */
 public final class RemoteServletFixtureMain {
 	private static final CyclicBarrier CONCURRENT_LISTENER_BARRIER = new CyclicBarrier(2);
 	private static final CyclicBarrier CONCURRENT_IO_LISTENER_BARRIER = new CyclicBarrier(2);
+	private static final ExecutorService SINGLE_EXECUTOR = Executors.newSingleThreadExecutor(task -> daemon(task, "fixture-single-worker"));
+	private static final ExecutorService PARALLEL_EXECUTOR = Executors.newFixedThreadPool(2, task -> daemon(task, "fixture-parallel-worker"));
+	private static final CyclicBarrier EXECUTOR_BARRIER = new CyclicBarrier(2);
 	private RemoteServletFixtureMain() { }
+	private static Thread daemon(Runnable task, String name) {
+		Thread thread = new Thread(task, name);
+		thread.setDaemon(true);
+		return thread;
+	}
 	public static void main(String[] args) throws Exception {
 		Server server = new Server(0);
 		ServletContextHandler context = new ServletContextHandler();
@@ -148,6 +163,10 @@ public final class RemoteServletFixtureMain {
 			if (("/a".equals(path) || "/b".equals(path)) && request.getDispatcherType() != DispatcherType.REQUEST)
 				throw new IllegalStateException("initial endpoint did not use REQUEST dispatch");
 			if ("/fail".equals(path)) service.fail();
+			if (path != null && path.startsWith("/executor-")) {
+				runExecutor(path, response);
+				return;
+			}
 			if ("/async".equals(path)) {
 				AsyncContext async = request.startAsync();
 				async.setTimeout(5000);
@@ -249,6 +268,92 @@ public final class RemoteServletFixtureMain {
 				output.setWriteListener(new FixtureWriteListener(scenario, output, async, Thread.currentThread().getId()));
 			}
 		}
+		private static void runExecutor(String path, HttpServletResponse response) throws IOException {
+			try {
+				String body;
+				switch (path) {
+					case "/executor-execute" -> {
+						CountDownLatch done = new CountDownLatch(1);
+						AtomicReference<Long> worker = new AtomicReference<>();
+						new FixtureExecutor().execute(() -> {
+							FixtureExecutorApplication.executeTask();
+							worker.set(Thread.currentThread().getId());
+							done.countDown();
+						});
+						if (!done.await(5, TimeUnit.SECONDS)) throw new IllegalStateException("execute task timed out");
+						body = worker.get().toString();
+					}
+					case "/executor-submit-runnable" -> {
+						AtomicReference<Long> worker = new AtomicReference<>();
+						SINGLE_EXECUTOR.submit((Runnable) () -> {
+							FixtureExecutorApplication.submitRunnableTask();
+							worker.set(Thread.currentThread().getId());
+						});
+						SINGLE_EXECUTOR.submit((Callable<Void>) () -> null).get(5, TimeUnit.SECONDS);
+						body = worker.get().toString();
+					}
+					case "/executor-submit-result" -> {
+						Future<String> future = SINGLE_EXECUTOR.submit(() -> FixtureExecutorApplication.submitResultTask(), "runnable-result");
+						body = future.get(5, TimeUnit.SECONDS);
+					}
+					case "/executor-callable" -> body = SINGLE_EXECUTOR.submit((Callable<String>) FixtureExecutorApplication::callableTask)
+							.get(5, TimeUnit.SECONDS);
+					case "/executor-failure" -> {
+						try { SINGLE_EXECUTOR.submit(() -> FixtureExecutorApplication.failingTask()).get(5, TimeUnit.SECONDS); }
+						catch (java.util.concurrent.ExecutionException expected) { body = "task-failed"; break; }
+						throw new IllegalStateException("failing task unexpectedly succeeded");
+					}
+					case "/executor-after-failure" -> body = SINGLE_EXECUTOR.submit(() -> {
+						FixtureExecutorApplication.afterFailureTask();
+						return Thread.currentThread().getId();
+					}).get(5, TimeUnit.SECONDS).toString();
+					case "/executor-no-context" -> body = SINGLE_EXECUTOR.submit(() -> {
+						FixtureExecutorApplication.noContextTask();
+						return "done";
+					}).get(5, TimeUnit.SECONDS);
+					case "/executor-concurrent-a" -> body = concurrentTask(true);
+					case "/executor-concurrent-b" -> body = concurrentTask(false);
+					default -> { response.sendError(404); return; }
+				}
+				response.setStatus(200);
+				response.getWriter().write(body);
+			} catch (Exception failure) { throw new IOException("executor fixture failed", failure); }
+		}
+		private static String concurrentTask(boolean first) throws Exception {
+			return PARALLEL_EXECUTOR.submit((Callable<String>) () -> {
+				if (first) FixtureExecutorApplication.concurrentTaskA();
+				else FixtureExecutorApplication.concurrentTaskB();
+				EXECUTOR_BARRIER.await(5, TimeUnit.SECONDS);
+				return Long.toString(Thread.currentThread().getId());
+			}).get(7, TimeUnit.SECONDS);
+		}
+	}
+
+	/** Custom application Executor used to verify concrete-owner hierarchy resolution. */
+	public static final class FixtureExecutor implements Executor {
+		@Override public void execute(Runnable task) { SINGLE_EXECUTOR.execute(task); }
+	}
+	public static final class FixtureExecutorApplication {
+		public static void executeTask() { FixtureExecutorRepository.executeTask(); }
+		public static void submitRunnableTask() { FixtureExecutorRepository.submitRunnableTask(); }
+		public static void submitResultTask() { FixtureExecutorRepository.submitResultTask(); }
+		public static String callableTask() { FixtureExecutorRepository.callableTask(); return "callable-result"; }
+		public static void failingTask() { FixtureExecutorRepository.failingTask(); throw new IllegalStateException("expected task failure"); }
+		public static void afterFailureTask() { FixtureExecutorRepository.afterFailureTask(); }
+		public static void noContextTask() { FixtureExecutorRepository.noContextTask(); }
+		public static void concurrentTaskA() { FixtureExecutorRepository.concurrentTaskA(); }
+		public static void concurrentTaskB() { FixtureExecutorRepository.concurrentTaskB(); }
+	}
+	public static final class FixtureExecutorRepository {
+		public static void executeTask() { }
+		public static void submitRunnableTask() { }
+		public static void submitResultTask() { }
+		public static void callableTask() { }
+		public static void failingTask() { }
+		public static void afterFailureTask() { }
+		public static void noContextTask() { }
+		public static void concurrentTaskA() { }
+		public static void concurrentTaskB() { }
 	}
 
 	public static final class FixtureReadListener implements ReadListener {

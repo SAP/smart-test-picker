@@ -62,7 +62,7 @@ class RemoteBoundaryTransformerTest {
 	@Test void wrappedAsyncTaskRestoresWorkerContextEvenWhenItThrows() throws Exception {
 		Runnable wrapped;
 		try (var request = RemoteTestContext.enter((HeaderRequest) ignored -> "test-captured", "X-STP-Test-Execution-Id")) {
-			wrapped = RemoteTestContext.wrap(() -> {
+			wrapped = RemoteTestContext.wrap((Runnable) () -> {
 				assertEquals("test-captured", RemoteTestContext.currentId());
 				throw new IllegalStateException("expected async failure");
 			});
@@ -84,6 +84,28 @@ class RemoteBoundaryTransformerTest {
 		assertInstanceOf(IllegalStateException.class, taskFailure.get());
 		assertNull(workerFailure.get());
 		assertNull(RemoteTestContext.currentId());
+	}
+
+	@Test void wrappedCallableCapturesIdentityAndRestoresWorkerContext() throws Exception {
+		java.util.concurrent.Callable<String> wrapped;
+		try (var request = RemoteTestContext.enter((HeaderRequest) ignored -> "callable-test-id", "X-STP-Test-Execution-Id")) {
+			wrapped = RemoteTestContext.wrap((java.util.concurrent.Callable<String>) RemoteTestContext::currentId);
+		}
+		java.util.concurrent.atomic.AtomicReference<Throwable> workerFailure = new java.util.concurrent.atomic.AtomicReference<>();
+		Thread worker = new Thread(() -> {
+			try {
+				try (var prior = RemoteTestContext.enter((HeaderRequest) ignored -> "worker-prior", "X-STP-Test-Execution-Id")) {
+					try { assertEquals("callable-test-id", wrapped.call()); }
+					catch (Exception failure) { throw new AssertionError(failure); }
+					assertEquals("worker-prior", RemoteTestContext.currentId());
+				}
+				assertNull(RemoteTestContext.currentId());
+			} catch (Throwable failure) { workerFailure.set(failure); }
+		});
+		worker.start();
+		worker.join(5000);
+		assertFalse(worker.isAlive(), "Callable worker did not finish");
+		assertNull(workerFailure.get());
 	}
 
 	@Test void asyncListenerScopeUsesRequestAttributeAndRestoresCallbackThreadContext() {
