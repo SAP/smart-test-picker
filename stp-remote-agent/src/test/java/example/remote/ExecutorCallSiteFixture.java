@@ -7,6 +7,9 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -26,4 +29,19 @@ public final class ExecutorCallSiteFixture {
 	public CompletableFuture<Void> thenRunAsyncWithExecutor(CompletableFuture<?> source, Runnable task, Executor executor) { return source.thenRunAsync(task, executor); }
 	public <T, R> CompletableFuture<R> thenApplyAsync(CompletableFuture<T> source, Function<T, R> task) { return source.thenApplyAsync(task); }
 	public <T, R> CompletableFuture<R> thenApplyAsyncWithExecutor(CompletableFuture<T> source, Function<T, R> task, Executor executor) { return source.thenApplyAsync(task, executor); }
+	public ScheduledFuture<?> scheduleRunnable(ScheduledExecutorService executor, Runnable task) {
+		return executor.schedule(task, 1, TimeUnit.MILLISECONDS);
+	}
+	public <T> ScheduledFuture<T> scheduleCallable(ScheduledExecutorService executor, Callable<T> task) {
+		return executor.schedule(task, 1, TimeUnit.MILLISECONDS);
+	}
+	public ScheduledFuture<?> scheduleAtFixedRate(ScheduledExecutorService executor, Runnable task) {
+		return executor.scheduleAtFixedRate(task, 1, 2, TimeUnit.MILLISECONDS);
+	}
+	public ScheduledFuture<?> scheduleWithFixedDelay(ScheduledExecutorService executor, Runnable task) {
+		return executor.scheduleWithFixedDelay(task, 1, 2, TimeUnit.MILLISECONDS);
+	}
+	public ScheduledFuture<?> scheduleCustom(FixtureScheduledExecutor executor, Runnable task) {
+		return executor.schedule(task, 1, TimeUnit.MILLISECONDS);
+	}
 }

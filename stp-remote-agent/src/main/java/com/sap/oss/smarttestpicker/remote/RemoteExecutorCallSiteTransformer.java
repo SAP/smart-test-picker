@@ -26,6 +26,8 @@ final class RemoteExecutorCallSiteTransformer implements ClassFileTransformer {
 	private static final String CONTEXT = "com/sap/oss/smarttestpicker/remote/RemoteTestContext";
 	private static final String EXECUTOR = "java/util/concurrent/Executor";
 	private static final String EXECUTOR_SERVICE = "java/util/concurrent/ExecutorService";
+	private static final String SCHEDULED_EXECUTOR_SERVICE = "java/util/concurrent/ScheduledExecutorService";
+	private static final String SCHEDULED_EXECUTOR_DESC = "Ljava/util/concurrent/ScheduledExecutorService;";
 	private static final String RUNNABLE = "Ljava/lang/Runnable;";
 	private static final String CALLABLE = "Ljava/util/concurrent/Callable;";
 	private static final String FUTURE = "Ljava/util/concurrent/Future;";
@@ -33,7 +35,9 @@ final class RemoteExecutorCallSiteTransformer implements ClassFileTransformer {
 	private static final String COMPLETABLE_FUTURE_DESC = "Ljava/util/concurrent/CompletableFuture;";
 	private static final String SUPPLIER = "Ljava/util/function/Supplier;";
 	private static final String FUNCTION = "Ljava/util/function/Function;";
-	private static final Set<String> ROOTS = Set.of(EXECUTOR, EXECUTOR_SERVICE);
+	private static final String SCHEDULED_FUTURE = "Ljava/util/concurrent/ScheduledFuture;";
+	private static final String TIME_UNIT = "Ljava/util/concurrent/TimeUnit;";
+	private static final Set<String> ROOTS = Set.of(EXECUTOR, EXECUTOR_SERVICE, SCHEDULED_EXECUTOR_SERVICE);
 	private final RemoteAgentConfiguration configuration;
 	private final Consumer<String> diagnosticSink;
 	private final Set<String> reported = ConcurrentHashMap.newKeySet();
@@ -64,6 +68,16 @@ final class RemoteExecutorCallSiteTransformer implements ClassFileTransformer {
 					InsnList futureWrapping = completableFutureWrapping(call);
 					if (futureWrapping != null) {
 						method.instructions.insertBefore(call, futureWrapping);
+						changed = true;
+						continue;
+					}
+					MethodInsnNode scheduledBridge = scheduledBridge(call, hierarchy, className);
+					if (scheduledBridge != null) {
+						call.setOpcode(Opcodes.INVOKESTATIC);
+						call.owner = scheduledBridge.owner;
+						call.name = scheduledBridge.name;
+						call.desc = scheduledBridge.desc;
+						call.itf = false;
 						changed = true;
 						continue;
 					}
@@ -137,6 +151,26 @@ final class RemoteExecutorCallSiteTransformer implements ClassFileTransformer {
 		return result;
 	}
 
+	private MethodInsnNode scheduledBridge(MethodInsnNode call, Hierarchy hierarchy, String caller) {
+		String descriptor;
+		if (call.name.equals("schedule") && call.desc.equals("(" + RUNNABLE + "J" + TIME_UNIT + ")" + SCHEDULED_FUTURE)) {
+			descriptor = "(" + SCHEDULED_EXECUTOR_DESC + RUNNABLE + "J" + TIME_UNIT + ")" + SCHEDULED_FUTURE;
+		} else if (call.name.equals("schedule") && call.desc.equals("(" + CALLABLE + "J" + TIME_UNIT + ")" + SCHEDULED_FUTURE)) {
+			descriptor = "(" + SCHEDULED_EXECUTOR_DESC + CALLABLE + "J" + TIME_UNIT + ")" + SCHEDULED_FUTURE;
+		} else if ((call.name.equals("scheduleAtFixedRate") || call.name.equals("scheduleWithFixedDelay"))
+				&& call.desc.equals("(" + RUNNABLE + "JJ" + TIME_UNIT + ")" + SCHEDULED_FUTURE)) {
+			descriptor = "(" + SCHEDULED_EXECUTOR_DESC + RUNNABLE + "JJ" + TIME_UNIT + ")" + SCHEDULED_FUTURE;
+		} else return null;
+		Resolution resolution = hierarchy.scheduledExecutor(call.owner, new HashSet<>());
+		if (resolution == Resolution.UNKNOWN) {
+			report("scheduled-executor-attribution-incomplete:" + caller.replace('/', '.') + ":"
+					+ call.owner.replace('/', '.') + "." + call.name + call.desc);
+			return null;
+		}
+		if (resolution != Resolution.YES) return null;
+		return new MethodInsnNode(Opcodes.INVOKESTATIC, CONTEXT, call.name, descriptor, false);
+	}
+
 	private static InsnList wrapping(MethodInsnNode call) {
 		InsnList result = new InsnList();
 		if (call.desc.startsWith("(" + RUNNABLE)) {
@@ -174,6 +208,34 @@ final class RemoteExecutorCallSiteTransformer implements ClassFileTransformer {
 					return parents(reader.getSuperName(), Arrays.asList(reader.getInterfaces()), visited);
 				}
 			} catch (Throwable ignored) { return Resolution.UNKNOWN; }
+		}
+
+		private Resolution scheduledExecutor(String owner, Set<String> visited) {
+			if (owner.equals(SCHEDULED_EXECUTOR_SERVICE)) return Resolution.YES;
+			if (!visited.add(owner) || owner.equals("java/lang/Object")) return Resolution.NO;
+			try {
+				if (owner.equals(current.name)) return scheduledParents(current.superName, current.interfaces, visited);
+				try (InputStream bytes = loader.getResourceAsStream(owner + ".class")) {
+					if (bytes == null) return Resolution.UNKNOWN;
+					ClassReader reader = new ClassReader(bytes);
+					return scheduledParents(reader.getSuperName(), Arrays.asList(reader.getInterfaces()), visited);
+				}
+			} catch (Throwable ignored) { return Resolution.UNKNOWN; }
+		}
+
+		private Resolution scheduledParents(String superclass, java.util.List<String> interfaces, Set<String> visited) {
+			boolean unknown = false;
+			for (String parent : interfaces) {
+				Resolution result = scheduledExecutor(parent, visited);
+				if (result == Resolution.YES) return result;
+				unknown |= result == Resolution.UNKNOWN;
+			}
+			if (superclass != null) {
+				Resolution result = scheduledExecutor(superclass, visited);
+				if (result == Resolution.YES) return result;
+				unknown |= result == Resolution.UNKNOWN;
+			}
+			return unknown ? Resolution.UNKNOWN : Resolution.NO;
 		}
 
 		private Resolution parents(String superclass, java.util.List<String> interfaces, Set<String> visited) {

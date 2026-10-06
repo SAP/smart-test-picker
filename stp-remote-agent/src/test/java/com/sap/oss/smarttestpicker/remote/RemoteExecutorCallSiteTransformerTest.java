@@ -64,6 +64,30 @@ class RemoteExecutorCallSiteTransformerTest {
 				"explicit-executor stack rewriting must leave verifier-valid bytecode");
 	}
 
+	@Test void rewritesScheduledExecutorOverloadsThroughTheContextBridge() throws Exception {
+		RemoteExecutorCallSiteTransformer transformer = transformer(message -> fail(message));
+		byte[] transformed = transform(transformer, ExecutorCallSiteFixture.class);
+		assertNotNull(transformed);
+		java.util.Map<String, Integer> bridges = new java.util.HashMap<>();
+		new ClassReader(transformed).accept(new ClassVisitor(Opcodes.ASM9) {
+			@Override public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
+				return new MethodVisitor(Opcodes.ASM9) {
+					@Override public void visitMethodInsn(int opcode, String owner, String method, String desc, boolean isInterface) {
+						if (owner.equals("com/sap/oss/smarttestpicker/remote/RemoteTestContext")
+								&& (method.equals("schedule") || method.equals("scheduleAtFixedRate") || method.equals("scheduleWithFixedDelay")))
+							bridges.merge(method + desc, 1, Integer::sum);
+					}
+				};
+			}
+		}, 0);
+		assertEquals(2, bridges.get("schedule(Ljava/util/concurrent/ScheduledExecutorService;Ljava/lang/Runnable;JLjava/util/concurrent/TimeUnit;)Ljava/util/concurrent/ScheduledFuture;"));
+		assertEquals(1, bridges.get("schedule(Ljava/util/concurrent/ScheduledExecutorService;Ljava/util/concurrent/Callable;JLjava/util/concurrent/TimeUnit;)Ljava/util/concurrent/ScheduledFuture;"));
+		assertEquals(1, bridges.get("scheduleAtFixedRate(Ljava/util/concurrent/ScheduledExecutorService;Ljava/lang/Runnable;JJLjava/util/concurrent/TimeUnit;)Ljava/util/concurrent/ScheduledFuture;"));
+		assertEquals(1, bridges.get("scheduleWithFixedDelay(Ljava/util/concurrent/ScheduledExecutorService;Ljava/lang/Runnable;JJLjava/util/concurrent/TimeUnit;)Ljava/util/concurrent/ScheduledFuture;"));
+		assertDoesNotThrow(() -> new DefiningLoader(ExecutorCallSiteFixture.class.getClassLoader(),
+				ExecutorCallSiteFixture.class.getName(), transformed).loadClass(ExecutorCallSiteFixture.class.getName()));
+	}
+
 	@Test void supplierAndFunctionWrappersCaptureAndRestoreContextEvenOnFailure() throws Exception {
 		var executor = java.util.concurrent.Executors.newSingleThreadExecutor();
 		try {
@@ -105,6 +129,32 @@ class RemoteExecutorCallSiteTransformerTest {
 		assertNull(transformed, "unknown executor calls must not be rewritten");
 		assertEquals(1, diagnostics.size());
 		assertTrue(diagnostics.get(0).contains("executor-attribution-incomplete:example.remote.UnknownCaller"), diagnostics.toString());
+	}
+
+	@Test void reportsUnknownScheduledExecutorHierarchyWithoutGuessing() {
+		List<String> diagnostics = new ArrayList<>();
+		RemoteExecutorCallSiteTransformer transformer = transformer(diagnostics::add);
+		String missing = "example/remote/missing/UnknownScheduledExecutor";
+		ClassWriter writer = new ClassWriter(0);
+		writer.visit(Opcodes.V17, Opcodes.ACC_PUBLIC, "example/remote/UnknownScheduledCaller", null, "java/lang/Object", null);
+		MethodVisitor method = writer.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_STATIC, "invoke",
+				"(Ljava/lang/Object;Ljava/lang/Runnable;)Ljava/util/concurrent/ScheduledFuture;", null, null);
+		method.visitCode();
+		method.visitVarInsn(Opcodes.ALOAD, 0);
+		method.visitTypeInsn(Opcodes.CHECKCAST, missing);
+		method.visitVarInsn(Opcodes.ALOAD, 1);
+		method.visitInsn(Opcodes.LCONST_0);
+		method.visitFieldInsn(Opcodes.GETSTATIC, "java/util/concurrent/TimeUnit", "MILLISECONDS", "Ljava/util/concurrent/TimeUnit;");
+		method.visitMethodInsn(Opcodes.INVOKEINTERFACE, missing, "schedule",
+				"(Ljava/lang/Runnable;JLjava/util/concurrent/TimeUnit;)Ljava/util/concurrent/ScheduledFuture;", true);
+		method.visitInsn(Opcodes.ARETURN);
+		method.visitMaxs(5, 2);
+		method.visitEnd();
+		writer.visitEnd();
+		byte[] generated = writer.toByteArray();
+		assertNull(transformer.transform(new ClassLoader(null) { }, "example/remote/UnknownScheduledCaller", null, null, generated));
+		assertEquals(1, diagnostics.size());
+		assertTrue(diagnostics.get(0).contains("scheduled-executor-attribution-incomplete:example.remote.UnknownScheduledCaller"), diagnostics.toString());
 	}
 
 	@Test void doesNotTransformJdkClassesEvenWhenIncluded() {

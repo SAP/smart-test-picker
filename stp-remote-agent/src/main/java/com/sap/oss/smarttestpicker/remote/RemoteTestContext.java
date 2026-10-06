@@ -8,6 +8,9 @@ import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -120,6 +123,29 @@ public final class RemoteTestContext {
 			try { return task.apply(value); }
 			finally { install(previous); }
 		};
+	}
+
+	/** Submission-time context bridge for one-shot ScheduledExecutorService work. */
+	public static ScheduledFuture<?> schedule(ScheduledExecutorService executor, Runnable task, long delay, TimeUnit unit) {
+		return executor.schedule(wrap(task), delay, unit);
+	}
+
+	/** Submission-time context bridge for one-shot scheduled Callable work. */
+	public static <T> ScheduledFuture<T> schedule(ScheduledExecutorService executor, Callable<T> task,
+			long delay, TimeUnit unit) {
+		return executor.schedule(wrap(task), delay, unit);
+	}
+
+	/** Each periodic run installs the ID captured when the task was registered and restores the worker afterward. */
+	public static ScheduledFuture<?> scheduleAtFixedRate(ScheduledExecutorService executor, Runnable task,
+			long initialDelay, long period, TimeUnit unit) {
+		return executor.scheduleAtFixedRate(wrap(task), initialDelay, period, unit);
+	}
+
+	/** Each periodic run installs the ID captured when the task was registered and restores the worker afterward. */
+	public static ScheduledFuture<?> scheduleWithFixedDelay(ScheduledExecutorService executor, Runnable task,
+			long initialDelay, long delay, TimeUnit unit) {
+		return executor.scheduleWithFixedDelay(wrap(task), initialDelay, delay, unit);
 	}
 
 	private static void install(String id) {
