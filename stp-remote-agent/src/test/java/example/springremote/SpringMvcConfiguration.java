@@ -41,6 +41,16 @@ public class SpringMvcConfiguration implements WebMvcConfigurer {
 		return executor;
 	}
 
+	@Bean(name = "asyncOverlapExecutor")
+	public ThreadPoolTaskExecutor asyncOverlapExecutor() {
+		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+		executor.setCorePoolSize(2);
+		executor.setMaxPoolSize(2);
+		executor.setThreadNamePrefix("spring-async-overlap-");
+		executor.initialize();
+		return executor;
+	}
+
 	@Bean(name = "applicationTaskExecutor")
 	public ThreadPoolTaskExecutor applicationTaskExecutor() {
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();

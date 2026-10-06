@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
@@ -16,6 +17,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class SpringMvcService {
+	private static final CyclicBarrier ASYNC_OVERLAP = new CyclicBarrier(2);
 	private final Executor applicationExecutor;
 	private final SpringMvcRepository repository = new SpringMvcRepository();
 
@@ -48,6 +50,33 @@ public class SpringMvcService {
 		System.out.println("SPRING_TRANSITION:async:worker=" + Thread.currentThread().getName());
 		pauseBriefly();
 		return CompletableFuture.completedFuture(repository.hit("asyncService"));
+	}
+
+	@Async("asyncExecutor")
+	public CompletableFuture<String> asyncServiceFailure() {
+		System.out.println("SPRING_TRANSITION:asyncFailure:worker=" + Thread.currentThread().getName());
+		pauseBriefly();
+		repository.hit("asyncFailure");
+		throw new IllegalStateException("fixture @Async failure");
+	}
+
+	@Async("asyncOverlapExecutor")
+	public CompletableFuture<String> asyncOverlapA() {
+		return asyncOverlap("asyncOverlapA");
+	}
+
+	@Async("asyncOverlapExecutor")
+	public CompletableFuture<String> asyncOverlapB() {
+		return asyncOverlap("asyncOverlapB");
+	}
+
+	private CompletableFuture<String> asyncOverlap(String scenario) {
+		System.out.println("SPRING_TRANSITION:" + scenario + ":worker=" + Thread.currentThread().getName());
+		long started = System.nanoTime();
+		System.out.println("SPRING_ASYNC_OVERLAP:START:" + scenario + ":" + started);
+		try { ASYNC_OVERLAP.await(5, TimeUnit.SECONDS); }
+		catch (Exception failure) { throw new IllegalStateException("@Async overlap failed", failure); }
+		return CompletableFuture.completedFuture(repository.hit(scenario));
 	}
 
 	public String asyncTaskExecutorExecute(AsyncTaskExecutor executor) throws InterruptedException {

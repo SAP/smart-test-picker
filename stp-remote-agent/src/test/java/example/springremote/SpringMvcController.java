@@ -81,6 +81,12 @@ public class SpringMvcController {
 		System.out.println("SPRING_TRANSITION:async:request=" + Thread.currentThread().getName());
 		return service.asyncService();
 	}
+	@GetMapping("/async-fail") public CompletableFuture<String> asyncFailure() {
+		System.out.println("SPRING_TRANSITION:asyncFailure:request=" + Thread.currentThread().getName());
+		return service.asyncServiceFailure();
+	}
+	@GetMapping("/async-overlap-a") public CompletableFuture<String> asyncOverlapA() { return service.asyncOverlapA(); }
+	@GetMapping("/async-overlap-b") public CompletableFuture<String> asyncOverlapB() { return service.asyncOverlapB(); }
 
 	@GetMapping("/task-executor/execute") public String taskExecutorExecute() throws Exception {
 		return service.asyncTaskExecutorExecute(taskExecutor);

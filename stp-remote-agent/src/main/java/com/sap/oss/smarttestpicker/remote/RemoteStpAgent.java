@@ -13,6 +13,7 @@ public final class RemoteStpAgent {
 		RemoteRecorder.install(configuration.output());
 		instrumentation.addTransformer(new RemoteHttpBoundaryTransformer(configuration.header()), false);
 		instrumentation.addTransformer(new RemoteSpringMvcCallableTransformer(), false);
+		instrumentation.addTransformer(new RemoteSpringAsyncTransformer(), false);
 		instrumentation.addTransformer(new RemoteExecutorCallSiteTransformer(configuration), false);
 		instrumentation.addTransformer(new RemoteMethodEntryTransformer(configuration), false);
 		Runtime.getRuntime().addShutdownHook(new Thread(RemoteRecorder::writeOutput, "stp-remote-agent-output"));
