@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RemoteBoundaryTransformerTest {
 	@Test void recognizesAndWrapsBothServletNamespaces() throws Exception {
-		RemoteHttpBoundaryTransformer transformer = new RemoteHttpBoundaryTransformer("X-STP-Test-Execution-Id");
+		RemoteHttpBoundaryTransformer transformer = new RemoteHttpBoundaryTransformer();
 		assertValidTransformed(transformer, example.remote.javax.JavaxFilterChainFixture.class);
 		assertValidTransformed(transformer, example.remote.jakarta.JakartaFilterChainFixture.class);
 		assertValidTransformed(transformer, example.remote.javax.JavaxServletFixture.class);
@@ -33,11 +33,11 @@ class RemoteBoundaryTransformerTest {
 	}
 
 	@Test void requestScopesRestoreParentAndSuppressMissingIds() {
-		Object requestA = (HeaderRequest) name -> "test-A";
-		Object noHeader = (HeaderRequest) name -> null;
-		try (var outer = RemoteTestContext.enter(requestA, "X-STP-Test-Execution-Id")) {
+		Object requestA = TestRequests.request("test-A");
+		Object noHeader = TestRequests.noIdentity();
+		try (var outer = RemoteTestContext.enter(requestA)) {
 			assertEquals("test-A", RemoteTestContext.currentId());
-			try (var nested = RemoteTestContext.enter(noHeader, "X-STP-Test-Execution-Id")) {
+			try (var nested = RemoteTestContext.enter(noHeader)) {
 				assertNull(RemoteTestContext.currentId());
 			}
 			assertEquals("test-A", RemoteTestContext.currentId());
@@ -46,22 +46,46 @@ class RemoteBoundaryTransformerTest {
 	}
 
 	@Test void acceptedRequestAttributeWinsOverConflictingRedispatchHeader() {
-		MutableRequest request = new MutableRequest("test-original");
-		try (var initial = RemoteTestContext.enter(request, "X-STP-Test-Execution-Id")) {
+		TestRequests.Request request = TestRequests.request("test-original");
+		try (var initial = RemoteTestContext.enter(request)) {
 			assertEquals("test-original", RemoteTestContext.currentId());
 		}
-		assertEquals("test-original", request.attributes.get("com.sap.oss.smarttestpicker.remote.testExecutionId"));
-		request.header = "test-conflict";
-		try (var redispatch = RemoteTestContext.enter(request, "X-STP-Test-Execution-Id")) {
+		assertEquals(new RemoteRequestIdentity("fixture-suite", "test-original", request.getHeader(RemoteRequestIdentity.REQUEST_ID_HEADER)), request.getAttribute("com.sap.oss.smarttestpicker.remote.requestIdentity"));
+		request.setHeader(RemoteRequestIdentity.TEST_ID_HEADER, "test-conflict");
+		try (var redispatch = RemoteTestContext.enter(request)) {
 			assertEquals("test-original", RemoteTestContext.currentId());
 		}
-		assertEquals("test-original", request.attributes.get("com.sap.oss.smarttestpicker.remote.testExecutionId"));
+		assertEquals("test-original", ((RemoteRequestIdentity) request.getAttribute("com.sap.oss.smarttestpicker.remote.requestIdentity")).testId());
 		assertNull(RemoteTestContext.currentId());
+	}
+
+	@Test void partialOrInvalidIdentityHeadersNeverCreatePartialAttribution() {
+		TestRequests.Request partial = TestRequests.request("partial-test");
+		partial.setHeader(RemoteRequestIdentity.REQUEST_ID_HEADER, null);
+		try (var scope = RemoteTestContext.enter(partial)) { assertNull(RemoteTestContext.currentIdentity()); }
+		TestRequests.Request invalid = TestRequests.request("invalid-test");
+		invalid.setHeader(RemoteRequestIdentity.REQUEST_ID_HEADER, "bad\nvalue");
+		try (var scope = RemoteTestContext.enter(invalid)) { assertNull(RemoteTestContext.currentIdentity()); }
+		assertNull(RemoteTestContext.currentIdentity());
+	}
+
+	@Test void requestIdIsPartOfCapturedAndRestoredAsyncIdentity() throws Exception {
+		RemoteRequestIdentity expected;
+		Runnable wrapped;
+		TestRequests.Request request = TestRequests.request("full-identity");
+		try (var scope = RemoteTestContext.enter(request)) {
+			expected = RemoteTestContext.currentIdentity();
+			wrapped = RemoteTestContext.wrap(() -> assertEquals(expected, RemoteTestContext.currentIdentity()));
+		}
+		Thread worker = new Thread(wrapped);
+		worker.start(); worker.join(5000);
+		assertFalse(worker.isAlive());
+		assertNull(RemoteTestContext.currentIdentity());
 	}
 
 	@Test void wrappedAsyncTaskRestoresWorkerContextEvenWhenItThrows() throws Exception {
 		Runnable wrapped;
-		try (var request = RemoteTestContext.enter((HeaderRequest) ignored -> "test-captured", "X-STP-Test-Execution-Id")) {
+		try (var request = RemoteTestContext.enter(TestRequests.request("test-captured"))) {
 			wrapped = RemoteTestContext.wrap((Runnable) () -> {
 				assertEquals("test-captured", RemoteTestContext.currentId());
 				throw new IllegalStateException("expected async failure");
@@ -71,7 +95,7 @@ class RemoteBoundaryTransformerTest {
 		java.util.concurrent.atomic.AtomicReference<Throwable> workerFailure = new java.util.concurrent.atomic.AtomicReference<>();
 		Thread worker = new Thread(() -> {
 			try {
-				try (var prior = RemoteTestContext.enter((HeaderRequest) ignored -> "worker-prior", "X-STP-Test-Execution-Id")) {
+				try (var prior = RemoteTestContext.enter(TestRequests.request("worker-prior"))) {
 					try { wrapped.run(); } catch (Throwable thrown) { taskFailure.set(thrown); }
 					assertEquals("worker-prior", RemoteTestContext.currentId());
 				}
@@ -88,13 +112,13 @@ class RemoteBoundaryTransformerTest {
 
 	@Test void wrappedCallableCapturesIdentityAndRestoresWorkerContext() throws Exception {
 		java.util.concurrent.Callable<String> wrapped;
-		try (var request = RemoteTestContext.enter((HeaderRequest) ignored -> "callable-test-id", "X-STP-Test-Execution-Id")) {
+		try (var request = RemoteTestContext.enter(TestRequests.request("callable-test-id"))) {
 			wrapped = RemoteTestContext.wrap((java.util.concurrent.Callable<String>) RemoteTestContext::currentId);
 		}
 		java.util.concurrent.atomic.AtomicReference<Throwable> workerFailure = new java.util.concurrent.atomic.AtomicReference<>();
 		Thread worker = new Thread(() -> {
 			try {
-				try (var prior = RemoteTestContext.enter((HeaderRequest) ignored -> "worker-prior", "X-STP-Test-Execution-Id")) {
+				try (var prior = RemoteTestContext.enter(TestRequests.request("worker-prior"))) {
 					try { assertEquals("callable-test-id", wrapped.call()); }
 					catch (Exception failure) { throw new AssertionError(failure); }
 					assertEquals("worker-prior", RemoteTestContext.currentId());
@@ -109,10 +133,10 @@ class RemoteBoundaryTransformerTest {
 	}
 
 	@Test void asyncListenerScopeUsesRequestAttributeAndRestoresCallbackThreadContext() {
-		MutableRequest request = new MutableRequest("header-must-not-be-used");
-		request.attributes.put("com.sap.oss.smarttestpicker.remote.testExecutionId", "accepted-test-id");
+		TestRequests.Request request = TestRequests.request("header-must-not-be-used");
+		request.setAttribute("com.sap.oss.smarttestpicker.remote.requestIdentity", new RemoteRequestIdentity("suite", "accepted-test-id", java.util.UUID.randomUUID().toString()));
 		FakeAsyncEvent event = new FakeAsyncEvent(new FakeAsyncContext(request));
-		try (var worker = RemoteTestContext.enter((HeaderRequest) ignored -> "worker-prior", "X-STP-Test-Execution-Id")) {
+		try (var worker = RemoteTestContext.enter(TestRequests.request("worker-prior"))) {
 			try (var callback = RemoteTestContext.enterAsyncListener(event)) {
 				assertEquals("accepted-test-id", RemoteTestContext.currentId());
 			}
@@ -124,10 +148,10 @@ class RemoteBoundaryTransformerTest {
 	@Test void listenerAssociationsAreIsolatedAndCanBeClearedOnReuse() {
 		Object listenerA = new Object();
 		Object listenerB = new Object();
-		try (var scope = RemoteTestContext.enter((HeaderRequest) ignored -> "test-A", "X-STP-Test-Execution-Id")) {
+		try (var scope = RemoteTestContext.enter(TestRequests.request("test-A"))) {
 			RemoteTestContext.associateListener(listenerA, RemoteTestContext.capture());
 		}
-		try (var scope = RemoteTestContext.enter((HeaderRequest) ignored -> "test-B", "X-STP-Test-Execution-Id")) {
+		try (var scope = RemoteTestContext.enter(TestRequests.request("test-B"))) {
 			RemoteTestContext.associateListener(listenerB, RemoteTestContext.capture());
 		}
 		java.util.concurrent.atomic.AtomicReference<Throwable> workerFailure = new java.util.concurrent.atomic.AtomicReference<>();
@@ -147,7 +171,7 @@ class RemoteBoundaryTransformerTest {
 		try { worker.join(5000); } catch (InterruptedException interrupted) { Thread.currentThread().interrupt(); fail(interrupted); }
 		assertFalse(worker.isAlive(), "listener callback worker did not finish");
 		assertNull(workerFailure.get());
-		try (var scope = RemoteTestContext.enter((HeaderRequest) ignored -> "test-B-reused", "X-STP-Test-Execution-Id")) {
+		try (var scope = RemoteTestContext.enter(TestRequests.request("test-B-reused"))) {
 			RemoteTestContext.associateListener(listenerA, RemoteTestContext.capture());
 		}
 		try (var callback = RemoteTestContext.enterListenerCallback(listenerA)) {
@@ -263,15 +287,6 @@ class RemoteBoundaryTransformerTest {
 				return loaded;
 			}
 		}
-	}
-	@FunctionalInterface private interface HeaderRequest { String getHeader(String header); }
-	private static final class MutableRequest {
-		private String header;
-		private final java.util.Map<String, Object> attributes = new java.util.HashMap<>();
-		private MutableRequest(String header) { this.header = header; }
-		public String getHeader(String ignored) { return header; }
-		public Object getAttribute(String name) { return attributes.get(name); }
-		public void setAttribute(String name, Object value) { attributes.put(name, value); }
 	}
 	private static final class FakeAsyncContext {
 		private final Object request;

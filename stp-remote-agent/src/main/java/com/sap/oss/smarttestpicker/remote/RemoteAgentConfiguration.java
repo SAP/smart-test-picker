@@ -6,11 +6,10 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-record RemoteAgentConfiguration(Path output, String header, List<String> includes, List<String> excludes) {
+record RemoteAgentConfiguration(Path output, List<String> includes, List<String> excludes) {
 	static RemoteAgentConfiguration parse(String arguments) {
 		if (arguments == null || arguments.isBlank()) throw new IllegalArgumentException("agent arguments are required");
 		Path output = null;
-		String header = "X-STP-Test-Execution-Id";
 		List<String> includes = new ArrayList<>();
 		List<String> excludes = new ArrayList<>();
 		for (String item : arguments.split(";")) {
@@ -21,7 +20,6 @@ record RemoteAgentConfiguration(Path output, String header, List<String> include
 			if (value.isEmpty()) throw new IllegalArgumentException(key + " must not be empty");
 			switch (key) {
 				case "output" -> output = Path.of(value).toAbsolutePath().normalize();
-				case "header" -> header = value;
 				case "includes" -> addPrefixes(includes, value);
 				case "excludes" -> addPrefixes(excludes, value);
 				default -> throw new IllegalArgumentException("unknown agent argument: " + key);
@@ -29,8 +27,7 @@ record RemoteAgentConfiguration(Path output, String header, List<String> include
 		}
 		if (output == null) throw new IllegalArgumentException("output is required");
 		if (includes.isEmpty()) throw new IllegalArgumentException("at least one application include prefix is required");
-		if (!header.matches("[A-Za-z0-9-]{1,128}")) throw new IllegalArgumentException("invalid HTTP header name");
-		return new RemoteAgentConfiguration(output, header, List.copyOf(includes), List.copyOf(excludes));
+		return new RemoteAgentConfiguration(output, List.copyOf(includes), List.copyOf(excludes));
 	}
 
 	boolean instruments(String className) {

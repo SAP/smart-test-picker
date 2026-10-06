@@ -227,14 +227,14 @@ class SpringMvcAsyncIntegrationTest {
 		return Long.parseLong(value.substring(value.lastIndexOf(':') + 1));
 	}
 	private static String section(String json, String id) {
-		int start = json.indexOf("\"testExecutionId\":\"" + id + "\"");
+		int start = json.indexOf("\"testId\":\"" + id + "\"");
 		assertTrue(start >= 0, "missing observation for " + id + ": " + json);
 		int end = json.indexOf('}', start);
 		return json.substring(start, end < 0 ? json.length() : end);
 	}
 	private static Set<String> observedTestIds(String json) {
 		Set<String> ids = new HashSet<>();
-		Matcher matcher = Pattern.compile("\\\"testExecutionId\\\":\\\"([^\\\"]+)\\\"").matcher(json);
+		Matcher matcher = Pattern.compile("\\\"testId\\\":\\\"([^\\\"]+)\\\"").matcher(json);
 		while (matcher.find()) ids.add(matcher.group(1));
 		return ids;
 	}
@@ -274,7 +274,7 @@ class SpringMvcAsyncIntegrationTest {
 	}
 	private static HttpRequest request(URI uri, String id) {
 		HttpRequest.Builder builder = HttpRequest.newBuilder(uri).timeout(Duration.ofSeconds(15)).GET();
-		if (id != null) builder.header("X-STP-Test-Execution-Id", id);
+		RemoteTestHeaders.apply(builder, id);
 		return builder.build();
 	}
 }

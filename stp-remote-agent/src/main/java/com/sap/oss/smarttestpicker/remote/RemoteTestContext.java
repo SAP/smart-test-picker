@@ -14,227 +14,153 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-/** Request-scoped remote test identity; deliberately independent of JUnit runtime lifecycle. */
+/** Request-scoped remote identity, independent of any test-runner lifecycle. */
 public final class RemoteTestContext {
-	private static final ThreadLocal<String> CURRENT = new ThreadLocal<>();
-	private static final int MAX_ID_LENGTH = 256;
-	private static final String REQUEST_ID_ATTRIBUTE = "com.sap.oss.smarttestpicker.remote.testExecutionId";
+	private static final ThreadLocal<RemoteRequestIdentity> CURRENT = new ThreadLocal<>();
+	private static final String REQUEST_IDENTITY_ATTRIBUTE = "com.sap.oss.smarttestpicker.remote.requestIdentity";
 	private static final ReferenceQueue<Object> LISTENER_QUEUE = new ReferenceQueue<>();
-	private static final Map<ListenerReference, String> LISTENER_IDS = new HashMap<>();
+	private static final Map<ListenerReference, RemoteRequestIdentity> LISTENER_IDENTITIES = new HashMap<>();
 
 	private RemoteTestContext() { }
 
-	public static Scope enter(Object request, String header) {
-		String previous = CURRENT.get();
+	public static Scope enter(Object request) {
+		RemoteRequestIdentity previous = CURRENT.get();
 		Object servletRequest = servletRequest(request);
-		String id = readAttribute(servletRequest);
-		if (!valid(id)) {
-			id = readHeader(servletRequest, header);
-			if (valid(id)) writeAttribute(servletRequest, id);
+		RemoteRequestIdentity identity = readAttribute(servletRequest);
+		if (identity == null) {
+			identity = readHeaders(servletRequest);
+			if (identity != null) writeAttribute(servletRequest, identity);
+		} else {
+			RemoteRequestIdentity header = readHeaders(servletRequest);
+			if (header != null && !identity.equals(header))
+				System.err.println("[stp-remote-agent] request-identity-header-conflict: preserving accepted request identity");
 		}
-		// A nested request without a valid STP ID suppresses its parent's identity.
-		CURRENT.remove();
-		if (valid(id)) CURRENT.set(id);
+		install(identity);
 		return new Scope(previous);
 	}
 
-	/** Enters an AsyncListener callback using only the accepted ID on its associated request. */
 	public static Scope enterAsyncListener(Object event) {
-		String previous = CURRENT.get();
-		Object request = asyncEventRequest(event);
-		String id = readAttribute(request);
-		install(valid(id) ? id : null);
+		RemoteRequestIdentity previous = CURRENT.get();
+		RemoteRequestIdentity identity = readAttribute(asyncEventRequest(event));
+		install(identity);
 		return new Scope(previous);
 	}
 
-	public static String currentId() { return CURRENT.get(); }
+	public static RemoteRequestIdentity currentIdentity() { return CURRENT.get(); }
+	/** Compatibility accessor for diagnostics/fixtures; identity storage remains structured. */
+	public static String currentId() { RemoteRequestIdentity value = CURRENT.get(); return value == null ? null : value.testId(); }
 
-	/** Associates an unchanged Servlet I/O listener instance with the active request identity. */
-	public static void associateListener(Object listener, String id) {
+	public static void associateListener(Object listener, RemoteRequestIdentity identity) {
 		if (listener == null) return;
-		synchronized (LISTENER_IDS) {
+		synchronized (LISTENER_IDENTITIES) {
 			expungeListeners();
 			ListenerReference lookup = new ListenerReference(listener, true);
-			if (valid(id)) {
-				if (LISTENER_IDS.containsKey(lookup)) LISTENER_IDS.put(lookup, id);
-				else LISTENER_IDS.put(new ListenerReference(listener), id);
-			} else LISTENER_IDS.remove(lookup);
+			if (identity != null) {
+				if (LISTENER_IDENTITIES.containsKey(lookup)) LISTENER_IDENTITIES.put(lookup, identity);
+				else LISTENER_IDENTITIES.put(new ListenerReference(listener), identity);
+			} else LISTENER_IDENTITIES.remove(lookup);
 		}
 	}
 
-	/** Temporarily installs the identity captured when a Servlet I/O listener was registered. */
 	public static Scope enterListenerCallback(Object listener) {
-		String previous = CURRENT.get();
-		String id;
-		synchronized (LISTENER_IDS) {
+		RemoteRequestIdentity previous = CURRENT.get();
+		RemoteRequestIdentity identity;
+		synchronized (LISTENER_IDENTITIES) {
 			expungeListeners();
-			id = LISTENER_IDS.get(new ListenerReference(listener, true));
+			identity = LISTENER_IDENTITIES.get(new ListenerReference(listener, true));
 		}
-		install(valid(id) ? id : null);
+		install(identity);
 		return new Scope(previous);
 	}
 
-	/** Captures the opaque ID active at submission time for Servlet-managed async work. */
-	public static String capture() { return CURRENT.get(); }
+	public static RemoteRequestIdentity capture() { return CURRENT.get(); }
 
-	/** Attaches the submission-time ID to a task and restores the worker's prior context afterward. */
 	public static Runnable wrap(Runnable task) {
 		if (task == null) return null;
-		String captured = capture();
-		return () -> {
-			String previous = CURRENT.get();
-			install(captured);
-			try { task.run(); }
-			finally { install(previous); }
-		};
+		RemoteRequestIdentity captured = capture();
+		return () -> { RemoteRequestIdentity previous = CURRENT.get(); install(captured); try { task.run(); } finally { install(previous); } };
 	}
 
-	/** Attaches the submission-time remote identity to a Callable and restores the worker afterward. */
 	public static <T> Callable<T> wrap(Callable<T> task) {
 		if (task == null) return null;
-		String captured = capture();
-		return () -> {
-			String previous = CURRENT.get();
-			install(captured);
-			try { return task.call(); }
-			finally { install(previous); }
-		};
+		RemoteRequestIdentity captured = capture();
+		return () -> { RemoteRequestIdentity previous = CURRENT.get(); install(captured); try { return task.call(); } finally { install(previous); } };
 	}
 
-	/** Captures the current remote identity for a CompletableFuture supplier stage. */
 	public static <T> Supplier<T> wrapSupplier(Supplier<T> task) {
 		if (task == null) return null;
-		String captured = capture();
-		return () -> {
-			String previous = CURRENT.get();
-			install(captured);
-			try { return task.get(); }
-			finally { install(previous); }
-		};
+		RemoteRequestIdentity captured = capture();
+		return () -> { RemoteRequestIdentity previous = CURRENT.get(); install(captured); try { return task.get(); } finally { install(previous); } };
 	}
 
-	/** Captures the current remote identity for a CompletableFuture function stage. */
 	public static <T, R> Function<T, R> wrapFunction(Function<T, R> task) {
 		if (task == null) return null;
-		String captured = capture();
-		return value -> {
-			String previous = CURRENT.get();
-			install(captured);
-			try { return task.apply(value); }
-			finally { install(previous); }
-		};
+		RemoteRequestIdentity captured = capture();
+		return value -> { RemoteRequestIdentity previous = CURRENT.get(); install(captured); try { return task.apply(value); } finally { install(previous); } };
 	}
 
-	/** Submission-time context bridge for one-shot ScheduledExecutorService work. */
-	public static ScheduledFuture<?> schedule(ScheduledExecutorService executor, Runnable task, long delay, TimeUnit unit) {
-		return executor.schedule(wrap(task), delay, unit);
-	}
+	public static ScheduledFuture<?> schedule(ScheduledExecutorService executor, Runnable task, long delay, TimeUnit unit) { return executor.schedule(wrap(task), delay, unit); }
+	public static <T> ScheduledFuture<T> schedule(ScheduledExecutorService executor, Callable<T> task, long delay, TimeUnit unit) { return executor.schedule(wrap(task), delay, unit); }
+	public static ScheduledFuture<?> scheduleAtFixedRate(ScheduledExecutorService executor, Runnable task, long initialDelay, long period, TimeUnit unit) { return executor.scheduleAtFixedRate(wrap(task), initialDelay, period, unit); }
+	public static ScheduledFuture<?> scheduleWithFixedDelay(ScheduledExecutorService executor, Runnable task, long initialDelay, long delay, TimeUnit unit) { return executor.scheduleWithFixedDelay(wrap(task), initialDelay, delay, unit); }
 
-	/** Submission-time context bridge for one-shot scheduled Callable work. */
-	public static <T> ScheduledFuture<T> schedule(ScheduledExecutorService executor, Callable<T> task,
-			long delay, TimeUnit unit) {
-		return executor.schedule(wrap(task), delay, unit);
-	}
+	private static void install(RemoteRequestIdentity identity) { if (identity == null) CURRENT.remove(); else CURRENT.set(identity); }
 
-	/** Each periodic run installs the ID captured when the task was registered and restores the worker afterward. */
-	public static ScheduledFuture<?> scheduleAtFixedRate(ScheduledExecutorService executor, Runnable task,
-			long initialDelay, long period, TimeUnit unit) {
-		return executor.scheduleAtFixedRate(wrap(task), initialDelay, period, unit);
-	}
-
-	/** Each periodic run installs the ID captured when the task was registered and restores the worker afterward. */
-	public static ScheduledFuture<?> scheduleWithFixedDelay(ScheduledExecutorService executor, Runnable task,
-			long initialDelay, long delay, TimeUnit unit) {
-		return executor.scheduleWithFixedDelay(wrap(task), initialDelay, delay, unit);
-	}
-
-	private static void install(String id) {
-		if (id == null) CURRENT.remove();
-		else CURRENT.set(id);
+	private static RemoteRequestIdentity readHeaders(Object request) {
+		if (request == null) return null;
+		String suite = readHeader(request, RemoteRequestIdentity.TEST_SUITE_HEADER);
+		String test = readHeader(request, RemoteRequestIdentity.TEST_ID_HEADER);
+		String requestId = readHeader(request, RemoteRequestIdentity.REQUEST_ID_HEADER);
+		if (suite == null && test == null && requestId == null) return null;
+		try { return new RemoteRequestIdentity(suite, test, requestId); }
+		catch (IllegalArgumentException invalid) {
+			System.err.println("[stp-remote-agent] invalid-request-identity: expected all three valid STP identity headers");
+			return null;
+		}
 	}
 
 	static String readHeader(Object request, String header) {
-		if (request == null) return null;
-		try {
-			Method method = request.getClass().getMethod("getHeader", String.class);
-			if (!method.canAccess(request)) method.trySetAccessible();
-			Object value = method.invoke(request, header);
-			return value instanceof String text ? text : null;
-		} catch (ReflectiveOperationException | RuntimeException ignored) {
-			return null;
-		}
+		Object value = invoke(request, "getHeader", new Class<?>[] { String.class }, header);
+		return value instanceof String text ? text : null;
 	}
 
 	private static Object servletRequest(Object requestOrEvent) {
 		if (requestOrEvent == null) return null;
 		if (hasMethod(requestOrEvent, "getHeader", String.class)) return requestOrEvent;
-		try {
-			Method method = requestOrEvent.getClass().getMethod("getServletRequest");
-			if (!method.canAccess(requestOrEvent)) method.trySetAccessible();
-			return method.invoke(requestOrEvent);
-		} catch (ReflectiveOperationException | RuntimeException ignored) {
-			return null;
-		}
+		return invoke(requestOrEvent, "getServletRequest", new Class<?>[0]);
 	}
 
 	private static Object asyncEventRequest(Object event) {
 		if (event == null) return null;
-		Object supplied = invokeNoArgs(event, "getSuppliedRequest");
-		if (valid(readAttribute(supplied))) return supplied;
-		Object asyncContext = invokeNoArgs(event, "getAsyncContext");
-		Object request = invokeNoArgs(asyncContext, "getRequest");
-		return valid(readAttribute(request)) ? request : supplied;
+		Object supplied = invoke(event, "getSuppliedRequest", new Class<?>[0]);
+		if (readAttribute(supplied) != null) return supplied;
+		Object asyncContext = invoke(event, "getAsyncContext", new Class<?>[0]);
+		Object request = invoke(asyncContext, "getRequest", new Class<?>[0]);
+		return readAttribute(request) != null ? request : supplied;
 	}
 
-	private static Object invokeNoArgs(Object target, String name) {
+	private static Object invoke(Object target, String name, Class<?>[] parameterTypes, Object... args) {
 		if (target == null) return null;
-		try {
-			Method method = target.getClass().getMethod(name);
-			if (!method.canAccess(target)) method.trySetAccessible();
-			return method.invoke(target);
-		} catch (ReflectiveOperationException | RuntimeException ignored) {
-			return null;
-		}
+		try { Method method = target.getClass().getMethod(name, parameterTypes); if (!method.canAccess(target)) method.trySetAccessible(); return method.invoke(target, args); }
+		catch (ReflectiveOperationException | RuntimeException ignored) { return null; }
 	}
 
 	private static boolean hasMethod(Object target, String name, Class<?>... parameters) {
-		try { target.getClass().getMethod(name, parameters); return true; }
-		catch (ReflectiveOperationException | RuntimeException ignored) { return false; }
+		try { target.getClass().getMethod(name, parameters); return true; } catch (ReflectiveOperationException | RuntimeException ignored) { return false; }
 	}
 
-	private static String readAttribute(Object request) {
-		try {
-			Method method = request.getClass().getMethod("getAttribute", String.class);
-			if (!method.canAccess(request)) method.trySetAccessible();
-			Object value = method.invoke(request, REQUEST_ID_ATTRIBUTE);
-			return value instanceof String text ? text : null;
-		} catch (ReflectiveOperationException | RuntimeException ignored) {
-			return null;
-		}
+	private static RemoteRequestIdentity readAttribute(Object request) {
+		Object value = invoke(request, "getAttribute", new Class<?>[] { String.class }, REQUEST_IDENTITY_ATTRIBUTE);
+		return value instanceof RemoteRequestIdentity identity ? identity : null;
 	}
 
-	private static void writeAttribute(Object request, String id) {
-		try {
-			Method method = request.getClass().getMethod("setAttribute", String.class, Object.class);
-			if (!method.canAccess(request)) method.trySetAccessible();
-			method.invoke(request, REQUEST_ID_ATTRIBUTE, id);
-		} catch (ReflectiveOperationException | RuntimeException ignored) {
-			// Some request wrappers hide mutation; the header remains a valid fallback.
-		}
-	}
-
-	private static boolean valid(String value) {
-		return value != null && !value.isBlank() && value.length() <= MAX_ID_LENGTH && printable(value);
-	}
-
-	private static boolean printable(String value) {
-		for (int i = 0; i < value.length(); i++) if (Character.isISOControl(value.charAt(i))) return false;
-		return true;
+	private static void writeAttribute(Object request, RemoteRequestIdentity identity) {
+		invoke(request, "setAttribute", new Class<?>[] { String.class, Object.class }, REQUEST_IDENTITY_ATTRIBUTE, identity);
 	}
 
 	private static void expungeListeners() {
 		ListenerReference reference;
-		while ((reference = (ListenerReference) LISTENER_QUEUE.poll()) != null) LISTENER_IDS.remove(reference);
+		while ((reference = (ListenerReference) LISTENER_QUEUE.poll()) != null) LISTENER_IDENTITIES.remove(reference);
 	}
 
 	private static final class ListenerReference extends WeakReference<Object> {
@@ -242,23 +168,13 @@ public final class RemoteTestContext {
 		private ListenerReference(Object listener) { super(listener, LISTENER_QUEUE); hash = System.identityHashCode(listener); }
 		private ListenerReference(Object listener, boolean lookup) { super(listener); hash = System.identityHashCode(listener); }
 		@Override public int hashCode() { return hash; }
-		@Override public boolean equals(Object other) {
-			if (this == other) return true;
-			if (!(other instanceof ListenerReference reference)) return false;
-			Object listener = get();
-			return listener != null && listener == reference.get();
-		}
+		@Override public boolean equals(Object other) { if (this == other) return true; if (!(other instanceof ListenerReference reference)) return false; Object listener = get(); return listener != null && listener == reference.get(); }
 	}
 
 	public static final class Scope implements AutoCloseable {
-		private final String previous;
+		private final RemoteRequestIdentity previous;
 		private boolean closed;
-		private Scope(String previous) { this.previous = previous; }
-		@Override public void close() {
-			if (closed) return;
-			closed = true;
-			CURRENT.remove();
-			if (previous != null) CURRENT.set(previous);
-		}
+		private Scope(RemoteRequestIdentity previous) { this.previous = previous; }
+		@Override public void close() { if (closed) return; closed = true; install(previous); }
 	}
 }

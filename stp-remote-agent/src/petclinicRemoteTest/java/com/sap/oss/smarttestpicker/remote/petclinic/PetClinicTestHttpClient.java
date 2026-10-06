@@ -13,10 +13,11 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Optional;
+import java.util.UUID;
 
 /** JUnit validation-only HTTP client that forwards the active STP platform unique ID. */
 final class PetClinicTestHttpClient {
-	static final String EXECUTION_ID_HEADER = "X-STP-Test-Execution-Id";
+	static final String SUITE_ID = "petclinic-existing-stp-suite";
 	private static final HttpClient CLIENT = HttpClient.newBuilder()
 			.connectTimeout(Duration.ofSeconds(5)).build();
 	private static final URI BASE_URI = URI.create(System.getProperty("petclinic.baseUrl"));
@@ -36,10 +37,14 @@ final class PetClinicTestHttpClient {
 			testMethod = identity.testMethod();
 			String invalidReason = invalidIdentityReason(uniqueId);
 			if (invalidReason == null) {
-				request.header(EXECUTION_ID_HEADER, uniqueId);
+				String requestId = UUID.randomUUID().toString();
+				request.header("X-STP-Test-Suite-Id", SUITE_ID)
+						.header("X-STP-Test-Id", uniqueId)
+						.header("X-STP-Request-Id", requestId);
+				System.out.printf("REQUEST_CORRELATION suiteId=%s testId=%s requestId=%s path=%s%n", SUITE_ID, uniqueId, requestId, path);
 			} else {
 				System.err.printf("Rejected STP execution ID %s: %s; sending request without %s%n",
-						escapeControls(uniqueId), invalidReason, EXECUTION_ID_HEADER);
+						escapeControls(uniqueId), invalidReason, "X-STP-Test-Id");
 			}
 		}
 

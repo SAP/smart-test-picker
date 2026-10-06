@@ -33,9 +33,7 @@ final class RemoteHttpBoundaryTransformer implements ClassFileTransformer {
 	private static final String REQUEST = "ServletRequest";
 	private static final String RESPONSE = "ServletResponse";
 	private static final String EVENT = "ServletRequestEvent";
-	private final String header;
-
-	RemoteHttpBoundaryTransformer(String header) { this.header = header; }
+	RemoteHttpBoundaryTransformer() { }
 
 	@Override public byte[] transform(ClassLoader loader, String internalName, Class<?> redefining,
 			ProtectionDomain domain, byte[] bytes) {
@@ -87,7 +85,7 @@ final class RemoteHttpBoundaryTransformer implements ClassFileTransformer {
 						return new AsyncStartAdvice(delegate, access, name, desc);
 					if (readRegistration || writeRegistration)
 						return new ListenerRegistrationAdvice(delegate, access, name, desc);
-					return new BoundaryAdvice(delegate, access, name, desc, header,
+					return new BoundaryAdvice(delegate, access, name, desc,
 							(types.mask & ASYNC_LISTENER) != 0 && isAsyncListenerCallback(name) && desc.equals(asyncListenerMethod), listenerCallback);
 				}
 			}, ClassReader.EXPAND_FRAMES);
@@ -182,15 +180,13 @@ final class RemoteHttpBoundaryTransformer implements ClassFileTransformer {
 	}
 
 	private static final class BoundaryAdvice extends AdviceAdapter {
-		private final String header;
 		private final boolean asyncListenerCallback;
 		private final boolean ioListenerCallback;
 		private Label start;
 		private int scopeLocal;
 		private BoundaryAdvice(org.objectweb.asm.MethodVisitor visitor, int access, String name, String desc,
-				String header, boolean asyncListenerCallback, boolean ioListenerCallback) {
+				boolean asyncListenerCallback, boolean ioListenerCallback) {
 			super(Opcodes.ASM9, visitor, access, name, desc);
-			this.header = header;
 			this.asyncListenerCallback = asyncListenerCallback;
 			this.ioListenerCallback = ioListenerCallback;
 		}
@@ -203,9 +199,8 @@ final class RemoteHttpBoundaryTransformer implements ClassFileTransformer {
 						"(Ljava/lang/Object;)Lcom/sap/oss/smarttestpicker/remote/RemoteTestContext$Scope;"));
 			} else {
 				loadArg(0);
-				push(header);
 				invokeStatic(Type.getObjectType(CONTEXT), new Method("enter",
-						"(Ljava/lang/Object;Ljava/lang/String;)Lcom/sap/oss/smarttestpicker/remote/RemoteTestContext$Scope;"));
+						"(Ljava/lang/Object;)Lcom/sap/oss/smarttestpicker/remote/RemoteTestContext$Scope;"));
 			}
 			storeLocal(scopeLocal);
 			start = new Label();
@@ -239,16 +234,16 @@ final class RemoteHttpBoundaryTransformer implements ClassFileTransformer {
 		}
 		@Override protected void onMethodEnter() {
 			loadArg(0);
-			invokeStatic(Type.getObjectType(CONTEXT), new Method("capture", "()Ljava/lang/String;"));
+			invokeStatic(Type.getObjectType(CONTEXT), new Method("capture", "()Lcom/sap/oss/smarttestpicker/remote/RemoteRequestIdentity;"));
 			invokeStatic(Type.getObjectType(CONTEXT), new Method("associateListener",
-					"(Ljava/lang/Object;Ljava/lang/String;)V"));
+					"(Ljava/lang/Object;Lcom/sap/oss/smarttestpicker/remote/RemoteRequestIdentity;)V"));
 		}
 		@Override protected void onMethodExit(int opcode) {
 			if (opcode == ATHROW) {
 				loadArg(0);
-				push((String) null);
+				visitInsn(ACONST_NULL);
 				invokeStatic(Type.getObjectType(CONTEXT), new Method("associateListener",
-						"(Ljava/lang/Object;Ljava/lang/String;)V"));
+						"(Ljava/lang/Object;Lcom/sap/oss/smarttestpicker/remote/RemoteRequestIdentity;)V"));
 			}
 		}
 	}

@@ -11,17 +11,19 @@ import java.util.HexFormat;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /** Helpers called by Karate's run-wide {@code configure headers} callback. */
 public final class StpKarateClient {
 	public static final String SUITE_ID_PROPERTY = "stp.testSuiteId";
 	public static final String TEST_SUITE_HEADER = "X-STP-Test-Suite-Id";
 	public static final String TEST_ID_HEADER = "X-STP-Test-Id";
+	public static final String REQUEST_ID_HEADER = "X-STP-Request-Id";
 
 	private StpKarateClient() { }
 
 	/**
-	 * Returns the two STP headers for a scenario's outgoing request and rejects any conflicting values already present.
+	 * Returns the three STP headers for one concrete outgoing request.
 	 * The feature and scenario fields are supplied by Karate's scenario-bound dynamic headers function.
 	 */
 	public static Map<String, String> headers(HttpRequest request, String suiteId, String featurePath,
@@ -29,12 +31,23 @@ public final class StpKarateClient {
 		suiteId = validate(suiteId, SUITE_ID_PROPERTY);
 		featurePath = validate(featurePath, "Karate feature path");
 		String testId = testId(featurePath, sectionIndex, scenarioLine, exampleIndex);
+		String requestId = requestId(request);
 		verifyExisting(request, TEST_SUITE_HEADER, suiteId);
 		verifyExisting(request, TEST_ID_HEADER, testId);
 		Map<String, String> result = new LinkedHashMap<>();
 		result.put(TEST_SUITE_HEADER, suiteId);
 		result.put(TEST_ID_HEADER, testId);
+		result.put(REQUEST_ID_HEADER, requestId);
 		return Map.copyOf(result);
+	}
+
+	/** Resolves the run-wide suite identity from the documented property and environment variable. */
+	public static String resolveSuiteId(String propertyValue, String environmentValue) {
+		boolean propertySet = propertyValue != null;
+		boolean environmentSet = environmentValue != null;
+		if (propertySet && environmentSet && !propertyValue.equals(environmentValue))
+			throw new IllegalArgumentException("Conflicting TestSuiteID values in -D" + SUITE_ID_PROPERTY + " and STP_TEST_SUITE_ID");
+		return validate(propertySet ? propertyValue : environmentValue, SUITE_ID_PROPERTY);
 	}
 
 	static String testId(String featurePath, int sectionIndex, int scenarioLine, int exampleIndex) {
@@ -52,6 +65,23 @@ public final class StpKarateClient {
 			throw new IllegalStateException("Conflicting STP request identity header " + name
 					+ ": expected '" + expected + "' but found " + values);
 		}
+	}
+
+	private static String requestId(HttpRequest request) {
+		if (request == null || request.getHeaders() == null) return UUID.randomUUID().toString();
+		List<Map.Entry<String, List<String>>> matches = request.getHeaders().entrySet().stream()
+				.filter(entry -> entry.getKey().equalsIgnoreCase(REQUEST_ID_HEADER)).toList();
+		if (matches.isEmpty()) return UUID.randomUUID().toString();
+		List<String> values = matches.stream().flatMap(entry -> entry.getValue().stream()).toList();
+		if (matches.size() != 1 || values.size() != 1 || !validUuid(values.getFirst()))
+			throw new IllegalStateException("Malformed or duplicate STP request identity header " + REQUEST_ID_HEADER);
+		return values.getFirst();
+	}
+
+	private static boolean validUuid(String value) {
+		if (value == null || value.length() > 256 || value.chars().anyMatch(Character::isISOControl)) return false;
+		try { return UUID.fromString(value).toString().equalsIgnoreCase(value); }
+		catch (IllegalArgumentException invalid) { return false; }
 	}
 
 	private static String validate(String value, String source) {

@@ -143,7 +143,7 @@ class RemoteAgentIntegrationTest {
 				"FixtureRepository#listenerInitialized", "FixtureRepository#listenerDestroyed");
 		assertMethods(json, "test-B", "FixtureService#serviceBoundary", "FixtureRepository#servletService",
 				"FixtureService#afterFilterChain", "FixtureRepository#afterFilterChain");
-		assertEquals(35, occurrences(json, "\"testExecutionId\":"), "headerless requests must have no STP observation");
+		assertEquals(35, occurrences(json, "\"testId\":"), "headerless requests must have no STP observation");
 		for (String id : new String[] {"test-A", "test-B", "test-interface", "test-fail", "test-forward",
 				"test-include", "test-async", "test-async-A", "test-async-B", "test-async-failure",
 				"test-async-concurrent-A", "test-async-concurrent-B", "test-A-concurrent", "test-B-concurrent",
@@ -151,7 +151,7 @@ class RemoteAgentIntegrationTest {
 				"listener-concurrent-A", "listener-concurrent-B", "io-read-A", "io-write-B", "io-read-error", "io-write-error",
 				"io-read-concurrent", "io-write-concurrent", "executor-execute-A", "executor-submit-B", "executor-submit-result",
 				"executor-callable-C", "executor-failure", "executor-after-failure", "executor-concurrent-A", "executor-concurrent-B"}) {
-			assertEquals(1, occurrences(json, "\"testExecutionId\":\"" + id + "\""), "duplicate observation for " + id);
+			assertEquals(1, occurrences(json, "\"testId\":\"" + id + "\""), "duplicate observation for " + id);
 		}
 		assertFalse(json.contains("FixtureRepository#readOrdinary"), "headerless request must not inherit a thread context");
 		assertFalse(section(json, "test-async-A").contains("asyncWorkB"));
@@ -225,8 +225,8 @@ class RemoteAgentIntegrationTest {
 			}
 			@Override public void cancel() { sent.set(true); }
 		});
-		HttpRequest request = HttpRequest.newBuilder(uri).timeout(Duration.ofSeconds(10)).header("Content-Type", "text/plain")
-				.header("X-STP-Test-Execution-Id", id).POST(HttpRequest.BodyPublishers.fromPublisher(publisher, bytes.length)).build();
+		HttpRequest request = RemoteTestHeaders.apply(HttpRequest.newBuilder(uri).timeout(Duration.ofSeconds(10)).header("Content-Type", "text/plain"), id)
+				.POST(HttpRequest.BodyPublishers.fromPublisher(publisher, bytes.length)).build();
 		return client.send(request, HttpResponse.BodyHandlers.ofString()).body();
 	}
 	private static CompletableFuture<String> postAsync(HttpClient client, URI uri, String id, String body) {
@@ -235,7 +235,7 @@ class RemoteAgentIntegrationTest {
 	private static HttpRequest postRequest(URI uri, String id, String body) {
 		HttpRequest.Builder builder = HttpRequest.newBuilder(uri).timeout(Duration.ofSeconds(10))
 				.header("Content-Type", "text/plain").POST(HttpRequest.BodyPublishers.ofString(body));
-		if (id != null) builder.header("X-STP-Test-Execution-Id", id);
+		RemoteTestHeaders.apply(builder, id);
 		return builder.build();
 	}
 	private static void assertDifferentThreads(String body) {
@@ -245,7 +245,7 @@ class RemoteAgentIntegrationTest {
 	}
 	private static HttpRequest request(URI uri, String id) {
 		HttpRequest.Builder builder = HttpRequest.newBuilder(uri).timeout(Duration.ofSeconds(5)).GET();
-		if (id != null) builder.header("X-STP-Test-Execution-Id", id);
+		RemoteTestHeaders.apply(builder, id);
 		return builder.build();
 	}
 	private static void assertMethods(String json, String id, String... expected) {
@@ -253,7 +253,7 @@ class RemoteAgentIntegrationTest {
 		for (String method : expected) assertTrue(section.contains(method), id + " missing " + method + ": " + section);
 	}
 	private static String section(String json, String id) {
-		int start = json.indexOf("\"testExecutionId\":\"" + id + "\"");
+		int start = json.indexOf("\"testId\":\"" + id + "\"");
 		assertTrue(start >= 0, "missing ID " + id + " in " + json);
 		int end = json.indexOf("}", start);
 		return json.substring(start, end < 0 ? json.length() : end);

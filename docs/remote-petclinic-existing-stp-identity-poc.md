@@ -1,10 +1,16 @@
 # PetClinic existing STP identity propagation POC
 
 This validation uses JUnit Jupiter as the concrete PetClinic test runner because
-the existing STP agent supports it. Remote STP receives only an opaque execution
-ID over HTTP; the server-side agent has no JUnit dependency. The value propagated
-in this experiment is the existing STP `TestIdentity.platformUniqueId`. This does
+the existing STP agent supports it. Remote STP remains test-framework independent:
+the server agent receives three opaque HTTP values and has no JUnit dependency.
+`X-STP-Test-Id` carries the existing STP `TestIdentity.platformUniqueId`; this does
 not require other REST test frameworks to use JUnit.
+
+The original run below predates RequestID and documented the then-current single-ID
+schema. The RequestID task reran both modes against the current three-header/schema-v2
+contract; its observed results are recorded in the RequestID E2E note in the standalone
+Karate project. The historical revision and raw evidence paths below refer to the
+original run.
 
 ## Revisions and runtime
 
@@ -23,7 +29,7 @@ implemented. `RuntimeContextRegistry.current()` and
 `RuntimeContextRegistry` and `RuntimeContextService` were loaded by
 `jdk.internal.loader.ClassLoaders$AppClassLoader` in the worker JVM. Each test
 logged its active `platformUniqueId`; those exact values were used as HTTP header
-values.
+values, alongside a per-request UUID RequestID and the explicit PetClinic suite ID.
 
 ## Reproduction
 
@@ -73,9 +79,10 @@ invocations had distinct native platform IDs:
 ```
 
 Both client outputs reported `instrumentation=off` and `bytecodeModified=false`.
-The verifier joined all five HTTP-producing test executions to exactly five
-remote observation IDs using equality of `platformUniqueId` and
-`testExecutionId`. It found no unknown remote IDs or cross-attribution:
+The original verifier joined all five HTTP-producing test executions to exactly five
+remote observations using equality of `platformUniqueId` and `testExecutionId`. The
+current rerun joins `(testSuiteId, testId, requestId)` to client-emitted request
+correlation lines and found no unknown request tuples or cross-attribution:
 
 - `vetsRequest` contained
   `org.springframework.samples.petclinic.vet.VetController#showResourcesVetList`

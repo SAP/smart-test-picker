@@ -55,26 +55,37 @@ def main():
     parameterized_ids = {test["testId"] for test in parameterized}
     require(len(parameterized_ids) == 3, "parameterized invocations did not have three distinct platformUniqueId values")
 
-    remote_tests = remote.get("tests", [])
-    remote_by_id = {}
+    remote_tests = remote.get("requests", [])
+    remote_by_key = {}
     for observation in remote_tests:
-        identity = observation.get("testExecutionId")
-        require(identity and identity not in remote_by_id, f"missing or duplicate remote testExecutionId: {identity}")
-        remote_by_id[identity] = observation
-        print(f"REMOTE testExecutionId={identity} method count={len(observation.get('methods', []))}")
+        identity = (observation.get("testSuiteId"), observation.get("testId"), observation.get("requestId"))
+        require(all(identity) and identity not in remote_by_key, f"missing or duplicate remote request identity: {identity}")
+        remote_by_key[identity] = observation
+        print(f"REMOTE suiteId={identity[0]} testId={identity[1]} requestId={identity[2]} method count={len(observation.get('methods', []))}")
 
-    http_tests = [by_method[name][0] for name in ("vetsRequest", "ownerRequest")]
-    http_tests.extend(parameterized)
-    expected_remote_ids = {test["testId"] for test in http_tests}
-    require(set(remote_by_id) == expected_remote_ids,
-            f"remote/client identity join mismatch; missing remote={expected_remote_ids - set(remote_by_id)}, "
-            f"unknown remote={set(remote_by_id) - set(by_id)}")
-    require(by_method["noHttpTest"][0]["testId"] not in remote_by_id,
+    correlations = {}
+    for match in re.finditer(r"REQUEST_CORRELATION suiteId=(\S+) testId=(\S+) requestId=(\S+) path=(\S+)", test_output):
+        suite_id, test_id, request_id, path = match.groups()
+        key = (suite_id, test_id, request_id)
+        require(key not in correlations, f"duplicate client request correlation: {key}")
+        correlations[key] = path
+        require(test_id in by_id, f"HTTP request uses unknown client TestID {test_id}")
+    expected_http_tests = [by_method[name][0] for name in ("vetsRequest", "ownerRequest")]
+    expected_http_tests.extend(parameterized)
+    expected_ids = {test["testId"] for test in expected_http_tests}
+    require(set(remote_by_key) == set(correlations),
+            f"remote/client request join mismatch; missing remote={set(correlations) - set(remote_by_key)}, "
+            f"unknown remote={set(remote_by_key) - set(correlations)}")
+    require({key[1] for key in correlations} == expected_ids,
+            f"HTTP correlation evidence does not match expected test IDs: {set(key[1] for key in correlations) ^ expected_ids}")
+    require(by_method["noHttpTest"][0]["testId"] not in {key[1] for key in remote_by_key},
             "noHttpTest unexpectedly has a remote observation")
-    require(set(remote_by_id).issubset(by_id), f"remote observations have unknown client identities: {set(remote_by_id) - set(by_id)}")
+    require({key[1] for key in remote_by_key}.issubset(by_id), "remote observations have unknown client identities")
+    by_test_observation = {key[1]: value for key, value in remote_by_key.items()}
+    require(len(by_test_observation) == len(remote_by_key), "one client test produced multiple requests in this fixture unexpectedly")
 
     def methods_for(test):
-        return remote_by_id[test["testId"]].get("methods", [])
+        return by_test_observation[test["testId"]].get("methods", [])
 
     vet_test = by_method["vetsRequest"][0]
     vet_methods = methods_for(vet_test)
@@ -92,8 +103,8 @@ def main():
                 f"Vet methods cross-attributed to {test['testId']}: {methods}")
 
     require(control_status == "200", f"headerless control GET /vets returned {control_status}, expected 200")
-    print(f"HEADERLESS_CONTROL status={control_status}; no testExecutionId was sent")
-    print(f"JOIN PASS: {len(remote_by_id)} remote observations exactly match HTTP test platformUniqueId values")
+    print(f"HEADERLESS_CONTROL status={control_status}; no STP identity headers were sent")
+    print(f"JOIN PASS: {len(remote_by_key)} remote request tuples exactly match client-emitted SuiteID/TestID/RequestID values")
     print(f"CLIENT STP instrumentation={client['configuration']['instrumentation']}; bytecodeModified={str(client['bytecodeModified']).lower()}")
 
     if mode == "parallel":

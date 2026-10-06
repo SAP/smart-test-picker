@@ -11,7 +11,7 @@ public final class RemoteStpAgent {
 		if (instrumentation == null) throw new NullPointerException("instrumentation");
 		RemoteAgentConfiguration configuration = RemoteAgentConfiguration.parse(arguments);
 		RemoteRecorder.install(configuration.output());
-		instrumentation.addTransformer(new RemoteHttpBoundaryTransformer(configuration.header()), false);
+		instrumentation.addTransformer(new RemoteHttpBoundaryTransformer(), false);
 		instrumentation.addTransformer(new RemoteSpringMvcCallableTransformer(), false);
 		instrumentation.addTransformer(new RemoteSpringAsyncTransformer(), false);
 		instrumentation.addTransformer(new RemoteExecutorCallSiteTransformer(configuration), false);

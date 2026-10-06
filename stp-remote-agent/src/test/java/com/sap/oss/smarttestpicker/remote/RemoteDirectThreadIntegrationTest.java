@@ -61,7 +61,7 @@ class RemoteDirectThreadIntegrationTest {
 		assertFalse(section(json, "thread-shared-A").contains("sharedB"));
 		assertFalse(section(json, "thread-shared-B").contains("sharedA"));
 		assertFalse(json.contains("ThreadRepository#noContext"), "thread created without a TestID must remain unattributed");
-		assertEquals(7, occurrences(json, "\"testExecutionId\":"));
+		assertEquals(7, occurrences(json, "\"testId\":"));
 	}
 
 	@Test void virtualThreadAndBuilderCallSitesPropagateWhenTheRunningJdkSupportsThem() throws Exception {
@@ -107,7 +107,7 @@ class RemoteDirectThreadIntegrationTest {
 	}
 	private static String get(HttpClient client, URI uri, String id) throws Exception {
 		HttpRequest.Builder request = HttpRequest.newBuilder(uri).timeout(Duration.ofSeconds(10)).GET();
-		if (id != null) request.header("X-STP-Test-Execution-Id", id);
+		RemoteTestHeaders.apply(request, id);
 		HttpResponse<String> response = client.send(request.build(), HttpResponse.BodyHandlers.ofString());
 		assertEquals(200, response.statusCode(), response.body()); return response.body();
 	}
@@ -116,9 +116,9 @@ class RemoteDirectThreadIntegrationTest {
 		for (String method : methods) assertTrue(observation.contains(method), id + " missing " + method + ": " + observation);
 	}
 	private static String section(String json, String id) {
-		int start = json.indexOf("\"testExecutionId\":\"" + id + "\"");
+		int start = json.indexOf("\"testId\":\"" + id + "\"");
 		if (start < 0) return "";
-		int end = json.indexOf("\"testExecutionId\":", start + 1);
+		int end = json.indexOf("\"testId\":", start + 1);
 		return json.substring(start, end < 0 ? json.length() : end);
 	}
 	private static int occurrences(String text, String needle) {

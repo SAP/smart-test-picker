@@ -72,7 +72,7 @@ class RemoteCompletableFutureIntegrationTest {
 		assertFalse(section(json, "cf-concurrent-B").contains("concurrentLeafA"));
 		assertFalse(section(json, "cf-failure").contains("afterFailure"));
 		assertFalse(section(json, "cf-after-failure").contains("#failure"));
-		assertEquals(12, occurrences(json, "\"testExecutionId\":"), "no-context stage must not create an observation");
+		assertEquals(12, occurrences(json, "\"testId\":"), "no-context stage must not create an observation");
 	}
 
 	private static void registerAndComplete(HttpClient client, URI root, String registrationPath, String completePath,
@@ -90,7 +90,7 @@ class RemoteCompletableFutureIntegrationTest {
 	}
 	private static String get(HttpClient client, URI uri, String id) throws Exception {
 		HttpRequest.Builder builder = HttpRequest.newBuilder(uri).timeout(Duration.ofSeconds(10)).GET();
-		if (id != null) builder.header("X-STP-Test-Execution-Id", id);
+		RemoteTestHeaders.apply(builder, id);
 		HttpResponse<String> response = client.send(builder.build(), HttpResponse.BodyHandlers.ofString());
 		assertEquals(200, response.statusCode(), response.body());
 		return response.body();
@@ -104,9 +104,9 @@ class RemoteCompletableFutureIntegrationTest {
 		for (String method : methods) assertTrue(observation.contains(method), id + " missing " + method + ": " + observation);
 	}
 	private static String section(String json, String id) {
-		int start = json.indexOf("\"testExecutionId\":\"" + id + "\"");
+		int start = json.indexOf("\"testId\":\"" + id + "\"");
 		if (start < 0) return "";
-		int end = json.indexOf("\"testExecutionId\":", start + 1);
+		int end = json.indexOf("\"testId\":", start + 1);
 		return json.substring(start, end < 0 ? json.length() : end);
 	}
 	private static int occurrences(String text, String needle) {

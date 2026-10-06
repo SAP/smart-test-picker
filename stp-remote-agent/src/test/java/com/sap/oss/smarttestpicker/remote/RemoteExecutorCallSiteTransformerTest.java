@@ -137,27 +137,27 @@ class RemoteExecutorCallSiteTransformerTest {
 	@Test void supplierAndFunctionWrappersCaptureAndRestoreContextEvenOnFailure() throws Exception {
 		var executor = java.util.concurrent.Executors.newSingleThreadExecutor();
 		try {
-			RemoteTestContext.Scope scope = RemoteTestContext.enter(new HeaderRequest("cf-A"), "X-STP-Test-Execution-Id");
+			RemoteTestContext.Scope scope = RemoteTestContext.enter(TestRequests.request("cf-A"));
 			java.util.function.Supplier<String> supplier = RemoteTestContext.wrapSupplier(() -> RemoteTestContext.currentId());
 			java.util.function.Function<String, String> function = RemoteTestContext.wrapFunction(value -> value + ":" + RemoteTestContext.currentId());
 			scope.close();
 			assertEquals("worker-prior", executor.submit(() -> {
-				try (RemoteTestContext.Scope ignored = RemoteTestContext.enter(new HeaderRequest("worker-prior"), "X-STP-Test-Execution-Id")) {
+				try (RemoteTestContext.Scope ignored = RemoteTestContext.enter(TestRequests.request("worker-prior"))) {
 					assertEquals("cf-A", supplier.get());
 					return RemoteTestContext.currentId();
 				}
 			}).get(), "worker context must be restored after supplier callback");
 			assertEquals("input:cf-A", executor.submit(() -> {
-				try (RemoteTestContext.Scope ignored = RemoteTestContext.enter(new HeaderRequest("worker-prior"), "X-STP-Test-Execution-Id")) {
+				try (RemoteTestContext.Scope ignored = RemoteTestContext.enter(TestRequests.request("worker-prior"))) {
 					String result = function.apply("input");
 					assertEquals("worker-prior", RemoteTestContext.currentId());
 					return result;
 				}
 			}).get());
-			try (RemoteTestContext.Scope ignored = RemoteTestContext.enter(new HeaderRequest("cf-B"), "X-STP-Test-Execution-Id")) {
+			try (RemoteTestContext.Scope ignored = RemoteTestContext.enter(TestRequests.request("cf-B"))) {
 				var failure = RemoteTestContext.wrapSupplier(() -> { throw new IllegalStateException("expected"); });
 				String restored = executor.submit(() -> {
-					try (RemoteTestContext.Scope worker = RemoteTestContext.enter(new HeaderRequest("worker-prior"), "X-STP-Test-Execution-Id")) {
+					try (RemoteTestContext.Scope worker = RemoteTestContext.enter(TestRequests.request("worker-prior"))) {
 						try { failure.get(); } catch (IllegalStateException expected) { }
 						return RemoteTestContext.currentId();
 					}

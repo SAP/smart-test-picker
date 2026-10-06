@@ -36,7 +36,7 @@ class RemoteMethodEntryTransformerTest {
 		assertTrue(marker.isSynthetic());
 
 		RemoteRecorder.install(output);
-		try (var scope = RemoteTestContext.enter(new HeaderRequest("interface-test-id"), "X-STP-Test-Execution-Id")) {
+		try (var scope = RemoteTestContext.enter(TestRequests.request("interface-test-id"))) {
 			Object proxy = Proxy.newProxyInstance(loader, new Class<?>[] { instrumented },
 					(proxyInstance, method, args) -> method.isDefault()
 							? InvocationHandler.invokeDefault(proxyInstance, method, args) : null);
@@ -45,7 +45,7 @@ class RemoteMethodEntryTransformerTest {
 		}
 		RemoteRecorder.writeOutput();
 		String observations = java.nio.file.Files.readString(output);
-		assertTrue(observations.contains("\"testExecutionId\":\"interface-test-id\""), observations);
+		assertTrue(observations.contains("\"testId\":\"interface-test-id\""), observations);
 		assertTrue(observations.contains("ApplicationInterfaceFixture#defaultMethod()Ljava/lang/String;"), observations);
 		assertTrue(observations.contains("ApplicationInterfaceFixture#staticMethod()Ljava/lang/String;"), observations);
 	}

@@ -13,7 +13,6 @@ import java.util.regex.Pattern;
 
 /** Standalone JVM B HTTP driver and observation verifier for the PetClinic POC. */
 public final class PetClinicHttpHarness {
-	private static final String HEADER = "X-STP-Test-Execution-Id";
 	private static final HttpClient CLIENT = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(2)).build();
 	private static final Duration READINESS_TIMEOUT = Duration.ofSeconds(90);
 	private static final Duration READINESS_RETRY_DELAY = Duration.ofMillis(250);
@@ -71,7 +70,7 @@ public final class PetClinicHttpHarness {
 	}
 
 	private static ProbeResponse sendProbe(URI uri) throws IOException, InterruptedException {
-		HttpResponse<String> response = send(uri, null);
+		HttpResponse<String> response = send(uri, null, null);
 		return new ProbeResponse(response.statusCode(), response.body());
 	}
 
@@ -90,25 +89,26 @@ public final class PetClinicHttpHarness {
 	record ProbeResponse(int statusCode, String body) { }
 
 	private static void sendScenario(URI base) throws Exception {
-		HttpResponse<String> vets = send(base.resolve("/vets"), "vets-A");
+		HttpResponse<String> vets = send(base.resolve("/vets"), "manual-poc-suite", "vets-A");
 		check(vets.statusCode() == 200, "GET /vets returned " + vets.statusCode());
 		check(vets.headers().firstValue("content-type").orElse("").contains("application/json"),
 				"GET /vets did not return JSON");
 		check(vets.body().contains("vetList"), "GET /vets response did not contain the vet list");
 
-		HttpResponse<String> owner = send(base.resolve("/owners/1"), "owner-B");
+		HttpResponse<String> owner = send(base.resolve("/owners/1"), "manual-poc-suite", "owner-B");
 		check(owner.statusCode() == 200, "GET /owners/1 returned " + owner.statusCode());
 		check(owner.headers().firstValue("content-type").orElse("").contains("text/html"),
 				"GET /owners/1 did not return HTML");
 
-		HttpResponse<String> ordinary = send(base.resolve("/vets"), null);
+		HttpResponse<String> ordinary = send(base.resolve("/vets"), null, null);
 		check(ordinary.statusCode() == 200, "headerless GET /vets returned " + ordinary.statusCode());
 		System.out.println("JVM B completed vets-A, owner-B, and headerless GET requests");
 	}
 
-	private static HttpResponse<String> send(URI uri, String executionId) throws IOException, InterruptedException {
+	private static HttpResponse<String> send(URI uri, String suiteId, String testId) throws IOException, InterruptedException {
 		HttpRequest.Builder request = HttpRequest.newBuilder(uri).timeout(Duration.ofSeconds(10)).GET();
-		if (executionId != null) request.header(HEADER, executionId);
+		if (testId != null) request.header("X-STP-Test-Suite-Id", suiteId)
+				.header("X-STP-Test-Id", testId).header("X-STP-Request-Id", java.util.UUID.randomUUID().toString());
 		return CLIENT.send(request.build(), HttpResponse.BodyHandlers.ofString());
 	}
 
@@ -125,26 +125,26 @@ public final class PetClinicHttpHarness {
 				"owner methods leaked into vets-A: " + vets);
 		check(!owner.contains("org.springframework.samples.petclinic.vet.VetController#"),
 				"vet methods leaked into owner-B: " + owner);
-		check(countOccurrences(json, "\"testExecutionId\":") == 2,
+		check(countOccurrences(json, "\"testId\":") == 2,
 				"expected exactly two attributed requests; headerless request must be absent: " + json);
 		System.out.println("PASS: vets-A and owner-B contain their separate PetClinic paths; headerless request has no observation");
 	}
 
 	private static void printMethodCounts(String json) {
-		Pattern tests = Pattern.compile("\\{\\\"testExecutionId\\\":\\\"([^\\\"]+)\\\",\\\"methods\\\":\\[(.*?)]}");
+		Pattern tests = Pattern.compile("\\{\\\"testSuiteId\\\":\\\"([^\\\"]+)\\\",\\\"testId\\\":\\\"([^\\\"]+)\\\",\\\"requestId\\\":\\\"([^\\\"]+)\\\",\\\"methods\\\":\\[(.*?)]}");
 		Matcher test = tests.matcher(json);
 		Pattern method = Pattern.compile("\"(?:\\\\.|[^\"])*\"");
 		while (test.find()) {
-			Matcher methods = method.matcher(test.group(2));
+			Matcher methods = method.matcher(test.group(4));
 			int count = 0;
 			while (methods.find()) count++;
-			System.out.println(test.group(1) + " method count: " + count);
+			System.out.println(test.group(1) + "/" + test.group(2) + "/" + test.group(3) + " method count: " + count);
 		}
 	}
 
 	private static String methodsFor(String json, String id) {
-		Pattern observation = Pattern.compile("\\{\\\"testExecutionId\\\":\\\"" + Pattern.quote(id)
-				+ "\\\",\\\"methods\\\":\\[(.*?)]}");
+		Pattern observation = Pattern.compile("\\{\\\"testSuiteId\\\":\\\"[^\\\"]+\\\",\\\"testId\\\":\\\"" + Pattern.quote(id)
+				+ "\\\",\\\"requestId\\\":\\\"[^\\\"]+\\\",\\\"methods\\\":\\[(.*?)]}");
 		Matcher matcher = observation.matcher(json);
 		check(matcher.find(), "missing observation for " + id + " in " + json);
 		return matcher.group(1);

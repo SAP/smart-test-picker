@@ -12,20 +12,21 @@ import java.util.TreeMap;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-/** Aggregates deduplicated method observations by propagated HTTP test ID. */
+/** Aggregates method observations independently for each concrete HTTP request. */
 public final class RemoteRecorder {
-	private static final Map<String, Set<String>> OBSERVATIONS = new ConcurrentHashMap<>();
+	private static final Map<RemoteRequestIdentity, Set<String>> OBSERVATIONS = new ConcurrentHashMap<>();
 	private static volatile Path output;
 
 	private RemoteRecorder() { }
 
 	static void install(Path outputPath) { output = outputPath; }
+	static void clearForTests() { OBSERVATIONS.clear(); }
 
 	public static void methodHit(String className, String methodName, String descriptor) {
 		try {
-			String id = RemoteTestContext.currentId();
-			if (id == null) return;
-			OBSERVATIONS.computeIfAbsent(id, ignored -> ConcurrentHashMap.newKeySet())
+			RemoteRequestIdentity identity = RemoteTestContext.currentIdentity();
+			if (identity == null) return;
+			OBSERVATIONS.computeIfAbsent(identity, ignored -> ConcurrentHashMap.newKeySet())
 					.add(className + "#" + methodName + descriptor);
 		} catch (Throwable ignored) {
 			// Instrumentation must never alter application behavior.
@@ -38,12 +39,18 @@ public final class RemoteRecorder {
 		try {
 			Path parent = destination.getParent();
 			if (parent != null) Files.createDirectories(parent);
-			StringBuilder json = new StringBuilder("{\n  \"schemaVersion\": 1,\n  \"tests\": [\n");
-			Map<String, Set<String>> sorted = new TreeMap<>(OBSERVATIONS);
+			StringBuilder json = new StringBuilder("{\n  \"schemaVersion\": 2,\n  \"requests\": [\n");
+			Map<RemoteRequestIdentity, Set<String>> sorted = new TreeMap<>(java.util.Comparator
+					.comparing(RemoteRequestIdentity::testSuiteId).thenComparing(RemoteRequestIdentity::testId)
+					.thenComparing(RemoteRequestIdentity::requestId));
+			sorted.putAll(OBSERVATIONS);
 			int testIndex = 0;
 			for (var entry : sorted.entrySet()) {
 				if (testIndex++ > 0) json.append(",\n");
-				json.append("    {\"testExecutionId\":\"").append(escape(entry.getKey())).append("\",\"methods\":[");
+				RemoteRequestIdentity identity = entry.getKey();
+				json.append("    {\"testSuiteId\":\"").append(escape(identity.testSuiteId()))
+						.append("\",\"testId\":\"").append(escape(identity.testId()))
+						.append("\",\"requestId\":\"").append(escape(identity.requestId())).append("\",\"methods\":[");
 				int methodIndex = 0;
 				for (String method : new java.util.TreeSet<>(entry.getValue())) {
 					if (methodIndex++ > 0) json.append(',');

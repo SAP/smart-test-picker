@@ -84,7 +84,7 @@ class RemoteScheduledExecutorIntegrationTest {
 		assertFalse(section(json, "sched-worker-B").contains("fixedRate"));
 		assertFalse(section(json, "sched-concurrent-A").contains("concurrentB"));
 		assertFalse(section(json, "sched-concurrent-B").contains("concurrentA"));
-		assertEquals(9, occurrences(json, "\"testExecutionId\":"));
+		assertEquals(9, occurrences(json, "\"testId\":"));
 	}
 
 	private static String awaitReady(Process process, Path log) throws Exception {
@@ -97,7 +97,7 @@ class RemoteScheduledExecutorIntegrationTest {
 	}
 	private static String get(HttpClient client, URI uri, String id) throws Exception {
 		HttpRequest.Builder request = HttpRequest.newBuilder(uri).timeout(Duration.ofSeconds(12)).GET();
-		if (id != null) request.header("X-STP-Test-Execution-Id", id);
+		RemoteTestHeaders.apply(request, id);
 		HttpResponse<String> response = client.send(request.build(), HttpResponse.BodyHandlers.ofString());
 		assertEquals(200, response.statusCode(), response.body());
 		return response.body();
@@ -110,9 +110,9 @@ class RemoteScheduledExecutorIntegrationTest {
 		for (String method : methods) assertTrue(observation.contains(method), id + " missing " + method + ": " + observation);
 	}
 	private static String section(String json, String id) {
-		int start = json.indexOf("\"testExecutionId\":\"" + id + "\"");
+		int start = json.indexOf("\"testId\":\"" + id + "\"");
 		if (start < 0) return "";
-		int end = json.indexOf("\"testExecutionId\":", start + 1);
+		int end = json.indexOf("\"testId\":", start + 1);
 		return json.substring(start, end < 0 ? json.length() : end);
 	}
 	private static int occurrences(String text, String needle) {
