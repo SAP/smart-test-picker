@@ -65,6 +65,12 @@ final class RemoteExecutorCallSiteTransformer implements ClassFileTransformer {
 				for (AbstractInsnNode instruction = method.instructions.getFirst(); instruction != null;
 						instruction = instruction.getNext()) {
 					if (!(instruction instanceof MethodInsnNode call)) continue;
+					InsnList threadWrapping = threadWrapping(call);
+					if (threadWrapping != null) {
+						method.instructions.insertBefore(call, threadWrapping);
+						changed = true;
+						continue;
+					}
 					InsnList futureWrapping = completableFutureWrapping(call);
 					if (futureWrapping != null) {
 						method.instructions.insertBefore(call, futureWrapping);
@@ -148,6 +154,27 @@ final class RemoteExecutorCallSiteTransformer implements ClassFileTransformer {
 		result.add(new MethodInsnNode(Opcodes.INVOKESTATIC, CONTEXT, hook,
 				"(" + argument + ")" + argument, false));
 		if (explicitExecutor) result.add(new InsnNode(Opcodes.SWAP));
+		return result;
+	}
+
+	/** Wraps only Runnable-based Thread entry points; subclasses overriding run() remain unsupported. */
+	private static InsnList threadWrapping(MethodInsnNode call) {
+		boolean direct = call.owner.equals("java/lang/Thread") && call.name.equals("<init>")
+				&& (call.desc.equals("(" + RUNNABLE + ")V")
+				|| call.desc.equals("(Ljava/lang/ThreadGroup;" + RUNNABLE + ")V"));
+		boolean beforeReference = call.owner.equals("java/lang/Thread") && call.name.equals("<init>")
+				&& (call.desc.equals("(" + RUNNABLE + "Ljava/lang/String;)V")
+				|| call.desc.equals("(Ljava/lang/ThreadGroup;" + RUNNABLE + "Ljava/lang/String;)V"));
+		boolean virtual = call.owner.equals("java/lang/Thread") && call.name.equals("startVirtualThread")
+				&& call.desc.equals("(" + RUNNABLE + ")Ljava/lang/Thread;");
+		boolean builder = call.owner.startsWith("java/lang/Thread$Builder") && call.name.equals("start")
+				&& call.desc.equals("(" + RUNNABLE + ")Ljava/lang/Thread;");
+		if (!direct && !beforeReference && !virtual && !builder) return null;
+		InsnList result = new InsnList();
+		if (beforeReference) result.add(new InsnNode(Opcodes.SWAP));
+		result.add(new MethodInsnNode(Opcodes.INVOKESTATIC, CONTEXT, "wrap",
+				"(" + RUNNABLE + ")" + RUNNABLE, false));
+		if (beforeReference) result.add(new InsnNode(Opcodes.SWAP));
 		return result;
 	}
 

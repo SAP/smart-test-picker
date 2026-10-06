@@ -36,7 +36,7 @@ class RemoteExecutorCallSiteTransformerTest {
 				};
 			}
 		}, 0);
-		assertEquals(8, runnableWraps.get(), "four Executor call sites plus four CompletableFuture Runnable stages");
+		assertEquals(12, runnableWraps.get(), "Executor, CompletableFuture, and direct Thread call sites");
 		assertEquals(1, callableWraps.get());
 		assertDoesNotThrow(() -> new DefiningLoader(ExecutorCallSiteFixture.class.getClassLoader(),
 				ExecutorCallSiteFixture.class.getName(), transformed).loadClass(ExecutorCallSiteFixture.class.getName()));
@@ -56,7 +56,7 @@ class RemoteExecutorCallSiteTransformerTest {
 				};
 			}
 		}, 0);
-		assertEquals(8, hooks.get("wrap(Ljava/lang/Runnable;)Ljava/lang/Runnable;"));
+		assertEquals(12, hooks.get("wrap(Ljava/lang/Runnable;)Ljava/lang/Runnable;"));
 		assertEquals(2, hooks.get("wrapSupplier(Ljava/util/function/Supplier;)Ljava/util/function/Supplier;"));
 		assertEquals(2, hooks.get("wrapFunction(Ljava/util/function/Function;)Ljava/util/function/Function;"));
 		assertDoesNotThrow(() -> new DefiningLoader(ExecutorCallSiteFixture.class.getClassLoader(),
@@ -86,6 +86,52 @@ class RemoteExecutorCallSiteTransformerTest {
 		assertEquals(1, bridges.get("scheduleWithFixedDelay(Ljava/util/concurrent/ScheduledExecutorService;Ljava/lang/Runnable;JJLjava/util/concurrent/TimeUnit;)Ljava/util/concurrent/ScheduledFuture;"));
 		assertDoesNotThrow(() -> new DefiningLoader(ExecutorCallSiteFixture.class.getClassLoader(),
 				ExecutorCallSiteFixture.class.getName(), transformed).loadClass(ExecutorCallSiteFixture.class.getName()));
+	}
+
+	@Test void wrapsRunnableArgumentsForAllSupportedThreadConstructors() throws Exception {
+		RemoteExecutorCallSiteTransformer transformer = transformer(message -> fail(message));
+		byte[] transformed = transform(transformer, ExecutorCallSiteFixture.class);
+		assertNotNull(transformed);
+		java.util.Map<String, Integer> wrapsByMethod = new java.util.HashMap<>();
+		new ClassReader(transformed).accept(new ClassVisitor(Opcodes.ASM9) {
+			private String methodName;
+			@Override public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
+				methodName = name;
+				return new MethodVisitor(Opcodes.ASM9) {
+					@Override public void visitMethodInsn(int opcode, String owner, String method, String desc, boolean isInterface) {
+						if (owner.equals("com/sap/oss/smarttestpicker/remote/RemoteTestContext") && method.equals("wrap")
+								&& desc.equals("(Ljava/lang/Runnable;)Ljava/lang/Runnable;")) wrapsByMethod.merge(methodName, 1, Integer::sum);
+					}
+				};
+			}
+		}, 0);
+		assertEquals(1, wrapsByMethod.get("thread"));
+		assertEquals(1, wrapsByMethod.get("namedThread"));
+		assertEquals(1, wrapsByMethod.get("groupedThread"));
+		assertEquals(1, wrapsByMethod.get("namedGroupedThread"));
+		assertDoesNotThrow(() -> new DefiningLoader(ExecutorCallSiteFixture.class.getClassLoader(),
+				ExecutorCallSiteFixture.class.getName(), transformed).loadClass(ExecutorCallSiteFixture.class.getName()));
+	}
+
+	@Test void recognizesVirtualThreadAndBuilderCallSitesWithoutCompilingAgainstThoseApis() throws Exception {
+		RemoteExecutorCallSiteTransformer transformer = transformer(message -> fail(message));
+		byte[] generated = virtualThreadCaller();
+		byte[] transformed = transformer.transform(ExecutorCallSiteFixture.class.getClassLoader(),
+				"example/remote/VirtualThreadCallSiteFixture", null, null, generated);
+		assertNotNull(transformed);
+		AtomicInteger wraps = new AtomicInteger();
+		new ClassReader(transformed).accept(new ClassVisitor(Opcodes.ASM9) {
+			@Override public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
+				return new MethodVisitor(Opcodes.ASM9) {
+					@Override public void visitMethodInsn(int opcode, String owner, String method, String desc, boolean isInterface) {
+						if (owner.equals("com/sap/oss/smarttestpicker/remote/RemoteTestContext") && method.equals("wrap")) wraps.incrementAndGet();
+					}
+				};
+			}
+		}, 0);
+		assertEquals(2, wraps.get());
+		if (supportsVirtualThreads()) assertDoesNotThrow(() -> new DefiningLoader(ExecutorCallSiteFixture.class.getClassLoader(),
+				"example.remote.VirtualThreadCallSiteFixture", transformed).loadClass("example.remote.VirtualThreadCallSiteFixture"));
 	}
 
 	@Test void supplierAndFunctionWrappersCaptureAndRestoreContextEvenOnFailure() throws Exception {
@@ -193,6 +239,34 @@ class RemoteExecutorCallSiteTransformerTest {
 		method.visitEnd();
 		writer.visitEnd();
 		return writer.toByteArray();
+	}
+	private static byte[] virtualThreadCaller() {
+		ClassWriter writer = new ClassWriter(0);
+		writer.visit(Opcodes.V17, Opcodes.ACC_PUBLIC, "example/remote/VirtualThreadCallSiteFixture", null, "java/lang/Object", null);
+		MethodVisitor virtual = writer.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_STATIC, "startVirtual",
+				"(Ljava/lang/Runnable;)Ljava/lang/Thread;", null, null);
+		virtual.visitCode();
+		virtual.visitVarInsn(Opcodes.ALOAD, 0);
+		virtual.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Thread", "startVirtualThread",
+				"(Ljava/lang/Runnable;)Ljava/lang/Thread;", false);
+		virtual.visitInsn(Opcodes.ARETURN);
+		virtual.visitMaxs(1, 1); virtual.visitEnd();
+		MethodVisitor builder = writer.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_STATIC, "builderStart",
+				"(Ljava/lang/Runnable;)Ljava/lang/Thread;", null, null);
+		builder.visitCode();
+		builder.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/Thread", "ofVirtual",
+				"()Ljava/lang/Thread$Builder$OfVirtual;", false);
+		builder.visitVarInsn(Opcodes.ALOAD, 0);
+		builder.visitMethodInsn(Opcodes.INVOKEINTERFACE, "java/lang/Thread$Builder", "start",
+				"(Ljava/lang/Runnable;)Ljava/lang/Thread;", true);
+		builder.visitInsn(Opcodes.ARETURN);
+		builder.visitMaxs(2, 1); builder.visitEnd();
+		writer.visitEnd();
+		return writer.toByteArray();
+	}
+	private static boolean supportsVirtualThreads() {
+		try { Thread.class.getMethod("startVirtualThread", Runnable.class); Thread.class.getMethod("ofVirtual"); return true; }
+		catch (NoSuchMethodException ignored) { return false; }
 	}
 	private record HeaderRequest(String header) {
 		public String getHeader(String name) { return header; }

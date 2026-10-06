@@ -44,4 +44,8 @@ public final class ExecutorCallSiteFixture {
 	public ScheduledFuture<?> scheduleCustom(FixtureScheduledExecutor executor, Runnable task) {
 		return executor.schedule(task, 1, TimeUnit.MILLISECONDS);
 	}
+	public Thread thread(Runnable task) { return new Thread(task); }
+	public Thread namedThread(Runnable task, String name) { return new Thread(task, name); }
+	public Thread groupedThread(ThreadGroup group, Runnable task) { return new Thread(group, task); }
+	public Thread namedGroupedThread(ThreadGroup group, Runnable task, String name) { return new Thread(group, task, name); }
 }
