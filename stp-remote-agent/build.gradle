@@ -12,6 +12,12 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
+sourceSets {
+    petclinicRemoteTest {
+        java.srcDir 'src/petclinicRemoteTest/java'
+    }
+}
+
 dependencies {
     implementation 'org.ow2.asm:asm:9.8'
     implementation 'org.ow2.asm:asm-tree:9.8'
@@ -23,6 +29,11 @@ dependencies {
     testImplementation 'jakarta.servlet:jakarta.servlet-api:5.0.0'
     testImplementation 'javax.servlet:javax.servlet-api:4.0.1'
     testImplementation 'org.ow2.asm:asm-util:9.8'
+
+    petclinicRemoteTestImplementation project(':stp-runtime')
+    petclinicRemoteTestImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+    petclinicRemoteTestImplementation 'org.junit.jupiter:junit-jupiter-params:5.9.3'
+    petclinicRemoteTestRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
 }
 
 tasks.named('shadowJar') {
@@ -44,6 +55,44 @@ tasks.register('remoteAgentJar') {
     group = 'build'
     description = 'Builds the standalone STP remote servlet request correlation agent.'
     dependsOn tasks.named('shadowJar')
+}
+
+def petclinicClientAgentJar = project(':stp-agent').layout.buildDirectory.file('libs/stp-agent.jar')
+tasks.register('petclinicRemoteTest', Test) {
+    description = 'Runs isolated PetClinic REST identity-propagation validation tests.'
+    group = 'verification'
+    testClassesDirs = sourceSets.petclinicRemoteTest.output.classesDirs
+    classpath = sourceSets.petclinicRemoteTest.runtimeClasspath
+    useJUnitPlatform()
+    dependsOn project(':stp-agent').tasks.named('agentJar')
+    extensions.configure(org.gradle.testing.jacoco.plugins.JacocoTaskExtension) {
+        enabled = false
+    }
+
+    def clientOutput = providers.gradleProperty('petclinicClientOutput')
+            .orElse(layout.buildDirectory.file('petclinic-poc/client-stp.json').map { it.asFile.absolutePath })
+    def runId = providers.gradleProperty('petclinicRunId').orElse('petclinic-remote')
+    doFirst {
+        def baseUrl = providers.gradleProperty('petclinicBaseUrl').orNull
+        if (baseUrl == null || baseUrl.isBlank()) {
+            throw new GradleException('Supply -PpetclinicBaseUrl=http://127.0.0.1:<port>')
+        }
+        systemProperty 'petclinic.baseUrl', baseUrl
+        def output = file(clientOutput.get())
+        output.parentFile.mkdirs()
+        delete output
+        def agentArguments = "output=${output};runId=${runId.get()};instrumentation=off;debug=false"
+        println "PetClinic client STP agent: ${petclinicClientAgentJar.get().asFile}=${agentArguments}"
+        jvmArgs "-javaagent:${petclinicClientAgentJar.get().asFile}=${agentArguments}"
+    }
+    testLogging {
+        showStandardStreams = true
+        events 'started', 'passed', 'failed', 'skipped'
+    }
+    if (providers.gradleProperty('petclinicParallel').orNull == 'true') {
+        systemProperty 'junit.jupiter.execution.parallel.enabled', 'true'
+        systemProperty 'junit.jupiter.execution.parallel.mode.default', 'concurrent'
+    }
 }
 
 tasks.test {
