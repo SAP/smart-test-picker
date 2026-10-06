@@ -32,6 +32,11 @@ README files. Jenkins installation, Pipeline API, controller-side FILE storage, 
 belong to the Jenkins integration repository; the two repositories intentionally do not duplicate
 those operational references.
 
+The continuation plan for selecting REST API E2E tests against an independently deployed service is
+documented in [Remote REST API E2E test selection POC](remote-e2e-rest-api-poc.md). It distinguishes
+the validated local RestAssured precursor from the still-unproven remote-host and server-side coverage
+contracts.
+
 For the Jenkins-facing boundary, use the plugin repository's
 [component ownership reference](https://github.com/ljubisap/stp-jenkins-plugin-poc/blob/main/docs/reference/component-ownership.md),
 [support matrix](https://github.com/ljubisap/stp-jenkins-plugin-poc/blob/main/docs/reference/support-validation-matrix.md),
