@@ -48,6 +48,7 @@ tasks.register('remoteAgentJar') {
 
 tasks.test {
     useJUnitPlatform()
+    sourceSets.test.java.srcDir 'petclinic-poc'
     dependsOn tasks.named('remoteAgentJar')
     doFirst {
         systemProperty 'stp.remote.agent.jar', tasks.named('shadowJar').get().archiveFile.get().asFile.absolutePath

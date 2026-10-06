@@ -2,7 +2,7 @@
 
 ## Continuity
 
-- STP initial `988114175f8446846a7e8985cdf34afc93059faf`, final production commit `147c7484086a61043169ff02e86fddda2c64d17f`, branch/worktree `research/asm-codex` / `/Users/d061177/work/asm-poc/codex-worktree`.
+- STP initial `988114175f8446846a7e8985cdf34afc93059faf`, final production commit `147c7484086a61043169ff02e86fddda2c64d17f`, branch/worktree `research/asm-codex` / `/<local-user-home>/work/asm-poc/codex-worktree`.
 - Jenkins initial `ef91832f39a8553099c951bfb48961121608addf`, production/package commit `d0b9c8d`, branch/worktree `ei13/maven-distributed-selection` / `EI-13/worktrees/stp-jenkins-plugin`.
 - No reset, push, release/version exercise, or unrelated checkout change occurred.
 

@@ -19,7 +19,7 @@ The executable contract is maven:<reactor-relative-module>::<test-class>#<test-m
 
 ## Packaged runtime
 
-The deployed HPI is artifacts/deployed-smart-test-picker.hpi, SHA-256 8ad425451a2dae4bcc2221b9039a9fb66585219bb3a2992dcdb87c73a14c6972. Jenkins loaded 1.0-SNAPSHOT (private-b446df5a-d061177).
+The deployed HPI is artifacts/deployed-smart-test-picker.hpi, SHA-256 8ad425451a2dae4bcc2221b9039a9fb66585219bb3a2992dcdb87c73a14c6972. Jenkins loaded 1.0-SNAPSHOT (private-b446df5a-<redacted-user-id>).
 
 Its Maven adapter is 0.1.0, SHA-256 2da632ce9f5a33249ad1af74628592407d1e66fb74b1ce77d66ccc029716260a. Its selector bridge is 0.2.0+jenkins-bridge-v2, SHA-256 7a2b14f1cbaf34ab53efdb10b7702529e2189731d6a93016c76947e09d7933d6.
 

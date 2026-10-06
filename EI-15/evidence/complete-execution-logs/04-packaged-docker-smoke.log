@@ -1,11 +1,11 @@
 ^DTraceback (most recent call last):
-  File "/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 231, in <module>
+  File "/<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 231, in <module>
     if __name__=="__main__":main()
-  File "/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 142, in main
+  File "/<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 142, in main
     cmd(MAVEN,"-s",".mvn/settings.xml","-B","-ntp",f"-Dmaven.repo.local={MAVEN_REPO_LOCAL}","clean","package")
-  File "/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 19, in cmd
+  File "/<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 19, in cmd
     if r.returncode: raise AssertionError(f"{' '.join(args)} failed\n{r.stdout}")
-AssertionError: /Users/d061177/Programs/apache-maven-3.9.16/bin/mvn -s .mvn/settings.xml -B -ntp -Dmaven.repo.local=/tmp/ei15-maven-cache clean package failed
+AssertionError: /<local-user-home>/Programs/apache-maven-3.9.16/bin/mvn -s .mvn/settings.xml -B -ntp -Dmaven.repo.local=/tmp/ei15-maven-cache clean package failed
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------< io.github.smarttestpicker:smart-test-picker >-------------
@@ -14,10 +14,10 @@ AssertionError: /Users/d061177/Programs/apache-maven-3.9.16/bin/mvn -s .mvn/sett
 [INFO] --------------------------------[ hpi ]---------------------------------
 [INFO] 
 [INFO] --- clean:3.5.0:clean (default-clean) @ smart-test-picker ---
-[INFO] Deleting /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target
+[INFO] Deleting /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target
 [INFO] 
 [INFO] --- hpi:3.1746.v2e9fe7dc4d95:validate (default-validate) @ smart-test-picker ---
-[INFO] Created marker file /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/java-level/17
+[INFO] Created marker file /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/java-level/17
 [INFO] 
 [INFO] --- hpi:3.1746.v2e9fe7dc4d95:validate-hpi (default-validate-hpi) @ smart-test-picker ---
 [INFO] 
@@ -77,7 +77,7 @@ AssertionError: /Users/d061177/Programs/apache-maven-3.9.16/bin/mvn -s .mvn/sett
 [INFO]      [exec] [INFO] --------------------------------[ jar ]---------------------------------
 [INFO]      [exec] [INFO] 
 [INFO]      [exec] [INFO] --- clean:3.2.0:clean (default-clean) @ stp-maven-adapter ---
-[INFO]      [exec] [INFO] Deleting /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/adapters/maven-extension/target
+[INFO]      [exec] [INFO] Deleting /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/adapters/maven-extension/target
 [INFO]      [exec] [INFO] 
 [INFO]      [exec] [INFO] --- resources:3.4.0:resources (default-resources) @ stp-maven-adapter ---
 [INFO]      [exec] [INFO] Copying 1 resource from src/main/resources to target/classes
@@ -90,7 +90,7 @@ AssertionError: /Users/d061177/Programs/apache-maven-3.9.16/bin/mvn -s .mvn/sett
 [INFO]      [exec] [WARNING] To suppress warnings about obsolete options, use -Xlint:-options.
 [INFO]      [exec] [INFO] 
 [INFO]      [exec] [INFO] --- resources:3.4.0:testResources (default-testResources) @ stp-maven-adapter ---
-[INFO]      [exec] [INFO] skip non existing resourceDirectory /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/adapters/maven-extension/src/test/resources
+[INFO]      [exec] [INFO] skip non existing resourceDirectory /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/adapters/maven-extension/src/test/resources
 [INFO]      [exec] [INFO] 
 [INFO]      [exec] [INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ stp-maven-adapter ---
 [INFO]      [exec] [INFO] No sources to compile
@@ -99,7 +99,7 @@ AssertionError: /Users/d061177/Programs/apache-maven-3.9.16/bin/mvn -s .mvn/sett
 [INFO]      [exec] [INFO] No tests to run.
 [INFO]      [exec] [INFO] 
 [INFO]      [exec] [INFO] --- jar:3.5.0:jar (default-jar) @ stp-maven-adapter ---
-[INFO]      [exec] [INFO] Building jar: /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/adapters/maven-extension/target/stp-maven-adapter-0.1.0.jar
+[INFO]      [exec] [INFO] Building jar: /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/adapters/maven-extension/target/stp-maven-adapter-0.1.0.jar
 [INFO]      [exec] [INFO] 
 [INFO]      [exec] [INFO] --- shade:3.6.1:shade (default) @ stp-maven-adapter ---
 [INFO]      [exec] [WARNING] Discovered module-info.class. Shading will break its strong encapsulation.
@@ -149,18 +149,18 @@ AssertionError: /Users/d061177/Programs/apache-maven-3.9.16/bin/mvn -s .mvn/sett
 [INFO] io.github.smarttestpicker.jenkins.StpPrepareCoverageMappingStep.DescriptorImpl indexed under hudson.Extension
 [INFO] io.github.smarttestpicker.jenkins.StpPublishCoverageMapStep.DescriptorImpl indexed under hudson.Extension
 [INFO] io.github.smarttestpicker.jenkins.StpTestInventoryStep.DescriptorImpl indexed under hudson.Extension
-[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/SmartTestPickerStep.java:[45,12] Generating io/github/smarttestpicker/jenkins/SmartTestPickerStep.stapler
-[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpCoverageMapStep.java:[22,32] Generating io/github/smarttestpicker/jenkins/StpCoverageMapStep.stapler
-[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpCoverageToolStep.java:[4,224] Generating io/github/smarttestpicker/jenkins/StpCoverageToolStep.stapler
-[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpExplicitPrSelectStep.java:[28,34] Generating io/github/smarttestpicker/jenkins/StpExplicitPrSelectStep.stapler
-[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpHeadInventoryStep.java:[6,31] Generating io/github/smarttestpicker/jenkins/StpHeadInventoryStep.stapler
-[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpLookupCoverageMapStep.java:[22,32] Generating io/github/smarttestpicker/jenkins/StpLookupCoverageMapStep.stapler
-[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpPrSelectStep.java:[44,34] Generating io/github/smarttestpicker/jenkins/StpPrSelectStep.stapler
-[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpPrepareCoverageMappingStep.java:[6,31] Generating io/github/smarttestpicker/jenkins/StpPrepareCoverageMappingStep.stapler
-[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpPublishCoverageMapStep.java:[37,12] Generating io/github/smarttestpicker/jenkins/StpPublishCoverageMapStep.stapler
-[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpTestInventoryStep.java:[6,31] Generating io/github/smarttestpicker/jenkins/StpTestInventoryStep.stapler
-[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/JenkinsStorageCredentialResolver.java: /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/JenkinsStorageCredentialResolver.java uses or overrides a deprecated API.
-[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/JenkinsStorageCredentialResolver.java: Recompile with -Xlint:deprecation for details.
+[INFO] /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/SmartTestPickerStep.java:[45,12] Generating io/github/smarttestpicker/jenkins/SmartTestPickerStep.stapler
+[INFO] /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpCoverageMapStep.java:[22,32] Generating io/github/smarttestpicker/jenkins/StpCoverageMapStep.stapler
+[INFO] /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpCoverageToolStep.java:[4,224] Generating io/github/smarttestpicker/jenkins/StpCoverageToolStep.stapler
+[INFO] /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpExplicitPrSelectStep.java:[28,34] Generating io/github/smarttestpicker/jenkins/StpExplicitPrSelectStep.stapler
+[INFO] /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpHeadInventoryStep.java:[6,31] Generating io/github/smarttestpicker/jenkins/StpHeadInventoryStep.stapler
+[INFO] /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpLookupCoverageMapStep.java:[22,32] Generating io/github/smarttestpicker/jenkins/StpLookupCoverageMapStep.stapler
+[INFO] /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpPrSelectStep.java:[44,34] Generating io/github/smarttestpicker/jenkins/StpPrSelectStep.stapler
+[INFO] /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpPrepareCoverageMappingStep.java:[6,31] Generating io/github/smarttestpicker/jenkins/StpPrepareCoverageMappingStep.stapler
+[INFO] /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpPublishCoverageMapStep.java:[37,12] Generating io/github/smarttestpicker/jenkins/StpPublishCoverageMapStep.stapler
+[INFO] /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/StpTestInventoryStep.java:[6,31] Generating io/github/smarttestpicker/jenkins/StpTestInventoryStep.stapler
+[INFO] /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/JenkinsStorageCredentialResolver.java: /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/JenkinsStorageCredentialResolver.java uses or overrides a deprecated API.
+[INFO] /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/main/java/io/github/smarttestpicker/jenkins/JenkinsStorageCredentialResolver.java: Recompile with -Xlint:deprecation for details.
 [INFO] 
 [INFO] --- access-modifier-checker:1.35:enforce (default-enforce) @ smart-test-picker ---
 [INFO] 
@@ -173,22 +173,22 @@ AssertionError: /Users/d061177/Programs/apache-maven-3.9.16/bin/mvn -s .mvn/sett
 [INFO] Executed tasks
 [INFO] 
 [INFO] --- resources:3.3.1:testResources (default-testResources) @ smart-test-picker ---
-[INFO] skip non existing resourceDirectory /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/test/resources
+[INFO] skip non existing resourceDirectory /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/test/resources
 [INFO] 
 [INFO] --- compiler:3.14.0:testCompile (default-testCompile) @ smart-test-picker ---
 [INFO] Recompiling the module because of changed dependency.
 [INFO] Compiling 17 source files with javac [debug parameters release 17] to target/test-classes
-[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/test/java/io/github/smarttestpicker/jenkins/GitHubBranchSourcePrAdapterTest.java: Some input files use or override a deprecated API.
-[INFO] /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/test/java/io/github/smarttestpicker/jenkins/GitHubBranchSourcePrAdapterTest.java: Recompile with -Xlint:deprecation for details.
+[INFO] /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/test/java/io/github/smarttestpicker/jenkins/GitHubBranchSourcePrAdapterTest.java: Some input files use or override a deprecated API.
+[INFO] /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/src/test/java/io/github/smarttestpicker/jenkins/GitHubBranchSourcePrAdapterTest.java: Recompile with -Xlint:deprecation for details.
 [INFO] 
 [INFO] --- hpi:3.1746.v2e9fe7dc4d95:test-hpl (default-test-hpl) @ smart-test-picker ---
-[INFO] Generating /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/test-classes/the.hpl
+[INFO] Generating /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/test-classes/the.hpl
 [INFO] 
 [INFO] --- hpi:3.1746.v2e9fe7dc4d95:resolve-test-dependencies (default-resolve-test-dependencies) @ smart-test-picker ---
 [INFO] 
 [INFO] --- hpi:3.1746.v2e9fe7dc4d95:test-runtime (default-test-runtime) @ smart-test-picker ---
 [INFO] Setting jenkins.addOpens to --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED
-[INFO] Setting jenkins.insaneHook to --patch-module='java.base=/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/patch-modules/org-netbeans-insane-hook.jar' --add-exports=java.base/org.netbeans.insane.hook=ALL-UNNAMED
+[INFO] Setting jenkins.insaneHook to --patch-module='java.base=/<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/patch-modules/org-netbeans-insane-hook.jar' --add-exports=java.base/org.netbeans.insane.hook=ALL-UNNAMED
 [INFO] 
 [INFO] --- surefire:3.5.3:test (default-test) @ smart-test-picker ---
 [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
@@ -234,7 +234,7 @@ unexpected build status; build log was:
 Started
 [Pipeline] Start of Pipeline
 [Pipeline] node
-Running on Jenkins in /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j h9667587323481128949/workspace/gradle-executable-production
+Running on Jenkins in /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j h9667587323481128949/workspace/gradle-executable-production
 [Pipeline] {
 [Pipeline] writeFile
 [Pipeline] writeFile
@@ -252,7 +252,7 @@ Running on Jenkins in /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees
 [gradle-executable-production] $ git rev-parse HEAD
 [Pipeline] {
 [Pipeline] sh
-+ /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/fixtures/gradle-app/gradlew generateGradleExecutableHeadTestInventory --no-daemon
++ /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/fixtures/gradle-app/gradlew generateGradleExecutableHeadTestInventory --no-daemon
 Fetching distribution.
 Downloading https://services.gradle.org/distributions/gradle-9.7.1-bin.zip
 ..............10%..............20%...............30%..............40%...............50%..............60%...............70%..............80%..............90%...............100%
@@ -282,7 +282,7 @@ Daemon will be stopped at the end of the build
 > Task :generateGradleExecutableHeadTestInventory
 [SmartTestPicker] Aggregated 2 Gradle executable JUnit tests from 1 projects
 
-[Incubating] Problems report is available at: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j%20h9667587323481128949/workspace/gradle-executable-production/build/reports/problems/problems-report.html
+[Incubating] Problems report is available at: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j%20h9667587323481128949/workspace/gradle-executable-production/build/reports/problems/problems-report.html
 
 Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
 
@@ -301,7 +301,7 @@ BUILD SUCCESSFUL in 12s
 [STP] ASM mapping adapter active for shard 0 at revision aebfe2579c7749b5e3299b358e5b0b74b1eb24a7
 [Pipeline] {
 [Pipeline] sh
-+ /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/fixtures/gradle-app/gradlew generateSmartTestMapping --no-daemon
++ /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/fixtures/gradle-app/gradlew generateSmartTestMapping --no-daemon
 Fetching distribution.
 Downloading https://services.gradle.org/distributions/gradle-9.7.1-bin.zip
 ..............10%..............20%...............30%..............40%...............50%..............60%...............70%..............80%..............90%...............100%
@@ -455,7 +455,7 @@ WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
 Started
 [Pipeline] Start of Pipeline
 [Pipeline] node
-Running on Jenkins in /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j h9667587323481128949/workspace/gradle-executable-production
+Running on Jenkins in /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j h9667587323481128949/workspace/gradle-executable-production
 [Pipeline] {
 [Pipeline] writeFile
 [Pipeline] writeFile
@@ -473,7 +473,7 @@ Running on Jenkins in /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees
 [gradle-executable-production] $ git rev-parse HEAD
 [Pipeline] {
 [Pipeline] sh
-+ /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/fixtures/gradle-app/gradlew generateGradleExecutableHeadTestInventory --no-daemon
++ /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/fixtures/gradle-app/gradlew generateGradleExecutableHeadTestInventory --no-daemon
 Fetching distribution.
 Downloading https://services.gradle.org/distributions/gradle-9.7.1-bin.zip
 ..............10%..............20%...............30%..............40%...............50%..............60%...............70%..............80%..............90%...............100%
@@ -503,7 +503,7 @@ Daemon will be stopped at the end of the build
 > Task :generateGradleExecutableHeadTestInventory
 [SmartTestPicker] Aggregated 2 Gradle executable JUnit tests from 1 projects
 
-[Incubating] Problems report is available at: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j%20h9667587323481128949/workspace/gradle-executable-production/build/reports/problems/problems-report.html
+[Incubating] Problems report is available at: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j%20h9667587323481128949/workspace/gradle-executable-production/build/reports/problems/problems-report.html
 
 Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
 
@@ -522,7 +522,7 @@ BUILD SUCCESSFUL in 12s
 [STP] ASM mapping adapter active for shard 0 at revision aebfe2579c7749b5e3299b358e5b0b74b1eb24a7
 [Pipeline] {
 [Pipeline] sh
-+ /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/fixtures/gradle-app/gradlew generateSmartTestMapping --no-daemon
++ /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/fixtures/gradle-app/gradlew generateSmartTestMapping --no-daemon
 Fetching distribution.
 Downloading https://services.gradle.org/distributions/gradle-9.7.1-bin.zip
 ..............10%..............20%...............30%..............40%...............50%..............60%...............70%..............80%..............90%...............100%
@@ -590,7 +590,7 @@ Expected: is <SUCCESS>
 [INFO] ------------------------------------------------------------------------
 [ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.3:test (default-test) on project smart-test-picker: There are test failures.
 [ERROR] 
-[ERROR] See /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/surefire-reports for the individual test results.
+[ERROR] See /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/surefire-reports for the individual test results.
 [ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
 [ERROR] -> [Help 1]
 [ERROR] 
@@ -613,7 +613,7 @@ Caused by: java.lang.reflect.InvocationTargetException
 	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
 	at hudson.init.TaskMethodFinder.invoke(TaskMethodFinder.java:109)
 	... 9 more
-Caused by: java.nio.file.NoSuchFileException: /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j h6748490121952368047/users
+Caused by: java.nio.file.NoSuchFileException: /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j h6748490121952368047/users
 	at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:92)
 	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:108)
 	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:113)
@@ -624,7 +624,7 @@ Caused by: java.nio.file.NoSuchFileException: /Users/d061177/work/asm-poc/codex-
 	... 11 more
 
 [ERROR] io.github.smarttestpicker.jenkins.SmartTestPickerStepTest.gradleEnvironmentIsScopedAndTempPathsAreUnique(JenkinsRule) -- Time elapsed: 0.002 s <<< ERROR!
-org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:64)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
@@ -636,7 +636,7 @@ org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is n
 		Suppressed: java.lang.NullPointerException: Cannot invoke "org.eclipse.jetty.server.Server.stop()" because "server" is null
 			at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:556)
 			... 4 more
-Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:741)
 	at org.eclipse.jetty.ee9.nested.ContextHandler$CoreContextHandler.doStart(ContextHandler.java:2836)
 	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
@@ -659,7 +659,7 @@ Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:
 	... 2 more
 
 [ERROR] io.github.smarttestpicker.jenkins.SmartTestPickerStepTest.missingCoverageMapFailsBeforeSelector(JenkinsRule) -- Time elapsed: 0.002 s <<< ERROR!
-org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:64)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
@@ -671,7 +671,7 @@ org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is n
 		Suppressed: java.lang.NullPointerException: Cannot invoke "org.eclipse.jetty.server.Server.stop()" because "server" is null
 			at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:556)
 			... 4 more
-Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:741)
 	at org.eclipse.jetty.ee9.nested.ContextHandler$CoreContextHandler.doStart(ContextHandler.java:2836)
 	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
@@ -694,7 +694,7 @@ Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:
 	... 2 more
 
 [ERROR] io.github.smarttestpicker.jenkins.SmartTestPickerStepTest.selectorFailuresAndMalformedOutputPreventBodyAndClean(JenkinsRule) -- Time elapsed: 0.002 s <<< ERROR!
-org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:64)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
@@ -706,7 +706,7 @@ org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is n
 		Suppressed: java.lang.NullPointerException: Cannot invoke "org.eclipse.jetty.server.Server.stop()" because "server" is null
 			at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:556)
 			... 4 more
-Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:741)
 	at org.eclipse.jetty.ee9.nested.ContextHandler$CoreContextHandler.doStart(ContextHandler.java:2836)
 	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
@@ -729,7 +729,7 @@ Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:
 	... 2 more
 
 [ERROR] io.github.smarttestpicker.jenkins.SmartTestPickerStepTest.selectorAndPlanModesAreMutuallyExclusiveAndInputsAreRequired(JenkinsRule) -- Time elapsed: 0.002 s <<< ERROR!
-org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:64)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
@@ -741,7 +741,7 @@ org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is n
 		Suppressed: java.lang.NullPointerException: Cannot invoke "org.eclipse.jetty.server.Server.stop()" because "server" is null
 			at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:556)
 			... 4 more
-Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:741)
 	at org.eclipse.jetty.ee9.nested.ContextHandler$CoreContextHandler.doStart(ContextHandler.java:2836)
 	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
@@ -764,7 +764,7 @@ Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:
 	... 2 more
 
 [ERROR] io.github.smarttestpicker.jenkins.SmartTestPickerStepTest.globalCoverageMapDefaultIsUsedAndPipelineValueOverridesIt(JenkinsRule) -- Time elapsed: 0.001 s <<< ERROR!
-org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:64)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
@@ -776,7 +776,7 @@ org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is n
 		Suppressed: java.lang.NullPointerException: Cannot invoke "org.eclipse.jetty.server.Server.stop()" because "server" is null
 			at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:556)
 			... 4 more
-Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:741)
 	at org.eclipse.jetty.ee9.nested.ContextHandler$CoreContextHandler.doStart(ContextHandler.java:2836)
 	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
@@ -799,7 +799,7 @@ Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:
 	... 2 more
 
 [ERROR] io.github.smarttestpicker.jenkins.SmartTestPickerStepTest.selectorHeadMustMatchCheckedOutWorkspaceHead(JenkinsRule) -- Time elapsed: 0.001 s <<< ERROR!
-org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:64)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
@@ -811,7 +811,7 @@ org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is n
 		Suppressed: java.lang.NullPointerException: Cannot invoke "org.eclipse.jetty.server.Server.stop()" because "server" is null
 			at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:556)
 			... 4 more
-Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:741)
 	at org.eclipse.jetty.ee9.nested.ContextHandler$CoreContextHandler.doStart(ContextHandler.java:2836)
 	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
@@ -834,7 +834,7 @@ Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:
 	... 2 more
 
 [ERROR] io.github.smarttestpicker.jenkins.SmartTestPickerStepTest.selectorModeGeneratesAndPropagatesPlan(JenkinsRule) -- Time elapsed: 0.002 s <<< ERROR!
-org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:64)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
@@ -846,7 +846,7 @@ org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is n
 		Suppressed: java.lang.NullPointerException: Cannot invoke "org.eclipse.jetty.server.Server.stop()" because "server" is null
 			at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:556)
 			... 4 more
-Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:741)
 	at org.eclipse.jetty.ee9.nested.ContextHandler$CoreContextHandler.doStart(ContextHandler.java:2836)
 	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
@@ -869,7 +869,7 @@ Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:
 	... 2 more
 
 [ERROR] io.github.smarttestpicker.jenkins.SmartTestPickerStepTest.missingBundledResourcesFailBeforeBody(JenkinsRule) -- Time elapsed: 0.002 s <<< ERROR!
-org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:64)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
@@ -881,7 +881,7 @@ org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is n
 		Suppressed: java.lang.NullPointerException: Cannot invoke "org.eclipse.jetty.server.Server.stop()" because "server" is null
 			at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:556)
 			... 4 more
-Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:741)
 	at org.eclipse.jetty.ee9.nested.ContextHandler$CoreContextHandler.doStart(ContextHandler.java:2836)
 	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
@@ -904,7 +904,7 @@ Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:
 	... 2 more
 
 [ERROR] io.github.smarttestpicker.jenkins.SmartTestPickerStepTest.resolverProducesImmutableEffectiveConfigurationWithExplicitPrecedence(JenkinsRule) -- Time elapsed: 0.002 s <<< ERROR!
-org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:64)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
@@ -916,7 +916,7 @@ org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is n
 		Suppressed: java.lang.NullPointerException: Cannot invoke "org.eclipse.jetty.server.Server.stop()" because "server" is null
 			at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:556)
 			... 4 more
-Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:741)
 	at org.eclipse.jetty.ee9.nested.ContextHandler$CoreContextHandler.doStart(ContextHandler.java:2836)
 	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
@@ -939,7 +939,7 @@ Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:
 	... 2 more
 
 [ERROR] io.github.smarttestpicker.jenkins.SmartTestPickerStepTest.globallyDisabledToolIntegrationsFailBeforeBody(JenkinsRule) -- Time elapsed: 0.001 s <<< ERROR!
-org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:64)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
@@ -951,7 +951,7 @@ org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is n
 		Suppressed: java.lang.NullPointerException: Cannot invoke "org.eclipse.jetty.server.Server.stop()" because "server" is null
 			at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:556)
 			... 4 more
-Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:741)
 	at org.eclipse.jetty.ee9.nested.ContextHandler$CoreContextHandler.doStart(ContextHandler.java:2836)
 	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
@@ -974,7 +974,7 @@ Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:
 	... 2 more
 
 [ERROR] io.github.smarttestpicker.jenkins.SmartTestPickerStepTest.missingPlanAndDisabledConfigurationFailBeforeBody(JenkinsRule) -- Time elapsed: 0.001 s <<< ERROR!
-org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:64)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
@@ -986,7 +986,7 @@ org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is n
 		Suppressed: java.lang.NullPointerException: Cannot invoke "org.eclipse.jetty.server.Server.stop()" because "server" is null
 			at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:556)
 			... 4 more
-Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:741)
 	at org.eclipse.jetty.ee9.nested.ContextHandler$CoreContextHandler.doStart(ContextHandler.java:2836)
 	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
@@ -1009,7 +1009,7 @@ Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:
 	... 2 more
 
 [ERROR] io.github.smarttestpicker.jenkins.SmartTestPickerStepTest.configurationRoundTrips(JenkinsRule) -- Time elapsed: 0.002 s <<< ERROR!
-org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 	at org.jvnet.hudson.test.junit.jupiter.JenkinsExtension.resolveParameter(JenkinsExtension.java:64)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1612)
@@ -1021,7 +1021,7 @@ org.junit.jupiter.api.extension.ParameterResolutionException: Base Resource is n
 		Suppressed: java.lang.NullPointerException: Cannot invoke "org.eclipse.jetty.server.Server.stop()" because "server" is null
 			at org.jvnet.hudson.test.JenkinsRule._stopJenkins(JenkinsRule.java:556)
 			... 4 more
-Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+Caused by: java.lang.IllegalArgumentException: Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:741)
 	at org.eclipse.jetty.ee9.nested.ContextHandler$CoreContextHandler.doStart(ContextHandler.java:2836)
 	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:93)
@@ -1056,7 +1056,7 @@ WARNING: package org.netbeans.insane.hook not in java.base
 Started
 [Pipeline] Start of Pipeline
 [Pipeline] node
-Running on Jenkins in /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j h5632610857065042710/workspace/gradle-executable-production
+Running on Jenkins in /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j h5632610857065042710/workspace/gradle-executable-production
 [Pipeline] {
 [Pipeline] writeFile
 [Pipeline] writeFile
@@ -1074,7 +1074,7 @@ Running on Jenkins in /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees
 [gradle-executable-production] $ git rev-parse HEAD
 [Pipeline] {
 [Pipeline] sh
-+ /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/fixtures/gradle-app/gradlew generateGradleExecutableHeadTestInventory --no-daemon
++ /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/fixtures/gradle-app/gradlew generateGradleExecutableHeadTestInventory --no-daemon
 Fetching distribution.
 Downloading https://services.gradle.org/distributions/gradle-9.7.1-bin.zip
 ..............10%..............20%...............30%..............40%...............50%..............60%...............70%..............80%..............90%...............100%
@@ -1104,7 +1104,7 @@ Daemon will be stopped at the end of the build
 > Task :generateGradleExecutableHeadTestInventory
 [SmartTestPicker] Aggregated 2 Gradle executable JUnit tests from 1 projects
 
-[Incubating] Problems report is available at: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j%20h5632610857065042710/workspace/gradle-executable-production/build/reports/problems/problems-report.html
+[Incubating] Problems report is available at: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j%20h5632610857065042710/workspace/gradle-executable-production/build/reports/problems/problems-report.html
 
 Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
 
@@ -1123,7 +1123,7 @@ BUILD SUCCESSFUL in 11s
 [STP] ASM mapping adapter active for shard 0 at revision c76b31f53595629e7337e35386fc9417b431f9b0
 [Pipeline] {
 [Pipeline] sh
-+ /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/fixtures/gradle-app/gradlew generateSmartTestMapping --no-daemon
++ /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/fixtures/gradle-app/gradlew generateSmartTestMapping --no-daemon
 Fetching distribution.
 Downloading https://services.gradle.org/distributions/gradle-9.7.1-bin.zip
 ..............10%..............20%...............30%..............40%...............50%..............60%...............70%..............80%..............90%...............100%
@@ -1185,12 +1185,12 @@ Expected: a string containing "EXPECTED_BODY_FAILURE"
      but: was "Started
 [Pipeline] Start of Pipeline
 [Pipeline] node
-Running on Jenkins in /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j h6643698032855834472/workspace/body-failure
+Running on Jenkins in /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j h6643698032855834472/workspace/body-failure
 [Pipeline] {
 [Pipeline] writeFile
 [Pipeline] smartTestPicker
-[STP] Preparing Gradle adapter on agent /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j h6643698032855834472/workspace/body-failure
-[STP] Cleaning build-local STP files: /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j h6643698032855834472/workspace/body-failure@tmp/stp/body-failure_1-d772b911-6d09-436e-a6f9-c4437e7acaa7
+[STP] Preparing Gradle adapter on agent /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j h6643698032855834472/workspace/body-failure
+[STP] Cleaning build-local STP files: /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/tmp/j h6643698032855834472/workspace/body-failure@tmp/stp/body-failure_1-d772b911-6d09-436e-a6f9-c4437e7acaa7
 [Pipeline] // smartTestPicker
 [Pipeline] }
 [Pipeline] // node
@@ -1257,19 +1257,19 @@ java.io.IOException: missing generated adapter manifest
 Finished: FAILURE
 "
 [ERROR] Errors: 
-[ERROR]   SmartTestPickerStepTest.configurationRoundTrips(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
-[ERROR]   SmartTestPickerStepTest.globalCoverageMapDefaultIsUsedAndPipelineValueOverridesIt(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
-[ERROR]   SmartTestPickerStepTest.globallyDisabledToolIntegrationsFailBeforeBody(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
-[ERROR]   SmartTestPickerStepTest.gradleEnvironmentIsScopedAndTempPathsAreUnique(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+[ERROR]   SmartTestPickerStepTest.configurationRoundTrips(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+[ERROR]   SmartTestPickerStepTest.globalCoverageMapDefaultIsUsedAndPipelineValueOverridesIt(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+[ERROR]   SmartTestPickerStepTest.globallyDisabledToolIntegrationsFailBeforeBody(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+[ERROR]   SmartTestPickerStepTest.gradleEnvironmentIsScopedAndTempPathsAreUnique(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 [ERROR]   SmartTestPickerStepTest.invalidToolAndTraversalFailBeforeBody(JenkinsRule) » ParameterResolution java.lang.Error: java.lang.reflect.InvocationTargetException
-[ERROR]   SmartTestPickerStepTest.missingBundledResourcesFailBeforeBody(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
-[ERROR]   SmartTestPickerStepTest.missingCoverageMapFailsBeforeSelector(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
-[ERROR]   SmartTestPickerStepTest.missingPlanAndDisabledConfigurationFailBeforeBody(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
-[ERROR]   SmartTestPickerStepTest.resolverProducesImmutableEffectiveConfigurationWithExplicitPrecedence(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
-[ERROR]   SmartTestPickerStepTest.selectorAndPlanModesAreMutuallyExclusiveAndInputsAreRequired(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
-[ERROR]   SmartTestPickerStepTest.selectorFailuresAndMalformedOutputPreventBodyAndClean(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
-[ERROR]   SmartTestPickerStepTest.selectorHeadMustMatchCheckedOutWorkspaceHead(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
-[ERROR]   SmartTestPickerStepTest.selectorModeGeneratesAndPropagatesPlan(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+[ERROR]   SmartTestPickerStepTest.missingBundledResourcesFailBeforeBody(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+[ERROR]   SmartTestPickerStepTest.missingCoverageMapFailsBeforeSelector(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+[ERROR]   SmartTestPickerStepTest.missingPlanAndDisabledConfigurationFailBeforeBody(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+[ERROR]   SmartTestPickerStepTest.resolverProducesImmutableEffectiveConfigurationWithExplicitPrecedence(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+[ERROR]   SmartTestPickerStepTest.selectorAndPlanModesAreMutuallyExclusiveAndInputsAreRequired(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+[ERROR]   SmartTestPickerStepTest.selectorFailuresAndMalformedOutputPreventBodyAndClean(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+[ERROR]   SmartTestPickerStepTest.selectorHeadMustMatchCheckedOutWorkspaceHead(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
+[ERROR]   SmartTestPickerStepTest.selectorModeGeneratesAndPropagatesPlan(JenkinsRule) » ParameterResolution Base Resource is not valid: file:///<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/jenkins-for-test
 [INFO] 
 [ERROR] Tests run: 91, Failures: 2, Errors: 13, Skipped: 0
 [INFO] 
@@ -1281,7 +1281,7 @@ Finished: FAILURE
 [INFO] ------------------------------------------------------------------------
 [ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.3:test (default-test) on project smart-test-picker: 
 [ERROR] 
-[ERROR] See /Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/surefire-reports for the individual test results.
+[ERROR] See /<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/target/surefire-reports for the individual test results.
 [ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
 [ERROR] ExecutionException There was an error in the forked process
 [ERROR] Error occurred in starting fork, check output in log

@@ -9,7 +9,7 @@ EI-14 passes. The independent R0 reconciliation and all four missing Docker Jenk
 - Initial STP checkpoint: `4ff0ed9c24c3ca8291530cca3b2a1b8f55d48233`; verified EI-14 STP: `8166cdd3b8ee0d5a6f0c67e7264f5658d5d3c969`.
 - Initial Jenkins plugin checkpoint: `38c0414b2a8847e62faadd3e8c214ec91d38fd8f`; verified deployed EI-14 plugin: `955b12d0c395d305f73172706d35c3e3ce97343d`.
 - Commons Statistics remained at R1 `04e9e5d9d66da5dcbaa9a635674926ae71b4ea77`; all R0 jobs checked out detached R0 `2937eb2e711483d8ea9dc216af45c16fd0066b77`.
-- Loaded plugin version: `1.0-SNAPSHOT (private-955b12d0-d061177)`.
+- Loaded plugin version: `1.0-SNAPSHOT (private-955b12d0-<redacted-user-id>)`.
 - Deployed EI-14 HPI SHA-256: `3646518c92e8e1fd96e74eb89ed91fe4983b9717d97e28ac52ad324290500ba7`.
 - Pre-existing untracked `EI-9/` was preserved.
 

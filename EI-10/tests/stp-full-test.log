@@ -66,34 +66,34 @@
 > Task :smart-test-picker-common:jacocoTestReport
 
 > Task :smart-test-picker-maven:generateMavenPluginDescriptor
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateCoverageMapMojo.java:27
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateCoverageMapMojo.java:27
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/SmartTestMojo.java:65
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/SmartTestMojo.java:65
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/PullCoverageMapMojo.java:29
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateReportMojo.java:27
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateReportMojo.java:27
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/PushCoverageMapMojo.java:27
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateReportsMojo.java:27
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateReportsMojo.java:27
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateReportsMojo.java:27
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateReportsMojo.java:27
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateReportsMojo.java:32
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/MergeTestMetricsMojo.java:38
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/MergeTestMetricsMojo.java:38
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/MergeTestMetricsMojo.java:38
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/RootSelectTestsMojo.java:39
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/RootSelectTestsMojo.java:39
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/RootSelectTestsMojo.java:39
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/RootSelectTestsMojo.java:39
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/RootGenerateReportMojo.java:39
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/RootGenerateReportMojo.java:39
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/MergeCoverageMapsMojo.java:40
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/MergeCoverageMapsMojo.java:40
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/MergeCoverageMapsMojo.java:40
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/SelectTestsMojo.java:40
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/SelectTestsMojo.java:40
-Found unsupported javadoc inline tag 'code' in file:/Users/d061177/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/SelectTestsMojo.java:40
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateCoverageMapMojo.java:27
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateCoverageMapMojo.java:27
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/SmartTestMojo.java:65
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/SmartTestMojo.java:65
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/PullCoverageMapMojo.java:29
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateReportMojo.java:27
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateReportMojo.java:27
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/PushCoverageMapMojo.java:27
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateReportsMojo.java:27
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateReportsMojo.java:27
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateReportsMojo.java:27
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateReportsMojo.java:27
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateReportsMojo.java:32
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/MergeTestMetricsMojo.java:38
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/MergeTestMetricsMojo.java:38
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/MergeTestMetricsMojo.java:38
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/RootSelectTestsMojo.java:39
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/RootSelectTestsMojo.java:39
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/RootSelectTestsMojo.java:39
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/RootSelectTestsMojo.java:39
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/RootGenerateReportMojo.java:39
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/RootGenerateReportMojo.java:39
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/MergeCoverageMapsMojo.java:40
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/MergeCoverageMapsMojo.java:40
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/MergeCoverageMapsMojo.java:40
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/SelectTestsMojo.java:40
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/SelectTestsMojo.java:40
+Found unsupported javadoc inline tag 'code' in file:/<local-user-home>/work/asm-poc/codex-worktree/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/SelectTestsMojo.java:40
 
 Deprecated extractor java-javadoc extracted 1 descriptor. Upgrade your Mojo definitions.
 You should use Mojo Annotations instead of Javadoc tags.
@@ -174,7 +174,7 @@ line 1 column 58 - Warning: inserting missing 'title' element
 > Task :stp-runtime:test
 > Task :stp-runtime:jacocoTestReport
 
-[Incubating] Problems report is available at: file:///Users/d061177/work/asm-poc/codex-worktree/build/reports/problems/problems-report.html
+[Incubating] Problems report is available at: file:///<local-user-home>/work/asm-poc/codex-worktree/build/reports/problems/problems-report.html
 
 Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
 

@@ -65,7 +65,7 @@
 [INFO]      [exec] [INFO] --------------------------------[ jar ]---------------------------------
 [INFO]      [exec] [INFO] 
 [INFO]      [exec] [INFO] --- clean:3.2.0:clean (default-clean) @ stp-maven-adapter ---
-[INFO]      [exec] [INFO] Deleting /Users/d061177/work/stp-jenkins-plugin-poc/adapters/maven-extension/target
+[INFO]      [exec] [INFO] Deleting /<local-user-home>/work/stp-jenkins-plugin-poc/adapters/maven-extension/target
 [INFO]      [exec] [INFO] 
 [INFO]      [exec] [INFO] --- resources:3.4.0:resources (default-resources) @ stp-maven-adapter ---
 [INFO]      [exec] [INFO] Copying 1 resource from src/main/resources to target/classes
@@ -78,7 +78,7 @@
 [INFO]      [exec] [WARNING] To suppress warnings about obsolete options, use -Xlint:-options.
 [INFO]      [exec] [INFO] 
 [INFO]      [exec] [INFO] --- resources:3.4.0:testResources (default-testResources) @ stp-maven-adapter ---
-[INFO]      [exec] [INFO] skip non existing resourceDirectory /Users/d061177/work/stp-jenkins-plugin-poc/adapters/maven-extension/src/test/resources
+[INFO]      [exec] [INFO] skip non existing resourceDirectory /<local-user-home>/work/stp-jenkins-plugin-poc/adapters/maven-extension/src/test/resources
 [INFO]      [exec] [INFO] 
 [INFO]      [exec] [INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ stp-maven-adapter ---
 [INFO]      [exec] [INFO] No sources to compile
@@ -87,7 +87,7 @@
 [INFO]      [exec] [INFO] No tests to run.
 [INFO]      [exec] [INFO] 
 [INFO]      [exec] [INFO] --- jar:3.5.0:jar (default-jar) @ stp-maven-adapter ---
-[INFO]      [exec] [INFO] Building jar: /Users/d061177/work/stp-jenkins-plugin-poc/adapters/maven-extension/target/stp-maven-adapter-0.1.0.jar
+[INFO]      [exec] [INFO] Building jar: /<local-user-home>/work/stp-jenkins-plugin-poc/adapters/maven-extension/target/stp-maven-adapter-0.1.0.jar
 [INFO]      [exec] [INFO] 
 [INFO]      [exec] [INFO] --- shade:3.6.1:shade (default) @ stp-maven-adapter ---
 [INFO]      [exec] [WARNING] Discovered module-info.class. Shading will break its strong encapsulation.
@@ -137,22 +137,22 @@
 [INFO] Executed tasks
 [INFO] 
 [INFO] --- resources:3.3.1:testResources (default-testResources) @ smart-test-picker ---
-[INFO] skip non existing resourceDirectory /Users/d061177/work/stp-jenkins-plugin-poc/src/test/resources
+[INFO] skip non existing resourceDirectory /<local-user-home>/work/stp-jenkins-plugin-poc/src/test/resources
 [INFO] 
 [INFO] --- compiler:3.14.0:testCompile (default-testCompile) @ smart-test-picker ---
 [INFO] Recompiling the module because of changed source code.
 [INFO] Compiling 15 source files with javac [debug parameters release 17] to target/test-classes
-[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/test/java/io/github/smarttestpicker/jenkins/GitHubBranchSourcePrAdapterTest.java: Some input files use or override a deprecated API.
-[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/test/java/io/github/smarttestpicker/jenkins/GitHubBranchSourcePrAdapterTest.java: Recompile with -Xlint:deprecation for details.
+[INFO] /<local-user-home>/work/stp-jenkins-plugin-poc/src/test/java/io/github/smarttestpicker/jenkins/GitHubBranchSourcePrAdapterTest.java: Some input files use or override a deprecated API.
+[INFO] /<local-user-home>/work/stp-jenkins-plugin-poc/src/test/java/io/github/smarttestpicker/jenkins/GitHubBranchSourcePrAdapterTest.java: Recompile with -Xlint:deprecation for details.
 [INFO] 
 [INFO] --- hpi:3.1746.v2e9fe7dc4d95:test-hpl (default-test-hpl) @ smart-test-picker ---
-[INFO] Generating /Users/d061177/work/stp-jenkins-plugin-poc/target/test-classes/the.hpl
+[INFO] Generating /<local-user-home>/work/stp-jenkins-plugin-poc/target/test-classes/the.hpl
 [INFO] 
 [INFO] --- hpi:3.1746.v2e9fe7dc4d95:resolve-test-dependencies (default-resolve-test-dependencies) @ smart-test-picker ---
 [INFO] 
 [INFO] --- hpi:3.1746.v2e9fe7dc4d95:test-runtime (default-test-runtime) @ smart-test-picker ---
 [INFO] Setting jenkins.addOpens to --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED
-[INFO] Setting jenkins.insaneHook to --patch-module='java.base=/Users/d061177/work/stp-jenkins-plugin-poc/target/patch-modules/org-netbeans-insane-hook.jar' --add-exports=java.base/org.netbeans.insane.hook=ALL-UNNAMED
+[INFO] Setting jenkins.insaneHook to --patch-module='java.base=/<local-user-home>/work/stp-jenkins-plugin-poc/target/patch-modules/org-netbeans-insane-hook.jar' --add-exports=java.base/org.netbeans.insane.hook=ALL-UNNAMED
 [INFO] 
 [INFO] --- surefire:3.5.3:test (default-test) @ smart-test-picker ---
 [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
@@ -161,12 +161,12 @@
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
 [INFO] Running io.github.smarttestpicker.jenkins.CoverageMappingStepTest
-   0.053 [id=1]	INFO	o.jvnet.hudson.test.WarExploder#explode: Picking up existing exploded jenkins.war at /Users/d061177/work/stp-jenkins-plugin-poc/target/jenkins-for-test
+   0.053 [id=1]	INFO	o.jvnet.hudson.test.WarExploder#explode: Picking up existing exploded jenkins.war at /<local-user-home>/work/stp-jenkins-plugin-poc/target/jenkins-for-test
    0.206 [id=1]	INFO	o.jvnet.hudson.test.JenkinsRule#createWebServer2: Running on http://localhost:50605/jenkins/
    0.255 [id=1]	INFO	jenkins.model.Jenkins#<init>: Starting version 2.516.2
    0.321 [id=51]	INFO	jenkins.InitReactorRunner$1#onAttained: Started initialization
    0.786 [id=51]	INFO	jenkins.InitReactorRunner$1#onAttained: Listed all plugins
-   0.792 [id=56]	INFO	j.b.api.BouncyCastlePlugin#start: /Users/d061177/work/stp-jenkins-plugin-poc/target/tmp/j h10157233065027059153/plugins/bouncycastle-api/WEB-INF/optional-lib not found; for non RealJenkinsRule this is fine and can be ignored.
+   0.792 [id=56]	INFO	j.b.api.BouncyCastlePlugin#start: /<local-user-home>/work/stp-jenkins-plugin-poc/target/tmp/j h10157233065027059153/plugins/bouncycastle-api/WEB-INF/optional-lib not found; for non RealJenkinsRule this is fine and can be ignored.
    1.278 [id=63]	INFO	jenkins.InitReactorRunner$1#onAttained: Prepared all plugins
    1.282 [id=71]	INFO	jenkins.InitReactorRunner$1#onAttained: Started all plugins
    1.283 [id=55]	INFO	jenkins.InitReactorRunner$1#onAttained: Augmented all extensions
@@ -177,7 +177,7 @@
    1.735 [id=56]	INFO	jenkins.InitReactorRunner$1#onAttained: Completed initialization
   15.109 [id=1]	INFO	hudson.lifecycle.Lifecycle#onStatusUpdate: Stopping Jenkins
   15.138 [id=1]	INFO	hudson.lifecycle.Lifecycle#onStatusUpdate: Jenkins stopped
-  15.159 [id=1]	INFO	o.j.h.t.TemporaryDirectoryAllocator#dispose: deleting /Users/d061177/work/stp-jenkins-plugin-poc/target/tmp/j h10157233065027059153
+  15.159 [id=1]	INFO	o.j.h.t.TemporaryDirectoryAllocator#dispose: deleting /<local-user-home>/work/stp-jenkins-plugin-poc/target/tmp/j h10157233065027059153
 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 15.48 s -- in io.github.smarttestpicker.jenkins.CoverageMappingStepTest
 [INFO] 
 [INFO] Results:

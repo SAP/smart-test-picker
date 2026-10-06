@@ -1,11 +1,11 @@
 ^DTraceback (most recent call last):
-  File "/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 230, in <module>
+  File "/<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 230, in <module>
     if __name__=="__main__":main()
-  File "/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 141, in main
+  File "/<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 141, in main
     cmd(MAVEN,"-s",".mvn/settings.xml","-B","-ntp","-Dmaven.repo.local=/tmp/stp-jenkins-plugin-m2","clean","package")
-  File "/Users/d061177/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 18, in cmd
+  File "/<local-user-home>/work/asm-poc/codex-worktree/EI-13/worktrees/stp-jenkins-plugin/verification/verify.py", line 18, in cmd
     if r.returncode: raise AssertionError(f"{' '.join(args)} failed\n{r.stdout}")
-AssertionError: /Users/d061177/Programs/apache-maven-3.9.16/bin/mvn -s .mvn/settings.xml -B -ntp -Dmaven.repo.local=/tmp/stp-jenkins-plugin-m2 clean package failed
+AssertionError: /<local-user-home>/Programs/apache-maven-3.9.16/bin/mvn -s .mvn/settings.xml -B -ntp -Dmaven.repo.local=/tmp/stp-jenkins-plugin-m2 clean package failed
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] ------------< io.github.smarttestpicker:smart-test-picker >-------------

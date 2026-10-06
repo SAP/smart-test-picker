@@ -4,19 +4,19 @@ services:
       - "18082:8080"
   jenkins-agent:
     volumes:
-      - /Users/d061177/work/asm-poc/codex-worktree/EI-9/spring-framework:/opt/ei10/spring-framework:ro
+      - ${EI10_SPRING_FRAMEWORK_DIR:?Set EI10_SPRING_FRAMEWORK_DIR}:/opt/ei10/spring-framework:ro
       - ei10_map_storage:/opt/ei10/map-storage
   jenkins-agent-1:
     volumes:
-      - /Users/d061177/work/asm-poc/codex-worktree/EI-9/spring-framework:/opt/ei10/spring-framework:ro
+      - ${EI10_SPRING_FRAMEWORK_DIR:?Set EI10_SPRING_FRAMEWORK_DIR}:/opt/ei10/spring-framework:ro
       - ei10_map_storage:/opt/ei10/map-storage
   jenkins-agent-2:
     volumes:
-      - /Users/d061177/work/asm-poc/codex-worktree/EI-9/spring-framework:/opt/ei10/spring-framework:ro
+      - ${EI10_SPRING_FRAMEWORK_DIR:?Set EI10_SPRING_FRAMEWORK_DIR}:/opt/ei10/spring-framework:ro
       - ei10_map_storage:/opt/ei10/map-storage
   jenkins-agent-3:
     volumes:
-      - /Users/d061177/work/asm-poc/codex-worktree/EI-9/spring-framework:/opt/ei10/spring-framework:ro
+      - ${EI10_SPRING_FRAMEWORK_DIR:?Set EI10_SPRING_FRAMEWORK_DIR}:/opt/ei10/spring-framework:ro
       - ei10_map_storage:/opt/ei10/map-storage
 
 volumes:

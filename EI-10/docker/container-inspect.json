@@ -207,8 +207,8 @@
                 "com.docker.compose.image": "sha256:ea5ef0920573daee4fbb902dafac84447896a8aac3577ef35ae5a80933aaac88",
                 "com.docker.compose.oneoff": "False",
                 "com.docker.compose.project": "ei9",
-                "com.docker.compose.project.config_files": "/Users/d061177/work/stp-jenkins-plugin-poc/docker-compose.yml,/Users/d061177/work/asm-poc/codex-worktree/EI-9/docker/docker-compose.override.yml",
-                "com.docker.compose.project.working_dir": "/Users/d061177/work/stp-jenkins-plugin-poc",
+                "com.docker.compose.project.config_files": "/<local-user-home>/work/stp-jenkins-plugin-poc/docker-compose.yml,/<local-user-home>/work/asm-poc/codex-worktree/EI-9/docker/docker-compose.override.yml",
+                "com.docker.compose.project.working_dir": "/<local-user-home>/work/stp-jenkins-plugin-poc",
                 "com.docker.compose.service": "jenkins-controller",
                 "com.docker.compose.version": "5.5.0",
                 "org.opencontainers.image.description": "The Jenkins Continuous Integration and Delivery server",
@@ -314,8 +314,8 @@
         "ExecIDs": null,
         "HostConfig": {
             "Binds": [
-                "/Users/d061177/work/stp-jenkins-plugin-poc/fixtures:/opt/application-fixtures:ro",
-                "/Users/d061177/work/asm-poc/codex-worktree/EI-9/spring-framework:/opt/ei10/spring-framework:ro",
+                "/<local-user-home>/work/stp-jenkins-plugin-poc/fixtures:/opt/application-fixtures:ro",
+                "/<local-user-home>/work/asm-poc/codex-worktree/EI-9/spring-framework:/opt/ei10/spring-framework:ro",
                 "ei10_map_storage:/opt/ei10/map-storage:rw"
             ],
             "ContainerIDFile": "",
@@ -432,7 +432,7 @@
         "Mounts": [
             {
                 "Type": "bind",
-                "Source": "/Users/d061177/work/stp-jenkins-plugin-poc/fixtures",
+                "Source": "/<local-user-home>/work/stp-jenkins-plugin-poc/fixtures",
                 "Destination": "/opt/application-fixtures",
                 "Mode": "ro",
                 "RW": false,
@@ -440,7 +440,7 @@
             },
             {
                 "Type": "bind",
-                "Source": "/Users/d061177/work/asm-poc/codex-worktree/EI-9/spring-framework",
+                "Source": "/<local-user-home>/work/asm-poc/codex-worktree/EI-9/spring-framework",
                 "Destination": "/opt/ei10/spring-framework",
                 "Mode": "ro",
                 "RW": false,
@@ -516,8 +516,8 @@
                 "com.docker.compose.image": "sha256:e91956151232193e4e7151bc986e61bc168b576101141f694b55a42b12461e6c",
                 "com.docker.compose.oneoff": "False",
                 "com.docker.compose.project": "ei9",
-                "com.docker.compose.project.config_files": "/Users/d061177/work/stp-jenkins-plugin-poc/docker-compose.yml,/Users/d061177/work/asm-poc/codex-worktree/EI-10/docker/docker-compose.override.yml",
-                "com.docker.compose.project.working_dir": "/Users/d061177/work/stp-jenkins-plugin-poc",
+                "com.docker.compose.project.config_files": "/<local-user-home>/work/stp-jenkins-plugin-poc/docker-compose.yml,/<local-user-home>/work/asm-poc/codex-worktree/EI-10/docker/docker-compose.override.yml",
+                "com.docker.compose.project.working_dir": "/<local-user-home>/work/stp-jenkins-plugin-poc",
                 "com.docker.compose.replace": "stp-plugin-agent",
                 "com.docker.compose.service": "jenkins-agent",
                 "com.docker.compose.version": "5.5.0",
@@ -604,8 +604,8 @@
         "ExecIDs": null,
         "HostConfig": {
             "Binds": [
-                "/Users/d061177/work/stp-jenkins-plugin-poc/fixtures:/opt/application-fixtures:ro",
-                "/Users/d061177/work/asm-poc/codex-worktree/EI-9/spring-framework:/opt/ei10/spring-framework:ro",
+                "/<local-user-home>/work/stp-jenkins-plugin-poc/fixtures:/opt/application-fixtures:ro",
+                "/<local-user-home>/work/asm-poc/codex-worktree/EI-9/spring-framework:/opt/ei10/spring-framework:ro",
                 "ei10_map_storage:/opt/ei10/map-storage:rw"
             ],
             "ContainerIDFile": "",
@@ -722,7 +722,7 @@
         "Mounts": [
             {
                 "Type": "bind",
-                "Source": "/Users/d061177/work/stp-jenkins-plugin-poc/fixtures",
+                "Source": "/<local-user-home>/work/stp-jenkins-plugin-poc/fixtures",
                 "Destination": "/opt/application-fixtures",
                 "Mode": "ro",
                 "RW": false,
@@ -730,7 +730,7 @@
             },
             {
                 "Type": "bind",
-                "Source": "/Users/d061177/work/asm-poc/codex-worktree/EI-9/spring-framework",
+                "Source": "/<local-user-home>/work/asm-poc/codex-worktree/EI-9/spring-framework",
                 "Destination": "/opt/ei10/spring-framework",
                 "Mode": "ro",
                 "RW": false,
@@ -806,8 +806,8 @@
                 "com.docker.compose.image": "sha256:ca6712ed04e04b57a14c7beb9ca780b9ab2a2d524e353bfb64f7f08b428d6023",
                 "com.docker.compose.oneoff": "False",
                 "com.docker.compose.project": "ei9",
-                "com.docker.compose.project.config_files": "/Users/d061177/work/stp-jenkins-plugin-poc/docker-compose.yml,/Users/d061177/work/asm-poc/codex-worktree/EI-10/docker/docker-compose.override.yml",
-                "com.docker.compose.project.working_dir": "/Users/d061177/work/stp-jenkins-plugin-poc",
+                "com.docker.compose.project.config_files": "/<local-user-home>/work/stp-jenkins-plugin-poc/docker-compose.yml,/<local-user-home>/work/asm-poc/codex-worktree/EI-10/docker/docker-compose.override.yml",
+                "com.docker.compose.project.working_dir": "/<local-user-home>/work/stp-jenkins-plugin-poc",
                 "com.docker.compose.replace": "stp-plugin-agent-1",
                 "com.docker.compose.service": "jenkins-agent-1",
                 "com.docker.compose.version": "5.5.0",
@@ -894,9 +894,9 @@
         "ExecIDs": null,
         "HostConfig": {
             "Binds": [
-                "/Users/d061177/work/asm-poc/codex-worktree/EI-9/spring-framework:/opt/ei10/spring-framework:ro",
+                "/<local-user-home>/work/asm-poc/codex-worktree/EI-9/spring-framework:/opt/ei10/spring-framework:ro",
                 "ei10_map_storage:/opt/ei10/map-storage:rw",
-                "/host_mnt/Users/d061177/work/stp-jenkins-plugin-poc/fixtures:/opt/application-fixtures:ro"
+                "/host_mnt/<local-user-home>/work/stp-jenkins-plugin-poc/fixtures:/opt/application-fixtures:ro"
             ],
             "ContainerIDFile": "",
             "LogConfig": {
@@ -1032,7 +1032,7 @@
             },
             {
                 "Type": "bind",
-                "Source": "/Users/d061177/work/asm-poc/codex-worktree/EI-9/spring-framework",
+                "Source": "/<local-user-home>/work/asm-poc/codex-worktree/EI-9/spring-framework",
                 "Destination": "/opt/ei10/spring-framework",
                 "Mode": "ro",
                 "RW": false,
@@ -1050,7 +1050,7 @@
             },
             {
                 "Type": "bind",
-                "Source": "/host_mnt/Users/d061177/work/stp-jenkins-plugin-poc/fixtures",
+                "Source": "/host_mnt/<local-user-home>/work/stp-jenkins-plugin-poc/fixtures",
                 "Destination": "/opt/application-fixtures",
                 "Mode": "ro",
                 "RW": false,
@@ -1096,8 +1096,8 @@
                 "com.docker.compose.image": "sha256:277dddc6cc1b017ce39d3e4a0587262ddcbdf8e89809675b6da8eba64002d5f8",
                 "com.docker.compose.oneoff": "False",
                 "com.docker.compose.project": "ei9",
-                "com.docker.compose.project.config_files": "/Users/d061177/work/stp-jenkins-plugin-poc/docker-compose.yml,/Users/d061177/work/asm-poc/codex-worktree/EI-10/docker/docker-compose.override.yml",
-                "com.docker.compose.project.working_dir": "/Users/d061177/work/stp-jenkins-plugin-poc",
+                "com.docker.compose.project.config_files": "/<local-user-home>/work/stp-jenkins-plugin-poc/docker-compose.yml,/<local-user-home>/work/asm-poc/codex-worktree/EI-10/docker/docker-compose.override.yml",
+                "com.docker.compose.project.working_dir": "/<local-user-home>/work/stp-jenkins-plugin-poc",
                 "com.docker.compose.replace": "stp-plugin-agent-2",
                 "com.docker.compose.service": "jenkins-agent-2",
                 "com.docker.compose.version": "5.5.0",
@@ -1184,7 +1184,7 @@
         "ExecIDs": null,
         "HostConfig": {
             "Binds": [
-                "/Users/d061177/work/asm-poc/codex-worktree/EI-9/spring-framework:/opt/ei10/spring-framework:ro",
+                "/<local-user-home>/work/asm-poc/codex-worktree/EI-9/spring-framework:/opt/ei10/spring-framework:ro",
                 "ei10_map_storage:/opt/ei10/map-storage:rw"
             ],
             "ContainerIDFile": "",
@@ -1301,7 +1301,7 @@
         "Mounts": [
             {
                 "Type": "bind",
-                "Source": "/Users/d061177/work/asm-poc/codex-worktree/EI-9/spring-framework",
+                "Source": "/<local-user-home>/work/asm-poc/codex-worktree/EI-9/spring-framework",
                 "Destination": "/opt/ei10/spring-framework",
                 "Mode": "ro",
                 "RW": false,
@@ -1377,8 +1377,8 @@
                 "com.docker.compose.image": "sha256:058a66c381345bfaa8b4a851de0d1a68b395044c1edc5f0c75ab9fdb4db5acfd",
                 "com.docker.compose.oneoff": "False",
                 "com.docker.compose.project": "ei9",
-                "com.docker.compose.project.config_files": "/Users/d061177/work/stp-jenkins-plugin-poc/docker-compose.yml,/Users/d061177/work/asm-poc/codex-worktree/EI-10/docker/docker-compose.override.yml",
-                "com.docker.compose.project.working_dir": "/Users/d061177/work/stp-jenkins-plugin-poc",
+                "com.docker.compose.project.config_files": "/<local-user-home>/work/stp-jenkins-plugin-poc/docker-compose.yml,/<local-user-home>/work/asm-poc/codex-worktree/EI-10/docker/docker-compose.override.yml",
+                "com.docker.compose.project.working_dir": "/<local-user-home>/work/stp-jenkins-plugin-poc",
                 "com.docker.compose.replace": "stp-plugin-agent-3",
                 "com.docker.compose.service": "jenkins-agent-3",
                 "com.docker.compose.version": "5.5.0",

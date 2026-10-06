@@ -15,6 +15,9 @@ import java.util.regex.Pattern;
 public final class PetClinicHttpHarness {
 	private static final String HEADER = "X-STP-Test-Execution-Id";
 	private static final HttpClient CLIENT = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(2)).build();
+	private static final Duration READINESS_TIMEOUT = Duration.ofSeconds(90);
+	private static final Duration READINESS_RETRY_DELAY = Duration.ofMillis(250);
+	private static final int MAX_ERROR_BODY_CHARS = 160;
 
 	private PetClinicHttpHarness() { }
 
@@ -37,25 +40,54 @@ public final class PetClinicHttpHarness {
 	private static void waitUntilReady(URI base, String probePath) throws Exception {
 		if (!probePath.startsWith("/")) throw new IllegalArgumentException("probe path must start with '/': " + probePath);
 		URI probe = base.resolve(probePath);
+		waitUntilReady(probe, READINESS_TIMEOUT, READINESS_RETRY_DELAY, PetClinicHttpHarness::sendProbe);
+		System.out.println("PetClinic ready at " + base);
+	}
+
+	static void waitUntilReady(URI probe, Duration timeout, Duration retryDelay, ProbeClient client)
+			throws Exception {
 		System.out.println("Readiness probe GET " + probe);
-		long deadline = System.nanoTime() + Duration.ofSeconds(90).toNanos();
+		long deadline = System.nanoTime() + timeout.toNanos();
 		IOException lastFailure = null;
+		ProbeResponse lastResponse = null;
 		while (System.nanoTime() < deadline) {
 			try {
-				HttpResponse<String> response = send(probe, null);
-				if (response.statusCode() == 200) {
-					System.out.println("PetClinic ready at " + base);
-					return;
-				}
-				throw new AssertionError("Readiness probe GET " + probe + " returned HTTP " + response.statusCode()
-						+ "; expected HTTP 200. The configured probe endpoint must exist; no fallback is used.");
+				lastResponse = client.get(probe);
+				if (lastResponse.statusCode() == 200) return;
 			} catch (IOException failure) {
 				lastFailure = failure;
 			}
-			Thread.sleep(250);
+			Thread.sleep(retryDelay.toMillis());
 		}
-		throw new AssertionError("PetClinic did not become ready at " + base, lastFailure);
+		String message = "PetClinic readiness timed out for configured probe GET " + probe;
+		if (lastResponse != null) {
+			message += "; last HTTP status: " + lastResponse.statusCode();
+			String excerpt = bodyExcerpt(lastResponse.body());
+			if (!excerpt.isEmpty()) message += "; response body excerpt: " + excerpt;
+		} else if (lastFailure != null) {
+			message += "; last connection/IO failure: " + lastFailure;
+		}
+		throw new AssertionError(message, lastFailure);
 	}
+
+	private static ProbeResponse sendProbe(URI uri) throws IOException, InterruptedException {
+		HttpResponse<String> response = send(uri, null);
+		return new ProbeResponse(response.statusCode(), response.body());
+	}
+
+	private static String bodyExcerpt(String body) {
+		if (body == null || body.isEmpty()) return "";
+		String normalized = body.replaceAll("\\s+", " ").trim();
+		if (normalized.length() <= MAX_ERROR_BODY_CHARS) return '"' + normalized + '"';
+		return '"' + normalized.substring(0, MAX_ERROR_BODY_CHARS) + "...\"";
+	}
+
+	@FunctionalInterface
+	interface ProbeClient {
+		ProbeResponse get(URI uri) throws IOException, InterruptedException;
+	}
+
+	record ProbeResponse(int statusCode, String body) { }
 
 	private static void sendScenario(URI base) throws Exception {
 		HttpResponse<String> vets = send(base.resolve("/vets"), "vets-A");

@@ -6,10 +6,10 @@
 [INFO] --------------------------------[ hpi ]---------------------------------
 [INFO] 
 [INFO] --- clean:3.5.0:clean (default-clean) @ smart-test-picker ---
-[INFO] Deleting /Users/d061177/work/stp-jenkins-plugin-poc/target
+[INFO] Deleting /<local-user-home>/work/stp-jenkins-plugin-poc/target
 [INFO] 
 [INFO] --- hpi:3.1746.v2e9fe7dc4d95:validate (default-validate) @ smart-test-picker ---
-[INFO] Created marker file /Users/d061177/work/stp-jenkins-plugin-poc/target/java-level/17
+[INFO] Created marker file /<local-user-home>/work/stp-jenkins-plugin-poc/target/java-level/17
 [INFO] 
 [INFO] --- hpi:3.1746.v2e9fe7dc4d95:validate-hpi (default-validate-hpi) @ smart-test-picker ---
 [INFO] 
@@ -69,7 +69,7 @@
 [INFO]      [exec] [INFO] --------------------------------[ jar ]---------------------------------
 [INFO]      [exec] [INFO] 
 [INFO]      [exec] [INFO] --- clean:3.2.0:clean (default-clean) @ stp-maven-adapter ---
-[INFO]      [exec] [INFO] Deleting /Users/d061177/work/stp-jenkins-plugin-poc/adapters/maven-extension/target
+[INFO]      [exec] [INFO] Deleting /<local-user-home>/work/stp-jenkins-plugin-poc/adapters/maven-extension/target
 [INFO]      [exec] [INFO] 
 [INFO]      [exec] [INFO] --- resources:3.4.0:resources (default-resources) @ stp-maven-adapter ---
 [INFO]      [exec] [INFO] Copying 1 resource from src/main/resources to target/classes
@@ -82,7 +82,7 @@
 [INFO]      [exec] [WARNING] To suppress warnings about obsolete options, use -Xlint:-options.
 [INFO]      [exec] [INFO] 
 [INFO]      [exec] [INFO] --- resources:3.4.0:testResources (default-testResources) @ stp-maven-adapter ---
-[INFO]      [exec] [INFO] skip non existing resourceDirectory /Users/d061177/work/stp-jenkins-plugin-poc/adapters/maven-extension/src/test/resources
+[INFO]      [exec] [INFO] skip non existing resourceDirectory /<local-user-home>/work/stp-jenkins-plugin-poc/adapters/maven-extension/src/test/resources
 [INFO]      [exec] [INFO] 
 [INFO]      [exec] [INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ stp-maven-adapter ---
 [INFO]      [exec] [INFO] No sources to compile
@@ -91,7 +91,7 @@
 [INFO]      [exec] [INFO] No tests to run.
 [INFO]      [exec] [INFO] 
 [INFO]      [exec] [INFO] --- jar:3.5.0:jar (default-jar) @ stp-maven-adapter ---
-[INFO]      [exec] [INFO] Building jar: /Users/d061177/work/stp-jenkins-plugin-poc/adapters/maven-extension/target/stp-maven-adapter-0.1.0.jar
+[INFO]      [exec] [INFO] Building jar: /<local-user-home>/work/stp-jenkins-plugin-poc/adapters/maven-extension/target/stp-maven-adapter-0.1.0.jar
 [INFO]      [exec] [INFO] 
 [INFO]      [exec] [INFO] --- shade:3.6.1:shade (default) @ stp-maven-adapter ---
 [INFO]      [exec] [WARNING] Discovered module-info.class. Shading will break its strong encapsulation.
@@ -141,18 +141,18 @@
 [INFO] io.github.smarttestpicker.jenkins.StpPrepareCoverageMappingStep.DescriptorImpl indexed under hudson.Extension
 [INFO] io.github.smarttestpicker.jenkins.StpPublishCoverageMapStep.DescriptorImpl indexed under hudson.Extension
 [INFO] io.github.smarttestpicker.jenkins.StpTestInventoryStep.DescriptorImpl indexed under hudson.Extension
-[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/SmartTestPickerStep.java:[45,12] Generating io/github/smarttestpicker/jenkins/SmartTestPickerStep.stapler
-[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpCoverageMapStep.java:[22,32] Generating io/github/smarttestpicker/jenkins/StpCoverageMapStep.stapler
-[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpCoverageToolStep.java:[4,224] Generating io/github/smarttestpicker/jenkins/StpCoverageToolStep.stapler
-[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpExplicitPrSelectStep.java:[28,34] Generating io/github/smarttestpicker/jenkins/StpExplicitPrSelectStep.stapler
-[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpHeadInventoryStep.java:[6,31] Generating io/github/smarttestpicker/jenkins/StpHeadInventoryStep.stapler
-[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpLookupCoverageMapStep.java:[22,32] Generating io/github/smarttestpicker/jenkins/StpLookupCoverageMapStep.stapler
-[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpPrSelectStep.java:[40,34] Generating io/github/smarttestpicker/jenkins/StpPrSelectStep.stapler
-[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpPrepareCoverageMappingStep.java:[6,31] Generating io/github/smarttestpicker/jenkins/StpPrepareCoverageMappingStep.stapler
-[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpPublishCoverageMapStep.java:[37,12] Generating io/github/smarttestpicker/jenkins/StpPublishCoverageMapStep.stapler
-[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpTestInventoryStep.java:[6,31] Generating io/github/smarttestpicker/jenkins/StpTestInventoryStep.stapler
-[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/JenkinsStorageCredentialResolver.java: /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/JenkinsStorageCredentialResolver.java uses or overrides a deprecated API.
-[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/JenkinsStorageCredentialResolver.java: Recompile with -Xlint:deprecation for details.
+[INFO] /<local-user-home>/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/SmartTestPickerStep.java:[45,12] Generating io/github/smarttestpicker/jenkins/SmartTestPickerStep.stapler
+[INFO] /<local-user-home>/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpCoverageMapStep.java:[22,32] Generating io/github/smarttestpicker/jenkins/StpCoverageMapStep.stapler
+[INFO] /<local-user-home>/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpCoverageToolStep.java:[4,224] Generating io/github/smarttestpicker/jenkins/StpCoverageToolStep.stapler
+[INFO] /<local-user-home>/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpExplicitPrSelectStep.java:[28,34] Generating io/github/smarttestpicker/jenkins/StpExplicitPrSelectStep.stapler
+[INFO] /<local-user-home>/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpHeadInventoryStep.java:[6,31] Generating io/github/smarttestpicker/jenkins/StpHeadInventoryStep.stapler
+[INFO] /<local-user-home>/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpLookupCoverageMapStep.java:[22,32] Generating io/github/smarttestpicker/jenkins/StpLookupCoverageMapStep.stapler
+[INFO] /<local-user-home>/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpPrSelectStep.java:[40,34] Generating io/github/smarttestpicker/jenkins/StpPrSelectStep.stapler
+[INFO] /<local-user-home>/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpPrepareCoverageMappingStep.java:[6,31] Generating io/github/smarttestpicker/jenkins/StpPrepareCoverageMappingStep.stapler
+[INFO] /<local-user-home>/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpPublishCoverageMapStep.java:[37,12] Generating io/github/smarttestpicker/jenkins/StpPublishCoverageMapStep.stapler
+[INFO] /<local-user-home>/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/StpTestInventoryStep.java:[6,31] Generating io/github/smarttestpicker/jenkins/StpTestInventoryStep.stapler
+[INFO] /<local-user-home>/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/JenkinsStorageCredentialResolver.java: /<local-user-home>/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/JenkinsStorageCredentialResolver.java uses or overrides a deprecated API.
+[INFO] /<local-user-home>/work/stp-jenkins-plugin-poc/src/main/java/io/github/smarttestpicker/jenkins/JenkinsStorageCredentialResolver.java: Recompile with -Xlint:deprecation for details.
 [INFO] 
 [INFO] --- access-modifier-checker:1.35:enforce (default-enforce) @ smart-test-picker ---
 [INFO] 
@@ -162,26 +162,26 @@
 [INFO] 
 [INFO] --- antrun:3.1.0:run (createTempDir) @ smart-test-picker ---
 [INFO] Executing tasks
-[INFO]     [mkdir] Created dir: /Users/d061177/work/stp-jenkins-plugin-poc/target/tmp
+[INFO]     [mkdir] Created dir: /<local-user-home>/work/stp-jenkins-plugin-poc/target/tmp
 [INFO] Executed tasks
 [INFO] 
 [INFO] --- resources:3.3.1:testResources (default-testResources) @ smart-test-picker ---
-[INFO] skip non existing resourceDirectory /Users/d061177/work/stp-jenkins-plugin-poc/src/test/resources
+[INFO] skip non existing resourceDirectory /<local-user-home>/work/stp-jenkins-plugin-poc/src/test/resources
 [INFO] 
 [INFO] --- compiler:3.14.0:testCompile (default-testCompile) @ smart-test-picker ---
 [INFO] Recompiling the module because of changed dependency.
 [INFO] Compiling 16 source files with javac [debug parameters release 17] to target/test-classes
-[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/test/java/io/github/smarttestpicker/jenkins/GitHubBranchSourcePrAdapterTest.java: Some input files use or override a deprecated API.
-[INFO] /Users/d061177/work/stp-jenkins-plugin-poc/src/test/java/io/github/smarttestpicker/jenkins/GitHubBranchSourcePrAdapterTest.java: Recompile with -Xlint:deprecation for details.
+[INFO] /<local-user-home>/work/stp-jenkins-plugin-poc/src/test/java/io/github/smarttestpicker/jenkins/GitHubBranchSourcePrAdapterTest.java: Some input files use or override a deprecated API.
+[INFO] /<local-user-home>/work/stp-jenkins-plugin-poc/src/test/java/io/github/smarttestpicker/jenkins/GitHubBranchSourcePrAdapterTest.java: Recompile with -Xlint:deprecation for details.
 [INFO] 
 [INFO] --- hpi:3.1746.v2e9fe7dc4d95:test-hpl (default-test-hpl) @ smart-test-picker ---
-[INFO] Generating /Users/d061177/work/stp-jenkins-plugin-poc/target/test-classes/the.hpl
+[INFO] Generating /<local-user-home>/work/stp-jenkins-plugin-poc/target/test-classes/the.hpl
 [INFO] 
 [INFO] --- hpi:3.1746.v2e9fe7dc4d95:resolve-test-dependencies (default-resolve-test-dependencies) @ smart-test-picker ---
 [INFO] 
 [INFO] --- hpi:3.1746.v2e9fe7dc4d95:test-runtime (default-test-runtime) @ smart-test-picker ---
 [INFO] Setting jenkins.addOpens to --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED
-[INFO] Setting jenkins.insaneHook to --patch-module='java.base=/Users/d061177/work/stp-jenkins-plugin-poc/target/patch-modules/org-netbeans-insane-hook.jar' --add-exports=java.base/org.netbeans.insane.hook=ALL-UNNAMED
+[INFO] Setting jenkins.insaneHook to --patch-module='java.base=/<local-user-home>/work/stp-jenkins-plugin-poc/target/patch-modules/org-netbeans-insane-hook.jar' --add-exports=java.base/org.netbeans.insane.hook=ALL-UNNAMED
 [INFO] 
 [INFO] --- surefire:3.5.3:test (default-test) @ smart-test-picker ---
 [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
@@ -229,19 +229,19 @@ Running tests for io.github.smarttestpicker:smart-test-picker:1.0-SNAPSHOT
 [INFO] 
 [INFO] 
 [INFO] --- license:184.v19c87b_6b_a_9a_c:process (default) @ smart-test-picker ---
-[INFO] Generated /Users/d061177/work/stp-jenkins-plugin-poc/target/smart-test-picker/WEB-INF/licenses.xml
+[INFO] Generated /<local-user-home>/work/stp-jenkins-plugin-poc/target/smart-test-picker/WEB-INF/licenses.xml
 [INFO] 
 [INFO] --- hpi:3.1746.v2e9fe7dc4d95:hpi (default-hpi) @ smart-test-picker ---
-[INFO] Generating /Users/d061177/work/stp-jenkins-plugin-poc/target/smart-test-picker/META-INF/MANIFEST.MF
+[INFO] Generating /<local-user-home>/work/stp-jenkins-plugin-poc/target/smart-test-picker/META-INF/MANIFEST.MF
 [INFO] Checking for attached .jar artifact ...
-[INFO] Generating jar /Users/d061177/work/stp-jenkins-plugin-poc/target/smart-test-picker.jar
-[INFO] Building jar: /Users/d061177/work/stp-jenkins-plugin-poc/target/smart-test-picker.jar
+[INFO] Generating jar /<local-user-home>/work/stp-jenkins-plugin-poc/target/smart-test-picker.jar
+[INFO] Building jar: /<local-user-home>/work/stp-jenkins-plugin-poc/target/smart-test-picker.jar
 [INFO] Exploding webapp...
-[INFO] Copy webapp webResources to /Users/d061177/work/stp-jenkins-plugin-poc/target/smart-test-picker
-[INFO] Assembling webapp smart-test-picker in /Users/d061177/work/stp-jenkins-plugin-poc/target/smart-test-picker
+[INFO] Copy webapp webResources to /<local-user-home>/work/stp-jenkins-plugin-poc/target/smart-test-picker
+[INFO] Assembling webapp smart-test-picker in /<local-user-home>/work/stp-jenkins-plugin-poc/target/smart-test-picker
 [INFO] Bundling direct dependency smart-test-picker-common-0.2.0.jar
-[INFO] Generating hpi /Users/d061177/work/stp-jenkins-plugin-poc/target/smart-test-picker.hpi
-[INFO] Building jar: /Users/d061177/work/stp-jenkins-plugin-poc/target/smart-test-picker.hpi
+[INFO] Generating hpi /<local-user-home>/work/stp-jenkins-plugin-poc/target/smart-test-picker.hpi
+[INFO] Building jar: /<local-user-home>/work/stp-jenkins-plugin-poc/target/smart-test-picker.hpi
 [INFO] 
 [INFO] --- jar:3.4.2:test-jar (maybe-test-jar) @ smart-test-picker ---
 [INFO] Skipping packaging of the test-jar

@@ -6,7 +6,7 @@
   "schemaVersion": 3,
   "repositories": {
     "stp": {
-      "path": "/Users/d061177/work/asm-poc/codex-worktree",
+      "path": "/<local-user-home>/work/asm-poc/codex-worktree",
       "initialHead": "15ab0a8728bcbd8c57fb63a807a05a3df7910e73",
       "productionHead": "11e1cdeaae7951137c56f1ffc3008c066e0adc64",
       "validationEvidenceCommit": "cbfe238",
@@ -17,7 +17,7 @@
       ]
     },
     "jenkinsPlugin": {
-      "path": "/Users/d061177/work/stp-jenkins-plugin-poc",
+      "path": "/<local-user-home>/work/stp-jenkins-plugin-poc",
       "initialHead": "a1319cd0041099452a371e55d943d34687799b19",
       "finalHead": "b446df5a355b92a1a893de66aae7e598ee0c8bcd",
       "commits": [
@@ -28,7 +28,7 @@
       ]
     },
     "sonarJava": {
-      "path": "/Users/d061177/work/sonar-java-stp",
+      "path": "/<local-user-home>/work/sonar-java-stp",
       "R0": "9bbe6d04d2db75e5b864f3a424bb78bfa4f36b4c",
       "temporaryBranch": "ei-11-r1",
       "R1": "eed6922c776e5d029266459d04ed5a69e9d6fc8f",
@@ -43,7 +43,7 @@
   },
   "hpi": {
     "sha256": "8ad425451a2dae4bcc2221b9039a9fb66585219bb3a2992dcdb87c73a14c6972",
-    "loadedVersion": "1.0-SNAPSHOT (private-b446df5a-d061177)",
+    "loadedVersion": "1.0-SNAPSHOT (private-b446df5a-<redacted-user-id>)",
     "mavenAdapterVersion": "0.1.0",
     "mavenAdapterSha256": "2da632ce9f5a33249ad1af74628592407d1e66fb74b1ce77d66ccc029716260a",
     "selectorVersion": "0.2.0+jenkins-bridge-v2",

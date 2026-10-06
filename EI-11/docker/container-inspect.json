@@ -207,8 +207,8 @@
                 "com.docker.compose.image": "sha256:a376b329b43642af9c023eaba5284cc6e93d9b015038e1224f169f2aca9f30dc",
                 "com.docker.compose.oneoff": "False",
                 "com.docker.compose.project": "ei9",
-                "com.docker.compose.project.config_files": "/Users/d061177/work/stp-jenkins-plugin-poc/docker-compose.yml,/Users/d061177/work/asm-poc/codex-worktree/EI-11/docker/docker-compose.override.yml",
-                "com.docker.compose.project.working_dir": "/Users/d061177/work/stp-jenkins-plugin-poc",
+                "com.docker.compose.project.config_files": "/<local-user-home>/work/stp-jenkins-plugin-poc/docker-compose.yml,/<local-user-home>/work/asm-poc/codex-worktree/EI-11/docker/docker-compose.override.yml",
+                "com.docker.compose.project.working_dir": "/<local-user-home>/work/stp-jenkins-plugin-poc",
                 "com.docker.compose.replace": "stp-plugin-controller",
                 "com.docker.compose.service": "jenkins-controller",
                 "com.docker.compose.version": "5.5.0",
@@ -315,11 +315,11 @@
         "ExecIDs": null,
         "HostConfig": {
             "Binds": [
-                "/Users/d061177/work/stp-jenkins-plugin-poc/fixtures:/opt/application-fixtures:ro",
-                "/Users/d061177/work/sonar-java-stp:/opt/ei11/sonar-java:ro",
-                "/Users/d061177/Programs/apache-maven-3.9.16:/opt/apache-maven:ro",
-                "/Users/d061177/.m2/repository:/opt/host-m2:ro",
-                "/Users/d061177/work/asm-poc/codex-worktree/build/functional-test-maven-repository:/opt/stp-m2:ro",
+                "/<local-user-home>/work/stp-jenkins-plugin-poc/fixtures:/opt/application-fixtures:ro",
+                "/<local-user-home>/work/sonar-java-stp:/opt/ei11/sonar-java:ro",
+                "/<local-user-home>/Programs/apache-maven-3.9.16:/opt/apache-maven:ro",
+                "/<local-user-home>/.m2/repository:/opt/host-m2:ro",
+                "/<local-user-home>/work/asm-poc/codex-worktree/build/functional-test-maven-repository:/opt/stp-m2:ro",
                 "ei11_map_storage:/opt/ei11/map-storage:rw"
             ],
             "ContainerIDFile": "",
@@ -436,7 +436,7 @@
         "Mounts": [
             {
                 "Type": "bind",
-                "Source": "/Users/d061177/work/sonar-java-stp",
+                "Source": "/<local-user-home>/work/sonar-java-stp",
                 "Destination": "/opt/ei11/sonar-java",
                 "Mode": "ro",
                 "RW": false,
@@ -444,7 +444,7 @@
             },
             {
                 "Type": "bind",
-                "Source": "/Users/d061177/Programs/apache-maven-3.9.16",
+                "Source": "/<local-user-home>/Programs/apache-maven-3.9.16",
                 "Destination": "/opt/apache-maven",
                 "Mode": "ro",
                 "RW": false,
@@ -452,7 +452,7 @@
             },
             {
                 "Type": "bind",
-                "Source": "/Users/d061177/.m2/repository",
+                "Source": "/<local-user-home>/.m2/repository",
                 "Destination": "/opt/host-m2",
                 "Mode": "ro",
                 "RW": false,
@@ -460,7 +460,7 @@
             },
             {
                 "Type": "bind",
-                "Source": "/Users/d061177/work/asm-poc/codex-worktree/build/functional-test-maven-repository",
+                "Source": "/<local-user-home>/work/asm-poc/codex-worktree/build/functional-test-maven-repository",
                 "Destination": "/opt/stp-m2",
                 "Mode": "ro",
                 "RW": false,
@@ -498,7 +498,7 @@
             },
             {
                 "Type": "bind",
-                "Source": "/Users/d061177/work/stp-jenkins-plugin-poc/fixtures",
+                "Source": "/<local-user-home>/work/stp-jenkins-plugin-poc/fixtures",
                 "Destination": "/opt/application-fixtures",
                 "Mode": "ro",
                 "RW": false,
@@ -545,8 +545,8 @@
                 "com.docker.compose.image": "sha256:1562a484f80e725725ebf4eaec0c70df99dd878f210f10316a6bce1fbc2cf126",
                 "com.docker.compose.oneoff": "False",
                 "com.docker.compose.project": "ei9",
-                "com.docker.compose.project.config_files": "/Users/d061177/work/stp-jenkins-plugin-poc/docker-compose.yml,/Users/d061177/work/asm-poc/codex-worktree/EI-11/docker/docker-compose.override.yml",
-                "com.docker.compose.project.working_dir": "/Users/d061177/work/stp-jenkins-plugin-poc",
+                "com.docker.compose.project.config_files": "/<local-user-home>/work/stp-jenkins-plugin-poc/docker-compose.yml,/<local-user-home>/work/asm-poc/codex-worktree/EI-11/docker/docker-compose.override.yml",
+                "com.docker.compose.project.working_dir": "/<local-user-home>/work/stp-jenkins-plugin-poc",
                 "com.docker.compose.replace": "stp-plugin-agent",
                 "com.docker.compose.service": "jenkins-agent",
                 "com.docker.compose.version": "5.5.0",
@@ -633,12 +633,12 @@
         "ExecIDs": null,
         "HostConfig": {
             "Binds": [
-                "/Users/d061177/.m2/repository:/opt/host-m2:ro",
-                "/Users/d061177/work/asm-poc/codex-worktree/build/functional-test-maven-repository:/opt/stp-m2:ro",
+                "/<local-user-home>/.m2/repository:/opt/host-m2:ro",
+                "/<local-user-home>/work/asm-poc/codex-worktree/build/functional-test-maven-repository:/opt/stp-m2:ro",
                 "ei11_map_storage:/opt/ei11/map-storage:rw",
-                "/host_mnt/Users/d061177/work/stp-jenkins-plugin-poc/fixtures:/opt/application-fixtures:ro",
-                "/host_mnt/Users/d061177/work/sonar-java-stp:/opt/ei11/sonar-java:ro",
-                "/host_mnt/Users/d061177/Programs/apache-maven-3.9.16:/opt/apache-maven:ro"
+                "/host_mnt/<local-user-home>/work/stp-jenkins-plugin-poc/fixtures:/opt/application-fixtures:ro",
+                "/host_mnt/<local-user-home>/work/sonar-java-stp:/opt/ei11/sonar-java:ro",
+                "/host_mnt/<local-user-home>/Programs/apache-maven-3.9.16:/opt/apache-maven:ro"
             ],
             "ContainerIDFile": "",
             "LogConfig": {
@@ -774,7 +774,7 @@
             },
             {
                 "Type": "bind",
-                "Source": "/Users/d061177/.m2/repository",
+                "Source": "/<local-user-home>/.m2/repository",
                 "Destination": "/opt/host-m2",
                 "Mode": "ro",
                 "RW": false,
@@ -782,7 +782,7 @@
             },
             {
                 "Type": "bind",
-                "Source": "/Users/d061177/work/asm-poc/codex-worktree/build/functional-test-maven-repository",
+                "Source": "/<local-user-home>/work/asm-poc/codex-worktree/build/functional-test-maven-repository",
                 "Destination": "/opt/stp-m2",
                 "Mode": "ro",
                 "RW": false,
@@ -800,7 +800,7 @@
             },
             {
                 "Type": "bind",
-                "Source": "/host_mnt/Users/d061177/work/stp-jenkins-plugin-poc/fixtures",
+                "Source": "/host_mnt/<local-user-home>/work/stp-jenkins-plugin-poc/fixtures",
                 "Destination": "/opt/application-fixtures",
                 "Mode": "ro",
                 "RW": false,
@@ -808,7 +808,7 @@
             },
             {
                 "Type": "bind",
-                "Source": "/host_mnt/Users/d061177/work/sonar-java-stp",
+                "Source": "/host_mnt/<local-user-home>/work/sonar-java-stp",
                 "Destination": "/opt/ei11/sonar-java",
                 "Mode": "ro",
                 "RW": false,
@@ -816,7 +816,7 @@
             },
             {
                 "Type": "bind",
-                "Source": "/host_mnt/Users/d061177/Programs/apache-maven-3.9.16",
+                "Source": "/host_mnt/<local-user-home>/Programs/apache-maven-3.9.16",
                 "Destination": "/opt/apache-maven",
                 "Mode": "ro",
                 "RW": false,
@@ -863,8 +863,8 @@
                 "com.docker.compose.image": "sha256:defce1312dddb18f29ff85751bc9e7f26e00372fe596a73924b41d6f8f0c7ee3",
                 "com.docker.compose.oneoff": "False",
                 "com.docker.compose.project": "ei9",
-                "com.docker.compose.project.config_files": "/Users/d061177/work/stp-jenkins-plugin-poc/docker-compose.yml,/Users/d061177/work/asm-poc/codex-worktree/EI-11/docker/docker-compose.override.yml",
-                "com.docker.compose.project.working_dir": "/Users/d061177/work/stp-jenkins-plugin-poc",
+                "com.docker.compose.project.config_files": "/<local-user-home>/work/stp-jenkins-plugin-poc/docker-compose.yml,/<local-user-home>/work/asm-poc/codex-worktree/EI-11/docker/docker-compose.override.yml",
+                "com.docker.compose.project.working_dir": "/<local-user-home>/work/stp-jenkins-plugin-poc",
                 "com.docker.compose.replace": "stp-plugin-agent-1",
                 "com.docker.compose.service": "jenkins-agent-1",
                 "com.docker.compose.version": "5.5.0",
@@ -952,11 +952,11 @@
         "HostConfig": {
             "Binds": [
                 "ei11_map_storage:/opt/ei11/map-storage:rw",
-                "/host_mnt/Users/d061177/work/stp-jenkins-plugin-poc/fixtures:/opt/application-fixtures:ro",
-                "/host_mnt/Users/d061177/work/sonar-java-stp:/opt/ei11/sonar-java:ro",
-                "/host_mnt/Users/d061177/Programs/apache-maven-3.9.16:/opt/apache-maven:ro",
-                "/host_mnt/Users/d061177/.m2/repository:/opt/host-m2:ro",
-                "/host_mnt/Users/d061177/work/asm-poc/codex-worktree/build/functional-test-maven-repository:/opt/stp-m2:ro"
+                "/host_mnt/<local-user-home>/work/stp-jenkins-plugin-poc/fixtures:/opt/application-fixtures:ro",
+                "/host_mnt/<local-user-home>/work/sonar-java-stp:/opt/ei11/sonar-java:ro",
+                "/host_mnt/<local-user-home>/Programs/apache-maven-3.9.16:/opt/apache-maven:ro",
+                "/host_mnt/<local-user-home>/.m2/repository:/opt/host-m2:ro",
+                "/host_mnt/<local-user-home>/work/asm-poc/codex-worktree/build/functional-test-maven-repository:/opt/stp-m2:ro"
             ],
             "ContainerIDFile": "",
             "LogConfig": {
@@ -1072,7 +1072,7 @@
         "Mounts": [
             {
                 "Type": "bind",
-                "Source": "/host_mnt/Users/d061177/.m2/repository",
+                "Source": "/host_mnt/<local-user-home>/.m2/repository",
                 "Destination": "/opt/host-m2",
                 "Mode": "ro",
                 "RW": false,
@@ -1080,7 +1080,7 @@
             },
             {
                 "Type": "bind",
-                "Source": "/host_mnt/Users/d061177/work/asm-poc/codex-worktree/build/functional-test-maven-repository",
+                "Source": "/host_mnt/<local-user-home>/work/asm-poc/codex-worktree/build/functional-test-maven-repository",
                 "Destination": "/opt/stp-m2",
                 "Mode": "ro",
                 "RW": false,
@@ -1118,7 +1118,7 @@
             },
             {
                 "Type": "bind",
-                "Source": "/host_mnt/Users/d061177/work/stp-jenkins-plugin-poc/fixtures",
+                "Source": "/host_mnt/<local-user-home>/work/stp-jenkins-plugin-poc/fixtures",
                 "Destination": "/opt/application-fixtures",
                 "Mode": "ro",
                 "RW": false,
@@ -1126,7 +1126,7 @@
             },
             {
                 "Type": "bind",
-                "Source": "/host_mnt/Users/d061177/work/sonar-java-stp",
+                "Source": "/host_mnt/<local-user-home>/work/sonar-java-stp",
                 "Destination": "/opt/ei11/sonar-java",
                 "Mode": "ro",
                 "RW": false,
@@ -1134,7 +1134,7 @@
             },
             {
                 "Type": "bind",
-                "Source": "/host_mnt/Users/d061177/Programs/apache-maven-3.9.16",
+                "Source": "/host_mnt/<local-user-home>/Programs/apache-maven-3.9.16",
                 "Destination": "/opt/apache-maven",
                 "Mode": "ro",
                 "RW": false,
@@ -1181,8 +1181,8 @@
                 "com.docker.compose.image": "sha256:50311a51d9c48988bf8305858fb46089c38646302326c63343305b611bb1c3f5",
                 "com.docker.compose.oneoff": "False",
                 "com.docker.compose.project": "ei9",
-                "com.docker.compose.project.config_files": "/Users/d061177/work/stp-jenkins-plugin-poc/docker-compose.yml,/Users/d061177/work/asm-poc/codex-worktree/EI-11/docker/docker-compose.override.yml",
-                "com.docker.compose.project.working_dir": "/Users/d061177/work/stp-jenkins-plugin-poc",
+                "com.docker.compose.project.config_files": "/<local-user-home>/work/stp-jenkins-plugin-poc/docker-compose.yml,/<local-user-home>/work/asm-poc/codex-worktree/EI-11/docker/docker-compose.override.yml",
+                "com.docker.compose.project.working_dir": "/<local-user-home>/work/stp-jenkins-plugin-poc",
                 "com.docker.compose.replace": "stp-plugin-agent-2",
                 "com.docker.compose.service": "jenkins-agent-2",
                 "com.docker.compose.version": "5.5.0",
@@ -1269,11 +1269,11 @@
         "ExecIDs": null,
         "HostConfig": {
             "Binds": [
-                "/Users/d061177/.m2/repository:/opt/host-m2:ro",
-                "/Users/d061177/work/asm-poc/codex-worktree/build/functional-test-maven-repository:/opt/stp-m2:ro",
+                "/<local-user-home>/.m2/repository:/opt/host-m2:ro",
+                "/<local-user-home>/work/asm-poc/codex-worktree/build/functional-test-maven-repository:/opt/stp-m2:ro",
                 "ei11_map_storage:/opt/ei11/map-storage:rw",
-                "/host_mnt/Users/d061177/work/sonar-java-stp:/opt/ei11/sonar-java:ro",
-                "/host_mnt/Users/d061177/Programs/apache-maven-3.9.16:/opt/apache-maven:ro"
+                "/host_mnt/<local-user-home>/work/sonar-java-stp:/opt/ei11/sonar-java:ro",
+                "/host_mnt/<local-user-home>/Programs/apache-maven-3.9.16:/opt/apache-maven:ro"
             ],
             "ContainerIDFile": "",
             "LogConfig": {
@@ -1389,7 +1389,7 @@
         "Mounts": [
             {
                 "Type": "bind",
-                "Source": "/host_mnt/Users/d061177/work/sonar-java-stp",
+                "Source": "/host_mnt/<local-user-home>/work/sonar-java-stp",
                 "Destination": "/opt/ei11/sonar-java",
                 "Mode": "ro",
                 "RW": false,
@@ -1397,7 +1397,7 @@
             },
             {
                 "Type": "bind",
-                "Source": "/host_mnt/Users/d061177/Programs/apache-maven-3.9.16",
+                "Source": "/host_mnt/<local-user-home>/Programs/apache-maven-3.9.16",
                 "Destination": "/opt/apache-maven",
                 "Mode": "ro",
                 "RW": false,
@@ -1425,7 +1425,7 @@
             },
             {
                 "Type": "bind",
-                "Source": "/Users/d061177/.m2/repository",
+                "Source": "/<local-user-home>/.m2/repository",
                 "Destination": "/opt/host-m2",
                 "Mode": "ro",
                 "RW": false,
@@ -1433,7 +1433,7 @@
             },
             {
                 "Type": "bind",
-                "Source": "/Users/d061177/work/asm-poc/codex-worktree/build/functional-test-maven-repository",
+                "Source": "/<local-user-home>/work/asm-poc/codex-worktree/build/functional-test-maven-repository",
                 "Destination": "/opt/stp-m2",
                 "Mode": "ro",
                 "RW": false,
@@ -1490,8 +1490,8 @@
                 "com.docker.compose.image": "sha256:868f6b87815ebc0532b62743f48cb5d0d3da8427a30c72e1810251755f1d7b28",
                 "com.docker.compose.oneoff": "False",
                 "com.docker.compose.project": "ei9",
-                "com.docker.compose.project.config_files": "/Users/d061177/work/stp-jenkins-plugin-poc/docker-compose.yml,/Users/d061177/work/asm-poc/codex-worktree/EI-11/docker/docker-compose.override.yml",
-                "com.docker.compose.project.working_dir": "/Users/d061177/work/stp-jenkins-plugin-poc",
+                "com.docker.compose.project.config_files": "/<local-user-home>/work/stp-jenkins-plugin-poc/docker-compose.yml,/<local-user-home>/work/asm-poc/codex-worktree/EI-11/docker/docker-compose.override.yml",
+                "com.docker.compose.project.working_dir": "/<local-user-home>/work/stp-jenkins-plugin-poc",
                 "com.docker.compose.replace": "stp-plugin-agent-3",
                 "com.docker.compose.service": "jenkins-agent-3",
                 "com.docker.compose.version": "5.5.0",

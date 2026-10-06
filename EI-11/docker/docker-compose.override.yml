@@ -8,10 +8,10 @@ services:
       JAVA_TOOL_OPTIONS: -Xmx1024m
       PATH: /opt/apache-maven/bin:/usr/lib/jvm/temurin-26-jdk/bin:/usr/local/bin:/usr/bin:/bin
     volumes:
-      - /Users/d061177/work/sonar-java-stp:/opt/ei11/sonar-java:ro
-      - /Users/d061177/Programs/apache-maven-3.9.16:/opt/apache-maven:ro
-      - /Users/d061177/.m2/repository:/opt/host-m2:ro
-      - /Users/d061177/work/asm-poc/codex-worktree/build/functional-test-maven-repository:/opt/stp-m2:ro
+      - ${EI11_SONAR_JAVA_DIR:?Set EI11_SONAR_JAVA_DIR}:/opt/ei11/sonar-java:ro
+      - ${MAVEN_HOME_DIR:?Set MAVEN_HOME_DIR}:/opt/apache-maven:ro
+      - ${HOST_M2_REPOSITORY_DIR:?Set HOST_M2_REPOSITORY_DIR}:/opt/host-m2:ro
+      - ${STP_M2_REPOSITORY_DIR:?Set STP_M2_REPOSITORY_DIR}:/opt/stp-m2:ro
       - ei11_map_storage:/opt/ei11/map-storage
   jenkins-agent-1:
     environment:
@@ -19,10 +19,10 @@ services:
       JAVA_TOOL_OPTIONS: -Xmx1024m
       PATH: /opt/apache-maven/bin:/usr/lib/jvm/temurin-26-jdk/bin:/usr/local/bin:/usr/bin:/bin
     volumes:
-      - /Users/d061177/work/sonar-java-stp:/opt/ei11/sonar-java:ro
-      - /Users/d061177/Programs/apache-maven-3.9.16:/opt/apache-maven:ro
-      - /Users/d061177/.m2/repository:/opt/host-m2:ro
-      - /Users/d061177/work/asm-poc/codex-worktree/build/functional-test-maven-repository:/opt/stp-m2:ro
+      - ${EI11_SONAR_JAVA_DIR:?Set EI11_SONAR_JAVA_DIR}:/opt/ei11/sonar-java:ro
+      - ${MAVEN_HOME_DIR:?Set MAVEN_HOME_DIR}:/opt/apache-maven:ro
+      - ${HOST_M2_REPOSITORY_DIR:?Set HOST_M2_REPOSITORY_DIR}:/opt/host-m2:ro
+      - ${STP_M2_REPOSITORY_DIR:?Set STP_M2_REPOSITORY_DIR}:/opt/stp-m2:ro
       - ei11_map_storage:/opt/ei11/map-storage
   jenkins-agent-2:
     environment:
@@ -30,10 +30,10 @@ services:
       JAVA_TOOL_OPTIONS: -Xmx1024m
       PATH: /opt/apache-maven/bin:/usr/lib/jvm/temurin-26-jdk/bin:/usr/local/bin:/usr/bin:/bin
     volumes:
-      - /Users/d061177/work/sonar-java-stp:/opt/ei11/sonar-java:ro
-      - /Users/d061177/Programs/apache-maven-3.9.16:/opt/apache-maven:ro
-      - /Users/d061177/.m2/repository:/opt/host-m2:ro
-      - /Users/d061177/work/asm-poc/codex-worktree/build/functional-test-maven-repository:/opt/stp-m2:ro
+      - ${EI11_SONAR_JAVA_DIR:?Set EI11_SONAR_JAVA_DIR}:/opt/ei11/sonar-java:ro
+      - ${MAVEN_HOME_DIR:?Set MAVEN_HOME_DIR}:/opt/apache-maven:ro
+      - ${HOST_M2_REPOSITORY_DIR:?Set HOST_M2_REPOSITORY_DIR}:/opt/host-m2:ro
+      - ${STP_M2_REPOSITORY_DIR:?Set STP_M2_REPOSITORY_DIR}:/opt/stp-m2:ro
       - ei11_map_storage:/opt/ei11/map-storage
   jenkins-agent-3:
     environment:
@@ -41,10 +41,10 @@ services:
       JAVA_TOOL_OPTIONS: -Xmx1024m
       PATH: /opt/apache-maven/bin:/usr/lib/jvm/temurin-26-jdk/bin:/usr/local/bin:/usr/bin:/bin
     volumes:
-      - /Users/d061177/work/sonar-java-stp:/opt/ei11/sonar-java:ro
-      - /Users/d061177/Programs/apache-maven-3.9.16:/opt/apache-maven:ro
-      - /Users/d061177/.m2/repository:/opt/host-m2:ro
-      - /Users/d061177/work/asm-poc/codex-worktree/build/functional-test-maven-repository:/opt/stp-m2:ro
+      - ${EI11_SONAR_JAVA_DIR:?Set EI11_SONAR_JAVA_DIR}:/opt/ei11/sonar-java:ro
+      - ${MAVEN_HOME_DIR:?Set MAVEN_HOME_DIR}:/opt/apache-maven:ro
+      - ${HOST_M2_REPOSITORY_DIR:?Set HOST_M2_REPOSITORY_DIR}:/opt/host-m2:ro
+      - ${STP_M2_REPOSITORY_DIR:?Set STP_M2_REPOSITORY_DIR}:/opt/stp-m2:ro
       - ei11_map_storage:/opt/ei11/map-storage
 
 volumes:

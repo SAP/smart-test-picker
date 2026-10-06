@@ -95,7 +95,7 @@
 > Task :stp-runtime:jacocoTestReport UP-TO-DATE
 > Task :smart-test-picker-maven:jacocoTestReport
 
-[Incubating] Problems report is available at: file:///Users/d061177/work/asm-poc/codex-worktree/build/reports/problems/problems-report.html
+[Incubating] Problems report is available at: file:///<local-user-home>/work/asm-poc/codex-worktree/build/reports/problems/problems-report.html
 
 Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
 

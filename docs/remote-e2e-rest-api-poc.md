@@ -42,23 +42,23 @@ These changes are relevant because a remote REST suite is usually executed throu
 
 ## Validated precursor: MM-1 HexagonalSpring
 
-The existing precursor is MM-1, “Validate Maven multimodule STP mapping on HexagonalSpring.” Its complete session is stored outside this repository at:
+The existing precursor is MM-1, “Validate Maven multimodule STP mapping on HexagonalSpring.” Its complete session is stored outside this repository in the ASM POC results area at:
 
 ```text
-/Users/d061177/work/asm-poc/results/codex/MM-1.log
+<asm-poc-results>/MM-1.log
 ```
 
 Its contract is:
 
 ```text
-/Users/d061177/work/asm-poc/contract/MM-1.md
+<asm-poc-contract>/MM-1.md
 ```
 
 The tested third-party project was:
 
 ```text
 repository: https://github.com/LuisBoto/HexagonalSpring.git
-checkout:   /Users/d061177/work/hexagonal-spring-stp
+checkout:   <hexagonal-spring-stp-checkout>
 branch:     main
 commit:     8e81b021b5b0f145be8a70d5d9d26d8e89685af7
 ```

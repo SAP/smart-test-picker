@@ -2,9 +2,9 @@ EI-10 chronological execution log
 2026-09-13 Europe/Berlin
 
 Continuity check
-- STP: /Users/d061177/work/asm-poc/codex-worktree, branch research/asm-codex, HEAD fddc5cb57162ceac11b9add06a11bc634548b040, only known untracked EI-9/ evidence.
-- Jenkins plugin: /Users/d061177/work/stp-jenkins-plugin-poc, branch main, HEAD 744ac5513350e01077062bb5b257520f05fa0bea, clean.
-- Spring Framework: /Users/d061177/work/asm-poc/codex-worktree/EI-9/spring-framework, branch main, R0 a099debca9e59eb562cb3298690423dbb9d0127e, clean.
+- STP: /<local-user-home>/work/asm-poc/codex-worktree, branch research/asm-codex, HEAD fddc5cb57162ceac11b9add06a11bc634548b040, only known untracked EI-9/ evidence.
+- Jenkins plugin: /<local-user-home>/work/stp-jenkins-plugin-poc, branch main, HEAD 744ac5513350e01077062bb5b257520f05fa0bea, clean.
+- Spring Framework: /<local-user-home>/work/asm-poc/codex-worktree/EI-9/spring-framework, branch main, R0 a099debca9e59eb562cb3298690423dbb9d0127e, clean.
 - Docker controller e62361f89cd7 stp-plugin-controller Up; agents 5e0a0825754b stp-plugin-agent Up, bb8c2a6283d9 stp-plugin-agent-1 Up, 050e2de09ea6 stp-plugin-agent-2 Up, 094ce7119614 stp-plugin-agent-3 Up.
 
 Gradle discovery implementation checkpoint

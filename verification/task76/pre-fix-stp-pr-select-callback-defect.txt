@@ -1,6 +1,6 @@
 TASK76 pre-fix closure-blocker capture
 
-Repository: /Users/d061177/work/stp-jenkins-plugin-poc
+Repository: /<local-user-home>/work/stp-jenkins-plugin-poc
 Baseline commit: 2fe4903
 Production path: StpPrSelectStep.Completed.failOrFallback
 
