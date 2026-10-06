@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ErrorPageErrorHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -18,9 +19,12 @@ import org.eclipse.jetty.servlet.ServletHolder;
 
 import java.io.IOException;
 import java.util.EnumSet;
+import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.TimeUnit;
 
 /** Child JVM fixture: real HTTP requests enter a separately instrumented Servlet server. */
 public final class RemoteServletFixtureMain {
+	private static final CyclicBarrier CONCURRENT_LISTENER_BARRIER = new CyclicBarrier(2);
 	private RemoteServletFixtureMain() { }
 	public static void main(String[] args) throws Exception {
 		Server server = new Server(0);
@@ -61,6 +65,49 @@ public final class RemoteServletFixtureMain {
 		}
 	}
 
+	public static final class FixtureAsyncListener implements jakarta.servlet.AsyncListener {
+		private final String scenario;
+		public FixtureAsyncListener(String scenario) { this.scenario = scenario; }
+		@Override public void onStartAsync(jakarta.servlet.AsyncEvent event) {
+			FixtureAsyncListenerApplication.onStart(scenario);
+		}
+		@Override public void onComplete(jakarta.servlet.AsyncEvent event) {
+			FixtureAsyncListenerApplication.onComplete(scenario);
+		}
+		@Override public void onTimeout(jakarta.servlet.AsyncEvent event) {
+			FixtureAsyncListenerApplication.onTimeout(scenario);
+			event.getAsyncContext().complete();
+		}
+		@Override public void onError(jakarta.servlet.AsyncEvent event) {
+			FixtureAsyncListenerApplication.onError(scenario);
+		}
+	}
+
+	public static final class FixtureAsyncListenerApplication {
+		public static void onStart(String scenario) {
+			if (scenario.endsWith("-a")) FixtureRepository.listenerStartA();
+			else if (scenario.endsWith("-b")) FixtureRepository.listenerStartB();
+			else FixtureRepository.listenerStart();
+		}
+		public static void onComplete(String scenario) {
+			if (scenario.startsWith("concurrent-")) {
+				long start = System.nanoTime();
+				System.out.println("ASYNC_LISTENER_EVENT phase=START scenario=" + scenario + " nanos=" + start);
+				try { CONCURRENT_LISTENER_BARRIER.await(5, TimeUnit.SECONDS); }
+				catch (Exception failure) { throw new IllegalStateException("concurrent callback barrier failed", failure); }
+				if (scenario.endsWith("-a")) FixtureRepository.listenerCompleteA();
+				else FixtureRepository.listenerCompleteB();
+				System.out.println("ASYNC_LISTENER_EVENT phase=END scenario=" + scenario + " nanos=" + System.nanoTime());
+				return;
+			}
+			if (scenario.endsWith("-a")) FixtureRepository.listenerCompleteA();
+			else if (scenario.endsWith("-b")) FixtureRepository.listenerCompleteB();
+			else FixtureRepository.listenerComplete();
+		}
+		public static void onTimeout(String scenario) { FixtureRepository.listenerTimeout(); }
+		public static void onError(String scenario) { FixtureRepository.listenerError(); }
+	}
+
 	public static final class FixtureListenerApplication {
 		public static void initialized() { FixtureRepository.listenerInitialized(); }
 		public static void destroyed() { FixtureRepository.listenerDestroyed(); }
@@ -96,6 +143,41 @@ public final class RemoteServletFixtureMain {
 				AsyncContext async = request.startAsync();
 				async.setTimeout(5000);
 				async.dispatch("/async-target");
+				return;
+			}
+			if ("/async-listener-start-target".equals(path)) {
+				AsyncContext next = request.startAsync();
+				next.addListener(new FixtureAsyncListener("complete"), request, response);
+				next.start(next::complete);
+				return;
+			}
+			if ("/async-listener-auto-complete".equals(path)) {
+				response.getWriter().write("auto-complete");
+				return;
+			}
+			if (path != null && path.startsWith("/async-listener-")) {
+				String scenario = path.substring("/async-listener-".length());
+				AsyncContext async = request.startAsync();
+				async.addListener(new FixtureAsyncListener(scenario), request, response);
+				if (scenario.startsWith("start")) async.dispatch("/async-listener-start-target");
+				else if (scenario.startsWith("timeout")) async.setTimeout(120);
+				else if (scenario.startsWith("error")) async.start(() -> {
+					var state = Request.getBaseRequest(request).getHttpChannelState();
+					long deadline = System.nanoTime() + java.util.concurrent.TimeUnit.SECONDS.toNanos(3);
+					while (!"WAITING".equals(state.getState().name()) && System.nanoTime() < deadline) {
+						try { Thread.sleep(1); }
+						catch (InterruptedException interrupted) { Thread.currentThread().interrupt(); return; }
+					}
+					if (!"WAITING".equals(state.getState().name())) {
+						System.err.println("ASYNC_ERROR_FIXTURE_DID_NOT_REACH_WAITING");
+						async.complete();
+						return;
+					}
+					state.asyncError(new IllegalStateException("fixture async error"));
+				});
+				else if (scenario.startsWith("complete") || scenario.startsWith("concurrent-"))
+					async.start(() -> async.dispatch("/async-listener-auto-complete"));
+				else async.start(async::complete);
 				return;
 			}
 			if (path != null && path.startsWith("/async-start")) {
@@ -167,6 +249,14 @@ public final class RemoteServletFixtureMain {
 		public static void servletService() { }
 		public static void listenerInitialized() { }
 		public static void listenerDestroyed() { }
+		public static void listenerStart() { }
+		public static void listenerStartA() { }
+		public static void listenerStartB() { }
+		public static void listenerComplete() { }
+		public static void listenerCompleteA() { }
+		public static void listenerCompleteB() { }
+		public static void listenerTimeout() { }
+		public static void listenerError() { }
 		public static String readA() { return "a"; }
 		public static String readB() { return "b"; }
 		public static String readOrdinary() { return "ordinary"; }

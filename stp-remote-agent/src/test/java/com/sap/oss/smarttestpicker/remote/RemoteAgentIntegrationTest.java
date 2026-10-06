@@ -43,6 +43,12 @@ class RemoteAgentIntegrationTest {
 			assertDifferentThreads(get(client, root.resolve("async-start-b"), "test-async-B"));
 			get(client, root.resolve("async-start-fail"), "test-async-failure");
 			assertDifferentThreads(get(client, root.resolve("async-start"), null));
+			get(client, root.resolve("async-listener-start"), "listener-start");
+			assertEquals("auto-complete", get(client, root.resolve("async-listener-complete-a"), "listener-complete-A"));
+			assertEquals("auto-complete", get(client, root.resolve("async-listener-complete-b"), "listener-complete-B"));
+			get(client, root.resolve("async-listener-timeout"), "listener-timeout");
+			get(client, root.resolve("async-listener-error"), "listener-error");
+			assertEquals("auto-complete", get(client, root.resolve("async-listener-complete-a"), null));
 			assertEquals("a", get(client, root.resolve("a"), null));
 			CompletableFuture<String> concurrentA = async(client, root.resolve("a"), "test-A-concurrent");
 			CompletableFuture<String> concurrentB = async(client, root.resolve("b"), "test-B-concurrent");
@@ -52,6 +58,10 @@ class RemoteAgentIntegrationTest {
 			CompletableFuture<String> asyncConcurrentB = async(client, root.resolve("async-start-b"), "test-async-concurrent-B");
 			assertDifferentThreads(asyncConcurrentA.get(10, TimeUnit.SECONDS));
 			assertDifferentThreads(asyncConcurrentB.get(10, TimeUnit.SECONDS));
+			CompletableFuture<String> listenerConcurrentA = async(client, root.resolve("async-listener-concurrent-a"), "listener-concurrent-A");
+			CompletableFuture<String> listenerConcurrentB = async(client, root.resolve("async-listener-concurrent-b"), "listener-concurrent-B");
+			assertEquals("auto-complete", listenerConcurrentA.get(10, TimeUnit.SECONDS));
+			assertEquals("auto-complete", listenerConcurrentB.get(10, TimeUnit.SECONDS));
 		} finally {
 			process.destroy();
 			if (!process.waitFor(5, TimeUnit.SECONDS)) process.destroyForcibly();
@@ -70,6 +80,18 @@ class RemoteAgentIntegrationTest {
 		assertMethods(json, "test-async-failure", "FixtureService#asyncFailure", "FixtureRepository#asyncFailure");
 		assertMethods(json, "test-async-concurrent-A", "FixtureService#asyncWorkA", "FixtureRepository#asyncWorkA");
 		assertMethods(json, "test-async-concurrent-B", "FixtureService#asyncWorkB", "FixtureRepository#asyncWorkB");
+		assertMethods(json, "listener-start", "FixtureAsyncListener#onStartAsync", "FixtureAsyncListenerApplication#onStart",
+				"FixtureRepository#listenerStart", "FixtureRepository#listenerComplete");
+		assertMethods(json, "listener-complete-A", "FixtureAsyncListener#onComplete", "FixtureAsyncListenerApplication#onComplete",
+				"FixtureRepository#listenerCompleteA");
+		assertMethods(json, "listener-complete-B", "FixtureAsyncListener#onComplete", "FixtureAsyncListenerApplication#onComplete",
+				"FixtureRepository#listenerCompleteB");
+		assertMethods(json, "listener-timeout", "FixtureAsyncListener#onTimeout", "FixtureAsyncListenerApplication#onTimeout",
+				"FixtureRepository#listenerTimeout");
+		assertMethods(json, "listener-error", "FixtureAsyncListener#onError", "FixtureAsyncListenerApplication#onError",
+				"FixtureRepository#listenerError");
+		assertMethods(json, "listener-concurrent-A", "FixtureRepository#listenerCompleteA");
+		assertMethods(json, "listener-concurrent-B", "FixtureRepository#listenerCompleteB");
 		assertMethods(json, "test-A-concurrent", "FixtureService#handleA", "FixtureRepository#readA");
 		assertMethods(json, "test-B-concurrent", "FixtureService#handleB", "FixtureRepository#readB");
 		assertMethods(json, "test-A", "FixtureService#serviceBoundary", "FixtureRepository#servletService",
@@ -78,10 +100,12 @@ class RemoteAgentIntegrationTest {
 				"FixtureRepository#listenerInitialized", "FixtureRepository#listenerDestroyed");
 		assertMethods(json, "test-B", "FixtureService#serviceBoundary", "FixtureRepository#servletService",
 				"FixtureService#afterFilterChain", "FixtureRepository#afterFilterChain");
-		assertEquals(14, occurrences(json, "\"testExecutionId\":"), "headerless requests must have no STP observation");
+		assertEquals(21, occurrences(json, "\"testExecutionId\":"), "headerless requests must have no STP observation");
 		for (String id : new String[] {"test-A", "test-B", "test-interface", "test-fail", "test-forward",
 				"test-include", "test-async", "test-async-A", "test-async-B", "test-async-failure",
-				"test-async-concurrent-A", "test-async-concurrent-B", "test-A-concurrent", "test-B-concurrent"}) {
+				"test-async-concurrent-A", "test-async-concurrent-B", "test-A-concurrent", "test-B-concurrent",
+				"listener-start", "listener-complete-A", "listener-complete-B", "listener-timeout", "listener-error",
+				"listener-concurrent-A", "listener-concurrent-B"}) {
 			assertEquals(1, occurrences(json, "\"testExecutionId\":\"" + id + "\""), "duplicate observation for " + id);
 		}
 		assertFalse(json.contains("FixtureRepository#readOrdinary"), "headerless request must not inherit a thread context");
@@ -89,10 +113,15 @@ class RemoteAgentIntegrationTest {
 		assertFalse(section(json, "test-async-B").contains("asyncWorkA"));
 		assertFalse(section(json, "test-async-concurrent-A").contains("asyncWorkB"));
 		assertFalse(section(json, "test-async-concurrent-B").contains("asyncWorkA"));
+		assertFalse(section(json, "listener-complete-A").contains("listenerCompleteB"));
+		assertFalse(section(json, "listener-complete-B").contains("listenerCompleteA"));
+		assertFalse(section(json, "listener-concurrent-A").contains("listenerCompleteB"));
+		assertFalse(section(json, "listener-concurrent-B").contains("listenerCompleteA"));
 		assertFalse(section(json, "test-A").contains("handleB"));
 		assertFalse(section(json, "test-B").contains("handleA"));
 		assertFalse(section(json, "test-A-concurrent").contains("handleB"));
 		assertFalse(section(json, "test-B-concurrent").contains("handleA"));
+		assertListenerCallbacksOverlap(childLog);
 		assertTrue(childLog.contains("READY:"), childLog);
 	}
 
@@ -143,5 +172,22 @@ class RemoteAgentIntegrationTest {
 		int count = 0;
 		for (int at = 0; (at = text.indexOf(needle, at)) >= 0; at += needle.length()) count++;
 		return count;
+	}
+	private static void assertListenerCallbacksOverlap(String log) {
+		long aStart = listenerTimestamp(log, "START", "concurrent-a");
+		long aEnd = listenerTimestamp(log, "END", "concurrent-a");
+		long bStart = listenerTimestamp(log, "START", "concurrent-b");
+		long bEnd = listenerTimestamp(log, "END", "concurrent-b");
+		assertTrue(aStart < bEnd && bStart < aEnd,
+				"AsyncListener callbacks did not overlap: a=" + aStart + ".." + aEnd + ", b=" + bStart + ".." + bEnd);
+	}
+	private static long listenerTimestamp(String log, String phase, String scenario) {
+		String marker = "ASYNC_LISTENER_EVENT phase=" + phase + " scenario=" + scenario + " nanos=";
+		int start = log.indexOf(marker);
+		assertTrue(start >= 0, "missing callback timing marker " + marker + " in " + log);
+		start += marker.length();
+		int end = start;
+		while (end < log.length() && Character.isDigit(log.charAt(end))) end++;
+		return Long.parseLong(log.substring(start, end));
 	}
 }

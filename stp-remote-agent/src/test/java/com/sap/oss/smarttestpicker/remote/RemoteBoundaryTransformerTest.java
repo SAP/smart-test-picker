@@ -22,6 +22,8 @@ class RemoteBoundaryTransformerTest {
 		assertValidTransformed(transformer, example.remote.jakarta.JakartaRequestListenerFixture.class);
 		assertAsyncTaskWrapped(transformer, example.remote.javax.JavaxAsyncContextFixture.class);
 		assertAsyncTaskWrapped(transformer, example.remote.jakarta.JakartaAsyncContextFixture.class);
+		assertAsyncListenerCallbacksWrapped(transformer, example.remote.javax.JavaxAsyncListenerFixture.class);
+		assertAsyncListenerCallbacksWrapped(transformer, example.remote.jakarta.JakartaAsyncListenerFixture.class);
 	}
 
 	@Test void requestScopesRestoreParentAndSuppressMissingIds() {
@@ -78,6 +80,19 @@ class RemoteBoundaryTransformerTest {
 		assertNull(RemoteTestContext.currentId());
 	}
 
+	@Test void asyncListenerScopeUsesRequestAttributeAndRestoresCallbackThreadContext() {
+		MutableRequest request = new MutableRequest("header-must-not-be-used");
+		request.attributes.put("com.sap.oss.smarttestpicker.remote.testExecutionId", "accepted-test-id");
+		FakeAsyncEvent event = new FakeAsyncEvent(new FakeAsyncContext(request));
+		try (var worker = RemoteTestContext.enter((HeaderRequest) ignored -> "worker-prior", "X-STP-Test-Execution-Id")) {
+			try (var callback = RemoteTestContext.enterAsyncListener(event)) {
+				assertEquals("accepted-test-id", RemoteTestContext.currentId());
+			}
+			assertEquals("worker-prior", RemoteTestContext.currentId());
+		}
+		assertNull(RemoteTestContext.currentId());
+	}
+
 	private static void assertValidTransformed(RemoteHttpBoundaryTransformer transformer, Class<?> fixture) throws Exception {
 		String resource = "/" + fixture.getName().replace('.', '/') + ".class";
 		byte[] bytes;
@@ -113,6 +128,29 @@ class RemoteBoundaryTransformerTest {
 		}, 0);
 		assertTrue(wraps.get(), fixture.getName() + " AsyncContext.start must call RemoteTestContext.wrap");
 	}
+	private static void assertAsyncListenerCallbacksWrapped(RemoteHttpBoundaryTransformer transformer, Class<?> fixture) throws Exception {
+		assertValidTransformed(transformer, fixture);
+		String resource = "/" + fixture.getName().replace('.', '/') + ".class";
+		byte[] bytes;
+		try (var in = fixture.getResourceAsStream(resource)) { bytes = in.readAllBytes(); }
+		byte[] transformed = transformer.transform(fixture.getClassLoader(), fixture.getName().replace('.', '/'),
+				null, fixture.getProtectionDomain(), bytes);
+		java.util.Set<String> wrappedCallbacks = new java.util.HashSet<>();
+		new ClassReader(transformed).accept(new org.objectweb.asm.ClassVisitor(org.objectweb.asm.Opcodes.ASM9) {
+			@Override public org.objectweb.asm.MethodVisitor visitMethod(int access, String name, String desc,
+					String signature, String[] exceptions) {
+			if (!java.util.Set.of("onStartAsync", "onComplete", "onTimeout", "onError").contains(name)) return null;
+			return new org.objectweb.asm.MethodVisitor(org.objectweb.asm.Opcodes.ASM9) {
+				@Override public void visitMethodInsn(int opcode, String owner, String called, String descriptor, boolean isInterface) {
+					if (owner.equals("com/sap/oss/smarttestpicker/remote/RemoteTestContext") && called.equals("enterAsyncListener"))
+						wrappedCallbacks.add(name);
+				}
+			};
+			}
+		}, 0);
+		assertEquals(java.util.Set.of("onStartAsync", "onComplete", "onTimeout", "onError"), wrappedCallbacks,
+				fixture.getName() + " must wrap all AsyncListener callbacks");
+	}
 	private static final class DefiningLoader extends ClassLoader {
 		private final String target;
 		private final byte[] bytes;
@@ -135,5 +173,16 @@ class RemoteBoundaryTransformerTest {
 		public String getHeader(String ignored) { return header; }
 		public Object getAttribute(String name) { return attributes.get(name); }
 		public void setAttribute(String name, Object value) { attributes.put(name, value); }
+	}
+	private static final class FakeAsyncContext {
+		private final Object request;
+		private FakeAsyncContext(Object request) { this.request = request; }
+		public Object getRequest() { return request; }
+	}
+	private static final class FakeAsyncEvent {
+		private final FakeAsyncContext context;
+		private FakeAsyncEvent(FakeAsyncContext context) { this.context = context; }
+		public Object getSuppliedRequest() { return null; }
+		public FakeAsyncContext getAsyncContext() { return context; }
 	}
 }

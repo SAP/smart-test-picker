@@ -26,6 +26,15 @@ public final class RemoteTestContext {
 		return new Scope(previous);
 	}
 
+	/** Enters an AsyncListener callback using only the accepted ID on its associated request. */
+	public static Scope enterAsyncListener(Object event) {
+		String previous = CURRENT.get();
+		Object request = asyncEventRequest(event);
+		String id = readAttribute(request);
+		install(valid(id) ? id : null);
+		return new Scope(previous);
+	}
+
 	public static String currentId() { return CURRENT.get(); }
 
 	/** Captures the opaque ID active at submission time for Servlet-managed async work. */
@@ -67,6 +76,26 @@ public final class RemoteTestContext {
 			Method method = requestOrEvent.getClass().getMethod("getServletRequest");
 			if (!method.canAccess(requestOrEvent)) method.trySetAccessible();
 			return method.invoke(requestOrEvent);
+		} catch (ReflectiveOperationException | RuntimeException ignored) {
+			return null;
+		}
+	}
+
+	private static Object asyncEventRequest(Object event) {
+		if (event == null) return null;
+		Object supplied = invokeNoArgs(event, "getSuppliedRequest");
+		if (valid(readAttribute(supplied))) return supplied;
+		Object asyncContext = invokeNoArgs(event, "getAsyncContext");
+		Object request = invokeNoArgs(asyncContext, "getRequest");
+		return valid(readAttribute(request)) ? request : supplied;
+	}
+
+	private static Object invokeNoArgs(Object target, String name) {
+		if (target == null) return null;
+		try {
+			Method method = target.getClass().getMethod(name);
+			if (!method.canAccess(target)) method.trySetAccessible();
+			return method.invoke(target);
 		} catch (ReflectiveOperationException | RuntimeException ignored) {
 			return null;
 		}
