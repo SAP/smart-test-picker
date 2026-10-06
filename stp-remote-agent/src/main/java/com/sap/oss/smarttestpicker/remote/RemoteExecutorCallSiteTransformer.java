@@ -118,6 +118,7 @@ final class RemoteExecutorCallSiteTransformer implements ClassFileTransformer {
 
 	private static boolean excluded(String name) {
 		return name.startsWith("java/") || name.startsWith("jdk/") || name.startsWith("sun/")
+				|| name.equals(RemoteSpringMvcCallableTransformer.TARGET_CLASS)
 				|| name.startsWith("com/sap/oss/smarttestpicker/remote/") || name.startsWith("org/objectweb/asm/");
 	}
 

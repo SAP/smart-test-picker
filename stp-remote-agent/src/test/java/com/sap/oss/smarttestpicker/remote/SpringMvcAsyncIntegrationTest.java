@@ -12,7 +12,12 @@ import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,30 +46,61 @@ class SpringMvcAsyncIntegrationTest {
 			for (String path : new String[]{"/task-executor/execute", "/task-executor/submit-runnable", "/task-executor/submit-callable"}) {
 				assertEquals(200, send(client, base.resolve(path), testId("B", path)).statusCode(), path);
 			}
+			assertEquals(500, send(client, base.resolve("/callable-fail"), "A-callable-fail").statusCode());
+			assertEquals(500, send(client, base.resolve("/web-async-task-fail"), "B-web-async-task-fail").statusCode());
 			for (String path : new String[]{"/callable", "/web-async-task", "/deferred", "/async",
 					"/task-executor/execute", "/task-executor/submit-runnable", "/task-executor/submit-callable"}) {
 				assertEquals(200, send(client, base.resolve(path), null).statusCode(), path);
 			}
+			var callableOverlap = client.sendAsync(request(base.resolve("/callable-overlap"), "overlap-callable-A"),
+					HttpResponse.BodyHandlers.ofString());
+			var webTaskOverlap = client.sendAsync(request(base.resolve("/web-async-task-overlap"), "overlap-web-task-B"),
+					HttpResponse.BodyHandlers.ofString());
+			assertEquals(200, callableOverlap.get(15, TimeUnit.SECONDS).statusCode());
+			assertEquals(200, webTaskOverlap.get(15, TimeUnit.SECONDS).statusCode());
 		} finally {
 			process.destroy();
 			if (!process.waitFor(5, TimeUnit.SECONDS)) process.destroyForcibly();
 		}
 		String output = Files.readString(log);
 		String json = Files.readString(observations);
+		assertEquals(expectedTestIds(), observedTestIds(json), "headerless requests must not create observations; every supplied ID should appear");
 		assertTransitions(output, "callable");
 		assertTransitions(output, "webAsyncTask");
 		assertTransitions(output, "async");
-		for (String path : new String[]{"/callable", "/web-async-task", "/deferred", "/async"})
-			assertAsyncWorkAfterInitialDispatch(output, path);
-		for (String scenario : new String[]{"callable", "webAsyncTask", "asyncService"}) {
-			assertEventCount(output, scenario, "<none>", 3); // A, B, then headerless request
-		}
-		for (String path : new String[]{"/callable", "/web-async-task", "/async"}) {
-			String scenario = path.equals("/callable") ? "callable"
-					: path.equals("/web-async-task") ? "webAsyncTask" : "asyncService";
-			assertEventCount(output, scenario, testId("A", path), 0);
-			assertEventCount(output, scenario, testId("B", path), 0);
-		}
+		assertCallbackOverlap(output);
+		assertAsyncWorkAfterInitialDispatch(output, "/callable", "callable", testId("A", "/callable"), 0);
+		assertAsyncWorkAfterInitialDispatch(output, "/callable", "callable", testId("B", "/callable"), 1);
+		assertAsyncWorkAfterInitialDispatch(output, "/callable", "callable", "<none>", 2);
+		assertAsyncWorkAfterInitialDispatch(output, "/web-async-task", "webAsyncTask", testId("A", "/web-async-task"), 0);
+		assertAsyncWorkAfterInitialDispatch(output, "/web-async-task", "webAsyncTask", testId("B", "/web-async-task"), 1);
+		assertAsyncWorkAfterInitialDispatch(output, "/web-async-task", "webAsyncTask", "<none>", 2);
+		assertAsyncWorkAfterInitialDispatch(output, "/deferred", "deferredComplete", testId("A", "/deferred"), 0);
+		assertAsyncWorkAfterInitialDispatch(output, "/deferred", "deferredComplete", testId("B", "/deferred"), 1);
+		assertAsyncWorkAfterInitialDispatch(output, "/deferred", "deferredComplete", "<none>", 2);
+		assertAsyncWorkAfterInitialDispatch(output, "/async", "asyncService", "<none>", 0);
+		assertEventCount(output, "callable", testId("A", "/callable"), 1);
+		assertEventCount(output, "callable", testId("B", "/callable"), 1);
+		assertEventCount(output, "callable", "<none>", 1);
+		assertEventCount(output, "webAsyncTask", testId("A", "/web-async-task"), 1);
+		assertEventCount(output, "webAsyncTask", testId("B", "/web-async-task"), 1);
+		assertEventCount(output, "webAsyncTask", "<none>", 1);
+		assertEventCount(output, "callableFailure", "A-callable-fail", 1);
+		assertEventCount(output, "webAsyncTaskFailure", "B-web-async-task-fail", 1);
+		assertEquals(eventThread(output, "callable", testId("A", "/callable")), eventThread(output, "callable", testId("B", "/callable")));
+		assertEquals(eventThread(output, "callableFailure", "A-callable-fail"), eventThread(output, "callable", "<none>"),
+				"Callable worker must be clean after callback exception");
+		assertEquals(eventThread(output, "webAsyncTask", testId("A", "/web-async-task")),
+				eventThread(output, "webAsyncTask", testId("B", "/web-async-task")));
+		assertEquals(eventThread(output, "webAsyncTaskFailure", "B-web-async-task-fail"), eventThread(output, "webAsyncTask", "<none>"),
+				"WebAsyncTask worker must be clean after callback exception");
+		assertEventCount(output, "callable", "overlap-callable-A", 1);
+		assertEventCount(output, "webAsyncTask", "overlap-web-task-B", 1);
+		assertTrue(section(json, "overlap-callable-A").contains("SpringMvcRepository#hit"));
+		assertTrue(section(json, "overlap-web-task-B").contains("SpringMvcRepository#hit"));
+		assertFalse(section(json, "overlap-callable-A").contains("webAsyncTaskOverlap"), "overlapping WebAsyncTask must not contaminate Callable");
+		assertFalse(section(json, "overlap-web-task-B").contains("callableOverlap"), "overlapping Callable must not contaminate WebAsyncTask");
+		assertEventCount(output, "asyncService", "<none>", 3);
 		assertEventCount(output, "deferredComplete", testId("A", "/deferred"), 1);
 		assertEventCount(output, "deferredRedispatch", testId("A", "/deferred"), 1);
 		assertEventCount(output, "deferredComplete", testId("B", "/deferred"), 1);
@@ -83,10 +119,20 @@ class SpringMvcAsyncIntegrationTest {
 		for (String id : new String[]{testId("A", "/callable"), testId("B", "/callable")}) {
 			String methods = section(json, id);
 			assertTrue(methods.contains("SpringMvcController#callable"), methods);
-			assertFalse(methods.contains("SpringMvcRepository#hit"), "Callable body must not be attributed: " + methods);
+			assertTrue(methods.contains("SpringMvcRepository#hit"), "Callable body must be attributed: " + methods);
+			assertFalse(methods.contains("webAsyncTask"), "Callable must not receive the WebAsyncTask callback: " + methods);
 			assertTrue(section(json, testId(id.startsWith("A") ? "A" : "B", "/deferred"))
 					.contains("SpringMvcRepository#hit"), "DeferredResult app completion should be attributed to " + id);
 		}
+		for (String id : new String[]{testId("A", "/web-async-task"), testId("B", "/web-async-task")}) {
+			String methods = section(json, id);
+			assertTrue(methods.contains("SpringMvcRepository#hit"), "WebAsyncTask body must be attributed: " + methods);
+			assertFalse(methods.contains("SpringMvcController#callable("), "WebAsyncTask must not receive Callable work: " + methods);
+		}
+		assertTrue(section(json, "A-callable-fail").contains("SpringMvcRepository#hit"));
+		assertTrue(section(json, "B-web-async-task-fail").contains("SpringMvcRepository#hit"));
+		assertFalse(section(json, "A-callable").contains("webAsyncTask"));
+		assertFalse(section(json, "B-web-async-task").contains("SpringMvcController#callable("));
 		for (String id : new String[]{testId("A", "/task-executor/execute"), testId("B", "/task-executor/execute")})
 			assertTrue(section(json, id).contains("SpringMvcRepository#hit"), "AsyncTaskExecutor app work should be attributed: " + id);
 	}
@@ -109,18 +155,13 @@ class SpringMvcAsyncIntegrationTest {
 		assertNotNull(event, "missing event for thread lookup: " + method + "/" + id);
 		return event.split("\\|", -1)[3];
 	}
-	private static void assertAsyncWorkAfterInitialDispatch(String log, String path) {
+	private static void assertAsyncWorkAfterInitialDispatch(String log, String path, String scenario, String id, int requestIndex) {
 		String marker = "SPRING_DISPATCH:exit:" + path + ":REQUEST:";
-		String dispatch = line(log, marker);
-		assertNotNull(dispatch, "missing initial request dispatch exit for " + path + "\n" + log);
+		List<String> dispatches = log.lines().filter(value -> value.contains(marker)).toList();
+		assertTrue(dispatches.size() > requestIndex, "missing initial request dispatch exit for " + path + "\n" + log);
+		String dispatch = dispatches.get(requestIndex);
 		long dispatchNanos = Long.parseLong(dispatch.substring(dispatch.lastIndexOf(':') + 1));
-		String scenario = switch (path) {
-			case "/callable" -> "callable";
-			case "/web-async-task" -> "webAsyncTask";
-			case "/deferred" -> "deferredComplete";
-			default -> "asyncService";
-		};
-		String event = line(log, "SPRING_EVENT:" + scenario + "|");
+		String event = line(log, "SPRING_EVENT:" + scenario + "|" + id + "|");
 		assertNotNull(event, "missing async app event for " + path + "\n" + log);
 		long eventNanos = Long.parseLong(event.substring(event.lastIndexOf('|') + 1));
 		assertTrue(eventNanos > dispatchNanos, "application async work must run after initial dispatch returned: " + path);
@@ -130,11 +171,44 @@ class SpringMvcAsyncIntegrationTest {
 		for (int at = 0; (at = text.indexOf(needle, at)) >= 0; at += needle.length()) count++;
 		return count;
 	}
+	private static void assertCallbackOverlap(String log) {
+		long callableStart = markerNanos(log, "SPRING_OVERLAP:START:callable:");
+		long callableEnd = markerNanos(log, "SPRING_OVERLAP:END:callable:");
+		long webTaskStart = markerNanos(log, "SPRING_OVERLAP:START:webAsyncTask:");
+		long webTaskEnd = markerNanos(log, "SPRING_OVERLAP:END:webAsyncTask:");
+		assertTrue(callableStart < webTaskEnd && webTaskStart < callableEnd,
+				"Callable and WebAsyncTask callbacks did not overlap: callable=" + callableStart + ".." + callableEnd
+						+ ", WebAsyncTask=" + webTaskStart + ".." + webTaskEnd);
+	}
+	private static long markerNanos(String log, String marker) {
+		String value = line(log, marker);
+		assertNotNull(value, "missing overlap marker " + marker + "\n" + log);
+		return Long.parseLong(value.substring(value.lastIndexOf(':') + 1));
+	}
 	private static String section(String json, String id) {
 		int start = json.indexOf("\"testExecutionId\":\"" + id + "\"");
 		assertTrue(start >= 0, "missing observation for " + id + ": " + json);
 		int end = json.indexOf('}', start);
 		return json.substring(start, end < 0 ? json.length() : end);
+	}
+	private static Set<String> observedTestIds(String json) {
+		Set<String> ids = new HashSet<>();
+		Matcher matcher = Pattern.compile("\\\"testExecutionId\\\":\\\"([^\\\"]+)\\\"").matcher(json);
+		while (matcher.find()) ids.add(matcher.group(1));
+		return ids;
+	}
+	private static Set<String> expectedTestIds() {
+		Set<String> ids = new HashSet<>();
+		for (String prefix : new String[]{"A", "B"}) {
+			for (String path : new String[]{"/callable", "/web-async-task", "/deferred", "/async",
+					"/task-executor/execute", "/task-executor/submit-runnable", "/task-executor/submit-callable"})
+				ids.add(testId(prefix, path));
+		}
+		ids.add("A-callable-fail");
+		ids.add("B-web-async-task-fail");
+		ids.add("overlap-callable-A");
+		ids.add("overlap-web-task-B");
+		return ids;
 	}
 	private static String testId(String prefix, String path) { return prefix + path.replace('/', '-'); }
 	private static String line(String log, String prefix) {
@@ -152,8 +226,11 @@ class SpringMvcAsyncIntegrationTest {
 		throw new AssertionError("Spring MVC child failed to start: " + (Files.exists(log) ? Files.readString(log) : "no log"));
 	}
 	private static HttpResponse<String> send(HttpClient client, URI uri, String id) throws Exception {
+		return client.send(request(uri, id), HttpResponse.BodyHandlers.ofString());
+	}
+	private static HttpRequest request(URI uri, String id) {
 		HttpRequest.Builder builder = HttpRequest.newBuilder(uri).timeout(Duration.ofSeconds(15)).GET();
 		if (id != null) builder.header("X-STP-Test-Execution-Id", id);
-		return client.send(builder.build(), HttpResponse.BodyHandlers.ofString());
+		return builder.build();
 	}
 }

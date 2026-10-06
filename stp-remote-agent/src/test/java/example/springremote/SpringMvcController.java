@@ -11,9 +11,12 @@ import org.springframework.web.context.request.async.WebAsyncTask;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 public class SpringMvcController {
+	private static final CyclicBarrier OVERLAP_BARRIER = new CyclicBarrier(2);
 	private final SpringMvcService service;
 	private final AsyncTaskExecutor taskExecutor;
 	public SpringMvcController(SpringMvcService service,
@@ -23,24 +26,46 @@ public class SpringMvcController {
 	}
 
 	@GetMapping("/callable") public Callable<String> callable() {
+		return callable(false, false);
+	}
+	@GetMapping("/callable-overlap") public Callable<String> callableOverlap() {
+		return callable(true, false);
+	}
+	@GetMapping("/callable-fail") public Callable<String> callableFailure() {
+		return callable(false, true);
+	}
+	private Callable<String> callable(boolean overlap, boolean fail) {
 		String requestThread = Thread.currentThread().getName();
 		System.out.println("SPRING_TRANSITION:callable:request=" + requestThread);
 		return () -> {
 			System.out.println("SPRING_TRANSITION:callable:worker=" + Thread.currentThread().getName());
 			pauseBriefly();
+			if (overlap) awaitOverlap("callable");
+			if (fail) return service.callableFailure();
 			return service.callable();
 		};
 	}
 
 	@GetMapping("/web-async-task") public WebAsyncTask<String> webAsyncTask() {
+		return webAsyncTask(false, false);
+	}
+	@GetMapping("/web-async-task-overlap") public WebAsyncTask<String> webAsyncTaskOverlap() {
+		return webAsyncTask(true, false);
+	}
+	@GetMapping("/web-async-task-fail") public WebAsyncTask<String> webAsyncTaskFailure() {
+		return webAsyncTask(false, true);
+	}
+	private WebAsyncTask<String> webAsyncTask(boolean overlap, boolean fail) {
 		String requestThread = Thread.currentThread().getName();
 		System.out.println("SPRING_TRANSITION:webAsyncTask:request=" + requestThread);
 		Callable<String> callback = () -> {
 			System.out.println("SPRING_TRANSITION:webAsyncTask:worker=" + Thread.currentThread().getName());
 			pauseBriefly();
+			if (overlap) awaitOverlap("webAsyncTask");
+			if (fail) return service.webAsyncTaskFailure();
 			return service.webAsyncTask();
 		};
-		return new WebAsyncTask<>(10_000L, callback);
+		return new WebAsyncTask<>(10_000L, taskExecutor, callback);
 	}
 
 	@GetMapping("/deferred") public DeferredResult<String> deferred() {
@@ -72,5 +97,12 @@ public class SpringMvcController {
 	private static void pauseBriefly() {
 		try { Thread.sleep(150); }
 		catch (InterruptedException interrupted) { Thread.currentThread().interrupt(); throw new IllegalStateException(interrupted); }
+	}
+	private static void awaitOverlap(String scenario) {
+		long started = System.nanoTime();
+		System.out.println("SPRING_OVERLAP:START:" + scenario + ":" + started);
+		try { OVERLAP_BARRIER.await(5, TimeUnit.SECONDS); }
+		catch (Exception failure) { throw new IllegalStateException("async overlap barrier failed", failure); }
+		System.out.println("SPRING_OVERLAP:END:" + scenario + ":" + System.nanoTime());
 	}
 }

@@ -25,6 +25,14 @@ public class SpringMvcService {
 
 	public String callable() { return repository.hit("callable"); }
 	public String webAsyncTask() { return repository.hit("webAsyncTask"); }
+	public String callableFailure() {
+		repository.hit("callableFailure");
+		throw new IllegalStateException("fixture callable failure");
+	}
+	public String webAsyncTaskFailure() {
+		repository.hit("webAsyncTaskFailure");
+		throw new IllegalStateException("fixture WebAsyncTask failure");
+	}
 
 	public CompletableFuture<String> deferred() {
 		CompletableFuture<String> result = new CompletableFuture<>();
