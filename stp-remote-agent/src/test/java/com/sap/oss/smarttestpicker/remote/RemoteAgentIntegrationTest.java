@@ -39,11 +39,19 @@ class RemoteAgentIntegrationTest {
 			assertEquals("forward-target", get(client, root.resolve("forward-source"), "test-forward"));
 			assertTrue(get(client, root.resolve("include-source"), "test-include").contains("include-target"));
 			assertEquals("async-target", get(client, root.resolve("async"), "test-async"));
+			assertDifferentThreads(get(client, root.resolve("async-start-a"), "test-async-A"));
+			assertDifferentThreads(get(client, root.resolve("async-start-b"), "test-async-B"));
+			get(client, root.resolve("async-start-fail"), "test-async-failure");
+			assertDifferentThreads(get(client, root.resolve("async-start"), null));
 			assertEquals("a", get(client, root.resolve("a"), null));
 			CompletableFuture<String> concurrentA = async(client, root.resolve("a"), "test-A-concurrent");
 			CompletableFuture<String> concurrentB = async(client, root.resolve("b"), "test-B-concurrent");
 			assertEquals("a", concurrentA.get(10, TimeUnit.SECONDS));
 			assertEquals("b", concurrentB.get(10, TimeUnit.SECONDS));
+			CompletableFuture<String> asyncConcurrentA = async(client, root.resolve("async-start-a"), "test-async-concurrent-A");
+			CompletableFuture<String> asyncConcurrentB = async(client, root.resolve("async-start-b"), "test-async-concurrent-B");
+			assertDifferentThreads(asyncConcurrentA.get(10, TimeUnit.SECONDS));
+			assertDifferentThreads(asyncConcurrentB.get(10, TimeUnit.SECONDS));
 		} finally {
 			process.destroy();
 			if (!process.waitFor(5, TimeUnit.SECONDS)) process.destroyForcibly();
@@ -57,6 +65,11 @@ class RemoteAgentIntegrationTest {
 		assertMethods(json, "test-forward", "FixtureService#forwardSource", "FixtureService#forwardTarget", "FixtureRepository#forwardTarget");
 		assertMethods(json, "test-include", "FixtureService#includeSource", "FixtureService#includeTarget", "FixtureRepository#includeTarget");
 		assertMethods(json, "test-async", "FixtureService#asyncTarget", "FixtureRepository#asyncTarget");
+		assertMethods(json, "test-async-A", "FixtureService#asyncWorkA", "FixtureRepository#asyncWorkA");
+		assertMethods(json, "test-async-B", "FixtureService#asyncWorkB", "FixtureRepository#asyncWorkB");
+		assertMethods(json, "test-async-failure", "FixtureService#asyncFailure", "FixtureRepository#asyncFailure");
+		assertMethods(json, "test-async-concurrent-A", "FixtureService#asyncWorkA", "FixtureRepository#asyncWorkA");
+		assertMethods(json, "test-async-concurrent-B", "FixtureService#asyncWorkB", "FixtureRepository#asyncWorkB");
 		assertMethods(json, "test-A-concurrent", "FixtureService#handleA", "FixtureRepository#readA");
 		assertMethods(json, "test-B-concurrent", "FixtureService#handleB", "FixtureRepository#readB");
 		assertMethods(json, "test-A", "FixtureService#serviceBoundary", "FixtureRepository#servletService",
@@ -65,12 +78,17 @@ class RemoteAgentIntegrationTest {
 				"FixtureRepository#listenerInitialized", "FixtureRepository#listenerDestroyed");
 		assertMethods(json, "test-B", "FixtureService#serviceBoundary", "FixtureRepository#servletService",
 				"FixtureService#afterFilterChain", "FixtureRepository#afterFilterChain");
-		assertEquals(9, occurrences(json, "\"testExecutionId\":"), "headerless requests must have no STP observation");
+		assertEquals(14, occurrences(json, "\"testExecutionId\":"), "headerless requests must have no STP observation");
 		for (String id : new String[] {"test-A", "test-B", "test-interface", "test-fail", "test-forward",
-				"test-include", "test-async", "test-A-concurrent", "test-B-concurrent"}) {
+				"test-include", "test-async", "test-async-A", "test-async-B", "test-async-failure",
+				"test-async-concurrent-A", "test-async-concurrent-B", "test-A-concurrent", "test-B-concurrent"}) {
 			assertEquals(1, occurrences(json, "\"testExecutionId\":\"" + id + "\""), "duplicate observation for " + id);
 		}
 		assertFalse(json.contains("FixtureRepository#readOrdinary"), "headerless request must not inherit a thread context");
+		assertFalse(section(json, "test-async-A").contains("asyncWorkB"));
+		assertFalse(section(json, "test-async-B").contains("asyncWorkA"));
+		assertFalse(section(json, "test-async-concurrent-A").contains("asyncWorkB"));
+		assertFalse(section(json, "test-async-concurrent-B").contains("asyncWorkA"));
 		assertFalse(section(json, "test-A").contains("handleB"));
 		assertFalse(section(json, "test-B").contains("handleA"));
 		assertFalse(section(json, "test-A-concurrent").contains("handleB"));
@@ -100,6 +118,11 @@ class RemoteAgentIntegrationTest {
 	}
 	private static CompletableFuture<String> async(HttpClient client, URI uri, String id) {
 		return client.sendAsync(request(uri, id), HttpResponse.BodyHandlers.ofString()).thenApply(HttpResponse::body);
+	}
+	private static void assertDifferentThreads(String body) {
+		String[] threadIds = body.split(":", -1);
+		assertEquals(2, threadIds.length, "expected requestThread:asyncThread response, got: " + body);
+		assertNotEquals(threadIds[0], threadIds[1], "AsyncContext.start task must run on another thread");
 	}
 	private static HttpRequest request(URI uri, String id) {
 		HttpRequest.Builder builder = HttpRequest.newBuilder(uri).timeout(Duration.ofSeconds(5)).GET();

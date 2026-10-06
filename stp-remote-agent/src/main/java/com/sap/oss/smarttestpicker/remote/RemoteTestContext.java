@@ -28,6 +28,26 @@ public final class RemoteTestContext {
 
 	public static String currentId() { return CURRENT.get(); }
 
+	/** Captures the opaque ID active at submission time for Servlet-managed async work. */
+	public static String capture() { return CURRENT.get(); }
+
+	/** Attaches the submission-time ID to a task and restores the worker's prior context afterward. */
+	public static Runnable wrap(Runnable task) {
+		if (task == null) return null;
+		String captured = capture();
+		return () -> {
+			String previous = CURRENT.get();
+			install(captured);
+			try { task.run(); }
+			finally { install(previous); }
+		};
+	}
+
+	private static void install(String id) {
+		if (id == null) CURRENT.remove();
+		else CURRENT.set(id);
+	}
+
 	static String readHeader(Object request, String header) {
 		if (request == null) return null;
 		try {

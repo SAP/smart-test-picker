@@ -98,6 +98,26 @@ public final class RemoteServletFixtureMain {
 				async.dispatch("/async-target");
 				return;
 			}
+			if (path != null && path.startsWith("/async-start")) {
+				AsyncContext async = request.startAsync();
+				async.setTimeout(5000);
+				long requestThread = Thread.currentThread().getId();
+				boolean fail = "/async-start-fail".equals(path);
+				async.start(() -> {
+					try {
+						if (fail) service.asyncFailure();
+						else if (path.endsWith("-a")) service.asyncWorkA();
+						else if (path.endsWith("-b")) service.asyncWorkB();
+						else service.asyncWork();
+						response.getWriter().write(requestThread + ":" + Thread.currentThread().getId());
+					} catch (IOException writeFailure) {
+						throw new RuntimeException(writeFailure);
+					} finally {
+						async.complete();
+					}
+				});
+				return;
+			}
 			if ("/forward-source".equals(path)) {
 				service.forwardSource();
 				request.getRequestDispatcher("/forward-target").forward(request, response);
@@ -112,7 +132,7 @@ public final class RemoteServletFixtureMain {
 				case "/interface" -> service.handleInterface();
 				case "/a" -> service.handleA();
 				case "/b" -> service.handleB();
-			case "/forward-target" -> service.forwardTarget();
+				case "/forward-target" -> service.forwardTarget();
 				case "/include-target" -> service.includeTarget();
 				case "/async-target" -> service.asyncTarget();
 				case "/error-target" -> service.errorTarget();
@@ -134,6 +154,10 @@ public final class RemoteServletFixtureMain {
 		public String includeSource() { return FixtureRepository.includeSource(); }
 		public String includeTarget() { return FixtureRepository.includeTarget(); }
 		public String asyncTarget() { return FixtureRepository.asyncTarget(); }
+		public String asyncWork() { return FixtureRepository.asyncWork(); }
+		public String asyncWorkA() { return FixtureRepository.asyncWorkA(); }
+		public String asyncWorkB() { return FixtureRepository.asyncWorkB(); }
+		public String asyncFailure() { return FixtureRepository.asyncFailure(); }
 		public String errorTarget() { return FixtureRepository.errorTarget(); }
 		public String fail() { return FixtureRepository.fail(); }
 		public static void afterFilterChain() { FixtureRepository.afterFilterChain(); }
@@ -151,6 +175,10 @@ public final class RemoteServletFixtureMain {
 		public static String includeSource() { return "include-source"; }
 		public static String includeTarget() { return "include-target"; }
 		public static String asyncTarget() { return "async-target"; }
+		public static String asyncWork() { return "async-work"; }
+		public static String asyncWorkA() { return "async-work-a"; }
+		public static String asyncWorkB() { return "async-work-b"; }
+		public static String asyncFailure() { throw new IllegalStateException("fixture async failure"); }
 		public static String errorTarget() { return "error-target"; }
 		public static String fail() { throw new IllegalStateException("fixture failure"); }
 		public static void afterFilterChain() { }

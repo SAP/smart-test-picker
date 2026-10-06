@@ -22,6 +22,7 @@ final class RemoteHttpBoundaryTransformer implements ClassFileTransformer {
 	private static final int FILTER_CHAIN = 1;
 	private static final int SERVLET = 2;
 	private static final int REQUEST_LISTENER = 4;
+	private static final int ASYNC_CONTEXT = 8;
 	private static final Type SCOPE = Type.getObjectType("com/sap/oss/smarttestpicker/remote/RemoteTestContext$Scope");
 	private static final String CONTEXT = "com/sap/oss/smarttestpicker/remote/RemoteTestContext";
 	private static final String REQUEST = "ServletRequest";
@@ -45,6 +46,7 @@ final class RemoteHttpBoundaryTransformer implements ClassFileTransformer {
 			String event = "L" + namespace + "/" + EVENT + ";";
 			String requestResponse = "(" + request + response + ")V";
 			String eventMethod = "(" + event + ")V";
+			String asyncStartMethod = "(Ljava/lang/Runnable;)V";
 			final int[] wrapped = {0};
 			ClassReader reader = new ClassReader(bytes);
 			ClassWriter writer = new LoaderClassWriter(reader,
@@ -57,9 +59,12 @@ final class RemoteHttpBoundaryTransformer implements ClassFileTransformer {
 					boolean match = ((types.mask & FILTER_CHAIN) != 0 && name.equals("doFilter") && desc.equals(requestResponse))
 							|| ((types.mask & SERVLET) != 0 && name.equals("service") && desc.equals(requestResponse))
 							|| ((types.mask & REQUEST_LISTENER) != 0 &&
-								(name.equals("requestInitialized") || name.equals("requestDestroyed")) && desc.equals(eventMethod));
+								(name.equals("requestInitialized") || name.equals("requestDestroyed")) && desc.equals(eventMethod))
+							|| ((types.mask & ASYNC_CONTEXT) != 0 && name.equals("start") && desc.equals(asyncStartMethod));
 					if (!match) return delegate;
 					wrapped[0]++;
+					if ((types.mask & ASYNC_CONTEXT) != 0 && name.equals("start") && desc.equals(asyncStartMethod))
+						return new AsyncStartAdvice(delegate, access, name, desc);
 					return new BoundaryAdvice(delegate, access, name, desc, header);
 				}
 			}, ClassReader.EXPAND_FRAMES);
@@ -93,6 +98,7 @@ final class RemoteHttpBoundaryTransformer implements ClassFileTransformer {
 			if (name.equals(namespace + "/FilterChain")) return new BoundaryTypes(FILTER_CHAIN, namespace);
 			if (name.equals(namespace + "/Servlet")) return new BoundaryTypes(SERVLET, namespace);
 			if (name.equals(namespace + "/ServletRequestListener")) return new BoundaryTypes(REQUEST_LISTENER, namespace);
+			if (name.equals(namespace + "/AsyncContext")) return new BoundaryTypes(ASYNC_CONTEXT, namespace);
 		}
 		return BoundaryTypes.NONE;
 	}
@@ -170,6 +176,17 @@ final class RemoteHttpBoundaryTransformer implements ClassFileTransformer {
 		private void closeScope() {
 			loadLocal(scopeLocal);
 			invokeVirtual(SCOPE, new Method("close", "()V"));
+		}
+	}
+
+	private static final class AsyncStartAdvice extends AdviceAdapter {
+		private AsyncStartAdvice(org.objectweb.asm.MethodVisitor visitor, int access, String name, String desc) {
+			super(Opcodes.ASM9, visitor, access, name, desc);
+		}
+		@Override protected void onMethodEnter() {
+			loadArg(0);
+			invokeStatic(Type.getObjectType(CONTEXT), new Method("wrap", "(Ljava/lang/Runnable;)Ljava/lang/Runnable;"));
+			storeArg(0);
 		}
 	}
 }
