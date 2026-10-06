@@ -61,6 +61,8 @@ def petclinicClientAgentJar = project(':stp-agent').layout.buildDirectory.file('
 tasks.register('petclinicRemoteTest', Test) {
     description = 'Runs isolated PetClinic REST identity-propagation validation tests.'
     group = 'verification'
+    // The attached STP agent writes a sidecar JSON file outside Gradle's declared test outputs.
+    outputs.cacheIf('STP agent sidecar output is not managed by the Test task') { false }
     testClassesDirs = sourceSets.petclinicRemoteTest.output.classesDirs
     classpath = sourceSets.petclinicRemoteTest.runtimeClasspath
     useJUnitPlatform()

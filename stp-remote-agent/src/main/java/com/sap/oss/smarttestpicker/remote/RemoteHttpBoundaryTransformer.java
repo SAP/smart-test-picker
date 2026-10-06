@@ -17,11 +17,16 @@ import java.security.ProtectionDomain;
 import java.util.HashSet;
 import java.util.Set;
 
-/** Wraps concrete javax/jakarta Servlet FilterChain.doFilter implementations. */
+/** Adds request context scopes to standard javax/jakarta Servlet lifecycle entry points. */
 final class RemoteHttpBoundaryTransformer implements ClassFileTransformer {
-	private static final String JAVAX_CHAIN = "javax/servlet/FilterChain";
-	private static final String JAKARTA_CHAIN = "jakarta/servlet/FilterChain";
+	private static final int FILTER_CHAIN = 1;
+	private static final int SERVLET = 2;
+	private static final int REQUEST_LISTENER = 4;
 	private static final Type SCOPE = Type.getObjectType("com/sap/oss/smarttestpicker/remote/RemoteTestContext$Scope");
+	private static final String CONTEXT = "com/sap/oss/smarttestpicker/remote/RemoteTestContext";
+	private static final String REQUEST = "ServletRequest";
+	private static final String RESPONSE = "ServletResponse";
+	private static final String EVENT = "ServletRequestEvent";
 	private final String header;
 
 	RemoteHttpBoundaryTransformer(String header) { this.header = header; }
@@ -32,20 +37,28 @@ final class RemoteHttpBoundaryTransformer implements ClassFileTransformer {
 			if (internalName == null || bytes == null || internalName.equals("module-info")) return null;
 			ClassNode node = new ClassNode(Opcodes.ASM9);
 			new ClassReader(bytes).accept(node, ClassReader.SKIP_CODE | ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES);
-			String namespace = servletNamespace(loader, node, new HashSet<>());
-			if (namespace == null) return null;
-			String request = "L" + namespace + "/ServletRequest;";
-			String response = "L" + namespace + "/ServletResponse;";
-			String descriptor = "(" + request + response + ")V";
+			BoundaryTypes types = boundaryTypes(loader, node, new HashSet<>());
+			if (types.mask == 0) return null;
+			String namespace = types.namespace;
+			String request = "L" + namespace + "/" + REQUEST + ";";
+			String response = "L" + namespace + "/" + RESPONSE + ";";
+			String event = "L" + namespace + "/" + EVENT + ";";
+			String requestResponse = "(" + request + response + ")V";
+			String eventMethod = "(" + event + ")V";
 			final int[] wrapped = {0};
 			ClassReader reader = new ClassReader(bytes);
-			ClassWriter writer = new LoaderClassWriter(reader, ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS, loader);
+			ClassWriter writer = new LoaderClassWriter(reader,
+					ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS, loader);
 			reader.accept(new org.objectweb.asm.ClassVisitor(Opcodes.ASM9, writer) {
 				@Override public org.objectweb.asm.MethodVisitor visitMethod(int access, String name, String desc,
 						String signature, String[] exceptions) {
 					org.objectweb.asm.MethodVisitor delegate = super.visitMethod(access, name, desc, signature, exceptions);
-					if (!name.equals("doFilter") || !desc.equals(descriptor)
-							|| (access & (Opcodes.ACC_ABSTRACT | Opcodes.ACC_NATIVE)) != 0) return delegate;
+					if ((access & (Opcodes.ACC_ABSTRACT | Opcodes.ACC_NATIVE)) != 0) return delegate;
+					boolean match = ((types.mask & FILTER_CHAIN) != 0 && name.equals("doFilter") && desc.equals(requestResponse))
+							|| ((types.mask & SERVLET) != 0 && name.equals("service") && desc.equals(requestResponse))
+							|| ((types.mask & REQUEST_LISTENER) != 0 &&
+								(name.equals("requestInitialized") || name.equals("requestDestroyed")) && desc.equals(eventMethod));
+					if (!match) return delegate;
 					wrapped[0]++;
 					return new BoundaryAdvice(delegate, access, name, desc, header);
 				}
@@ -56,21 +69,32 @@ final class RemoteHttpBoundaryTransformer implements ClassFileTransformer {
 		}
 	}
 
-	private static String servletNamespace(ClassLoader loader, ClassNode node, Set<String> visited) {
-		if (node == null || !visited.add(node.name)) return null;
+	private static BoundaryTypes boundaryTypes(ClassLoader loader, ClassNode node, Set<String> visited) {
+		if (node == null || !visited.add(node.name)) return BoundaryTypes.NONE;
+		int mask = 0;
+		String namespace = null;
 		for (String iface : node.interfaces) {
-			if (iface.equals(JAVAX_CHAIN)) return "javax/servlet";
-			if (iface.equals(JAKARTA_CHAIN)) return "jakarta/servlet";
-			ClassNode parent = read(loader, iface);
-			String match = servletNamespace(loader, parent, visited);
-			if (match != null) return match;
+			BoundaryTypes match = apiType(iface);
+			if (match.mask == 0) match = boundaryTypes(loader, read(loader, iface), visited);
+			mask |= match.mask;
+			if (namespace == null && match.namespace != null) namespace = match.namespace;
 		}
 		if (node.superName != null) {
-			if (node.superName.equals(JAVAX_CHAIN)) return "javax/servlet";
-			if (node.superName.equals(JAKARTA_CHAIN)) return "jakarta/servlet";
-			return servletNamespace(loader, read(loader, node.superName), visited);
+			BoundaryTypes match = apiType(node.superName);
+			if (match.mask == 0) match = boundaryTypes(loader, read(loader, node.superName), visited);
+			mask |= match.mask;
+			if (namespace == null && match.namespace != null) namespace = match.namespace;
 		}
-		return null;
+		return new BoundaryTypes(mask, namespace);
+	}
+
+	private static BoundaryTypes apiType(String name) {
+		for (String namespace : new String[] {"javax/servlet", "jakarta/servlet"}) {
+			if (name.equals(namespace + "/FilterChain")) return new BoundaryTypes(FILTER_CHAIN, namespace);
+			if (name.equals(namespace + "/Servlet")) return new BoundaryTypes(SERVLET, namespace);
+			if (name.equals(namespace + "/ServletRequestListener")) return new BoundaryTypes(REQUEST_LISTENER, namespace);
+		}
+		return BoundaryTypes.NONE;
 	}
 
 	private static ClassNode read(ClassLoader loader, String name) {
@@ -82,6 +106,10 @@ final class RemoteHttpBoundaryTransformer implements ClassFileTransformer {
 			new ClassReader(in).accept(node, ClassReader.SKIP_CODE | ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES);
 			return node;
 		} catch (Exception ignored) { return null; }
+	}
+
+	private record BoundaryTypes(int mask, String namespace) {
+		private static final BoundaryTypes NONE = new BoundaryTypes(0, null);
 	}
 
 	private static final class LoaderClassWriter extends ClassWriter {
@@ -108,8 +136,6 @@ final class RemoteHttpBoundaryTransformer implements ClassFileTransformer {
 	private static final class BoundaryAdvice extends AdviceAdapter {
 		private final String header;
 		private Label start;
-		private Label end;
-		private Label handler;
 		private int scopeLocal;
 		private BoundaryAdvice(org.objectweb.asm.MethodVisitor visitor, int access, String name, String desc, String header) {
 			super(Opcodes.ASM9, visitor, access, name, desc);
@@ -119,8 +145,8 @@ final class RemoteHttpBoundaryTransformer implements ClassFileTransformer {
 			scopeLocal = newLocal(SCOPE);
 			loadArg(0);
 			push(header);
-			invokeStatic(Type.getObjectType("com/sap/oss/smarttestpicker/remote/RemoteTestContext"),
-					new Method("enter", "(Ljava/lang/Object;Ljava/lang/String;)Lcom/sap/oss/smarttestpicker/remote/RemoteTestContext$Scope;"));
+			invokeStatic(Type.getObjectType(CONTEXT), new Method("enter",
+					"(Ljava/lang/Object;Ljava/lang/String;)Lcom/sap/oss/smarttestpicker/remote/RemoteTestContext$Scope;"));
 			storeLocal(scopeLocal);
 			start = new Label();
 			mark(start);
@@ -129,8 +155,8 @@ final class RemoteHttpBoundaryTransformer implements ClassFileTransformer {
 			if (opcode != ATHROW) closeScope();
 		}
 		@Override public void visitMaxs(int maxStack, int maxLocals) {
-			end = new Label();
-			handler = new Label();
+			Label end = new Label();
+			Label handler = new Label();
 			mark(end);
 			visitTryCatchBlock(start, end, handler, null);
 			mark(handler);

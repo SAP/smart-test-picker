@@ -36,6 +36,9 @@ class RemoteAgentIntegrationTest {
 			assertEquals("b", get(client, root.resolve("b"), "test-B"));
 			assertEquals("interface-default", get(client, root.resolve("interface"), "test-interface"));
 			assertEquals(500, status(client, root.resolve("fail"), "test-fail"));
+			assertEquals("forward-target", get(client, root.resolve("forward-source"), "test-forward"));
+			assertTrue(get(client, root.resolve("include-source"), "test-include").contains("include-target"));
+			assertEquals("async-target", get(client, root.resolve("async"), "test-async"));
 			assertEquals("a", get(client, root.resolve("a"), null));
 			CompletableFuture<String> concurrentA = async(client, root.resolve("a"), "test-A-concurrent");
 			CompletableFuture<String> concurrentB = async(client, root.resolve("b"), "test-B-concurrent");
@@ -51,9 +54,23 @@ class RemoteAgentIntegrationTest {
 		assertMethods(json, "test-B", "FixtureServlet#doGet", "FixtureService#handleB", "FixtureRepository#readB");
 		assertMethods(json, "test-interface", "FixtureService#handleInterface", "FixtureGreeting#greet()Ljava/lang/String;");
 		assertMethods(json, "test-fail", "FixtureServlet#doGet", "FixtureService#fail", "FixtureRepository#fail");
+		assertMethods(json, "test-forward", "FixtureService#forwardSource", "FixtureService#forwardTarget", "FixtureRepository#forwardTarget");
+		assertMethods(json, "test-include", "FixtureService#includeSource", "FixtureService#includeTarget", "FixtureRepository#includeTarget");
+		assertMethods(json, "test-async", "FixtureService#asyncTarget", "FixtureRepository#asyncTarget");
 		assertMethods(json, "test-A-concurrent", "FixtureService#handleA", "FixtureRepository#readA");
 		assertMethods(json, "test-B-concurrent", "FixtureService#handleB", "FixtureRepository#readB");
-		assertEquals(6, occurrences(json, "\"testExecutionId\":"), "headerless requests must have no STP observation");
+		assertMethods(json, "test-A", "FixtureService#serviceBoundary", "FixtureRepository#servletService",
+				"FixtureService#afterFilterChain", "FixtureRepository#afterFilterChain",
+				"FixtureListenerApplication#initialized", "FixtureListenerApplication#destroyed",
+				"FixtureRepository#listenerInitialized", "FixtureRepository#listenerDestroyed");
+		assertMethods(json, "test-B", "FixtureService#serviceBoundary", "FixtureRepository#servletService",
+				"FixtureService#afterFilterChain", "FixtureRepository#afterFilterChain");
+		assertEquals(9, occurrences(json, "\"testExecutionId\":"), "headerless requests must have no STP observation");
+		for (String id : new String[] {"test-A", "test-B", "test-interface", "test-fail", "test-forward",
+				"test-include", "test-async", "test-A-concurrent", "test-B-concurrent"}) {
+			assertEquals(1, occurrences(json, "\"testExecutionId\":\"" + id + "\""), "duplicate observation for " + id);
+		}
+		assertFalse(json.contains("FixtureRepository#readOrdinary"), "headerless request must not inherit a thread context");
 		assertFalse(section(json, "test-A").contains("handleB"));
 		assertFalse(section(json, "test-B").contains("handleA"));
 		assertFalse(section(json, "test-A-concurrent").contains("handleB"));
