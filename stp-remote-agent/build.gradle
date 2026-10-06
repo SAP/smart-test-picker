@@ -65,8 +65,8 @@ tasks.register('petclinicRemoteTest', Test) {
     classpath = sourceSets.petclinicRemoteTest.runtimeClasspath
     useJUnitPlatform()
     dependsOn project(':stp-agent').tasks.named('agentJar')
-    extensions.configure(org.gradle.testing.jacoco.plugins.JacocoTaskExtension) {
-        enabled = false
+    extensions.configure(org.gradle.testing.jacoco.plugins.JacocoTaskExtension) { jacocoExtension ->
+        jacocoExtension.enabled = false
     }
 
     def clientOutput = providers.gradleProperty('petclinicClientOutput')
