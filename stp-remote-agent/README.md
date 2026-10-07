@@ -3,46 +3,183 @@ SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Smart Test P
 SPDX-License-Identifier: Apache-2.0
 -->
 
-# STP remote servlet request correlation agent POC
+# Remote STP Agent — server-side setup
 
-This independent Java agent records selected application method entries against the three-field request identity in OpenTelemetry Context. It has no dependency on `stp-agent`, `stp-runtime`, or a test framework; it uses the OpenTelemetry API and W3C Baggage.
+The Remote STP Agent records application methods executed for an HTTP test request. Test identity travels in OpenTelemetry W3C Baggage, is read from the active OpenTelemetry `Context`, and remains explicit in the resulting STP observation fragment.
 
-Build the shaded standalone agent with:
+The agent does not depend on JUnit, Karate, Spring, or another test framework. The test client is responsible for sending the STP Baggage values.
+
+## Requirements
+
+Build the standalone agent and copy of the OpenTelemetry Java agent from the repository root:
 
 ```bash
 ./gradlew :stp-remote-agent:remoteAgentJar :stp-remote-agent:copyOpenTelemetryJavaAgent
 ```
 
-Run the server JVM with an explicit output file and application package allow-list:
+This produces:
 
 ```text
--javaagent:/path/opentelemetry-javaagent.jar -javaagent:/path/stp-remote-agent.jar=output=/path/remote-observations.json;includes=com.example.application.;serviceId=pricing-service;instanceId=instance-123;revision=abc123
+stp-remote-agent/build/libs/stp-remote-agent.jar
+stp-remote-agent/build/otel-agent/opentelemetry-javaagent.jar
 ```
 
-`output=` is one file owned by this application JVM. Absolute paths are accepted; relative paths resolve against the JVM working directory and are normalized. Parent directories are created at startup. The agent takes an OS lock on `<output>.lock` and creates `<output>.inprogress` plus an empty output reservation. A completed existing schema-v2 output is never overwritten. A stale marker allows a later run to remove only this output's reservation/temp files; the immediately previous contract's empty reservation and exact `<output>.tmp` are also recognized for migration. The default `flushIntervalSeconds=60` periodically checkpoints a cumulative schema-v2 snapshot; values must be at least `1`. Pending memory is compacted only after successful persistence, and clean shutdown writes a final checkpoint before removing the marker. A hard crash loses only observations since the last successful checkpoint. See [the output contract](../docs/remote-stp-output-contract.md) for crash states, malformed-artifact handling, and restart behavior.
-
-Every fragment includes schema-v2 producer metadata under `source`: `serviceId`, `instanceId`, and `revision`. `serviceId` and `revision` are required either as agent parameters or through `STP_SERVICE_ID` and `STP_REVISION`. Instance selection is ordered: explicit `instanceId=`, the environment variable named by `instanceIdEnv=` (default `STP_INSTANCE_ID`), local hostname, then a generated `jvm-<UUID>`. The metadata describes the producer fragment and is repeated unchanged in persisted and debug snapshots.
-
-An optional `debugPort=<1..65535>` starts an agent-owned JDK HTTP server on loopback only. `GET /stp/debug/memory` returns pending, not-yet-checkpointed observations; `GET /stp/debug/output` returns the latest successfully persisted checkpoint or JSON 404 before the first checkpoint; `GET /stp/debug/snapshot` returns the method-set union of persisted and pending observations. These endpoints do not flush or mutate recorder state. The debug listener is disabled when the option is absent. Do not expose it externally without operator-managed network controls; this debug endpoint has no authentication or TLS.
-
-Send the identity as standard W3C Baggage entries `stp.test.suite.id`, `stp.test.id`, and `stp.request.id`. Each value must be nonblank, at most 256 characters, and free of ISO control characters; partial or invalid identity sets are ignored. The OpenTelemetry Java agent must be attached first so its Servlet instrumentation extracts Baggage into `Context.current()`. STP reads the identity from that context when instrumented application methods execute. Comma-separated package prefixes are accepted. `excludes` can narrow an included prefix. No controller changes are needed.
-
-The OpenTelemetry agent owns normal Servlet request, dispatch, and request-thread context. STP keeps only weak listener-to-Context associations for delayed `AsyncListener`, `ReadListener`, and `WriteListener` callbacks, plus call-site adapters for direct Thread creation, `ScheduledExecutorService`, and late-registered `CompletableFuture` chained stages where the OTel-only fixtures showed gaps. These adapters capture and restore the complete OTel Context. Observations are deduplicated by method only within the exact suite/test/request tuple; separate RequestIDs remain separate records.
-
-Executor, ExecutorService, CompletableFuture `runAsync`/`supplyAsync`, Servlet async dispatch, and tested Spring MVC paths use OpenTelemetry automatic context propagation. Direct `new Thread(Runnable)`, including named/ThreadGroup variants, `Thread.startVirtualThread(Runnable)`, and `Thread.Builder.start(Runnable)` use a narrow STP call-site wrapper; Thread subclasses that override `run()` without a Runnable remain unsupported. The agent also wraps only `thenRunAsync` and `thenApplyAsync` calls where registration-time capture is needed after a later future completion. Scheduled executor overloads use a context bridge because the OTel-only test showed they did not capture identity at scheduling time. JDK classes themselves are never transformed. Runnable, Callable, and Function scopes restore the worker's prior OTel Context in `finally`.
-
-At server JVM shutdown, the agent atomically writes schema-version-2 JSON with explicit `testSuiteId`, `testId`, and `requestId` fields under `requests`. Synchronous dispatch, supported async callbacks, and task APIs are covered; unsupported async mechanisms remain outside this POC. This agent has no live export, storage, authentication contract, or cross-service propagation. STP Baggage values are trusted test metadata and should only be enabled in an isolated/test deployment protected from arbitrary callers.
-
-The automated integration fixture starts an embedded Servlet server in a child JVM with this agent attached, then makes real HTTP calls exercising dispatch, listener, executor submission, no-ID, exception, and concurrent-request paths. Jetty 11 exercises the `jakarta.servlet` path; transformed-class verification covers both Servlet namespaces.
-
-## PetClinic two-JVM proof
-
-To validate against the standalone Spring PetClinic checkout without changing its application code, run:
+Attach both agents to the server JVM, with OpenTelemetry first:
 
 ```bash
-PETCLINIC_DIR=/path/to/spring-petclinic-asm ./stp-remote-agent/petclinic-poc/run-two-jvm-poc.sh
+java \
+  -javaagent:/opt/otel/opentelemetry-javaagent.jar \
+  '-javaagent:/opt/stp/stp-remote-agent.jar=output=/var/stp/observations.json;includes=com.sap.commerce.;serviceId=commerce;revision=abc123' \
+  -jar application.jar
 ```
 
-`PETCLINIC_DIR` is required. The script builds PetClinic's executable jar with tests skipped, starts it as JVM A with this agent attached, then compiles and starts a small JDK `HttpClient` harness as JVM B. The default readiness probe is `GET /actuator/health`; `PROBE_PATH` can select another explicit path and the harness logs it. The probe must return HTTP 200 and never falls back to an application route. JVM B sends `GET /vets` with `vets-A`, `GET /owners/1` with `owner-B`, and a headerless `GET /vets`. It stops JVM A to flush observations and verifies the captured Vet and Owner controller paths, absence of cross-attribution, and absence of a headerless observation. Verification also prints the full method count for each execution ID without applying count thresholds. `PORT`, `OUTPUT_DIR`, and `OBSERVATIONS_NAME` can override defaults; the output defaults under this module's ignored `build/` directory and includes a provenance text file.
+The OpenTelemetry Java agent must be attached before STP so that its instrumentation extracts W3C Baggage into the current OpenTelemetry context. The STP agent checks that the OpenTelemetry Context API is available at startup.
 
-The harness is plain Java and does not start or depend on a PetClinic Spring test context. This POC verifies the JSON Vet route and the HTML Owner details route over real HTTP between separate JVMs.
+No controller, Servlet filter, Spring MVC, or Spring Security changes are required in the server application. Configure `includes` for the application classes you want to record, and configure the REST test client to send the STP Baggage entries described below.
+
+## Agent parameters
+
+Parameters are separated with semicolons. Quote the complete `-javaagent` argument in shell commands so the shell does not treat semicolons as command separators.
+
+| Parameter | Required | Meaning |
+| --- | --- | --- |
+| `output=<path>` | Yes | One local Remote STP fragment file owned by this JVM. Relative paths resolve against the JVM working directory and are normalized. |
+| `includes=<prefix>[,<prefix>...]` | Yes | Comma-separated Java class/package-name prefixes to instrument. |
+| `excludes=<prefix>[,<prefix>...]` | No | Prefixes excluded from instrumentation, even when they match an include. |
+| `serviceId=<id>` | Yes* | Logical application/service that produced this fragment. |
+| `instanceId=<id>` | No | Explicit identity for this application instance. |
+| `instanceIdEnv=<name>` | No | Environment variable to use for the instance fallback; default is `STP_INSTANCE_ID`. |
+| `revision=<id>` | Yes* | Build or source revision running in this JVM. |
+| `flushIntervalSeconds=<N>` | No | Periodic checkpoint interval in seconds; default `60`, minimum `1`. |
+| `debugPort=<port>` | No | Starts the read-only debug HTTP server on loopback; valid ports are `1`–`65535`. |
+
+* `serviceId` and `revision` can be set either as agent parameters or as environment variables `STP_SERVICE_ID` and `STP_REVISION`. If neither source provides a nonblank, valid value, startup fails. Values must be no longer than 256 characters and contain no ISO control characters.
+
+### Package selection
+
+Use the narrowest prefixes that cover the application code of interest. These are prefixes, not regular expressions:
+
+```text
+includes=com.sap.cx.,de.hybris.platform.myextension.
+excludes=com.sap.cx.generated.
+```
+
+The agent records instrumented method entries from matching classes. It does not instrument the whole JVM unless a broad prefix is explicitly configured. See the [context propagation support matrix](../docs/remote-otel-context-propagation.md) for tested async boundaries and measured limitations.
+
+### Producer identity
+
+Each output fragment carries a `source` object with `serviceId`, `instanceId`, and `revision`. Instance selection follows this order:
+
+1. explicit `instanceId=`;
+2. the environment variable named by `instanceIdEnv=` (default `STP_INSTANCE_ID`);
+3. local hostname;
+4. generated `jvm-<UUID>` if hostname lookup is unavailable.
+
+The hostname fallback may identify multiple JVMs on the same host with the same value. Configure an explicit `instanceId` or a unique `STP_INSTANCE_ID` for deployments where multiple application instances can share a host. STP does not query Kubernetes or cloud metadata services.
+
+Example using environment values:
+
+```bash
+STP_SERVICE_ID=commerce STP_INSTANCE_ID=commerce-pod-17 STP_REVISION=abc123 \
+  java -javaagent:/opt/otel/opentelemetry-javaagent.jar \
+  '-javaagent:/opt/stp/stp-remote-agent.jar=output=/var/stp/observations.json;includes=com.sap.commerce.' \
+  -jar application.jar
+```
+
+## Test identity propagation
+
+The client sends these standard W3C Baggage entries on each HTTP request:
+
+```text
+stp.test.suite.id=<suite ID>
+stp.test.id=<test execution ID>
+stp.request.id=<request ID>
+```
+
+The three values identify one concrete request and must each be nonblank, at most 256 characters, and free of ISO control characters. Attribution is accepted only when all three values are present and valid. Missing, partial, or invalid STP identity produces no attributed observation. `RequestID` is supplied by the client; the server agent does not invent or replace it.
+
+For example, the HTTP header is standard `baggage`, not a custom `X-STP-*` header:
+
+```text
+baggage: stp.test.suite.id=checkout-suite,stp.test.id=scenario-17,stp.request.id=8d3f...
+```
+
+OpenTelemetry's default Java agent propagation includes W3C Baggage. Baggage is sent in HTTP headers, so use these values only on trusted test traffic and avoid sensitive data. See [OpenTelemetry Baggage](https://opentelemetry.io/docs/concepts/signals/baggage/) and the [Remote STP context propagation evidence](../docs/remote-otel-context-propagation.md).
+
+If telemetry export is not needed for the test run, the OpenTelemetry exporters can be disabled independently:
+
+```text
+-Dotel.traces.exporter=none
+-Dotel.metrics.exporter=none
+-Dotel.logs.exporter=none
+```
+
+This disables signal export; it does not disable the OpenTelemetry agent's context/Baggage propagation used by Remote STP. The Java agent configuration documents `none` as a supported exporter value for traces, metrics, and logs ([configuration reference](https://opentelemetry.io/docs/zero-code/java/agent/configuration/)).
+
+## Output and checkpoints
+
+`output=` names one fragment file for one application JVM. Parent directories are created automatically. A completed output is not overwritten or appended to: use a fresh path for each run. Startup reserves the path and creates run-state markers; an interrupted run is handled according to the [output lifecycle contract](../docs/remote-stp-output-contract.md).
+
+The default checkpoint interval is `flushIntervalSeconds=60`. Each successful checkpoint writes a cumulative schema-v2 output and only then compacts the checkpointed observations from memory. If a write fails, pending observations remain in memory and the previous valid output is preserved. Clean shutdown performs a final checkpoint. A hard crash can lose observations recorded since the last successful checkpoint; the agent cannot recover data that was only in memory.
+
+The fragment keeps request and producer fields structured:
+
+```json
+{
+  "schemaVersion": 2,
+  "source": {
+    "serviceId": "commerce",
+    "instanceId": "commerce-pod-17",
+    "revision": "abc123"
+  },
+  "requests": [
+    {
+      "testSuiteId": "checkout-suite",
+      "testId": "scenario-17",
+      "requestId": "8d3f...",
+      "methods": ["com.example.CartController#add()V"]
+    }
+  ]
+}
+```
+
+Methods are deduplicated within a request identity only. Different RequestIDs remain separate observations. The schema and file lifecycle are documented in the [output contract](../docs/remote-stp-output-contract.md).
+
+## Debug endpoints
+
+Set `debugPort=<port>` to start a separate JDK HTTP server bound to loopback. It is disabled by default and has no authentication or TLS; do not expose it outside a trusted host without operator-managed network controls.
+
+| Endpoint | Response |
+| --- | --- |
+| `GET /stp/debug/memory` | Pending observations not yet compacted after a successful checkpoint. |
+| `GET /stp/debug/output` | Latest successfully persisted checkpoint; returns JSON `404` before the first checkpoint. |
+| `GET /stp/debug/snapshot` | Read-only union of persisted output and pending memory. |
+
+All successful responses use schema-v2 observation JSON with source metadata. These endpoints do not flush, reset, or mutate recorder state.
+
+## Supported async boundaries
+
+The agent relies on OpenTelemetry automatic propagation where integration tests prove it is sufficient. Narrow STP call-site/listener adapters remain for measured gaps, including scheduled tasks, direct platform/virtual thread creation, selected late-registered `CompletableFuture` stages, and Servlet listener callbacks. The current tests exercise Servlet dispatch, Executor APIs, CompletableFuture paths, scheduled executors, direct threads, and selected Spring MVC async flows. This is not a claim of propagation through every Java framework or async API; see the [support matrix and evidence](../docs/remote-otel-context-propagation.md). Thread subclasses that override `run()` without a supplied `Runnable`, arbitrary untested executors, and async APIs outside that matrix are not covered by this POC.
+
+## PetClinic validation
+
+The repository includes a real two-JVM PetClinic proof. It uses `/actuator/health` for readiness, sends W3C Baggage from a separate HTTP harness, stops the server normally, and checks Vet/Owner attribution and the headerless case:
+
+```bash
+PETCLINIC_DIR=/path/to/spring-petclinic \
+  ./stp-remote-agent/petclinic-poc/run-two-jvm-poc.sh
+```
+
+The full harness requires the controlled PetClinic checkout described in the script. The standalone Karate E2E project and multi-instance experiments are documented separately and are not part of the Remote STP agent module.
+
+## Joining fragments
+
+Once fragment files have been collected, combine them locally with the CLI:
+
+```bash
+smart-test-picker join-remote \
+  --input ./fragments/*.json \
+  --output distributed-map.json
+```
+
+The join preserves test, request, service, instance, revision, and method data. It joins only the files supplied and does not retrieve fragments or determine whether a distributed test run is complete. See the [fragment join contract](../docs/remote-stp-fragment-join-contract.md).
