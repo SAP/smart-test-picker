@@ -4,6 +4,18 @@ Standalone command-line tool for the coverage pipeline, built with [picocli](htt
 
 ## Subcommands
 
+### join-remote
+
+Joins schema-v2 Remote STP fragments locally into the deterministic schema-v1 combined observation map. Every fragment must include producer `source` metadata. Different service/instance/revision tuples remain distinct, and methods are unioned only for the same test/request/source tuple. The command does not retrieve files or make network calls.
+
+```bash
+smart-test-picker join-remote \
+    --input ./fragments/*.json \
+    --output distributed-map.json
+```
+
+You can also repeat `--input` or list several paths after it. The shell expands unquoted globs before the CLI runs. Invalid inputs fail the whole command and identify the offending file. See [`remote-stp-fragment-join-contract.md`](../docs/remote-stp-fragment-join-contract.md) for the input rules and output model.
+
 ### exec-to-xml
 
 Converts per-test JaCoCo `.exec` files into XML reports.

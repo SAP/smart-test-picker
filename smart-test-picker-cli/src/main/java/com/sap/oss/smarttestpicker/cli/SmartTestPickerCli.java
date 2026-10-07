@@ -35,6 +35,7 @@ import picocli.CommandLine.Command;
 				ExecToXmlCommand.class,
 				GenerateMapCommand.class,
 				MergeMapsCommand.class,
+				JoinRemoteCommand.class,
 				QueryCommand.class,
 				SelectTestsCommand.class,
 				GenerateReportCommand.class,
