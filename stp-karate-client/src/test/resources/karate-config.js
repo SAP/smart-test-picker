@@ -1,11 +1,10 @@
 function fn() {
-  var suiteId = karate.sysprop('stp.testSuiteId');
-  var StpKarateClient = Java.type('com.sap.oss.smarttestpicker.karate.StpKarateClient');
+  // Ordinary application configuration; STP is installed once on the Java Runner.
   karate.configure('headers', function(request) {
-    var scenario = karate.scenario;
-    var feature = karate.feature;
-    return StpKarateClient.headers(request, suiteId, feature.prefixedPath,
-      scenario.sectionIndex, scenario.line, scenario.exampleIndex);
+    return { Authorization: 'Bearer fixture-token', 'X-Configured': 'preserved' };
   });
-  return {};
+  return {
+    baseUrl: karate.properties['fixture.baseUrl'],
+    injectedHeaders: JSON.parse(karate.properties['fixture.headers'] || '{}')
+  };
 }

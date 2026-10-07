@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.karate;
 
-import io.karatelabs.http.HttpRequest;
 import io.opentelemetry.api.baggage.Baggage;
 import io.opentelemetry.api.baggage.propagation.W3CBaggagePropagator;
 import io.opentelemetry.api.trace.propagation.W3CTraceContextPropagator;
@@ -20,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-/** Helpers called by Karate's run-wide {@code configure headers} callback. */
+/** Framework-neutral identity and W3C Baggage support for the Karate request hook. */
 public final class StpKarateClient {
 	public static final String SUITE_ID_PROPERTY = "stp.testSuiteId";
 	public static final String BAGGAGE_HEADER = "baggage";
@@ -29,13 +28,13 @@ public final class StpKarateClient {
 	public static final String REQUEST_ID_KEY = "stp.request.id";
 	private static final TextMapPropagator PROPAGATOR = TextMapPropagator.composite(
 			W3CTraceContextPropagator.getInstance(), W3CBaggagePropagator.getInstance());
-	private static final TextMapGetter<HttpRequest> REQUEST_GETTER = new TextMapGetter<>() {
-		@Override public Iterable<String> keys(HttpRequest request) {
-			return request == null || request.getHeaders() == null ? Collections.emptyList() : request.getHeaders().keySet();
+	private static final TextMapGetter<Map<String, List<String>>> REQUEST_GETTER = new TextMapGetter<>() {
+		@Override public Iterable<String> keys(Map<String, List<String>> request) {
+			return request == null ? Collections.emptyList() : request.keySet();
 		}
-		@Override public String get(HttpRequest request, String key) {
-			if (request == null || request.getHeaders() == null) return null;
-			return request.getHeaders().entrySet().stream().filter(entry -> entry.getKey().equalsIgnoreCase(key))
+		@Override public String get(Map<String, List<String>> request, String key) {
+			if (request == null) return null;
+			return request.entrySet().stream().filter(entry -> entry.getKey().equalsIgnoreCase(key))
 					.flatMap(entry -> entry.getValue().stream()).findFirst().orElse(null);
 		}
 	};
@@ -43,10 +42,11 @@ public final class StpKarateClient {
 	private StpKarateClient() { }
 
 	/** Injects W3C trace context and W3C Baggage for one concrete outgoing HTTP request. */
-	public static Map<String, String> headers(HttpRequest request, String suiteId, String featurePath,
+	static Map<String, String> headers(Map<String, List<String>> request, String suiteId, String featurePath,
 			int sectionIndex, int scenarioLine, int exampleIndex) {
 		suiteId = validate(suiteId, SUITE_ID_PROPERTY);
-		featurePath = validate(featurePath, "Karate feature path");		String testId = testId(featurePath, sectionIndex, scenarioLine, exampleIndex);
+		featurePath = validate(featurePath, "Karate feature path");
+		String testId = testId(featurePath, sectionIndex, scenarioLine, exampleIndex);
 		String requestId = requestId(request);
 		Context base = W3CBaggagePropagator.getInstance().extract(Context.current(), request, REQUEST_GETTER);
 		Baggage existing = Baggage.fromContext(base);
@@ -84,37 +84,23 @@ public final class StpKarateClient {
 			throw new IllegalStateException("Conflicting STP baggage entry " + key + ": expected '" + expected + "' but found '" + value + "'");
 	}
 
-	private static String requestId(HttpRequest request) {
-		String existing = null;
-		if (request != null && request.getHeaders() != null) {
-			List<Map.Entry<String, List<String>>> matches = request.getHeaders().entrySet().stream()
+	private static String requestId(Map<String, List<String>> request) {
+		if (request != null) {
+			List<Map.Entry<String, List<String>>> matches = request.entrySet().stream()
 					.filter(entry -> entry.getKey().equalsIgnoreCase(BAGGAGE_HEADER)).toList();
+			if (matches.size() > 1) throw new IllegalStateException("Duplicate W3C Baggage headers are not supported for STP identity");
 			if (!matches.isEmpty()) {
-				if (matches.size() != 1) throw new IllegalStateException("Duplicate W3C Baggage headers are not supported for STP identity");
-				String baggage = String.join(",", matches.getFirst().getValue());
-				for (String member : baggage.split(",")) {
-					String[] pair = member.trim().split("=", 2);
-					if (pair.length == 2 && REQUEST_ID_KEY.equals(pair[0].trim())) {
-						if (existing != null) throw new IllegalStateException("Duplicate STP RequestID baggage entry");
-						existing = decodeBaggageValue(pair[1].split(";", 2)[0].trim());
+				for (String member : String.join(",", matches.get(0).getValue()).split(",")) {
+					String key = member.trim().split("=", 2)[0].trim();
+					if (REQUEST_ID_KEY.equals(key)) {
+						throw new IllegalStateException("Preexisting STP RequestID is not allowed: stp-karate-client generates a new RequestID for each HTTP attempt; remove STP configure headers integration or manually supplied RequestID");
 					}
 				}
 			}
 		}
-		if (existing == null) return UUID.randomUUID().toString();
-		if (!validUuid(existing)) throw new IllegalStateException("Malformed STP RequestID baggage entry");
-		return existing;
+		return UUID.randomUUID().toString();
 	}
 
-	private static String decodeBaggageValue(String value) {
-		try { return java.net.URLDecoder.decode(value.replace("+", "%2B"), StandardCharsets.UTF_8); }
-		catch (IllegalArgumentException malformed) { throw new IllegalStateException("Malformed STP RequestID baggage entry", malformed); }
-	}
-	private static boolean validUuid(String value) {
-		if (value == null || value.length() > 256 || value.chars().anyMatch(Character::isISOControl)) return false;
-		try { return UUID.fromString(value).toString().equalsIgnoreCase(value); }
-		catch (IllegalArgumentException invalid) { return false; }
-	}
 	private static String validate(String value, String source) {
 		if (value == null || value.isBlank()) throw new IllegalArgumentException(source + " must be configured and non-empty");
 		if (value.length() > 256) throw new IllegalArgumentException(source + " exceeds 256 characters");

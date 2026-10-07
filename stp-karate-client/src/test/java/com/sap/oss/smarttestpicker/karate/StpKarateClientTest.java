@@ -3,9 +3,9 @@
 package com.sap.oss.smarttestpicker.karate;
 
 import com.sun.net.httpserver.HttpServer;
-import io.karatelabs.core.Runner;
-import io.karatelabs.core.SuiteResult;
-import io.karatelabs.http.HttpRequest;
+import com.intuit.karate.Runner;
+import com.intuit.karate.Results;
+import com.intuit.karate.http.HttpRequest;
 import io.opentelemetry.api.baggage.Baggage;
 import io.opentelemetry.api.baggage.propagation.W3CBaggagePropagator;
 import io.opentelemetry.context.Context;
@@ -31,12 +31,12 @@ class StpKarateClientTest {
 	private RecordingServer server;
 
 	@BeforeEach void startServer() throws Exception { server = new RecordingServer(); }
-	@AfterEach void stopServer() { server.close(); }
+	@AfterEach void stopServer() { server.close(); assertTrue(server.headerErrors.isEmpty(), server.headerErrors.toString()); }
 
 	@Test void enrichesEveryRequestInOneScenarioWithOneSuiteAndTestIdentity() {
-		SuiteResult result = run("classpath:features/workflow.feature", "Suite-A", Map.of());
-		assertTrue(result.isPassed(), result.getErrors().toString());
-		assertEquals(1, result.getScenarioPassedCount());
+		Results result = run("classpath:features/workflow.feature", "Suite-A", Map.of());
+		assertEquals(0, result.getFailCount(), result.getErrorMessages());
+		assertEquals(1, result.getScenariosPassed());
 		assertEquals(2, server.records.size());
 		assertEquals("step-one", server.records.get(0).operation);
 		assertEquals("step-two", server.records.get(1).operation);
@@ -47,13 +47,13 @@ class StpKarateClientTest {
 	}
 
 	@Test void sameKarateScenarioInDifferentSuitesHasDifferentSuiteIdentity() {
-		SuiteResult suiteA = run("classpath:features/single.feature", "Suite-A", Map.of());
-		RecordedRequest requestA = server.records.getFirst();
+		Results suiteA = run("classpath:features/single.feature", "Suite-A", Map.of());
+		RecordedRequest requestA = server.records.get(0);
 		server.records.clear();
-		SuiteResult suiteB = run("classpath:features/single.feature", "Suite-B", Map.of());
-		RecordedRequest requestB = server.records.getFirst();
-		assertTrue(suiteA.isPassed(), suiteA.getErrors().toString());
-		assertTrue(suiteB.isPassed(), suiteB.getErrors().toString());
+		Results suiteB = run("classpath:features/single.feature", "Suite-B", Map.of());
+		RecordedRequest requestB = server.records.get(0);
+		assertEquals(0, suiteA.getFailCount(), suiteA.getErrorMessages());
+		assertEquals(0, suiteB.getFailCount(), suiteB.getErrorMessages());
 		assertEquals(requestA.testId, requestB.testId, "TestID represents the same Karate scenario execution");
 		assertNotEquals(requestA.requestId, requestB.requestId, "repeated executions get independent request IDs");
 		assertNotEquals(requestA.suiteId, requestB.suiteId);
@@ -62,9 +62,9 @@ class StpKarateClientTest {
 	}
 
 	@Test void distinctFeaturesAndParallelScenariosDoNotShareTestIdentity() {
-		SuiteResult parallel = runner("classpath:features/parallel.feature", "Suite-Parallel", Map.of()).parallel(2);
-		assertTrue(parallel.isPassed(), parallel.getErrors().toString());
-		assertEquals(2, parallel.getScenarioPassedCount());
+		Results parallel = runner("classpath:features/parallel.feature", "Suite-Parallel", Map.of()).parallel(2);
+		assertEquals(0, parallel.getFailCount(), parallel.getErrorMessages());
+		assertEquals(2, parallel.getScenariosPassed());
 		assertEquals(2, server.records.size());
 		assertNotEquals(server.records.get(0).testId, server.records.get(1).testId);
 		assertNotEquals(server.records.get(0).requestId, server.records.get(1).requestId);
@@ -74,15 +74,15 @@ class StpKarateClientTest {
 		Set<String> parallelIds = server.records.stream().map(RecordedRequest::testId).collect(java.util.stream.Collectors.toSet());
 
 		server.records.clear();
-		SuiteResult otherFeature = run("classpath:features/other.feature", "Suite-Parallel", Map.of());
-		assertTrue(otherFeature.isPassed(), otherFeature.getErrors().toString());
-		assertFalse(parallelIds.contains(server.records.getFirst().testId), "a different feature must have a different TestID");
+		Results otherFeature = run("classpath:features/other.feature", "Suite-Parallel", Map.of());
+		assertEquals(0, otherFeature.getFailCount(), otherFeature.getErrorMessages());
+		assertFalse(parallelIds.contains(server.records.get(0).testId), "a different feature must have a different TestID");
 	}
 
 	@Test void scenarioOutlineRowsHaveDistinctRuntimeTestIds() {
-		SuiteResult result = run("classpath:features/outline.feature", "Suite-Outline", Map.of());
-		assertTrue(result.isPassed(), result.getErrors().toString());
-		assertEquals(2, result.getScenarioPassedCount(), "Karate expands the two example rows into two Scenario executions");
+		Results result = run("classpath:features/outline.feature", "Suite-Outline", Map.of());
+		assertEquals(0, result.getFailCount(), result.getErrorMessages());
+		assertEquals(2, result.getScenariosPassed(), "Karate expands the two example rows into two Scenario executions");
 		assertEquals(2, server.records.size());
 		assertNotEquals(server.records.get(0).testId, server.records.get(1).testId);
 		assertNotEquals(server.records.get(0).requestId, server.records.get(1).requestId);
@@ -91,59 +91,70 @@ class StpKarateClientTest {
 
 	@Test void allowsMatchingExistingStpHeadersAndFailsOnConflictsBeforeSend() {
 		String feature = "classpath:features/preconfigured-headers.feature";
-		SuiteResult initial = run(feature, "Suite-Headers", Map.of());
-		assertTrue(initial.isPassed(), initial.getErrors().toString());
-		RecordedRequest generated = server.records.getFirst();
+		Results initial = run(feature, "Suite-Headers", Map.of());
+		assertEquals(0, initial.getFailCount(), initial.getErrorMessages());
+		RecordedRequest generated = server.records.get(0);
 		server.records.clear();
 
-		SuiteResult matching = run(feature, "Suite-Headers", Map.of(StpKarateClient.BAGGAGE_HEADER,
-				baggage(generated.suiteId, generated.testId, generated.requestId)));
-		assertTrue(matching.isPassed(), matching.getErrors().toString());
+		Results matching = run(feature, "Suite-Headers", Map.of(StpKarateClient.BAGGAGE_HEADER,
+				baggage(generated.suiteId, generated.testId)));
+		assertEquals(0, matching.getFailCount(), matching.getErrorMessages());
 		assertRequestIdentities(server.records, "Suite-Headers");
-		assertEquals(generated.testId, server.records.getFirst().testId);
-		assertEquals(generated.requestId, server.records.getFirst().requestId, "matching pre-existing RequestID is reused");
+		assertEquals(generated.testId, server.records.get(0).testId);
+		assertNotEquals(generated.requestId, server.records.get(0).requestId, "matching logical identity still gets a fresh request ID");
 		server.records.clear();
 
-		SuiteResult conflict = run(feature, "Suite-Headers", Map.of(StpKarateClient.BAGGAGE_HEADER,
-				baggage("wrong-suite", generated.testId, generated.requestId)));
-		assertEquals(1, conflict.getScenarioFailedCount());
-		assertTrue(conflict.getErrors().stream().anyMatch(error -> error.contains("Conflicting STP baggage entry")),
-				conflict.getErrors().toString());
+		Results conflict = run(feature, "Suite-Headers", Map.of(StpKarateClient.BAGGAGE_HEADER,
+				baggage("wrong-suite", generated.testId)));
+		assertEquals(1, conflict.getFailCount());
+		assertTrue(conflict.getErrorMessages().contains("Conflicting STP baggage entry"),
+				conflict.getErrorMessages());
 		assertTrue(server.records.isEmpty(), "conflicting identity must fail before the request is sent");
 		HttpRequest malformed = new HttpRequest();
 		malformed.putHeader(StpKarateClient.BAGGAGE_HEADER, "stp.request.id=not-a-uuid");
-		assertThrows(IllegalStateException.class, () -> StpKarateClient.headers(malformed, "Suite-A", "features/a.feature", 1, 2, -1));
+		assertThrows(IllegalStateException.class, () -> StpKarateClient.headers(malformed.getHeaders(), "Suite-A", "features/a.feature", 1, 2, -1));
 		HttpRequest duplicate = new HttpRequest();
 		duplicate.putHeader(StpKarateClient.BAGGAGE_HEADER, "stp.request.id=" + java.util.UUID.randomUUID()
 				+ ",stp.request.id=" + java.util.UUID.randomUUID());
-		assertThrows(IllegalStateException.class, () -> StpKarateClient.headers(duplicate, "Suite-A", "features/a.feature", 1, 2, -1));
+		assertThrows(IllegalStateException.class, () -> StpKarateClient.headers(duplicate.getHeaders(), "Suite-A", "features/a.feature", 1, 2, -1));
 	}
 
 	@Test void readsSuiteIdFromTheRunLevelSystemProperty() {
-		SuiteResult result = runner("classpath:features/single.feature", "Suite-System-Property", Map.of()).parallel(1);
-		assertTrue(result.isPassed(), result.getErrors().toString());
-		assertEquals("Suite-System-Property", server.records.getFirst().suiteId);
+		String previous = System.getProperty(StpKarateClient.SUITE_ID_PROPERTY);
+		try {
+			System.setProperty(StpKarateClient.SUITE_ID_PROPERTY, "Suite-System-Property");
+			Results result = Runner.path("classpath:features/single.feature")
+					.hook(StpKarateHook.fromSystemProperties())
+					.systemProperty("fixture.baseUrl", server.baseUrl()).outputHtmlReport(false).parallel(1);
+			assertEquals(0, result.getFailCount(), result.getErrorMessages());
+			assertEquals("Suite-System-Property", server.records.get(0).suiteId);
+		} finally {
+			if (previous == null) System.clearProperty(StpKarateClient.SUITE_ID_PROPERTY);
+			else System.setProperty(StpKarateClient.SUITE_ID_PROPERTY, previous);
+		}
 	}
 
 	@Test void rejectsInvalidSuiteIdAndHeaderConflicts() {
 		assertThrows(IllegalArgumentException.class,
-				() -> StpKarateClient.headers(new HttpRequest(), "bad\r\nheader", "features/a.feature", 1, 2, -1));
+				() -> StpKarateClient.headers(Map.of(), "bad\r\nheader", "features/a.feature", 1, 2, -1));
 		HttpRequest request = new HttpRequest();
 		request.putHeader(StpKarateClient.BAGGAGE_HEADER, StpKarateClient.TEST_ID_KEY + "=wrong");
 		IllegalStateException conflict = assertThrows(IllegalStateException.class,
-				() -> StpKarateClient.headers(request, "Suite-A", "features/a.feature", 1, 2, -1));
+				() -> StpKarateClient.headers(request.getHeaders(), "Suite-A", "features/a.feature", 1, 2, -1));
 		assertTrue(conflict.getMessage().contains(StpKarateClient.TEST_ID_KEY));
 	}
 
-	private SuiteResult run(String feature, String suiteId, Map<String, Object> injectedHeaders) {
+	private Results run(String feature, String suiteId, Map<String, Object> injectedHeaders) {
 		return runner(feature, suiteId, injectedHeaders).parallel(1);
 	}
 
 	private Runner.Builder runner(String feature, String suiteId, Map<String, Object> injectedHeaders) {
 		return Runner.path(feature)
-				.global("baseUrl", server.baseUrl())
-				.global("injectedHeaders", injectedHeaders)
-				.systemProperty(StpKarateClient.SUITE_ID_PROPERTY, suiteId);
+				.hook(new StpKarateHook(suiteId))
+				.systemProperty("fixture.baseUrl", server.baseUrl())
+				.systemProperty("fixture.headers", com.intuit.karate.JsonUtils.toJson(injectedHeaders))
+				.outputHtmlReport(false)
+				.reportDir("build/karate-reports/" + java.util.UUID.randomUUID());
 	}
 
 	private static void assertRequestIdentities(List<RecordedRequest> records, String suiteId) {
@@ -161,13 +172,75 @@ class StpKarateClientTest {
 		assertThrows(IllegalArgumentException.class, () -> StpKarateClient.resolveSuiteId(null, null));
 	}
 
-	private record RecordedRequest(String operation, String suiteId, String testId, String requestId, boolean concurrentArrival) { }
+	@Test void retryAttemptsAndNextRequestHaveUniqueIdsButKeepScenarioIdentity() {
+		Results result = run("classpath:features/retry.feature", "Suite-Retry", Map.of());
+		assertEquals(0, result.getFailCount(), result.getErrorMessages());
+		assertEquals(List.of("retry", "retry", "retry", "after-retry"),
+				server.records.stream().map(RecordedRequest::operation).toList());
+		assertRequestIdentities(server.records, "Suite-Retry");
+		assertEquals(1, server.records.stream().map(RecordedRequest::testId).distinct().count());
+	}
+
+	@Test void concurrentRetriesDoNotReuseOrMixRequestIds() {
+		Results result = runner("classpath:features/parallel-retry.feature", "Suite-Retry", Map.of()).parallel(2);
+		assertEquals(0, result.getFailCount(), result.getErrorMessages());
+		assertEquals(6, server.records.size());
+		assertRequestIdentities(server.records, "Suite-Retry");
+		assertTrue(server.records.stream().allMatch(RecordedRequest::concurrentArrival));
+		var groups = server.records.stream().collect(java.util.stream.Collectors.groupingBy(RecordedRequest::operation));
+		assertEquals(2, groups.size());
+		for (var group : groups.values()) {
+			assertEquals(3, group.size());
+			assertEquals(1, group.stream().map(RecordedRequest::testId).distinct().count());
+		}
+		assertEquals(2, server.records.stream().map(RecordedRequest::testId).distinct().count());
+	}
+
+	@Test void exhaustedRetriesStillHaveUniqueRequestIds() {
+		Results result = run("classpath:features/exhausted-retry.feature", "Suite-Retry", Map.of());
+		assertEquals(1, result.getFailCount());
+		assertTrue(result.getErrorMessages().contains("retry"), result.getErrorMessages());
+		assertEquals(2, server.records.size(), "Karate retry count is the total attempt limit");
+		assertRequestIdentities(server.records, "Suite-Retry");
+	}
+
+	@Test void sameSuiteAndTestRepeatedGetFreshRequestIds() {
+		assertEquals(0, run("classpath:features/single.feature", "Suite-A", Map.of()).getFailCount());
+		assertEquals(0, run("classpath:features/single.feature", "Suite-A", Map.of()).getFailCount());
+		assertEquals(2, server.records.size());
+		assertEquals(server.records.get(0).testId, server.records.get(1).testId);
+		assertRequestIdentities(server.records, "Suite-A");
+	}
+
+	@Test void preservesUnrelatedBaggageAndFeatureHeaders() {
+		Results result = run("classpath:features/preconfigured-headers.feature", "Suite-A",
+				Map.of("Baggage", "vendor=value", "X-Feature", "preserved"));
+		assertEquals(0, result.getFailCount(), result.getErrorMessages());
+		assertTrue(server.records.get(0).baggage.contains("vendor=value"));
+		assertEquals("preserved", server.records.get(0).featureHeader);
+	}
+
+	@Test void preexistingRequestIdIsRejectedBeforeNetworkRatherThanReused() {
+		for (String value : List.of(java.util.UUID.randomUUID().toString(), "bad", "",
+				java.util.UUID.randomUUID() + ",stp.request.id=" + java.util.UUID.randomUUID())) {
+			Results result = run("classpath:features/preconfigured-headers.feature", "Suite-A",
+					Map.of("baggage", "stp.request.id=" + value));
+			assertEquals(1, result.getFailCount());
+			assertTrue(result.getErrorMessages().contains("Preexisting STP RequestID"), result.getErrorMessages());
+			assertTrue(server.records.isEmpty());
+		}
+	}
+
+	private record RecordedRequest(String operation, String suiteId, String testId, String requestId,
+			boolean concurrentArrival, String baggage, String featureHeader) { }
 	private record TestIdentity(String testSuiteId, String testId, String requestId) { }
 
 	private static final class RecordingServer implements AutoCloseable {
 		private final HttpServer httpServer;
 		private final CountDownLatch parallelArrivals = new CountDownLatch(2);
 		private final List<RecordedRequest> records = new CopyOnWriteArrayList<>();
+		private final Map<String, java.util.concurrent.atomic.AtomicInteger> attempts = new java.util.concurrent.ConcurrentHashMap<>();
+		private final List<String> headerErrors = new CopyOnWriteArrayList<>();
 		private final java.util.concurrent.ExecutorService executor = Executors.newCachedThreadPool();
 		private RecordingServer() throws Exception {
 			httpServer = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);
@@ -181,12 +254,21 @@ class StpKarateClientTest {
 					catch (InterruptedException interrupted) { Thread.currentThread().interrupt(); }
 				}
 				TestIdentity identity = identity(exchange.getRequestHeaders().getFirst(StpKarateClient.BAGGAGE_HEADER));
-				records.add(new RecordedRequest(operation, identity.testSuiteId(), identity.testId(), identity.requestId(), concurrent));
+				records.add(new RecordedRequest(operation, identity.testSuiteId(), identity.testId(), identity.requestId(), concurrent,
+						exchange.getRequestHeaders().getFirst("baggage"), exchange.getRequestHeaders().getFirst("X-Feature")));
+				assertHeader(exchange, "Authorization", "Bearer fixture-token");
+				assertHeader(exchange, "X-Configured", "preserved");
+				int attempt = attempts.computeIfAbsent(operation, ignored -> new java.util.concurrent.atomic.AtomicInteger()).incrementAndGet();
+				int status = !operation.equals("after-retry") && operation.contains("retry")
+						&& (operation.contains("exhausted") || attempt <= 2) ? 503 : 200;
 				byte[] response = "ok".getBytes(StandardCharsets.UTF_8);
-				exchange.sendResponseHeaders(200, response.length);
+				exchange.sendResponseHeaders(status, response.length);
 				try (var output = exchange.getResponseBody()) { output.write(response); }
 			});
 			httpServer.start();
+		}
+		private void assertHeader(com.sun.net.httpserver.HttpExchange exchange, String key, String expected) {
+			if (!expected.equals(exchange.getRequestHeaders().getFirst(key))) headerErrors.add(key);
 		}
 		private String baseUrl() { return "http://127.0.0.1:" + httpServer.getAddress().getPort(); }
 		@Override public void close() { httpServer.stop(0); executor.shutdownNow(); }
@@ -210,8 +292,7 @@ class StpKarateClientTest {
 		return new TestIdentity(baggage.getEntryValue(StpKarateClient.SUITE_ID_KEY),
 				baggage.getEntryValue(StpKarateClient.TEST_ID_KEY), baggage.getEntryValue(StpKarateClient.REQUEST_ID_KEY));
 	}
-	private static String baggage(String suite, String test, String request) {
-		return StpKarateClient.SUITE_ID_KEY + "=" + suite + "," + StpKarateClient.TEST_ID_KEY + "=" + test
-				+ "," + StpKarateClient.REQUEST_ID_KEY + "=" + request;
+	private static String baggage(String suite, String test) {
+		return StpKarateClient.SUITE_ID_KEY + "=" + suite + "," + StpKarateClient.TEST_ID_KEY + "=" + test;
 	}
 }

@@ -4,16 +4,20 @@ plugins {
     id 'java-library'
 }
 
-description = 'Karate client integration for automatic STP suite and test identity headers'
+description = 'Karate 1.x client integration for STP request identity in W3C Baggage'
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
+tasks.withType(JavaCompile).configureEach { options.release = 17 }
+
 dependencies {
-    api 'io.karatelabs:karate-core:2.1.2'
+    // The test project supplies Karate; adding STP must not upgrade its runner.
+    compileOnlyApi 'io.karatelabs:karate-core:1.5.1'
     api 'io.opentelemetry:opentelemetry-api:1.66.0'
+    testImplementation 'io.karatelabs:karate-core:1.5.1'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
 }
