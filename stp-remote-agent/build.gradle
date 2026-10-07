@@ -18,12 +18,20 @@ sourceSets {
     }
 }
 
+configurations {
+    otelJavaAgent
+}
+
 dependencies {
     implementation 'org.ow2.asm:asm:9.8'
     implementation 'org.ow2.asm:asm-tree:9.8'
     implementation 'org.ow2.asm:asm-commons:9.8'
+    implementation 'io.opentelemetry:opentelemetry-api:1.66.0'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
     testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
+    testImplementation 'io.opentelemetry:opentelemetry-api:1.66.0'
+    testImplementation 'io.opentelemetry:opentelemetry-sdk:1.66.0'
+    otelJavaAgent 'io.opentelemetry.javaagent:opentelemetry-javaagent:2.32.0'
     testImplementation 'org.eclipse.jetty:jetty-server:11.0.25'
     testImplementation 'org.eclipse.jetty:jetty-servlet:11.0.25'
     testImplementation 'org.springframework:spring-webmvc:6.1.14'
@@ -35,6 +43,7 @@ dependencies {
     petclinicRemoteTestImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
     petclinicRemoteTestImplementation 'org.junit.jupiter:junit-jupiter-params:5.9.3'
     petclinicRemoteTestRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
+    petclinicRemoteTestImplementation 'io.opentelemetry:opentelemetry-api:1.66.0'
 }
 
 tasks.named('shadowJar') {
@@ -56,6 +65,12 @@ tasks.register('remoteAgentJar') {
     group = 'build'
     description = 'Builds the standalone STP remote servlet request correlation agent.'
     dependsOn tasks.named('shadowJar')
+}
+
+tasks.register('copyOpenTelemetryJavaAgent', Copy) {
+    from configurations.otelJavaAgent
+    into layout.buildDirectory.dir('otel-agent')
+    rename { 'opentelemetry-javaagent.jar' }
 }
 
 def petclinicClientAgentJar = project(':stp-agent').layout.buildDirectory.file('libs/stp-agent.jar')
@@ -101,8 +116,9 @@ tasks.register('petclinicRemoteTest', Test) {
 tasks.test {
     useJUnitPlatform()
     sourceSets.test.java.srcDir 'petclinic-poc'
-    dependsOn tasks.named('remoteAgentJar')
+    dependsOn tasks.named('remoteAgentJar'), tasks.named('copyOpenTelemetryJavaAgent')
     doFirst {
         systemProperty 'stp.remote.agent.jar', tasks.named('shadowJar').get().archiveFile.get().asFile.absolutePath
+        systemProperty 'stp.otel.agent.jar', layout.buildDirectory.file('otel-agent/opentelemetry-javaagent.jar').get().asFile.absolutePath
     }
 }

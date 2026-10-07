@@ -103,7 +103,7 @@ def main():
                 f"Vet methods cross-attributed to {test['testId']}: {methods}")
 
     require(control_status == "200", f"headerless control GET /vets returned {control_status}, expected 200")
-    print(f"HEADERLESS_CONTROL status={control_status}; no STP identity headers were sent")
+    print(f"HEADERLESS_CONTROL status={control_status}; no STP Baggage identity was sent")
     print(f"JOIN PASS: {len(remote_by_key)} remote request tuples exactly match client-emitted SuiteID/TestID/RequestID values")
     print(f"CLIENT STP instrumentation={client['configuration']['instrumentation']}; bytecodeModified={str(client['bytecodeModified']).lower()}")
 

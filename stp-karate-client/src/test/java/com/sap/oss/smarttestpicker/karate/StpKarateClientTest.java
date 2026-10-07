@@ -6,6 +6,10 @@ import com.sun.net.httpserver.HttpServer;
 import io.karatelabs.core.Runner;
 import io.karatelabs.core.SuiteResult;
 import io.karatelabs.http.HttpRequest;
+import io.opentelemetry.api.baggage.Baggage;
+import io.opentelemetry.api.baggage.propagation.W3CBaggagePropagator;
+import io.opentelemetry.context.Context;
+import io.opentelemetry.context.propagation.TextMapGetter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -92,26 +96,26 @@ class StpKarateClientTest {
 		RecordedRequest generated = server.records.getFirst();
 		server.records.clear();
 
-		SuiteResult matching = run(feature, "Suite-Headers", Map.of(
-				StpKarateClient.TEST_SUITE_HEADER, generated.suiteId,
-				StpKarateClient.TEST_ID_HEADER, generated.testId,
-				StpKarateClient.REQUEST_ID_HEADER, generated.requestId));
+		SuiteResult matching = run(feature, "Suite-Headers", Map.of(StpKarateClient.BAGGAGE_HEADER,
+				baggage(generated.suiteId, generated.testId, generated.requestId)));
 		assertTrue(matching.isPassed(), matching.getErrors().toString());
 		assertRequestIdentities(server.records, "Suite-Headers");
 		assertEquals(generated.testId, server.records.getFirst().testId);
 		assertEquals(generated.requestId, server.records.getFirst().requestId, "matching pre-existing RequestID is reused");
 		server.records.clear();
 
-		SuiteResult conflict = run(feature, "Suite-Headers", Map.of(StpKarateClient.TEST_SUITE_HEADER, "wrong-suite"));
+		SuiteResult conflict = run(feature, "Suite-Headers", Map.of(StpKarateClient.BAGGAGE_HEADER,
+				baggage("wrong-suite", generated.testId, generated.requestId)));
 		assertEquals(1, conflict.getScenarioFailedCount());
-		assertTrue(conflict.getErrors().stream().anyMatch(error -> error.contains("Conflicting STP request identity header")),
+		assertTrue(conflict.getErrors().stream().anyMatch(error -> error.contains("Conflicting STP baggage entry")),
 				conflict.getErrors().toString());
 		assertTrue(server.records.isEmpty(), "conflicting identity must fail before the request is sent");
 		HttpRequest malformed = new HttpRequest();
-		malformed.putHeader(StpKarateClient.REQUEST_ID_HEADER, "not-a-uuid");
+		malformed.putHeader(StpKarateClient.BAGGAGE_HEADER, "stp.request.id=not-a-uuid");
 		assertThrows(IllegalStateException.class, () -> StpKarateClient.headers(malformed, "Suite-A", "features/a.feature", 1, 2, -1));
 		HttpRequest duplicate = new HttpRequest();
-		duplicate.putHeader(StpKarateClient.REQUEST_ID_HEADER, List.of(java.util.UUID.randomUUID().toString(), java.util.UUID.randomUUID().toString()));
+		duplicate.putHeader(StpKarateClient.BAGGAGE_HEADER, "stp.request.id=" + java.util.UUID.randomUUID()
+				+ ",stp.request.id=" + java.util.UUID.randomUUID());
 		assertThrows(IllegalStateException.class, () -> StpKarateClient.headers(duplicate, "Suite-A", "features/a.feature", 1, 2, -1));
 	}
 
@@ -125,10 +129,10 @@ class StpKarateClientTest {
 		assertThrows(IllegalArgumentException.class,
 				() -> StpKarateClient.headers(new HttpRequest(), "bad\r\nheader", "features/a.feature", 1, 2, -1));
 		HttpRequest request = new HttpRequest();
-		request.putHeader("x-stp-test-id", "wrong");
+		request.putHeader(StpKarateClient.BAGGAGE_HEADER, StpKarateClient.TEST_ID_KEY + "=wrong");
 		IllegalStateException conflict = assertThrows(IllegalStateException.class,
 				() -> StpKarateClient.headers(request, "Suite-A", "features/a.feature", 1, 2, -1));
-		assertTrue(conflict.getMessage().contains("X-STP-Test-Id"));
+		assertTrue(conflict.getMessage().contains(StpKarateClient.TEST_ID_KEY));
 	}
 
 	private SuiteResult run(String feature, String suiteId, Map<String, Object> injectedHeaders) {
@@ -158,6 +162,7 @@ class StpKarateClientTest {
 	}
 
 	private record RecordedRequest(String operation, String suiteId, String testId, String requestId, boolean concurrentArrival) { }
+	private record TestIdentity(String testSuiteId, String testId, String requestId) { }
 
 	private static final class RecordingServer implements AutoCloseable {
 		private final HttpServer httpServer;
@@ -175,10 +180,8 @@ class StpKarateClientTest {
 					try { concurrent = parallelArrivals.await(3, TimeUnit.SECONDS); }
 					catch (InterruptedException interrupted) { Thread.currentThread().interrupt(); }
 				}
-				records.add(new RecordedRequest(operation,
-						exchange.getRequestHeaders().getFirst(StpKarateClient.TEST_SUITE_HEADER),
-						exchange.getRequestHeaders().getFirst(StpKarateClient.TEST_ID_HEADER),
-						exchange.getRequestHeaders().getFirst(StpKarateClient.REQUEST_ID_HEADER), concurrent));
+				TestIdentity identity = identity(exchange.getRequestHeaders().getFirst(StpKarateClient.BAGGAGE_HEADER));
+				records.add(new RecordedRequest(operation, identity.testSuiteId(), identity.testId(), identity.requestId(), concurrent));
 				byte[] response = "ok".getBytes(StandardCharsets.UTF_8);
 				exchange.sendResponseHeaders(200, response.length);
 				try (var output = exchange.getResponseBody()) { output.write(response); }
@@ -195,5 +198,20 @@ class StpKarateClientTest {
 			}
 			return "";
 		}
+	}
+
+	private static TestIdentity identity(String header) {
+		Context context = W3CBaggagePropagator.getInstance().extract(Context.root(), header,
+				new TextMapGetter<String>() {
+					@Override public Iterable<String> keys(String carrier) { return List.of(StpKarateClient.BAGGAGE_HEADER); }
+					@Override public String get(String carrier, String key) { return carrier; }
+				});
+		Baggage baggage = Baggage.fromContext(context);
+		return new TestIdentity(baggage.getEntryValue(StpKarateClient.SUITE_ID_KEY),
+				baggage.getEntryValue(StpKarateClient.TEST_ID_KEY), baggage.getEntryValue(StpKarateClient.REQUEST_ID_KEY));
+	}
+	private static String baggage(String suite, String test, String request) {
+		return StpKarateClient.SUITE_ID_KEY + "=" + suite + "," + StpKarateClient.TEST_ID_KEY + "=" + test
+				+ "," + StpKarateClient.REQUEST_ID_KEY + "=" + request;
 	}
 }

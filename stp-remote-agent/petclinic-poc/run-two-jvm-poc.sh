@@ -60,6 +60,7 @@ PETCLINIC_HEAD="$(git -C "$PETCLINIC_DIR" rev-parse HEAD)"
 PETCLINIC_DIRTY="false"
 [[ -z "$(git -C "$PETCLINIC_DIR" status --porcelain)" ]] || PETCLINIC_DIRTY="true"
 JAVA_VERSION="$(java -version 2>&1)"
+OTEL_AGENT_VERSION="2.32.0"
 if [[ "$PROBE_PATH" != /* ]]; then
 	echo "PROBE_PATH must start with '/': $PROBE_PATH" >&2
 	exit 2
@@ -78,11 +79,14 @@ Java version:
 $JAVA_VERSION
 Probe path: $PROBE_PATH
 PORT: $PORT
+OpenTelemetry Java agent: $OTEL_AGENT_VERSION
+OpenTelemetry API: 1.66.0
 EOF
 
 echo "Building standalone stp-remote-agent..."
-"$STP_ROOT/gradlew" -p "$STP_ROOT" :stp-remote-agent:remoteAgentJar --no-daemon --console=plain
+"$STP_ROOT/gradlew" -p "$STP_ROOT" :stp-remote-agent:remoteAgentJar :stp-remote-agent:copyOpenTelemetryJavaAgent --no-daemon --console=plain
 AGENT_JAR="$STP_ROOT/stp-remote-agent/build/libs/stp-remote-agent.jar"
+OTEL_AGENT_JAR="$STP_ROOT/stp-remote-agent/build/otel-agent/opentelemetry-javaagent.jar"
 
 echo "Building PetClinic executable jar (tests are not run)..."
 (cd "$PETCLINIC_DIR" && ./mvnw -q -Dmaven.test.skip=true package)
@@ -105,7 +109,7 @@ javac --release 17 -d "$HARNESS_CLASSES" "$SCRIPT_DIR/PetClinicHttpHarness.java"
 BASE_URL="http://127.0.0.1:$PORT"
 AGENT_OPTIONS="output=$OBSERVATIONS;includes=org.springframework.samples.petclinic."
 echo "Starting PetClinic JVM A at $BASE_URL with stp-remote-agent..."
-java "-javaagent:$AGENT_JAR=$AGENT_OPTIONS" -jar "$PETCLINIC_JAR" \
+java "-javaagent:$OTEL_AGENT_JAR" "-javaagent:$AGENT_JAR=$AGENT_OPTIONS" -jar "$PETCLINIC_JAR" \
 	--server.address=127.0.0.1 --server.port="$PORT" >"$SERVER_LOG" 2>&1 &
 SERVER_PID=$!
 

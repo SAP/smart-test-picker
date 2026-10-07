@@ -21,9 +21,11 @@ class RemoteScheduledExecutorIntegrationTest {
 		Path output = Files.createTempDirectory("stp-remote-scheduled-").resolve("observations.json");
 		Path log = output.resolveSibling("server.log");
 		Path agentJar = Path.of(System.getProperty("stp.remote.agent.jar"));
+		Path otelAgent = Path.of(System.getProperty("stp.otel.agent.jar"));
 		String java = Path.of(System.getProperty("java.home"), "bin", "java").toString();
 		String agentArgs = "output=" + output + ";includes=example.remote.;excludes=example.remote.ScheduledExecutorFixtureMain$InspectingScheduler";
-		Process process = new ProcessBuilder(java, "-javaagent:" + agentJar + "=" + agentArgs, "-cp",
+		Process process = new ProcessBuilder(java, "-Dotel.traces.exporter=none", "-Dotel.metrics.exporter=none",
+				"-Dotel.logs.exporter=none", "-javaagent:" + otelAgent, "-javaagent:" + agentJar + "=" + agentArgs, "-cp",
 				System.getProperty("java.class.path"), ScheduledExecutorFixtureMain.class.getName())
 				.redirectErrorStream(true).redirectOutput(log.toFile()).start();
 		try {
@@ -52,7 +54,7 @@ class RemoteScheduledExecutorIntegrationTest {
 			assertEquals("failed", get(client, root.resolve("failure/fail"), "sched-failure"));
 			String afterFailureWorker = get(client, root.resolve("after-failure/after"), "sched-after-failure");
 			assertEquals(workerA, afterFailureWorker, "scheduled worker remains reusable after an exception");
-			assertEquals("done", get(client, root.resolve("no-context"), null));
+			assertEquals("clear", get(client, root.resolve("no-context"), null));
 
 			assertEquals("scheduled", get(client, root.resolve("concurrent/A"), "sched-concurrent-A"));
 			assertEquals("scheduled", get(client, root.resolve("concurrent/B"), "sched-concurrent-B"));
@@ -60,10 +62,8 @@ class RemoteScheduledExecutorIntegrationTest {
 			var concurrentB = asyncGet(client, root.resolve("await-concurrent/B"));
 			assertEquals(200, concurrentA.get(10, TimeUnit.SECONDS).statusCode());
 			assertEquals(200, concurrentB.get(10, TimeUnit.SECONDS).statusCode());
-			String restoredContexts = get(client, root.resolve("restored-contexts"), null);
-			assertFalse(restoredContexts.isBlank());
-			for (String restored : restoredContexts.split(",")) assertEquals("<clear>", restored,
-					"every scheduled callback must restore the worker's prior context");
+			assertEquals("clear", get(client, root.resolve("no-context"), null),
+				"a later headerless task on the reused worker must not inherit a previous scheduled TestID");
 		} finally {
 			process.destroy();
 			if (!process.waitFor(5, TimeUnit.SECONDS)) process.destroyForcibly();
@@ -79,7 +79,7 @@ class RemoteScheduledExecutorIntegrationTest {
 		assertMethods(json, "sched-after-failure", "ScheduledRepository#afterFailure");
 		assertMethods(json, "sched-concurrent-A", "ScheduledRepository#concurrentA");
 		assertMethods(json, "sched-concurrent-B", "ScheduledRepository#concurrentB");
-		assertFalse(json.contains("ScheduledRepository#noContext"), "headerless scheduled work must remain unattributed");
+		assertFalse(json.contains("ScheduledRepository#noContext"), "headerless scheduled work remains unattributed");
 		assertFalse(section(json, "sched-C").contains("workerB"));
 		assertFalse(section(json, "sched-worker-B").contains("fixedRate"));
 		assertFalse(section(json, "sched-concurrent-A").contains("concurrentB"));

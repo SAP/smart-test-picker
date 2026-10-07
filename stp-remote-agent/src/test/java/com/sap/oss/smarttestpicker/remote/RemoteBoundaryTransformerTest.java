@@ -12,16 +12,16 @@ import java.io.StringWriter;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RemoteBoundaryTransformerTest {
-	@Test void recognizesAndWrapsBothServletNamespaces() throws Exception {
+	@Test void leavesServletAndSpringBoundariesToOpenTelemetryInBothNamespaces() throws Exception {
 		RemoteHttpBoundaryTransformer transformer = new RemoteHttpBoundaryTransformer();
-		assertValidTransformed(transformer, example.remote.javax.JavaxFilterChainFixture.class);
-		assertValidTransformed(transformer, example.remote.jakarta.JakartaFilterChainFixture.class);
-		assertValidTransformed(transformer, example.remote.javax.JavaxServletFixture.class);
-		assertValidTransformed(transformer, example.remote.jakarta.JakartaServletFixture.class);
-		assertValidTransformed(transformer, example.remote.javax.JavaxRequestListenerFixture.class);
-		assertValidTransformed(transformer, example.remote.jakarta.JakartaRequestListenerFixture.class);
-		assertAsyncTaskWrapped(transformer, example.remote.javax.JavaxAsyncContextFixture.class);
-		assertAsyncTaskWrapped(transformer, example.remote.jakarta.JakartaAsyncContextFixture.class);
+		assertUntransformed(transformer, example.remote.javax.JavaxFilterChainFixture.class);
+		assertUntransformed(transformer, example.remote.jakarta.JakartaFilterChainFixture.class);
+		assertUntransformed(transformer, example.remote.javax.JavaxServletFixture.class);
+		assertUntransformed(transformer, example.remote.jakarta.JakartaServletFixture.class);
+		assertUntransformed(transformer, example.remote.javax.JavaxRequestListenerFixture.class);
+		assertUntransformed(transformer, example.remote.jakarta.JakartaRequestListenerFixture.class);
+		assertUntransformed(transformer, example.remote.javax.JavaxAsyncContextFixture.class);
+		assertUntransformed(transformer, example.remote.jakarta.JakartaAsyncContextFixture.class);
 		assertAsyncListenerCallbacksWrapped(transformer, example.remote.javax.JavaxAsyncListenerFixture.class);
 		assertAsyncListenerCallbacksWrapped(transformer, example.remote.jakarta.JakartaAsyncListenerFixture.class);
 		assertIoBoundariesWrapped(transformer, example.remote.javax.JavaxIoFixtures.Reader.class,
@@ -32,47 +32,27 @@ class RemoteBoundaryTransformerTest {
 				example.remote.jakarta.JakartaIoFixtures.Output.class);
 	}
 
-	@Test void requestScopesRestoreParentAndSuppressMissingIds() {
-		Object requestA = TestRequests.request("test-A");
-		Object noHeader = TestRequests.noIdentity();
+	@Test void nestedOtelIdentityScopesRestoreParentAndSuppressMissingIdentity() {
+		RemoteRequestIdentity requestA = TestRequests.request("test-A");
+		RemoteRequestIdentity requestB = TestRequests.request("test-B");
 		try (var outer = RemoteTestContext.enter(requestA)) {
 			assertEquals("test-A", RemoteTestContext.currentId());
-			try (var nested = RemoteTestContext.enter(noHeader)) {
-				assertNull(RemoteTestContext.currentId());
-			}
+			try (var nested = RemoteTestContext.enter(requestB)) { assertEquals("test-B", RemoteTestContext.currentId()); }
 			assertEquals("test-A", RemoteTestContext.currentId());
 		}
-		assertNull(RemoteTestContext.currentId());
+		assertNull(RemoteTestContext.currentIdentity());
 	}
 
-	@Test void acceptedRequestAttributeWinsOverConflictingRedispatchHeader() {
-		TestRequests.Request request = TestRequests.request("test-original");
-		try (var initial = RemoteTestContext.enter(request)) {
-			assertEquals("test-original", RemoteTestContext.currentId());
-		}
-		assertEquals(new RemoteRequestIdentity("fixture-suite", "test-original", request.getHeader(RemoteRequestIdentity.REQUEST_ID_HEADER)), request.getAttribute("com.sap.oss.smarttestpicker.remote.requestIdentity"));
-		request.setHeader(RemoteRequestIdentity.TEST_ID_HEADER, "test-conflict");
-		try (var redispatch = RemoteTestContext.enter(request)) {
-			assertEquals("test-original", RemoteTestContext.currentId());
-		}
-		assertEquals("test-original", ((RemoteRequestIdentity) request.getAttribute("com.sap.oss.smarttestpicker.remote.requestIdentity")).testId());
-		assertNull(RemoteTestContext.currentId());
-	}
-
-	@Test void partialOrInvalidIdentityHeadersNeverCreatePartialAttribution() {
-		TestRequests.Request partial = TestRequests.request("partial-test");
-		partial.setHeader(RemoteRequestIdentity.REQUEST_ID_HEADER, null);
-		try (var scope = RemoteTestContext.enter(partial)) { assertNull(RemoteTestContext.currentIdentity()); }
-		TestRequests.Request invalid = TestRequests.request("invalid-test");
-		invalid.setHeader(RemoteRequestIdentity.REQUEST_ID_HEADER, "bad\nvalue");
-		try (var scope = RemoteTestContext.enter(invalid)) { assertNull(RemoteTestContext.currentIdentity()); }
+	@Test void invalidStructuredBaggageNeverCreatesPartialIdentity() {
+		assertThrows(IllegalArgumentException.class, () -> new RemoteRequestIdentity("suite", null, "request"));
+		assertThrows(IllegalArgumentException.class, () -> new RemoteRequestIdentity("suite", "test", "bad\nvalue"));
 		assertNull(RemoteTestContext.currentIdentity());
 	}
 
 	@Test void requestIdIsPartOfCapturedAndRestoredAsyncIdentity() throws Exception {
 		RemoteRequestIdentity expected;
 		Runnable wrapped;
-		TestRequests.Request request = TestRequests.request("full-identity");
+		RemoteRequestIdentity request = TestRequests.request("full-identity");
 		try (var scope = RemoteTestContext.enter(request)) {
 			expected = RemoteTestContext.currentIdentity();
 			wrapped = RemoteTestContext.wrap(() -> assertEquals(expected, RemoteTestContext.currentIdentity()));
@@ -132,27 +112,14 @@ class RemoteBoundaryTransformerTest {
 		assertNull(workerFailure.get());
 	}
 
-	@Test void asyncListenerScopeUsesRequestAttributeAndRestoresCallbackThreadContext() {
-		TestRequests.Request request = TestRequests.request("header-must-not-be-used");
-		request.setAttribute("com.sap.oss.smarttestpicker.remote.requestIdentity", new RemoteRequestIdentity("suite", "accepted-test-id", java.util.UUID.randomUUID().toString()));
-		FakeAsyncEvent event = new FakeAsyncEvent(new FakeAsyncContext(request));
-		try (var worker = RemoteTestContext.enter(TestRequests.request("worker-prior"))) {
-			try (var callback = RemoteTestContext.enterAsyncListener(event)) {
-				assertEquals("accepted-test-id", RemoteTestContext.currentId());
-			}
-			assertEquals("worker-prior", RemoteTestContext.currentId());
-		}
-		assertNull(RemoteTestContext.currentId());
-	}
-
 	@Test void listenerAssociationsAreIsolatedAndCanBeClearedOnReuse() {
 		Object listenerA = new Object();
 		Object listenerB = new Object();
 		try (var scope = RemoteTestContext.enter(TestRequests.request("test-A"))) {
-			RemoteTestContext.associateListener(listenerA, RemoteTestContext.capture());
+			RemoteTestContext.associateListener(listenerA);
 		}
 		try (var scope = RemoteTestContext.enter(TestRequests.request("test-B"))) {
-			RemoteTestContext.associateListener(listenerB, RemoteTestContext.capture());
+			RemoteTestContext.associateListener(listenerB);
 		}
 		java.util.concurrent.atomic.AtomicReference<Throwable> workerFailure = new java.util.concurrent.atomic.AtomicReference<>();
 		Thread worker = new Thread(() -> {
@@ -172,18 +139,25 @@ class RemoteBoundaryTransformerTest {
 		assertFalse(worker.isAlive(), "listener callback worker did not finish");
 		assertNull(workerFailure.get());
 		try (var scope = RemoteTestContext.enter(TestRequests.request("test-B-reused"))) {
-			RemoteTestContext.associateListener(listenerA, RemoteTestContext.capture());
+			RemoteTestContext.associateListener(listenerA);
 		}
 		try (var callback = RemoteTestContext.enterListenerCallback(listenerA)) {
 			assertEquals("test-B-reused", RemoteTestContext.currentId(), "listener re-registration replaces its old identity");
 		}
-		RemoteTestContext.associateListener(listenerA, null);
+		RemoteTestContext.clearListener(listenerA);
 		try (var callback = RemoteTestContext.enterListenerCallback(listenerA)) {
 			assertNull(RemoteTestContext.currentId(), "reusing an uncorrelated listener must clear its prior ID");
 		}
 		assertNull(RemoteTestContext.currentId());
 	}
 
+	private static void assertUntransformed(RemoteHttpBoundaryTransformer transformer, Class<?> fixture) throws Exception {
+		String resource = "/" + fixture.getName().replace('.', '/') + ".class";
+		try (var in = fixture.getResourceAsStream(resource)) {
+			assertNull(transformer.transform(fixture.getClassLoader(), fixture.getName().replace('.', '/'),
+					null, fixture.getProtectionDomain(), in.readAllBytes()), fixture.getName());
+		}
+	}
 	private static void assertValidTransformed(RemoteHttpBoundaryTransformer transformer, Class<?> fixture) throws Exception {
 		String resource = "/" + fixture.getName().replace('.', '/') + ".class";
 		byte[] bytes;
@@ -196,28 +170,6 @@ class RemoteBoundaryTransformerTest {
 		CheckClassAdapter.verify(new ClassReader(transformed), fixture.getClassLoader(), false,
 				new PrintWriter(diagnostics));
 		assertTrue(diagnostics.toString().isBlank(), diagnostics.toString());
-	}
-	private static void assertAsyncTaskWrapped(RemoteHttpBoundaryTransformer transformer, Class<?> fixture) throws Exception {
-		assertValidTransformed(transformer, fixture);
-		String resource = "/" + fixture.getName().replace('.', '/') + ".class";
-		byte[] bytes;
-		try (var in = fixture.getResourceAsStream(resource)) { bytes = in.readAllBytes(); }
-		byte[] transformed = transformer.transform(fixture.getClassLoader(), fixture.getName().replace('.', '/'),
-				null, fixture.getProtectionDomain(), bytes);
-		assertNotNull(transformed, fixture.getName());
-		java.util.concurrent.atomic.AtomicBoolean wraps = new java.util.concurrent.atomic.AtomicBoolean();
-		new ClassReader(transformed).accept(new org.objectweb.asm.ClassVisitor(org.objectweb.asm.Opcodes.ASM9) {
-			@Override public org.objectweb.asm.MethodVisitor visitMethod(int access, String name, String desc,
-					String signature, String[] exceptions) {
-				if (!name.equals("start") || !desc.equals("(Ljava/lang/Runnable;)V")) return null;
-				return new org.objectweb.asm.MethodVisitor(org.objectweb.asm.Opcodes.ASM9) {
-					@Override public void visitMethodInsn(int opcode, String owner, String called, String descriptor, boolean isInterface) {
-						if (owner.equals("com/sap/oss/smarttestpicker/remote/RemoteTestContext") && called.equals("wrap")) wraps.set(true);
-					}
-				};
-			}
-		}, 0);
-		assertTrue(wraps.get(), fixture.getName() + " AsyncContext.start must call RemoteTestContext.wrap");
 	}
 	private static void assertAsyncListenerCallbacksWrapped(RemoteHttpBoundaryTransformer transformer, Class<?> fixture) throws Exception {
 		assertValidTransformed(transformer, fixture);
@@ -233,7 +185,7 @@ class RemoteBoundaryTransformerTest {
 			if (!java.util.Set.of("onStartAsync", "onComplete", "onTimeout", "onError").contains(name)) return null;
 			return new org.objectweb.asm.MethodVisitor(org.objectweb.asm.Opcodes.ASM9) {
 				@Override public void visitMethodInsn(int opcode, String owner, String called, String descriptor, boolean isInterface) {
-					if (owner.equals("com/sap/oss/smarttestpicker/remote/RemoteTestContext") && called.equals("enterAsyncListener"))
+					if (owner.equals("com/sap/oss/smarttestpicker/remote/RemoteTestContext") && called.equals("enterListenerCallback"))
 						wrappedCallbacks.add(name);
 				}
 			};

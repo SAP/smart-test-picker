@@ -104,6 +104,8 @@ Java version:
 $JAVA_VERSION
 Port: $PORT
 Readiness probe: $PROBE_PATH
+OpenTelemetry Java agent: 2.32.0
+OpenTelemetry API: 1.66.0
 JVM B test task: :stp-remote-agent:petclinicRemoteTest
 JVM B test runner: Gradle Test worker running JUnit Jupiter
 JVM B STP agent arguments: output=$CLIENT_OUTPUT;runId=$CLIENT_RUN_ID;instrumentation=off;debug=false
@@ -112,8 +114,9 @@ JUnit parallel default mode: $([[ "$MODE" == "parallel" ]] && echo concurrent ||
 EOF
 
 echo "Building both agents..."
-"$STP_ROOT/gradlew" -p "$STP_ROOT" :stp-remote-agent:remoteAgentJar :stp-agent:agentJar --no-daemon --console=plain
+"$STP_ROOT/gradlew" -p "$STP_ROOT" :stp-remote-agent:remoteAgentJar :stp-remote-agent:copyOpenTelemetryJavaAgent :stp-agent:agentJar --no-daemon --console=plain
 AGENT_JAR="$STP_ROOT/stp-remote-agent/build/libs/stp-remote-agent.jar"
+OTEL_AGENT_JAR="$STP_ROOT/stp-remote-agent/build/otel-agent/opentelemetry-javaagent.jar"
 CLIENT_AGENT_JAR="$STP_ROOT/stp-agent/build/libs/stp-agent.jar"
 
 echo "Building PetClinic $PETCLINIC_HEAD..."
@@ -136,7 +139,7 @@ javac --release 17 -d "$HARNESS_CLASSES" "$SCRIPT_DIR/PetClinicHttpHarness.java"
 
 REMOTE_AGENT_OPTIONS="output=$REMOTE_OUTPUT;includes=org.springframework.samples.petclinic."
 echo "Starting PetClinic JVM A at $BASE_URL with readiness probe $PROBE_PATH..."
-java "-javaagent:$AGENT_JAR=$REMOTE_AGENT_OPTIONS" -jar "$PETCLINIC_JAR" \
+java "-javaagent:$OTEL_AGENT_JAR" "-javaagent:$AGENT_JAR=$REMOTE_AGENT_OPTIONS" -jar "$PETCLINIC_JAR" \
 	--server.address=127.0.0.1 --server.port="$PORT" >"$SERVER_LOG" 2>&1 &
 SERVER_PID=$!
 

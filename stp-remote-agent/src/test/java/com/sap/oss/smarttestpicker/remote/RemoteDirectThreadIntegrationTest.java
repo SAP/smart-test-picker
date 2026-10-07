@@ -81,9 +81,11 @@ class RemoteDirectThreadIntegrationTest {
 		Path output = Files.createTempDirectory("stp-remote-" + prefix + "-").resolve("observations.json");
 		Path log = output.resolveSibling("server.log");
 		Path agentJar = Path.of(System.getProperty("stp.remote.agent.jar"));
+		Path otelAgent = Path.of(System.getProperty("stp.otel.agent.jar"));
 		String java = Path.of(System.getProperty("java.home"), "bin", "java").toString();
 		String args = "output=" + output + ";includes=example.remote.";
-		Process process = new ProcessBuilder(java, "-javaagent:" + agentJar + "=" + args, "-cp",
+		Process process = new ProcessBuilder(java, "-Dotel.traces.exporter=none", "-Dotel.metrics.exporter=none",
+				"-Dotel.logs.exporter=none", "-javaagent:" + otelAgent, "-javaagent:" + agentJar + "=" + args, "-cp",
 				System.getProperty("java.class.path"), DirectThreadFixtureMain.class.getName())
 				.redirectErrorStream(true).redirectOutput(log.toFile()).start();
 		String port = awaitReady(process, log);

@@ -107,8 +107,8 @@ public final class PetClinicHttpHarness {
 
 	private static HttpResponse<String> send(URI uri, String suiteId, String testId) throws IOException, InterruptedException {
 		HttpRequest.Builder request = HttpRequest.newBuilder(uri).timeout(Duration.ofSeconds(10)).GET();
-		if (testId != null) request.header("X-STP-Test-Suite-Id", suiteId)
-				.header("X-STP-Test-Id", testId).header("X-STP-Request-Id", java.util.UUID.randomUUID().toString());
+		if (testId != null) request.header("baggage", "stp.test.suite.id=" + suiteId + ",stp.test.id=" + testId
+				+ ",stp.request.id=" + java.util.UUID.randomUUID());
 		return CLIENT.send(request.build(), HttpResponse.BodyHandlers.ofString());
 	}
 

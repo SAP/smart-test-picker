@@ -2,15 +2,15 @@
 
 This validation uses JUnit Jupiter as the concrete PetClinic test runner because
 the existing STP agent supports it. Remote STP remains test-framework independent:
-the server agent receives three opaque HTTP values and has no JUnit dependency.
-`X-STP-Test-Id` carries the existing STP `TestIdentity.platformUniqueId`; this does
-not require other REST test frameworks to use JUnit.
+the server agent receives three opaque W3C Baggage values and has no JUnit dependency.
+The `stp.test.id` baggage entry carries the existing STP
+`TestIdentity.platformUniqueId`; this does not require other REST test frameworks
+to use JUnit.
 
-The original run below predates RequestID and documented the then-current single-ID
-schema. The RequestID task reran both modes against the current three-header/schema-v2
-contract; its observed results are recorded in the RequestID E2E note in the standalone
-Karate project. The historical revision and raw evidence paths below refer to the
-original run.
+The original run below predates RequestID and W3C Baggage and records the earlier
+single-ID contract. The current Remote STP flow uses W3C Baggage with suite, test,
+and request IDs. The current OTel-backed PetClinic run is recorded in ignored build
+output and summarized in `remote-otel-context-propagation.md`.
 
 ## Revisions and runtime
 
@@ -19,6 +19,7 @@ original run.
 - PetClinic: `https://github.com/spring-projects/spring-petclinic.git`, commit
   `88e37c15cf6fc8490b01bc3e8e2c800cec1ac272`, clean.
 - Java: SapMachine OpenJDK 21.0.12.1 LTS.
+- OpenTelemetry Java agent: `2.32.0`; OpenTelemetry API: `1.66.0`.
 - Server readiness: `GET /actuator/health`.
 - JVM B: Gradle task `:stp-remote-agent:petclinicRemoteTest`, running JUnit Jupiter
   in a dedicated Gradle Test worker JVM.

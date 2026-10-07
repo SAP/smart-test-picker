@@ -27,9 +27,11 @@ class SpringMvcAsyncIntegrationTest {
 		Path observations = directory.resolve("observations.json");
 		Path log = directory.resolve("spring-server.log");
 		Path agent = Path.of(System.getProperty("stp.remote.agent.jar"));
+		Path otelAgent = Path.of(System.getProperty("stp.otel.agent.jar"));
 		String java = Path.of(System.getProperty("java.home"), "bin", "java").toString();
 		String args = "output=" + observations + ";includes=example.springremote.";
-		Process process = new ProcessBuilder(java, "-javaagent:" + agent + "=" + args, "-cp",
+		Process process = new ProcessBuilder(java, "-Dotel.traces.exporter=none", "-Dotel.metrics.exporter=none",
+				"-Dotel.logs.exporter=none", "-javaagent:" + otelAgent, "-javaagent:" + agent + "=" + args, "-cp",
 				System.getProperty("java.class.path"), SpringMvcFixtureMain.class.getName())
 				.redirectErrorStream(true).redirectOutput(log.toFile()).start();
 		try {

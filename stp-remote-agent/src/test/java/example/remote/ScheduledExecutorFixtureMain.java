@@ -30,7 +30,6 @@ public final class ScheduledExecutorFixtureMain {
 	private static final Map<String, Future<?>> TASKS = new ConcurrentHashMap<>();
 	private static final Map<String, Long> TASK_THREADS = new ConcurrentHashMap<>();
 	private static final Map<String, PeriodicState> PERIODIC = new ConcurrentHashMap<>();
-	private static final ConcurrentLinkedQueue<String> RESTORED_CONTEXTS = new ConcurrentLinkedQueue<>();
 	private static final CyclicBarrier CONCURRENT = new CyclicBarrier(2);
 	private ScheduledExecutorFixtureMain() { }
 
@@ -96,16 +95,14 @@ public final class ScheduledExecutorFixtureMain {
 					body = Long.toString(SINGLE.schedule((Callable<Long>) () -> ScheduledApplication.afterFailure(key), 0, TimeUnit.MILLISECONDS)
 							.get(5, TimeUnit.SECONDS));
 				} else if (path.equals("/no-context")) {
-					SINGLE.schedule(() -> ScheduledApplication.noContext(), 0, TimeUnit.MILLISECONDS).get(5, TimeUnit.SECONDS);
-					body = "done";
+					body = SINGLE.schedule((Callable<String>) ScheduledApplication::noContext,
+							0, TimeUnit.MILLISECONDS).get(5, TimeUnit.SECONDS);
 				} else if (path.startsWith("/concurrent/")) {
 					String key = suffix(path);
 					TASKS.put(key, PARALLEL.schedule(() -> ScheduledApplication.concurrent(key), 100, TimeUnit.MILLISECONDS));
 					body = "scheduled";
 				} else if (path.startsWith("/await-concurrent/")) {
 					TASKS.remove(suffix(path)).get(8, TimeUnit.SECONDS); body = "done";
-				} else if (path.equals("/restored-contexts")) {
-					body = String.join(",", RESTORED_CONTEXTS);
 				} else { response.sendError(404); return; }
 			} catch (Exception failure) { throw new IOException("scheduled executor fixture failed", failure); }
 			response.setStatus(200);
@@ -122,25 +119,9 @@ public final class ScheduledExecutorFixtureMain {
 		private volatile ScheduledFuture<?> future;
 	}
 
-	/** Records context after the bridge wrapper returns, outside the attributed task body. */
+	/** Records context from a later no-context task on the reused worker. */
 	public static final class InspectingScheduler extends ScheduledThreadPoolExecutor implements FixtureScheduledExecutor {
 		InspectingScheduler(int threads) { super(threads, task -> { Thread t = new Thread(task, "scheduled-fixture-worker"); t.setDaemon(true); return t; }); }
-		@Override public ScheduledFuture<?> schedule(Runnable task, long delay, TimeUnit unit) {
-			return super.schedule(() -> { try { task.run(); } finally { recordRestoredContext(); } }, delay, unit);
-		}
-		@Override public <V> ScheduledFuture<V> schedule(Callable<V> task, long delay, TimeUnit unit) {
-			return super.schedule(() -> { try { return task.call(); } finally { recordRestoredContext(); } }, delay, unit);
-		}
-		@Override public ScheduledFuture<?> scheduleAtFixedRate(Runnable task, long initialDelay, long period, TimeUnit unit) {
-			return super.scheduleAtFixedRate(() -> { try { task.run(); } finally { recordRestoredContext(); } }, initialDelay, period, unit);
-		}
-		@Override public ScheduledFuture<?> scheduleWithFixedDelay(Runnable task, long initialDelay, long delay, TimeUnit unit) {
-			return super.scheduleWithFixedDelay(() -> { try { task.run(); } finally { recordRestoredContext(); } }, initialDelay, delay, unit);
-		}
-		private static void recordRestoredContext() {
-			String id = RemoteTestContext.currentId();
-			RESTORED_CONTEXTS.add(id == null ? "<clear>" : id);
-		}
 	}
 
 	public static final class ScheduledApplication {
@@ -161,7 +142,11 @@ public final class ScheduledExecutorFixtureMain {
 		public static long workerB(String key) { ScheduledRepository.workerB(key); return Thread.currentThread().getId(); }
 		public static void failure(String key) { ScheduledRepository.failure(key); throw new IllegalStateException("expected scheduled failure"); }
 		public static long afterFailure(String key) { ScheduledRepository.afterFailure(key); return Thread.currentThread().getId(); }
-		public static void noContext() { ScheduledRepository.noContext(); }
+		public static String noContext() {
+			ScheduledRepository.noContext();
+			String id = RemoteTestContext.currentId();
+			return id == null ? "clear" : "leaked:" + id;
+		}
 		public static void concurrent(String key) {
 			ScheduledRepository.concurrent(key);
 			try { CONCURRENT.await(5, TimeUnit.SECONDS); }

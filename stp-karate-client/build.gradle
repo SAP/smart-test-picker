@@ -13,6 +13,7 @@ java {
 
 dependencies {
     api 'io.karatelabs:karate-core:2.1.2'
+    api 'io.opentelemetry:opentelemetry-api:1.66.0'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
 }

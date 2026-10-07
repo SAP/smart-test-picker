@@ -2,7 +2,7 @@
 
 This note records a test-only measurement of Spring MVC asynchronous execution against the existing Remote STP propagation in `research/asm-codex-remote` at `2509be3c16aba18362d15713e2d4ff11bbc97d4e` (the fixture and this note are uncommitted additions). No production instrumentation was changed.
 
-The fixture uses Spring MVC 6.1.14, Jetty 11.0.25, Jakarta Servlet 5.0, and Java 21. It starts a real Spring MVC application in a child JVM with `stp-remote-agent`; a separate test JVM sends real HTTP requests carrying `X-STP-Test-Execution-Id`. The fixture logs request and callback thread names, the `RemoteTestContext` ID seen in application methods, and monotonic timestamps. The test checks that asynchronous application work occurs after the initial Servlet REQUEST dispatch has returned where the API allows it.
+The fixture uses Spring MVC 6.1.14, Jetty 11.0.25, Jakarta Servlet 5.0, and Java 21. It starts a real Spring MVC application in a child JVM with the OpenTelemetry Java agent and `stp-remote-agent`; a separate test JVM sends real HTTP requests with STP identity in W3C Baggage. The fixture logs request and callback thread names, the `RemoteTestContext` ID seen in application methods, and monotonic timestamps. The test checks that asynchronous application work occurs after the initial Servlet REQUEST dispatch has returned where the API allows it. The current measured support matrix is in `remote-otel-context-propagation.md`.
 
 ## Results
 

@@ -5,6 +5,11 @@ package com.sap.oss.smarttestpicker.remote.petclinic;
 import com.sap.oss.smarttestpicker.runtime.RuntimeContextRegistry;
 import com.sap.oss.smarttestpicker.runtime.RuntimeContextService;
 import com.sap.oss.smarttestpicker.runtime.model.TestIdentity;
+import io.opentelemetry.api.baggage.Baggage;
+import io.opentelemetry.api.baggage.propagation.W3CBaggagePropagator;
+import io.opentelemetry.api.trace.propagation.W3CTraceContextPropagator;
+import io.opentelemetry.context.Context;
+import io.opentelemetry.context.propagation.TextMapPropagator;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -13,6 +18,8 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Optional;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.UUID;
 
 /** JUnit validation-only HTTP client that forwards the active STP platform unique ID. */
@@ -21,6 +28,8 @@ final class PetClinicTestHttpClient {
 	private static final HttpClient CLIENT = HttpClient.newBuilder()
 			.connectTimeout(Duration.ofSeconds(5)).build();
 	private static final URI BASE_URI = URI.create(System.getProperty("petclinic.baseUrl"));
+	private static final TextMapPropagator PROPAGATOR = TextMapPropagator.composite(
+			W3CTraceContextPropagator.getInstance(), W3CBaggagePropagator.getInstance());
 
 	private PetClinicTestHttpClient() { }
 
@@ -38,13 +47,15 @@ final class PetClinicTestHttpClient {
 			String invalidReason = invalidIdentityReason(uniqueId);
 			if (invalidReason == null) {
 				String requestId = UUID.randomUUID().toString();
-				request.header("X-STP-Test-Suite-Id", SUITE_ID)
-						.header("X-STP-Test-Id", uniqueId)
-						.header("X-STP-Request-Id", requestId);
+				Baggage baggage = Baggage.builder().put("stp.test.suite.id", SUITE_ID)
+						.put("stp.test.id", uniqueId).put("stp.request.id", requestId).build();
+				Map<String, String> propagated = new LinkedHashMap<>();
+				PROPAGATOR.inject(baggage.storeInContext(Context.root()), propagated, Map::put);
+				propagated.forEach(request::header);
 				System.out.printf("REQUEST_CORRELATION suiteId=%s testId=%s requestId=%s path=%s%n", SUITE_ID, uniqueId, requestId, path);
 			} else {
-				System.err.printf("Rejected STP execution ID %s: %s; sending request without %s%n",
-						escapeControls(uniqueId), invalidReason, "X-STP-Test-Id");
+				System.err.printf("Rejected STP execution ID %s: %s; sending request without STP Baggage%n",
+						escapeControls(uniqueId), invalidReason);
 			}
 		}
 

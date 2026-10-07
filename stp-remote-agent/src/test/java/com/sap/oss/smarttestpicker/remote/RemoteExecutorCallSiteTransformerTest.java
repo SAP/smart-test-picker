@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RemoteExecutorCallSiteTransformerTest {
-	@Test void wrapsExecutorAndExecutorServiceCallSitesIncludingCustomImplementation() throws Exception {
+	@Test void leavesExecutorAndExecutorServicePropagationToOpenTelemetry() throws Exception {
 		RemoteExecutorCallSiteTransformer transformer = transformer(message -> fail(message));
 		byte[] transformed = transform(transformer, ExecutorCallSiteFixture.class);
 		assertNotNull(transformed);
@@ -36,8 +36,8 @@ class RemoteExecutorCallSiteTransformerTest {
 				};
 			}
 		}, 0);
-		assertEquals(12, runnableWraps.get(), "Executor, CompletableFuture, and direct Thread call sites");
-		assertEquals(1, callableWraps.get());
+		assertEquals(6, runnableWraps.get(), "only direct Thread constructors and late thenRunAsync stages use STP fallback");
+		assertEquals(0, callableWraps.get(), "Executor and Callable propagation belong to OpenTelemetry");
 		assertDoesNotThrow(() -> new DefiningLoader(ExecutorCallSiteFixture.class.getClassLoader(),
 				ExecutorCallSiteFixture.class.getName(), transformed).loadClass(ExecutorCallSiteFixture.class.getName()));
 	}
@@ -56,15 +56,16 @@ class RemoteExecutorCallSiteTransformerTest {
 				};
 			}
 		}, 0);
-		assertEquals(12, hooks.get("wrap(Ljava/lang/Runnable;)Ljava/lang/Runnable;"));
-		assertEquals(2, hooks.get("wrapSupplier(Ljava/util/function/Supplier;)Ljava/util/function/Supplier;"));
+		assertEquals(6, hooks.get("wrap(Ljava/lang/Runnable;)Ljava/lang/Runnable;"));
+		assertNull(hooks.get("wrapSupplier(Ljava/util/function/Supplier;)Ljava/util/function/Supplier;"),
+				"OpenTelemetry handles runAsync and supplyAsync callbacks");
 		assertEquals(2, hooks.get("wrapFunction(Ljava/util/function/Function;)Ljava/util/function/Function;"));
 		assertDoesNotThrow(() -> new DefiningLoader(ExecutorCallSiteFixture.class.getClassLoader(),
 				ExecutorCallSiteFixture.class.getName(), transformed).loadClass(ExecutorCallSiteFixture.class.getName()),
 				"explicit-executor stack rewriting must leave verifier-valid bytecode");
 	}
 
-	@Test void rewritesScheduledExecutorOverloadsThroughTheContextBridge() throws Exception {
+	@Test void wrapsScheduledExecutorCallSitesBecauseTheAgentDoesNotCaptureTheirSubmissionContext() throws Exception {
 		RemoteExecutorCallSiteTransformer transformer = transformer(message -> fail(message));
 		byte[] transformed = transform(transformer, ExecutorCallSiteFixture.class);
 		assertNotNull(transformed);
@@ -134,31 +135,28 @@ class RemoteExecutorCallSiteTransformerTest {
 				"example.remote.VirtualThreadCallSiteFixture", transformed).loadClass("example.remote.VirtualThreadCallSiteFixture"));
 	}
 
-	@Test void supplierAndFunctionWrappersCaptureAndRestoreContextEvenOnFailure() throws Exception {
+	@Test void functionWrapperCapturesAndRestoresContextEvenOnFailure() throws Exception {
 		var executor = java.util.concurrent.Executors.newSingleThreadExecutor();
 		try {
 			RemoteTestContext.Scope scope = RemoteTestContext.enter(TestRequests.request("cf-A"));
-			java.util.function.Supplier<String> supplier = RemoteTestContext.wrapSupplier(() -> RemoteTestContext.currentId());
 			java.util.function.Function<String, String> function = RemoteTestContext.wrapFunction(value -> value + ":" + RemoteTestContext.currentId());
 			scope.close();
 			assertEquals("worker-prior", executor.submit(() -> {
 				try (RemoteTestContext.Scope ignored = RemoteTestContext.enter(TestRequests.request("worker-prior"))) {
-					assertEquals("cf-A", supplier.get());
-					return RemoteTestContext.currentId();
-				}
-			}).get(), "worker context must be restored after supplier callback");
-			assertEquals("input:cf-A", executor.submit(() -> {
-				try (RemoteTestContext.Scope ignored = RemoteTestContext.enter(TestRequests.request("worker-prior"))) {
 					String result = function.apply("input");
 					assertEquals("worker-prior", RemoteTestContext.currentId());
-					return result;
+					return RemoteTestContext.currentId();
 				}
-			}).get());
+			}).get(), "worker context must be restored after function callback");
+			try (RemoteTestContext.Scope ignored = RemoteTestContext.enter(TestRequests.request("worker-prior"))) {
+				assertEquals("input:cf-A", function.apply("input"));
+				assertEquals("worker-prior", RemoteTestContext.currentId());
+			}
 			try (RemoteTestContext.Scope ignored = RemoteTestContext.enter(TestRequests.request("cf-B"))) {
-				var failure = RemoteTestContext.wrapSupplier(() -> { throw new IllegalStateException("expected"); });
+				var failure = RemoteTestContext.wrapFunction((String value) -> { throw new IllegalStateException("expected"); });
 				String restored = executor.submit(() -> {
 					try (RemoteTestContext.Scope worker = RemoteTestContext.enter(TestRequests.request("worker-prior"))) {
-						try { failure.get(); } catch (IllegalStateException expected) { }
+						try { failure.apply("value"); } catch (IllegalStateException expected) { }
 						return RemoteTestContext.currentId();
 					}
 				}).get();
@@ -167,17 +165,16 @@ class RemoteExecutorCallSiteTransformerTest {
 		} finally { executor.shutdownNow(); }
 	}
 
-	@Test void reportsUnknownExecutorHierarchyWithoutGuessing() {
+	@Test void leavesUnknownExecutorHierarchyToOpenTelemetryWithoutGuessing() {
 		List<String> diagnostics = new ArrayList<>();
 		RemoteExecutorCallSiteTransformer transformer = transformer(diagnostics::add);
 		byte[] generated = unknownExecutorCaller();
 		byte[] transformed = transformer.transform(new ClassLoader(null) { }, "example/remote/UnknownCaller", null, null, generated);
 		assertNull(transformed, "unknown executor calls must not be rewritten");
-		assertEquals(1, diagnostics.size());
-		assertTrue(diagnostics.get(0).contains("executor-attribution-incomplete:example.remote.UnknownCaller"), diagnostics.toString());
+		assertTrue(diagnostics.isEmpty());
 	}
 
-	@Test void reportsUnknownScheduledExecutorHierarchyWithoutGuessing() {
+	@Test void leavesUnknownScheduledExecutorHierarchyToOpenTelemetryWithoutGuessing() {
 		List<String> diagnostics = new ArrayList<>();
 		RemoteExecutorCallSiteTransformer transformer = transformer(diagnostics::add);
 		String missing = "example/remote/missing/UnknownScheduledExecutor";
@@ -199,8 +196,7 @@ class RemoteExecutorCallSiteTransformerTest {
 		writer.visitEnd();
 		byte[] generated = writer.toByteArray();
 		assertNull(transformer.transform(new ClassLoader(null) { }, "example/remote/UnknownScheduledCaller", null, null, generated));
-		assertEquals(1, diagnostics.size());
-		assertTrue(diagnostics.get(0).contains("scheduled-executor-attribution-incomplete:example.remote.UnknownScheduledCaller"), diagnostics.toString());
+		assertTrue(diagnostics.isEmpty());
 	}
 
 	@Test void doesNotTransformJdkClassesEvenWhenIncluded() {

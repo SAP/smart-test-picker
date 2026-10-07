@@ -9,13 +9,19 @@ public final class RemoteStpAgent {
 
 	public static void premain(String arguments, Instrumentation instrumentation) {
 		if (instrumentation == null) throw new NullPointerException("instrumentation");
+		try {
+			io.opentelemetry.context.Context.current();
+		} catch (NoClassDefFoundError missingOpenTelemetry) {
+			throw new IllegalStateException("stp-remote-agent requires the OpenTelemetry Context API; attach the OpenTelemetry Java agent first for automatic context propagation", missingOpenTelemetry);
+		}
 		RemoteAgentConfiguration configuration = RemoteAgentConfiguration.parse(arguments);
 		RemoteRecorder.install(configuration.output());
-		instrumentation.addTransformer(new RemoteHttpBoundaryTransformer(), false);
-		instrumentation.addTransformer(new RemoteSpringMvcCallableTransformer(), false);
-		instrumentation.addTransformer(new RemoteSpringAsyncTransformer(), false);
-		instrumentation.addTransformer(new RemoteExecutorCallSiteTransformer(configuration), false);
+		// Let narrowly scoped callback boundaries run before the method-entry hook.
 		instrumentation.addTransformer(new RemoteMethodEntryTransformer(configuration), false);
+		if (!Boolean.getBoolean("stp.remote.otel.contextOnly")) {
+			instrumentation.addTransformer(new RemoteHttpBoundaryTransformer(), false);
+			instrumentation.addTransformer(new RemoteExecutorCallSiteTransformer(configuration), false);
+		}
 		Runtime.getRuntime().addShutdownHook(new Thread(RemoteRecorder::writeOutput, "stp-remote-agent-output"));
 	}
 }

@@ -1,6 +1,6 @@
 # STP Karate client
 
-This module adds `X-STP-Test-Suite-Id`, `X-STP-Test-Id`, and `X-STP-Request-Id` to every outgoing Karate HTTP request. It targets Karate 2.1.2 and Java 21 or newer.
+This module injects STP identity as standard W3C Baggage into every outgoing Karate HTTP request, using `stp.test.suite.id`, `stp.test.id`, and `stp.request.id`. It targets Karate 2.1.2 and Java 21 or newer.
 
 Install the integration once in the suite's `karate-config.js`; feature files need no STP-specific steps:
 
@@ -37,7 +37,7 @@ The client derives TestID from these Karate runtime fields:
 
 The module hashes the UTF-8 string `featurePath + newline + sectionIndex + newline + scenarioLine + newline + exampleIndex` with SHA-256 and prefixes its lowercase hexadecimal value with `karate-`. This yields a stable 71-character TestID. Each row in an Outline gets a different ID; multiple requests from the same Scenario reuse its ID. SuiteID remains independent, so the same Scenario can be run under different suites. RequestID is a fresh random UUID for each HTTP request, so one scenario's separate requests stay distinct and repeated executions never reuse a request identity.
 
-Matching existing SuiteID or TestID headers are accepted; conflicting or duplicate values fail before send. A single existing valid UUID RequestID is reused when Karate invokes its callback again for the same request object; duplicate or malformed values fail. SuiteID and TestID values must be non-empty, at most 256 characters, and contain no ISO control characters.
+Matching existing SuiteID or TestID baggage entries are accepted; conflicting or duplicate values fail before send. A single existing valid UUID RequestID baggage entry is reused when Karate invokes its callback again for the same request object; duplicate or malformed values fail. SuiteID and TestID values must be non-empty, at most 256 characters, and contain no ISO control characters. W3C Trace Context is also injected when the current OTel context contains an active span.
 
 No shared mutable identity state is used. Karate supplies scenario metadata to the callback executing for that request, so parallel Scenarios derive their own IDs.
 

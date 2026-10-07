@@ -22,13 +22,17 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RemoteAgentIntegrationTest {
+	private static final java.util.List<String> METHOD_ASSERTION_GAPS = new java.util.concurrent.CopyOnWriteArrayList<>();
 	@Test void servletRequestsAreAttributedByHeaderWithoutCrossRequestLeakage() throws Exception {
+		METHOD_ASSERTION_GAPS.clear();
 		Path output = Files.createTempDirectory("stp-remote-agent-").resolve("observations.json");
 		Path agentJar = Path.of(System.getProperty("stp.remote.agent.jar"));
+		Path otelAgent = Path.of(System.getProperty("stp.otel.agent.jar"));
 		String java = Path.of(System.getProperty("java.home"), "bin", "java").toString();
 		String agentArgs = "output=" + output + ";includes=example.remote.";
 		Path childLogFile = output.resolveSibling("server.log");
-		Process process = new ProcessBuilder(java, "-javaagent:" + agentJar + "=" + agentArgs,
+		Process process = new ProcessBuilder(java, "-Dotel.traces.exporter=none", "-Dotel.metrics.exporter=none",
+				"-Dotel.logs.exporter=none", "-javaagent:" + otelAgent, "-javaagent:" + agentJar + "=" + agentArgs,
 				"-cp", System.getProperty("java.class.path"), RemoteServletFixtureMain.class.getName())
 				.redirectErrorStream(true).redirectOutput(childLogFile.toFile()).start();
 		try {
@@ -80,6 +84,7 @@ class RemoteAgentIntegrationTest {
 			assertEquals(executeWorker, runnableWorker, "single executor must reuse the worker without retaining the old ID");
 			assertEquals("runnable-result", get(client, root.resolve("executor-submit-result"), "executor-submit-result"));
 			assertEquals("callable-result", get(client, root.resolve("executor-callable"), "executor-callable-C"));
+			assertEquals("done", get(client, root.resolve("executor-forkjoin"), "executor-forkjoin-D"));
 			assertEquals("task-failed", get(client, root.resolve("executor-failure"), "executor-failure"));
 			String afterFailureWorker = get(client, root.resolve("executor-after-failure"), "executor-after-failure");
 			assertEquals(executeWorker, afterFailureWorker, "single executor worker must survive task failure and be reused");
@@ -131,6 +136,7 @@ class RemoteAgentIntegrationTest {
 		assertMethods(json, "executor-submit-B", "FixtureExecutorApplication#submitRunnableTask", "FixtureExecutorRepository#submitRunnableTask");
 		assertMethods(json, "executor-submit-result", "FixtureExecutorApplication#submitResultTask", "FixtureExecutorRepository#submitResultTask");
 		assertMethods(json, "executor-callable-C", "FixtureExecutorApplication#callableTask", "FixtureExecutorRepository#callableTask");
+		assertMethods(json, "executor-forkjoin-D", "FixtureExecutorApplication#forkJoinTask", "FixtureExecutorRepository#forkJoinTask");
 		assertMethods(json, "executor-failure", "FixtureExecutorApplication#failingTask", "FixtureExecutorRepository#failingTask");
 		assertMethods(json, "executor-after-failure", "FixtureExecutorApplication#afterFailureTask", "FixtureExecutorRepository#afterFailureTask");
 		assertMethods(json, "executor-concurrent-A", "FixtureExecutorApplication#concurrentTaskA", "FixtureExecutorRepository#concurrentTaskA");
@@ -143,14 +149,14 @@ class RemoteAgentIntegrationTest {
 				"FixtureRepository#listenerInitialized", "FixtureRepository#listenerDestroyed");
 		assertMethods(json, "test-B", "FixtureService#serviceBoundary", "FixtureRepository#servletService",
 				"FixtureService#afterFilterChain", "FixtureRepository#afterFilterChain");
-		assertEquals(35, occurrences(json, "\"testId\":"), "headerless requests must have no STP observation");
+		assertEquals(36, occurrences(json, "\"testId\":"), "headerless requests must have no STP observation");
 		for (String id : new String[] {"test-A", "test-B", "test-interface", "test-fail", "test-forward",
 				"test-include", "test-async", "test-async-A", "test-async-B", "test-async-failure",
 				"test-async-concurrent-A", "test-async-concurrent-B", "test-A-concurrent", "test-B-concurrent",
 				"listener-start", "listener-complete-A", "listener-complete-B", "listener-timeout", "listener-error",
 				"listener-concurrent-A", "listener-concurrent-B", "io-read-A", "io-write-B", "io-read-error", "io-write-error",
 				"io-read-concurrent", "io-write-concurrent", "executor-execute-A", "executor-submit-B", "executor-submit-result",
-				"executor-callable-C", "executor-failure", "executor-after-failure", "executor-concurrent-A", "executor-concurrent-B"}) {
+				"executor-callable-C", "executor-forkjoin-D", "executor-failure", "executor-after-failure", "executor-concurrent-A", "executor-concurrent-B"}) {
 			assertEquals(1, occurrences(json, "\"testId\":\"" + id + "\""), "duplicate observation for " + id);
 		}
 		assertFalse(json.contains("FixtureRepository#readOrdinary"), "headerless request must not inherit a thread context");
@@ -184,6 +190,7 @@ class RemoteAgentIntegrationTest {
 		assertFalse(section(json, "test-B-concurrent").contains("handleA"));
 		assertListenerCallbacksOverlap(childLog);
 		assertTrue(childLog.contains("READY:"), childLog);
+		assertTrue(METHOD_ASSERTION_GAPS.isEmpty(), String.join("\n", METHOD_ASSERTION_GAPS));
 	}
 
 	private static String awaitReady(Process process, Path childLog) throws Exception {
@@ -250,7 +257,7 @@ class RemoteAgentIntegrationTest {
 	}
 	private static void assertMethods(String json, String id, String... expected) {
 		String section = section(json, id);
-		for (String method : expected) assertTrue(section.contains(method), id + " missing " + method + ": " + section);
+		for (String method : expected) if (!section.contains(method)) METHOD_ASSERTION_GAPS.add(id + " missing " + method + ": " + section);
 	}
 	private static String section(String json, String id) {
 		int start = json.indexOf("\"testId\":\"" + id + "\"");

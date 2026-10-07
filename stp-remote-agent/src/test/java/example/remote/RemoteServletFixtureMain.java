@@ -29,6 +29,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
@@ -298,6 +299,15 @@ public final class RemoteServletFixtureMain {
 					}
 					case "/executor-callable" -> body = SINGLE_EXECUTOR.submit((Callable<String>) FixtureExecutorApplication::callableTask)
 							.get(5, TimeUnit.SECONDS);
+					case "/executor-forkjoin" -> {
+						CountDownLatch done = new CountDownLatch(1);
+						ForkJoinPool.commonPool().execute(() -> {
+							FixtureExecutorApplication.forkJoinTask();
+							done.countDown();
+						});
+						if (!done.await(5, TimeUnit.SECONDS)) throw new IllegalStateException("ForkJoinPool task timed out");
+						body = "done";
+					}
 					case "/executor-failure" -> {
 						try { SINGLE_EXECUTOR.submit(() -> FixtureExecutorApplication.failingTask()).get(5, TimeUnit.SECONDS); }
 						catch (java.util.concurrent.ExecutionException expected) { body = "task-failed"; break; }
@@ -338,6 +348,7 @@ public final class RemoteServletFixtureMain {
 		public static void submitRunnableTask() { FixtureExecutorRepository.submitRunnableTask(); }
 		public static void submitResultTask() { FixtureExecutorRepository.submitResultTask(); }
 		public static String callableTask() { FixtureExecutorRepository.callableTask(); return "callable-result"; }
+		public static void forkJoinTask() { FixtureExecutorRepository.forkJoinTask(); }
 		public static void failingTask() { FixtureExecutorRepository.failingTask(); throw new IllegalStateException("expected task failure"); }
 		public static void afterFailureTask() { FixtureExecutorRepository.afterFailureTask(); }
 		public static void noContextTask() { FixtureExecutorRepository.noContextTask(); }
@@ -349,6 +360,7 @@ public final class RemoteServletFixtureMain {
 		public static void submitRunnableTask() { }
 		public static void submitResultTask() { }
 		public static void callableTask() { }
+		public static void forkJoinTask() { }
 		public static void failingTask() { }
 		public static void afterFailureTask() { }
 		public static void noContextTask() { }

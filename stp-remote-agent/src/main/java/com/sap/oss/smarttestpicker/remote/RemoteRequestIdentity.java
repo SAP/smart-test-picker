@@ -2,16 +2,36 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.remote;
 
-/** Immutable identity of one concrete HTTP request belonging to one test execution. */
+import io.opentelemetry.api.baggage.Baggage;
+import io.opentelemetry.context.Context;
+
+/** STP-owned logical test/request identity carried in standard OpenTelemetry Baggage. */
 public record RemoteRequestIdentity(String testSuiteId, String testId, String requestId) {
-	public static final String TEST_SUITE_HEADER = "X-STP-Test-Suite-Id";
-	public static final String TEST_ID_HEADER = "X-STP-Test-Id";
-	public static final String REQUEST_ID_HEADER = "X-STP-Request-Id";
+	public static final String SUITE_BAGGAGE_KEY = "stp.test.suite.id";
+	public static final String TEST_BAGGAGE_KEY = "stp.test.id";
+	public static final String REQUEST_BAGGAGE_KEY = "stp.request.id";
 
 	public RemoteRequestIdentity {
 		validate(testSuiteId, "TestSuiteID");
 		validate(testId, "TestID");
 		validate(requestId, "RequestID");
+	}
+
+	public static RemoteRequestIdentity fromBaggage(Baggage baggage) {
+		String suite = baggage.getEntryValue(SUITE_BAGGAGE_KEY);
+		String test = baggage.getEntryValue(TEST_BAGGAGE_KEY);
+		String request = baggage.getEntryValue(REQUEST_BAGGAGE_KEY);
+		if (suite == null && test == null && request == null) return null;
+		return new RemoteRequestIdentity(suite, test, request);
+	}
+
+	public Context toBaggage(Context parent) {
+		Baggage baggage = Baggage.fromContext(parent).toBuilder()
+				.put(SUITE_BAGGAGE_KEY, testSuiteId)
+				.put(TEST_BAGGAGE_KEY, testId)
+				.put(REQUEST_BAGGAGE_KEY, requestId)
+				.build();
+		return baggage.storeInContext(parent);
 	}
 
 	static boolean valid(String value) {

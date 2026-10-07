@@ -17,12 +17,17 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RemoteCompletableFutureIntegrationTest {
+	private static final java.util.List<String> METHOD_ASSERTION_GAPS = new java.util.concurrent.CopyOnWriteArrayList<>();
 	@Test void selectedCompletableFutureStagesKeepRegistrationIdentityAcrossRealHttpRequests() throws Exception {
+		METHOD_ASSERTION_GAPS.clear();
 		Path output = Files.createTempDirectory("stp-remote-cf-").resolve("observations.json");
 		Path agentJar = Path.of(System.getProperty("stp.remote.agent.jar"));
+		Path otelAgent = Path.of(System.getProperty("stp.otel.agent.jar"));
 		String java = Path.of(System.getProperty("java.home"), "bin", "java").toString();
 		Path log = output.resolveSibling("server.log");
-		Process process = new ProcessBuilder(java, "-javaagent:" + agentJar + "=output=" + output + ";includes=example.remote.",
+		Process process = new ProcessBuilder(java, "-Dotel.traces.exporter=none", "-Dotel.metrics.exporter=none",
+				"-Dotel.logs.exporter=none", "-javaagent:" + otelAgent,
+				"-javaagent:" + agentJar + "=output=" + output + ";includes=example.remote.",
 				"-cp", System.getProperty("java.class.path"), CompletableFutureFixtureMain.class.getName())
 				.redirectErrorStream(true).redirectOutput(log.toFile()).start();
 		try {
@@ -73,6 +78,7 @@ class RemoteCompletableFutureIntegrationTest {
 		assertFalse(section(json, "cf-failure").contains("afterFailure"));
 		assertFalse(section(json, "cf-after-failure").contains("#failure"));
 		assertEquals(12, occurrences(json, "\"testId\":"), "no-context stage must not create an observation");
+		assertTrue(METHOD_ASSERTION_GAPS.isEmpty(), String.join("\n", METHOD_ASSERTION_GAPS));
 	}
 
 	private static void registerAndComplete(HttpClient client, URI root, String registrationPath, String completePath,
@@ -101,7 +107,7 @@ class RemoteCompletableFutureIntegrationTest {
 	}
 	private static void assertMethods(String json, String id, String... methods) {
 		String observation = section(json, id);
-		for (String method : methods) assertTrue(observation.contains(method), id + " missing " + method + ": " + observation);
+		for (String method : methods) if (!observation.contains(method)) METHOD_ASSERTION_GAPS.add(id + " missing " + method + ": " + observation);
 	}
 	private static String section(String json, String id) {
 		int start = json.indexOf("\"testId\":\"" + id + "\"");

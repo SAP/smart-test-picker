@@ -3,10 +3,17 @@
 package com.sap.oss.smarttestpicker.karate;
 
 import io.karatelabs.http.HttpRequest;
+import io.opentelemetry.api.baggage.Baggage;
+import io.opentelemetry.api.baggage.propagation.W3CBaggagePropagator;
+import io.opentelemetry.api.trace.propagation.W3CTraceContextPropagator;
+import io.opentelemetry.context.Context;
+import io.opentelemetry.context.propagation.TextMapGetter;
+import io.opentelemetry.context.propagation.TextMapPropagator;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Collections;
 import java.util.HexFormat;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -16,29 +23,45 @@ import java.util.UUID;
 /** Helpers called by Karate's run-wide {@code configure headers} callback. */
 public final class StpKarateClient {
 	public static final String SUITE_ID_PROPERTY = "stp.testSuiteId";
-	public static final String TEST_SUITE_HEADER = "X-STP-Test-Suite-Id";
-	public static final String TEST_ID_HEADER = "X-STP-Test-Id";
-	public static final String REQUEST_ID_HEADER = "X-STP-Request-Id";
+	public static final String BAGGAGE_HEADER = "baggage";
+	public static final String SUITE_ID_KEY = "stp.test.suite.id";
+	public static final String TEST_ID_KEY = "stp.test.id";
+	public static final String REQUEST_ID_KEY = "stp.request.id";
+	private static final TextMapPropagator PROPAGATOR = TextMapPropagator.composite(
+			W3CTraceContextPropagator.getInstance(), W3CBaggagePropagator.getInstance());
+	private static final TextMapGetter<HttpRequest> REQUEST_GETTER = new TextMapGetter<>() {
+		@Override public Iterable<String> keys(HttpRequest request) {
+			return request == null || request.getHeaders() == null ? Collections.emptyList() : request.getHeaders().keySet();
+		}
+		@Override public String get(HttpRequest request, String key) {
+			if (request == null || request.getHeaders() == null) return null;
+			return request.getHeaders().entrySet().stream().filter(entry -> entry.getKey().equalsIgnoreCase(key))
+					.flatMap(entry -> entry.getValue().stream()).findFirst().orElse(null);
+		}
+	};
 
 	private StpKarateClient() { }
 
-	/**
-	 * Returns the three STP headers for one concrete outgoing request.
-	 * The feature and scenario fields are supplied by Karate's scenario-bound dynamic headers function.
-	 */
+	/** Injects W3C trace context and W3C Baggage for one concrete outgoing HTTP request. */
 	public static Map<String, String> headers(HttpRequest request, String suiteId, String featurePath,
 			int sectionIndex, int scenarioLine, int exampleIndex) {
 		suiteId = validate(suiteId, SUITE_ID_PROPERTY);
-		featurePath = validate(featurePath, "Karate feature path");
-		String testId = testId(featurePath, sectionIndex, scenarioLine, exampleIndex);
+		featurePath = validate(featurePath, "Karate feature path");		String testId = testId(featurePath, sectionIndex, scenarioLine, exampleIndex);
 		String requestId = requestId(request);
-		verifyExisting(request, TEST_SUITE_HEADER, suiteId);
-		verifyExisting(request, TEST_ID_HEADER, testId);
-		Map<String, String> result = new LinkedHashMap<>();
-		result.put(TEST_SUITE_HEADER, suiteId);
-		result.put(TEST_ID_HEADER, testId);
-		result.put(REQUEST_ID_HEADER, requestId);
-		return Map.copyOf(result);
+		Context base = W3CBaggagePropagator.getInstance().extract(Context.current(), request, REQUEST_GETTER);
+		Baggage existing = Baggage.fromContext(base);
+		verifyExisting(existing, SUITE_ID_KEY, suiteId);
+		verifyExisting(existing, TEST_ID_KEY, testId);
+		verifyExisting(existing, REQUEST_ID_KEY, requestId);
+		Baggage baggage = existing.toBuilder()
+				.put(SUITE_ID_KEY, suiteId)
+				.put(TEST_ID_KEY, testId)
+				.put(REQUEST_ID_KEY, requestId)
+				.build();
+		Context requestContext = baggage.storeInContext(base);
+		Map<String, String> injected = new LinkedHashMap<>();
+		PROPAGATOR.inject(requestContext, injected, Map::put);
+		return Map.copyOf(injected);
 	}
 
 	/** Resolves the run-wide suite identity from the documented property and environment variable. */
@@ -55,47 +78,51 @@ public final class StpKarateClient {
 				+ sectionIndex + "\n" + scenarioLine + "\n" + exampleIndex);
 	}
 
-	private static void verifyExisting(HttpRequest request, String name, String expected) {
-		if (request == null || request.getHeaders() == null) return;
-		List<Map.Entry<String, List<String>>> matches = request.getHeaders().entrySet().stream()
-				.filter(entry -> entry.getKey().equalsIgnoreCase(name)).toList();
-		if (matches.isEmpty()) return;
-		List<String> values = matches.stream().flatMap(entry -> entry.getValue().stream()).toList();
-		if (matches.size() != 1 || values.size() != 1 || !expected.equals(values.getFirst())) {
-			throw new IllegalStateException("Conflicting STP request identity header " + name
-					+ ": expected '" + expected + "' but found " + values);
-		}
+	private static void verifyExisting(Baggage baggage, String key, String expected) {
+		String value = baggage.getEntryValue(key);
+		if (value != null && !expected.equals(value))
+			throw new IllegalStateException("Conflicting STP baggage entry " + key + ": expected '" + expected + "' but found '" + value + "'");
 	}
 
 	private static String requestId(HttpRequest request) {
-		if (request == null || request.getHeaders() == null) return UUID.randomUUID().toString();
-		List<Map.Entry<String, List<String>>> matches = request.getHeaders().entrySet().stream()
-				.filter(entry -> entry.getKey().equalsIgnoreCase(REQUEST_ID_HEADER)).toList();
-		if (matches.isEmpty()) return UUID.randomUUID().toString();
-		List<String> values = matches.stream().flatMap(entry -> entry.getValue().stream()).toList();
-		if (matches.size() != 1 || values.size() != 1 || !validUuid(values.getFirst()))
-			throw new IllegalStateException("Malformed or duplicate STP request identity header " + REQUEST_ID_HEADER);
-		return values.getFirst();
+		String existing = null;
+		if (request != null && request.getHeaders() != null) {
+			List<Map.Entry<String, List<String>>> matches = request.getHeaders().entrySet().stream()
+					.filter(entry -> entry.getKey().equalsIgnoreCase(BAGGAGE_HEADER)).toList();
+			if (!matches.isEmpty()) {
+				if (matches.size() != 1) throw new IllegalStateException("Duplicate W3C Baggage headers are not supported for STP identity");
+				String baggage = String.join(",", matches.getFirst().getValue());
+				for (String member : baggage.split(",")) {
+					String[] pair = member.trim().split("=", 2);
+					if (pair.length == 2 && REQUEST_ID_KEY.equals(pair[0].trim())) {
+						if (existing != null) throw new IllegalStateException("Duplicate STP RequestID baggage entry");
+						existing = decodeBaggageValue(pair[1].split(";", 2)[0].trim());
+					}
+				}
+			}
+		}
+		if (existing == null) return UUID.randomUUID().toString();
+		if (!validUuid(existing)) throw new IllegalStateException("Malformed STP RequestID baggage entry");
+		return existing;
 	}
 
+	private static String decodeBaggageValue(String value) {
+		try { return java.net.URLDecoder.decode(value.replace("+", "%2B"), StandardCharsets.UTF_8); }
+		catch (IllegalArgumentException malformed) { throw new IllegalStateException("Malformed STP RequestID baggage entry", malformed); }
+	}
 	private static boolean validUuid(String value) {
 		if (value == null || value.length() > 256 || value.chars().anyMatch(Character::isISOControl)) return false;
 		try { return UUID.fromString(value).toString().equalsIgnoreCase(value); }
 		catch (IllegalArgumentException invalid) { return false; }
 	}
-
 	private static String validate(String value, String source) {
 		if (value == null || value.isBlank()) throw new IllegalArgumentException(source + " must be configured and non-empty");
 		if (value.length() > 256) throw new IllegalArgumentException(source + " exceeds 256 characters");
 		if (value.chars().anyMatch(Character::isISOControl)) throw new IllegalArgumentException(source + " contains an ISO control character");
 		return value;
 	}
-
 	private static String sha256(String value) {
-		try {
-			return HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(value.getBytes(StandardCharsets.UTF_8)));
-		} catch (NoSuchAlgorithmException impossible) {
-			throw new IllegalStateException("SHA-256 is unavailable", impossible);
-		}
+		try { return HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(value.getBytes(StandardCharsets.UTF_8))); }
+		catch (NoSuchAlgorithmException impossible) { throw new IllegalStateException("SHA-256 is unavailable", impossible); }
 	}
 }
