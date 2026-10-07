@@ -28,6 +28,7 @@ public final class RemoteRecorder {
 	private static RemoteOutputFile outputFile;
 	private static boolean acceptingHits;
 	private static boolean finalized;
+	private static boolean checkpointAvailable;
 	private static ScheduledExecutorService checkpointScheduler;
 	private static volatile Runnable beforeCheckpointPersistForTests = () -> { };
 
@@ -41,6 +42,7 @@ public final class RemoteRecorder {
 			PERSISTED.clear();
 			acceptingHits = true;
 			finalized = false;
+			checkpointAvailable = false;
 		}
 	}
 
@@ -126,9 +128,10 @@ public final class RemoteRecorder {
 			}
 			if (finalCheckpoint) destination.finish(json);
 			else destination.checkpoint(json);
-			synchronized (STATE_LOCK) {
+				synchronized (STATE_LOCK) {
 				merge(PERSISTED, pending);
 				compact(OBSERVATIONS, pending);
+				checkpointAvailable = true;
 				if (finalCheckpoint) finalized = true;
 			}
 		}
@@ -139,11 +142,20 @@ public final class RemoteRecorder {
 		synchronized (STATE_LOCK) { return serialize(snapshotLocked(OBSERVATIONS)); }
 	}
 
-	/** The persisted destination is visible only after finalization (updated to checkpoints in Task 2). */
-	static FinalizedOutput finalizedOutput() throws IOException {
+	/** Returns persisted observations unioned with currently pending memory, without flushing. */
+	static String logicalSnapshot() {
 		synchronized (STATE_LOCK) {
-			if (!finalized || outputFile == null) return null;
-			return new FinalizedOutput(outputFile.path(), Files.readAllBytes(outputFile.path()));
+			Map<RemoteRequestIdentity, Set<String>> snapshot = snapshotLocked(PERSISTED);
+			merge(snapshot, OBSERVATIONS);
+			return serialize(snapshot);
+		}
+	}
+
+	/** Returns only the latest successfully persisted checkpoint, never the startup reservation. */
+	static PersistedOutput persistedOutput() throws IOException {
+		synchronized (STATE_LOCK) {
+			if (!checkpointAvailable || outputFile == null) return null;
+			return new PersistedOutput(outputFile.path(), Files.readAllBytes(outputFile.path()));
 		}
 	}
 
@@ -151,7 +163,7 @@ public final class RemoteRecorder {
 		synchronized (STATE_LOCK) { return outputFile == null ? null : outputFile.path(); }
 	}
 
-	record FinalizedOutput(java.nio.file.Path path, byte[] content) { }
+	record PersistedOutput(java.nio.file.Path path, byte[] content) { }
 
 	private static Map<RemoteRequestIdentity, Set<String>> snapshotLocked(Map<RemoteRequestIdentity, Set<String>> source) {
 		Map<RemoteRequestIdentity, Set<String>> snapshot = new HashMap<>();
@@ -229,6 +241,7 @@ public final class RemoteRecorder {
 			outputFile = null;
 			acceptingHits = false;
 			finalized = false;
+			checkpointAvailable = false;
 		}
 		beforeCheckpointPersistForTests = () -> { };
 	}

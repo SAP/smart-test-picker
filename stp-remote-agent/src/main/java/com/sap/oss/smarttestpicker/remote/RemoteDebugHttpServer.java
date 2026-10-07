@@ -65,7 +65,8 @@ final class RemoteDebugHttpServer {
 				return;
 			}
 			String path = exchange.getRequestURI().getPath();
-			if (!path.equals("/stp/debug/memory") && !path.equals("/stp/debug/output")) {
+			if (!path.equals("/stp/debug/memory") && !path.equals("/stp/debug/output")
+					&& !path.equals("/stp/debug/snapshot")) {
 				respondError(exchange, 404, "not_found", RemoteRecorder.configuredOutput());
 				return;
 			}
@@ -77,10 +78,14 @@ final class RemoteDebugHttpServer {
 				respond(exchange, 200, RemoteRecorder.memorySnapshot().getBytes(StandardCharsets.UTF_8));
 				return;
 			}
+			if (path.equals("/stp/debug/snapshot")) {
+				respond(exchange, 200, RemoteRecorder.logicalSnapshot().getBytes(StandardCharsets.UTF_8));
+				return;
+			}
 			try {
-				RemoteRecorder.FinalizedOutput output = RemoteRecorder.finalizedOutput();
+				RemoteRecorder.PersistedOutput output = RemoteRecorder.persistedOutput();
 				if (output == null) {
-					respondError(exchange, 404, "not_finalized", RemoteRecorder.configuredOutput());
+					respondError(exchange, 404, "not_checkpointed", RemoteRecorder.configuredOutput());
 				} else {
 					respond(exchange, 200, output.content());
 				}

@@ -81,9 +81,11 @@ class RemoteDebugHttpServerTest {
 				}));
 			}
 			for (int request = 0; request < 30; request++) {
-				HttpResponse<String> response = get("/stp/debug/memory");
-				assertEquals(200, response.statusCode());
-				assertTrue(RemoteObservationJson.isValidSchemaV2(response.body()));
+				for (String path : List.of("/stp/debug/memory", "/stp/debug/snapshot")) {
+					HttpResponse<String> response = get(path);
+					assertEquals(200, response.statusCode());
+					assertTrue(RemoteObservationJson.isValidSchemaV2(response.body()));
+				}
 			}
 			for (var writer : writers) writer.get(10, TimeUnit.SECONDS);
 			assertEquals(320, requestCount(get("/stp/debug/memory").body()));
@@ -97,7 +99,7 @@ class RemoteDebugHttpServerTest {
 		Files.writeString(output.resolveSibling(output.getFileName() + ".inprogress"), "");
 		HttpResponse<String> before = get("/stp/debug/output");
 		assertEquals(404, before.statusCode());
-		assertTrue(before.body().contains("not_finalized"));
+		assertTrue(before.body().contains("not_checkpointed"));
 		assertTrue(before.body().contains(output.toString()));
 
 		try (RemoteTestContext.Scope ignored = RemoteTestContext.enter(identity("persisted"))) {
@@ -112,6 +114,38 @@ class RemoteDebugHttpServerTest {
 		assertEquals(expected, after.body());
 		assertTrue(RemoteObservationJson.isValidSchemaV2(after.body()));
 		assertFalse(after.body().contains("do not expose"));
+	}
+
+	@Test void memoryOutputAndSnapshotHaveDistinctCheckpointSemantics() throws Exception {
+		RemoteRequestIdentity identity = identity("checkpoint-semantics");
+		try (RemoteTestContext.Scope ignored = RemoteTestContext.enter(identity)) {
+			RemoteRecorder.methodHit("example.Work", "before", "()V");
+		}
+		assertEquals(404, get("/stp/debug/output").statusCode());
+		assertTrue(get("/stp/debug/memory").body().contains("example.Work#before()V"));
+		assertTrue(get("/stp/debug/snapshot").body().contains("example.Work#before()V"));
+
+		RemoteRecorder.checkpointNow();
+		String persisted = get("/stp/debug/output").body();
+		assertTrue(persisted.contains("example.Work#before()V"));
+		assertFalse(get("/stp/debug/memory").body().contains("example.Work#before()V"));
+		assertTrue(get("/stp/debug/snapshot").body().contains("example.Work#before()V"));
+
+		try (RemoteTestContext.Scope ignored = RemoteTestContext.enter(identity)) {
+			RemoteRecorder.methodHit("example.Work", "after", "()V");
+		}
+		String memory = get("/stp/debug/memory").body();
+		String output = get("/stp/debug/output").body();
+		String snapshot = get("/stp/debug/snapshot").body();
+		assertTrue(memory.contains("example.Work#after()V"));
+		assertFalse(memory.contains("example.Work#before()V"));
+		assertTrue(output.contains("example.Work#before()V"));
+		assertFalse(output.contains("example.Work#after()V"));
+		assertTrue(snapshot.contains("example.Work#before()V"));
+		assertTrue(snapshot.contains("example.Work#after()V"));
+		assertEquals(1, (int) snapshot.lines().filter(line -> line.contains("\"requestId\"")).count());
+		assertTrue(RemoteObservationJson.isValidSchemaV2(snapshot));
+		RemoteRecorder.writeOutput();
 	}
 
 	@Test void unknownPathsReturnJsonNotFound() throws Exception {
