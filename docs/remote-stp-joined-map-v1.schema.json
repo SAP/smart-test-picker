@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://smart-test-picker.sap.github.io/schemas/remote-stp-joined-map-v1.schema.json",
+  "title": "Remote STP joined observation map",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "observations"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "observations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/observation" }
+    }
+  },
+  "$defs": {
+    "identity": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^(?=.*\\S)[^\\u0000-\\u001F\\u007F]+$"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["serviceId", "instanceId", "revision"],
+      "properties": {
+        "serviceId": { "$ref": "#/$defs/identity" },
+        "instanceId": { "$ref": "#/$defs/identity" },
+        "revision": { "$ref": "#/$defs/identity" }
+      }
+    },
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["testSuiteId", "testId", "requestId", "source", "methods"],
+      "properties": {
+        "testSuiteId": { "$ref": "#/$defs/identity" },
+        "testId": { "$ref": "#/$defs/identity" },
+        "requestId": { "$ref": "#/$defs/identity" },
+        "source": { "$ref": "#/$defs/source" },
+        "methods": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/identity" }
+        }
+      }
+    }
+  }
+}
