@@ -10,6 +10,20 @@ import java.nio.file.Path;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RemoteAgentConfigurationTest {
+	@Test void flushIntervalDefaultsToOneMinuteAndCanBeConfigured() {
+		assertEquals(60, RemoteAgentConfiguration.parse("output=out.json;includes=example.").flushIntervalSeconds());
+		assertEquals(7, RemoteAgentConfiguration.parse("output=out.json;includes=example.;flushIntervalSeconds=7").flushIntervalSeconds());
+		assertEquals(1, RemoteAgentConfiguration.parse("output=out.json;includes=example.;flushIntervalSeconds=1").flushIntervalSeconds());
+	}
+
+	@Test void invalidFlushIntervalsFailClearly() {
+		for (String value : new String[] {"0", "-1", "abc", "999999999999999999"}) {
+			IllegalArgumentException failure = assertThrows(IllegalArgumentException.class,
+					() -> RemoteAgentConfiguration.parse("output=out.json;includes=example.;flushIntervalSeconds=" + value));
+			assertTrue(failure.getMessage().contains("flushIntervalSeconds"));
+		}
+	}
+
 	@Test void relativeOutputIsResolvedAgainstWorkingDirectoryAndNormalized() {
 		Path configured = Path.of("build", "remote", "..", "observations.json").toAbsolutePath().normalize();
 		RemoteAgentConfiguration parsed = RemoteAgentConfiguration.parse("output=build/remote/../observations.json;includes=example.");

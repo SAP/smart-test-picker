@@ -13,6 +13,20 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RemoteAgentOutputCrashRecoveryIntegrationTest {
+	@Test void hardCrashLosesOnlyObservationsNotIncludedInTheLastSuccessfulCheckpoint() throws Exception {
+		Path directory = Files.createTempDirectory("remote-output-checkpoint-crash");
+		Path output = directory.resolve("observations.json");
+		Process crashed = launchCrash(output, "checkpoint", directory.resolve("crash.log"));
+		awaitReady(crashed, directory.resolve("crash.log"));
+		crashed.destroyForcibly();
+		assertTrue(crashed.waitFor(10, TimeUnit.SECONDS));
+		String json = Files.readString(output);
+		assertTrue(RemoteObservationJson.isValidSchemaV2(json), json);
+		assertTrue(json.contains("persistedBeforeCrash"), json);
+		assertFalse(json.contains("lostBeforeCrash"), "uncheckpointed in-memory observations are lost on hard crash");
+		assertTrue(Files.exists(output.resolveSibling(output.getFileName() + ".inprogress")), "crash marker remains for restart diagnosis");
+	}
+
 	@Test void forcedCrashBeforeAndAfterRecordingLeavesRecoverableStateAndDoesNotRecoverMemoryOnlyData() throws Exception {
 		for (String mode : new String[] {"reserve", "record"}) {
 			Path directory = Files.createTempDirectory("remote-output-crash-" + mode);

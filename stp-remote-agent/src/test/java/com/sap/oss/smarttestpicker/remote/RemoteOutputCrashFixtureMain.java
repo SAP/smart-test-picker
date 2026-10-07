@@ -13,6 +13,14 @@ public final class RemoteOutputCrashFixtureMain {
 			try (var scope = RemoteTestContext.enter(new RemoteRequestIdentity("crash-suite", "lost-test", "lost-request"))) {
 				RemoteRecorder.methodHit("example.CrashFixture", "recordedBeforeCrash", "()V");
 			}
+		} else if (arguments.length > 0 && arguments[0].equals("checkpoint")) {
+			try (var scope = RemoteTestContext.enter(new RemoteRequestIdentity("crash-suite", "saved-test", "saved-request"))) {
+				RemoteRecorder.methodHit("example.CrashFixture", "persistedBeforeCrash", "()V");
+			}
+			RemoteRecorder.checkpointNow();
+			try (var scope = RemoteTestContext.enter(new RemoteRequestIdentity("crash-suite", "lost-test", "lost-request"))) {
+				RemoteRecorder.methodHit("example.CrashFixture", "lostBeforeCrash", "()V");
+			}
 		}
 		System.out.println("CRASH_FIXTURE_READY:" + (arguments.length == 0 ? "reserve" : arguments[0]));
 		System.out.flush();

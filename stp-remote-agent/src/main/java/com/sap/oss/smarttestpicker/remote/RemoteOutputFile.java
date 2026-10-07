@@ -65,27 +65,62 @@ final class RemoteOutputFile {
 	}
 
 	void finish(String serializedJson) {
+		try {
+			checkpoint(serializedJson);
+			Files.delete(marker); // Marker removal is the final state transition.
+		} catch (IOException | RuntimeException problem) {
+			throw failure("cannot finalize observations; in-progress state was retained for recovery", output, problem);
+		} finally {
+			closeLease();
+		}
+	}
+
+	/** Persists one complete checkpoint without closing the run reservation or output lease. */
+	void checkpoint(String serializedJson) {
 		Path temporary = null;
+		Path backup = null;
 		try {
 			temporary = Files.createTempFile(parent, temporaryPrefix, ".tmp");
 			writeAndSync(temporary, serializedJson);
 			try {
 				Files.move(temporary, output, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
 			} catch (java.nio.file.AtomicMoveNotSupportedException unsupported) {
-				// The complete same-directory temp is moved as one operation; no JSON is streamed into the final file.
-				Files.move(temporary, output, StandardCopyOption.REPLACE_EXISTING);
+				// Preserve the last good checkpoint so a failed fallback replacement can roll back.
+				if (Files.exists(output, LinkOption.NOFOLLOW_LINKS)) {
+					backup = Files.createTempFile(parent, temporaryPrefix, ".tmp");
+					Files.copy(output, backup, StandardCopyOption.REPLACE_EXISTING);
+					force(backup);
+				}
+				try {
+					Files.move(temporary, output, StandardCopyOption.REPLACE_EXISTING);
+				} catch (IOException replacementFailure) {
+					if (backup != null) {
+						try {
+							Files.move(backup, output, StandardCopyOption.REPLACE_EXISTING);
+							backup = null;
+						} catch (IOException restoreFailure) { replacementFailure.addSuppressed(restoreFailure); }
+					}
+					throw replacementFailure;
+				}
 			}
 			temporary = null;
-			cleanupTemporaryFiles();
-			Files.delete(marker); // Marker removal is the final state transition.
+			if (backup != null) {
+				try { Files.deleteIfExists(backup); backup = null; }
+				catch (IOException cleanup) { System.err.println("[stp-remote-agent] unable to clean checkpoint backup for '" + output + "': " + cleanup); }
+			}
+			try { cleanupTemporaryFiles(); }
+			catch (IOException cleanup) { System.err.println("[stp-remote-agent] unable to clean stale checkpoint temp files for '" + output + "': " + cleanup); }
 		} catch (IOException | RuntimeException problem) {
-			throw failure("cannot finalize observations; in-progress state was retained for recovery", output, problem);
+			throw failure("cannot persist observations checkpoint; previous output was preserved when replacement failed and in-progress state remains", output, problem);
 		} finally {
 			if (temporary != null) {
 				try { Files.deleteIfExists(temporary); }
 				catch (IOException cleanup) { System.err.println("[stp-remote-agent] unable to clean temporary artifact for '" + output + "': " + cleanup); }
 			}
-			closeLease();
+			if (backup != null) {
+				try { Files.deleteIfExists(backup); }
+				catch (IOException cleanup) { System.err.println("[stp-remote-agent] unable to clean checkpoint backup for '" + output + "': " + cleanup); }
+			}
 		}
 	}
 
@@ -199,6 +234,10 @@ final class RemoteOutputFile {
 			while (bytes.hasRemaining()) channel.write(bytes);
 			channel.force(true);
 		}
+	}
+
+	private static void force(Path path) throws IOException {
+		try (FileChannel channel = FileChannel.open(path, StandardOpenOption.WRITE)) { channel.force(true); }
 	}
 
 	private static FileLock acquire(FileChannel channel, Path output) throws IOException {

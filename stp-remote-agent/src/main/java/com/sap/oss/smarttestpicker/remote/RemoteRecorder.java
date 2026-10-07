@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.remote;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -10,16 +12,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-import java.io.IOException;
-import java.nio.file.Files;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
-/** Aggregates observations in memory and atomically persists one schema-v2 snapshot at JVM shutdown. */
+/** Aggregates pending observations and periodically persists a cumulative schema-v2 snapshot. */
 public final class RemoteRecorder {
 	private static final Object STATE_LOCK = new Object();
+	private static final Object CHECKPOINT_LOCK = new Object();
+	private static final Object SCHEDULER_LOCK = new Object();
+	/** Hits not yet covered by a successful checkpoint. */
 	private static final Map<RemoteRequestIdentity, Set<String>> OBSERVATIONS = new HashMap<>();
+	/** Cumulative observations already persisted during this JVM run. */
+	private static final Map<RemoteRequestIdentity, Set<String>> PERSISTED = new HashMap<>();
 	private static RemoteOutputFile outputFile;
 	private static boolean acceptingHits;
 	private static boolean finalized;
+	private static ScheduledExecutorService checkpointScheduler;
+	private static volatile Runnable beforeCheckpointPersistForTests = () -> { };
 
 	private RemoteRecorder() { }
 
@@ -27,8 +37,42 @@ public final class RemoteRecorder {
 	static void install(java.nio.file.Path outputPath) {
 		synchronized (STATE_LOCK) {
 			outputFile = RemoteOutputFile.reserve(outputPath);
+			OBSERVATIONS.clear();
+			PERSISTED.clear();
 			acceptingHits = true;
 			finalized = false;
+		}
+	}
+
+	static void startPeriodicCheckpoints(int intervalSeconds) {
+		if (intervalSeconds < 1) throw new IllegalArgumentException("flushIntervalSeconds must be >= 1");
+		synchronized (SCHEDULER_LOCK) {
+			if (checkpointScheduler != null) throw new IllegalStateException("Remote STP checkpoint scheduler is already running");
+			checkpointScheduler = Executors.newSingleThreadScheduledExecutor(task -> {
+				Thread thread = new Thread(task, "stp-remote-checkpoint");
+				thread.setDaemon(true);
+				return thread;
+			});
+			checkpointScheduler.scheduleWithFixedDelay(() -> {
+				try { checkpointNow(); }
+				catch (Throwable failure) { System.err.println("[stp-remote-agent] periodic checkpoint failed: " + failure); }
+			}, intervalSeconds, intervalSeconds, TimeUnit.SECONDS);
+		}
+	}
+
+	static void stopPeriodicCheckpoints() {
+		ScheduledExecutorService scheduler;
+		synchronized (SCHEDULER_LOCK) {
+			scheduler = checkpointScheduler;
+			checkpointScheduler = null;
+			if (scheduler != null) scheduler.shutdown();
+		}
+		if (scheduler == null) return;
+		try {
+			if (!scheduler.awaitTermination(30, TimeUnit.SECONDS)) scheduler.shutdownNow();
+		} catch (InterruptedException interrupted) {
+			scheduler.shutdownNow();
+			Thread.currentThread().interrupt();
 		}
 	}
 
@@ -46,34 +90,56 @@ public final class RemoteRecorder {
 		}
 	}
 
-	/** Stops accepting hits, takes one consistent snapshot, and replaces the reserved file. */
+	/** Stops scheduling and accepting hits, then persists all remaining observations. */
 	static void writeOutput() {
-		RemoteOutputFile destination;
-		Map<RemoteRequestIdentity, Set<String>> snapshot = new HashMap<>();
+		stopPeriodicCheckpoints();
 		synchronized (STATE_LOCK) {
-			destination = outputFile;
-			if (destination == null || !acceptingHits) return;
+			if (outputFile == null || finalized) return;
 			acceptingHits = false;
-			snapshot = snapshotLocked();
 		}
-
-		String json;
-		try {
-			json = serialize(snapshot); // Complete serialization before touching the final path.
-		} catch (RuntimeException | Error failure) {
-			destination.abandon();
-			throw destination.serializationFailure(failure);
-		}
-		destination.finish(json);
-		synchronized (STATE_LOCK) { finalized = true; }
+		persistSnapshot(true);
 	}
 
-	/** Returns a consistent schema-v2 view of all observations collected so far. */
+	/** Persists current pending hits without finalizing the output lease. */
+	static void checkpointNow() { persistSnapshot(false); }
+
+	private static void persistSnapshot(boolean finalCheckpoint) {
+		synchronized (CHECKPOINT_LOCK) {
+			RemoteOutputFile destination;
+			Map<RemoteRequestIdentity, Set<String>> pending;
+			Map<RemoteRequestIdentity, Set<String>> merged;
+			synchronized (STATE_LOCK) {
+				destination = outputFile;
+				if (destination == null || finalized || (!acceptingHits && !finalCheckpoint)) return;
+				pending = snapshotLocked(OBSERVATIONS);
+				if (!finalCheckpoint && pending.isEmpty()) return;
+				merged = snapshotLocked(PERSISTED);
+				merge(merged, pending);
+			}
+			String json;
+			try {
+				beforeCheckpointPersistForTests.run();
+				json = serialize(merged);
+			} catch (RuntimeException | Error failure) {
+				if (finalCheckpoint) destination.abandon();
+				throw destination.serializationFailure(failure);
+			}
+			if (finalCheckpoint) destination.finish(json);
+			else destination.checkpoint(json);
+			synchronized (STATE_LOCK) {
+				merge(PERSISTED, pending);
+				compact(OBSERVATIONS, pending);
+				if (finalCheckpoint) finalized = true;
+			}
+		}
+	}
+
+	/** Returns a consistent schema-v2 view of observations currently held in memory. */
 	static String memorySnapshot() {
-		synchronized (STATE_LOCK) { return serialize(snapshotLocked()); }
+		synchronized (STATE_LOCK) { return serialize(snapshotLocked(OBSERVATIONS)); }
 	}
 
-	/** The persisted destination is visible only after this recorder completed finalization. */
+	/** The persisted destination is visible only after finalization (updated to checkpoints in Task 2). */
 	static FinalizedOutput finalizedOutput() throws IOException {
 		synchronized (STATE_LOCK) {
 			if (!finalized || outputFile == null) return null;
@@ -87,10 +153,29 @@ public final class RemoteRecorder {
 
 	record FinalizedOutput(java.nio.file.Path path, byte[] content) { }
 
-	private static Map<RemoteRequestIdentity, Set<String>> snapshotLocked() {
+	private static Map<RemoteRequestIdentity, Set<String>> snapshotLocked(Map<RemoteRequestIdentity, Set<String>> source) {
 		Map<RemoteRequestIdentity, Set<String>> snapshot = new HashMap<>();
-		OBSERVATIONS.forEach((identity, methods) -> snapshot.put(identity, Set.copyOf(methods)));
+		source.forEach((identity, methods) -> snapshot.put(identity, new HashSet<>(methods)));
 		return snapshot;
+	}
+
+	private static void merge(Map<RemoteRequestIdentity, Set<String>> destination,
+			Map<RemoteRequestIdentity, Set<String>> additions) {
+		additions.forEach((identity, methods) -> destination.computeIfAbsent(identity, ignored -> new HashSet<>()).addAll(methods));
+	}
+
+	private static void compact(Map<RemoteRequestIdentity, Set<String>> pending,
+			Map<RemoteRequestIdentity, Set<String>> checkpointed) {
+		checkpointed.forEach((identity, methods) -> {
+			Set<String> remaining = pending.get(identity);
+			if (remaining == null) return;
+			remaining.removeAll(methods);
+			if (remaining.isEmpty()) pending.remove(identity);
+		});
+	}
+
+	static void beforeCheckpointPersistForTests(Runnable action) {
+		beforeCheckpointPersistForTests = action == null ? () -> { } : action;
 	}
 
 	private static String serialize(Map<RemoteRequestIdentity, Set<String>> observations) {
@@ -136,12 +221,15 @@ public final class RemoteRecorder {
 	}
 
 	static void clearForTests() {
+		stopPeriodicCheckpoints();
 		synchronized (STATE_LOCK) {
 			OBSERVATIONS.clear();
+			PERSISTED.clear();
 			if (outputFile != null) outputFile.abandon();
 			outputFile = null;
 			acceptingHits = false;
 			finalized = false;
 		}
+		beforeCheckpointPersistForTests = () -> { };
 	}
 }

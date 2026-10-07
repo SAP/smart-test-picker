@@ -23,6 +23,7 @@ public final class RemoteStpAgent {
 			instrumentation.addTransformer(new RemoteExecutorCallSiteTransformer(configuration), false);
 		}
 		RemoteDebugHttpServer debugServer = RemoteDebugHttpServer.startIfConfigured(configuration.debugPort());
+		RemoteRecorder.startPeriodicCheckpoints(configuration.flushIntervalSeconds());
 		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
 			if (debugServer != null) debugServer.stopAccepting();
 			try { RemoteRecorder.writeOutput(); }
