@@ -3,15 +3,17 @@
 package com.sap.oss.smarttestpicker.remote;
 
 import java.nio.file.Path;
+import java.nio.file.InvalidPathException;
 import java.util.ArrayList;
 import java.util.List;
 
-record RemoteAgentConfiguration(Path output, List<String> includes, List<String> excludes) {
+record RemoteAgentConfiguration(Path output, List<String> includes, List<String> excludes, Integer debugPort) {
 	static RemoteAgentConfiguration parse(String arguments) {
 		if (arguments == null || arguments.isBlank()) throw new IllegalArgumentException("agent arguments are required");
 		Path output = null;
 		List<String> includes = new ArrayList<>();
 		List<String> excludes = new ArrayList<>();
+		Integer debugPort = null;
 		for (String item : arguments.split(";")) {
 			int separator = item.indexOf('=');
 			if (separator < 1) throw new IllegalArgumentException("invalid agent argument: " + item);
@@ -19,15 +21,24 @@ record RemoteAgentConfiguration(Path output, List<String> includes, List<String>
 			String value = item.substring(separator + 1).trim();
 			if (value.isEmpty()) throw new IllegalArgumentException(key + " must not be empty");
 			switch (key) {
-				case "output" -> output = Path.of(value).toAbsolutePath().normalize();
+				case "output" -> {
+					try { output = Path.of(value).toAbsolutePath().normalize(); }
+					catch (InvalidPathException invalid) { throw new IllegalArgumentException("invalid output path '" + value + "'", invalid); }
+				}
 				case "includes" -> addPrefixes(includes, value);
 				case "excludes" -> addPrefixes(excludes, value);
+				case "debugPort" -> {
+					try { debugPort = Integer.valueOf(value); }
+					catch (NumberFormatException invalid) { throw new IllegalArgumentException("debugPort must be an integer from 1 to 65535: " + value, invalid); }
+					if (debugPort < 1 || debugPort > 65535)
+						throw new IllegalArgumentException("debugPort must be an integer from 1 to 65535: " + value);
+				}
 				default -> throw new IllegalArgumentException("unknown agent argument: " + key);
 			}
 		}
 		if (output == null) throw new IllegalArgumentException("output is required");
 		if (includes.isEmpty()) throw new IllegalArgumentException("at least one application include prefix is required");
-		return new RemoteAgentConfiguration(output, List.copyOf(includes), List.copyOf(excludes));
+		return new RemoteAgentConfiguration(output, List.copyOf(includes), List.copyOf(excludes), debugPort);
 	}
 
 	boolean instruments(String className) {

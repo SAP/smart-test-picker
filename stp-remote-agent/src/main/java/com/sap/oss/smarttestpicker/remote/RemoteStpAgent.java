@@ -22,6 +22,11 @@ public final class RemoteStpAgent {
 			instrumentation.addTransformer(new RemoteHttpBoundaryTransformer(), false);
 			instrumentation.addTransformer(new RemoteExecutorCallSiteTransformer(configuration), false);
 		}
-		Runtime.getRuntime().addShutdownHook(new Thread(RemoteRecorder::writeOutput, "stp-remote-agent-output"));
+		RemoteDebugHttpServer debugServer = RemoteDebugHttpServer.startIfConfigured(configuration.debugPort());
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+			if (debugServer != null) debugServer.stopAccepting();
+			try { RemoteRecorder.writeOutput(); }
+			finally { if (debugServer != null) debugServer.stop(); }
+		}, "stp-remote-agent-output"));
 	}
 }
