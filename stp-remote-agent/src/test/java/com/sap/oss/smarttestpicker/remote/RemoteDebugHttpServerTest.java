@@ -41,7 +41,7 @@ class RemoteDebugHttpServerTest {
 	}
 
 	@Test void absentPortDisablesServerAndValidPortStartsOnLoopback() throws Exception {
-		RemoteAgentConfiguration disabled = RemoteAgentConfiguration.parse("output=disabled.json;includes=example.");
+		RemoteAgentConfiguration disabled = RemoteAgentConfiguration.parse("output=disabled.json;includes=example.;serviceId=fixture-service;revision=test-revision");
 		assertNull(disabled.debugPort());
 		assertNull(RemoteDebugHttpServer.startIfConfigured(disabled.debugPort()));
 		assertTrue(server.address().getAddress().isLoopbackAddress());
@@ -57,6 +57,9 @@ class RemoteDebugHttpServerTest {
 		assertEquals(200, first.statusCode());
 		assertTrue(first.headers().firstValue("Content-Type").orElse("").startsWith("application/json"));
 		assertTrue(RemoteObservationJson.isValidSchemaV2(first.body()));
+		assertTrue(first.body().contains("\"serviceId\":\"test-service\""));
+		assertTrue(first.body().contains("\"instanceId\":\"test-instance\""));
+		assertTrue(first.body().contains("\"revision\":\"test-revision\""));
 		assertTrue(first.body().contains("example.VetController#list()V"));
 
 		try (RemoteTestContext.Scope ignored = RemoteTestContext.enter(identity("later"))) {
@@ -107,6 +110,13 @@ class RemoteDebugHttpServerTest {
 		}
 		RemoteRecorder.writeOutput();
 		String expected = Files.readString(output);
+		for (String path : List.of("/stp/debug/output", "/stp/debug/snapshot")) {
+			HttpResponse<String> response = get(path);
+			assertEquals(200, response.statusCode());
+			assertTrue(response.body().contains("\"serviceId\":\"test-service\""));
+			assertTrue(response.body().contains("\"instanceId\":\"test-instance\""));
+			assertTrue(response.body().contains("\"revision\":\"test-revision\""));
+		}
 		Files.writeString(output.resolveSibling(output.getFileName() + ".tmp"), "do not expose");
 		Files.writeString(output.resolveSibling(output.getFileName() + ".inprogress"), "stale marker");
 		HttpResponse<String> after = get("/stp/debug/output");

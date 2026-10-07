@@ -46,6 +46,11 @@ The output schema remains version 2:
 ```json
 {
   "schemaVersion": 2,
+  "source": {
+    "serviceId": "pricing-service",
+    "instanceId": "instance-123",
+    "revision": "abc123"
+  },
   "requests": [
     {
       "testSuiteId": "suite-A",
@@ -56,6 +61,8 @@ The output schema remains version 2:
   ]
 }
 ```
+
+New agent output requires the producer `source` object. Older schema-v2 files without `source` remain recognizable as completed outputs so a newer agent will not overwrite them; distributed joining rejects such legacy fragments because their producer cannot be established.
 
 Each request tuple is persisted independently. Method hits are deduplicated only inside one tuple. Output records and methods are sorted for stable output. A final file is considered completed only when it parses as JSON schema v2 and each request has valid structured identity fields and a method array.
 

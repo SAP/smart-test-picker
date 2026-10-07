@@ -16,7 +16,7 @@ class RemoteMethodEntryTransformerTest {
 	@Test void instrumentsAndLoadsDefaultAndStaticInterfaceMethods() throws Exception {
 		Path output = java.nio.file.Files.createTempDirectory("remote-interface-output").resolve("interface-observations.json");
 		RemoteAgentConfiguration configuration = RemoteAgentConfiguration.parse(
-				"output=" + output + ";includes=example.remote.");
+				"output=" + output + ";includes=example.remote.;serviceId=fixture-service;revision=test-revision");
 		RemoteMethodEntryTransformer transformer = new RemoteMethodEntryTransformer(configuration);
 		String internalName = ApplicationInterfaceFixture.class.getName().replace('.', '/');
 		byte[] original;

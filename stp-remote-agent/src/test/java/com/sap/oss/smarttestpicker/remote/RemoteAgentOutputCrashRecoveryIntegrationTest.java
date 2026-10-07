@@ -172,7 +172,7 @@ class RemoteAgentOutputCrashRecoveryIntegrationTest {
 		String javaExecutable = Path.of(System.getProperty("java.home"), "bin", "java").toString();
 		Path agent = Path.of(System.getProperty("stp.remote.agent.jar"));
 		java.util.List<String> command = new java.util.ArrayList<>(java.util.List.of(javaExecutable,
-				"-javaagent:" + agent + "=output=" + output + ";includes=example.remote.",
+				"-javaagent:" + agent + "=output=" + output + ";includes=example.remote.;serviceId=fixture-service;revision=test-revision",
 				"-cp", System.getProperty("java.class.path"), main));
 		command.addAll(java.util.List.of(arguments));
 		return new ProcessBuilder(command).redirectErrorStream(true).redirectOutput(log.toFile()).start();

@@ -11,42 +11,42 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RemoteAgentConfigurationTest {
 	@Test void flushIntervalDefaultsToOneMinuteAndCanBeConfigured() {
-		assertEquals(60, RemoteAgentConfiguration.parse("output=out.json;includes=example.").flushIntervalSeconds());
-		assertEquals(7, RemoteAgentConfiguration.parse("output=out.json;includes=example.;flushIntervalSeconds=7").flushIntervalSeconds());
-		assertEquals(1, RemoteAgentConfiguration.parse("output=out.json;includes=example.;flushIntervalSeconds=1").flushIntervalSeconds());
+		assertEquals(60, RemoteAgentConfiguration.parse("output=out.json;includes=example.;serviceId=fixture-service;revision=test-revision").flushIntervalSeconds());
+		assertEquals(7, RemoteAgentConfiguration.parse("output=out.json;includes=example.;serviceId=fixture-service;revision=test-revision;flushIntervalSeconds=7").flushIntervalSeconds());
+		assertEquals(1, RemoteAgentConfiguration.parse("output=out.json;includes=example.;serviceId=fixture-service;revision=test-revision;flushIntervalSeconds=1").flushIntervalSeconds());
 	}
 
 	@Test void invalidFlushIntervalsFailClearly() {
 		for (String value : new String[] {"0", "-1", "abc", "999999999999999999"}) {
 			IllegalArgumentException failure = assertThrows(IllegalArgumentException.class,
-					() -> RemoteAgentConfiguration.parse("output=out.json;includes=example.;flushIntervalSeconds=" + value));
+					() -> RemoteAgentConfiguration.parse("output=out.json;includes=example.;serviceId=fixture-service;revision=test-revision;flushIntervalSeconds=" + value));
 			assertTrue(failure.getMessage().contains("flushIntervalSeconds"));
 		}
 	}
 
 	@Test void relativeOutputIsResolvedAgainstWorkingDirectoryAndNormalized() {
 		Path configured = Path.of("build", "remote", "..", "observations.json").toAbsolutePath().normalize();
-		RemoteAgentConfiguration parsed = RemoteAgentConfiguration.parse("output=build/remote/../observations.json;includes=example.");
+		RemoteAgentConfiguration parsed = RemoteAgentConfiguration.parse("output=build/remote/../observations.json;includes=example.;serviceId=fixture-service;revision=test-revision");
 		assertEquals(configured, parsed.output());
 		assertTrue(parsed.output().isAbsolute());
 		assertNull(parsed.debugPort());
 	}
 
 	@Test void debugPortIsOptionalAndValidated() {
-		assertEquals(9465, RemoteAgentConfiguration.parse("output=out.json;includes=example.;debugPort=9465").debugPort());
+		assertEquals(9465, RemoteAgentConfiguration.parse("output=out.json;includes=example.;serviceId=fixture-service;revision=test-revision;debugPort=9465").debugPort());
 		for (String value : new String[] {"0", "-1", "65536", "abc"}) {
 			IllegalArgumentException failure = assertThrows(IllegalArgumentException.class,
-					() -> RemoteAgentConfiguration.parse("output=out.json;includes=example.;debugPort=" + value));
+					() -> RemoteAgentConfiguration.parse("output=out.json;includes=example.;serviceId=fixture-service;revision=test-revision;debugPort=" + value));
 			assertTrue(failure.getMessage().contains("debugPort"));
 		}
 	}
 
 	@Test void emptyAndInvalidOutputPathsFailWithUsefulErrors() {
 		IllegalArgumentException empty = assertThrows(IllegalArgumentException.class,
-				() -> RemoteAgentConfiguration.parse("output= ;includes=example."));
+				() -> RemoteAgentConfiguration.parse("output= ;includes=example.;serviceId=fixture-service;revision=test-revision"));
 		assertTrue(empty.getMessage().contains("output"));
 		IllegalArgumentException invalid = assertThrows(IllegalArgumentException.class,
-				() -> RemoteAgentConfiguration.parse("output=bad" + (char) 0 + "path.json;includes=example."));
+				() -> RemoteAgentConfiguration.parse("output=bad" + (char) 0 + "path.json;includes=example.;serviceId=fixture-service;revision=test-revision"));
 		assertTrue(invalid.getMessage().contains("bad"));
 		assertTrue(invalid.getMessage().contains("output path"));
 	}

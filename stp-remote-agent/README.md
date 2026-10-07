@@ -16,10 +16,12 @@ Build the shaded standalone agent with:
 Run the server JVM with an explicit output file and application package allow-list:
 
 ```text
--javaagent:/path/opentelemetry-javaagent.jar -javaagent:/path/stp-remote-agent.jar=output=/path/remote-observations.json;includes=com.example.application.
+-javaagent:/path/opentelemetry-javaagent.jar -javaagent:/path/stp-remote-agent.jar=output=/path/remote-observations.json;includes=com.example.application.;serviceId=pricing-service;instanceId=instance-123;revision=abc123
 ```
 
 `output=` is one file owned by this application JVM. Absolute paths are accepted; relative paths resolve against the JVM working directory and are normalized. Parent directories are created at startup. The agent takes an OS lock on `<output>.lock` and creates `<output>.inprogress` plus an empty output reservation. A completed existing schema-v2 output is never overwritten. A stale marker allows a later run to remove only this output's reservation/temp files; the immediately previous contract's empty reservation and exact `<output>.tmp` are also recognized for migration. The default `flushIntervalSeconds=60` periodically checkpoints a cumulative schema-v2 snapshot; values must be at least `1`. Pending memory is compacted only after successful persistence, and clean shutdown writes a final checkpoint before removing the marker. A hard crash loses only observations since the last successful checkpoint. See [the output contract](../docs/remote-stp-output-contract.md) for crash states, malformed-artifact handling, and restart behavior.
+
+Every fragment includes schema-v2 producer metadata under `source`: `serviceId`, `instanceId`, and `revision`. `serviceId` and `revision` are required either as agent parameters or through `STP_SERVICE_ID` and `STP_REVISION`. Instance selection is ordered: explicit `instanceId=`, the environment variable named by `instanceIdEnv=` (default `STP_INSTANCE_ID`), local hostname, then a generated `jvm-<UUID>`. The metadata describes the producer fragment and is repeated unchanged in persisted and debug snapshots.
 
 An optional `debugPort=<1..65535>` starts an agent-owned JDK HTTP server on loopback only. `GET /stp/debug/memory` returns pending, not-yet-checkpointed observations; `GET /stp/debug/output` returns the latest successfully persisted checkpoint or JSON 404 before the first checkpoint; `GET /stp/debug/snapshot` returns the method-set union of persisted and pending observations. These endpoints do not flush or mutate recorder state. The debug listener is disabled when the option is absent. Do not expose it externally without operator-managed network controls; this debug endpoint has no authentication or TLS.
 

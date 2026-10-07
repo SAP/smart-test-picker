@@ -137,7 +137,8 @@ HARNESS_CLASSES="$OUTPUT_DIR/harness-classes"
 mkdir -p "$HARNESS_CLASSES"
 javac --release 17 -d "$HARNESS_CLASSES" "$SCRIPT_DIR/PetClinicHttpHarness.java"
 
-REMOTE_AGENT_OPTIONS="output=$REMOTE_OUTPUT;includes=org.springframework.samples.petclinic."
+PETCLINIC_REVISION="$(git -C "$PETCLINIC_DIR" rev-parse HEAD)"
+REMOTE_AGENT_OPTIONS="output=$REMOTE_OUTPUT;includes=org.springframework.samples.petclinic.;serviceId=spring-petclinic;revision=$PETCLINIC_REVISION"
 echo "Starting PetClinic JVM A at $BASE_URL with readiness probe $PROBE_PATH..."
 java "-javaagent:$OTEL_AGENT_JAR" "-javaagent:$AGENT_JAR=$REMOTE_AGENT_OPTIONS" -jar "$PETCLINIC_JAR" \
 	--server.address=127.0.0.1 --server.port="$PORT" >"$SERVER_LOG" 2>&1 &

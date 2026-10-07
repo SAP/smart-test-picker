@@ -201,7 +201,7 @@ class RemoteExecutorCallSiteTransformerTest {
 
 	@Test void doesNotTransformJdkClassesEvenWhenIncluded() {
 		RemoteAgentConfiguration configuration = RemoteAgentConfiguration.parse(
-				"output=/tmp/remote-agent-test.json;includes=java.util.concurrent.");
+				"output=/tmp/remote-agent-test.json;includes=java.util.concurrent.;serviceId=fixture-service;revision=test-revision");
 		RemoteExecutorCallSiteTransformer transformer = new RemoteExecutorCallSiteTransformer(configuration, ignored -> { });
 		assertNull(transformer.transform(ClassLoader.getSystemClassLoader(), "java/util/concurrent/Executors", null, null,
 				new byte[] {0, 0, 0, 0}));
@@ -209,7 +209,7 @@ class RemoteExecutorCallSiteTransformerTest {
 
 	private static RemoteExecutorCallSiteTransformer transformer(java.util.function.Consumer<String> diagnostics) {
 		RemoteAgentConfiguration configuration = RemoteAgentConfiguration.parse(
-				"output=/tmp/remote-agent-test.json;includes=example.remote.");
+				"output=/tmp/remote-agent-test.json;includes=example.remote.;serviceId=fixture-service;revision=test-revision");
 		return new RemoteExecutorCallSiteTransformer(configuration, diagnostics);
 	}
 	private static byte[] transform(RemoteExecutorCallSiteTransformer transformer, Class<?> fixture) throws Exception {

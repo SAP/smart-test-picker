@@ -15,7 +15,7 @@ public final class RemoteStpAgent {
 			throw new IllegalStateException("stp-remote-agent requires the OpenTelemetry Context API; attach the OpenTelemetry Java agent first for automatic context propagation", missingOpenTelemetry);
 		}
 		RemoteAgentConfiguration configuration = RemoteAgentConfiguration.parse(arguments);
-		RemoteRecorder.install(configuration.output());
+		RemoteRecorder.install(configuration.output(), configuration.source());
 		// Let narrowly scoped callback boundaries run before the method-entry hook.
 		instrumentation.addTransformer(new RemoteMethodEntryTransformer(configuration), false);
 		if (!Boolean.getBoolean("stp.remote.otel.contextOnly")) {

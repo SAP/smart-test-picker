@@ -27,7 +27,7 @@ class RemoteCompletableFutureIntegrationTest {
 		Path log = output.resolveSibling("server.log");
 		Process process = new ProcessBuilder(java, "-Dotel.traces.exporter=none", "-Dotel.metrics.exporter=none",
 				"-Dotel.logs.exporter=none", "-javaagent:" + otelAgent,
-				"-javaagent:" + agentJar + "=output=" + output + ";includes=example.remote.",
+				"-javaagent:" + agentJar + "=output=" + output + ";includes=example.remote.;serviceId=fixture-service;revision=test-revision",
 				"-cp", System.getProperty("java.class.path"), CompletableFutureFixtureMain.class.getName())
 				.redirectErrorStream(true).redirectOutput(log.toFile()).start();
 		try {

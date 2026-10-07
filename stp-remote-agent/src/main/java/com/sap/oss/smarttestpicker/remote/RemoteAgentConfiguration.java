@@ -6,17 +6,29 @@ import java.nio.file.Path;
 import java.nio.file.InvalidPathException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.function.Supplier;
 
 record RemoteAgentConfiguration(Path output, List<String> includes, List<String> excludes, Integer debugPort,
-		int flushIntervalSeconds) {
+		int flushIntervalSeconds, RemoteFragmentMetadata source) {
 	static final int DEFAULT_FLUSH_INTERVAL_SECONDS = 60;
 	static RemoteAgentConfiguration parse(String arguments) {
+		return parse(arguments, System.getenv(), RemoteFragmentMetadata::hostname, () -> UUID.randomUUID().toString());
+	}
+
+	static RemoteAgentConfiguration parse(String arguments, Map<String, String> environment,
+			Supplier<String> hostname, Supplier<String> runUuid) {
 		if (arguments == null || arguments.isBlank()) throw new IllegalArgumentException("agent arguments are required");
 		Path output = null;
 		List<String> includes = new ArrayList<>();
 		List<String> excludes = new ArrayList<>();
 		Integer debugPort = null;
 		int flushIntervalSeconds = DEFAULT_FLUSH_INTERVAL_SECONDS;
+		String serviceId = null;
+		String instanceId = null;
+		String revision = null;
+		String instanceIdEnvironmentVariable = RemoteFragmentMetadata.INSTANCE_ENV;
 		for (String item : arguments.split(";")) {
 			int separator = item.indexOf('=');
 			if (separator < 1) throw new IllegalArgumentException("invalid agent argument: " + item);
@@ -44,13 +56,23 @@ record RemoteAgentConfiguration(Path output, List<String> includes, List<String>
 					if (flushIntervalSeconds < 1)
 						throw new IllegalArgumentException("flushIntervalSeconds must be an integer >= 1: " + value);
 				}
+				case "serviceId" -> serviceId = value;
+				case "instanceId" -> instanceId = value;
+				case "revision" -> revision = value;
+				case "instanceIdEnv" -> {
+					if (!value.matches("[A-Za-z_][A-Za-z0-9_]*"))
+						throw new IllegalArgumentException("instanceIdEnv must be an environment variable name: " + value);
+					instanceIdEnvironmentVariable = value;
+				}
 				default -> throw new IllegalArgumentException("unknown agent argument: " + key);
 			}
 		}
 		if (output == null) throw new IllegalArgumentException("output is required");
 		if (includes.isEmpty()) throw new IllegalArgumentException("at least one application include prefix is required");
+		RemoteFragmentMetadata source = RemoteFragmentMetadata.resolve(serviceId, instanceId, revision,
+				instanceIdEnvironmentVariable, environment, hostname, runUuid);
 		return new RemoteAgentConfiguration(output, List.copyOf(includes), List.copyOf(excludes), debugPort,
-				flushIntervalSeconds);
+				flushIntervalSeconds, source);
 	}
 
 	boolean instruments(String className) {

@@ -26,6 +26,7 @@ public final class RemoteRecorder {
 	/** Cumulative observations already persisted during this JVM run. */
 	private static final Map<RemoteRequestIdentity, Set<String>> PERSISTED = new HashMap<>();
 	private static RemoteOutputFile outputFile;
+	private static RemoteFragmentMetadata sourceMetadata;
 	private static boolean acceptingHits;
 	private static boolean finalized;
 	private static boolean checkpointAvailable;
@@ -36,8 +37,13 @@ public final class RemoteRecorder {
 
 	/** Creates parent directories and reserves a new output file. Existing paths are never reused. */
 	static void install(java.nio.file.Path outputPath) {
+		install(outputPath, new RemoteFragmentMetadata("test-service", "test-instance", "test-revision"));
+	}
+
+	static void install(java.nio.file.Path outputPath, RemoteFragmentMetadata metadata) {
 		synchronized (STATE_LOCK) {
 			outputFile = RemoteOutputFile.reserve(outputPath);
+			sourceMetadata = metadata;
 			OBSERVATIONS.clear();
 			PERSISTED.clear();
 			acceptingHits = true;
@@ -194,7 +200,11 @@ public final class RemoteRecorder {
 		List<RemoteRequestIdentity> identities = new ArrayList<>(observations.keySet());
 		identities.sort(Comparator.comparing(RemoteRequestIdentity::testSuiteId)
 				.thenComparing(RemoteRequestIdentity::testId).thenComparing(RemoteRequestIdentity::requestId));
-		StringBuilder json = new StringBuilder("{\n  \"schemaVersion\": 2,\n  \"requests\": [\n");
+		RemoteFragmentMetadata source;
+		synchronized (STATE_LOCK) { source = sourceMetadata; }
+		StringBuilder json = new StringBuilder("{\n  \"schemaVersion\": 2,\n  \"source\": {\"serviceId\":\"")
+				.append(escape(source.serviceId())).append("\",\"instanceId\":\"").append(escape(source.instanceId()))
+				.append("\",\"revision\":\"").append(escape(source.revision())).append("\"},\n  \"requests\": [\n");
 		for (int requestIndex = 0; requestIndex < identities.size(); requestIndex++) {
 			if (requestIndex > 0) json.append(",\n");
 			RemoteRequestIdentity identity = identities.get(requestIndex);
@@ -239,6 +249,7 @@ public final class RemoteRecorder {
 			PERSISTED.clear();
 			if (outputFile != null) outputFile.abandon();
 			outputFile = null;
+			sourceMetadata = null;
 			acceptingHits = false;
 			finalized = false;
 			checkpointAvailable = false;

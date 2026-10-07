@@ -18,6 +18,14 @@ final class RemoteObservationJson {
 			Object parsed = new Parser(source).parse();
 			if (!(parsed instanceof Map<?, ?> root) || !(root.get("schemaVersion") instanceof BigDecimal version)
 					|| version.compareTo(BigDecimal.valueOf(2)) != 0 || !(root.get("requests") instanceof List<?> requests)) return false;
+			if (root.containsKey("source")) {
+				if (!(root.get("source") instanceof Map<?, ?> metadata)
+						|| !(metadata.get("serviceId") instanceof String serviceId)
+						|| !(metadata.get("instanceId") instanceof String instanceId)
+						|| !(metadata.get("revision") instanceof String revision)) return false;
+				try { new RemoteFragmentMetadata(serviceId, instanceId, revision); }
+				catch (IllegalArgumentException invalidSource) { return false; }
+			}
 			for (Object item : requests) {
 				if (!(item instanceof Map<?, ?> request)
 						|| !(request.get("testSuiteId") instanceof String suite)

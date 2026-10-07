@@ -23,7 +23,7 @@ class RemoteScheduledExecutorIntegrationTest {
 		Path agentJar = Path.of(System.getProperty("stp.remote.agent.jar"));
 		Path otelAgent = Path.of(System.getProperty("stp.otel.agent.jar"));
 		String java = Path.of(System.getProperty("java.home"), "bin", "java").toString();
-		String agentArgs = "output=" + output + ";includes=example.remote.;excludes=example.remote.ScheduledExecutorFixtureMain$InspectingScheduler";
+		String agentArgs = "output=" + output + ";includes=example.remote.;serviceId=fixture-service;revision=test-revision;excludes=example.remote.ScheduledExecutorFixtureMain$InspectingScheduler";
 		Process process = new ProcessBuilder(java, "-Dotel.traces.exporter=none", "-Dotel.metrics.exporter=none",
 				"-Dotel.logs.exporter=none", "-javaagent:" + otelAgent, "-javaagent:" + agentJar + "=" + agentArgs, "-cp",
 				System.getProperty("java.class.path"), ScheduledExecutorFixtureMain.class.getName())

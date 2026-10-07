@@ -107,7 +107,8 @@ mkdir -p "$HARNESS_CLASSES"
 javac --release 17 -d "$HARNESS_CLASSES" "$SCRIPT_DIR/PetClinicHttpHarness.java"
 
 BASE_URL="http://127.0.0.1:$PORT"
-AGENT_OPTIONS="output=$OBSERVATIONS;includes=org.springframework.samples.petclinic."
+PETCLINIC_REVISION="$(git -C "$PETCLINIC_DIR" rev-parse HEAD)"
+AGENT_OPTIONS="output=$OBSERVATIONS;includes=org.springframework.samples.petclinic.;serviceId=spring-petclinic;revision=$PETCLINIC_REVISION"
 echo "Starting PetClinic JVM A at $BASE_URL with stp-remote-agent..."
 java "-javaagent:$OTEL_AGENT_JAR" "-javaagent:$AGENT_JAR=$AGENT_OPTIONS" -jar "$PETCLINIC_JAR" \
 	--server.address=127.0.0.1 --server.port="$PORT" >"$SERVER_LOG" 2>&1 &

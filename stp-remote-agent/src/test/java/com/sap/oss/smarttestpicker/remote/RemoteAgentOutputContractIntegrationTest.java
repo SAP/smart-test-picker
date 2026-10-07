@@ -40,7 +40,7 @@ class RemoteAgentOutputContractIntegrationTest {
 	private static Process launch(String java, Path agentJar, Path output, Path log) throws Exception {
 		Files.createDirectories(output.getParent());
 		return new ProcessBuilder(java,
-				"-javaagent:" + agentJar + "=output=" + output + ";includes=example.remote.",
+				"-javaagent:" + agentJar + "=output=" + output + ";includes=example.remote.;serviceId=fixture-service;revision=test-revision",
 				"-cp", System.getProperty("java.class.path"), RemoteOutputLifecycleFixtureMain.class.getName())
 				.redirectErrorStream(true).redirectOutput(log.toFile()).start();
 	}
