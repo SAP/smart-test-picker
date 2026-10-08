@@ -28,10 +28,20 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StpKarateClientTest {
+	@org.junit.jupiter.api.io.TempDir java.nio.file.Path manifests;
+	private final List<StpKarateHook> hooks = new java.util.ArrayList<>();
 	private RecordingServer server;
 
 	@BeforeEach void startServer() throws Exception { server = new RecordingServer(); }
-	@AfterEach void stopServer() { server.close(); assertTrue(server.headerErrors.isEmpty(), server.headerErrors.toString()); }
+	@AfterEach void stopServer() throws Exception {
+		server.close(); assertTrue(server.headerErrors.isEmpty(), server.headerErrors.toString());
+		for (var hook : hooks) {
+			assertTrue(java.nio.file.Files.isRegularFile(hook.manifestPath()));
+			Map<?, ?> doc = (Map<?, ?>) com.intuit.karate.JsonUtils.fromJson(java.nio.file.Files.readString(hook.manifestPath()));
+			assertEquals(1, ((Number)doc.get("schemaVersion")).intValue());
+			assertEquals(hook.runId(), ((Map<?, ?>)doc.get("source")).get("runId"));
+		}
+	}
 
 	@Test void enrichesEveryRequestInOneScenarioWithOneSuiteAndTestIdentity() {
 		Results result = run("classpath:features/workflow.feature", "Suite-A", Map.of());
@@ -65,6 +75,7 @@ class StpKarateClientTest {
 		Results parallel = runner("classpath:features/parallel.feature", "Suite-Parallel", Map.of()).parallel(2);
 		assertEquals(0, parallel.getFailCount(), parallel.getErrorMessages());
 		assertEquals(2, parallel.getScenariosPassed());
+		assertManifestMatchesWire(hooks.get(hooks.size() - 1), server.records);
 		assertEquals(2, server.records.size());
 		assertNotEquals(server.records.get(0).testId, server.records.get(1).testId);
 		assertNotEquals(server.records.get(0).requestId, server.records.get(1).requestId);
@@ -121,14 +132,18 @@ class StpKarateClientTest {
 
 	@Test void readsSuiteIdFromTheRunLevelSystemProperty() {
 		String previous = System.getProperty(StpKarateClient.SUITE_ID_PROPERTY);
+		String previousOutput = System.getProperty(StpKarateHook.OUTPUT_DIRECTORY_PROPERTY);
 		try {
 			System.setProperty(StpKarateClient.SUITE_ID_PROPERTY, "Suite-System-Property");
+			System.setProperty(StpKarateHook.OUTPUT_DIRECTORY_PROPERTY, manifests.toString());
 			Results result = Runner.path("classpath:features/single.feature")
 					.hook(StpKarateHook.fromSystemProperties())
 					.systemProperty("fixture.baseUrl", server.baseUrl()).outputHtmlReport(false).parallel(1);
 			assertEquals(0, result.getFailCount(), result.getErrorMessages());
 			assertEquals("Suite-System-Property", server.records.get(0).suiteId);
 		} finally {
+			if (previousOutput == null) System.clearProperty(StpKarateHook.OUTPUT_DIRECTORY_PROPERTY);
+			else System.setProperty(StpKarateHook.OUTPUT_DIRECTORY_PROPERTY, previousOutput);
 			if (previous == null) System.clearProperty(StpKarateClient.SUITE_ID_PROPERTY);
 			else System.setProperty(StpKarateClient.SUITE_ID_PROPERTY, previous);
 		}
@@ -145,12 +160,36 @@ class StpKarateClientTest {
 	}
 
 	private Results run(String feature, String suiteId, Map<String, Object> injectedHeaders) {
-		return runner(feature, suiteId, injectedHeaders).parallel(1);
+		int before = server.records.size();
+		var result = runner(feature, suiteId, injectedHeaders).parallel(1);
+		assertManifestMatchesWire(hooks.get(hooks.size() - 1), server.records.subList(before, server.records.size()));
+		return result;
+	}
+
+	@SuppressWarnings("unchecked")
+	private void assertManifestMatchesWire(StpKarateHook hook, List<RecordedRequest> expected) {
+		try {
+			Map<?, ?> doc = (Map<?, ?>) com.intuit.karate.JsonUtils.fromJson(java.nio.file.Files.readString(hook.manifestPath()));
+			String suite = (String)((Map<?, ?>)doc.get("source")).get("suiteId");
+			var entries = (List<Map<String, Object>>)doc.get("requests");
+			assertEquals(expected.size(), entries.size());
+			assertEquals(expected.stream().map(RecordedRequest::requestId).collect(java.util.stream.Collectors.toSet()),
+					entries.stream().map(r -> r.get("requestId")).collect(java.util.stream.Collectors.toSet()));
+			for (Map<String, Object> r : entries) {
+				var wire = expected.stream().filter(x -> x.requestId.equals(r.get("requestId"))).findFirst().orElseThrow();
+				assertEquals(suite, wire.suiteId);
+				assertEquals(wire.testId, r.get("testId"));
+				assertEquals(wire.httpMethod, r.get("httpMethod"));
+				assertFalse(((String)r.get("requestUri")).contains("?"));
+			}
+		} catch (java.io.IOException failure) { throw new AssertionError(failure); }
 	}
 
 	private Runner.Builder runner(String feature, String suiteId, Map<String, Object> injectedHeaders) {
+		var hook = new StpKarateHook(suiteId, manifests);
+		hooks.add(hook);
 		return Runner.path(feature)
-				.hook(new StpKarateHook(suiteId))
+				.hook(hook)
 				.systemProperty("fixture.baseUrl", server.baseUrl())
 				.systemProperty("fixture.headers", com.intuit.karate.JsonUtils.toJson(injectedHeaders))
 				.outputHtmlReport(false)
@@ -185,6 +224,7 @@ class StpKarateClientTest {
 		Results result = runner("classpath:features/parallel-retry.feature", "Suite-Retry", Map.of()).parallel(2);
 		assertEquals(0, result.getFailCount(), result.getErrorMessages());
 		assertEquals(6, server.records.size());
+		assertManifestMatchesWire(hooks.get(hooks.size() - 1), server.records);
 		assertRequestIdentities(server.records, "Suite-Retry");
 		assertTrue(server.records.stream().allMatch(RecordedRequest::concurrentArrival));
 		var groups = server.records.stream().collect(java.util.stream.Collectors.groupingBy(RecordedRequest::operation));
@@ -231,8 +271,61 @@ class StpKarateClientTest {
 		}
 	}
 
+	@Test void manifestRecordsPostGetDeleteWithoutBodiesCookiesOrQuerySecrets() throws Exception {
+		assertEquals(0, run("classpath:features/methods.feature", "Suite-Methods", Map.of()).getFailCount());
+		assertEquals(List.of("POST", "GET", "DELETE"), server.records.stream().map(RecordedRequest::httpMethod).toList());
+		assertEquals(1, server.records.stream().map(RecordedRequest::testId).distinct().count());
+		assertRequestIdentities(server.records, "Suite-Methods");
+		String json = java.nio.file.Files.readString(hooks.get(0).manifestPath());
+		for (String secret : List.of("body-secret", "query-secret", "cookie-secret", "fixture-token"))
+			assertFalse(json.contains(secret), secret);
+	}
+
+	@Test void runWithoutHttpStillWritesOneEmptyManifest() throws Exception {
+		assertEquals(0, run("classpath:features/no-http.feature", "Suite-NoHttp", Map.of()).getFailCount());
+		assertTrue(server.records.isEmpty());
+		try (var files = java.nio.file.Files.list(manifests)) { assertEquals(1, files.count()); }
+	}
+
+	@Test void hookCannotBeReusedForAnotherRun() throws Exception {
+		var hook = new StpKarateHook("Suite-A", manifests);
+		assertEquals(0, bareRunner(hook).parallel(1).getFailCount());
+		String original = java.nio.file.Files.readString(hook.manifestPath());
+		var failure = assertThrows(RuntimeException.class, () -> bareRunner(hook).parallel(1));
+		assertTrue(failure.toString().contains("new StpKarateHook"), failure.toString());
+		assertEquals(original, java.nio.file.Files.readString(hook.manifestPath()));
+		assertEquals(1, server.records.size());
+	}
+
+	@Test void finalWriteFailureFailsRunnerAndNeverOverwritesExistingOutput() throws Exception {
+		var hook = new StpKarateHook("Suite-A", manifests);
+		java.nio.file.Files.writeString(hook.manifestPath(), "keep-existing-file");
+		var failure = assertThrows(RuntimeException.class, () -> bareRunner(hook).parallel(1));
+		assertTrue(failure.toString().contains(hook.manifestPath().toString()), failure.toString());
+		assertEquals("keep-existing-file", java.nio.file.Files.readString(hook.manifestPath()));
+	}
+
+	@Test void outputDirectoryIsRequiredForSystemPropertyConfiguration() {
+		String previous = System.getProperty(StpKarateHook.OUTPUT_DIRECTORY_PROPERTY);
+		try {
+			System.clearProperty(StpKarateHook.OUTPUT_DIRECTORY_PROPERTY);
+			assertThrows(IllegalArgumentException.class, () -> new StpKarateHook("suite"));
+			System.setProperty(StpKarateHook.OUTPUT_DIRECTORY_PROPERTY, " ");
+			assertThrows(IllegalArgumentException.class, () -> new StpKarateHook("suite"));
+		} finally {
+			if (previous == null) System.clearProperty(StpKarateHook.OUTPUT_DIRECTORY_PROPERTY);
+			else System.setProperty(StpKarateHook.OUTPUT_DIRECTORY_PROPERTY, previous);
+		}
+	}
+
+	private Runner.Builder bareRunner(StpKarateHook hook) {
+		return Runner.path("classpath:features/single.feature").hook(hook)
+				.systemProperty("fixture.baseUrl", server.baseUrl()).outputHtmlReport(false)
+				.reportDir("build/karate-reports/" + java.util.UUID.randomUUID());
+	}
+
 	private record RecordedRequest(String operation, String suiteId, String testId, String requestId,
-			boolean concurrentArrival, String baggage, String featureHeader) { }
+			boolean concurrentArrival, String baggage, String featureHeader, String httpMethod) { }
 	private record TestIdentity(String testSuiteId, String testId, String requestId) { }
 
 	private static final class RecordingServer implements AutoCloseable {
@@ -255,7 +348,7 @@ class StpKarateClientTest {
 				}
 				TestIdentity identity = identity(exchange.getRequestHeaders().getFirst(StpKarateClient.BAGGAGE_HEADER));
 				records.add(new RecordedRequest(operation, identity.testSuiteId(), identity.testId(), identity.requestId(), concurrent,
-						exchange.getRequestHeaders().getFirst("baggage"), exchange.getRequestHeaders().getFirst("X-Feature")));
+						exchange.getRequestHeaders().getFirst("baggage"), exchange.getRequestHeaders().getFirst("X-Feature"), exchange.getRequestMethod()));
 				assertHeader(exchange, "Authorization", "Bearer fixture-token");
 				assertHeader(exchange, "X-Configured", "preserved");
 				int attempt = attempts.computeIfAbsent(operation, ignored -> new java.util.concurrent.atomic.AtomicInteger()).incrementAndGet();

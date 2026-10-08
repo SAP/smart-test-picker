@@ -44,6 +44,11 @@ public final class StpKarateClient {
 	/** Injects W3C trace context and W3C Baggage for one concrete outgoing HTTP request. */
 	static Map<String, String> headers(Map<String, List<String>> request, String suiteId, String featurePath,
 			int sectionIndex, int scenarioLine, int exampleIndex) {
+		return prepare(request, suiteId, featurePath, sectionIndex, scenarioLine, exampleIndex).headers();
+	}
+
+	static PreparedRequest prepare(Map<String, List<String>> request, String suiteId, String featurePath,
+			int sectionIndex, int scenarioLine, int exampleIndex) {
 		suiteId = validate(suiteId, SUITE_ID_PROPERTY);
 		featurePath = validate(featurePath, "Karate feature path");
 		String testId = testId(featurePath, sectionIndex, scenarioLine, exampleIndex);
@@ -61,8 +66,10 @@ public final class StpKarateClient {
 		Context requestContext = baggage.storeInContext(base);
 		Map<String, String> injected = new LinkedHashMap<>();
 		PROPAGATOR.inject(requestContext, injected, Map::put);
-		return Map.copyOf(injected);
+		return new PreparedRequest(Map.copyOf(injected), testId, requestId);
 	}
+
+	record PreparedRequest(Map<String, String> headers, String testId, String requestId) { }
 
 	/** Resolves the run-wide suite identity from the documented property and environment variable. */
 	public static String resolveSuiteId(String propertyValue, String environmentValue) {
