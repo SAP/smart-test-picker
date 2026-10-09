@@ -117,13 +117,73 @@ It does not use legacy `X-STP-*` headers. TestSuiteID is the run-level value sup
 
 ### TestID
 
-TestID is `karate-` followed by the lowercase hexadecimal SHA-256 of this UTF-8 input:
+Normal Scenarios use a human-readable identity:
 
 ```text
-feature.prefixedPath + "\n" + scenario.sectionIndex + "\n" + scenario.line + "\n" + scenario.exampleIndex
+<sanitizedScenarioName>-<featureHash>
 ```
 
-This distinguishes feature resources, Scenarios, and Scenario Outline example executions. The same feature and scenario metadata produces the same TestID under different SuiteIDs, so a test can be compared across suites. The ID is stable only while those metadata fields remain unchanged; moving or renaming a feature, or changing the relevant scenario positions, can change it.
+Scenario Outline examples use:
+
+```text
+<sanitizedOutlineName>-<featureHash>-<exampleHash>
+```
+
+The name comes from the feature's Scenario / Scenario Outline **definition** (before
+Karate substitutes example placeholders or evaluates a dynamic display name). It is
+normalized to Unicode NFC, lowercased with `Locale.ROOT`, and every run of characters
+other than Unicode letters/digits becomes `-`; leading/trailing `-` are removed.
+For example, `Create Order - Happy Path!` becomes `create-order-happy-path`.
+Unicode letters remain readable. An empty normalized name fails clearly. The final
+TestID must fit the existing 256-character identity limit; long names fail instead
+of being silently truncated.
+
+`featureHash` is the **first 12 lowercase hex characters of SHA-256**, computed on
+the UTF-8 normalized Karate `Resource.getPrefixedPath()`. Normalization converts
+backslashes to `/`, removes redundant separators and `.` segments, and resolves
+internal `..` segments. `classpath:` is retained. Absolute filesystem paths and
+paths escaping the resource root are rejected: use a classpath or project-relative
+Karate resource identity. Classpath and file-relative resource identities remain
+different; use the same addressing convention across runs.
+
+`exampleHash` uses the same SHA-256/UTF-8/12-hex rule on the resolved
+`Scenario.getExampleData()` map. Karate 1.5.1 exposes this for static, typed and
+dynamic examples. The canonical representation is compact JSON: recursively sorted
+string keys (Java natural string ordering), preserved array order, distinct strings /
+booleans / null / numbers, and finite decimal numbers with trailing zeroes removed
+and no exponent. Quotes/backslashes are escaped; controls and UTF-16 surrogates use
+lowercase `\uXXXX` escapes. No line, index, timestamp, RunID, RequestID or random value
+is generated or added to the hash input. Unsupported non-JSON/cyclic example values
+fail. Example data itself must be deterministic: if a data provider returns random
+or time-dependent values, those are changed test inputs and produce changed IDs;
+the hook cannot infer a stable business key from them.
+
+Identity is captured in `beforeScenario`, before steps can mutate example data, and
+reused for every HTTP attempt in that execution. Moving scenarios, inserting comments
+or unrelated scenarios, and reordering example rows/columns do not change it. Changing
+the normalized scenario name, normalized feature identity, or example data changes it.
+Changes that normalize to the same name (for example case/punctuation-only changes)
+intentionally preserve identity. SuiteID is not an input, so the same test keeps its
+TestID under another suite.
+
+Duplicate normalized Scenario/Outline names within a feature fail, including collisions
+such as `Create order` and `Create---Order!`. Identical resolved examples within one
+feature execution also fail instead of falling back to row indexes. Repeated Runner
+executions and separate calls to the same feature may reuse logical TestIDs as before;
+RequestID still distinguishes their HTTP attempts. Short hashes have a finite collision
+risk; simultaneous duplicate derived IDs within a feature execution fail visibly.
+
+**Migration:** this intentionally replaces the old `karate-<64 hex>` algorithm that
+hashed feature path + section index + scenario line + example index. Existing maps
+must be regenerated, or explicitly migrated using trusted scenario metadata. Do not
+mix old and new TestIDs in historical comparisons and assume equality. There is no
+implicit aliasing or backward-compatibility fallback. Manifest schema, positional
+metadata, SuiteID, RequestID, RunID, filenames, Baggage keys and server join semantics
+are unchanged.
+
+API verification: Karate 1.5.1 [Scenario source](https://github.com/karatelabs/karate/blob/v1.5.1/karate-core/src/main/java/com/intuit/karate/core/Scenario.java),
+[ScenarioOutline source](https://github.com/karatelabs/karate/blob/v1.5.1/karate-core/src/main/java/com/intuit/karate/core/ScenarioOutline.java),
+and [ScenarioIterator source](https://github.com/karatelabs/karate/blob/v1.5.1/karate-core/src/main/java/com/intuit/karate/core/ScenarioIterator.java).
 
 ### RequestID
 
@@ -151,7 +211,7 @@ The correlation key is **SuiteID + TestID + RequestID**. The exact IDs in the cl
 
 ## Parallel execution
 
-The client does not keep a shared mutable “current test” value. It derives TestID from `ScenarioRuntime` at the request hook and generates RequestID for that attempt. The module's parallel fixture verifies that concurrent Karate Scenarios keep their identities separate.
+The client does not keep a shared mutable “current test” value. It captures a stable TestID for each `ScenarioRuntime` before its steps, keeps execution-scoped entries in concurrent maps, removes them at scenario/feature completion, and generates RequestID for each HTTP attempt. The module's parallel fixture verifies that concurrent Karate Scenarios keep their identities separate.
 
 ## Client execution manifest
 
@@ -191,7 +251,7 @@ Safe SuiteIDs up to 64 characters stay readable. Unsafe characters are replaced 
   },
   "requests": [
     {
-      "testId": "karate-<existing SHA-256 identity>",
+      "testId": "create-order-<12-hex-feature-hash>",
       "requestId": "45d24458-2b39-4e99-850c-9a1a6e985eff",
       "featurePath": "classpath:features/orders.feature",
       "sectionIndex": 1,

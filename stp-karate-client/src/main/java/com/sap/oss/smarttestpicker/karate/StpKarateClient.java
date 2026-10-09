@@ -9,11 +9,7 @@ import io.opentelemetry.context.Context;
 import io.opentelemetry.context.propagation.TextMapGetter;
 import io.opentelemetry.context.propagation.TextMapPropagator;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
-import java.util.HexFormat;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,15 +39,13 @@ public final class StpKarateClient {
 
 	/** Injects W3C trace context and W3C Baggage for one concrete outgoing HTTP request. */
 	static Map<String, String> headers(Map<String, List<String>> request, String suiteId, String featurePath,
-			int sectionIndex, int scenarioLine, int exampleIndex) {
-		return prepare(request, suiteId, featurePath, sectionIndex, scenarioLine, exampleIndex).headers();
+			String scenarioName, Map<String, Object> example) {
+		return prepare(request, suiteId, KarateTestIdentity.create(featurePath, scenarioName, example)).headers();
 	}
 
-	static PreparedRequest prepare(Map<String, List<String>> request, String suiteId, String featurePath,
-			int sectionIndex, int scenarioLine, int exampleIndex) {
+	static PreparedRequest prepare(Map<String, List<String>> request, String suiteId, String testId) {
 		suiteId = validate(suiteId, SUITE_ID_PROPERTY);
-		featurePath = validate(featurePath, "Karate feature path");
-		String testId = testId(featurePath, sectionIndex, scenarioLine, exampleIndex);
+		testId = validate(testId, "Karate TestID");
 		String requestId = requestId(request);
 		Context base = W3CBaggagePropagator.getInstance().extract(Context.current(), request, REQUEST_GETTER);
 		Baggage existing = Baggage.fromContext(base);
@@ -78,11 +72,6 @@ public final class StpKarateClient {
 		if (propertySet && environmentSet && !propertyValue.equals(environmentValue))
 			throw new IllegalArgumentException("Conflicting TestSuiteID values in -D" + SUITE_ID_PROPERTY + " and STP_TEST_SUITE_ID");
 		return validate(propertySet ? propertyValue : environmentValue, SUITE_ID_PROPERTY);
-	}
-
-	static String testId(String featurePath, int sectionIndex, int scenarioLine, int exampleIndex) {
-		return "karate-" + sha256(validate(featurePath, "Karate feature path") + "\n"
-				+ sectionIndex + "\n" + scenarioLine + "\n" + exampleIndex);
 	}
 
 	private static void verifyExisting(Baggage baggage, String key, String expected) {
@@ -113,9 +102,5 @@ public final class StpKarateClient {
 		if (value.length() > 256) throw new IllegalArgumentException(source + " exceeds 256 characters");
 		if (value.chars().anyMatch(Character::isISOControl)) throw new IllegalArgumentException(source + " contains an ISO control character");
 		return value;
-	}
-	private static String sha256(String value) {
-		try { return HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(value.getBytes(StandardCharsets.UTF_8))); }
-		catch (NoSuchAlgorithmException impossible) { throw new IllegalStateException("SHA-256 is unavailable", impossible); }
 	}
 }

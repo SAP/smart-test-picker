@@ -123,11 +123,11 @@ class StpKarateClientTest {
 		assertTrue(server.records.isEmpty(), "conflicting identity must fail before the request is sent");
 		HttpRequest malformed = new HttpRequest();
 		malformed.putHeader(StpKarateClient.BAGGAGE_HEADER, "stp.request.id=not-a-uuid");
-		assertThrows(IllegalStateException.class, () -> StpKarateClient.headers(malformed.getHeaders(), "Suite-A", "features/a.feature", 1, 2, -1));
+		assertThrows(IllegalStateException.class, () -> StpKarateClient.headers(malformed.getHeaders(), "Suite-A", "features/a.feature", "example scenario", null));
 		HttpRequest duplicate = new HttpRequest();
 		duplicate.putHeader(StpKarateClient.BAGGAGE_HEADER, "stp.request.id=" + java.util.UUID.randomUUID()
 				+ ",stp.request.id=" + java.util.UUID.randomUUID());
-		assertThrows(IllegalStateException.class, () -> StpKarateClient.headers(duplicate.getHeaders(), "Suite-A", "features/a.feature", 1, 2, -1));
+		assertThrows(IllegalStateException.class, () -> StpKarateClient.headers(duplicate.getHeaders(), "Suite-A", "features/a.feature", "example scenario", null));
 	}
 
 	@Test void readsSuiteIdFromTheRunLevelSystemProperty() {
@@ -151,11 +151,11 @@ class StpKarateClientTest {
 
 	@Test void rejectsInvalidSuiteIdAndHeaderConflicts() {
 		assertThrows(IllegalArgumentException.class,
-				() -> StpKarateClient.headers(Map.of(), "bad\r\nheader", "features/a.feature", 1, 2, -1));
+				() -> StpKarateClient.headers(Map.of(), "bad\r\nheader", "features/a.feature", "example scenario", null));
 		HttpRequest request = new HttpRequest();
 		request.putHeader(StpKarateClient.BAGGAGE_HEADER, StpKarateClient.TEST_ID_KEY + "=wrong");
 		IllegalStateException conflict = assertThrows(IllegalStateException.class,
-				() -> StpKarateClient.headers(request.getHeaders(), "Suite-A", "features/a.feature", 1, 2, -1));
+				() -> StpKarateClient.headers(request.getHeaders(), "Suite-A", "features/a.feature", "example scenario", null));
 		assertTrue(conflict.getMessage().contains(StpKarateClient.TEST_ID_KEY));
 	}
 
@@ -198,7 +198,7 @@ class StpKarateClientTest {
 
 	private static void assertRequestIdentities(List<RecordedRequest> records, String suiteId) {
 		assertTrue(records.stream().allMatch(record -> suiteId.equals(record.suiteId)), records.toString());
-		assertTrue(records.stream().allMatch(record -> record.testId != null && record.testId.matches("karate-[0-9a-f]{64}")), records.toString());
+		assertTrue(records.stream().allMatch(record -> record.testId != null && record.testId.matches("[\\p{L}\\p{N}-]+-[0-9a-f]{12}(-[0-9a-f]{12})?")), records.toString());
 		assertTrue(records.stream().allMatch(record -> record.requestId != null && record.requestId.matches("[0-9a-f-]{36}")), records.toString());
 		assertEquals(records.size(), records.stream().map(RecordedRequest::requestId).distinct().count(), "each HTTP request gets a distinct RequestID");
 	}
