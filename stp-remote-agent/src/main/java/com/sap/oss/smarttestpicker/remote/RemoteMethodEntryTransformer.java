@@ -28,6 +28,13 @@ final class RemoteMethodEntryTransformer implements ClassFileTransformer {
 			if (internalName == null || bytes == null || internalName.equals("module-info")) return null;
 			String className = internalName.replace('/', '.');
 			if (!configuration.instruments(className) || className.startsWith("com.sap.oss.smarttestpicker.remote.")) return null;
+			try {
+				if (Class.forName(RemoteHooks.class.getName(), false, loader) != RemoteHooks.class)
+					throw new ClassNotFoundException("different RemoteHooks class");
+			} catch (ClassNotFoundException | LinkageError inaccessible) {
+				System.err.println("[stp-remote-agent] method-hook-unavailable: " + internalName + " cannot resolve shared RemoteHooks");
+				return null;
+			}
 			ClassNode node = new ClassNode(Opcodes.ASM9);
 			new ClassReader(bytes).accept(node, 0);
 			if ((node.access & Opcodes.ACC_ANNOTATION) != 0

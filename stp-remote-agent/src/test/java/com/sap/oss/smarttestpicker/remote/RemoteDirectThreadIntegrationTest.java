@@ -18,34 +18,39 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RemoteDirectThreadIntegrationTest {
-	@Test void directThreadRunnableConstructorsCaptureContextAndPreserveThreadSemantics() throws Exception {
+	@Test void directThreadStartsCaptureContextAndPreserveThreadSemantics() throws Exception {
 		Fixture fixture = startFixture("raw-threads");
 		try {
-			assertEquals("created", get(fixture.client, fixture.root.resolve("create/plain-A"), "thread-A"));
-			get(fixture.client, fixture.root.resolve("start/A"), null);
+			assertEquals("created", get(fixture.client, fixture.root.resolve("create/plain-A"), null));
+			get(fixture.client, fixture.root.resolve("start/A"), "thread-A");
 			assertEquals("ran", get(fixture.client, fixture.root.resolve("result/A"), null));
 
-			get(fixture.client, fixture.root.resolve("create/named-named"), "thread-named");
-			get(fixture.client, fixture.root.resolve("start/named"), null);
+			get(fixture.client, fixture.root.resolve("create/named-named"), null);
+			get(fixture.client, fixture.root.resolve("start/named"), "thread-named");
 			assertTrue(get(fixture.client, fixture.root.resolve("metadata/named"), null).startsWith("supplied-name-named|"));
 
-			get(fixture.client, fixture.root.resolve("create/group-grouped"), "thread-group");
-			get(fixture.client, fixture.root.resolve("start/grouped"), null);
+			get(fixture.client, fixture.root.resolve("create/group-grouped"), null);
+			get(fixture.client, fixture.root.resolve("start/grouped"), "thread-group");
 			assertTrue(get(fixture.client, fixture.root.resolve("metadata/grouped"), null).endsWith("|group-grouped"));
 
-			get(fixture.client, fixture.root.resolve("create/groupnamed-groupnamed"), "thread-groupnamed");
-			get(fixture.client, fixture.root.resolve("start/groupnamed"), null);
+			get(fixture.client, fixture.root.resolve("create/groupnamed-groupnamed"), null);
+			get(fixture.client, fixture.root.resolve("start/groupnamed"), "thread-groupnamed");
 			assertEquals("supplied-name-groupnamed|group-groupnamed",
 					get(fixture.client, fixture.root.resolve("metadata/groupnamed"), null));
 
-			get(fixture.client, fixture.root.resolve("create/failure-failed"), "thread-failure");
-			get(fixture.client, fixture.root.resolve("start/failed"), null);
+			get(fixture.client, fixture.root.resolve("create/failure-failed"), null);
+			get(fixture.client, fixture.root.resolve("start/failed"), "thread-failure");
 			assertEquals("null", get(fixture.client, fixture.root.resolve("failure-context/failed"), null),
 					"uncaught failure handler must run after the wrapper restored context");
 
-			get(fixture.client, fixture.root.resolve("create-shared/A"), "thread-shared-A");
-			get(fixture.client, fixture.root.resolve("create-shared/B"), "thread-shared-B");
-			get(fixture.client, fixture.root.resolve("start-shared"), null);
+			get(fixture.client, fixture.root.resolve("create-shared/A"), null);
+			get(fixture.client, fixture.root.resolve("create-shared/B"), null);
+			var first = java.util.concurrent.CompletableFuture.runAsync(() -> {
+                try { get(fixture.client, fixture.root.resolve("start/shared-A"), "thread-shared-A"); }
+                catch (Exception e) { throw new RuntimeException(e); }
+            });
+            get(fixture.client, fixture.root.resolve("start/shared-B"), "thread-shared-B");
+            first.get(10, TimeUnit.SECONDS);
 
 			get(fixture.client, fixture.root.resolve("create/nocontext-ordinary"), null);
 			get(fixture.client, fixture.root.resolve("start/ordinary"), null);

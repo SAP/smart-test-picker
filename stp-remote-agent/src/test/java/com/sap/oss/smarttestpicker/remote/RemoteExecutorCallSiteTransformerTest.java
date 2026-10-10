@@ -36,7 +36,7 @@ class RemoteExecutorCallSiteTransformerTest {
 				};
 			}
 		}, 0);
-		assertEquals(6, runnableWraps.get(), "only direct Thread constructors and late thenRunAsync stages use STP fallback");
+		assertEquals(2, runnableWraps.get(), "only thenRunAsync captures here; Thread constructors must defer capture until start");
 		assertEquals(0, callableWraps.get(), "Executor and Callable propagation belong to OpenTelemetry");
 		assertDoesNotThrow(() -> new DefiningLoader(ExecutorCallSiteFixture.class.getClassLoader(),
 				ExecutorCallSiteFixture.class.getName(), transformed).loadClass(ExecutorCallSiteFixture.class.getName()));
@@ -56,7 +56,7 @@ class RemoteExecutorCallSiteTransformerTest {
 				};
 			}
 		}, 0);
-		assertEquals(6, hooks.get("wrap(Ljava/lang/Runnable;)Ljava/lang/Runnable;"));
+		assertEquals(2, hooks.get("wrap(Ljava/lang/Runnable;)Ljava/lang/Runnable;"));
 		assertNull(hooks.get("wrapSupplier(Ljava/util/function/Supplier;)Ljava/util/function/Supplier;"),
 				"OpenTelemetry handles runAsync and supplyAsync callbacks");
 		assertEquals(2, hooks.get("wrapFunction(Ljava/util/function/Function;)Ljava/util/function/Function;"));
@@ -100,7 +100,7 @@ class RemoteExecutorCallSiteTransformerTest {
 				methodName = name;
 				return new MethodVisitor(Opcodes.ASM9) {
 					@Override public void visitMethodInsn(int opcode, String owner, String method, String desc, boolean isInterface) {
-						if (owner.equals("com/sap/oss/smarttestpicker/remote/RemoteTestContext") && method.equals("wrap")
+						if (owner.equals("com/sap/oss/smarttestpicker/remote/RemoteThreadContext") && method.equals("prepare")
 								&& desc.equals("(Ljava/lang/Runnable;)Ljava/lang/Runnable;")) wrapsByMethod.merge(methodName, 1, Integer::sum);
 					}
 				};

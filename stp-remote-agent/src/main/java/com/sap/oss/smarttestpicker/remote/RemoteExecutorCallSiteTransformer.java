@@ -5,12 +5,14 @@ package com.sap.oss.smarttestpicker.remote;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.Type;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.InsnNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
+import org.objectweb.asm.tree.VarInsnNode;
 
 import java.io.InputStream;
 import java.lang.instrument.ClassFileTransformer;
@@ -58,7 +60,18 @@ final class RemoteExecutorCallSiteTransformer implements ClassFileTransformer {
 						changed = true;
 						continue;
 					}
-					InsnList wrapping = threadWrapping(call);
+					if (call.getOpcode() == Opcodes.INVOKEVIRTUAL && call.name.equals("start") && call.desc.equals("()V")
+							&& RemoteThreadBoundaryTransformer.isThread(call.owner, loader, node)) {
+						if (RemoteThreadBoundaryTransformer.visible(loader)) {
+							call.setOpcode(Opcodes.INVOKESTATIC);
+							call.owner = RemoteThreadBoundaryTransformer.HELPER;
+							call.desc = "(Ljava/lang/Thread;)V";
+							call.itf = false;
+							changed = true;
+						} else System.err.println("[stp-remote-agent] thread-boundary-unavailable: " + className);
+						continue;
+					}
+					InsnList wrapping = threadWrapping(call, method, loader);
 					if (wrapping == null) wrapping = completableFutureWrapping(call);
 					if (wrapping != null) {
 						method.instructions.insertBefore(call, wrapping);
@@ -140,23 +153,40 @@ final class RemoteExecutorCallSiteTransformer implements ClassFileTransformer {
 		return result;
 	}
 
-	/** Runnable-based Thread APIs; Thread subclasses overriding run() remain unsupported. */
-	private static InsnList threadWrapping(MethodInsnNode call) {
-		boolean direct = call.owner.equals("java/lang/Thread") && call.name.equals("<init>")
-				&& (call.desc.equals("(" + RUNNABLE + ")V")
-				|| call.desc.equals("(Ljava/lang/ThreadGroup;" + RUNNABLE + ")V"));
-		boolean beforeReference = call.owner.equals("java/lang/Thread") && call.name.equals("<init>")
-				&& (call.desc.equals("(" + RUNNABLE + "Ljava/lang/String;)V")
-				|| call.desc.equals("(Ljava/lang/ThreadGroup;" + RUNNABLE + "Ljava/lang/String;)V"));
-		boolean virtual = call.owner.equals("java/lang/Thread") && call.name.equals("startVirtualThread")
-				&& call.desc.equals("(" + RUNNABLE + ")Ljava/lang/Thread;");
-		boolean builder = call.owner.startsWith("java/lang/Thread$Builder") && call.name.equals("start")
-				&& call.desc.equals("(" + RUNNABLE + ")Ljava/lang/Thread;");
-		if (!direct && !beforeReference && !virtual && !builder) return null;
+	/** Deferred constructors/builders never capture Context; the actual start boundary does. */
+	private static InsnList threadWrapping(MethodInsnNode call, MethodNode method, ClassLoader loader) {
+		boolean constructor = call.owner.equals("java/lang/Thread") && call.name.equals("<init>")
+				&& Set.of("(" + RUNNABLE + ")V", "(" + RUNNABLE + "Ljava/lang/String;)V",
+						"(Ljava/lang/ThreadGroup;" + RUNNABLE + ")V",
+						"(Ljava/lang/ThreadGroup;" + RUNNABLE + "Ljava/lang/String;)V",
+						"(Ljava/lang/ThreadGroup;" + RUNNABLE + "Ljava/lang/String;J)V",
+						"(Ljava/lang/ThreadGroup;" + RUNNABLE + "Ljava/lang/String;JZ)V").contains(call.desc);
+		boolean builder = Set.of("java/lang/Thread$Builder", "java/lang/Thread$Builder$OfPlatform",
+				"java/lang/Thread$Builder$OfVirtual").contains(call.owner);
+		boolean direct = call.owner.equals("java/lang/Thread") && call.name.equals("startVirtualThread")
+				|| builder && call.name.equals("start");
+		boolean deferred = builder && call.name.equals("unstarted")
+				|| call.owner.equals("java/util/concurrent/ThreadFactory") && call.name.equals("newThread");
+		if (!constructor && !(direct || deferred) || !constructor && !call.desc.equals("(" + RUNNABLE + ")Ljava/lang/Thread;")) return null;
+		if (!RemoteThreadBoundaryTransformer.visible(loader)) {
+			System.err.println("[stp-remote-agent] thread-boundary-unavailable: helper not visible for " + call.owner);
+			return null;
+		}
 		InsnList result = new InsnList();
-		if (beforeReference) result.add(new InsnNode(Opcodes.SWAP));
-		result.add(new MethodInsnNode(Opcodes.INVOKESTATIC, CONTEXT, "wrap", "(" + RUNNABLE + ")" + RUNNABLE, false));
-		if (beforeReference) result.add(new InsnNode(Opcodes.SWAP));
+		Type[] args = Type.getArgumentTypes(call.desc);
+		int runnable = 0;
+		while (!args[runnable].getDescriptor().equals(RUNNABLE)) runnable++;
+		int[] locals = new int[args.length];
+		// Spill trailing name/stack-size/inherit arguments; handles category-2 longs without SWAP tricks.
+		for (int i = args.length - 1; i > runnable; i--) {
+			locals[i] = method.maxLocals;
+			method.maxLocals += args[i].getSize();
+			result.add(new VarInsnNode(args[i].getOpcode(Opcodes.ISTORE), locals[i]));
+		}
+		result.add(new MethodInsnNode(Opcodes.INVOKESTATIC,
+				direct ? CONTEXT : RemoteThreadBoundaryTransformer.HELPER,
+				direct ? "wrap" : "prepare", "(" + RUNNABLE + ")" + RUNNABLE, false));
+		for (int i = runnable + 1; i < args.length; i++) result.add(new VarInsnNode(args[i].getOpcode(Opcodes.ILOAD), locals[i]));
 		return result;
 	}
 }

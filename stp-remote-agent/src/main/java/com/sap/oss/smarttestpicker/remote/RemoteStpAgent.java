@@ -21,6 +21,7 @@ public final class RemoteStpAgent {
 		if (!Boolean.getBoolean("stp.remote.otel.contextOnly")) {
 			instrumentation.addTransformer(new RemoteHttpBoundaryTransformer(), false);
 			instrumentation.addTransformer(new RemoteExecutorCallSiteTransformer(configuration), false);
+			instrumentation.addTransformer(new RemoteThreadBoundaryTransformer(configuration), false);
 		}
 		RemoteDebugHttpServer debugServer = RemoteDebugHttpServer.startIfConfigured(configuration.debugPort());
 		RemoteRecorder.startPeriodicCheckpoints(configuration.flushIntervalSeconds());
