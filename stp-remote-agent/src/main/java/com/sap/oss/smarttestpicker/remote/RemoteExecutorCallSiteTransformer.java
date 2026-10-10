@@ -50,6 +50,16 @@ final class RemoteExecutorCallSiteTransformer implements ClassFileTransformer {
 				for (AbstractInsnNode instruction = method.instructions.getFirst(); instruction != null;
 						instruction = instruction.getNext()) {
 					if (!(instruction instanceof MethodInsnNode call)) continue;
+					if (call.getOpcode() == Opcodes.INVOKEVIRTUAL && call.owner.equals("java/lang/reflect/Method")
+							&& call.name.equals("invoke") && call.desc.equals("(Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/Object;")) {
+						if (!reflectiveHelperVisible(loader)) {
+							System.err.println("[stp-remote-agent] reflective-boundary-unavailable: " + className);
+							continue;
+						}
+						method.instructions.insertBefore(call, reflectiveArguments(method));
+						changed = true;
+						continue;
+					}
 					MethodInsnNode scheduled = scheduledBridge(call, loader, node);
 					if (scheduled != null) {
 						call.setOpcode(Opcodes.INVOKESTATIC);
@@ -89,6 +99,30 @@ final class RemoteExecutorCallSiteTransformer implements ClassFileTransformer {
 	private static boolean excluded(String name) {
 		return name.startsWith("java/") || name.startsWith("jdk/") || name.startsWith("sun/")
 				|| name.startsWith("com/sap/oss/smarttestpicker/remote/") || name.startsWith("org/objectweb/asm/");
+	}
+
+	private static InsnList reflectiveArguments(MethodNode method) {
+		int arguments = method.maxLocals++, receiver = method.maxLocals++, reflected = method.maxLocals++;
+		InsnList code = new InsnList();
+		code.add(new VarInsnNode(Opcodes.ASTORE, arguments));
+		code.add(new VarInsnNode(Opcodes.ASTORE, receiver));
+		code.add(new VarInsnNode(Opcodes.ASTORE, reflected));
+		code.add(new VarInsnNode(Opcodes.ALOAD, reflected));
+		code.add(new VarInsnNode(Opcodes.ALOAD, receiver));
+		code.add(new VarInsnNode(Opcodes.ALOAD, reflected));
+		code.add(new VarInsnNode(Opcodes.ALOAD, receiver));
+		code.add(new VarInsnNode(Opcodes.ALOAD, arguments));
+		code.add(new MethodInsnNode(Opcodes.INVOKESTATIC,
+				"com/sap/oss/smarttestpicker/remote/RemoteReflectiveCallbacks", "arguments",
+				"(Ljava/lang/reflect/Method;Ljava/lang/Object;[Ljava/lang/Object;)[Ljava/lang/Object;", false));
+		// Original invokevirtual Method.invoke remains at the original caller: reflection access checks
+		// and InvocationTargetException wrapping retain their JVM semantics.
+		return code;
+	}
+
+	private static boolean reflectiveHelperVisible(ClassLoader loader) {
+		try { return Class.forName(RemoteReflectiveCallbacks.class.getName(), false, loader) == RemoteReflectiveCallbacks.class; }
+		catch (ClassNotFoundException | LinkageError unavailable) { return false; }
 	}
 
 	private static MethodInsnNode scheduledBridge(MethodInsnNode call, ClassLoader loader, ClassNode current) {

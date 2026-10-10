@@ -47,7 +47,7 @@ Limits:
 
 - The registering call site must be in a configured `includes` class and outside `excludes`. Calls made inside uninstrumented library/framework classes are not covered by this adapter.
 - Calls whose bytecode owner is `CompletionStage`, or a custom CompletableFuture subclass, are not matched. They are not claimed to have registration ownership; ordinary OTel execution-time propagation may still occur. No hierarchy-based guess is made.
-- `exceptionallyCompose`/`exceptionallyComposeAsync`, reflective registrations and unlisted CF APIs are outside this matrix. Inner work returned by `thenCompose` needs its own supported propagation boundary; returning a future does not retroactively change the owner of work already started elsewhere.
+- `exceptionallyCompose`/`exceptionallyComposeAsync` and unlisted CF APIs are outside this matrix. Reflection/handle registration is measured separately in the [Task 5 matrix](remote-indirect-invocation-propagation.md): three included reflective shapes have an adapter; indirect handle registration remains a reproducible gap. Inner work returned by `thenCompose` needs its own supported propagation boundary; returning a future does not retroactively change the owner of work already started elsewhere.
 - Default async execution uses CF's normal executor (normally the common pool; the JDK can use its documented low-parallelism fallback). No executor substitution is introduced.
 
 ## Executable evidence

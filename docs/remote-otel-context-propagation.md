@@ -71,6 +71,10 @@ The PetClinic proof scripts now attach `opentelemetry-javaagent.jar` before the 
 
 The original migration measurements above are retained as historical evidence. The registration adapter now covers 39 synchronous/default-async/explicit-executor callback shapes. OTel 2.32.0 alone fails registration ownership for all 39 when request B completes a future whose callback was registered by A. The extended HTTP fixture verifies exact schema-v2 method relations, full Context restoration, cancellation, concurrent registrations and delayed composition. See [Remote CompletableFuture support and evidence](remote-completablefuture-propagation.md) for the complete matrix, JDK requirements and precise call-site limitations.
 
+### Task 5: reflection and method handles
+
+The [indirect invocation audit](remote-indirect-invocation-propagation.md) measures 17 API shapes through reflection and six bound/unbound handle forms, inside and outside `includes`. OTel covers tested executor/bulk and one-shot scheduler implementations for named and lambda tasks. This refines, without rewriting, the historical scheduling result above. A narrow included-call-site adapter covers only the three tested reflective CF signatures and the two periodic registration signatures. Handle callback registration and indirect Thread starts retain explicit, reproducible gaps; these are not counted as supported merely because execution succeeds.
+
 ## Thread start-ownership update
 
 The historical constructor-capture result above is superseded for direct threads. Ownership is now captured at the actual included `Thread.start()` call; a constructor never preserves stale request A over a later start under B. Included run overrides, all six Runnable constructor descriptors and JDK 21 builder/unstarted/factory forms are exercised through real HTTP child JVMs. Immediate virtual/builder start retains its existing OTel wrapper. Standard executor workers keep per-task OTel ownership. See [Remote Thread support and evidence](remote-thread-propagation.md) for prerequisites, executable excluded-boundary gaps, cleanup and carrier-isolation checks.

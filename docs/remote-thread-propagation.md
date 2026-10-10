@@ -74,6 +74,8 @@ The final schema-v2 fragment must equal the complete expected `(testSuiteId, tes
 - STP does not infer that an arbitrary application-written long-running Thread loop is an executor. Standard executor worker creation is covered and remains delegated to OTel; no new custom executor propagation is introduced.
 - Weak handoffs for a successfully started but **uncovered** run path cannot be consumed by run advice; they are reclaimable when the Thread becomes unreachable. Supported execution paths consume the Context before executing application work. Interrupted/crashed JVMs are not given new durability semantics.
 
+Task 5 separately [reproduces indirect `Thread.start()` gaps](remote-indirect-invocation-propagation.md) through reflection and bound/unbound method handles, inside and outside `includes`. It does not extend this Thread adapter or claim those starts are covered.
+
 ## Commands
 
 Full regression, including unchanged Task 3 coverage:
