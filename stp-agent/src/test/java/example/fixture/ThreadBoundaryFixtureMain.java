@@ -82,11 +82,13 @@ public final class ThreadBoundaryFixtureMain {
 			context.endTest(subclass, SUCCESS);
 
 			RecursiveAction submitted = action(app::forkJoinPoolTaskSubmit);
-			run(context, test("fj-task-submit-unsupported"), () -> forkJoin.submit(submitted).get());
+			run(context, test("fj-task-submit"), () -> forkJoin.submit(submitted).get());
 			RecursiveAction invoked = action(app::forkJoinPoolTaskInvoke);
-			run(context, test("fj-task-invoke-unsupported"), () -> forkJoin.invoke(invoked));
+			run(context, test("fj-task-invoke"), () -> forkJoin.invoke(invoked));
 			RecursiveAction forked = action(app::forkJoinDirectFork);
-			run(context, test("fj-direct-fork-unsupported"), () -> forked.fork().get());
+			run(context, test("fj-direct-fork"), () -> forked.fork().get());
+			run(context, test("fj-adapted-unsupported"), () -> forkJoin.invoke(
+					java.util.concurrent.ForkJoinTask.adapt(app::forkJoinPoolTaskSubmit)));
 			System.out.println("thread-boundary-fixture-ok");
 		} finally {
 			scheduler.shutdownNow();

@@ -8,7 +8,7 @@ The experimental shaded Java agent instruments production method entry with ASM,
 
 JUnit Platform lifecycle events establish a logical `TestIdentity`. Per-test method hits use that logical context, not physical-thread identity. `beforeEach`/`afterEach` execute inside the leaf interval and are attributed to the test; `beforeAll`/`afterAll` remain outside. Once the owner finishes, later hits are quarantined as `LATE_EVENT` and cannot enter normal coverage or leak into the next test.
 
-Supported transformed submission boundaries include common `Thread` constructors, JDK 21 virtual-thread start calls, exact `Executor`/`ExecutorService` and scheduled-executor overloads, executor-style `ForkJoinPool` overloads, and selected `CompletableFuture` Runnable/Supplier/Function stages. Capture/attach/restore is exception-safe and nested. Unsupported boundaries include direct `ForkJoinTask` operations, reflection/method-handle submission, callers loaded before instrumentation, overridden `Thread.run`, and uninstrumented reactive/request-specific handoffs.
+Supported transformed submission boundaries include common `Thread` constructors, JDK 21 virtual-thread start calls, exact `Executor`/`ExecutorService` and scheduled-executor overloads, executor-style `ForkJoinPool` overloads, [application ForkJoinTask submission/execution](asm-forkjoin-task-propagation.md), and selected `CompletableFuture` Runnable/Supplier/Function stages. Capture/attach/restore is exception-safe and nested. Unsupported boundaries include uninstrumented ForkJoinTask execution, ambiguous concurrent task reuse, reflection/method-handle submission, callers loaded before instrumentation, overridden `Thread.run`, and uninstrumented reactive/request-specific handoffs.
 
 ## PetClinic evidence
 

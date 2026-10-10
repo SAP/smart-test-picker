@@ -31,6 +31,58 @@ public final class RuntimeContextService {
 	private final java.util.Set<String> activeContainers = java.util.concurrent.ConcurrentHashMap.newKeySet();
 	private final AtomicLong logicalContexts = new AtomicLong();
 	private final boolean debug;
+	private final ForkJoinContexts forkJoin = new ForkJoinContexts(this);
+	private final ThreadLocal<Deque<Runnable>> forkJoinScopes = ThreadLocal.withInitial(ArrayDeque::new);
+	private final ThreadLocal<ForkJoinContexts.Execution> forkJoinExecution = new ThreadLocal<>();
+
+	public void captureForkJoin(java.util.concurrent.ForkJoinTask<?> task) { forkJoin.capture(task); }
+	public void reinitializeForkJoin(java.util.concurrent.ForkJoinTask<?> task) { forkJoin.reinitialize(task); }
+	public void enterForkJoin(java.util.concurrent.ForkJoinTask<?> task) {
+		forkJoinScopes.get().push(forkJoin.enter(task));
+	}
+	public void exitForkJoin() {
+		Deque<Runnable> scopes = forkJoinScopes.get();
+		if (!scopes.isEmpty()) scopes.pop().run();
+		if (scopes.isEmpty()) forkJoinScopes.remove();
+	}
+
+	record ForkJoinOwner(TestExecutionContext test, ContainerIdentity container, String sharedSetup) {}
+	ForkJoinOwner captureForkJoinOwner() {
+		if (forkJoinExecution.get() != null && forkJoinExecution.get().ambiguous)
+			return new ForkJoinOwner(null, null, null);
+		return new ForkJoinOwner(current.get(), capturedContainer.get() != null
+				? capturedContainer.get() : currentContainer(), unboundedSharedSetup.get());
+	}
+	Runnable attachForkJoin(ForkJoinOwner owner, ForkJoinContexts.Execution execution, Object task) {
+		TestExecutionContext previous = current.get();
+		TestIdentity finished = lastFinished.get();
+		ContainerIdentity container = capturedContainer.get();
+		Deque<ContainerIdentity> containers = currentContainers.get();
+		String shared = unboundedSharedSetup.get();
+		ForkJoinContexts.Execution previousExecution = forkJoinExecution.get();
+		current.set(owner.test());
+		lastFinished.remove();
+		capturedContainer.set(owner.container());
+		currentContainers.remove();
+		unboundedSharedSetup.set(owner.sharedSetup());
+		forkJoinExecution.set(execution);
+		currentTasks.get().push(new TaskIdentity(task.getClass().getName(), System.identityHashCode(task)));
+		return () -> {
+			current.set(previous);
+			lastFinished.set(finished);
+			capturedContainer.set(container);
+			currentContainers.set(containers);
+			unboundedSharedSetup.set(shared);
+			forkJoinExecution.set(previousExecution);
+			Deque<TaskIdentity> tasks = currentTasks.get();
+			tasks.pop();
+			if (tasks.isEmpty()) currentTasks.remove();
+		};
+	}
+
+	void forkJoinIncomplete(String detail) {
+		recordUnsupportedSetup(SetupDiagnostic.Kind.ASYNC_SETUP_UNSUPPORTED, null, "ForkJoinTask: " + detail);
+	}
 
 	public RuntimeContextService(RuntimeEventAggregator aggregator) {
 		this(aggregator, false);
@@ -210,6 +262,11 @@ public final class RuntimeContextService {
 
 	public void record(RuntimeEvent event) {
 		Objects.requireNonNull(event, "event");
+		ForkJoinContexts.Execution execution = forkJoinExecution.get();
+		if (execution != null && execution.ambiguous) {
+			aggregator.recordUnattributed(UnattributedReason.UNKNOWN_CONTEXT, event);
+			return;
+		}
 		if (event instanceof com.sap.oss.smarttestpicker.runtime.model.MethodHitEvent method
 				&& unboundedSharedSetup.get() != null) {
 			recordUnsupportedSetup(SetupDiagnostic.Kind.SHARED_CONTEXT_SETUP_UNSUPPORTED, method.method(),
