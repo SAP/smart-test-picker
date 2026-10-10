@@ -266,6 +266,70 @@ class MethodEntryTransformationTest {
 		assertTrue(run.output.contains("executor-overload-fixture-ok"));
 	}
 
+    @Test
+    void bulkExecutorsPreserveAllExecutedTasksAndCompleteFragments() throws Exception {
+        Path output = temporaryDirectory.resolve("bulk.json");
+        Path fragment = temporaryDirectory.resolve("bulk-fragment.json");
+        ProcessResult run = runFixture(output, example.fixture.BulkExecutorFixtureMain.class, fragment);
+        assertEquals(0, run.exitCode, run.output);
+        assertTrue(run.output.contains("bulk-supported-ok"), run.output);
+        var decoded = new com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec()
+                .deserialize(Files.readAllBytes(fragment));
+        assertTrue(decoded.collectionCompleted(), Files.readString(fragment));
+        var expected = new java.util.LinkedHashMap<String, java.util.Set<String>>();
+        for (String pool : List.of("standard", "forkjoin", "custom")) {
+            for (String suffix : List.of("-all", "-allTimed")) expected.put(pool + suffix,
+                    java.util.Set.of("first(I)I", "second(Ljava/lang/String;)Ljava/lang/String;", "failed(I)V"));
+            for (String suffix : List.of("-any", "-anyTimed")) expected.put(pool + suffix,
+                    java.util.Set.of("second(Ljava/lang/String;)Ljava/lang/String;"));
+            for (String suffix : List.of("-allFail", "-allFailTimed")) expected.put(pool + suffix, java.util.Set.of("failed(I)V"));
+        }
+        expected.put("concrete", java.util.Set.of("first(I)I"));
+        expected.put("parallelA", java.util.Set.of("shared(I)V", "onlyA(I)V"));
+        expected.put("parallelB", java.util.Set.of("shared(I)V", "onlyB(Ljava/lang/String;)V"));
+        for (String id : List.of("competitors", "competitorsTimed")) expected.put(id,
+                java.util.Set.of("failed(I)V", "competitor(Ljava/lang/String;)V", "first(I)I"));
+        expected.put("nested", java.util.Set.of("nested(I)V", "first(I)I", "second(Ljava/lang/String;)Ljava/lang/String;"));
+        expected.put("rejected", java.util.Set.of("first(I)I"));
+        for (String id : List.of("cancelBeforeStart", "lateA", "lateB")) expected.put(id, java.util.Set.of());
+        for (String id : List.of("interruptAll", "interruptAny", "interruptAllTimed", "interruptAnyTimed")) expected.put(id, java.util.Set.of("competitor(Ljava/lang/String;)V"));
+        expected.put("afterFailures", java.util.Set.of("first(I)I"));
+        expected.put("nestedForkJoin", java.util.Set.of("nested(I)V", "first(I)I"));
+        for (String id : List.of("reuseA", "reuseB")) expected.put(id, java.util.Set.of("shared(I)V"));
+        expected.put("customSubmit", java.util.Set.of("first(I)I"));
+        expected.put("bulkError", java.util.Set.of("failed(I)V"));
+        expected.put("ambient", java.util.Set.of("second(Ljava/lang/String;)Ljava/lang/String;"));
+        assertEquals(expected.size(), decoded.tests().size());
+        for (var entry : expected.entrySet()) {
+            var coverage = decoded.tests().get(new com.sap.oss.smarttestpicker.coverage.model.TestIdentity("fixture.BulkTests", entry.getKey()));
+            assertNotNull(coverage, entry.getKey());
+            assertEquals(entry.getValue(), coverage.coveredMethods().stream()
+                    .map(m -> m.methodName() + m.jvmDescriptor()).collect(java.util.stream.Collectors.toSet()), entry.getKey());
+            assertTrue(coverage.coveredMethods().stream().allMatch(m -> m.binaryClassName().equals("example.instrumented.BulkApplication")));
+        }
+        String json = Files.readString(output);
+        assertFalse(json.contains("ASYNC_SETUP_UNSUPPORTED"), json);
+        assertTrue(testSection(json, "lateA").contains("LATE_EVENT"));
+        assertFalse(testSection(json, "lateB").contains("BulkApplication#late"));
+        assertEquals(1, decoded.setupScopes().size());
+    }
+
+    @Test
+    void closedBulkSetupIsLateAndFragmentIsIncomplete() throws Exception {
+        Path output = temporaryDirectory.resolve("bulk-closed.json");
+        Path fragment = temporaryDirectory.resolve("bulk-closed-fragment.json");
+        ProcessResult run = runFixture(output, example.fixture.BulkExecutorFixtureMain.ClosedSetupMain.class, fragment);
+        assertEquals(0, run.exitCode, run.output);
+        assertTrue(run.output.contains("bulk-closed-setup-ok"));
+        String json = Files.readString(output);
+        assertTrue(json.contains("closed JUnit container"), json);
+        assertTrue(json.contains("without observed submission"), json);
+        assertFalse(testSection(json, "missingParent").contains("BulkApplication#"));
+        assertTrue(json.contains("LATE_EVENT"), json);
+        assertFalse(new com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec()
+                .deserialize(Files.readAllBytes(fragment)).collectionCompleted());
+    }
+
 	@Test
 	void forkJoinTaskBoundariesPreserveOwnershipAndCompleteFragment() throws Exception {
 		Path output = temporaryDirectory.resolve("forkjoin.json");

@@ -53,6 +53,14 @@ public final class RuntimeHooks {
 		}
 	}
 
+	/** Capture once without eagerly traversing or validating the user's collection. */
+	public static <V> java.util.Collection<? extends Callable<V>> wrapCallables(
+			java.util.Collection<? extends Callable<V>> tasks) {
+		if (tasks == null) return null;
+		RuntimeContextService service = RuntimeContextRegistry.current().orElse(null);
+		return service == null ? tasks : service.wrapCallables(tasks);
+	}
+
 	public static <V> Supplier<V> wrapSupplier(Supplier<V> task) {
 		if (task == null) return null;
 		try {

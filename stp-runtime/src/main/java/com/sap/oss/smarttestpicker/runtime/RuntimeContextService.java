@@ -127,7 +127,7 @@ public final class RuntimeContextService {
 		Objects.requireNonNull(task, "task");
 		TestExecutionContext captured = current.get();
 		debug("capture", task, captured);
-		ContainerIdentity container = currentContainer();
+		ContainerIdentity container = effectiveContainer();
 		return captured != null ? () -> runWith(captured, task)
 				: container != null ? () -> runWith(container, task) : task;
 	}
@@ -135,11 +135,29 @@ public final class RuntimeContextService {
 	/** Captures the active test at submission and restores the worker's state after execution. */
 	public <V> Callable<V> wrap(Callable<V> task) {
 		Objects.requireNonNull(task, "task");
+		// Internal submit delegation must not replace the bulk submission's captured owner.
+		if (BulkCallables.capturedBy(task, this)) return task;
 		TestExecutionContext captured = current.get();
 		debug("capture", task, captured);
-		ContainerIdentity container = currentContainer();
+		ContainerIdentity container = effectiveContainer();
 		return captured != null ? () -> callWith(captured, task)
 				: container != null ? () -> callWith(container, task) : task;
+	}
+
+	public <V> java.util.Collection<? extends Callable<V>> wrapCallables(
+			java.util.Collection<? extends Callable<V>> tasks) {
+		if (tasks == null) return null;
+		ForkJoinContexts.Execution execution = forkJoinExecution.get();
+		return new BulkCallables<>(tasks, this, captureForkJoinOwner(),
+				execution != null && execution.ambiguous ? execution : null,
+				execution == null || execution.missingSubmission == null);
+	}
+
+	Runnable attachBulk(ForkJoinOwner owner, ForkJoinContexts.Execution ambiguous, Object task, boolean observedCapture) {
+		ForkJoinContexts.Execution outer = forkJoinExecution.get();
+		// Creating another wrapper after an unobserved handoff cannot repair its lost ownership.
+		if (outer != null && observedCapture) outer.bulkDelegated = true;
+		return attachForkJoin(owner, ambiguous, task);
 	}
 
 	public <V> Supplier<V> wrapSupplier(Supplier<V> task) {
@@ -165,16 +183,18 @@ public final class RuntimeContextService {
 		return values.isEmpty() ? null : values.peek();
 	}
 
+	private ContainerIdentity effectiveContainer() {
+		return capturedContainer.get() != null ? capturedContainer.get() : currentContainer();
+	}
+
 	private void runWith(ContainerIdentity container, Runnable task) {
-		ContainerIdentity previous = capturedContainer.get();
-		capturedContainer.set(container);
-		try { task.run(); } finally { restoreContainer(previous); }
+		Runnable restore = attachForkJoin(new ForkJoinOwner(null, container, null), null, task);
+		try { task.run(); } finally { restore.run(); }
 	}
 
 	private <V> V callWith(ContainerIdentity container, Callable<V> task) throws Exception {
-		ContainerIdentity previous = capturedContainer.get();
-		capturedContainer.set(container);
-		try { return task.call(); } finally { restoreContainer(previous); }
+		Runnable restore = attachForkJoin(new ForkJoinOwner(null, container, null), null, task);
+		try { return task.call(); } finally { restore.run(); }
 	}
 
 	private <V> V supplyWith(ContainerIdentity container, Supplier<V> task) {
@@ -257,6 +277,7 @@ public final class RuntimeContextService {
 	public void record(RuntimeEvent event) {
 		Objects.requireNonNull(event, "event");
 		ForkJoinContexts.Execution execution = forkJoinExecution.get();
+		if (execution != null) forkJoin.reportMissingSubmission(execution);
 		if (execution != null && execution.ambiguous) {
 			aggregator.recordUnattributed(UnattributedReason.UNKNOWN_CONTEXT, event);
 			return;

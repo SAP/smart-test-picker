@@ -11,6 +11,7 @@ import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.InsnNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
+import org.objectweb.asm.tree.VarInsnNode;
 
 import java.lang.instrument.ClassFileTransformer;
 import java.io.InputStream;
@@ -55,6 +56,12 @@ final class ExecutorCallSiteTransformer implements ClassFileTransformer {
 				for (AbstractInsnNode instruction = method.instructions.getFirst(); instruction != null;
 						instruction = instruction.getNext()) {
 					if (!(instruction instanceof MethodInsnNode call)) continue;
+					InsnList bulk = bulkWrapping(call, hierarchy, method);
+					if (bulk != null) {
+						method.instructions.insertBefore(call, bulk);
+						changed = true;
+						continue;
+					}
 					InsnList threadWrapping = threadWrapping(call);
 					if (threadWrapping != null) {
 						method.instructions.insertBefore(call, threadWrapping);
@@ -101,6 +108,36 @@ final class ExecutorCallSiteTransformer implements ClassFileTransformer {
 					+ failure.getClass().getName());
 			return null;
 		}
+	}
+
+	private InsnList bulkWrapping(MethodInsnNode call, Hierarchy hierarchy, MethodNode method) {
+		if (call.getOpcode() == Opcodes.INVOKESTATIC) return null;
+		String result = call.name.equals("invokeAll") ? "Ljava/util/List;"
+				: call.name.equals("invokeAny") ? "Ljava/lang/Object;" : null;
+		if (result == null) return null;
+		String collection = "Ljava/util/Collection;";
+		boolean timed = call.desc.equals("(" + collection + "J" + TIME_UNIT + ")" + result);
+		if (!timed && !call.desc.equals("(" + collection + ")" + result)) return null;
+		Resolution resolution = hierarchy.subtype(call.owner, "java/util/concurrent/ExecutorService", new HashSet<>());
+		if (resolution == Resolution.UNKNOWN) errorSink.accept("bulk-executor-attribution-incomplete:"
+				+ call.owner.replace('/', '.') + "." + call.name + call.desc);
+		if (resolution != Resolution.YES) return null;
+		InsnList wrapping = new InsnList();
+		int unit = method.maxLocals;
+		int timeout = unit + 1;
+		if (timed) {
+			method.maxLocals += 3;
+			wrapping.add(new VarInsnNode(Opcodes.ASTORE, unit));
+			wrapping.add(new VarInsnNode(Opcodes.LSTORE, timeout));
+		}
+		wrapping.add(new MethodInsnNode(Opcodes.INVOKESTATIC, HOOK, "wrapCallables",
+				"(" + collection + ")" + collection, false));
+		if (timed) {
+			wrapping.add(new VarInsnNode(Opcodes.LLOAD, timeout));
+			wrapping.add(new VarInsnNode(Opcodes.ALOAD, unit));
+		}
+		// Keep receiver, invocation opcode (including invokespecial), arguments and return descriptor.
+		return wrapping;
 	}
 
 	private MethodInsnNode scheduledBridge(MethodInsnNode call, Hierarchy hierarchy) {

@@ -124,6 +124,11 @@ The executable evidence is in:
 
 ## Remaining differences from OpenTelemetry
 
+Task 2 update: [bulk ExecutorService propagation](asm-bulk-executor-propagation.md)
+now covers Callable `invokeAll`/`invokeAny` through transformed callers, including
+ForkJoinPool. This does not add OTel-style executor method-body instrumentation for
+untransformed callers or static `ForkJoinTask.invokeAll`.
+
 This comparison was reviewed on **2026-10-10** against the upstream source linked
 above and below. Those links follow `main`; they are not a pinned OTel release.
 OTel support here means a matching implementation exists in that source, **not** that
@@ -132,7 +137,7 @@ executable evidence described in this document.
 
 | Use case | STP today | OTel source mechanism | Why the difference remains |
 | --- | --- | --- | --- |
-| `ForkJoinPool.invokeAll(Collection<Callable>)`, `invokeAny(...)`, including timed overloads | Not implemented as propagation boundaries | Executor method advice captures context for the Callable collection | STP has neither bulk call-site wrapping nor bootstrap advice for these methods |
+| `ForkJoinPool.invokeAll(Collection<Callable>)`, `invokeAny(...)`, including timed overloads | Supported through transformed call sites (Task 2); no general guarantee for untransformed callers | Executor method advice captures context for the Callable collection | STP now wraps the collection at call sites, but has no bulk executor method-body advice |
 | Pool `execute(Runnable)`, `submit(Runnable)`, `submit(Runnable,result)`, `submit(Callable)` from a caller STP does not transform | No general guarantee; supported from matched transformed call sites | Advice in recognized executor method bodies captures at submission | STP's bootstrap pool advice covers only the `ForkJoinTask` argument overloads |
 | Custom pool overrides that bypass original JDK submission bodies | No guarantee unless another supported capture boundary is reached | Recognized/configured executor implementations can receive submission advice | STP transforms the exact JDK pool class, not every overriding implementation |
 
@@ -198,7 +203,7 @@ setup-container or `LATE_EVENT` rules.
   submission is incomplete. A reset is supported after one completed, non-racing registration. After repeated registrations
   or submission of an already-completed task, reset remains incomplete: the agent cannot prove
   that no stale queue entry could execute after reinitialization. No new owner is guessed.
-- Bulk APIs, `quietlyInvoke`, explicit completion operations outside task execution,
+- Static `ForkJoinTask.invokeAll`, untransformed executor bulk callers, `quietlyInvoke`, explicit completion operations outside task execution,
   CountedCompleter callbacks invoked externally under an unrelated context, custom pool
   overrides bypassing the verified bodies, and direct application calls to `compute/exec`
   are not newly supported. Missing submissions observed under an active owner are diagnosed;
@@ -219,8 +224,10 @@ setup-container or `LATE_EVENT` rules.
 | Other stream operations / unverified JDK bytecode | Listed tests do not establish coverage; unexpected bootstrap shapes fail verification visibly |
 
 Unsupported does not mean every possible call is automatically detected. A missing
-submission encountered with an ambient owner is diagnosed and must not borrow that
-owner. An entirely unobserved handoff on an empty worker cannot reveal which test
+submission encountered with an ambient owner must not borrow that owner. Task 2 defers
+the diagnostic until an unscoped hit or execution exit, allowing a recognized bulk Callable
+wrapper to establish its own exact scope for JDK bulk adapters; see the bulk document.
+An entirely unobserved handoff on an empty worker cannot reveal which test
 originated it. These paths must not be treated as a guarantee of complete coverage.
 
 ## Validation commands

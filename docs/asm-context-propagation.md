@@ -59,8 +59,9 @@ JUnit Test A
 
 The wrapper also temporarily clears and then restores the worker's `lastFinished` marker. Restoration happens
 in `finally` for return, exception, or error. A nested submission sees the attached context and captures it.
-When no context is active, hooks return the original task object and attribution continues through the existing
-unattributed behavior; no owner is guessed.
+For the existing single-task wrappers, when no context is active, hooks return the original task object and attribution continues through the existing
+unattributed behavior; no owner is guessed. Bulk Callable wrappers instead install an explicit empty
+scope, so an unrelated worker context cannot become their owner. See [bulk executor ownership](asm-bulk-executor-propagation.md).
 
 ## Instrumentation points
 
@@ -76,6 +77,7 @@ The application-call-site transformer matches:
 * `Executor.execute(Runnable)`;
 * `ExecutorService.submit(Runnable)`, `submit(Runnable,Object)`, and `submit(Callable)` returning `Future`;
 * the equivalent `ForkJoinPool.submit` overloads returning covariant `ForkJoinTask`;
+* `ExecutorService.invokeAll(Collection[,long,TimeUnit])` and `invokeAny(Collection[,long,TimeUnit])`;
 * `CompletableFuture.runAsync(Runnable[,Executor])`;
 * `CompletableFuture.supplyAsync(Supplier[,Executor])`;
 * `CompletableFuture.thenApplyAsync(Function[,Executor])`; and

@@ -71,9 +71,9 @@ final class ForkJoinContexts {
 		Execution execution = executions.get(new Key(task, null));
 		if (execution == null) {
 			var ambient = service.captureForkJoinOwner();
-			if (ambient.test() != null || ambient.container() != null || ambient.sharedSetup() != null)
-				service.forkJoinIncomplete("execution without observed submission: " + task.getClass().getName());
 			execution = new Execution(new RuntimeContextService.ForkJoinOwner(null, null, null));
+			if (ambient.test() != null || ambient.container() != null || ambient.sharedSetup() != null)
+				execution.missingSubmission = "execution without observed submission: " + task.getClass().getName();
 		}
 		if (execution.resetting) {
 			execution.conflicts++;
@@ -86,8 +86,20 @@ final class ForkJoinContexts {
 		Execution active = execution;
 		return () -> {
 			try { restore.run(); }
-			finally { synchronized (ForkJoinContexts.this) { active.depth--; } }
+			finally { synchronized (ForkJoinContexts.this) {
+				active.depth--;
+				// JDK bulk adapters can execute inline during join without a public FJT submission.
+				// A captured bulk callback supplies its own scope; any hit outside it still diagnoses below.
+				if (!active.bulkDelegated) reportMissingSubmission(active);
+			} }
 		};
+	}
+
+	void reportMissingSubmission(Execution execution) {
+		if (execution.missingSubmission != null && !execution.missingReported) {
+			execution.missingReported = true;
+			service.forkJoinIncomplete(execution.missingSubmission);
+		}
 	}
 
 	private record Submission(ForkJoinTask<?> task, Execution execution) {}
@@ -107,6 +119,9 @@ final class ForkJoinContexts {
 		int conflicts;
 		int registrations;
 		int depth;
+		String missingSubmission;
+		boolean missingReported;
+		boolean bulkDelegated;
 		Execution(RuntimeContextService.ForkJoinOwner owner) { this.owner = owner; }
 	}
 
