@@ -34,8 +34,9 @@ thread state. Ownership instead has to follow each logical task from submission 
 ## Architecture
 
 `TestExecutionContext` is an immutable snapshot containing the current `TestIdentity`. The local current value
-remains a `ThreadLocal`; propagation is implemented by one wrapper allocated for each submission made with an
-active context.
+remains a `ThreadLocal`. Runnable/Callable propagation uses submission wrappers; application ForkJoinTask
+propagation uses weak task identity bindings and scopes around instrumented execution, preserving the task object.
+See [ForkJoinTask ownership](asm-forkjoin-task-propagation.md) for the current support matrix and limits.
 
 ```text
 JUnit Test A
@@ -71,6 +72,8 @@ The actual matched invocation descriptors are:
 * `Executor.execute(Runnable)`;
 * `ExecutorService.submit(Runnable)`, `submit(Runnable,Object)`, and `submit(Callable)` returning `Future`;
 * the equivalent `ForkJoinPool.submit` overloads returning covariant `ForkJoinTask`;
+* `ForkJoinTask.fork()` / `invoke()` and `ForkJoinPool.execute(ForkJoinTask)` /
+  `submit(ForkJoinTask)` / `invoke(ForkJoinTask)`; `reinitialize()` releases completed bindings;
 * `CompletableFuture.runAsync(Runnable[,Executor])`;
 * `CompletableFuture.supplyAsync(Supplier[,Executor])`;
 * `CompletableFuture.thenApplyAsync(Function[,Executor])`; and
@@ -95,19 +98,21 @@ scheduled. No external `Map<Runnable,...>` exists.
 | `ExecutorService.submit(Callable)` | PROVEN | exact caller invocation before JDK `FutureTask` creation | same test, fixtures `callable`, `same-callable-a/b` |
 | CompletableFuture explicit executor | PROVEN | exact `runAsync`, `supplyAsync`, `thenApplyAsync`, `thenRunAsync` caller invocation | same test, `cf-explicit-*` fixtures |
 | CompletableFuture common pool | PROVEN | same callback registration points; wrapped callback later runs in common pool | same test, `cf-common-*` fixtures |
-| ForkJoinPool | PARTIALLY COVERED | exact `execute(Runnable)` and `submit` executor overloads | same test, `forkjoin-execute`, `forkjoin-submit` |
-| raw `Thread` | UNSUPPORTED | none | not claimed |
-| virtual threads | UNSUPPORTED | none; build/runtime JDK 17 has no virtual-thread APIs | not claimed |
+| ForkJoinPool / ForkJoinTask | BOUNDED SUPPORT | executor-style overloads plus task submission and instrumented `compute`/`exec` | `ForkJoinFixtureMain`, `ForkJoinContextTest`; see dedicated support matrix |
+| raw `Thread` | BOUNDED SUPPORT | common Runnable constructors | `ThreadBoundaryFixtureMain` |
+| virtual threads | BOUNDED SUPPORT on JDK 21 | `startVirtualThread`, Builder `start` | `jdk21VirtualThreadApisPropagateThroughRealAsmInstrumentation` |
 
-ForkJoin coverage does not include direct `ForkJoinTask.fork()`, `invoke()`, task reuse/reinitialization, or work
-created inside JDK ForkJoin code. Common-pool CompletableFuture is proven because the registered callback is
-wrapped before JDK scheduling, not because arbitrary ForkJoinTask propagation is supported.
+Application task execution is supported when both call site and `compute`/`exec` are instrumented.
+Recursive children and completed sequential reuse after observed `reinitialize()` are tested. JDK-adapted
+and otherwise uninstrumented tasks remain unsupported through task-shaped APIs; ambiguous concurrent reuse
+produces incomplete evidence. Common-pool CompletableFuture still relies on its registered callback wrapper.
 
 ## Identity, cancellation, and lifecycle
 
-Every active-context submission creates a fresh wrapper even when the same original Runnable or Callable is
+Every active-context Runnable/Callable submission creates a fresh wrapper even when the same original Runnable or Callable is
 submitted by tests A and B. Each wrapper holds exactly its own immutable context and original task. There are
-no equality-based associations, global task maps, or STP cleanup tables. Once execution returns, STP retains no
+no equality-based associations or cleanup tables for these functional wrappers. ForkJoinTask uses a separate
+weak identity association until observed reinitialization or task collection; it never substitutes the task object. Once execution returns, STP retains no
 reference to either object. If a submitted Future is cancelled before execution, the wrapper is never attached;
 it remains reachable only through normal JDK executor/Future queue state until that implementation removes or
 purges the cancelled task. STP adds no independent lifetime or unbounded strong-reference leak.
@@ -126,12 +131,12 @@ cancelled queued Future can remain in a JDK queue until its executor removes it;
 Agent `debug=true` enables context diagnostics for capture, task identity, captured test, submission/execution
 thread, attach, restore, and cleanup. The debug branch is disabled by default.
 
-The existing event path still performs one `ThreadLocal` current-context lookup for every recorded instrumented
-method hit. An active asynchronous submission adds one current-context lookup and one wrapper allocation; a
+The event path reads the current context and checks whether an enclosing ForkJoin execution has become
+ambiguous for every recorded method hit. An active asynchronous submission adds one current-context lookup and one wrapper allocation; a
 no-context submission returns the original object without allocation. Execution adds current/previous
 `ThreadLocal` reads and set/remove operations around the task. CompletableFuture Supplier and Function stages
-have the same wrapper cost. There is no external map operation per submission or execution and no metadata-map
-cleanup cost. JDK `submit` retains its normal `FutureTask` allocation in addition to the STP wrapper.
+have the same wrapper cost. Functional wrappers have no external map operation or metadata-map cleanup cost. ForkJoinTask submission
+and execution use a synchronized weak identity map, with reference-queue cleanup on registry access. JDK `submit` retains its normal `FutureTask` allocation in addition to the STP wrapper.
 
 ## Known limitations
 
@@ -147,8 +152,9 @@ cleanup cost. JDK `submit` retains its normal `FutureTask` allocation in additio
 * On JDK 21, exact transformed calls to `Thread.startVirtualThread(Runnable)` and
   `Thread.Builder.start(Runnable)` are supported without static JDK 21 linkage. The virtual-thread-per-task
   executor is covered by the existing `ExecutorService` rule.
-* Direct ForkJoinTask operations, reactive/request boundaries, reflection, method handles, and preloaded callers
-  are unsupported. ForkJoin executor-style Runnable/Callable overloads remain supported.
+* ForkJoinTask requires observed submission and instrumented execution; see the
+  [precise limitations](asm-forkjoin-task-propagation.md#ambiguity-and-limits). Reactive/request boundaries,
+  reflection, method handles, and preloaded callers remain unsupported.
 * Late submitted work retains the correct owner but is classified by the unchanged aggregator as `LATE_EVENT`;
   publication does not wait for arbitrary asynchronous descendants.
 * Wrapper identity can be visible to custom identity-sensitive executors.
