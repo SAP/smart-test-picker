@@ -265,6 +265,58 @@ class MethodEntryTransformationTest {
 	}
 
 	@Test
+	void forkJoinTaskBoundariesPreserveOwnershipAndCompleteFragment() throws Exception {
+		Path output = temporaryDirectory.resolve("forkjoin.json");
+		Path fragment = temporaryDirectory.resolve("forkjoin-fragment.json");
+		ProcessResult run = runFixture(output, example.fixture.ForkJoinFixtureMain.class, fragment);
+		assertEquals(0, run.exitCode, run.output);
+		assertTrue(run.output.contains("forkjoin-supported-ok"), run.output);
+		String json = Files.readString(output);
+		for (String boundary : List.of("fork", "direct", "execute", "submit", "invoke", "recursive", "custom")) {
+			String descriptor = boundary.equals("invoke") ? "(I)I" : "(I)V";
+			assertTrue(testSection(json, boundary).contains("ForkJoinApplication#" + boundary + descriptor), boundary);
+		}
+		assertTrue(testSection(json, "parallelA").contains("ForkJoinApplication#parallelA(I)V"));
+		assertFalse(testSection(json, "parallelA").contains("ForkJoinApplication#parallelB"));
+		assertTrue(testSection(json, "parallelB").contains("ForkJoinApplication#parallelB(Ljava/lang/String;)V"));
+		assertFalse(testSection(json, "parallelB").contains("ForkJoinApplication#parallelA"));
+		for (String id : List.of("reuseA", "reuseB"))
+			assertTrue(testSection(json, id).contains("ForkJoinApplication#reuse(I)V"));
+		assertFalse(testSection(json, "cancelled").contains("ForkJoinApplication#cancelled"));
+		assertTrue(testSection(json, "lateA").contains("LATE_EVENT"));
+		assertFalse(testSection(json, "lateB").contains("ForkJoinApplication#late"));
+		assertFalse(json.contains("ASYNC_SETUP_UNSUPPORTED"), json);
+		var decoded = new com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec()
+				.deserialize(Files.readAllBytes(fragment));
+		assertTrue(decoded.collectionCompleted(), Files.readString(fragment));
+		for (String boundary : List.of("fork", "direct", "execute", "submit", "invoke", "recursive", "custom")) {
+			var coverage = decoded.tests().get(new com.sap.oss.smarttestpicker.coverage.model.TestIdentity(
+					"fixture.ForkJoinTests", boundary));
+			assertEquals(java.util.Set.of(new com.sap.oss.smarttestpicker.coverage.model.MethodIdentity(
+					"example.instrumented.ForkJoinApplication", boundary, boundary.equals("invoke") ? "(I)I" : "(I)V")),
+					coverage.coveredMethods(), boundary);
+		}
+		assertEquals(1, decoded.setupScopes().size());
+		assertTrue(testSection(json, "compute").contains("ForkJoinObservedTask#compute()Ljava/lang/Integer;"));
+		assertTrue(testSection(json, "compute").contains("ForkJoinObservedTask#compute()Ljava/lang/Object;"));
+		assertFalse(testSection(json, "compute").contains("LATE_EVENT"));
+	}
+
+	@Test
+	void ambiguousForkJoinOwnershipAndClosedSetupProduceIncompleteFragment() throws Exception {
+		Path output = temporaryDirectory.resolve("forkjoin-unsupported.json");
+		Path fragment = temporaryDirectory.resolve("forkjoin-unsupported-fragment.json");
+		ProcessResult run = runFixture(output, example.fixture.ForkJoinFixtureMain.UnsupportedMain.class, fragment);
+		assertEquals(0, run.exitCode, run.output);
+		String json = Files.readString(output);
+		assertTrue(json.contains("repeated submission"), json);
+		assertTrue(json.contains("execution boundary not instrumented"), json);
+		assertTrue(json.contains("closed JUnit container"), json);
+		assertFalse(new com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec()
+				.deserialize(Files.readAllBytes(fragment)).collectionCompleted());
+	}
+
+	@Test
 	void scheduledExecutorsAndRawThreadsPropagateThroughRealAsmInstrumentation() throws Exception {
 		Path output = temporaryDirectory.resolve("thread-boundaries.json");
 		Path fragment = temporaryDirectory.resolve("thread-boundaries-fragment.json");
@@ -291,11 +343,11 @@ class MethodEntryTransformationTest {
 				.contains("AsyncApplication#rawNoContext()V"));
 		String global = json.substring(json.lastIndexOf("\"unattributedEvents\""));
 		assertTrue(global.contains("AsyncApplication#threadSubclass()V"));
-		assertTrue(global.contains("AsyncApplication#forkJoinPoolTaskSubmit()V"));
-		assertTrue(global.contains("AsyncApplication#forkJoinPoolTaskInvoke()V"));
-		assertTrue(global.contains("AsyncApplication#forkJoinDirectFork()V"));
+		assertTestHasMethod(json, "fj-task-submit", "forkJoinPoolTaskSubmit");
+		assertTestHasMethod(json, "fj-task-invoke", "forkJoinPoolTaskInvoke");
+		assertTestHasMethod(json, "fj-direct-fork", "forkJoinDirectFork");
 		assertTrue(global.contains("AsyncApplication#scheduledNoContext()V"));
-		assertTrue(json.contains("ASYNC_SETUP_UNSUPPORTED"));
+		assertTrue(json.contains("ForkJoinTask: execution boundary not instrumented"));
 		assertFalse(new com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec()
 				.deserialize(Files.readAllBytes(fragment)).collectionCompleted());
 	}

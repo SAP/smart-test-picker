@@ -55,14 +55,15 @@ final class ExecutorCallSiteTransformer implements ClassFileTransformer {
 				for (AbstractInsnNode instruction = method.instructions.getFirst(); instruction != null;
 						instruction = instruction.getNext()) {
 					if (!(instruction instanceof MethodInsnNode call)) continue;
-					if (unsupportedForkJoinBoundary(call, hierarchy)) {
-						InsnList marker = new InsnList();
-						marker.add(new org.objectweb.asm.tree.LdcInsnNode(
-								call.owner.replace('/', '.') + "." + call.name + call.desc));
-						marker.add(new MethodInsnNode(Opcodes.INVOKESTATIC, HOOK, "unsupportedAsyncBoundary",
-								"(Ljava/lang/String;)V", false));
-						method.instructions.insertBefore(call, marker);
+					String forkJoinHook = forkJoinHook(call, hierarchy);
+					if (forkJoinHook != null) {
+						InsnList capture = new InsnList();
+						capture.add(new InsnNode(Opcodes.DUP));
+						capture.add(new MethodInsnNode(Opcodes.INVOKESTATIC, HOOK, forkJoinHook,
+								"(" + FORK_JOIN_TASK + ")V", false));
+						method.instructions.insertBefore(call, capture);
 						changed = true;
+						continue;
 					}
 					InsnList threadWrapping = threadWrapping(call);
 					if (threadWrapping != null) {
@@ -112,14 +113,21 @@ final class ExecutorCallSiteTransformer implements ClassFileTransformer {
 		}
 	}
 
-	private static boolean unsupportedForkJoinBoundary(MethodInsnNode call, Hierarchy hierarchy) {
-		if ((call.name.equals("fork") || call.name.equals("invoke")) && call.desc.startsWith("()")
-				&& hierarchy.forkJoinTask(call.owner) == Resolution.YES) {
-			return true;
-		}
-		return call.owner.equals("java/util/concurrent/ForkJoinPool")
-				&& (call.name.equals("submit") || call.name.equals("invoke"))
-				&& call.desc.startsWith("(" + FORK_JOIN_TASK);
+	private String forkJoinHook(MethodInsnNode call, Hierarchy hierarchy) {
+		if (call.getOpcode() == Opcodes.INVOKESTATIC) return null;
+		boolean task = (call.name.equals("fork") && call.desc.equals("()" + FORK_JOIN_TASK))
+				|| (call.name.equals("invoke") && call.desc.equals("()Ljava/lang/Object;"))
+				|| (call.name.equals("reinitialize") && call.desc.equals("()V"));
+		boolean pool = (call.name.equals("execute") && call.desc.equals("(" + FORK_JOIN_TASK + ")V"))
+				|| (call.name.equals("submit") && call.desc.equals("(" + FORK_JOIN_TASK + ")" + FORK_JOIN_TASK))
+				|| (call.name.equals("invoke") && call.desc.equals("(" + FORK_JOIN_TASK + ")Ljava/lang/Object;"));
+		if (!task && !pool) return null;
+		Resolution resolution = task ? hierarchy.forkJoinTask(call.owner)
+				: hierarchy.subtype(call.owner, "java/util/concurrent/ForkJoinPool", new HashSet<>());
+		if (resolution == Resolution.UNKNOWN) errorSink.accept("forkjoin-attribution-incomplete:"
+				+ call.owner + "." + call.name + call.desc);
+		return resolution == Resolution.YES ? (call.name.equals("reinitialize")
+				? "reinitializeForkJoin" : "captureForkJoin") : null;
 	}
 
 	private MethodInsnNode scheduledBridge(MethodInsnNode call, Hierarchy hierarchy) {
@@ -219,21 +227,21 @@ final class ExecutorCallSiteTransformer implements ClassFileTransformer {
 		return result;
 	}
 
-	private static boolean excluded(String name) {
+	static boolean excluded(String name) {
 		return name.startsWith("java/") || name.startsWith("jdk/") || name.startsWith("sun/")
 				|| name.startsWith("org/gradle/")
 				|| name.startsWith("com/sap/oss/smarttestpicker/") || name.startsWith("org/objectweb/asm/")
 				|| name.startsWith("com/sap/oss/smarttestpicker/internal/asm/");
 	}
 
-	private enum Resolution { YES, NO, UNKNOWN }
+	enum Resolution { YES, NO, UNKNOWN }
 
 	/** Resolves class-file hierarchy metadata without loading or initializing application classes. */
-	private static final class Hierarchy {
+	static final class Hierarchy {
 		private final ClassLoader loader;
 		private final ClassNode current;
 
-		private Hierarchy(ClassLoader loader, ClassNode current) {
+		Hierarchy(ClassLoader loader, ClassNode current) {
 			this.loader = loader;
 			this.current = current;
 		}
@@ -246,11 +254,11 @@ final class ExecutorCallSiteTransformer implements ClassFileTransformer {
 			return subtype(owner, "java/util/concurrent/ScheduledExecutorService", new HashSet<>());
 		}
 
-		private Resolution forkJoinTask(String owner) {
+		Resolution forkJoinTask(String owner) {
 			return subtype(owner, "java/util/concurrent/ForkJoinTask", new HashSet<>());
 		}
 
-		private Resolution subtype(String owner, String root, Set<String> visited) {
+		Resolution subtype(String owner, String root, Set<String> visited) {
 			if (owner.equals(root)) return Resolution.YES;
 			if (!visited.add(owner) || owner.equals("java/lang/Object")) return Resolution.NO;
 			try {
