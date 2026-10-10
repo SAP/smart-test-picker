@@ -71,23 +71,6 @@ public final class RuntimeHooks {
 		}
 	}
 
-	public static void captureForkJoin(java.util.concurrent.ForkJoinTask<?> task) {
-		try { RuntimeContextRegistry.current().ifPresent(service -> service.captureForkJoin(task)); }
-		catch (Throwable ignored) { }
-	}
-	public static void reinitializeForkJoin(java.util.concurrent.ForkJoinTask<?> task) {
-		try { RuntimeContextRegistry.current().ifPresent(service -> service.reinitializeForkJoin(task)); }
-		catch (Throwable ignored) { }
-	}
-	public static void enterForkJoin(java.util.concurrent.ForkJoinTask<?> task) {
-		try { RuntimeContextRegistry.current().ifPresent(service -> service.enterForkJoin(task)); }
-		catch (Throwable ignored) { }
-	}
-	public static void exitForkJoin() {
-		try { RuntimeContextRegistry.current().ifPresent(RuntimeContextService::exitForkJoin); }
-		catch (Throwable ignored) { }
-	}
-
 	public static void unsupportedAsyncBoundary(String boundary) {
 		try {
 			RuntimeContextRegistry.current().ifPresent(service -> service.recordUnsupportedAsyncBoundary(boundary));

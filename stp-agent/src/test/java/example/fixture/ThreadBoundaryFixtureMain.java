@@ -87,7 +87,7 @@ public final class ThreadBoundaryFixtureMain {
 			run(context, test("fj-task-invoke"), () -> forkJoin.invoke(invoked));
 			RecursiveAction forked = action(app::forkJoinDirectFork);
 			run(context, test("fj-direct-fork"), () -> forked.fork().get());
-			run(context, test("fj-adapted-unsupported"), () -> forkJoin.invoke(
+			run(context, test("fj-adapted"), () -> forkJoin.invoke(
 					java.util.concurrent.ForkJoinTask.adapt(app::forkJoinPoolTaskSubmit)));
 			System.out.println("thread-boundary-fixture-ok");
 		} finally {

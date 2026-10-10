@@ -28,7 +28,7 @@ public final class StpAgent {
 				instrumentation.addTransformer(new ExecutorCallSiteTransformer(runtime::error), false);
 				instrumentation.addTransformer(new MethodEntryClassFileTransformer(configuration, metrics,
 						runtime.catalog(), runtime::error), false);
-				instrumentation.addTransformer(new ForkJoinExecutionTransformer(runtime::error), false);
+				ForkJoinBootstrap.install(instrumentation, runtime::error);
 			} else {
 				instrumentation.addTransformer(new NoOpClassFileTransformer(configuration, metrics), false);
 			}

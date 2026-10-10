@@ -17,6 +17,7 @@ dependencies {
     compileOnly project(':stp-junit-adapter')
     implementation 'org.ow2.asm:asm:9.8'
     implementation 'org.ow2.asm:asm-tree:9.8'
+    implementation 'org.ow2.asm:asm-commons:9.8'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
     testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
     testImplementation 'org.apiguardian:apiguardian-api:1.1.2'
@@ -41,7 +42,7 @@ tasks.named('shadowJar') {
                 'Premain-Class': 'com.sap.oss.smarttestpicker.agent.StpAgent',
                 'Implementation-Version': project.version,
                 'Can-Redefine-Classes': 'false',
-                'Can-Retransform-Classes': 'false'
+                'Can-Retransform-Classes': 'true'
         )
     }
 }

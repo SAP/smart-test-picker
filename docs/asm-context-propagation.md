@@ -34,8 +34,8 @@ thread state. Ownership instead has to follow each logical task from submission 
 ## Architecture
 
 `TestExecutionContext` is an immutable snapshot containing the current `TestIdentity`. The local current value
-remains a `ThreadLocal`. Runnable/Callable propagation uses submission wrappers; application ForkJoinTask
-propagation uses weak task identity bindings and scopes around instrumented execution, preserving the task object.
+remains a `ThreadLocal`. Runnable/Callable propagation uses submission wrappers; ForkJoinTask
+propagation uses weak task identity bindings and verified bootstrap submission/execution advice, preserving the task object.
 See [ForkJoinTask ownership](asm-forkjoin-task-propagation.md) for the current support matrix and limits.
 
 ```text
@@ -67,13 +67,15 @@ unattributed behavior; no owner is guessed.
 `ExecutorCallSiteTransformer` transforms eligible non-bootstrap caller classes. It does not modify executor
 implementations or JDK worker loops.
 
-The actual matched invocation descriptors are:
+ForkJoin task-shaped APIs are instead observed by `ForkJoinBootstrapTransformer` in the exact
+JDK `ForkJoinTask` / `ForkJoinPool` method bodies, including JDK-created tasks and internal forks.
+Its verified `doExec -> exec` scope restores context before completion publication.
+
+The application-call-site transformer matches:
 
 * `Executor.execute(Runnable)`;
 * `ExecutorService.submit(Runnable)`, `submit(Runnable,Object)`, and `submit(Callable)` returning `Future`;
 * the equivalent `ForkJoinPool.submit` overloads returning covariant `ForkJoinTask`;
-* `ForkJoinTask.fork()` / `invoke()` and `ForkJoinPool.execute(ForkJoinTask)` /
-  `submit(ForkJoinTask)` / `invoke(ForkJoinTask)`; `reinitialize()` releases completed bindings;
 * `CompletableFuture.runAsync(Runnable[,Executor])`;
 * `CompletableFuture.supplyAsync(Supplier[,Executor])`;
 * `CompletableFuture.thenApplyAsync(Function[,Executor])`; and
@@ -98,7 +100,7 @@ scheduled. No external `Map<Runnable,...>` exists.
 | `ExecutorService.submit(Callable)` | PROVEN | exact caller invocation before JDK `FutureTask` creation | same test, fixtures `callable`, `same-callable-a/b` |
 | CompletableFuture explicit executor | PROVEN | exact `runAsync`, `supplyAsync`, `thenApplyAsync`, `thenRunAsync` caller invocation | same test, `cf-explicit-*` fixtures |
 | CompletableFuture common pool | PROVEN | same callback registration points; wrapped callback later runs in common pool | same test, `cf-common-*` fixtures |
-| ForkJoinPool / ForkJoinTask | BOUNDED SUPPORT | executor-style overloads plus task submission and instrumented `compute`/`exec` | `ForkJoinFixtureMain`, `ForkJoinContextTest`; see dedicated support matrix |
+| ForkJoinPool / ForkJoinTask | BOUNDED SUPPORT | executor-style overloads plus verified bootstrap task submission/execution, adapters, CountedCompleter and parallel forEach | `ForkJoinFixtureMain`, `ExtendedForkJoinFixtureMain`, `ForkJoinContextTest`; see dedicated support matrix |
 | raw `Thread` | BOUNDED SUPPORT | common Runnable constructors | `ThreadBoundaryFixtureMain` |
 | virtual threads | BOUNDED SUPPORT on JDK 21 | `startVirtualThread`, Builder `start` | `jdk21VirtualThreadApisPropagateThroughRealAsmInstrumentation` |
 
@@ -153,8 +155,9 @@ and execution use a synchronized weak identity map, with reference-queue cleanup
   `Thread.Builder.start(Runnable)` are supported without static JDK 21 linkage. The virtual-thread-per-task
   executor is covered by the existing `ExecutorService` rule.
 * ForkJoinTask requires observed submission and instrumented execution; see the
-  [precise limitations](asm-forkjoin-task-propagation.md#ambiguity-and-limits). Reactive/request boundaries,
-  reflection, method handles, and preloaded callers remain unsupported.
+  [precise limitations](asm-forkjoin-task-propagation.md#ambiguity-and-limits). Reflection to verified ForkJoin APIs is covered.
+  Other reactive/request boundaries and untransformed reflection/method-handle/preloaded
+  callers outside those verified APIs remain unsupported.
 * Late submitted work retains the correct owner but is classified by the unchanged aggregator as `LATE_EVENT`;
   publication does not wait for arbitrary asynchronous descendants.
 * Wrapper identity can be visible to custom identity-sensitive executors.

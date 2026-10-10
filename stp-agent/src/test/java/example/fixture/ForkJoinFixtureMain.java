@@ -123,7 +123,8 @@ public class ForkJoinFixtureMain {
 		try { run("ambiguousB", () -> { pool.execute(task); release.countDown(); task.get(5, TimeUnit.SECONDS); }); }
 		finally { release.countDown(); }
 		check(observation("ambiguousA").methods().isEmpty() && observation("ambiguousB").methods().isEmpty(), "ambiguous quarantined");
-		run("jdkAdapted", () -> pool.invoke(ForkJoinTask.adapt(() -> ForkJoinApplication.unowned(1))));
+		run("unobservedSubmission", () -> ForkJoinTask.adapt(() -> ForkJoinApplication.unowned(1)).quietlyInvoke());
+		check(observation("unobservedSubmission").methods().isEmpty(), "no guessed owner for unobserved API");
 		setup(pool, true);
 		check(!CONTEXT.aggregator().snapshot().setupDiagnostics().isEmpty(), "incomplete diagnostics");
 		System.out.println("forkjoin-unsupported-ok");

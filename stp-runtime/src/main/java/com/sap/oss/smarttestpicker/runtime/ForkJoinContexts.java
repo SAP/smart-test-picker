@@ -4,87 +4,94 @@ package com.sap.oss.smarttestpicker.runtime;
 
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ForkJoinTask;
-import java.util.concurrent.RecursiveAction;
-import java.util.concurrent.RecursiveTask;
 
-/** Execution ownership, never task construction ownership. Weak identity keys do not retain tasks. */
+/** Weak object identity, per-execution ownership; never infer ownership from construction. */
 final class ForkJoinContexts {
-	static final String MARKER = "$stp$forkJoinExecution";
 	private final RuntimeContextService service;
 	private final ReferenceQueue<ForkJoinTask<?>> queue = new ReferenceQueue<>();
 	private final Map<Key, Execution> executions = new HashMap<>();
-	private static final ClassValue<Boolean> INSTRUMENTED = new ClassValue<>() {
-		@Override protected Boolean computeValue(Class<?> type) {
-			String name = RecursiveAction.class.isAssignableFrom(type) || RecursiveTask.class.isAssignableFrom(type)
-					? "compute" : "exec";
-			for (Class<?> candidate = type; candidate != null; candidate = candidate.getSuperclass()) {
-				for (var method : candidate.getDeclaredMethods()) {
-					if (method.getName().equals(name) && method.getParameterCount() == 0 && !method.isBridge()) {
-						try { candidate.getDeclaredField(MARKER); return true; }
-						catch (NoSuchFieldException absent) { return false; }
-					}
-				}
-			}
-			return false;
-		}
-	};
-
 	ForkJoinContexts(RuntimeContextService service) { this.service = service; }
 
-	synchronized void capture(ForkJoinTask<?> task) {
-		if (task == null) return; // Preserve the original API's null handling.
+	synchronized Object submit(ForkJoinTask<?> task) {
+		if (task == null) return null;
 		reap();
 		var owner = service.captureForkJoinOwner();
-		if (!INSTRUMENTED.get(task.getClass())) {
-			if (owner.test() != null || owner.container() != null || owner.sharedSetup() != null)
-				service.forkJoinIncomplete("execution boundary not instrumented: " + task.getClass().getName());
-			return;
-		}
-		if (task.isDone()) return; // JDK won't execute a completed/cancelled task until reinitialized.
 		Key key = new Key(task, queue);
-		Execution previous = executions.get(key);
-		if (previous != null) {
-			previous.ambiguous = true;
+		Execution execution = executions.get(key);
+		if (execution == null) { execution = new Execution(owner); executions.put(key, execution); }
+		// Stream ForEachTask legitimately reforks itself while processing another split.
+		// Repeated execution is safe only while every registration has the identical logical owner.
+		else if (execution.resetting || !execution.owner.equals(owner)) {
+			execution.conflicts++;
+			execution.ambiguous = true;
 			service.forkJoinIncomplete("repeated submission without completed reinitialize; original="
-					+ previous.owner + "; submitting=" + owner);
-		} else executions.put(key, new Execution(owner));
+					+ execution.owner + "; submitting=" + owner);
+		}
+		execution.submittedWhenDone |= task.isDone();
+		execution.registrations++;
+		return new Submission(task, execution);
 	}
 
-	synchronized void reinitialize(ForkJoinTask<?> task) {
+	synchronized void submitted(Object token, Throwable failure) {
+		if (token == null || failure == null) return;
+		Submission ticket = (Submission) token;
+		Execution execution = ticket.execution;
+		// Roll back only failed registrations. Another same-owner submission may already be queued.
+		if (--execution.registrations == 0 && !execution.started && !execution.ambiguous)
+			executions.remove(new Key(ticket.task, null), execution);
+	}
+
+	synchronized Object reset(ForkJoinTask<?> task) {
 		reap();
-		Key key = new Key(task, null);
-		Execution execution = executions.get(key);
-		if (execution != null && (execution.depth != 0 || !task.isDone())) {
+		Execution execution = executions.get(new Key(task, null));
+		if (execution == null) return null;
+		boolean safe = execution.depth == 0 && task.isDone() && !execution.resetting
+				&& execution.registrations == 1 && !execution.submittedWhenDone;
+		if (!safe) {
+			execution.conflicts++;
 			execution.ambiguous = true;
-			service.forkJoinIncomplete("reinitialize before completed execution");
-		} else executions.remove(key);
+			service.forkJoinIncomplete("reinitialize without a single completed, non-racing submission");
+		}
+		execution.resetting = true;
+		return new Reset(task, execution, safe, execution.conflicts);
+	}
+
+	synchronized void resetDone(Object token, Throwable failure) {
+		if (token == null) return;
+		Reset reset = (Reset) token;
+		reset.execution.resetting = false;
+		if (failure == null && reset.safe && reset.execution.conflicts == reset.conflicts && reset.execution.depth == 0)
+			executions.remove(new Key(reset.task, null), reset.execution);
 	}
 
 	synchronized Runnable enter(ForkJoinTask<?> task) {
 		reap();
 		Execution execution = executions.get(new Key(task, null));
 		if (execution == null) {
+			var ambient = service.captureForkJoinOwner();
+			if (ambient.test() != null || ambient.container() != null || ambient.sharedSetup() != null)
+				service.forkJoinIncomplete("execution without observed submission: " + task.getClass().getName());
 			execution = new Execution(new RuntimeContextService.ForkJoinOwner(null, null, null));
-			service.forkJoinIncomplete("execution without observed submission: " + task.getClass().getName());
 		}
-		if (execution.depth > 0 && execution.thread != Thread.currentThread()) {
+		if (execution.resetting) {
+			execution.conflicts++;
 			execution.ambiguous = true;
-			service.forkJoinIncomplete("concurrent execution of the same task");
+			service.forkJoinIncomplete("execution during task reinitialize");
 		}
-		execution.thread = Thread.currentThread();
+		execution.started = true;
 		execution.depth++;
 		Runnable restore = service.attachForkJoin(execution.owner, execution, task);
 		Execution active = execution;
 		return () -> {
 			try { restore.run(); }
-			finally { synchronized (ForkJoinContexts.this) {
-				if (--active.depth == 0) active.thread = null;
-			} }
+			finally { synchronized (ForkJoinContexts.this) { active.depth--; } }
 		};
 	}
+
+	private record Submission(ForkJoinTask<?> task, Execution execution) {}
+	private record Reset(ForkJoinTask<?> task, Execution execution, boolean safe, int conflicts) {}
 
 	private void reap() {
 		Key key;
@@ -94,7 +101,11 @@ final class ForkJoinContexts {
 	static final class Execution {
 		final RuntimeContextService.ForkJoinOwner owner;
 		volatile boolean ambiguous;
-		Thread thread;
+		boolean started;
+		boolean resetting;
+		boolean submittedWhenDone;
+		int conflicts;
+		int registrations;
 		int depth;
 		Execution(RuntimeContextService.ForkJoinOwner owner) { this.owner = owner; }
 	}

@@ -21,6 +21,7 @@ import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
+import java.util.concurrent.TimeUnit;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -36,6 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -302,6 +304,43 @@ class MethodEntryTransformationTest {
 		assertFalse(testSection(json, "compute").contains("LATE_EVENT"));
 	}
 
+    @Test
+    void bootstrapForkJoinSupportsJdkAdaptersCountedCompletersAndParallelStreams() throws Exception {
+        Path output = temporaryDirectory.resolve("extended-forkjoin.json");
+        Path fragment = temporaryDirectory.resolve("extended-forkjoin-fragment.json");
+        ProcessResult run = runFixture(output, example.fixture.ExtendedForkJoinFixtureMain.class, fragment);
+        assertEquals(0, run.exitCode, run.output);
+        assertTrue(run.output.contains("forkjoin-extended-ok"), run.output);
+        var decoded = new com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec()
+                .deserialize(Files.readAllBytes(fragment));
+        assertTrue(decoded.collectionCompleted(), Files.readString(fragment));
+        var expected = new java.util.LinkedHashMap<String, java.util.Set<String>>();
+        for (String id : List.of("adaptFork", "adaptReuse", "adaptDirect", "adaptExecute", "adaptResult", "reflective"))
+            expected.put(id, java.util.Set.of("adapted(I)V"));
+        expected.put("adaptCallable", java.util.Set.of("callable(I)I"));
+        expected.put("acceptedB", java.util.Set.of("rejected(I)V"));
+        expected.put("workerAmbient", java.util.Set.of("workerRestored(I)V"));
+        for (String id : List.of("adaptError", "adaptException")) expected.put(id, java.util.Set.of("failure(I)V"));
+        expected.put("countedA", java.util.Set.of("countedA(I)V", "completion(I)V"));
+        expected.put("countedB", java.util.Set.of("countedB(Ljava/lang/String;)V", "completion(I)V"));
+        expected.put("streamA", java.util.Set.of("streamA(I)V"));
+        expected.put("streamB", java.util.Set.of("streamB(Ljava/lang/String;)V"));
+        expected.put("streamCommon", java.util.Set.of("streamA(I)V"));
+        for (String id : List.of("rejected-execute", "rejected-submit", "rejected-invoke", "adaptCancelled", "adaptLateA", "adaptLateB"))
+            expected.put(id, java.util.Set.of());
+        for (var entry : expected.entrySet()) {
+            var coverage = decoded.tests().get(new com.sap.oss.smarttestpicker.coverage.model.TestIdentity(
+                    "fixture.ForkJoinTests", entry.getKey()));
+            assertNotNull(coverage, entry.getKey());
+            assertEquals(entry.getValue(), coverage.coveredMethods().stream()
+                    .map(m -> m.methodName() + m.jvmDescriptor()).collect(java.util.stream.Collectors.toSet()), entry.getKey());
+        }
+        String json = Files.readString(output);
+        assertTrue(testSection(json, "adaptLateA").contains("LATE_EVENT"), json);
+        assertFalse(json.contains("ASYNC_SETUP_UNSUPPORTED"), json);
+        assertEquals(1, decoded.setupScopes().size());
+    }
+
 	@Test
 	void ambiguousForkJoinOwnershipAndClosedSetupProduceIncompleteFragment() throws Exception {
 		Path output = temporaryDirectory.resolve("forkjoin-unsupported.json");
@@ -310,7 +349,7 @@ class MethodEntryTransformationTest {
 		assertEquals(0, run.exitCode, run.output);
 		String json = Files.readString(output);
 		assertTrue(json.contains("repeated submission"), json);
-		assertTrue(json.contains("execution boundary not instrumented"), json);
+        assertTrue(json.contains("execution without observed submission"), json);
 		assertTrue(json.contains("closed JUnit container"), json);
 		assertFalse(new com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec()
 				.deserialize(Files.readAllBytes(fragment)).collectionCompleted());
@@ -347,8 +386,8 @@ class MethodEntryTransformationTest {
 		assertTestHasMethod(json, "fj-task-invoke", "forkJoinPoolTaskInvoke");
 		assertTestHasMethod(json, "fj-direct-fork", "forkJoinDirectFork");
 		assertTrue(global.contains("AsyncApplication#scheduledNoContext()V"));
-		assertTrue(json.contains("ForkJoinTask: execution boundary not instrumented"));
-		assertFalse(new com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec()
+		assertTestHasMethod(json, "fj-adapted", "forkJoinPoolTaskSubmit");
+		assertTrue(new com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec()
 				.deserialize(Files.readAllBytes(fragment)).collectionCompleted());
 	}
 
@@ -468,9 +507,14 @@ class MethodEntryTransformationTest {
 		String args = "output=" + output + ";includes=example.instrumented.;runId=fixture-run;debug=false;instrumentation=on"
 				+ (fragment == null ? "" : ";fragmentOutput=" + fragment + ";revision=fixture-revision;shardId=fixture-shard");
 		Process process = new ProcessBuilder(java, "-Xverify:all", "-javaagent:" + agentJar() + "=" + args,
-				"-cp", fixtureClasses.toString(), mainClass.getName()).redirectErrorStream(true).start();
-		String processOutput = new String(process.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
-		return new ProcessResult(process.waitFor(), processOutput);
+				"-Djava.util.concurrent.ForkJoinPool.common.parallelism=4",
+                "-cp", fixtureClasses.toString(), mainClass.getName()).redirectErrorStream(true)
+                .redirectOutput(output.resolveSibling(output.getFileName() + ".log").toFile()).start();
+        if (!process.waitFor(60, TimeUnit.SECONDS)) {
+            process.destroyForcibly(); process.waitFor();
+            throw new AssertionError("fixture timed out: " + mainClass.getName());
+        }
+        return new ProcessResult(process.exitValue(), Files.readString(output.resolveSibling(output.getFileName() + ".log")));
 	}
 
 	private static void assertTestHasOnly(String json, String testId, String... methodNames) {

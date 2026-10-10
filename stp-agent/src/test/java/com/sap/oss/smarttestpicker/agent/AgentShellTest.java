@@ -203,7 +203,7 @@ class AgentShellTest {
 			Attributes attributes = jar.getManifest().getMainAttributes();
 			assertEquals(StpAgent.class.getName(), attributes.getValue("Premain-Class"));
 			assertEquals("false", attributes.getValue("Can-Redefine-Classes"));
-			assertEquals("false", attributes.getValue("Can-Retransform-Classes"));
+			assertEquals("true", attributes.getValue("Can-Retransform-Classes"));
 			assertTrue(jar.getEntry("com/sap/oss/smarttestpicker/runtime/model/TestIdentity.class") != null);
 			assertTrue(jar.getEntry("com/sap/oss/smarttestpicker/runtime/RuntimeContextRegistry.class") != null);
 			assertTrue(jar.getEntry("com/sap/oss/smarttestpicker/runtime/RuntimeObservation$PhysicalTest.class") != null);

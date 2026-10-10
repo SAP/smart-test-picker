@@ -55,16 +55,6 @@ final class ExecutorCallSiteTransformer implements ClassFileTransformer {
 				for (AbstractInsnNode instruction = method.instructions.getFirst(); instruction != null;
 						instruction = instruction.getNext()) {
 					if (!(instruction instanceof MethodInsnNode call)) continue;
-					String forkJoinHook = forkJoinHook(call, hierarchy);
-					if (forkJoinHook != null) {
-						InsnList capture = new InsnList();
-						capture.add(new InsnNode(Opcodes.DUP));
-						capture.add(new MethodInsnNode(Opcodes.INVOKESTATIC, HOOK, forkJoinHook,
-								"(" + FORK_JOIN_TASK + ")V", false));
-						method.instructions.insertBefore(call, capture);
-						changed = true;
-						continue;
-					}
 					InsnList threadWrapping = threadWrapping(call);
 					if (threadWrapping != null) {
 						method.instructions.insertBefore(call, threadWrapping);
@@ -111,23 +101,6 @@ final class ExecutorCallSiteTransformer implements ClassFileTransformer {
 					+ failure.getClass().getName());
 			return null;
 		}
-	}
-
-	private String forkJoinHook(MethodInsnNode call, Hierarchy hierarchy) {
-		if (call.getOpcode() == Opcodes.INVOKESTATIC) return null;
-		boolean task = (call.name.equals("fork") && call.desc.equals("()" + FORK_JOIN_TASK))
-				|| (call.name.equals("invoke") && call.desc.equals("()Ljava/lang/Object;"))
-				|| (call.name.equals("reinitialize") && call.desc.equals("()V"));
-		boolean pool = (call.name.equals("execute") && call.desc.equals("(" + FORK_JOIN_TASK + ")V"))
-				|| (call.name.equals("submit") && call.desc.equals("(" + FORK_JOIN_TASK + ")" + FORK_JOIN_TASK))
-				|| (call.name.equals("invoke") && call.desc.equals("(" + FORK_JOIN_TASK + ")Ljava/lang/Object;"));
-		if (!task && !pool) return null;
-		Resolution resolution = task ? hierarchy.forkJoinTask(call.owner)
-				: hierarchy.subtype(call.owner, "java/util/concurrent/ForkJoinPool", new HashSet<>());
-		if (resolution == Resolution.UNKNOWN) errorSink.accept("forkjoin-attribution-incomplete:"
-				+ call.owner + "." + call.name + call.desc);
-		return resolution == Resolution.YES ? (call.name.equals("reinitialize")
-				? "reinitializeForkJoin" : "captureForkJoin") : null;
 	}
 
 	private MethodInsnNode scheduledBridge(MethodInsnNode call, Hierarchy hierarchy) {
@@ -252,10 +225,6 @@ final class ExecutorCallSiteTransformer implements ClassFileTransformer {
 
 		private Resolution scheduledExecutor(String owner) {
 			return subtype(owner, "java/util/concurrent/ScheduledExecutorService", new HashSet<>());
-		}
-
-		Resolution forkJoinTask(String owner) {
-			return subtype(owner, "java/util/concurrent/ForkJoinTask", new HashSet<>());
 		}
 
 		Resolution subtype(String owner, String root, Set<String> visited) {

@@ -32,19 +32,13 @@ public final class RuntimeContextService {
 	private final AtomicLong logicalContexts = new AtomicLong();
 	private final boolean debug;
 	private final ForkJoinContexts forkJoin = new ForkJoinContexts(this);
-	private final ThreadLocal<Deque<Runnable>> forkJoinScopes = ThreadLocal.withInitial(ArrayDeque::new);
 	private final ThreadLocal<ForkJoinContexts.Execution> forkJoinExecution = new ThreadLocal<>();
 
-	public void captureForkJoin(java.util.concurrent.ForkJoinTask<?> task) { forkJoin.capture(task); }
-	public void reinitializeForkJoin(java.util.concurrent.ForkJoinTask<?> task) { forkJoin.reinitialize(task); }
-	public void enterForkJoin(java.util.concurrent.ForkJoinTask<?> task) {
-		forkJoinScopes.get().push(forkJoin.enter(task));
-	}
-	public void exitForkJoin() {
-		Deque<Runnable> scopes = forkJoinScopes.get();
-		if (!scopes.isEmpty()) scopes.pop().run();
-		if (scopes.isEmpty()) forkJoinScopes.remove();
-	}
+    public Object beginForkJoinSubmission(java.util.concurrent.ForkJoinTask<?> task) { return forkJoin.submit(task); }
+    public void endForkJoinSubmission(Object ticket, Throwable failure) { forkJoin.submitted(ticket, failure); }
+    public Runnable openForkJoinExecution(java.util.concurrent.ForkJoinTask<?> task) { return forkJoin.enter(task); }
+    public Object beginForkJoinReset(java.util.concurrent.ForkJoinTask<?> task) { return forkJoin.reset(task); }
+    public void endForkJoinReset(Object ticket, Throwable failure) { forkJoin.resetDone(ticket, failure); }
 
 	record ForkJoinOwner(TestExecutionContext test, ContainerIdentity container, String sharedSetup) {}
 	ForkJoinOwner captureForkJoinOwner() {
