@@ -14,6 +14,9 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
+import java.util.function.Consumer;
+import java.util.function.BiFunction;
+import java.util.function.BiConsumer;
 
 /** Reads STP identity from OpenTelemetry Context and supplies explicit fallbacks only at measured gaps. */
 public final class RemoteTestContext {
@@ -62,6 +65,10 @@ public final class RemoteTestContext {
 	public static Runnable wrap(Runnable task) { return task == null ? null : capture().wrap(task); }
 	public static <T> Callable<T> wrap(Callable<T> task) { return task == null ? null : capture().wrap(task); }
 	public static <T, R> Function<T, R> wrapFunction(Function<T, R> task) { return task == null ? null : capture().wrapFunction(task); }
+
+	public static <T> Consumer<T> wrapConsumer(Consumer<T> task) { return task == null ? null : capture().wrapConsumer(task); }
+	public static <T, U, R> BiFunction<T, U, R> wrapBiFunction(BiFunction<T, U, R> task) { return task == null ? null : capture().wrapFunction(task); }
+	public static <T, U> BiConsumer<T, U> wrapBiConsumer(BiConsumer<T, U> task) { return task == null ? null : capture().wrapConsumer(task); }
 
 	public static ScheduledFuture<?> schedule(ScheduledExecutorService executor, Runnable task, long delay, TimeUnit unit) { return executor.schedule(wrap(task), delay, unit); }
 	public static <T> ScheduledFuture<T> schedule(ScheduledExecutorService executor, Callable<T> task, long delay, TimeUnit unit) { return executor.schedule(wrap(task), delay, unit); }

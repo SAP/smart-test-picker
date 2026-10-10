@@ -66,3 +66,7 @@ The PetClinic proof scripts now attach `opentelemetry-javaagent.jar` before the 
 - [W3C Baggage API](https://opentelemetry.io/docs/specs/otel/baggage/api/)
 - [W3C Baggage specification](https://opentelemetry.io/docs/specs/otel/baggage/)
 - [OpenTelemetry propagators](https://opentelemetry.io/docs/specs/otel/context/api-propagators/)
+
+## CompletableFuture registration coverage update
+
+The original migration measurements above are retained as historical evidence. The registration adapter now covers 39 synchronous/default-async/explicit-executor callback shapes. OTel 2.32.0 alone fails registration ownership for all 39 when request B completes a future whose callback was registered by A. The extended HTTP fixture verifies exact schema-v2 method relations, full Context restoration, cancellation, concurrent registrations and delayed composition. See [Remote CompletableFuture support and evidence](remote-completablefuture-propagation.md) for the complete matrix, JDK requirements and precise call-site limitations.

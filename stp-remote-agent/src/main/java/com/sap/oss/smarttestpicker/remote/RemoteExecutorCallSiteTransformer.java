@@ -18,7 +18,7 @@ import java.security.ProtectionDomain;
 import java.util.HashSet;
 import java.util.Set;
 
-/** Adds OTel Context wrappers only at proven gaps: direct Thread entry points and late CF stages. */
+/** Adds OTel Context wrappers at measured Thread, scheduled-task and CF registration gaps. */
 final class RemoteExecutorCallSiteTransformer implements ClassFileTransformer {
 	private static final String CONTEXT = "com/sap/oss/smarttestpicker/remote/RemoteTestContext";
 	private static final String RUNNABLE = "Ljava/lang/Runnable;";
@@ -59,7 +59,7 @@ final class RemoteExecutorCallSiteTransformer implements ClassFileTransformer {
 						continue;
 					}
 					InsnList wrapping = threadWrapping(call);
-					if (wrapping == null) wrapping = lateCompletableFutureWrapping(call);
+					if (wrapping == null) wrapping = completableFutureWrapping(call);
 					if (wrapping != null) {
 						method.instructions.insertBefore(call, wrapping);
 						changed = true;
@@ -111,20 +111,28 @@ final class RemoteExecutorCallSiteTransformer implements ClassFileTransformer {
 		} catch (Throwable ignored) { return false; }
 	}
 
-	private static InsnList lateCompletableFutureWrapping(MethodInsnNode call) {
+	private static InsnList completableFutureWrapping(MethodInsnNode call) {
 		if (!call.owner.equals(CF)) return null;
+		if (call.getOpcode() != Opcodes.INVOKEVIRTUAL) return null;
+		boolean async = call.name.endsWith("Async");
+		String name = async ? call.name.substring(0, call.name.length() - 5) : call.name;
 		String argument;
 		String hook;
-		if (call.name.equals("thenRunAsync") && (call.desc.equals("(" + RUNNABLE + ")" + CF_DESC)
-				|| call.desc.equals("(" + RUNNABLE + "Ljava/util/concurrent/Executor;)" + CF_DESC))) {
-			argument = RUNNABLE;
-			hook = "wrap";
-		} else if (call.name.equals("thenApplyAsync") && (call.desc.equals("(" + FUNCTION + ")" + CF_DESC)
-				|| call.desc.equals("(" + FUNCTION + "Ljava/util/concurrent/Executor;)" + CF_DESC))) {
-			argument = FUNCTION;
-			hook = "wrapFunction";
-		} else return null;
-		boolean explicitExecutor = call.desc.contains("Ljava/util/concurrent/Executor;");
+		switch (name) {
+			case "thenRun", "runAfterBoth", "runAfterEither" -> { argument = RUNNABLE; hook = "wrap"; }
+			case "thenApply", "thenCompose", "exceptionally", "applyToEither" -> { argument = FUNCTION; hook = "wrapFunction"; }
+			case "thenAccept", "acceptEither" -> { argument = "Ljava/util/function/Consumer;"; hook = "wrapConsumer"; }
+			case "handle", "thenCombine" -> { argument = "Ljava/util/function/BiFunction;"; hook = "wrapBiFunction"; }
+			case "whenComplete", "thenAcceptBoth" -> { argument = "Ljava/util/function/BiConsumer;"; hook = "wrapBiConsumer"; }
+			default -> { return null; }
+		}
+		boolean binary = Set.of("thenCombine", "thenAcceptBoth", "runAfterBoth", "applyToEither",
+				"acceptEither", "runAfterEither").contains(name);
+		String parameters = (binary ? "Ljava/util/concurrent/CompletionStage;" : "") + argument;
+		boolean explicitExecutor = async && call.desc.equals("(" + parameters + "Ljava/util/concurrent/Executor;)" + CF_DESC);
+		if (!explicitExecutor && !call.desc.equals("(" + parameters + ")" + CF_DESC)) return null;
+		// Callback is the last argument, or immediately below the category-1 Executor reference.
+		// Capture even when no STP identity exists: a completing request must not supply its identity.
 		InsnList result = new InsnList();
 		if (explicitExecutor) result.add(new InsnNode(Opcodes.SWAP));
 		result.add(new MethodInsnNode(Opcodes.INVOKESTATIC, CONTEXT, hook, "(" + argument + ")" + argument, false));
