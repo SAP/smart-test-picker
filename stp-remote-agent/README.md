@@ -64,7 +64,7 @@ includes=com.sap.cx.,de.hybris.platform.myextension.
 excludes=com.sap.cx.generated.
 ```
 
-The agent records instrumented method entries from matching classes. It does not instrument the whole JVM unless a broad prefix is explicitly configured. See the [context propagation support matrix](../docs/remote-otel-context-propagation.md) for tested async boundaries and measured limitations.
+The agent records instrumented method entries from matching classes. It does not instrument the whole JVM unless a broad prefix is explicitly configured. See the [context propagation support matrix](../docs/remote-propagation-support.md) for tested async boundaries and measured limitations.
 
 ### Producer identity
 
@@ -104,7 +104,7 @@ For example, the HTTP header is standard `baggage`, not a custom `X-STP-*` heade
 baggage: stp.test.suite.id=checkout-suite,stp.test.id=scenario-17,stp.request.id=8d3f...
 ```
 
-OpenTelemetry's default Java agent propagation includes W3C Baggage. Baggage is sent in HTTP headers, so use these values only on trusted test traffic and avoid sensitive data. See [OpenTelemetry Baggage](https://opentelemetry.io/docs/concepts/signals/baggage/) and the [Remote STP context propagation evidence](../docs/remote-otel-context-propagation.md).
+OpenTelemetry's default Java agent propagation includes W3C Baggage. Baggage is sent in HTTP headers, so use these values only on trusted test traffic and avoid sensitive data. See [OpenTelemetry Baggage](https://opentelemetry.io/docs/concepts/signals/baggage/) and the [Remote STP context propagation evidence](../docs/remote-propagation-support.md).
 
 If telemetry export is not needed for the test run, the OpenTelemetry exporters can be disabled independently:
 
@@ -159,9 +159,15 @@ All successful responses use schema-v2 observation JSON with source metadata. Th
 
 ## Supported async boundaries
 
-The agent relies on OpenTelemetry automatic propagation where integration tests prove it is sufficient. Narrow STP call-site/listener adapters remain for measured gaps, including scheduled tasks, direct platform/virtual thread creation, [39 `CompletableFuture` callback registration forms](../docs/remote-completablefuture-propagation.md), and Servlet listener callbacks. The current tests exercise Servlet dispatch, Executor APIs, CompletableFuture paths, scheduled executors, direct threads, and selected Spring MVC async flows. This is not a claim of propagation through every Java framework or async API; see the [support matrix and evidence](../docs/remote-otel-context-propagation.md). Direct threads use start-time ownership, including configured `run()` overrides and JDK 21 builder/factory paths; see the [Thread support matrix and scope limits](../docs/remote-thread-propagation.md). Uninstrumented start/run paths, arbitrary untested executors, and async APIs outside these matrices are not covered by this POC.
+The [consolidated support matrix](../docs/remote-propagation-support.md) lists exact API forms, ownership boundaries, JDK/OTel versions, combined HTTP chain tests and remaining gaps. Unit-test ASM ForkJoin/bulk results are separate and do not establish Remote support.
+
+The agent relies on OpenTelemetry automatic propagation where integration tests prove it is sufficient. Narrow STP call-site/listener adapters remain for measured gaps, including scheduled tasks, direct platform/virtual thread starts, [39 `CompletableFuture` callback registration forms](../docs/remote-completablefuture-propagation.md), and Servlet listener callbacks. The current tests exercise Servlet dispatch, Executor APIs, CompletableFuture paths, scheduled executors, direct threads, and selected Spring MVC async flows. This is not a claim of propagation through every Java framework or async API; see the [support matrix and evidence](../docs/remote-propagation-support.md). Direct threads use start-time ownership, including configured `run()` overrides and JDK 21 builder/factory paths; see the [Thread support matrix and scope limits](../docs/remote-thread-propagation.md). Uninstrumented start/run paths, arbitrary untested executors, and async APIs outside these matrices are not covered by this POC.
 
 Reflection and method handles have a separate [measured support matrix](../docs/remote-indirect-invocation-propagation.md). Tested executor, bulk and one-shot scheduling calls propagate through OTel even outside `includes`. Included `Method.invoke` sites additionally support three verified CompletableFuture registration shapes and both periodic scheduling shapes. Method-handle CF callbacks can still inherit the wrong completion request, and indirect periodic scheduling/Thread starts can lose attribution; those paths are explicitly unsupported with reproducing tests.
+
+An HTTP response can finish before supported async work completes. That work retains its originating request identity; snapshots contain only methods recorded so far. Wait for application async work to finish before collecting final evidence or stopping the JVM. Shutdown checkpoints recorded observations but does not drain arbitrary application tasks.
+
+Missing method observations do not prove that application code was not executed. Some unsupported boundaries skip instrumentation silently, and the Remote schema does not assert global coverage completeness. See the matrix's diagnostics and follow-ups before interpreting a fragment as complete evidence.
 
 ## PetClinic validation
 

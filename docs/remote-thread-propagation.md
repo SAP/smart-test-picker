@@ -1,5 +1,10 @@
 # Remote STP Thread boundaries
 
+For the final cross-boundary regression and current combined support index, see
+[Remote propagation support](remote-propagation-support.md). Task-specific results
+below are retained as historical evidence for this implementation step.
+
+
 ## Contract and audit
 
 This is Remote request ownership, independent of unit-test/JUnit lifecycle. The owner of an explicit `Thread.start()` is the request active at **start**, not construction. The whole OpenTelemetry Context travels with it: structured suite/test/request Baggage, trace identity and other Context values. Headerless start captures a Context without STP identity; it must not reuse construction identity. Work after the HTTP response keeps the start request's identity.

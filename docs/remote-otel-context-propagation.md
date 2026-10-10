@@ -1,5 +1,7 @@
 # Remote STP context propagation with OpenTelemetry
 
+Current API support and Task 6 regression evidence are in the [consolidated Remote matrix](remote-propagation-support.md). The migration measurements below are historical; later Thread ownership and indirect-call results supersede the corresponding original rows.
+
 ## Decision
 
 Remote STP now reads its structured identity from the active OpenTelemetry `Context`. The identity is carried as W3C Baggage entries `stp.test.suite.id`, `stp.test.id`, and `stp.request.id`. The Remote STP agent still owns method identity, method-hit recording, and the request-to-method observation map. It does not create spans for application methods.
@@ -18,7 +20,7 @@ Before the change, Remote STP had a request `ThreadLocal` lifecycle layered onto
 
 The new propagation tests run with OpenTelemetry Java agent 2.32.0, OpenTelemetry API 1.66.0, JDK 21.0.12, Jetty 11 / Jakarta Servlet for the HTTP fixtures, and Spring MVC 6.1.14 for the Spring fixture. Existing integration fixtures are run with only the remaining measured-gap adapters active. The Servlet, executor, scheduled, thread, CompletableFuture, and Spring tests exercise real child JVMs and HTTP requests.
 
-## Support matrix
+## Historical migration support matrix
 
 | STP scenario | Former STP mechanism | OTel automatic result in the STP fixture | Final mechanism and evidence |
 |---|---|---|---|

@@ -1,5 +1,10 @@
 # Remote CompletableFuture registration ownership
 
+For the final cross-boundary regression and current combined support index, see
+[Remote propagation support](remote-propagation-support.md). Task-specific results
+below are retained as historical evidence for this implementation step.
+
+
 Remote STP owns request attribution; OpenTelemetry owns Context storage, HTTP extraction and scope restoration. This contract is independent of the unit-test ASM/JUnit runtime. A callback remains attributable after its registering HTTP response has completed. There is no test-lifecycle/LATE_EVENT rule here.
 
 ## Audit and measured gap

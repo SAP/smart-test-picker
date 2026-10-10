@@ -26,11 +26,19 @@ class RemoteThreadBoundaryTransformerTest {
         byte[] bytes = bytes();
         var isolated = new DefiningLoader(null);
         assertFalse(RemoteThreadBoundaryTransformer.visible(isolated));
-        assertNull(transformer().transform(isolated, NAME, null, null, bytes));
-        var config = RemoteAgentConfiguration.parse("output=build/thread-isolated.json;includes=example.threadapp.;serviceId=test;revision=test");
-        assertNull(new RemoteMethodEntryTransformer(config).transform(isolated, NAME, null, null, bytes),
-                "the earlier method recorder must also avoid injecting an inaccessible helper");
-        assertNull(new RemoteExecutorCallSiteTransformer(config).transform(isolated, NAME, null, null, bytes));
+        var errors = new java.io.ByteArrayOutputStream();
+        var previousError = System.err;
+        try (var captured = new java.io.PrintStream(errors, true, java.nio.charset.StandardCharsets.UTF_8)) {
+            System.setErr(captured);
+            assertNull(transformer().transform(isolated, NAME, null, null, bytes));
+            var config = RemoteAgentConfiguration.parse("output=build/thread-isolated.json;includes=example.threadapp.;serviceId=test;revision=test");
+            assertNull(new RemoteMethodEntryTransformer(config).transform(isolated, NAME, null, null, bytes),
+                    "the earlier method recorder must also avoid injecting an inaccessible helper");
+            assertNull(new RemoteExecutorCallSiteTransformer(config).transform(isolated, NAME, null, null, bytes));
+        } finally { System.setErr(previousError); }
+        String diagnostics = errors.toString(java.nio.charset.StandardCharsets.UTF_8);
+        assertTrue(diagnostics.contains("thread-boundary-unavailable: " + NAME), diagnostics);
+        assertTrue(diagnostics.contains("method-hook-unavailable: " + NAME), diagnostics);
         var ran = new java.util.concurrent.atomic.AtomicBoolean();
         Thread original = (Thread) isolated.define(bytes).getConstructor(Runnable.class).newInstance((Runnable) () -> ran.set(true));
         original.start(); original.join(10000); assertFalse(original.isAlive()); assertTrue(ran.get());

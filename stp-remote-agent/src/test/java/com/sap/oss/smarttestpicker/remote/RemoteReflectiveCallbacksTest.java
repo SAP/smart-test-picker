@@ -39,7 +39,35 @@ class RemoteReflectiveCallbacksTest {
         assertEquals(originalInvocations, actualInvocations, "original access checks, invokeExact types, bindTo and exception wrapping retained");
         assertEquals(1, helpers, "exactly one owner for the reflection callback boundary");
         assertNull(transformer.transform(loader, "example/indirectsupport/OutsideCalls", null, null, original));
-        assertNull(transformer.transform(new ClassLoader(null) { }, name, null, null, original), "unavailable helper: skip safely");
+        var errors = new java.io.ByteArrayOutputStream();
+        var previousError = System.err;
+        try (var captured = new java.io.PrintStream(errors, true, java.nio.charset.StandardCharsets.UTF_8)) {
+            System.setErr(captured);
+            assertNull(transformer.transform(new ClassLoader(null) { }, name, null, null, original), "unavailable helper: skip safely");
+        } finally { System.setErr(previousError); }
+        assertTrue(errors.toString(java.nio.charset.StandardCharsets.UTF_8).contains("reflective-boundary-unavailable: " + name));
+    }
+
+    @Test void unsupportedHandleBoundaryIsUnchangedAndHasNoCompletenessDiagnostic() throws Exception {
+        // An invocation descriptor cannot identify the target API of this opaque handle.
+        String name = "example/indirect/HandleOnly";
+        ClassWriter writer = new ClassWriter(0);
+        writer.visit(Opcodes.V17, Opcodes.ACC_PUBLIC, name, null, "java/lang/Object", null);
+        MethodVisitor method = writer.visitMethod(Opcodes.ACC_PUBLIC | Opcodes.ACC_STATIC, "invoke",
+                "(Ljava/lang/invoke/MethodHandle;Ljava/lang/Object;)Ljava/lang/Object;", null, new String[]{"java/lang/Throwable"});
+        method.visitCode(); method.visitVarInsn(Opcodes.ALOAD, 0); method.visitVarInsn(Opcodes.ALOAD, 1);
+        method.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/invoke/MethodHandle", "invokeExact",
+                "(Ljava/lang/Object;)Ljava/lang/Object;", false);
+        method.visitInsn(Opcodes.ARETURN); method.visitMaxs(2, 2); method.visitEnd(); writer.visitEnd();
+        var transformer = new RemoteExecutorCallSiteTransformer(RemoteAgentConfiguration.parse(
+                "output=build/unused-handle.json;includes=example.indirect.;serviceId=test;revision=test"));
+        var errors = new java.io.ByteArrayOutputStream();
+        var previousError = System.err;
+        try (var captured = new java.io.PrintStream(errors, true, java.nio.charset.StandardCharsets.UTF_8)) {
+            System.setErr(captured);
+            assertNull(transformer.transform(getClass().getClassLoader(), name, null, null, writer.toByteArray()));
+            assertEquals("", errors.toString(java.nio.charset.StandardCharsets.UTF_8));
+        } finally { System.setErr(previousError); }
     }
 
     @Test void capturesFullContextPerInvocationWithoutMutatingArgumentArrayAndRestoresPreviousContext() throws Exception {

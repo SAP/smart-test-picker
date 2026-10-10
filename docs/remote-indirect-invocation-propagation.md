@@ -1,5 +1,10 @@
 # Remote STP reflection and method-handle boundaries
 
+For the final cross-boundary regression and current combined support index, see
+[Remote propagation support](remote-propagation-support.md). Task-specific results
+below are retained as historical evidence for this implementation step.
+
+
 ## Audit and ownership contract
 
 Task 5 baseline: `ccfe2db158fde32a22358c2bd90224987a60adb4` on
