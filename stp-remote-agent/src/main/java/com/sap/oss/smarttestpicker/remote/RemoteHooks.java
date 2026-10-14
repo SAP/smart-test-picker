@@ -4,7 +4,13 @@ package com.sap.oss.smarttestpicker.remote;
 
 public final class RemoteHooks {
 	private RemoteHooks() { }
-	public static void methodHit(String className, String methodName, String descriptor) {
-		RemoteRecorder.methodHit(className, methodName, descriptor);
+
+	/**
+	 * Hot-path entry hook injected into instrumented methods. Carries a single precomputed
+	 * {@code long} method id (FNV-1a, assigned at class-transform time) instead of three strings,
+	 * so the per-call cost on bulk loops is a long push plus one coverage-set add.
+	 */
+	public static void methodHit(long methodId) {
+		RemoteRecorder.recordId(methodId);
 	}
 }

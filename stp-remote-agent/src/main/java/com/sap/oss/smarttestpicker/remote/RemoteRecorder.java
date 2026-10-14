@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -21,13 +22,19 @@ public final class RemoteRecorder {
 	private static final Object STATE_LOCK = new Object();
 	private static final Object CHECKPOINT_LOCK = new Object();
 	private static final Object SCHEDULER_LOCK = new Object();
-	/** Hits not yet covered by a successful checkpoint. */
-	private static final Map<RemoteRequestIdentity, Set<String>> OBSERVATIONS = new HashMap<>();
+	/** Resolves the hot-path {@code long} ids back to serialized method keys at output time. */
+	private static final RemoteMethodCatalog CATALOG = new RemoteMethodCatalog();
+	/**
+	 * Hits not yet covered by a successful checkpoint. Values are concurrent coverage sets so the
+	 * hot path adds without taking {@link #STATE_LOCK}; checkpoint/snapshot/compact coordinate on
+	 * the lock among themselves and iterate these concurrent collections safely.
+	 */
+	private static final ConcurrentHashMap<RemoteRequestIdentity, Set<String>> OBSERVATIONS = new ConcurrentHashMap<>();
 	/** Cumulative observations already persisted during this JVM run. */
-	private static final Map<RemoteRequestIdentity, Set<String>> PERSISTED = new HashMap<>();
+	private static final ConcurrentHashMap<RemoteRequestIdentity, Set<String>> PERSISTED = new ConcurrentHashMap<>();
 	private static RemoteOutputFile outputFile;
 	private static RemoteFragmentMetadata sourceMetadata;
-	private static boolean acceptingHits;
+	private static volatile boolean acceptingHits;
 	private static boolean finalized;
 	private static boolean checkpointAvailable;
 	private static ScheduledExecutorService checkpointScheduler;
@@ -84,15 +91,33 @@ public final class RemoteRecorder {
 		}
 	}
 
+	/** The transform-time method-id catalog; the hot path resolves ids through it at output time. */
+	static RemoteMethodCatalog catalog() { return CATALOG; }
+
+	/**
+	 * Hot-path record: a single precomputed id, resolved to its method key and added to the
+	 * request's coverage set without taking {@link #STATE_LOCK}. First hit wins; later hits of the
+	 * same method are an idempotent set add. An id with no catalog entry (should not happen) is
+	 * dropped silently rather than altering application behavior.
+	 */
+	static void recordId(long methodId) {
+		try {
+			RemoteRequestIdentity identity = RemoteTestContext.currentIdentity();
+			if (identity == null || !acceptingHits) return;
+			String method = CATALOG.resolve(methodId);
+			if (method == null) return;
+			OBSERVATIONS.computeIfAbsent(identity, ignored -> ConcurrentHashMap.newKeySet()).add(method);
+		} catch (Throwable ignored) {
+			// Instrumentation must never alter application behavior.
+		}
+	}
+
 	public static void methodHit(String className, String methodName, String descriptor) {
 		try {
 			RemoteRequestIdentity identity = RemoteTestContext.currentIdentity();
-			if (identity == null) return;
-			synchronized (STATE_LOCK) {
-				if (!acceptingHits) return;
-				OBSERVATIONS.computeIfAbsent(identity, ignored -> new HashSet<>())
-						.add(className + "#" + methodName + descriptor);
-			}
+			if (identity == null || !acceptingHits) return;
+			OBSERVATIONS.computeIfAbsent(identity, ignored -> ConcurrentHashMap.newKeySet())
+					.add(className + "#" + methodName + descriptor);
 		} catch (Throwable ignored) {
 			// Instrumentation must never alter application behavior.
 		}
@@ -188,7 +213,13 @@ public final class RemoteRecorder {
 			Set<String> remaining = pending.get(identity);
 			if (remaining == null) return;
 			remaining.removeAll(methods);
-			if (remaining.isEmpty()) pending.remove(identity);
+			// Drop the key only if still empty, atomically against a concurrent hot-path add that
+			// may have repopulated it after removeAll. (pending is the live concurrent OBSERVATIONS.)
+			if (remaining.isEmpty() && pending instanceof java.util.concurrent.ConcurrentMap<RemoteRequestIdentity, Set<String>> live) {
+				live.computeIfPresent(identity, (ignored, current) -> current.isEmpty() ? null : current);
+			} else if (remaining.isEmpty()) {
+				pending.remove(identity);
+			}
 		});
 	}
 
@@ -247,6 +278,7 @@ public final class RemoteRecorder {
 		synchronized (STATE_LOCK) {
 			OBSERVATIONS.clear();
 			PERSISTED.clear();
+			CATALOG.clearForTests();
 			if (outputFile != null) outputFile.abandon();
 			outputFile = null;
 			sourceMetadata = null;

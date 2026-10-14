@@ -43,13 +43,14 @@ final class RemoteMethodEntryTransformer implements ClassFileTransformer {
 			for (MethodNode method : node.methods) {
 				if ((method.access & (Opcodes.ACC_ABSTRACT | Opcodes.ACC_NATIVE)) != 0
 						|| method.instructions == null || method.instructions.size() == 0) continue;
+				// Assign the method id once, now, at class-transform time. The hot path then carries
+				// a single long (ldc2_w) instead of concatenating three strings on every call.
+				long methodId = RemoteRecorder.catalog().register(className, method.name, method.desc);
 				InsnList hook = new InsnList();
-				hook.add(new LdcInsnNode(className));
-				hook.add(new LdcInsnNode(method.name));
-				hook.add(new LdcInsnNode(method.desc));
+				hook.add(new LdcInsnNode(methodId));
 				hook.add(new MethodInsnNode(Opcodes.INVOKESTATIC,
 						"com/sap/oss/smarttestpicker/remote/RemoteHooks", "methodHit",
-						"(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V", false));
+						"(J)V", false));
 				method.instructions.insert(hook);
 				instrumented++;
 			}
