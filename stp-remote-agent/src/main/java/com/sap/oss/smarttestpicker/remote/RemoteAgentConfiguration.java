@@ -11,8 +11,17 @@ import java.util.UUID;
 import java.util.function.Supplier;
 
 record RemoteAgentConfiguration(Path output, List<String> includes, List<String> excludes, Integer debugPort,
-		int flushIntervalSeconds, RemoteFragmentMetadata source) {
+		int flushIntervalSeconds, boolean skipTrivial, RemoteFragmentMetadata source) {
 	static final int DEFAULT_FLUSH_INTERVAL_SECONDS = 60;
+	/**
+	 * When {@code true} (default), trivial methods — plain getters/setters, no-arg or super-only
+	 * constructors, and compiler-synthesized members (bridge/synthetic/{@code lambda$}/{@code access$})
+	 * — are left uninstrumented. This cuts both the class-transform volume and the per-call hook
+	 * volume on bulk paths (for example impex model population). It is a coverage-policy trade-off:
+	 * a change confined to a skipped accessor body is not attributed to any test. Set
+	 * {@code skipTrivial=false} to instrument everything (full attribution) without rebuilding.
+	 */
+	static final boolean DEFAULT_SKIP_TRIVIAL = true;
 	static RemoteAgentConfiguration parse(String arguments) {
 		return parse(arguments, System.getenv(), RemoteFragmentMetadata::hostname, () -> UUID.randomUUID().toString());
 	}
@@ -25,6 +34,7 @@ record RemoteAgentConfiguration(Path output, List<String> includes, List<String>
 		List<String> excludes = new ArrayList<>();
 		Integer debugPort = null;
 		int flushIntervalSeconds = DEFAULT_FLUSH_INTERVAL_SECONDS;
+		boolean skipTrivial = DEFAULT_SKIP_TRIVIAL;
 		String serviceId = null;
 		String instanceId = null;
 		String revision = null;
@@ -59,6 +69,11 @@ record RemoteAgentConfiguration(Path output, List<String> includes, List<String>
 				case "serviceId" -> serviceId = value;
 				case "instanceId" -> instanceId = value;
 				case "revision" -> revision = value;
+				case "skipTrivial" -> {
+					if (!value.equalsIgnoreCase("true") && !value.equalsIgnoreCase("false"))
+						throw new IllegalArgumentException("skipTrivial must be true or false: " + value);
+					skipTrivial = Boolean.parseBoolean(value);
+				}
 				case "instanceIdEnv" -> {
 					if (!value.matches("[A-Za-z_][A-Za-z0-9_]*"))
 						throw new IllegalArgumentException("instanceIdEnv must be an environment variable name: " + value);
@@ -72,7 +87,7 @@ record RemoteAgentConfiguration(Path output, List<String> includes, List<String>
 		RemoteFragmentMetadata source = RemoteFragmentMetadata.resolve(serviceId, instanceId, revision,
 				instanceIdEnvironmentVariable, environment, hostname, runUuid);
 		return new RemoteAgentConfiguration(output, List.copyOf(includes), List.copyOf(excludes), debugPort,
-				flushIntervalSeconds, source);
+				flushIntervalSeconds, skipTrivial, source);
 	}
 
 	boolean instruments(String className) {

@@ -10,6 +10,15 @@ import java.nio.file.Path;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RemoteAgentConfigurationTest {
+	@Test void skipTrivialDefaultsOnAndCanBeDisabled() {
+		assertTrue(RemoteAgentConfiguration.parse("output=out.json;includes=example.;serviceId=fixture-service;revision=test-revision").skipTrivial());
+		assertFalse(RemoteAgentConfiguration.parse("output=out.json;includes=example.;serviceId=fixture-service;revision=test-revision;skipTrivial=false").skipTrivial());
+		assertTrue(RemoteAgentConfiguration.parse("output=out.json;includes=example.;serviceId=fixture-service;revision=test-revision;skipTrivial=TRUE").skipTrivial());
+		IllegalArgumentException failure = assertThrows(IllegalArgumentException.class,
+				() -> RemoteAgentConfiguration.parse("output=out.json;includes=example.;serviceId=fixture-service;revision=test-revision;skipTrivial=maybe"));
+		assertTrue(failure.getMessage().contains("skipTrivial"));
+	}
+
 	@Test void flushIntervalDefaultsToOneMinuteAndCanBeConfigured() {
 		assertEquals(60, RemoteAgentConfiguration.parse("output=out.json;includes=example.;serviceId=fixture-service;revision=test-revision").flushIntervalSeconds());
 		assertEquals(7, RemoteAgentConfiguration.parse("output=out.json;includes=example.;serviceId=fixture-service;revision=test-revision;flushIntervalSeconds=7").flushIntervalSeconds());
