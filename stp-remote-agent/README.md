@@ -66,6 +66,8 @@ excludes=com.sap.cx.generated.
 
 The agent records instrumented method entries from matching classes. It does not instrument the whole JVM unless a broad prefix is explicitly configured. See the [context propagation support matrix](../docs/remote-propagation-support.md) for tested async boundaries and measured limitations.
 
+Broad prefixes over bulk server operations (for example a Hybris ImpEx import) can overload the JVM: every matching class is transformed at load and every call pays a per-call hook. The observed problem, its root cause, and the candidate fixes with trade-offs are documented in [instrumentation overhead options A–E](../docs/remote-agent-instrumentation-overhead-options.md).
+
 ### Producer identity
 
 Each output fragment carries a `source` object with `serviceId`, `instanceId`, and `revision`. Instance selection follows this order:
