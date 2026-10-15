@@ -11,8 +11,16 @@ import java.util.UUID;
 import java.util.function.Supplier;
 
 record RemoteAgentConfiguration(Path output, List<String> includes, List<String> excludes, Integer debugPort,
-		int flushIntervalSeconds, boolean skipTrivial, RemoteFragmentMetadata source) {
+		int flushIntervalSeconds, boolean skipTrivial, boolean freshOutputOnStart, RemoteFragmentMetadata source) {
 	static final int DEFAULT_FLUSH_INTERVAL_SECONDS = 60;
+	/**
+	 * When {@code false} (default), a completed output file left at the configured path makes startup
+	 * fail so a previous run's observations are never silently overwritten. Set
+	 * {@code freshOutputOnStart=true} to instead delete that stale completed file and start a fresh
+	 * run — intended for deployments (for example a redeployed container reusing a temp volume) that
+	 * always want a clean per-start output and never accumulate old files.
+	 */
+	static final boolean DEFAULT_FRESH_OUTPUT_ON_START = false;
 	/**
 	 * When {@code true} (default), trivial methods — plain getters/setters, no-arg or super-only
 	 * constructors, and compiler-synthesized members (bridge/synthetic/{@code lambda$}/{@code access$})
@@ -35,6 +43,7 @@ record RemoteAgentConfiguration(Path output, List<String> includes, List<String>
 		Integer debugPort = null;
 		int flushIntervalSeconds = DEFAULT_FLUSH_INTERVAL_SECONDS;
 		boolean skipTrivial = DEFAULT_SKIP_TRIVIAL;
+		boolean freshOutputOnStart = DEFAULT_FRESH_OUTPUT_ON_START;
 		String serviceId = null;
 		String instanceId = null;
 		String revision = null;
@@ -74,6 +83,11 @@ record RemoteAgentConfiguration(Path output, List<String> includes, List<String>
 						throw new IllegalArgumentException("skipTrivial must be true or false: " + value);
 					skipTrivial = Boolean.parseBoolean(value);
 				}
+				case "freshOutputOnStart" -> {
+					if (!value.equalsIgnoreCase("true") && !value.equalsIgnoreCase("false"))
+						throw new IllegalArgumentException("freshOutputOnStart must be true or false: " + value);
+					freshOutputOnStart = Boolean.parseBoolean(value);
+				}
 				case "instanceIdEnv" -> {
 					if (!value.matches("[A-Za-z_][A-Za-z0-9_]*"))
 						throw new IllegalArgumentException("instanceIdEnv must be an environment variable name: " + value);
@@ -87,7 +101,7 @@ record RemoteAgentConfiguration(Path output, List<String> includes, List<String>
 		RemoteFragmentMetadata source = RemoteFragmentMetadata.resolve(serviceId, instanceId, revision,
 				instanceIdEnvironmentVariable, environment, hostname, runUuid);
 		return new RemoteAgentConfiguration(output, List.copyOf(includes), List.copyOf(excludes), debugPort,
-				flushIntervalSeconds, skipTrivial, source);
+				flushIntervalSeconds, skipTrivial, freshOutputOnStart, source);
 	}
 
 	boolean instruments(String className) {

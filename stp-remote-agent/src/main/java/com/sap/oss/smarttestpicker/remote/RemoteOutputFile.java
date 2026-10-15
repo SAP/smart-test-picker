@@ -24,20 +24,26 @@ final class RemoteOutputFile {
 	private final Path marker;
 	private final Path parent;
 	private final String temporaryPrefix;
+	private final boolean freshOutputOnStart;
 	private FileChannel leaseChannel;
 	private FileLock lease;
 	private boolean closed;
 
-	private RemoteOutputFile(Path output, FileChannel leaseChannel, FileLock lease) {
+	private RemoteOutputFile(Path output, boolean freshOutputOnStart, FileChannel leaseChannel, FileLock lease) {
 		this.output = output;
 		this.parent = output.getParent();
 		this.marker = output.resolveSibling(output.getFileName() + ".inprogress");
 		this.temporaryPrefix = temporaryPrefixFor(output);
+		this.freshOutputOnStart = freshOutputOnStart;
 		this.leaseChannel = leaseChannel;
 		this.lease = lease;
 	}
 
 	static RemoteOutputFile reserve(Path configured) {
+		return reserve(configured, false);
+	}
+
+	static RemoteOutputFile reserve(Path configured, boolean freshOutputOnStart) {
 		if (configured == null) throw new IllegalArgumentException("Remote STP output path is required");
 		Path output = configured.toAbsolutePath().normalize();
 		if (output.getFileName() == null) throw failure("output path must name a file", output, null);
@@ -52,7 +58,7 @@ final class RemoteOutputFile {
 				throw failure("malformed output lock artifact", output, null);
 			channel = FileChannel.open(leasePath, StandardOpenOption.CREATE, StandardOpenOption.READ, StandardOpenOption.WRITE);
 			lock = acquire(channel, output);
-			RemoteOutputFile files = new RemoteOutputFile(output, channel, lock);
+			RemoteOutputFile files = new RemoteOutputFile(output, freshOutputOnStart, channel, lock);
 			files.prepareRun();
 			return files;
 		} catch (IOException | SecurityException failure) {
@@ -137,7 +143,17 @@ final class RemoteOutputFile {
 		if (hadMarker) validateMarker();
 		if (!hadMarker) {
 			Artifact state = artifact(output);
-			if (state == Artifact.VALID) throw failure("completed output already exists; archive or remove it before starting another run", output, null);
+			if (state == Artifact.VALID) {
+				if (!freshOutputOnStart)
+					throw failure("completed output already exists; archive or remove it before starting another run", output, null);
+				// freshOutputOnStart: a previous run's completed output is intentionally discarded so
+				// every start writes a clean file and old outputs never accumulate.
+				cleanupTemporaryFiles();
+				Files.delete(output);
+				Files.createFile(marker);
+				Files.createFile(output);
+				return;
+			}
 			if (state == Artifact.DIRECTORY_OR_SPECIAL || state == Artifact.INVALID)
 				throw failure("output exists without an in-progress marker and is not a valid completed STP file", output, null);
 			boolean legacyTemporary = hasLegacyTemporaryFile();

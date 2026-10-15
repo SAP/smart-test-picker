@@ -37,6 +37,41 @@ class RemoteRecorderTest {
 		assertFalse(methodsFor(json, second.requestId()).contains("Vet#list"));
 	}
 
+	@Test void completedOutputFromAPreviousRunFailsStartupByDefault() throws Exception {
+		var output = Files.createTempDirectory("remote-fresh-default").resolve("observations.json");
+		RemoteRecorder.clearForTests();
+		RemoteRecorder.install(output);
+		try (var scope = RemoteTestContext.enter(TestRequests.request("first-run"))) { RemoteRecorder.methodHit("example.Work", "first", "()V"); }
+		RemoteRecorder.writeOutput();
+		String firstRun = Files.readString(output);
+		assertTrue(RemoteObservationJson.isValidSchemaV2(firstRun), firstRun);
+		assertFalse(Files.exists(output.resolveSibling(output.getFileName() + ".inprogress")), "clean shutdown removes the marker");
+
+		RemoteRecorder.clearForTests();
+		IllegalStateException failure = assertThrows(IllegalStateException.class, () -> RemoteRecorder.install(output));
+		assertTrue(failure.getMessage().contains("completed output already exists"), failure.getMessage());
+		assertEquals(firstRun, Files.readString(output), "the previous run's output is preserved when freshOutputOnStart is off");
+	}
+
+	@Test void freshOutputOnStartDiscardsAPreviousRunsCompletedOutput() throws Exception {
+		var output = Files.createTempDirectory("remote-fresh-on").resolve("observations.json");
+		RemoteRecorder.clearForTests();
+		RemoteRecorder.install(output);
+		try (var scope = RemoteTestContext.enter(TestRequests.request("first-run"))) { RemoteRecorder.methodHit("example.Work", "stale", "()V"); }
+		RemoteRecorder.writeOutput();
+		assertTrue(Files.readString(output).contains("example.Work#stale"), "first run wrote its completed output");
+
+		RemoteRecorder.clearForTests();
+		RemoteRecorder.install(output, new RemoteFragmentMetadata("svc", "inst", "rev"), true);
+		assertTrue(Files.exists(output), "fresh start reserves a new output file");
+		assertEquals(0, Files.size(output), "the stale completed file was discarded, not reused");
+		try (var scope = RemoteTestContext.enter(TestRequests.request("second-run"))) { RemoteRecorder.methodHit("example.Work", "current", "()V"); }
+		RemoteRecorder.writeOutput();
+		String secondRun = Files.readString(output);
+		assertTrue(secondRun.contains("example.Work#current"), secondRun);
+		assertFalse(secondRun.contains("example.Work#stale"), "the previous run's observations must not survive a fresh start");
+	}
+
 	@Test void concurrentHitsProduceOneCompleteSnapshotWithoutLostOrDuplicateRequests() throws Exception {
 		var output = Files.createTempDirectory("remote-concurrent-output").resolve("nested/observations.json");
 		RemoteRecorder.clearForTests();

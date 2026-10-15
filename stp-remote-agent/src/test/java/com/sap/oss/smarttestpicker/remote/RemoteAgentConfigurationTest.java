@@ -19,6 +19,15 @@ class RemoteAgentConfigurationTest {
 		assertTrue(failure.getMessage().contains("skipTrivial"));
 	}
 
+	@Test void freshOutputOnStartDefaultsOffAndCanBeEnabled() {
+		assertFalse(RemoteAgentConfiguration.parse("output=out.json;includes=example.;serviceId=fixture-service;revision=test-revision").freshOutputOnStart());
+		assertTrue(RemoteAgentConfiguration.parse("output=out.json;includes=example.;serviceId=fixture-service;revision=test-revision;freshOutputOnStart=true").freshOutputOnStart());
+		assertTrue(RemoteAgentConfiguration.parse("output=out.json;includes=example.;serviceId=fixture-service;revision=test-revision;freshOutputOnStart=TRUE").freshOutputOnStart());
+		IllegalArgumentException failure = assertThrows(IllegalArgumentException.class,
+				() -> RemoteAgentConfiguration.parse("output=out.json;includes=example.;serviceId=fixture-service;revision=test-revision;freshOutputOnStart=maybe"));
+		assertTrue(failure.getMessage().contains("freshOutputOnStart"));
+	}
+
 	@Test void flushIntervalDefaultsToOneMinuteAndCanBeConfigured() {
 		assertEquals(60, RemoteAgentConfiguration.parse("output=out.json;includes=example.;serviceId=fixture-service;revision=test-revision").flushIntervalSeconds());
 		assertEquals(7, RemoteAgentConfiguration.parse("output=out.json;includes=example.;serviceId=fixture-service;revision=test-revision;flushIntervalSeconds=7").flushIntervalSeconds());

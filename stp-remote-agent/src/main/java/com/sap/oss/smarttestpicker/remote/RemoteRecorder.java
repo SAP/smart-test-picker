@@ -48,8 +48,12 @@ public final class RemoteRecorder {
 	}
 
 	static void install(java.nio.file.Path outputPath, RemoteFragmentMetadata metadata) {
+		install(outputPath, metadata, false);
+	}
+
+	static void install(java.nio.file.Path outputPath, RemoteFragmentMetadata metadata, boolean freshOutputOnStart) {
 		synchronized (STATE_LOCK) {
-			outputFile = RemoteOutputFile.reserve(outputPath);
+			outputFile = RemoteOutputFile.reserve(outputPath, freshOutputOnStart);
 			sourceMetadata = metadata;
 			OBSERVATIONS.clear();
 			PERSISTED.clear();
