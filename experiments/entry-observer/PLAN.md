@@ -1,0 +1,222 @@
+# Entry-observer experiment: preregistered analysis plan
+
+Status: **PREREGISTERED_ANALYSIS_PLAN**. Approved 2026-10-22. This is T0, not an experiment result.
+Plan only. No agent, hook, map builder, collection, PIT, evaluator or manuscript changes in T0.
+
+## Authority and pinned implementation
+
+- R2 commit: `2e0954b5b590fb0b9da979c28b0d053e4ce9e5c9`.
+- R2 tree: `7a61a4933a7f2b6a64aa06e4893ba61c9d26da33`.
+- Branch: `entry-observer`; JaCoCo: `0.8.13`.
+- `TASKS.md` retains the original specification unchanged, preceded by the name mapping and followed by approved A1–A7 amendments.
+- Original specification body SHA-256: `58e9d47cc1a0a8ec349a0645a402ad15db2ac1b02ec83c7412e29d99e931f020`.
+- Approved amendments govern conflicting original provisions; original text is preserved.
+
+## Frozen population and inputs
+
+- Eligible KILLED records: **4070**. Unit: Eligible KILLED mutation record, not individual killing test.
+- Predeclared baseline cohorts: 19 residual records (18 early-exception, 1 Hibernate attribution); 5 Spring Security empty-branch recoveries; 9 overload-aliasing comparisons.
+- These counts define the authorized analysis population; T0 does not re-derive or certify package results.
+- Keep all existing exclusions, including the Hibernate container-only record.
+- Reuse the frozen exact_leaf_killers definition: recorded class FQN must equal the PIT class; exclude container-to-leaf expansion; retain the documented unambiguous JGraphT base-name exception.
+- Use a working copy <PKG>, never write to the frozen v16 archive. Keep its maps, matrices, inventories, configuration, result values and duration evidence unchanged.
+- Bind the exact package/input hashes, eligible mutation IDs, exact killers, and the existing 18/1/5/9 comparison cohorts in an additive run manifest before new collection outcomes. Do not choose cohorts from new results. Verify all 4070 records remain resolvable; report any failure without dropping records.
+
+Input roles, relative to the working replication package:
+
+- `<PKG>/config/projects.json`
+- `<PKG>/config/oracle_exclusions.json`
+- `<PKG>/config/failure_annotations.json`
+- `<PKG>/data/maps/`
+- `<PKG>/data/pit/`
+- `<PKG>/results/per_record.json`
+- `<PKG>/results/supplemental_metrics.json`
+- `<PKG>/results/time_weighted.json`
+- `<PKG>/evidence/test_durations/`
+
+Subject priority: 1. spring-core → 2. spring-security → 3. hibernate → 4. commons-lang → 5. jgrapht → 6. quarkus → 7. petclinic → 8. flink.
+
+## Hypotheses (not acceptance-by-assumption)
+
+### H1
+
+Map (b) makes the 18 early-exception misses inclusive under the base policy.
+
+For every predeclared record, test intersection with its frozen exact-identity killers. Report every recovery and every counterexample.
+
+### H2
+
+In the same run, entries from pre-leaf work land in the same sessions as the JaCoCo edges for that work; therefore (b) recovers the Hibernate miss only if (a) from the same run also does.
+
+Compare session attribution and recovery separately in each run. No unconditional expectation that the Hibernate record remains missed. Report failure of either clause; do not change windows, order or data to force agreement.
+
+### H3
+
+Map (a) reproduces the frozen inclusiveness within run-to-run variation.
+
+Report exact same-run-versus-frozen differences and any measured repeat-run variation. No invented tolerance, post-hoc pass threshold or assumption that an unexplained difference is nondeterminism.
+
+### H4
+
+In (b), the five Spring Security records rescued by the empty-footprint rule get non-empty footprints.
+
+Inspect the predeclared empty-footprint killers of those five records; report each test's empty-to-non-empty transition and the resulting exact-killer selection. Do not equate non-empty footprints with guaranteed recovery.
+
+## Maps and selection
+
+### Map (a)
+
+JaCoCo only, produced by the unchanged R2 converter in the observed run.
+
+Method key: `Class#name`. Unchanged R2 base policy with name-level changed-method input.
+
+### Map (b)
+
+Name-level union of map (a) and in-universe entry edges from that same run; union their classes, preserve logical test keys and metadata/execution identities, add derivedFrom provenance.
+
+Method key: `Class#name`. Unchanged R2 base policy with name-level changed-method input.
+
+### Map (c)
+
+Descriptor-level JaCoCo-covered edges from same-run XML plus in-universe entry edges; preserve the same logical tests and record provenance.
+
+Method key: `Class#name(desc)`. Hypothetical descriptor-aware policy: unchanged selector receives Class#name plus the exact JVM descriptor from PIT methodDescription. This is not the current production workflow: GitChangeDetector emits Class#name.
+
+For one changed existing method: U union (H if H is nonempty else G). U is globally empty entries, H the matching method-key entries, G the changed-class entries.
+
+Use the unchanged constructor-only predicate and unchanged class baseline on the frozen maps. Do not redesign either comparator.
+
+An edge superset is not a selected-set superset: adding coverage can remove a test from U or replace class fallback with method hits. Evaluate all eligible records and report new misses as well as recoveries.
+
+## Metrics and comparisons
+
+Every metric per subject and aggregate for (a), (b), (c). Keep full precision and round only for display.
+
+- **inclusiveness**: Count records with at least one frozen exact-identity killer in S; divide by the fixed per-subject eligible count, or 4070 for the micro aggregate.
+- **exact_identity_killer_recall**: 100 times the mean over eligible records of |S intersect K_exact| / |K_exact|. Aggregate with record weights, as in the frozen supplemental calculation; do not silently substitute a pooled-pair ratio. A missing exact-killer set is an identity failure, not permission to remove a record.
+- **mean_selected_tests**: Arithmetic mean of |S| over eligible records, separately per subject and pooled over the fixed population. Include logical-universe sizes and selection fractions.
+- **time_fraction**: Reuse the existing duration estimates and time-weighted calculation/aggregation rules. Report their timing coverage and missing identities; do not impute zero or change the duration population to improve the result.
+- **recovered_and_remaining_misses**: A record is inclusive when S contains at least one exact killer; count a recovery only for a predeclared baseline miss that becomes inclusive. List mutation IDs and exact selected killers; list remaining misses and newly introduced misses.
+- **edges_added_per_test**: Report added method and class edges per logical test. Compare (b) to name-level (a); compare (c) to descriptor-level JaCoCo edges reconstructed from the same run, not to incompatible name-level strings.
+- **empty_to_nonempty_tests**: List every logical test with both lists empty in (a) and a non-empty footprint in (b)/(c), with resulting changes in selection.
+
+Comparisons:
+
+- (b) versus constructor-only mitigation on frozen maps
+- (b) versus class baseline on frozen maps
+- (c) on the predeclared nine overload-aliasing misses
+- same-run (a)/(b)/(c), plus (a) versus frozen inputs
+
+All outcomes are reported, including counterexamples. Report failures/errors/skips and missing sessions per test. Never silently drop tests or records, or replace failed collection with an invented empty footprint. Uncomputable outcomes remain explicitly unresolved.
+
+## Approved amendments and operational consequences
+
+### A1 — Naming
+
+The caller passes the exact .exec filename stem, including session_ and excluding the suffix; append .entries unchanged. Listener stem uses SessionFileNames.sanitize(sessionId); extension stem uses raw sessionId. The agent does not sanitize.
+
+- **frozenDataNote**: Accepted frozen-data assessment: buildSessionId's existing 7-hex hash suffix disambiguates the case-only test names, so the unsanitized fallback does not affect the frozen maps. A finite truncated hash is not a universal collision-freedom guarantee; T0 does not claim a new corpus collision audit.
+- **examples**: listener: `session_ + SessionFileNames.sanitize(sessionId)`; extension: `session_ + sessionId`
+- **apiIntent**: dumpAndReset(String stem, java.nio.file.Path dir); no agent-side rewriting of the stem.
+
+### A2 — H2 restated
+
+Use the exact conditional H2 above and test it per run. No expected outcome beyond its stated relationship.
+
+- **sourceFact**: At R2, test start sets the JaCoCo session ID without resetting probes; pre-leaf work may appear in the next finishing leaf. Do not add a start reset.
+
+### A3 — Map (c)
+
+Use PIT methodDescription to construct descriptor keys for the unchanged selector harness; clearly label this hypothetical, not the production GitChangeDetector workflow.
+
+
+### A4 — Session-name helpers
+
+Copy session-name logic into the map builder. Do not change visibility of R2 production helpers. Add a same-package parity test against package-private unsanitizeSessionFileName.
+
+- **parityCases**: uppercase method letters; case-only name variants; nested classes with $; hash suffixes; tilde escaping; names without #; session_ prefix and extension handling
+
+### A5 — Method universe and loader
+
+Build the universe once per declared compiled production scope with JaCoCo Analyzer over production class files and the same JaCoCo filters, retaining all reported method descriptors regardless of covered probes. Do not infer the universe from per-session XML.
+
+- **scope**: Production/source-backed scope only; no tests, JDK or observer classes. Preserve diagnostic counts for uninstrumentable, out-of-scope and out-of-universe entries.
+- **acceptance**: Load both (b) and (c) through the unchanged production CoverageMapReader. Compare submitted versus loaded content per logical test; report every removed class/method edge. Never claim equality when filtering changed content.
+
+### A6 — Procedure and measurement limits
+
+T3 acceptance is unit tests on tiny fixtures; execution on full fixture output belongs to T4. Compare identical content after normalizing timestamps and session-info metadata, plus identical per-session probe vectors.
+
+- **normalization**: Record the exact normalized fields. Never normalize away test/session identity, class IDs, methods/descriptors, probe vectors, loader differences, failures or selection outcomes.
+- **dumpRace**: JaCoCo dump/reset and entry snapshot/reset are sequential, not atomic. Document the intervening interval and possible background-thread races; do not change R2 lifecycle boundaries to hide them.
+
+### A7 — Anonymity
+
+Nothing from this experiment enters the anonymous replication package before the existing relocation/redaction pipeline and identity scan pass.
+
+- **scanScope**: source and bundled libraries; filenames and paths; logs; JSON; reports; nested archives and compressed payloads
+- **identifiers**: user names and user IDs; host names; home and absolute workspace paths; email addresses; company and tool-identifying namespaces or tokens
+- **rawExportAllowed**: false
+
+## Invariants
+
+- JaCoCo 0.8.13 is unchanged and its javaagent precedes the entry agent.
+- Without the entry agent, R2 behavior stays unchanged: no extra files or log lines, and identical normalized content and per-session probe vectors.
+- Use the existing R2 dump callbacks and each path's exact filename stem; repeated logical-test invocations union their observations.
+- No frozen map, PIT matrix, sampling scope, mutation ID, identity normalization, denominator, oracle exclusion or published result is modified.
+- Do not rerun PIT. All new collection/analysis outputs go to new directories.
+- Do not change helper visibility, selector semantics or the constructor-only predicate.
+- Every later task has automated tests, an explicit report, one commit and a stop for review.
+
+## Task boundaries and acceptance
+
+### T0
+
+- **deliverables**: `TASKS.md`, `PLAN.md`, `plan.json`, `plan.sha256`
+- **acceptance**: Original spec body preserved; amendments and plan consistent; both plan file digests match; documentation-only commit on entry-observer; then stop.
+
+### T1
+
+- **status**: NOT_STARTED
+- **acceptance**: Agent-only tests, relocation check, and JaCoCo-first hello-world check; A1 stem API and no self-sanitization.
+
+### T2
+
+- **status**: NOT_STARTED
+- **acceptance**: Minimal hook changes; existing tests; no-agent normalized-content/probe equality; exactly one hook invocation per selected lifecycle path.
+
+### T3
+
+- **status**: NOT_STARTED
+- **acceptance**: Tiny-fixture unit tests including copied-helper parity, coverage-independent universe, descriptor keys, union correctness, and per-edge reader-loss diagnostics.
+
+### T4
+
+- **status**: NOT_STARTED
+- **acceptance**: One-command synthetic end-to-end check, including builder on fixture output, both naming paths, parameterized unions, warmup attribution, normalized baseline equality and per-session probe vectors; document wrong-order behavior.
+
+### T5
+
+- **status**: NOT_STARTED
+- **acceptance**: Spring-core killer pilots alone/container; conditional Hibernate H2 per run; three JaCoCo-only and three observed spring-core task timings, median and ratio; retain raw evidence.
+- **stopRule**: If canConvert entry is missing or JaCoCo vectors differ, stop and investigate before full collection. Report hypothesis counterexamples rather than alter data or the window to force acceptance.
+
+### nextPhase
+
+- **tasks**: `T6`, `T7`, `T8`, `T9`, `T10`, `T11`
+- **status**: SEPARATE_FUTURE_AUTHORIZATION
+- **collectionConfigurations**: Needed only after T5 passes, as instructed; not collected or altered in T0.
+
+## T0 verification and freeze
+
+Documentation, schema/content consistency, source pin and SHA-256 checks only; no claim of running STP unit tests, builds or experiments.
+
+Run consistency checks for the original specification bytes, A1–A7, Markdown/JSON agreement, the R2 pin, all required population/metric/task fields, and the absence of production-code changes. Compute SHA-256 only after both plan files are final. Verify before and after the T0 commit.
+
+From `experiments/entry-observer`:
+
+```sh
+shasum -a 256 -c plan.sha256
+```
+
+The commit contains only `TASKS.md`, `PLAN.md`, `plan.json`, and `plan.sha256`. Do not embed the resulting commit SHA into either hashed plan file; Git records the commit. Stop after the local commit. Do not push or start T1.
