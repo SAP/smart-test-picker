@@ -1,0 +1,18 @@
+{
+  "requiredSuitesRerun": {
+    "log": "full-suites.log",
+    "rerunTasks": true,
+    "requiredTestTasksPassed": true,
+    "buildExitCode": 1,
+    "failure": "Supplementary stp-agent:compileTestJava: missing static Assertions.fail import in the new test"
+  },
+  "agentRerun": {"log": "agent-rerun.log", "rerunTasks": true, "exitCode": 0, "duration": "11s"},
+  "combinedConfirmation": {"log": "combined-confirmation.log", "exitCode": 0, "duration": "2s", "tasksExecuted": 16, "tasksUpToDate": 41},
+  "suites": {
+    "smart-test-picker-common": {"tests": 333, "skipped": 11, "failures": 0, "errors": 0},
+    "smart-test-picker-core": {"tests": 29, "skipped": 5, "failures": 0, "errors": 0},
+    "smart-test-picker-maven": {"tests": 142, "skipped": 0, "failures": 0, "errors": 0},
+    "smart-test-picker": {"tests": 46, "skipped": 0, "failures": 0, "errors": 0},
+    "stp-agent": {"tests": 45, "skipped": 1, "failures": 0, "errors": 0}
+  }
+}

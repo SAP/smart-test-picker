@@ -57,7 +57,8 @@ class PreparedAsmMappingTest {
 	private static PrepareReactorExecutableMappingMojo mojo(Path temp, String version, AtomicInteger requests) throws Exception {
 		var project = new MavenProject(); project.setFile(temp.resolve("pom.xml").toFile());
 		project.setArtifactId("fixture"); project.setExecutionRoot(true);
-		var build = new Build(); build.setDirectory(temp.resolve("target").toString()); project.setBuild(build);
+		var build = new Build(); build.setDirectory(temp.resolve("target").toString());
+		build.setOutputDirectory(temp.resolve("target/classes").toString()); project.setBuild(build);
 		var request = new DefaultMavenExecutionRequest();
 		request.getUserProperties().setProperty("smartTestPicker.coverageCollector", "ASM");
 		var session = new MavenSession(null, new DefaultRepositorySystemSession(), request, new DefaultMavenExecutionResult());

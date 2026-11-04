@@ -1,0 +1,12 @@
+{
+  "productionOnly": {
+    "methodEdges": 4,
+    "bytes": 390,
+    "classEdges": 2
+  },
+  "withTestClasses": {
+    "methodEdges": 6,
+    "bytes": 598,
+    "classEdges": 4
+  }
+}

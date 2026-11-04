@@ -100,6 +100,8 @@ final class AgentOutputWriter {
 		field(json, 2, "shardId", configuration.shardId() == null ? "" : configuration.shardId(), true);
 		arrayField(json, 2, "includes", configuration.includes(), true);
 		arrayField(json, 2, "excludes", configuration.excludes(), true);
+		arrayField(json, 2, "productionSources", configuration.productionSources().stream().map(Object::toString).toList(), true);
+		field(json, 2, "requireInstrumentation", Boolean.toString(configuration.requireInstrumentation()), true, false);
 		field(json, 2, "debug", Boolean.toString(configuration.debug()), true, false);
 		field(json, 2, "instrumentation", configuration.instrumentationEnabled() ? "on" : "off", false);
 		json.append("  },\n");

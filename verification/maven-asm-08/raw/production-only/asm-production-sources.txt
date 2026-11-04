@@ -1,0 +1,3 @@
+/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/build/functional-test-maven-local-58693/fixture/module-a/1/module-a-1.jar
+/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-10978436977373569909/reactor/module-b/target/classes
+/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-10978436977373569909/reactor/module-b/target/module-b-1.jar

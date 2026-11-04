@@ -21,6 +21,14 @@ Arguments are semicolon-separated:
 -javaagent:/path/stp-agent.jar=output=stp-agent-output.json;includes=com.example.;excludes=com.example.generated.;runId=run-1;debug=false
 ```
 
-Method-entry instrumentation is enabled by default. `includes` is optional and empty means any class not matched by the mandatory platform/framework/STP exclusions is eligible. `instrumentation=off` remains available only for bounded diagnostics and tests.
+Method-entry instrumentation is enabled by default. `includes` is optional, but an empty set instruments nothing. `instrumentation=off` remains available only for bounded diagnostics and tests.
 
-The agent is wired into the Gradle production mapping backend. It projects runtime observations into logical schema-2 or target-qualified executable schema-3 fragments according to the invocation contract. The shaded artifact includes `stp-runtime` and the JUnit adapter; Jenkins/Gradle supply revision, shard, assignment and execution target. Maven mapping currently uses JaCoCo and deliberately rejects ASM.
+The agent is wired into the Gradle mapping backend and the prepared Maven ASM mapping path. It projects runtime observations into logical schema-2 or target-qualified executable schema-3 fragments according to the invocation contract. The shaded artifact includes `stp-runtime` and the JUnit adapter.
+
+Maven preparation supplies optional `productionSourcesFile` (one absolute production
+directory/main-JAR path per line) and `requireInstrumentation=true`. The allowlist
+is an additional code-source restriction, not a replacement for package filters.
+Unknown code sources and test artifacts cannot pass it. The guard refuses to write
+a fragment when `classesTransformed` is zero, retaining scope/count diagnostics.
+Absent options preserve the existing Gradle/raw-agent behavior. See
+[Maven scope validation](../verification/maven-asm-08/REPORT.md).

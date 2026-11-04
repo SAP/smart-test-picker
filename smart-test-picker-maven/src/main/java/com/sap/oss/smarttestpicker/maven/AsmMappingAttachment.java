@@ -35,17 +35,20 @@ final class AsmMappingAttachment {
 	}
 
 	static void attach(MavenProject module, MavenSession session, String executionType, File agent,
-			ExecutionTarget target, String revision, String shardId, String includes, String excludes) throws Exception {
+			ExecutionTarget target, String revision, String shardId, MavenAsmScope scope) throws Exception {
 		String provider = executionType == null || executionType.isBlank() ? "surefire" : executionType;
 		var plugin = module.getBuildPlugins().stream().filter(p -> p.getArtifactId().equals("maven-" + provider + "-plugin"))
 				.findFirst().orElseThrow();
 		String fragment = module.getProperties().getProperty("smartTestPicker.moduleFragmentOutput");
 		String diagnostic = module.getProperties().getProperty("smartTestPicker.moduleDiagnosticOutput");
+		var sources = java.nio.file.Path.of(fragment).resolveSibling("asm-production-sources" + MavenExecutionTargetResolver.outputSuffix(target) + ".txt");
+		java.nio.file.Files.write(sources, scope.sources().stream().map(p -> safe(p.toString())).toList());
 		String runId = UUID.nameUUIDFromBytes((revision + "\n" + shardId + "\n" + target).getBytes(StandardCharsets.UTF_8)).toString();
 		String argument = "-javaagent:" + safe(agent.getAbsolutePath()) + "=output=" + safe(diagnostic)
 				+ ";fragmentOutput=" + safe(fragment) + ";schemaVersion=3;revision=" + safe(revision)
 				+ ";shardId=" + safe(shardId) + ";executionTarget=" + safe(target.toString()) + ";runId=" + runId
-				+ ";includes=" + safe(includes) + (excludes.isEmpty() ? "" : ";excludes=" + safe(excludes));
+				+ ";includes=" + safe(scope.includes()) + (scope.excludes().isEmpty() ? "" : ";excludes=" + safe(scope.excludes()))
+				+ ";productionSourcesFile=" + safe(sources.toAbsolutePath().toString()) + ";requireInstrumentation=true";
 		MavenSession evaluationSession = session.clone(); evaluationSession.setCurrentProject(module);
 		var evaluator = new PluginParameterExpressionEvaluator(evaluationSession, new MojoExecution(plugin, "test", "default"));
 		Xpp3Dom base = (Xpp3Dom) plugin.getConfiguration();

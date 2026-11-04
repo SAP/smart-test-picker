@@ -1,0 +1,1 @@
+{"schemaVersion":3,"revision":"reactor-revision","shardId":"reactor-shard","tests":{"maven:module-b::shared.SharedTest#same":{"classes":[],"methods":[],"outcome":"PASS","collectionStatus":"COLLECTED_EMPTY"}},"unmapped":[],"setupScopes":[],"collection":{"completed":true}}

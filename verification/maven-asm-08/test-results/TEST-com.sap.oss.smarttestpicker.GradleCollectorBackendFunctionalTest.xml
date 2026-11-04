@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.GradleCollectorBackendFunctionalTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-11-04T10:11:09.233Z" hostname="WDVJD22XQC" time="30.261">
+  <properties/>
+  <testcase name="asmFailedTestPublishesNoPartialMappedEntry(Path)" classname="com.sap.oss.smarttestpicker.GradleCollectorBackendFunctionalTest" time="10.508"/>
+  <testcase name="asmCoexistsWithOrdinaryProjectJacocoAndConfigurationCache()" classname="com.sap.oss.smarttestpicker.GradleCollectorBackendFunctionalTest" time="4.377"/>
+  <testcase name="collectorStateDoesNotLeakWhenSwitchingInEitherDirection()" classname="com.sap.oss.smarttestpicker.GradleCollectorBackendFunctionalTest" time="4.504"/>
+  <testcase name="jacocoFallbackUsesLegacyCollectorWithoutAsmAgent()" classname="com.sap.oss.smarttestpicker.GradleCollectorBackendFunctionalTest" time="2.109"/>
+  <testcase name="schemaV3FailsClosedWithoutExecutableAssignment()" classname="com.sap.oss.smarttestpicker.GradleCollectorBackendFunctionalTest" time="0.424"/>
+  <testcase name="externalPublishedConsumerAutomaticallyResolvesTheShadedAgent()" classname="com.sap.oss.smarttestpicker.GradleCollectorBackendFunctionalTest" time="1.98"/>
+  <testcase name="invalidCollectorFailsDuringConfiguration()" classname="com.sap.oss.smarttestpicker.GradleCollectorBackendFunctionalTest" time="0.358"/>
+  <testcase name="defaultAsmIgnoresConsumerDeclaredCoreWithExtensionAutodetection()" classname="com.sap.oss.smarttestpicker.GradleCollectorBackendFunctionalTest" time="1.322"/>
+  <testcase name="defaultAndExplicitAsmProduceDescriptorAwareSchemaV2FragmentsAndRemainIsolated()" classname="com.sap.oss.smarttestpicker.GradleCollectorBackendFunctionalTest" time="2.866"/>
+  <testcase name="[1] false" classname="com.sap.oss.smarttestpicker.GradleCollectorBackendFunctionalTest" time="0.956"/>
+  <testcase name="[2] true" classname="com.sap.oss.smarttestpicker.GradleCollectorBackendFunctionalTest" time="0.834"/>
+  <system-out><![CDATA[
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+
+> Task :generateSmartTestCoverage
+
+OverloadedServiceTest > mapsDescriptorExactly() FAILED
+    java.lang.AssertionError at OverloadedServiceTest.java:6
+
+1 test completed, 1 failed
+There were failing tests. See the report at: file:///private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit4444778020708120330/failed-asm/build/reports/tests/generateSmartTestCoverage/index.html
+
+[Incubating] Problems report is available at: file:///private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit4444778020708120330/failed-asm/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 7s
+3 actionable tasks: 3 executed
+Calculating task graph as no cached configuration is available for tasks: generateSmartTestCoverage
+
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+
+> Task :processTestResources NO-SOURCE
+> Task :processResources NO-SOURCE
+> Task :compileJava
+> Task :classes
+> Task :compileTestJava
+> Task :testClasses
+> Task :generateSmartTestCoverage
+
+[Incubating] Problems report is available at: file:///private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit2989610426385265004/coexist/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 2s
+3 actionable tasks: 3 executed
+Configuration cache entry stored.
+Reusing configuration cache.
+> Task :processTestResources NO-SOURCE
+> Task :processResources NO-SOURCE
+> Task :compileJava
+> Task :classes
+> Task :compileTestJava
+> Task :testClasses
+> Task :generateSmartTestCoverage
+
+[Incubating] Problems report is available at: file:///private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit2989610426385265004/coexist/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+Configuration cache entry reused.
+
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: JACOCO
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :generateSmartTestCoverage
+
+[Incubating] Problems report is available at: file:///private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit3755665333449491236/switching/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :generateSmartTestCoverage
+
+[Incubating] Problems report is available at: file:///private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit3755665333449491236/switching/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: JACOCO
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :generateSmartTestCoverage
+
+[Incubating] Problems report is available at: file:///private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit3755665333449491236/switching/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: JACOCO
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :generateSmartTestCoverage
+
+> Task :generateSmartReports
+[SmartTestPicker] Generating XML reports for 2 exec files using 2 threads across 1 classes directories
+[SmartTestPicker] Preloaded 1 class files (0MB) in 1ms
+[SmartTestPicker] Report generation complete: 1 generated, 1 skipped (no coverage), 0 failed, 74ms elapsed
+
+> Task :generateTestCoverageJson
+Generated test coverage map: /private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit1344925921499058911/jacoco/build/test-coverage-map.json (1 tests, commitId: 1d25c2d1d9e9d1c52c5d310bb47d695961a6ecdf)
+
+> Task :generateSmartTestMapping
+
+[Incubating] Problems report is available at: file:///private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit1344925921499058911/jacoco/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1s
+5 actionable tasks: 5 executed
+
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :generateSmartTestCoverage
+
+[Incubating] Problems report is available at: file:///private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit11109230860061157718/external-published/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :generateSmartTestCoverage
+
+[Incubating] Problems report is available at: file:///private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit6699496368376604947/consumer-core/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :generateSmartTestCoverage
+
+[Incubating] Problems report is available at: file:///private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit1440135776823649555/default-asm/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :generateSmartTestCoverage
+
+[Incubating] Problems report is available at: file:///private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit1440135776823649555/explicit-asm/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 executed
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

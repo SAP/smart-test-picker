@@ -38,8 +38,32 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class MethodEntryTransformationTest {
+	@Test
+	void optionalProductionSourcesSeparateSamePackageClassesByOrigin(@TempDir Path temp) throws Exception {
+		// An explicit model-derived source is authoritative, even with an unconventional name.
+		Path production = Files.createDirectories(temp.resolve("test-classes"));
+		Path sources = temp.resolve("sources.txt"); Files.writeString(sources, production.toString() + "\n");
+		var configuration = AgentConfiguration.parse("includes=example.instrumented.;productionSourcesFile=" + sources);
+		var metrics = new AgentMetrics(1L);
+		var transformer = new MethodEntryClassFileTransformer(configuration, metrics,
+				new MethodCatalog(new Fnv1a64MethodIdHasher(), metrics, message -> fail(message)), message -> fail(message));
+		for (String origin : List.of("checks/", "fixture-1-tests.jar", "third-party.jar")) {
+			var domain = new ProtectionDomain(new CodeSource(temp.resolve(origin).toUri().toURL(), (java.security.cert.Certificate[]) null), null);
+			assertNull(transformer.transform(getClass().getClassLoader(), "example/instrumented/Calculator", null, domain, classBytes(Calculator.class)));
+		}
+		assertNull(transformer.transform(getClass().getClassLoader(), "example/instrumented/Calculator", null, null, classBytes(Calculator.class)));
+		var domain = new ProtectionDomain(new CodeSource(production.toUri().toURL(), (java.security.cert.Certificate[]) null), null);
+		assertTrue(transformer.transform(getClass().getClassLoader(), "example/instrumented/Calculator", null, domain, classBytes(Calculator.class)).length > 0);
+		assertEquals(1, metrics.snapshot().classesTransformed());
+		assertTrue(AgentConfiguration.parse("includes=example.instrumented.").acceptsSource(null), "Existing Gradle/raw behavior is opt-out of source restriction");
+		Files.writeString(sources, "");
+		assertThrows(IllegalArgumentException.class, () -> AgentConfiguration.parse("productionSourcesFile=" + sources));
+		assertThrows(IllegalArgumentException.class, () -> AgentConfiguration.parse("productionSourcesFile=" + temp.resolve("missing")));
+	}
+
 	@Test
 	void excludesMavenAndGradleTestOutputLocations() throws Exception {
 		for (String location : List.of("file:/tmp/project/target/test-classes/",

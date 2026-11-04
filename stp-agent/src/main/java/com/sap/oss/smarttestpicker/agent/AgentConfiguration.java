@@ -15,12 +15,13 @@ import java.util.regex.Pattern;
 
 record AgentConfiguration(Path output, Path fragmentOutput, int schemaVersion, String revision, String shardId,
 		com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget executionTarget,
-		List<String> includes, List<String> excludes, String runId, boolean debug, boolean instrumentationEnabled) {
+		List<String> includes, List<String> excludes, String runId, boolean debug, boolean instrumentationEnabled,
+		List<Path> productionSources, boolean requireInstrumentation) {
 	private static final List<String> MANDATORY_EXCLUDES = List.of("java.", "javax.", "jakarta.", "jdk.",
 			"sun.", "org.junit.", "org.springframework.", "org.hibernate.", "org.mockito.", "net.bytebuddy.",
 			"org.jacoco.", "com.sap.oss.smarttestpicker.");
 	private static final Set<String> KEYS = Set.of("output", "fragmentOutput", "schemaVersion", "revision", "shardId", "executionTarget", "includes",
-			"excludes", "runId", "debug", "instrumentation");
+			"excludes", "runId", "debug", "instrumentation", "productionSourcesFile", "requireInstrumentation");
 	private static final Pattern PREFIX = Pattern.compile("(?:[A-Za-z_$][A-Za-z0-9_$]*\\.)+");
 
 	static boolean isMandatoryExclusion(String prefix) {
@@ -42,6 +43,7 @@ record AgentConfiguration(Path output, Path fragmentOutput, int schemaVersion, S
 			throw new IllegalArgumentException("Schema-v2 mapping does not accept an execution target");
 		includes = List.copyOf(includes);
 		excludes = List.copyOf(excludes);
+		productionSources = List.copyOf(productionSources);
 		if (runId == null || runId.isBlank()) throw new IllegalArgumentException("runId must not be blank");
 	}
 
@@ -92,9 +94,32 @@ record AgentConfiguration(Path output, Path fragmentOutput, int schemaVersion, S
 				throw new IllegalArgumentException("Malformed execution target: " + values.get("executionTarget"), invalid);
 			}
 		}
+		List<Path> sources = new ArrayList<>();
+		if (values.containsKey("productionSourcesFile")) {
+			try {
+				for (String line : java.nio.file.Files.readAllLines(Path.of(values.get("productionSourcesFile")))) {
+					if (line.isBlank() || !Path.of(line).isAbsolute()) throw new IllegalArgumentException("Production code source must be an absolute path");
+					sources.add(normalizeSource(Path.of(line)));
+				}
+			} catch (java.io.IOException failure) { throw new IllegalArgumentException("Cannot read productionSourcesFile", failure); }
+			if (sources.isEmpty()) throw new IllegalArgumentException("productionSourcesFile must not be empty");
+		}
+		String require = values.getOrDefault("requireInstrumentation", "false");
+		if (!require.equals("true") && !require.equals("false")) throw new IllegalArgumentException("requireInstrumentation must be true or false");
 		return new AgentConfiguration(output, fragmentOutput, schemaVersion, values.get("revision"), values.get("shardId"), target,
 				includes, new ArrayList<>(exclusions), runId,
-				Boolean.parseBoolean(debugValue), instrumentation.equals("on"));
+				Boolean.parseBoolean(debugValue), instrumentation.equals("on"), sources, Boolean.parseBoolean(require));
+	}
+
+	static Path normalizeSource(Path path) throws java.io.IOException {
+		return java.nio.file.Files.exists(path) ? path.toRealPath() : path.toAbsolutePath().normalize();
+	}
+
+	boolean acceptsSource(java.security.ProtectionDomain domain) {
+		if (productionSources.isEmpty()) return true; // Existing Gradle/raw callers retain their contract.
+		if (domain == null || domain.getCodeSource() == null || domain.getCodeSource().getLocation() == null) return false;
+		try { return productionSources.contains(normalizeSource(Path.of(domain.getCodeSource().getLocation().toURI()))); }
+		catch (Exception invalid) { return false; }
 	}
 
 	private static List<String> prefixes(String value, String key) {

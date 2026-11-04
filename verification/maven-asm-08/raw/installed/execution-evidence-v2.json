@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "revision": "reactor-revision",
+  "shardId": "reactor-shard",
+  "executionTarget": "maven:module-b",
+  "EXECUTED": [
+    "maven:module-b::b.BTests#b2",
+    "maven:module-b::shared.SharedTest#same"
+  ],
+  "NON_EXECUTED": []
+}

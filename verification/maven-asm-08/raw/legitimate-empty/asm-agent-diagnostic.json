@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "agent-shell-1",
+  "collector": "ASM",
+  "runId": "7bda0a9d-7db4-304d-90f0-63e1403f0830",
+  "jvmId": "pid-59422",
+  "configuration": {
+    "output": "/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-2771306392302696367/reactor/module-b/target/stp/asm-agent-diagnostic.json",
+    "fragmentOutput": "/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-2771306392302696367/reactor/module-b/target/stp/coverage-fragment-v3.json",
+    "revision": "reactor-revision",
+    "shardId": "reactor-shard",
+    "includes": ["a.", "b."],
+    "excludes": ["com.sap.oss.smarttestpicker.", "jakarta.", "java.", "javax.", "jdk.", "net.bytebuddy.", "org.hibernate.", "org.jacoco.", "org.junit.", "org.mockito.", "org.springframework.", "sun."],
+    "productionSources": ["/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-2771306392302696367/reactor/module-a/target/classes", "/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-2771306392302696367/reactor/module-a/target/module-a-1.jar", "/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-2771306392302696367/reactor/module-b/target/classes", "/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-2771306392302696367/reactor/module-b/target/module-b-1.jar", "/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-2771306392302696367/reactor/module-zero/target/classes"],
+    "requireInstrumentation": true,
+    "debug": false,
+    "instrumentation": "on"
+  },
+  "metrics": {
+    "classesSeen": 1233,
+    "classesIncluded": 1,
+    "classesExcluded": 936,
+    "classesIgnored": 296,
+    "transformationErrors": 0,
+    "transformerTotalNanos": 8836915,
+    "agentStartNanos": 781185778628958,
+    "classLoaderPresent": 664,
+    "classLoaderMissing": 569,
+    "protectionDomainPresent": 659,
+    "protectionDomainMissing": 574,
+    "classesTransformed": 1,
+    "methodsConsidered": 2,
+    "methodsInstrumented": 2,
+    "methodsSkipped": 0,
+    "alreadyInstrumentedClasses": 0,
+    "methodIdCollisions": 0,
+    "rawMethodHits": 0,
+    "uniqueMethodHits": 0,
+    "runtimeRecordingNanos": 0
+  },
+  "methodIdAlgorithm": "fnv1a64-v1",
+  "methodCatalog": [
+    {"methodId":"326333488874548158","canonicalKeys":["a.AValue#<init>()V"]},
+    {"methodId":"16778698043071263750","canonicalKeys":["a.AValue#value()I"]}
+  ],
+  "methodHits": [],
+  "agentErrors": [],
+  "bytecodeModified": true,
+  "runtimeEvents": {
+  "schemaVersion": "spike-2",
+  "runId": "7bda0a9d-7db4-304d-90f0-63e1403f0830",
+  "jvmId": "pid-59422",
+  "tests": [
+    {
+      "testId": "[engine:junit-jupiter]/[class:shared.SharedTest]/[method:same()]",
+      "displayName": "same()",
+      "testClass": "shared.SharedTest",
+      "testMethod": "same",
+      "testMethodParameterTypes": "",
+      "engineId": "junit-jupiter",
+      "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+      "methods": [],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 0,
+        "uniqueMethodHits": 0
+      }
+    }
+  ],
+  "unattributedEvents": []
+}
+}

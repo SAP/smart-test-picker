@@ -1,0 +1,6 @@
+/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-8863487726634681499/reactor/module-a/target/classes
+/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-8863487726634681499/reactor/module-a/target/module-a-1.jar
+/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-8863487726634681499/reactor/module-b/target/classes
+/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-8863487726634681499/reactor/module-b/target/module-b-1.jar
+/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-8863487726634681499/reactor/module-zero/target/classes
+/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-8863487726634681499/reactor/module-zero/target/module-zero-1.jar

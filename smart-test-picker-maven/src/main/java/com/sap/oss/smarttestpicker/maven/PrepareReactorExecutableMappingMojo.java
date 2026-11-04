@@ -87,15 +87,19 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 					&& StpMavenLifecycleParticipant.selectedCollector(entry.getValue(), session.getUserProperties()) == StpCollectorSelection.ASM);
 			boolean asmMapping = modules.values().stream().anyMatch(module ->
 					StpMavenLifecycleParticipant.selectedCollector(module, session.getUserProperties()) == StpCollectorSelection.ASM);
-			String includes = asmMapping ? AsmMappingAttachment.prefixes(asmIncludes, true) : null;
-			String excludes = asmMapping ? AsmMappingAttachment.prefixes(asmExcludes, false) : null;
+			// Preserve an explicitly blank CLI value so it cannot silently request derivation.
+			String requestedIncludes = session.getUserProperties().getProperty("smartTestPicker.asm.includes",
+					asmIncludes == null ? project.getProperties().getProperty("smartTestPicker.asm.includes") : asmIncludes);
+			var scope = asmMapping ? MavenAsmScope.resolve(session, reactorProjects, requestedIncludes, asmExcludes) : null;
+			if (scope != null) getLog().info("ASM mapping scope includes=" + scope.includes() + "; excludes=" + scope.excludes()
+					+ "; productionSources=" + scope.sources());
 			File agent = needsAgent ? resolveAgent() : null;
 			for (var entry : modules.entrySet()) {
 				var collector = StpMavenLifecycleParticipant.selectedCollector(entry.getValue(), session.getUserProperties());
 				configure(entry.getValue(), entry.getKey(), partitioned.get(entry.getKey()), executionType, collector);
 				if (collector == StpCollectorSelection.ASM && !partitioned.get(entry.getKey()).isEmpty()) {
 					AsmMappingAttachment.attach(entry.getValue(), session, executionType, agent, entry.getKey(),
-							assignment.revision().value(), assignment.shardId().value(), includes, excludes);
+							assignment.revision().value(), assignment.shardId().value(), scope);
 				}
 			}
 		} catch (Exception failure) {

@@ -47,20 +47,38 @@ supported prepared path. Per-fork merging remains deferred. See the
 
 ### Prepared ASM attachment
 
-With an existing schema-v3 shard assignment and matching revision/shard inputs:
+With an existing schema-v3 shard assignment, matching revision/shard inputs and
+compiled production outputs from the exact-head preparation build:
 
 ```sh
 mvn com.sap.oss.smart-test-picker:smart-test-picker-maven:0.3.0-SNAPSHOT:prepare-reactor-executable-mapping \
   test -DsmartTestPicker.testsFile="$ASSIGNMENT" \
   -DsmartTestPicker.revision="$REVISION" -DsmartTestPicker.shardId="$SHARD" \
-  -DsmartTestPicker.coverageCollector=ASM -DsmartTestPicker.asm.includes=com.example.
+  -DsmartTestPicker.coverageCollector=ASM
 ```
 
-Do not add a manual STP `-javaagent` argument. The explicit include set is required;
-absent, blank or malformed scope fails preparation. Optional
+Do not add a manual STP `-javaagent` argument. With no includes property, preparation
+derives package prefixes from compiled reactor production classes. Maven's collected
+project model also identifies reactor dependencies omitted by `-pl`: their installed
+main JARs supply packages and allowed code sources. Install the exact head first;
+third-party dependencies and test JARs are not scanned. No scope is inferred from
+groupId. Default-package classes cannot be represented and fail preparation.
+
+An explicit nonblank `smartTestPicker.asm.includes` overrides derived prefixes;
+blank/malformed overrides fail. Optional
 `smartTestPicker.asm.excludes` accepts the same comma-separated package-prefix
-syntax. Prefixes may use dots or slashes and are normalized to trailing dots. No
-scope is inferred from `groupId` or the reactor. Agent mandatory exclusions still apply.
+syntax. Prefixes may use dots or slashes and are normalized to trailing dots.
+Both paths enforce an exact production code-source allowlist, excluding custom
+test outputs, test JARs and third-party classes even when they share packages.
+The installed artifacts must correspond to the prepared head; this is not artifact
+provenance verification. A module omitted from Maven's collected model cannot be
+identified as reactor-owned. See [scope evidence and boundaries](../verification/maven-asm-08/REPORT.md).
+
+Zero instrumented classes across a mapping fork fails closed with the effective
+scope/count; no fragment/evidence is accepted. An individual test with no edges
+remains valid when the fork did instrument production classes. This also means a
+fork with only disabled tests, or no production classes loaded at all, fails this
+guard rather than publishing an unverified empty map.
 
 Preparation resolves `com.sap.oss.smart-test-picker:stp-agent:jar:<plugin-version>`
 through the current Maven repository session and **project dependency repositories**.
@@ -115,7 +133,7 @@ Maven collection command is:
 mvn com.sap.oss.smart-test-picker:smart-test-picker-maven:0.3.0-SNAPSHOT:prepare-reactor-executable-mapping \
   verify com.sap.oss.smart-test-picker:smart-test-picker-maven:0.3.0-SNAPSHOT:aggregate-reactor-coverage-fragment \
   -DsmartTestPicker.schemaVersion=3 -DsmartTestPicker.coverageCollector=ASM \
-  -DsmartTestPicker.asm.includes=com.example. -DsmartTestPicker.testsFile="$ASSIGNMENT" \
+  -DsmartTestPicker.testsFile="$ASSIGNMENT" \
   -DsmartTestPicker.revision="$REVISION" -DsmartTestPicker.shardId="$SHARD" \
   -DsmartTestPicker.fragmentOutput="$SHARD_FRAGMENT" -DsmartTestPicker.evidenceOutput="$SHARD_EVIDENCE"
 ```
@@ -147,8 +165,8 @@ completeness are validated before the final pair is accepted.
 Maven test failures still fail the build. STP does not enable test-failure-ignore;
 inspection of failed-test evidence must preserve the original test result. The
 agent fragment is never rewritten by finalization. Missing or unsafe inputs leave
-no successful evidence output. This does not enable ASM in Jenkins or add scope
-derivation, per-fork merging, or ClassSource-only Vintage support.
+no successful evidence output. This does not enable ASM in Jenkins or add
+per-fork merging or ClassSource-only Vintage support.
 
 ## Coordinates
 

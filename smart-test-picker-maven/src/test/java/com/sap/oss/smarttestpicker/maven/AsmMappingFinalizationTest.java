@@ -99,6 +99,15 @@ class AsmMappingFinalizationTest {
 				Map.of(PASS, new TestCoverage(Set.of(), Set.of(), TestOutcome.PASS, CollectionStatus.COLLECTED_EMPTY)),
 				List.of(new ExecutableUnmappedTest(FAILED, UnmappedReason.FAILED), new ExecutableUnmappedTest(SKIPPED, UnmappedReason.SKIPPED)), List.of(), true);
 		Files.write(fragment, new ExecutableCoverageFragmentCodec().serialize(value));
+		Path diagnostic = directory.resolve("asm-agent-diagnostic.json");
+		var observed = new com.google.gson.JsonObject(); observed.addProperty("schemaVersion", "agent-shell-1");
+		var configuration = new com.google.gson.JsonObject();
+		configuration.addProperty("revision", "rev"); configuration.addProperty("shardId", "shard");
+		configuration.addProperty("fragmentOutput", fragment.toAbsolutePath().toString());
+		configuration.add("includes", com.google.gson.JsonParser.parseString("[\"fixture.\"]"));
+		configuration.add("excludes", new com.google.gson.JsonArray()); observed.add("configuration", configuration);
+		var metrics = new com.google.gson.JsonObject(); metrics.addProperty("classesTransformed", 1); observed.add("metrics", metrics);
+		Files.writeString(diagnostic, observed.toString());
 		Path assignment = temp.resolve("assignment.json");
 		Files.write(assignment, new ExecutableShardAssignmentCodec().serialize(new ExecutableShardAssignment(1,
 				value.revision(), value.shardId(), Set.of(PASS, FAILED, SKIPPED))));
@@ -106,6 +115,7 @@ class AsmMappingFinalizationTest {
 		set(finalizer, "schemaVersion", 3); set(finalizer, "revision", "rev"); set(finalizer, "shardId", "shard");
 		set(finalizer, "coverageCollector", "ASM"); set(finalizer, "executionTarget", TARGET.toString());
 		set(finalizer, "assignmentFile", assignment.toFile());
+		set(finalizer, "moduleDiagnosticOutput", diagnostic.toFile());
 		set(finalizer, "moduleFragmentOutput", fragment.toFile()); set(finalizer, "moduleEvidenceOutput", evidence.toFile());
 		var root = project(temp, true); var module = project(temp.resolve("module"), false);
 		var aggregator = new AggregateReactorCoverageFragmentMojo();
