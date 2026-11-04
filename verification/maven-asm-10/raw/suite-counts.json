@@ -1,0 +1,32 @@
+{
+  "smart-test-picker": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 46
+  },
+  "smart-test-picker-common": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 11,
+    "tests": 333
+  },
+  "smart-test-picker-core": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 5,
+    "tests": 29
+  },
+  "smart-test-picker-maven": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 143
+  },
+  "stp-agent": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 1,
+    "tests": 45
+  }
+}

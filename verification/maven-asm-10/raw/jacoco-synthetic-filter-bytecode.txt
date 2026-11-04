@@ -1,0 +1,58 @@
+Compiled from "SyntheticFilter.java"
+final class org.jacoco.core.internal.analysis.filter.SyntheticFilter implements org.jacoco.core.internal.analysis.filter.IFilter {
+  org.jacoco.core.internal.analysis.filter.SyntheticFilter();
+    Code:
+       0: aload_0
+       1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+       4: return
+
+  private static boolean isScalaClass(org.jacoco.core.internal.analysis.filter.IFilterContext);
+    Code:
+       0: aload_0
+       1: invokeinterface #2,  1            // InterfaceMethod org/jacoco/core/internal/analysis/filter/IFilterContext.getClassAttributes:()Ljava/util/Set;
+       6: ldc           #3                  // String ScalaSig
+       8: invokeinterface #4,  2            // InterfaceMethod java/util/Set.contains:(Ljava/lang/Object;)Z
+      13: ifne          32
+      16: aload_0
+      17: invokeinterface #2,  1            // InterfaceMethod org/jacoco/core/internal/analysis/filter/IFilterContext.getClassAttributes:()Ljava/util/Set;
+      22: ldc           #5                  // String Scala
+      24: invokeinterface #4,  2            // InterfaceMethod java/util/Set.contains:(Ljava/lang/Object;)Z
+      29: ifeq          36
+      32: iconst_1
+      33: goto          37
+      36: iconst_0
+      37: ireturn
+
+  public void filter(org.objectweb.asm.tree.MethodNode, org.jacoco.core.internal.analysis.filter.IFilterContext, org.jacoco.core.internal.analysis.filter.IFilterOutput);
+    Code:
+       0: aload_1
+       1: getfield      #6                  // Field org/objectweb/asm/tree/MethodNode.access:I
+       4: sipush        4096
+       7: iand
+       8: ifne          12
+      11: return
+      12: aload_1
+      13: getfield      #7                  // Field org/objectweb/asm/tree/MethodNode.name:Ljava/lang/String;
+      16: ldc           #8                  // String lambda$
+      18: invokevirtual #9                  // Method java/lang/String.startsWith:(Ljava/lang/String;)Z
+      21: ifeq          25
+      24: return
+      25: aload_2
+      26: invokestatic  #10                 // Method isScalaClass:(Lorg/jacoco/core/internal/analysis/filter/IFilterContext;)Z
+      29: ifeq          45
+      32: aload_1
+      33: getfield      #7                  // Field org/objectweb/asm/tree/MethodNode.name:Ljava/lang/String;
+      36: ldc           #11                 // String $anonfun$
+      38: invokevirtual #9                  // Method java/lang/String.startsWith:(Ljava/lang/String;)Z
+      41: ifeq          45
+      44: return
+      45: aload_3
+      46: aload_1
+      47: getfield      #12                 // Field org/objectweb/asm/tree/MethodNode.instructions:Lorg/objectweb/asm/tree/InsnList;
+      50: invokevirtual #13                 // Method org/objectweb/asm/tree/InsnList.getFirst:()Lorg/objectweb/asm/tree/AbstractInsnNode;
+      53: aload_1
+      54: getfield      #12                 // Field org/objectweb/asm/tree/MethodNode.instructions:Lorg/objectweb/asm/tree/InsnList;
+      57: invokevirtual #14                 // Method org/objectweb/asm/tree/InsnList.getLast:()Lorg/objectweb/asm/tree/AbstractInsnNode;
+      60: invokeinterface #15,  3           // InterfaceMethod org/jacoco/core/internal/analysis/filter/IFilterOutput.ignore:(Lorg/objectweb/asm/tree/AbstractInsnNode;Lorg/objectweb/asm/tree/AbstractInsnNode;)V
+      65: return
+}

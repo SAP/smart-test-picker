@@ -1,0 +1,11 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.2.0">
+  <profiles><profile><id>asm10-repository</id>
+    <repositories><repository><id>stp-functional</id><url>${env.STP_ASM10_REPO}</url>
+      <snapshots><enabled>true</enabled><updatePolicy>always</updatePolicy></snapshots>
+    </repository></repositories>
+    <pluginRepositories><pluginRepository><id>stp-functional</id><url>${env.STP_ASM10_REPO}</url>
+      <snapshots><enabled>true</enabled><updatePolicy>always</updatePolicy></snapshots>
+    </pluginRepository></pluginRepositories>
+  </profile></profiles>
+  <activeProfiles><activeProfile>asm10-repository</activeProfile></activeProfiles>
+</settings>

@@ -1,0 +1,1534 @@
+{
+  "target/classes/org/springframework/samples/petclinic/PetClinicApplication.class": {
+    "bytes": 936,
+    "sha256": "c9df7a6c0dad987de29a33f6b57675059f781547c3c09bb0157c8dd249ad1067"
+  },
+  "target/classes/org/springframework/samples/petclinic/PetClinicRuntimeHints.class": {
+    "bytes": 2727,
+    "sha256": "a9eb97e6b0c455acf35440c89eb50952ee2d189ea809854ef654535283357ccf"
+  },
+  "target/classes/org/springframework/samples/petclinic/model/BaseEntity.class": {
+    "bytes": 989,
+    "sha256": "5d3132499c7aefd581e95ce4ccf3e2a7b7b61a9da61550017b583cf394162cb5"
+  },
+  "target/classes/org/springframework/samples/petclinic/model/NamedEntity.class": {
+    "bytes": 1057,
+    "sha256": "ae736c1eccf6285c43a61d95d9cafe8923d66e38d8f7ecbcd4bbc3b9e465386c"
+  },
+  "target/classes/org/springframework/samples/petclinic/model/Person.class": {
+    "bytes": 1227,
+    "sha256": "de434304fe0031adb8815db24f4af97b761651e23bd4d6db4d58edee13de2340"
+  },
+  "target/classes/org/springframework/samples/petclinic/model/package-info.class": {
+    "bytes": 149,
+    "sha256": "672eeb4bcef5b314c978bbdc0267b321e47330e0592196dbb0b72ec53fee5d6f"
+  },
+  "target/classes/org/springframework/samples/petclinic/owner/Owner.class": {
+    "bytes": 4832,
+    "sha256": "5a2c006f659265acb7e675d0cb5ed52a64a7a7a89abf585d6e2a2170d0370415"
+  },
+  "target/classes/org/springframework/samples/petclinic/owner/OwnerController.class": {
+    "bytes": 9792,
+    "sha256": "b9f7479abf340c7c5197cc85cf69fa01d8b4954e498d21ae6852f8a3e2a7dd4f"
+  },
+  "target/classes/org/springframework/samples/petclinic/owner/OwnerRepository.class": {
+    "bytes": 1199,
+    "sha256": "a623b729f15a14d872224c431c02b5f6832157ff0c86c206abcb95b22ad7f9f8"
+  },
+  "target/classes/org/springframework/samples/petclinic/owner/Pet.class": {
+    "bytes": 2302,
+    "sha256": "2462566a14a172b209fd3c92235fea1f2081980749167b8627a819f933099a7f"
+  },
+  "target/classes/org/springframework/samples/petclinic/owner/PetController.class": {
+    "bytes": 9448,
+    "sha256": "36d0997e07ea67c22a605ddc6cc7ba562891d70608c82348e88da9a70608e54b"
+  },
+  "target/classes/org/springframework/samples/petclinic/owner/PetType.class": {
+    "bytes": 498,
+    "sha256": "f07fc585b4d6da91f9974a2d90bba114d9a2ea15394ae207b6715e2c62edcc61"
+  },
+  "target/classes/org/springframework/samples/petclinic/owner/PetTypeFormatter.class": {
+    "bytes": 3059,
+    "sha256": "f499cca2393678d13250a73cfcae813138a7ece7fced2fa3b005344eacb28d3d"
+  },
+  "target/classes/org/springframework/samples/petclinic/owner/PetTypeRepository.class": {
+    "bytes": 675,
+    "sha256": "c9613fad894fc84f35fbb5c5b68f38ebc56a89400e881e30cc991a52849d7246"
+  },
+  "target/classes/org/springframework/samples/petclinic/owner/PetValidator.class": {
+    "bytes": 1786,
+    "sha256": "bf5df72e7a4dbacfc0548e6a338aa12cb8ce399e413d2e3e8acbd7e7eca6f4fd"
+  },
+  "target/classes/org/springframework/samples/petclinic/owner/Visit.class": {
+    "bytes": 1423,
+    "sha256": "d564de7451af0147ff74e2856b9cec590e31670edeab4e671ef8f61ad8d9f31a"
+  },
+  "target/classes/org/springframework/samples/petclinic/owner/VisitController.class": {
+    "bytes": 6238,
+    "sha256": "4f5d6ee4bc8347ecf2486510c97aef226be7ca273d176a5e1fb3d498e68ab704"
+  },
+  "target/classes/org/springframework/samples/petclinic/owner/package-info.class": {
+    "bytes": 149,
+    "sha256": "ccaae2dca0a50acaf377c2fae31703e593054b2b9815ca7e253f42b8a931d582"
+  },
+  "target/classes/org/springframework/samples/petclinic/package-info.class": {
+    "bytes": 143,
+    "sha256": "f7a08d469aa23e1e6af97b8aaeaa1808ea5ebc4377737dade04fd5a3b58b47ea"
+  },
+  "target/classes/org/springframework/samples/petclinic/system/CacheConfiguration.class": {
+    "bytes": 2137,
+    "sha256": "769eb1fbc180e4b84f3d0e542535213d3830514143b937bed0037187d706ebc8"
+  },
+  "target/classes/org/springframework/samples/petclinic/system/CrashController.class": {
+    "bytes": 795,
+    "sha256": "20d8c7ab4dc2fb59bccafef53120019a83dd299f26e145a41a2d076f956332cf"
+  },
+  "target/classes/org/springframework/samples/petclinic/system/WebConfiguration.class": {
+    "bytes": 1952,
+    "sha256": "7f2cba13f6e84883f0500fc8cf5f6979c2e36215b047c4b13332ca2bd446d82f"
+  },
+  "target/classes/org/springframework/samples/petclinic/system/WelcomeController.class": {
+    "bytes": 634,
+    "sha256": "d708221b1adef577bbeeb2e030cdc571dcc5c21b9e3e91d45ca163e76195b386"
+  },
+  "target/classes/org/springframework/samples/petclinic/system/package-info.class": {
+    "bytes": 150,
+    "sha256": "f534fa59d066fc539a21bcf152d30cfa96128751fad0308b75e31cd9a1088b85"
+  },
+  "target/classes/org/springframework/samples/petclinic/vet/Specialty.class": {
+    "bytes": 506,
+    "sha256": "1826874be4d75ee36bc70985199dfa16fa0c1ba90f84a217adadb4e014dde784"
+  },
+  "target/classes/org/springframework/samples/petclinic/vet/Vet.class": {
+    "bytes": 3031,
+    "sha256": "dd0c75c128d9c8e3b1b7411cddecca32508bba6339abac0f6e5b000f7d6a225b"
+  },
+  "target/classes/org/springframework/samples/petclinic/vet/VetController.class": {
+    "bytes": 3543,
+    "sha256": "6d936236c3031c2ecce5724909c0964945fdc00aaf9fb72aeda47da6e9a57374"
+  },
+  "target/classes/org/springframework/samples/petclinic/vet/VetRepository.class": {
+    "bytes": 1076,
+    "sha256": "d023238dc554ab35ac647f7f0cb52554bb48836e9c58f8c73cff685d176de0d9"
+  },
+  "target/classes/org/springframework/samples/petclinic/vet/Vets.class": {
+    "bytes": 849,
+    "sha256": "63e0f416eda6689c8bdefc95e0291178a229374e0ce5f569532f1b5e35eb3d3d"
+  },
+  "target/classes/org/springframework/samples/petclinic/vet/package-info.class": {
+    "bytes": 147,
+    "sha256": "d93b2f8a5cbcf602d22207f36ef19d8849d4c33e3887e23c8c1330ddd28b7d27"
+  },
+  "target/jacoco-xml/session_ClinicServiceTests#should~Add~New~Visit~For~Pet_1f90a5c.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ClinicServiceTests#should~Add~New~Visit~For~Pet_1f90a5c.xml": {
+    "bytes": 20791,
+    "sha256": "65b1f796bf9792e103137730d40cd334af28d34722ad8b55d9b2ce0d3580bba5"
+  },
+  "target/jacoco-xml/session_ClinicServiceTests#should~Allow~Same~Pet~Name~For~Different~Owners_473fc74.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ClinicServiceTests#should~Allow~Same~Pet~Name~For~Different~Owners_473fc74.xml": {
+    "bytes": 18451,
+    "sha256": "d334c986f4ab37f2c927c405e830d2b4e07fdd7757ff57ff8de34f6690b32e53"
+  },
+  "target/jacoco-xml/session_ClinicServiceTests#should~Fail~To~Insert~Duplicate~Pet~Name~For~Same~Owner_16cc8e2.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ClinicServiceTests#should~Fail~To~Insert~Duplicate~Pet~Name~For~Same~Owner_16cc8e2.xml": {
+    "bytes": 18457,
+    "sha256": "864eb867f9061cea5e4813a793c97e9b407df7a60533f1733bb72ddcf8443ca0"
+  },
+  "target/jacoco-xml/session_ClinicServiceTests#should~Find~All~Pet~Types_6a0a1a2.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ClinicServiceTests#should~Find~All~Pet~Types_6a0a1a2.xml": {
+    "bytes": 6280,
+    "sha256": "97f5982f41b561b37e21ebead072bb9fb54c440e631c8b30b8f5c9e63bda6043"
+  },
+  "target/jacoco-xml/session_ClinicServiceTests#should~Find~Owners~By~Last~Name_1d4e610.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ClinicServiceTests#should~Find~Owners~By~Last~Name_1d4e610.xml": {
+    "bytes": 18430,
+    "sha256": "5ae7656008cbf869a7f9c7320a6ee2e8976f364e64747e4e7375cc37dc51ec47"
+  },
+  "target/jacoco-xml/session_ClinicServiceTests#should~Find~Single~Owner~With~Pet_5cf9b87.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ClinicServiceTests#should~Find~Single~Owner~With~Pet_5cf9b87.xml": {
+    "bytes": 18439,
+    "sha256": "99d7e1961d13b4f68e4e10993622d60568fcbe70010aa7a524be1fab26010eb4"
+  },
+  "target/jacoco-xml/session_ClinicServiceTests#should~Find~Vets_64a35f7.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ClinicServiceTests#should~Find~Vets_64a35f7.xml": {
+    "bytes": 11152,
+    "sha256": "4d0cc2a315dc9c40c89ca4b26b22d71c26226b4b8bba0a5fd99f8c23797d004b"
+  },
+  "target/jacoco-xml/session_ClinicServiceTests#should~Find~Visits~By~Pet~Id_4ae4bd6.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ClinicServiceTests#should~Find~Visits~By~Pet~Id_4ae4bd6.xml": {
+    "bytes": 20786,
+    "sha256": "e2b932ad4ed56705a342cb8b6700d5b4208884b6ed18db78398fef81689df7c4"
+  },
+  "target/jacoco-xml/session_ClinicServiceTests#should~Insert~Owner_61d9c0c.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ClinicServiceTests#should~Insert~Owner_61d9c0c.xml": {
+    "bytes": 12335,
+    "sha256": "39038ea533b8c580b606e6a4f842cec2a024734ec5146b063f940b6042483543"
+  },
+  "target/jacoco-xml/session_ClinicServiceTests#should~Insert~Pet~Into~Database~And~Generate~Id_5d117ed.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ClinicServiceTests#should~Insert~Pet~Into~Database~And~Generate~Id_5d117ed.xml": {
+    "bytes": 20802,
+    "sha256": "2cc2f1cb8b307a3551656929317e2640b40b0d42db7aa68162e273940662b9e9"
+  },
+  "target/jacoco-xml/session_ClinicServiceTests#should~Update~Owner_272c58b.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ClinicServiceTests#should~Update~Owner_272c58b.xml": {
+    "bytes": 18422,
+    "sha256": "de9263af27723b9a4a6da827071531e93f68ec9b1e643d84a6898f9ee74dafeb"
+  },
+  "target/jacoco-xml/session_ClinicServiceTests#should~Update~Pet~Name_693ee84.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ClinicServiceTests#should~Update~Pet~Name_693ee84.xml": {
+    "bytes": 20777,
+    "sha256": "0373d20ce5b9c27e7342aa3eecde89a5b2d300e5c37e6973f6fc3dd129d2b88c"
+  },
+  "target/jacoco-xml/session_CrashControllerIntegrationTests#trigger~Exception~Html_7372274.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_CrashControllerIntegrationTests#trigger~Exception~Html_7372274.xml": {
+    "bytes": 2106,
+    "sha256": "ed60f686a6c2648682af0a4df992e03dd1ae982fb27b4f844e0f2e29be4ad513"
+  },
+  "target/jacoco-xml/session_CrashControllerIntegrationTests#trigger~Exception~Json_76ceb13.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_CrashControllerIntegrationTests#trigger~Exception~Json_76ceb13.xml": {
+    "bytes": 2106,
+    "sha256": "8b6728edc0d13c2bd46c35eb1279462df9017cd60cfd5793ec348a017357a14f"
+  },
+  "target/jacoco-xml/session_CrashControllerTests#trigger~Exception_47d8551.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_CrashControllerTests#trigger~Exception_47d8551.xml": {
+    "bytes": 2091,
+    "sha256": "091c2b06925afa8f72d5c00df7e67c9c312a2adeaca55822b4df143f60c6b2c9"
+  },
+  "target/jacoco-xml/session_I18nPropertiesSyncTest#check~I18n~Property~Files~Are~In~Sync_6269d86.status": {
+    "bytes": 6,
+    "sha256": "a3395601ed5265fe3f97da9dcdd9e5cae777dbc2bd32e2c2c066c66613eee499"
+  },
+  "target/jacoco-xml/session_I18nPropertiesSyncTest#check~Non~Internationalized~Strings_4dbfabc.status": {
+    "bytes": 6,
+    "sha256": "a3395601ed5265fe3f97da9dcdd9e5cae777dbc2bd32e2c2c066c66613eee499"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#init~Creation~Form_70c9cc9.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#init~Creation~Form_70c9cc9.xml": {
+    "bytes": 28728,
+    "sha256": "57f509a3f8c899cef75a9d853753beacfe5aa5a37f31f44ef3268a0b2ffb7687"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#init~Find~Form_6b2d497.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#init~Find~Form_6b2d497.xml": {
+    "bytes": 28718,
+    "sha256": "1910047eff9e223d7b407d6fd8fcbfd316ed04d0f489c9dd1f7345766b8f0b2f"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#init~Update~Owner~Form_1325c3d.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#init~Update~Owner~Form_1325c3d.xml": {
+    "bytes": 28730,
+    "sha256": "8c898d4e2d4bfab172830fcf11f41958490c796f016bce0e45690eaa8b3209da"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#process~Creation~Form~Has~Errors_5efb891.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#process~Creation~Form~Has~Errors_5efb891.xml": {
+    "bytes": 28741,
+    "sha256": "cd62001c4b86dbdd792bb178cf2f9afd8354bb87ed211f5167f8c4f59e0c72e3"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#process~Creation~Form~Success_1fb8cf3.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#process~Creation~Form~Success_1fb8cf3.xml": {
+    "bytes": 28736,
+    "sha256": "15041d498d4bc089f052771d78d54e305bb5e9b59660dc7eb34a4c9a3aa2f5b3"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#process~Find~Form~By~Last~Name_5613ef0.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#process~Find~Form~By~Last~Name_5613ef0.xml": {
+    "bytes": 28734,
+    "sha256": "afa91622d7d2bfac8366ffa57e1f5206392b5588ff498a0e6d0098c09ade74c8"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#process~Find~Form~Ignores~Surrounding~Whitespace_2056262.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#process~Find~Form~Ignores~Surrounding~Whitespace_2056262.xml": {
+    "bytes": 28752,
+    "sha256": "ddce1b187094c9c351ca1a2261c63d71ff341dbcc525e097a28c8f8e74670483"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#process~Find~Form~No~Owners~Found_4729fe9.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#process~Find~Form~No~Owners~Found_4729fe9.xml": {
+    "bytes": 28736,
+    "sha256": "175cf95749155ae1b8f5c786640da64de41bdd84aa917bf15ad7f3f7c2434152"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#process~Find~Form~Success_746dd49.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#process~Find~Form~Success_746dd49.xml": {
+    "bytes": 28734,
+    "sha256": "bc4124662341f795a308eaa599b3f335d86a751c7de52a0fcc49a8d305e295c4"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#process~Find~Form~With~Whitespace~Only~Last~Name~Returns~All~Owners_47f62a9.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#process~Find~Form~With~Whitespace~Only~Last~Name~Returns~All~Owners_47f62a9.xml": {
+    "bytes": 28769,
+    "sha256": "694be9dfb4511fe582d467cf2ec0210919ed3c7c34a18180b1027e48c0b1ffaa"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#process~Update~Owner~Form~Has~Errors_6d40bec.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#process~Update~Owner~Form~Has~Errors_6d40bec.xml": {
+    "bytes": 28742,
+    "sha256": "dbed35de370d8f1b2bc808b44214f5bb981258e5b14ba3b4d46e92521d52b021"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#process~Update~Owner~Form~Success_b398c22.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#process~Update~Owner~Form~Success_b398c22.xml": {
+    "bytes": 28741,
+    "sha256": "8a1b6387bf651b9cbb75c26aaab58651f6707a83b57d7c14221d737fd5b50a45"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#process~Update~Owner~Form~Unchanged~Success_2135d26.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#process~Update~Owner~Form~Unchanged~Success_2135d26.xml": {
+    "bytes": 28746,
+    "sha256": "e5b730c4bc15d5803fa2ee38c1c9e69bbe351857e29ba7358cc83662b4117bcf"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#process~Update~Owner~Form~With~Id~Mismatch_63b3912.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#process~Update~Owner~Form~With~Id~Mismatch_63b3912.xml": {
+    "bytes": 28743,
+    "sha256": "5fd69301800c276c212eb92153ac2d35c4448cf66110e58a0f7c283ecfc838c8"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#show~Owner_23b847b.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_OwnerControllerTests#show~Owner_23b847b.xml": {
+    "bytes": 28717,
+    "sha256": "e57f9fc1a764c4f3f2b6cc3a0aa6a7ce7195c2cf576e11c5d8945049e0c133ed"
+  },
+  "target/jacoco-xml/session_PetClinicConcurrencyTests#test~Duplicate~Pet~Name~Race~Condition~Is~Blocked_1586fc2.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_PetClinicConcurrencyTests#test~Duplicate~Pet~Name~Race~Condition~Is~Blocked_1586fc2.xml": {
+    "bytes": 39628,
+    "sha256": "bdab374c8363a25a6f83c5502b06a7cb923a7e200ef4dddc5f3b2f7b64de5702"
+  },
+  "target/jacoco-xml/session_PetClinicIntegrationTests#find~All_1410e00.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_PetClinicIntegrationTests#find~All_1410e00.xml": {
+    "bytes": 11149,
+    "sha256": "c1c2c587b02f2f86aa329771e6fa8ad4170bf6f245a591c7e9a44face49f51a0"
+  },
+  "target/jacoco-xml/session_PetClinicIntegrationTests#owner~Details_2a60b03.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_PetClinicIntegrationTests#owner~Details_2a60b03.xml": {
+    "bytes": 26368,
+    "sha256": "6a87954899efd6d86637d478f96f9a4a7dfd2a0d6b4af7bbaf0a4516760b699a"
+  },
+  "target/jacoco-xml/session_PetClinicIntegrationTests#owner~List_3cb7d31.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_PetClinicIntegrationTests#owner~List_3cb7d31.xml": {
+    "bytes": 26366,
+    "sha256": "e5e6990202b3f619f134b97c460aef244c6e0d71f6e488b2479246807deb7900"
+  },
+  "target/jacoco-xml/session_PetControllerTests#init~Creation~Form_6e50248.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_PetControllerTests#init~Creation~Form_6e50248.xml": {
+    "bytes": 31649,
+    "sha256": "4bea711861e5f713b32b9b4a237c24c8d54e8acb7cb90c0eeaf9fa1436543b07"
+  },
+  "target/jacoco-xml/session_PetControllerTests#process~Creation~Form~Success_6953302.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_PetControllerTests#process~Creation~Form~Success_6953302.xml": {
+    "bytes": 31661,
+    "sha256": "72d224f60e9658c22aa86961a95673375d4842648877e8596ab4f48d745aa95f"
+  },
+  "target/jacoco-xml/session_PetControllerTests#process~Update~Form~Success_71b0a77.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_PetControllerTests#process~Update~Form~Success_71b0a77.xml": {
+    "bytes": 31656,
+    "sha256": "059563452785a1819e9d7804131b0482ac52f974c5cc762e42c8e6205c269145"
+  },
+  "target/jacoco-xml/session_PetControllerTests#process~Update~Form~With~Same~Name_282acbe.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_PetControllerTests#process~Update~Form~With~Same~Name_282acbe.xml": {
+    "bytes": 31661,
+    "sha256": "ff3115dbcd4dd6d844172013c66a3084b78427c9a09253b28090b95ae2fb8f48"
+  },
+  "target/jacoco-xml/session_PetTypeFormatterTests#should~Parse_60cfa3c.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_PetTypeFormatterTests#should~Parse_60cfa3c.xml": {
+    "bytes": 8632,
+    "sha256": "6013db145af6494bff0f7f824a88d312c12b16dcca0c4e93f02aca75978d8db6"
+  },
+  "target/jacoco-xml/session_PetTypeFormatterTests#should~Throw~Parse~Exception_15c75ba.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_PetTypeFormatterTests#should~Throw~Parse~Exception_15c75ba.xml": {
+    "bytes": 8646,
+    "sha256": "a48635d8ea7d285e6cda361eda2e4d444a67d1b0d6c6ea657650b966d45e82a4"
+  },
+  "target/jacoco-xml/session_PetTypeFormatterTests#test~Print_4eaac13.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_PetTypeFormatterTests#test~Print_4eaac13.xml": {
+    "bytes": 8632,
+    "sha256": "ec912c72a9feac20ce88a9327192ab9753265c1c8ad96533848a9a1d412492d9"
+  },
+  "target/jacoco-xml/session_PetValidatorTests#does~Not~Support~Non~Pet~Class_738c8a0.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_PetValidatorTests#does~Not~Support~Non~Pet~Class_738c8a0.xml": {
+    "bytes": 11491,
+    "sha256": "d1e573b20f1ac2ba87ca42b35ab4a042192a61ceff6c9e464d07e7c0420190d7"
+  },
+  "target/jacoco-xml/session_PetValidatorTests#supports~Pet~Class_5deb7f8.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_PetValidatorTests#supports~Pet~Class_5deb7f8.xml": {
+    "bytes": 11482,
+    "sha256": "c47712173e6dcb7c323967d5b1a31f3c3f8bcb04cf54dd1f8fb4402d2d0d5e69"
+  },
+  "target/jacoco-xml/session_PetValidatorTests#validate_28697b1.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_PetValidatorTests#validate_28697b1.xml": {
+    "bytes": 11476,
+    "sha256": "abbc913a31bb7ac7d547d38dc3feb865b9d05f1edc6fdae0bf83f65999880a27"
+  },
+  "target/jacoco-xml/session_ProcessCreationFormHasErrors#init~Update~Form_4dd8f57.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ProcessCreationFormHasErrors#init~Update~Form_4dd8f57.xml": {
+    "bytes": 31655,
+    "sha256": "50a7ebe39f534b39eba4529096413a5f95ca2e97874b025756df3b23e57db725"
+  },
+  "target/jacoco-xml/session_ProcessCreationFormHasErrors#process~Creation~Form~With~Blank~Name_2eb4d54.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ProcessCreationFormHasErrors#process~Creation~Form~With~Blank~Name_2eb4d54.xml": {
+    "bytes": 31679,
+    "sha256": "91ac02bfc0dd5d59780bfb033d6b084b5547a2cf64aa0633873c633d58308de5"
+  },
+  "target/jacoco-xml/session_ProcessCreationFormHasErrors#process~Creation~Form~With~Data~Integrity~Violation_1d6c511.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ProcessCreationFormHasErrors#process~Creation~Form~With~Data~Integrity~Violation_1d6c511.xml": {
+    "bytes": 31690,
+    "sha256": "a15a307854583da94d476ad36f1d3a463b5969b4999065d85df224f1f5713a09"
+  },
+  "target/jacoco-xml/session_ProcessCreationFormHasErrors#process~Creation~Form~With~Duplicate~Name_7c8b67b.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ProcessCreationFormHasErrors#process~Creation~Form~With~Duplicate~Name_7c8b67b.xml": {
+    "bytes": 31679,
+    "sha256": "861e744185f76609eface59af91bc0e462effc84dbf99e1fe0ba1cfab46559c9"
+  },
+  "target/jacoco-xml/session_ProcessCreationFormHasErrors#process~Creation~Form~With~Invalid~Birth~Date_53f9054.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ProcessCreationFormHasErrors#process~Creation~Form~With~Invalid~Birth~Date_53f9054.xml": {
+    "bytes": 31683,
+    "sha256": "c2997cf2c1deee713cbc8b54971cb4a1f8a19560ab6192c387dd09badb642eae"
+  },
+  "target/jacoco-xml/session_ProcessCreationFormHasErrors#process~Creation~Form~With~Missing~Pet~Type_2816fec.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ProcessCreationFormHasErrors#process~Creation~Form~With~Missing~Pet~Type_2816fec.xml": {
+    "bytes": 31681,
+    "sha256": "6517ae8100bf2ace82d4eddcf785df08acaa3b83331bec15cdbe296cf4d56ba1"
+  },
+  "target/jacoco-xml/session_ProcessUpdateFormHasErrors#process~Update~Form~With~Blank~Name_5e72388.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ProcessUpdateFormHasErrors#process~Update~Form~With~Blank~Name_5e72388.xml": {
+    "bytes": 31672,
+    "sha256": "5df909f9c7b49d18833cc29dbb9980900120669b053a5420daa37863b8e9735b"
+  },
+  "target/jacoco-xml/session_ProcessUpdateFormHasErrors#process~Update~Form~With~Data~Integrity~Violation_125b2ad.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ProcessUpdateFormHasErrors#process~Update~Form~With~Data~Integrity~Violation_125b2ad.xml": {
+    "bytes": 31687,
+    "sha256": "25eaf372924e209449b8336ea1062457c9b24592defa5ff70eff2de13569a705"
+  },
+  "target/jacoco-xml/session_ProcessUpdateFormHasErrors#process~Update~Form~With~Duplicate~Name_396c95f.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ProcessUpdateFormHasErrors#process~Update~Form~With~Duplicate~Name_396c95f.xml": {
+    "bytes": 31674,
+    "sha256": "7c8554490c74a805cf5b6d8775788f7cabbd75704d31cebc9096cf1af6ca9f0f"
+  },
+  "target/jacoco-xml/session_ProcessUpdateFormHasErrors#process~Update~Form~With~Invalid~Birth~Date_747e2f0.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ProcessUpdateFormHasErrors#process~Update~Form~With~Invalid~Birth~Date_747e2f0.xml": {
+    "bytes": 31678,
+    "sha256": "a455494baccc9764743134b2fd76363bc22d59ae934e7aad1cbb5b7601acc152"
+  },
+  "target/jacoco-xml/session_ValidateHasErrors#validate~With~Invalid~Birth~Date_78f3cba.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ValidateHasErrors#validate~With~Invalid~Birth~Date_78f3cba.xml": {
+    "bytes": 11496,
+    "sha256": "e631439e5af21d603406d6be2b4469dce58af343bb76b543eb47d2ad98005923"
+  },
+  "target/jacoco-xml/session_ValidateHasErrors#validate~With~Invalid~Pet~Name_62871ae.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ValidateHasErrors#validate~With~Invalid~Pet~Name_62871ae.xml": {
+    "bytes": 11494,
+    "sha256": "6e97444a083f4842d844fedfd9aac35158f0991871dda4c6de6ec6f5a930658f"
+  },
+  "target/jacoco-xml/session_ValidateHasErrors#validate~With~Invalid~Pet~Type_6e17bfd.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ValidateHasErrors#validate~With~Invalid~Pet~Type_6e17bfd.xml": {
+    "bytes": 11494,
+    "sha256": "c3d65b282b0bf7a9787b01cbdfefcab57af6aad50146f65c929a406a50b2c7e1"
+  },
+  "target/jacoco-xml/session_ValidatorTests#should~Not~Validate~When~First~Name~Empty_12b3ba8.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ValidatorTests#should~Not~Validate~When~First~Name~Empty_12b3ba8.xml": {
+    "bytes": 5222,
+    "sha256": "c8e5b43c7ec4ff7d1868282e9ffd85e4b37db68d65887eb56c5cb79166d152d6"
+  },
+  "target/jacoco-xml/session_ValidatorTests#should~Not~Validate~When~Last~Name~Empty_6e9a99b.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_ValidatorTests#should~Not~Validate~When~Last~Name~Empty_6e9a99b.xml": {
+    "bytes": 5221,
+    "sha256": "2a12bbf39a613e33429be303d3306539f6290c058f0d12c66303ab16e98b13f2"
+  },
+  "target/jacoco-xml/session_VetControllerTests#show~Resources~Vet~List_2495c66.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_VetControllerTests#show~Resources~Vet~List_2495c66.xml": {
+    "bytes": 15562,
+    "sha256": "bd71abeaafcc7ae0b5a114001199749f0017bdc7f8514145065f33d62e9204e3"
+  },
+  "target/jacoco-xml/session_VetControllerTests#show~Vet~List~Html_1dfd764.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_VetControllerTests#show~Vet~List~Html_1dfd764.xml": {
+    "bytes": 14101,
+    "sha256": "8273e15be26f66d54bd5be4721337a1857a750fb4391519c63a3de9604c09e58"
+  },
+  "target/jacoco-xml/session_VetTests#serialization_722a2c6.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_VetTests#serialization_722a2c6.xml": {
+    "bytes": 8110,
+    "sha256": "58156170b3a45eb6fc66997ec6a5f9ce0743d7e9b6e9d0109a8b2bbb6b9e6fe5"
+  },
+  "target/jacoco-xml/session_VisitControllerTests#init~New~Visit~Form_746e98d.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_VisitControllerTests#init~New~Visit~Form_746e98d.xml": {
+    "bytes": 24068,
+    "sha256": "858e2478d3666e12f8411c44e93ae0f35011ab82666e219b37f300d96111b264"
+  },
+  "target/jacoco-xml/session_VisitControllerTests#process~New~Visit~Form~Has~Errors_5745e38.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_VisitControllerTests#process~New~Visit~Form~Has~Errors_5745e38.xml": {
+    "bytes": 24082,
+    "sha256": "d867a1cd26437f72ef1542287e962105bf9a62584f2bd366be8cf65a6ea8a315"
+  },
+  "target/jacoco-xml/session_VisitControllerTests#process~New~Visit~Form~Has~Errors~When~Visit~Date~Is~Not~In~Future_46c1711.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_VisitControllerTests#process~New~Visit~Form~Has~Errors~When~Visit~Date~Is~Not~In~Future_46c1711.xml": {
+    "bytes": 24106,
+    "sha256": "8c003c0900a91ae3e3f2aefcd6f120e693bdfdb8e4bb1d1a6d7150c45ea64ff9"
+  },
+  "target/jacoco-xml/session_VisitControllerTests#process~New~Visit~Form~Success_2d6ed4a.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_VisitControllerTests#process~New~Visit~Form~Success_2d6ed4a.xml": {
+    "bytes": 24079,
+    "sha256": "f635991acb31d533ec0b6dafdaaa00769ad8106963dff62ef7d2b16f1833cb65"
+  },
+  "target/jacoco-xml/session_WelcomeControllerTests#welcome_6784fd0.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_WelcomeControllerTests#welcome_6784fd0.xml": {
+    "bytes": 2081,
+    "sha256": "7e6f161fc8ac12f8c607382ab2132bcb874523f1073ae16a310586a18d34efdc"
+  },
+  "target/jacoco-xml/session_setup_17e2eb23.status": {
+    "bytes": 6,
+    "sha256": "a3395601ed5265fe3f97da9dcdd9e5cae777dbc2bd32e2c2c066c66613eee499"
+  },
+  "target/jacoco-xml/session_setup_24a279b9.status": {
+    "bytes": 6,
+    "sha256": "a3395601ed5265fe3f97da9dcdd9e5cae777dbc2bd32e2c2c066c66613eee499"
+  },
+  "target/jacoco-xml/session_setup_29710cc2.status": {
+    "bytes": 6,
+    "sha256": "a3395601ed5265fe3f97da9dcdd9e5cae777dbc2bd32e2c2c066c66613eee499"
+  },
+  "target/jacoco-xml/session_setup_2db1804b.status": {
+    "bytes": 6,
+    "sha256": "a3395601ed5265fe3f97da9dcdd9e5cae777dbc2bd32e2c2c066c66613eee499"
+  },
+  "target/jacoco-xml/session_setup_31fbcca.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_setup_31fbcca.xml": {
+    "bytes": 2117,
+    "sha256": "621a4a535d6ee807ba26a015f3055a0be1cb65d0d9203148a01952589f94fddd"
+  },
+  "target/jacoco-xml/session_setup_386539e0.status": {
+    "bytes": 6,
+    "sha256": "a3395601ed5265fe3f97da9dcdd9e5cae777dbc2bd32e2c2c066c66613eee499"
+  },
+  "target/jacoco-xml/session_setup_3e91bd5c.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_setup_3e91bd5c.xml": {
+    "bytes": 7970,
+    "sha256": "9b64718cf03ceeeed633a30186601ea7158fd26282eb8f2dabe6b329bbd4e674"
+  },
+  "target/jacoco-xml/session_setup_41ff02c0.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_setup_41ff02c0.xml": {
+    "bytes": 26260,
+    "sha256": "310597ea0450689f0bff271f7b534fa567d7c5c902cac8f4ef5550e3fad96816"
+  },
+  "target/jacoco-xml/session_setup_46b3a0e8.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_setup_46b3a0e8.xml": {
+    "bytes": 9352,
+    "sha256": "f65966aa6075ffc027dd8e95bcb24e9ad5b8dbf2cc4f0b07a0ff9c1e571d1e34"
+  },
+  "target/jacoco-xml/session_setup_53f37e80.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_setup_53f37e80.xml": {
+    "bytes": 13075,
+    "sha256": "cdfeb42bc590a3d3bccd292e71d5c12f742250822a4cc8355586b858d7c57733"
+  },
+  "target/jacoco-xml/session_setup_5e0bb614.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_setup_5e0bb614.xml": {
+    "bytes": 16262,
+    "sha256": "df542f3de78a02955bf73ff0d3080fbd28a186257b71792e271a96530e4ba0c1"
+  },
+  "target/jacoco-xml/session_setup_5f5ec36a.status": {
+    "bytes": 6,
+    "sha256": "a3395601ed5265fe3f97da9dcdd9e5cae777dbc2bd32e2c2c066c66613eee499"
+  },
+  "target/jacoco-xml/session_setup_62e74858.status": {
+    "bytes": 6,
+    "sha256": "a3395601ed5265fe3f97da9dcdd9e5cae777dbc2bd32e2c2c066c66613eee499"
+  },
+  "target/jacoco-xml/session_setup_670e1382.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_setup_670e1382.xml": {
+    "bytes": 59603,
+    "sha256": "5b86357049e91033adda48804d52096e20c016c5510baa7ac130d57952cc6347"
+  },
+  "target/jacoco-xml/session_setup_67c5bf07.status": {
+    "bytes": 6,
+    "sha256": "a3395601ed5265fe3f97da9dcdd9e5cae777dbc2bd32e2c2c066c66613eee499"
+  },
+  "target/jacoco-xml/session_setup_6ae12de1.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_setup_6ae12de1.xml": {
+    "bytes": 59603,
+    "sha256": "32f2012c0d4c9c6edff6a24f1aea1fcbdb89005a84b4f519b74c9e7ab0c09770"
+  },
+  "target/jacoco-xml/session_setup_6cf6a64.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_setup_6cf6a64.xml": {
+    "bytes": 7663,
+    "sha256": "32fcf1f27d1f67d76d40195f563a4203111df0183e5dc697dd7133924e948858"
+  },
+  "target/jacoco-xml/session_setup_7a1304af.status": {
+    "bytes": 8,
+    "sha256": "28d0f94fd412a5843c5536bc1ddfa82cb90d3ca63b6d8e4e374bca6e5800dd6b"
+  },
+  "target/jacoco-xml/session_setup_7a1304af.xml": {
+    "bytes": 4375,
+    "sha256": "90b90c2ba2cb9eeaae20194201c9599f4bf207f71318fb396450a89f828db628"
+  },
+  "target/jacoco.exec": {
+    "bytes": 22070,
+    "sha256": "143bb917c41503b38691f7670ccb4c1ef68c7c377d41e561a0148c2efa18da69"
+  },
+  "target/jacoco/session_ClinicServiceTests#should~Add~New~Visit~For~Pet_1f90a5c.exec": {
+    "bytes": 78983,
+    "sha256": "dff5f3d8b7cd77a8ee83311bb5e55faf935c55f0e0c559bdb9bd315500767c2d"
+  },
+  "target/jacoco/session_ClinicServiceTests#should~Add~New~Visit~For~Pet_1f90a5c.identity": {
+    "bytes": 154,
+    "sha256": "fbfacbd1e0c5796d5349888066eaebe3e314ef086f2131052d9e03c7a834087b"
+  },
+  "target/jacoco/session_ClinicServiceTests#should~Allow~Same~Pet~Name~For~Different~Owners_473fc74.exec": {
+    "bytes": 86816,
+    "sha256": "d56a0683c5fb4da51a21a0a2e58a9e173305e51d930d539a73402596af8a9c42"
+  },
+  "target/jacoco/session_ClinicServiceTests#should~Allow~Same~Pet~Name~For~Different~Owners_473fc74.identity": {
+    "bytes": 171,
+    "sha256": "f61224b3378de69ef6704d0686dea6cfe371df29902d17f1640e7324b90efe2d"
+  },
+  "target/jacoco/session_ClinicServiceTests#should~Fail~To~Insert~Duplicate~Pet~Name~For~Same~Owner_16cc8e2.exec": {
+    "bytes": 120012,
+    "sha256": "d7a797bd81c865cc6fe209a2243c21eafb968205961fda2a6cb01097a072dfe7"
+  },
+  "target/jacoco/session_ClinicServiceTests#should~Fail~To~Insert~Duplicate~Pet~Name~For~Same~Owner_16cc8e2.identity": {
+    "bytes": 177,
+    "sha256": "5ef51b1150153191d56ca48d8c22855f39bbd3d972b74993d2c810b1f99fc39f"
+  },
+  "target/jacoco/session_ClinicServiceTests#should~Find~All~Pet~Types_6a0a1a2.exec": {
+    "bytes": 59158,
+    "sha256": "08db3042568b5ec2e893c6496df6948d950e38ac5584453422217baaf9f64b72"
+  },
+  "target/jacoco/session_ClinicServiceTests#should~Find~All~Pet~Types_6a0a1a2.identity": {
+    "bytes": 152,
+    "sha256": "7dd74aa2c2d666a9af65bde6fe4d1616c597b40678f5f81cec148e7eae379d96"
+  },
+  "target/jacoco/session_ClinicServiceTests#should~Find~Owners~By~Last~Name_1d4e610.exec": {
+    "bytes": 98123,
+    "sha256": "7989dd8b30bb6ef77d36a0dc896c393ac65da60e60e892e81bc09e8146a0884c"
+  },
+  "target/jacoco/session_ClinicServiceTests#should~Find~Owners~By~Last~Name_1d4e610.identity": {
+    "bytes": 157,
+    "sha256": "e9edb978c3891a82c6dee793273f86b57f7c16d74916cbad9e4f4bff0197ca45"
+  },
+  "target/jacoco/session_ClinicServiceTests#should~Find~Single~Owner~With~Pet_5cf9b87.exec": {
+    "bytes": 62209,
+    "sha256": "d2eb2788f0a9740f5658658d073659fe518b008db841720c242538d01a1c459a"
+  },
+  "target/jacoco/session_ClinicServiceTests#should~Find~Single~Owner~With~Pet_5cf9b87.identity": {
+    "bytes": 159,
+    "sha256": "e9015c7c79b8bd37f64cc4f89c29d8150d8f144dcdf6084f2d86ce03693f5c75"
+  },
+  "target/jacoco/session_ClinicServiceTests#should~Find~Vets_64a35f7.exec": {
+    "bytes": 79537,
+    "sha256": "b6b62324bda659ae3d3a30d5c267c5175c5e7479b968ab6dca8355118acbecf0"
+  },
+  "target/jacoco/session_ClinicServiceTests#should~Find~Vets_64a35f7.identity": {
+    "bytes": 145,
+    "sha256": "fe7c7b0785cb829e46a2ac90d84ba65641c8dd93b81178105929b1a2955ce9d7"
+  },
+  "target/jacoco/session_ClinicServiceTests#should~Find~Visits~By~Pet~Id_4ae4bd6.exec": {
+    "bytes": 63265,
+    "sha256": "73ca839c2db23a6295326577d71fb0023ae9f4f938c519e1679a4af726705b58"
+  },
+  "target/jacoco/session_ClinicServiceTests#should~Find~Visits~By~Pet~Id_4ae4bd6.identity": {
+    "bytes": 154,
+    "sha256": "f5a69bc898460198a2ea8646262c2eec8225351434c0abfe1285c4ee9ee94e45"
+  },
+  "target/jacoco/session_ClinicServiceTests#should~Insert~Owner_61d9c0c.exec": {
+    "bytes": 80820,
+    "sha256": "a6dc9dccfd130605a8df98a1b2162a633f5e5eb7ca68a3c260c1a52ad9b7a51b"
+  },
+  "target/jacoco/session_ClinicServiceTests#should~Insert~Owner_61d9c0c.identity": {
+    "bytes": 148,
+    "sha256": "bedef52943f2913e7f205c2ecc9ed4039e790b6e0950af9056b4c19d7353d918"
+  },
+  "target/jacoco/session_ClinicServiceTests#should~Insert~Pet~Into~Database~And~Generate~Id_5d117ed.exec": {
+    "bytes": 87634,
+    "sha256": "1cbd0f2989a243cec7a145e43bb891138e15ae7fdde04c38a59b912a0daa4370"
+  },
+  "target/jacoco/session_ClinicServiceTests#should~Insert~Pet~Into~Database~And~Generate~Id_5d117ed.identity": {
+    "bytes": 171,
+    "sha256": "5db05004d3b63eb3928fd4a171b0e455d8c500fa7e4fb6e32351e73a85897835"
+  },
+  "target/jacoco/session_ClinicServiceTests#should~Update~Owner_272c58b.exec": {
+    "bytes": 63028,
+    "sha256": "41fc25cb2dd61268cb4c9a8cc01d1ee4d2776b7467a400ac968ea0643b2399c8"
+  },
+  "target/jacoco/session_ClinicServiceTests#should~Update~Owner_272c58b.identity": {
+    "bytes": 148,
+    "sha256": "a35575c90d0f39647a6b29bfa2e42de2caeb8d9e34a74f2a0b9a59df416d2fc1"
+  },
+  "target/jacoco/session_ClinicServiceTests#should~Update~Pet~Name_693ee84.exec": {
+    "bytes": 63450,
+    "sha256": "7c5ff6b5912c8317b6e2276377e554aa2ac97fc373e6ff9f1bce705eadcd684e"
+  },
+  "target/jacoco/session_ClinicServiceTests#should~Update~Pet~Name_693ee84.identity": {
+    "bytes": 150,
+    "sha256": "11ead780b95e256d4fdfebb6a3772829d8e8db1b02633cb4177e290d265616eb"
+  },
+  "target/jacoco/session_CrashControllerIntegrationTests#trigger~Exception~Html_7372274.exec": {
+    "bytes": 117551,
+    "sha256": "5fd7bb3df9ae53aaeeded7d614710b633d2996fc574ee300c5c32a548eb8b670"
+  },
+  "target/jacoco/session_CrashControllerIntegrationTests#trigger~Exception~Html_7372274.identity": {
+    "bytes": 163,
+    "sha256": "13e30d442cce2f60077981ffaa85f24bb874e97699df09409cbfb5143bed913a"
+  },
+  "target/jacoco/session_CrashControllerIntegrationTests#trigger~Exception~Json_76ceb13.exec": {
+    "bytes": 84362,
+    "sha256": "a96a1e5423af5d686d3f5273218b5da37bd9cbbd0e4f26ad048cca1be3ca9106"
+  },
+  "target/jacoco/session_CrashControllerIntegrationTests#trigger~Exception~Json_76ceb13.identity": {
+    "bytes": 163,
+    "sha256": "f2f0db002cb25b5aa3c0a05f39f90bd133e400a699b847255de3608b316e2fdb"
+  },
+  "target/jacoco/session_CrashControllerTests#trigger~Exception_47d8551.exec": {
+    "bytes": 9152,
+    "sha256": "0cc9034203d44eff07700b6a5de89d249160c0070451072b326ce99bcf047b36"
+  },
+  "target/jacoco/session_CrashControllerTests#trigger~Exception_47d8551.identity": {
+    "bytes": 148,
+    "sha256": "e028fcbf3f2dcfc622fe8f43036a2d05f091feb3249c986030e819965a18a574"
+  },
+  "target/jacoco/session_I18nPropertiesSyncTest#check~I18n~Property~Files~Are~In~Sync_6269d86.exec": {
+    "bytes": 7591,
+    "sha256": "8bbf0931d2fc6e055d5278c5b09e1d6a719d3576faef367911eada0ee499a584"
+  },
+  "target/jacoco/session_I18nPropertiesSyncTest#check~I18n~Property~Files~Are~In~Sync_6269d86.identity": {
+    "bytes": 165,
+    "sha256": "a5d53d56aaca367885c8c7705653664bdd73cc7860a0d47d3fd58fd0922056e2"
+  },
+  "target/jacoco/session_I18nPropertiesSyncTest#check~Non~Internationalized~Strings_4dbfabc.exec": {
+    "bytes": 7688,
+    "sha256": "e67353429a73c8d46f9ea69dd2ca329a216622a677563d6b9922704bbbc3e64c"
+  },
+  "target/jacoco/session_I18nPropertiesSyncTest#check~Non~Internationalized~Strings_4dbfabc.identity": {
+    "bytes": 166,
+    "sha256": "f6897b34ba181e75f09acdcb3d63003bcbd25c30e106f2c7647f7f8f5998365d"
+  },
+  "target/jacoco/session_OwnerControllerTests#init~Creation~Form_70c9cc9.exec": {
+    "bytes": 64354,
+    "sha256": "7a5a0e15a42dcae560fc0df5640b738f50aca0ff21f1306877cb71379886c2cb"
+  },
+  "target/jacoco/session_OwnerControllerTests#init~Creation~Form_70c9cc9.identity": {
+    "bytes": 147,
+    "sha256": "1d1376cfe67572b6034279659cd939c779ba09a88827168b54956f6aa41ba908"
+  },
+  "target/jacoco/session_OwnerControllerTests#init~Find~Form_6b2d497.exec": {
+    "bytes": 63210,
+    "sha256": "d818fc81ef044ea292d73d0eef25203fdb967147b2eff7be48bda0f5533ec71c"
+  },
+  "target/jacoco/session_OwnerControllerTests#init~Find~Form_6b2d497.identity": {
+    "bytes": 143,
+    "sha256": "7868d18ab7f276f87d4251484b6d9db4387689d95afed7d1880a50e54cef5c17"
+  },
+  "target/jacoco/session_OwnerControllerTests#init~Update~Owner~Form_1325c3d.exec": {
+    "bytes": 66180,
+    "sha256": "d76460bff2a853045bdb82d8e996a7670255c235641fe455895ccf76cef85d6a"
+  },
+  "target/jacoco/session_OwnerControllerTests#init~Update~Owner~Form_1325c3d.identity": {
+    "bytes": 150,
+    "sha256": "45498e7d88b6aae46277955381c892c512ce9ac568c04194b3016b7d6b40df85"
+  },
+  "target/jacoco/session_OwnerControllerTests#process~Creation~Form~Has~Errors_5efb891.exec": {
+    "bytes": 72346,
+    "sha256": "d793a4ea3823de9df65d54d179b37dfe77e30c326e7f9ccf9c4d7dc937973108"
+  },
+  "target/jacoco/session_OwnerControllerTests#process~Creation~Form~Has~Errors_5efb891.identity": {
+    "bytes": 159,
+    "sha256": "89c8af669dca7be916e9d358a71052bb0f31bb2db77f4b04ffbbe1355084e543"
+  },
+  "target/jacoco/session_OwnerControllerTests#process~Creation~Form~Success_1fb8cf3.exec": {
+    "bytes": 57282,
+    "sha256": "6f55a4739bcf51223dd65c8ec1fee8ed0af065c739a6b097c3e1ee8454f9cb92"
+  },
+  "target/jacoco/session_OwnerControllerTests#process~Creation~Form~Success_1fb8cf3.identity": {
+    "bytes": 157,
+    "sha256": "cc3fb0c2d47c727c9b14fa04ab5318a8f6f1c119d182b9913d7413675337a39e"
+  },
+  "target/jacoco/session_OwnerControllerTests#process~Find~Form~By~Last~Name_5613ef0.exec": {
+    "bytes": 50477,
+    "sha256": "514f61299873cce0890a0bd06fb098c7f8e32c67eb09844d243a49e90150dc48"
+  },
+  "target/jacoco/session_OwnerControllerTests#process~Find~Form~By~Last~Name_5613ef0.identity": {
+    "bytes": 156,
+    "sha256": "28fb82c1cf186d0c6c942f46bf115439c8f31bdaddaeb2f29abaf84c5842dd72"
+  },
+  "target/jacoco/session_OwnerControllerTests#process~Find~Form~Ignores~Surrounding~Whitespace_2056262.exec": {
+    "bytes": 52028,
+    "sha256": "20465e725b232ec2dc3884d5e9cf03f85e7a72218b42fb30d2380cc287bad969"
+  },
+  "target/jacoco/session_OwnerControllerTests#process~Find~Form~Ignores~Surrounding~Whitespace_2056262.identity": {
+    "bytes": 174,
+    "sha256": "cda120feff03751009a755aca6701c04146873df30d56b40ca39edcb82371807"
+  },
+  "target/jacoco/session_OwnerControllerTests#process~Find~Form~No~Owners~Found_4729fe9.exec": {
+    "bytes": 77754,
+    "sha256": "eccdcf33f1f756f8d743309702720af35b09132b1be8d216b69ece4aaf384a41"
+  },
+  "target/jacoco/session_OwnerControllerTests#process~Find~Form~No~Owners~Found_4729fe9.identity": {
+    "bytes": 159,
+    "sha256": "23e6674a4d22a5d52f852fe25fd826a6b083ef9fa324b28c46bc6fe5f9f9fe7d"
+  },
+  "target/jacoco/session_OwnerControllerTests#process~Find~Form~Success_746dd49.exec": {
+    "bytes": 65953,
+    "sha256": "109d7c4d5960a0d9b86dc82e0fd63cb3c9c3860a52b6a6a05403392972bc1d2a"
+  },
+  "target/jacoco/session_OwnerControllerTests#process~Find~Form~Success_746dd49.identity": {
+    "bytes": 153,
+    "sha256": "3f0a79ec788703cd04582dc63e70d87c86c7e030b28b5ace4292438a87e9f1ed"
+  },
+  "target/jacoco/session_OwnerControllerTests#process~Find~Form~With~Whitespace~Only~Last~Name~Returns~All~Owners_47f62a9.exec": {
+    "bytes": 81920,
+    "sha256": "908d6a3663b349c28f1b081b1bb89905faaa68d965e6417c21a5306af15d2259"
+  },
+  "target/jacoco/session_OwnerControllerTests#process~Find~Form~With~Whitespace~Only~Last~Name~Returns~All~Owners_47f62a9.identity": {
+    "bytes": 188,
+    "sha256": "5c10cc6183979ebd091b26545cdf9bbf6aeae1d43570b5218ed2237ef09a72a4"
+  },
+  "target/jacoco/session_OwnerControllerTests#process~Update~Owner~Form~Has~Errors_6d40bec.exec": {
+    "bytes": 86660,
+    "sha256": "737a4860eabb76185b351d05908f0b42e1e8d3ab97198bc1442aedf304c477f8"
+  },
+  "target/jacoco/session_OwnerControllerTests#process~Update~Owner~Form~Has~Errors_6d40bec.identity": {
+    "bytes": 162,
+    "sha256": "86a5fe802614db1bcafee2e463c49b3a5bd6635ab7004a7aabbec909c1f4e50d"
+  },
+  "target/jacoco/session_OwnerControllerTests#process~Update~Owner~Form~Success_b398c22.exec": {
+    "bytes": 55175,
+    "sha256": "350da492a6478485df9d3162008502ec07156a4ed264a48cab109edf3e0bf7c5"
+  },
+  "target/jacoco/session_OwnerControllerTests#process~Update~Owner~Form~Success_b398c22.identity": {
+    "bytes": 160,
+    "sha256": "e216cdc9fdf052b07c06c83c621206fbcfed6ee2ae1e0332e52d4d66f312f8a7"
+  },
+  "target/jacoco/session_OwnerControllerTests#process~Update~Owner~Form~Unchanged~Success_2135d26.exec": {
+    "bytes": 71961,
+    "sha256": "20512f7a82e24ded59c2898a2ca90ab0963b55a9390f7429c2ad2ded6fd97436"
+  },
+  "target/jacoco/session_OwnerControllerTests#process~Update~Owner~Form~Unchanged~Success_2135d26.identity": {
+    "bytes": 169,
+    "sha256": "28b31cc84ab2609b964364d5f9975de79e44b0acc082219e1a5cc8fc57443a8d"
+  },
+  "target/jacoco/session_OwnerControllerTests#process~Update~Owner~Form~With~Id~Mismatch_63b3912.exec": {
+    "bytes": 56640,
+    "sha256": "ab9778ef6fc91adfdf86e2fe4fc6b5cc1995b316a57d92d2693954198d44a1ce"
+  },
+  "target/jacoco/session_OwnerControllerTests#process~Update~Owner~Form~With~Id~Mismatch_63b3912.identity": {
+    "bytes": 167,
+    "sha256": "7676db80dc7196f4a8406b6319b1f9c64323a05c1626f3f3426946bc5a3a670b"
+  },
+  "target/jacoco/session_OwnerControllerTests#show~Owner_23b847b.exec": {
+    "bytes": 85110,
+    "sha256": "755ce87e6ac4a863081f14b6bda3dfe64d4540d04623e40132700aa53b1a0162"
+  },
+  "target/jacoco/session_OwnerControllerTests#show~Owner_23b847b.identity": {
+    "bytes": 140,
+    "sha256": "64dd5b798ae2a39512ea5944d74f4837a7e19741111af1709f07d0f2262891e9"
+  },
+  "target/jacoco/session_PetClinicConcurrencyTests#test~Duplicate~Pet~Name~Race~Condition~Is~Blocked_1586fc2.exec": {
+    "bytes": 296537,
+    "sha256": "7e3ef781b07011d6729ec9d4fa2308720424f9bc4756dcfa6e13fc999f4830e7"
+  },
+  "target/jacoco/session_PetClinicConcurrencyTests#test~Duplicate~Pet~Name~Race~Condition~Is~Blocked_1586fc2.identity": {
+    "bytes": 172,
+    "sha256": "849c556c1e307cb9c2fe34338cab512037778ea5ceccec1255586554e1021258"
+  },
+  "target/jacoco/session_PetClinicIntegrationTests#find~All_1410e00.exec": {
+    "bytes": 87996,
+    "sha256": "e7eb712d7b8605e495c37b8c8132307e134bfa646bcc28289c4d9498c0b9e85e"
+  },
+  "target/jacoco/session_PetClinicIntegrationTests#find~All_1410e00.identity": {
+    "bytes": 137,
+    "sha256": "0edee190eb2ed971327a0f0a02c9553642a22d024e0b034e9fc3a3306aeca076"
+  },
+  "target/jacoco/session_PetClinicIntegrationTests#owner~Details_2a60b03.exec": {
+    "bytes": 151385,
+    "sha256": "dde6d106e3ca6175491bba1f948bc76a2a7f40944f4aca26310d2869a8403598"
+  },
+  "target/jacoco/session_PetClinicIntegrationTests#owner~Details_2a60b03.identity": {
+    "bytes": 142,
+    "sha256": "87ddb1b91c4b8658ad70e10aaa8b20b5b86ed3e2b92ef617c34e9102f7842255"
+  },
+  "target/jacoco/session_PetClinicIntegrationTests#owner~List_3cb7d31.exec": {
+    "bytes": 206834,
+    "sha256": "c65e10087c9abe5c369ca9105877f8eeda079aa95198827500f0b72203814715"
+  },
+  "target/jacoco/session_PetClinicIntegrationTests#owner~List_3cb7d31.identity": {
+    "bytes": 139,
+    "sha256": "6dd2df76f62424ae73d15ed7828eb62dc4c50c43c9e3f99992b93950615534de"
+  },
+  "target/jacoco/session_PetControllerTests#init~Creation~Form_6e50248.exec": {
+    "bytes": 89075,
+    "sha256": "91ccce9c8da3fa41d6784f6ce22731370a6ded271ca52591707dcab0130277f0"
+  },
+  "target/jacoco/session_PetControllerTests#init~Creation~Form_6e50248.identity": {
+    "bytes": 145,
+    "sha256": "ef4e77478c43f5c25190962fa2dcdeec077549fe7d1577ae74a43506f869f97a"
+  },
+  "target/jacoco/session_PetControllerTests#process~Creation~Form~Success_6953302.exec": {
+    "bytes": 50972,
+    "sha256": "9c45364bdde32f03315dda9552523ce1178b1dbcb52098f2b9a2712fddb21053"
+  },
+  "target/jacoco/session_PetControllerTests#process~Creation~Form~Success_6953302.identity": {
+    "bytes": 155,
+    "sha256": "71f4035e69cd52928f131377c04ae42acfcc0b8e0a905b4dc3e6463fbcc56d49"
+  },
+  "target/jacoco/session_PetControllerTests#process~Update~Form~Success_71b0a77.exec": {
+    "bytes": 58067,
+    "sha256": "4787b9bd53b6ad7a123d12e4310c2ec9644aa8bbc0d6422e7ba85c557070f219"
+  },
+  "target/jacoco/session_PetControllerTests#process~Update~Form~Success_71b0a77.identity": {
+    "bytes": 153,
+    "sha256": "a38b1aea342b345150a6ff88cfae1086bc06c46c524c8ad592b953e59aef43ba"
+  },
+  "target/jacoco/session_PetControllerTests#process~Update~Form~With~Same~Name_282acbe.exec": {
+    "bytes": 48643,
+    "sha256": "09f9027938a0c8a2d83e206a1413065102637c0230f9aa656f043e0bd1442332"
+  },
+  "target/jacoco/session_PetControllerTests#process~Update~Form~With~Same~Name_282acbe.identity": {
+    "bytes": 158,
+    "sha256": "2137114e4f33abfab3851b0d8e990a4c2fbe7b7f090248ad943cdc2e3d082909"
+  },
+  "target/jacoco/session_PetTypeFormatterTests#should~Parse_60cfa3c.exec": {
+    "bytes": 18076,
+    "sha256": "0332b32cd53347afe9f5275f3fb2af53ba8f86ab3cc28c735825fb9293f9babc"
+  },
+  "target/jacoco/session_PetTypeFormatterTests#should~Parse_60cfa3c.identity": {
+    "bytes": 143,
+    "sha256": "c8a44723fabba53839d0b7ae6f954c5dcdfe3bf36275c24e352774e34cd566f5"
+  },
+  "target/jacoco/session_PetTypeFormatterTests#should~Throw~Parse~Exception_15c75ba.exec": {
+    "bytes": 17280,
+    "sha256": "0ab38c48d02378da1557ec41d312a823e70ab1d938ba9d61814bb5a56c7b851e"
+  },
+  "target/jacoco/session_PetTypeFormatterTests#should~Throw~Parse~Exception_15c75ba.identity": {
+    "bytes": 157,
+    "sha256": "d82ac6783c00eaaa26581968f694c5fdcf08b762ba1d76fd439933a9f8f146a7"
+  },
+  "target/jacoco/session_PetTypeFormatterTests#test~Print_4eaac13.exec": {
+    "bytes": 15121,
+    "sha256": "910f9fb2c3c35b2b6aaddcac0b5cce70ab31d64e0c731ccb617aea21f745b424"
+  },
+  "target/jacoco/session_PetTypeFormatterTests#test~Print_4eaac13.identity": {
+    "bytes": 141,
+    "sha256": "7f3b03752527bc1f8e7b0c418eeac160a9363d5875c3415ecb57f9f3520e1c36"
+  },
+  "target/jacoco/session_PetValidatorTests#does~Not~Support~Non~Pet~Class_738c8a0.exec": {
+    "bytes": 12543,
+    "sha256": "49a83f8c4126a8fcf743ee8ee3b6a5bd63fe543b383ce44676cc403b89879e24"
+  },
+  "target/jacoco/session_PetValidatorTests#does~Not~Support~Non~Pet~Class_738c8a0.identity": {
+    "bytes": 153,
+    "sha256": "8a6847a33dda1de4d3dfa261e740ef4f4c1d890a3cafaaa1550c100591edc788"
+  },
+  "target/jacoco/session_PetValidatorTests#supports~Pet~Class_5deb7f8.exec": {
+    "bytes": 12637,
+    "sha256": "ab1483db29b13af53d21caf9b19f5f35652354971c3bac2208ef705ac5b09a47"
+  },
+  "target/jacoco/session_PetValidatorTests#supports~Pet~Class_5deb7f8.identity": {
+    "bytes": 144,
+    "sha256": "b6e478e43d8ddee95742524f4e760d5d625e44e9a15f1fa656b063726c03d863"
+  },
+  "target/jacoco/session_PetValidatorTests#validate_28697b1.exec": {
+    "bytes": 12728,
+    "sha256": "7cb3c7fd4b060650f72d65d41979202c9d5a3caebf8cbae8a19d4417b04c36b9"
+  },
+  "target/jacoco/session_PetValidatorTests#validate_28697b1.identity": {
+    "bytes": 136,
+    "sha256": "6f6453801812334acbbaf178d41ef7c33b4b0d48e28e7ed29cd01eb172676b4c"
+  },
+  "target/jacoco/session_ProcessCreationFormHasErrors#init~Update~Form_4dd8f57.exec": {
+    "bytes": 69385,
+    "sha256": "f15ede1617eef24ab4361f033ec51f527203d076413030369833e62cd17b76bc"
+  },
+  "target/jacoco/session_ProcessCreationFormHasErrors#init~Update~Form_4dd8f57.identity": {
+    "bytes": 172,
+    "sha256": "94c76c47b37e392599acd727b66ba7a64213946cf60af9d64e964e28538251f0"
+  },
+  "target/jacoco/session_ProcessCreationFormHasErrors#process~Creation~Form~With~Blank~Name_2eb4d54.exec": {
+    "bytes": 69044,
+    "sha256": "7afadd6c6fe0ceb1d56515625587a3114a4a0ec2b5730371e2b8d3e2144f90ef"
+  },
+  "target/jacoco/session_ProcessCreationFormHasErrors#process~Creation~Form~With~Blank~Name_2eb4d54.identity": {
+    "bytes": 190,
+    "sha256": "e9a69bfb486c66c97cb107165a50a37bc6d8ef1d818f7285d87891ae78f0cd00"
+  },
+  "target/jacoco/session_ProcessCreationFormHasErrors#process~Creation~Form~With~Data~Integrity~Violation_1d6c511.exec": {
+    "bytes": 70039,
+    "sha256": "01ed8a5916ce0694abb9be0a212b948aaf85936af83ff31bf0d6e666b88fcec8"
+  },
+  "target/jacoco/session_ProcessCreationFormHasErrors#process~Creation~Form~With~Data~Integrity~Violation_1d6c511.identity": {
+    "bytes": 203,
+    "sha256": "74d753639ab0f809bbe17ac1921e86235235b7320dcb79ee795a013a1eaa855a"
+  },
+  "target/jacoco/session_ProcessCreationFormHasErrors#process~Creation~Form~With~Duplicate~Name_7c8b67b.exec": {
+    "bytes": 69121,
+    "sha256": "ffa9d92529ce17b950e8d68c3df2d4bad5a4a4045ad0cac4d533bfd00c868e49"
+  },
+  "target/jacoco/session_ProcessCreationFormHasErrors#process~Creation~Form~With~Duplicate~Name_7c8b67b.identity": {
+    "bytes": 194,
+    "sha256": "6136ddf1a035767db4edb2f89fda9ff7a827fdfdadc06271b907d58f3dd5cbdc"
+  },
+  "target/jacoco/session_ProcessCreationFormHasErrors#process~Creation~Form~With~Invalid~Birth~Date_53f9054.exec": {
+    "bytes": 68977,
+    "sha256": "c533de3ebc32aa1f14b13ad66d4c01bb962619f766a4a21af0d32bfb22330b83"
+  },
+  "target/jacoco/session_ProcessCreationFormHasErrors#process~Creation~Form~With~Invalid~Birth~Date_53f9054.identity": {
+    "bytes": 197,
+    "sha256": "0656b0fe5878aeb53bb4a80f6b7a5676d02a50c3dc26b5d28d82175833753930"
+  },
+  "target/jacoco/session_ProcessCreationFormHasErrors#process~Creation~Form~With~Missing~Pet~Type_2816fec.exec": {
+    "bytes": 70103,
+    "sha256": "a220b7133ddd3b6dee01cc515b1b0f4a68eacc3230af900856004512d7691389"
+  },
+  "target/jacoco/session_ProcessCreationFormHasErrors#process~Creation~Form~With~Missing~Pet~Type_2816fec.identity": {
+    "bytes": 195,
+    "sha256": "b31182e5ee3b62901e022ba0d3cf09c2a20501c2c9ee4e3aebc7115e23598142"
+  },
+  "target/jacoco/session_ProcessUpdateFormHasErrors#process~Update~Form~With~Blank~Name_5e72388.exec": {
+    "bytes": 69034,
+    "sha256": "ec1a94e953b49d5240c58e828d07b61c51542a4844b63e6cb67484986e29d27c"
+  },
+  "target/jacoco/session_ProcessUpdateFormHasErrors#process~Update~Form~With~Blank~Name_5e72388.identity": {
+    "bytes": 186,
+    "sha256": "db8f4929dc57e3a31257efa96c5c778aba217618add282726cd3e95a00151882"
+  },
+  "target/jacoco/session_ProcessUpdateFormHasErrors#process~Update~Form~With~Data~Integrity~Violation_125b2ad.exec": {
+    "bytes": 69692,
+    "sha256": "c04df5c457177fae5e20f4a1ddd7017e6d1ca9741b83fcc22feb04e4c8e683f8"
+  },
+  "target/jacoco/session_ProcessUpdateFormHasErrors#process~Update~Form~With~Data~Integrity~Violation_125b2ad.identity": {
+    "bytes": 199,
+    "sha256": "601a538dac1c19d83fba52bcfb153e7a6192e8b89f00a75b62e09303ba5d0cfc"
+  },
+  "target/jacoco/session_ProcessUpdateFormHasErrors#process~Update~Form~With~Duplicate~Name_396c95f.exec": {
+    "bytes": 70104,
+    "sha256": "84155d77a6e26efcd8f33e05a945d7f96f56857a4ad0ad33db7f2d01ee605787"
+  },
+  "target/jacoco/session_ProcessUpdateFormHasErrors#process~Update~Form~With~Duplicate~Name_396c95f.identity": {
+    "bytes": 190,
+    "sha256": "76488cb1a115d625520709288ec488d62f8f4384204bbd1a22736e47e450b7f3"
+  },
+  "target/jacoco/session_ProcessUpdateFormHasErrors#process~Update~Form~With~Invalid~Birth~Date_747e2f0.exec": {
+    "bytes": 71353,
+    "sha256": "6ee0da8c71928c2ea7f143359a6ec12c462fe0502b68e5a6259de26ae7f6d0ed"
+  },
+  "target/jacoco/session_ProcessUpdateFormHasErrors#process~Update~Form~With~Invalid~Birth~Date_747e2f0.identity": {
+    "bytes": 193,
+    "sha256": "b015748227bf0b2321dbe1f88e452f35514c3ab02996b824100ffa088959e01e"
+  },
+  "target/jacoco/session_ValidateHasErrors#validate~With~Invalid~Birth~Date_78f3cba.exec": {
+    "bytes": 13220,
+    "sha256": "60ab1a5f6af0bb0d5ef216f726afecbfab288f8916c0d6bd4782cef63bcf6519"
+  },
+  "target/jacoco/session_ValidateHasErrors#validate~With~Invalid~Birth~Date_78f3cba.identity": {
+    "bytes": 174,
+    "sha256": "366012003262af94eb7e92abb3d003b174939745b20a11c608dc6a7e1b3aa02f"
+  },
+  "target/jacoco/session_ValidateHasErrors#validate~With~Invalid~Pet~Name_62871ae.exec": {
+    "bytes": 13218,
+    "sha256": "ce505868bb16b51340276b3ad7ba96ee28380aad9e0547186c13d72ee3ce9f4d"
+  },
+  "target/jacoco/session_ValidateHasErrors#validate~With~Invalid~Pet~Name_62871ae.identity": {
+    "bytes": 172,
+    "sha256": "284f1334dcaf59db06845c1547d834dcbd3d387fcb507f6118bd13e04e530154"
+  },
+  "target/jacoco/session_ValidateHasErrors#validate~With~Invalid~Pet~Type_6e17bfd.exec": {
+    "bytes": 13218,
+    "sha256": "1a65fea336be37e3969b117f8c5f4bdff9273838f4792cf491c4207cee146dac"
+  },
+  "target/jacoco/session_ValidateHasErrors#validate~With~Invalid~Pet~Type_6e17bfd.identity": {
+    "bytes": 172,
+    "sha256": "d053b43688029a4181234e972cea5c04d18bdc4a1a32d59f1cfcf24a7764d2a3"
+  },
+  "target/jacoco/session_ValidatorTests#should~Not~Validate~When~First~Name~Empty_12b3ba8.exec": {
+    "bytes": 28927,
+    "sha256": "d649336cc76a81b6be1a4d4a2046557067c764c50a4d01eb432867d0bc87c8c9"
+  },
+  "target/jacoco/session_ValidatorTests#should~Not~Validate~When~First~Name~Empty_12b3ba8.identity": {
+    "bytes": 160,
+    "sha256": "fc420ff1609023efaf980d93b6c4484725d1f6382cd8518415cf5573a82ccced"
+  },
+  "target/jacoco/session_ValidatorTests#should~Not~Validate~When~Last~Name~Empty_6e9a99b.exec": {
+    "bytes": 30084,
+    "sha256": "dbd17f76248a13783831bda64f35aa6cf7dfe612b77c834e141ed6a886a29425"
+  },
+  "target/jacoco/session_ValidatorTests#should~Not~Validate~When~Last~Name~Empty_6e9a99b.identity": {
+    "bytes": 159,
+    "sha256": "166c5f13fd1cdf0bc76afbec4979e419d84f5210efa5747aa88a43c337c2dbd1"
+  },
+  "target/jacoco/session_VetControllerTests#show~Resources~Vet~List_2495c66.exec": {
+    "bytes": 66347,
+    "sha256": "c1f7a89cc7c52984fb430d4c28b60a6d1f45fced34ab3bcc10407a32203314d3"
+  },
+  "target/jacoco/session_VetControllerTests#show~Resources~Vet~List_2495c66.identity": {
+    "bytes": 147,
+    "sha256": "efe4b92f54a2a131a56b10c601786f34997c0f900415eff5a59597f9656adc57"
+  },
+  "target/jacoco/session_VetControllerTests#show~Vet~List~Html_1dfd764.exec": {
+    "bytes": 84575,
+    "sha256": "b633b0eaf2ebab07ca01a6c74ab96f1e190bd932fe5b4f3946ea1709d65043f6"
+  },
+  "target/jacoco/session_VetControllerTests#show~Vet~List~Html_1dfd764.identity": {
+    "bytes": 142,
+    "sha256": "261e025dbce38c944fd3d069aa91d0f685cf2e8aabf3043df36eea0f89008fb2"
+  },
+  "target/jacoco/session_VetTests#serialization_722a2c6.exec": {
+    "bytes": 9315,
+    "sha256": "8953b4a0c6b937e1d4b40dd46532ffdfe320c4bf83ede8c4d0f7595beec55bd4"
+  },
+  "target/jacoco/session_VetTests#serialization_722a2c6.identity": {
+    "bytes": 130,
+    "sha256": "00fef50c71412e0543d8fa4b4a42fa82e716b6518b95186df0fefc2c53b7c21a"
+  },
+  "target/jacoco/session_VisitControllerTests#init~New~Visit~Form_746e98d.exec": {
+    "bytes": 66881,
+    "sha256": "97e90605254aa2082e5a5cb9f30da6c88adad40c549d367beca175564e6b96b0"
+  },
+  "target/jacoco/session_VisitControllerTests#init~New~Visit~Form_746e98d.identity": {
+    "bytes": 147,
+    "sha256": "83634b8da025334b92a2c74daa43f3fe530fef1800f3f4b19684741ef251edd6"
+  },
+  "target/jacoco/session_VisitControllerTests#process~New~Visit~Form~Has~Errors_5745e38.exec": {
+    "bytes": 107352,
+    "sha256": "9f3081a0a96d921fd4ab7e2fb64ec7b9f87ab8f9a37cfe8ceed6e83eff6147e1"
+  },
+  "target/jacoco/session_VisitControllerTests#process~New~Visit~Form~Has~Errors_5745e38.identity": {
+    "bytes": 159,
+    "sha256": "00f7b2b60451548abe748d4fdd221555548a4f50681077c0159102056ecf3ca4"
+  },
+  "target/jacoco/session_VisitControllerTests#process~New~Visit~Form~Has~Errors~When~Visit~Date~Is~Not~In~Future_46c1711.exec": {
+    "bytes": 73666,
+    "sha256": "58810f8349e8eb85130a678a8fc1a834d914455d4754d1f885ba14dd1ec87a76"
+  },
+  "target/jacoco/session_VisitControllerTests#process~New~Visit~Form~Has~Errors~When~Visit~Date~Is~Not~In~Future_46c1711.identity": {
+    "bytes": 185,
+    "sha256": "75a968fb28bc873aa66c25f4de444adbf22d50adabd8f4bb833efbaee97c0e49"
+  },
+  "target/jacoco/session_VisitControllerTests#process~New~Visit~Form~Success_2d6ed4a.exec": {
+    "bytes": 57687,
+    "sha256": "d9c9149cacf6cffecfb0d61d83e80f84429f0a300d67d6e08c1bc9e649c95608"
+  },
+  "target/jacoco/session_VisitControllerTests#process~New~Visit~Form~Success_2d6ed4a.identity": {
+    "bytes": 157,
+    "sha256": "f9e25e5036bc4a6d37c03fdb21f03b289f54a8a57052ed719bc816ee3f37072b"
+  },
+  "target/jacoco/session_WelcomeControllerTests#welcome_6784fd0.exec": {
+    "bytes": 72762,
+    "sha256": "9aa82946e3014c32c1fab7f2cb2b47fbdade5fdecb463dd4b1ec5002d8f6b5f0"
+  },
+  "target/jacoco/session_WelcomeControllerTests#welcome_6784fd0.identity": {
+    "bytes": 141,
+    "sha256": "378750c9d6c3046a6e7e443b666b648a815dcde982f36b9c6f408bc73fd0e6ea"
+  },
+  "target/jacoco/session_setup_17e2eb23.exec": {
+    "bytes": 39744,
+    "sha256": "fd89dcdaa2a411a66b43e86cc46143a905dc9f3c01a20b0f4cb94957969eb0c0"
+  },
+  "target/jacoco/session_setup_24a279b9.exec": {
+    "bytes": 38592,
+    "sha256": "b570c79a2f53c4e577acb853e7e214e7e020c6ce67ba3964f154742978d5aef9"
+  },
+  "target/jacoco/session_setup_29710cc2.exec": {
+    "bytes": 7704,
+    "sha256": "cb0e391065bde6e13bea7b180f6985ec8b0fb4f584ef34d3603704eeeec4e1bb"
+  },
+  "target/jacoco/session_setup_2db1804b.exec": {
+    "bytes": 8244,
+    "sha256": "76b02b3b608ebcde634db07c82eb5c8b0d9f5cc9326ce1da9f47f13d5e2477b4"
+  },
+  "target/jacoco/session_setup_31fbcca.exec": {
+    "bytes": 7613,
+    "sha256": "870714a8c9965180a0fafa86311e256e4c6e72480b5af099af0b66abf13a20a2"
+  },
+  "target/jacoco/session_setup_386539e0.exec": {
+    "bytes": 7696,
+    "sha256": "f1ce8e4360bd2f48b7a843c2f3d9fa12e572f0b1ecae5eb99907471b3c3c8210"
+  },
+  "target/jacoco/session_setup_3e91bd5c.exec": {
+    "bytes": 216534,
+    "sha256": "8e54109079354fbcdf966bc5b1a45ef3f2214c2497a8c13ebe3c4ed79b3efba5"
+  },
+  "target/jacoco/session_setup_41ff02c0.exec": {
+    "bytes": 305900,
+    "sha256": "a40acc7fb56a0841c7f037970de93442168115fb0e3b208ed46bf55f8908ef0a"
+  },
+  "target/jacoco/session_setup_46b3a0e8.exec": {
+    "bytes": 175714,
+    "sha256": "57de86a9b9636b36ac9f2580a3b94f1d1cdd4c84446a8600846aa516fa18ba4b"
+  },
+  "target/jacoco/session_setup_53f37e80.exec": {
+    "bytes": 235091,
+    "sha256": "d72d12652977f539a19208a0c5a7e9fbacfbd368f8ea365b7b9278053ce842cf"
+  },
+  "target/jacoco/session_setup_5e0bb614.exec": {
+    "bytes": 218869,
+    "sha256": "02f6e05b9a8f346e68533afbdddb964e4745fa4aa0ca26f282f3f1644d78e84a"
+  },
+  "target/jacoco/session_setup_5f5ec36a.exec": {
+    "bytes": 7558,
+    "sha256": "0eb75b2701ff46d080833ae0e5f8e67a35d5a57aaa9fca2ee44a78f04adfb269"
+  },
+  "target/jacoco/session_setup_62e74858.exec": {
+    "bytes": 7511,
+    "sha256": "ded9d5f14c4e06eb99b5df36648c3c9d9672bf49ee60d88bc6b23577c2fa86d8"
+  },
+  "target/jacoco/session_setup_670e1382.exec": {
+    "bytes": 539171,
+    "sha256": "0799d96e80482531f4d5c5bb46ca05ef358a945ee34c3d88ae4d9e9689606efc"
+  },
+  "target/jacoco/session_setup_67c5bf07.exec": {
+    "bytes": 7528,
+    "sha256": "516853a4f3cbabbd0fdbefd424f4bb316b8d6f279940d58e32751a5287d733cb"
+  },
+  "target/jacoco/session_setup_6ae12de1.exec": {
+    "bytes": 424290,
+    "sha256": "d3aa641d3d2b8491aa76bab77d5734e10e6a52d816574b545d83d6fd5f41c415"
+  },
+  "target/jacoco/session_setup_6cf6a64.exec": {
+    "bytes": 235275,
+    "sha256": "7df12a96bdd36c6919efe913381c35d30d05ac07c147613ef666cb73aa128353"
+  },
+  "target/jacoco/session_setup_7a1304af.exec": {
+    "bytes": 173793,
+    "sha256": "dbd57b64c39b1a64aa458a71da262717c146943b81339303b26a7e3b81508824"
+  },
+  "target/stp/coverage-fragment-v3.json": {
+    "bytes": 178189,
+    "sha256": "9e83e8cd7edca8857f737823f4efd623b36f5c18cd96b65ea636d3ea5df9ea53"
+  },
+  "target/stp/execution-evidence-v2.json": {
+    "bytes": 7906,
+    "sha256": "629fe7166cc8e88bb1736450805f2fe55420fa9c0fc2a2beaa31c19ad4392338"
+  },
+  "target/stp/selected-tests-failsafe-v3.txt": {
+    "bytes": 35,
+    "sha256": "a9c12c7d93688057ad0fd25c1bcd73e176e25204eb55ac7c9bf37ee90ee5b145"
+  },
+  "target/stp/selected-tests-surefire-v3.txt": {
+    "bytes": 6629,
+    "sha256": "f56492eb14db5738e1e74025c25682475b264efb9916f1d25085d38193deb43d"
+  },
+  "target/stp/suppress-all-failsafe-v3.txt": {
+    "bytes": 5,
+    "sha256": "29daadc43ea6e3b8bd5f6260b46f217c02bca2a890e448275f089e3faceb6a59"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/MySqlIntegrationTests.class": {
+    "bytes": 4176,
+    "sha256": "419f4c2f9bbf02c6cac1297282bd2ddb80b41c0590744fd5f1b7c98402d3079e"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/MysqlTestApplication.class": {
+    "bytes": 1546,
+    "sha256": "43e4aec52b41ff3844b4277a49cc877c06b2c75ddcbdf8fb3681bc61f56d6c4a"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/PetClinicConcurrencyTests.class": {
+    "bytes": 9673,
+    "sha256": "281a6d2a4e6bcf9e45c222d690e9c6e2a5422ef17ec9ad576d383dcf16615974"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/PetClinicIntegrationTests.class": {
+    "bytes": 4064,
+    "sha256": "960067c1742a75132e425af8276f1f2295c2ca1deada1de98bf6b958ba382bce"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/PostgresIntegrationTests$PropertiesLogger.class": {
+    "bytes": 5143,
+    "sha256": "18c377417d9dc3c3a1b7b99869c63ba380790c1c959ccc711705abc2503ac5ef"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/PostgresIntegrationTests.class": {
+    "bytes": 5086,
+    "sha256": "605fe2db78bd159b7ff8e2b29b629166c2f379bcab253a92a93e0adb69e6cd26"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/model/ValidatorTests.class": {
+    "bytes": 3668,
+    "sha256": "6af2be23616816eef081a963926e0029c05facee1047a8b61482e815ba50486a"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/owner/OwnerControllerTests.class": {
+    "bytes": 13162,
+    "sha256": "76a7cee884d12618cbd0eccbd5d3c3df0c849992d73171068d0955b9db2fd13e"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/owner/PetControllerTests$ProcessCreationFormHasErrors.class": {
+    "bytes": 6283,
+    "sha256": "170ae965f2fa4e88f166d43b40b473f361a3addcf3b4ff840554f875b6d3d130"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/owner/PetControllerTests$ProcessUpdateFormHasErrors.class": {
+    "bytes": 5440,
+    "sha256": "160456ddd7462cbd526f9570b11f23e75398fa71c55083a8e585154a1cabb6f8"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/owner/PetControllerTests.class": {
+    "bytes": 6319,
+    "sha256": "7f95099e55d9612c7b91f595e55250c1dd6a4654c07ade1d286b2f7d7d7c5c51"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/owner/PetTypeFormatterTests$1.class": {
+    "bytes": 887,
+    "sha256": "5f006e6c38203223328c7e95899f48b92fbddfd37ca9c275892a508b9ca28127"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/owner/PetTypeFormatterTests$2.class": {
+    "bytes": 888,
+    "sha256": "71bd55c23145f4a6f51e09f0e653b682fd8304d536359fb216cd175d3ebbeab1"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/owner/PetTypeFormatterTests.class": {
+    "bytes": 4347,
+    "sha256": "32efd0e7cae8faa11956147e2ae363231d0e243bfd9d98da49b68fa593a074cf"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/owner/PetValidatorTests$ValidateHasErrors.class": {
+    "bytes": 2476,
+    "sha256": "672cfda87106f49b561d7cdc5c9c1e05a4955a016e33b13b632b14f81217699e"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/owner/PetValidatorTests.class": {
+    "bytes": 2762,
+    "sha256": "ca30b5ae97fc10bf22bb20bf5e1e1d6ef0eb8583c7b12a9230ddee998bfa9603"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/owner/VisitControllerTests.class": {
+    "bytes": 5539,
+    "sha256": "f44ff49d6db29fe662aa99d721c98cf76f6e3efe1de06c797bf021e9cfb83f16"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/service/ClinicServiceTests.class": {
+    "bytes": 12833,
+    "sha256": "4e2a4c738df3d43f7f92feb29490e8011b9400e95689fa83051b00088282fd91"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/service/EntityUtils.class": {
+    "bytes": 1687,
+    "sha256": "ac5ed054e88dfa2716ad3bee5f8e9b13a9a035555493ea17bf8c2fb4e8dbe9db"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/system/CrashControllerIntegrationTests$1.class": {
+    "bytes": 1003,
+    "sha256": "ea34781a1aa5827b2786565c6154926e44b1dae751a630ae97f8d6249f815831"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/system/CrashControllerIntegrationTests$TestConfiguration.class": {
+    "bytes": 978,
+    "sha256": "2bf648cb36130381a04382a4db7884d2829cbda25d9dbb9d2bfaf1909cdb3e36"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/system/CrashControllerIntegrationTests.class": {
+    "bytes": 5919,
+    "sha256": "e6cb17bc3cf2fe73687fff314e069575f12bdbd3dce6559388266bd95bb18468"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/system/CrashControllerTests.class": {
+    "bytes": 2214,
+    "sha256": "002373c74ec4e0ffebddcc47540c6265e4af3a4374df9a818105e4f5f123c498"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/system/I18nPropertiesSyncTest.class": {
+    "bytes": 8493,
+    "sha256": "4765818585344fcc5971965338c17b7cdaf81c2d12cc9b7ab4583f3f1dc46b24"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/system/WelcomeControllerTests.class": {
+    "bytes": 2181,
+    "sha256": "2ed12488dd81f1353da39ea6dcdfb457dcf3e9b98facadbae102d1639a2f084b"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/vet/VetControllerTests.class": {
+    "bytes": 5817,
+    "sha256": "328a2225537f51f0f713aa461b02c5747ef91effa542170905870108d34c6dfd"
+  },
+  "target/test-classes/org/springframework/samples/petclinic/vet/VetTests.class": {
+    "bytes": 1596,
+    "sha256": "f6af322c168f8d4dcc40f7fafd577f35d7a5ced5d7c965b1a760a06751b43591"
+  }
+}

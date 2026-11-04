@@ -1,0 +1,15 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------< org.springframework.samples:spring-petclinic >------------
+[INFO] Building petclinic 4.0.0-SNAPSHOT
+[INFO]   from measurement-pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- help:3.5.1:effective-pom (default-cli) @ spring-petclinic ---
+[INFO] Effective-POM written to: /Users/D061177/work/moje/smart-test-picker/verification/maven-asm-10/raw/jacoco/effective-pom.xml
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.765 s
+[INFO] Finished at: 2026-11-04T13:21:46+01:00
+[INFO] ------------------------------------------------------------------------

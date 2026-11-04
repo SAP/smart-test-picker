@@ -1,0 +1,5297 @@
+{
+  "baseline": {
+    "org/springframework/samples/petclinic/PetClinicApplication": {
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        1,
+        1
+      ],
+      "INSTRUCTION": [
+        5,
+        3
+      ],
+      "LINE": [
+        2,
+        1
+      ],
+      "METHOD": [
+        1,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/PetClinicApplication#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/PetClinicApplication#main([Ljava/lang/String;)V": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        5,
+        0
+      ],
+      "LINE": [
+        2,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/PetClinicRuntimeHints": {
+      "CLASS": [
+        1,
+        0
+      ],
+      "COMPLEXITY": [
+        5,
+        0
+      ],
+      "INSTRUCTION": [
+        57,
+        0
+      ],
+      "LINE": [
+        9,
+        0
+      ],
+      "METHOD": [
+        5,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/PetClinicRuntimeHints#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        3,
+        0
+      ],
+      "LINE": [
+        1,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/PetClinicRuntimeHints#lambda$registerHints$0(Lorg/springframework/aot/hint/TypeHint$Builder;)V": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        5,
+        0
+      ],
+      "LINE": [
+        1,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/PetClinicRuntimeHints#lambda$registerHints$1(Lorg/springframework/aot/hint/TypeHint$Builder;)V": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        5,
+        0
+      ],
+      "LINE": [
+        1,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/PetClinicRuntimeHints#lambda$registerHints$2(Lorg/springframework/aot/hint/TypeHint$Builder;)V": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        5,
+        0
+      ],
+      "LINE": [
+        1,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/PetClinicRuntimeHints#registerHints(Lorg/springframework/aot/hint/RuntimeHints;Ljava/lang/ClassLoader;)V": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        39,
+        0
+      ],
+      "LINE": [
+        8,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/model/BaseEntity": {
+      "BRANCH": [
+        0,
+        2
+      ],
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        5
+      ],
+      "INSTRUCTION": [
+        0,
+        17
+      ],
+      "LINE": [
+        0,
+        5
+      ],
+      "METHOD": [
+        0,
+        4
+      ]
+    },
+    "org/springframework/samples/petclinic/model/BaseEntity#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/model/BaseEntity#getId()Ljava/lang/Integer;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/model/BaseEntity#isNew()Z": {
+      "BRANCH": [
+        0,
+        2
+      ],
+      "COMPLEXITY": [
+        0,
+        2
+      ],
+      "INSTRUCTION": [
+        0,
+        7
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/model/BaseEntity#setId(Ljava/lang/Integer;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/model/NamedEntity": {
+      "BRANCH": [
+        0,
+        2
+      ],
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        5
+      ],
+      "INSTRUCTION": [
+        0,
+        19
+      ],
+      "LINE": [
+        0,
+        6
+      ],
+      "METHOD": [
+        0,
+        4
+      ]
+    },
+    "org/springframework/samples/petclinic/model/NamedEntity#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/model/NamedEntity#getName()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/model/NamedEntity#setName(Ljava/lang/String;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/model/NamedEntity#toString()Ljava/lang/String;": {
+      "BRANCH": [
+        0,
+        2
+      ],
+      "COMPLEXITY": [
+        0,
+        2
+      ],
+      "INSTRUCTION": [
+        0,
+        9
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/model/Person": {
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        5
+      ],
+      "INSTRUCTION": [
+        0,
+        17
+      ],
+      "LINE": [
+        0,
+        7
+      ],
+      "METHOD": [
+        0,
+        5
+      ]
+    },
+    "org/springframework/samples/petclinic/model/Person#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/model/Person#getFirstName()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/model/Person#getLastName()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/model/Person#setFirstName(Ljava/lang/String;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/model/Person#setLastName(Ljava/lang/String;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner": {
+      "BRANCH": [
+        5,
+        13
+      ],
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        5,
+        18
+      ],
+      "INSTRUCTION": [
+        2,
+        151
+      ],
+      "LINE": [
+        1,
+        43
+      ],
+      "METHOD": [
+        0,
+        14
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        8
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#addPet(Lorg/springframework/samples/petclinic/owner/Pet;)V": {
+      "BRANCH": [
+        1,
+        1
+      ],
+      "COMPLEXITY": [
+        1,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        9
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#addVisit(Ljava/lang/Integer;Lorg/springframework/samples/petclinic/owner/Visit;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        17
+      ],
+      "LINE": [
+        0,
+        6
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#getAddress()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#getCity()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#getPet(Ljava/lang/Integer;)Lorg/springframework/samples/petclinic/owner/Pet;": {
+      "BRANCH": [
+        2,
+        4
+      ],
+      "COMPLEXITY": [
+        2,
+        2
+      ],
+      "INSTRUCTION": [
+        2,
+        24
+      ],
+      "LINE": [
+        1,
+        6
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#getPet(Ljava/lang/String;)Lorg/springframework/samples/petclinic/owner/Pet;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        5
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#getPet(Ljava/lang/String;Z)Lorg/springframework/samples/petclinic/owner/Pet;": {
+      "BRANCH": [
+        2,
+        8
+      ],
+      "COMPLEXITY": [
+        2,
+        4
+      ],
+      "INSTRUCTION": [
+        0,
+        30
+      ],
+      "LINE": [
+        0,
+        7
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#getPets()Ljava/util/List;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#getTelephone()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#setAddress(Ljava/lang/String;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#setCity(Ljava/lang/String;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#setTelephone(Ljava/lang/String;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#toString()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        34
+      ],
+      "LINE": [
+        0,
+        8
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController": {
+      "BRANCH": [
+        0,
+        14
+      ],
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        2,
+        19
+      ],
+      "INSTRUCTION": [
+        12,
+        221
+      ],
+      "LINE": [
+        0,
+        54
+      ],
+      "METHOD": [
+        2,
+        12
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#\u003cinit\u003e(Lorg/springframework/samples/petclinic/owner/OwnerRepository;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        6
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#addPaginationModel(ILorg/springframework/ui/Model;Lorg/springframework/data/domain/Page;)Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        30
+      ],
+      "LINE": [
+        0,
+        6
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#findOwner(Ljava/lang/Integer;)Lorg/springframework/samples/petclinic/owner/Owner;": {
+      "BRANCH": [
+        0,
+        2
+      ],
+      "COMPLEXITY": [
+        0,
+        2
+      ],
+      "INSTRUCTION": [
+        0,
+        15
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#findPaginatedForOwnersLastName(ILjava/lang/String;)Lorg/springframework/data/domain/Page;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        14
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#initCreationForm()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        2
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#initFindForm()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        2
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#initUpdateOwnerForm()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        2
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#lambda$findOwner$0(Ljava/lang/Integer;)Ljava/lang/IllegalArgumentException;": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        6,
+        0
+      ],
+      "LINE": [
+        1,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#lambda$showOwner$1(I)Ljava/lang/IllegalArgumentException;": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        6,
+        0
+      ],
+      "LINE": [
+        1,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#processCreationForm(Lorg/springframework/samples/petclinic/owner/Owner;Lorg/springframework/validation/BindingResult;Lorg/springframework/web/servlet/mvc/support/RedirectAttributes;)Ljava/lang/String;": {
+      "BRANCH": [
+        0,
+        2
+      ],
+      "COMPLEXITY": [
+        0,
+        2
+      ],
+      "INSTRUCTION": [
+        0,
+        24
+      ],
+      "LINE": [
+        0,
+        6
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#processFindForm(ILorg/springframework/samples/petclinic/owner/Owner;Lorg/springframework/validation/BindingResult;Lorg/springframework/ui/Model;)Ljava/lang/String;": {
+      "BRANCH": [
+        0,
+        6
+      ],
+      "COMPLEXITY": [
+        0,
+        4
+      ],
+      "INSTRUCTION": [
+        0,
+        46
+      ],
+      "LINE": [
+        0,
+        12
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#processUpdateOwnerForm(Lorg/springframework/samples/petclinic/owner/Owner;Lorg/springframework/validation/BindingResult;ILorg/springframework/web/servlet/mvc/support/RedirectAttributes;)Ljava/lang/String;": {
+      "BRANCH": [
+        0,
+        4
+      ],
+      "COMPLEXITY": [
+        0,
+        3
+      ],
+      "INSTRUCTION": [
+        0,
+        44
+      ],
+      "LINE": [
+        0,
+        11
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#setAllowedFields(Lorg/springframework/web/bind/WebDataBinder;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        13
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#showOwner(I)Lorg/springframework/web/servlet/ModelAndView;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        23
+      ],
+      "LINE": [
+        0,
+        5
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerRepository": {},
+    "org/springframework/samples/petclinic/owner/Pet": {
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        7
+      ],
+      "INSTRUCTION": [
+        0,
+        31
+      ],
+      "LINE": [
+        0,
+        11
+      ],
+      "METHOD": [
+        0,
+        7
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Pet#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        8
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Pet#addVisit(Lorg/springframework/samples/petclinic/owner/Visit;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        6
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Pet#getBirthDate()Ljava/time/LocalDate;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Pet#getType()Lorg/springframework/samples/petclinic/owner/PetType;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Pet#getVisits()Ljava/util/Collection;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Pet#setBirthDate(Ljava/time/LocalDate;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Pet#setType(Lorg/springframework/samples/petclinic/owner/PetType;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController": {
+      "BRANCH": [
+        10,
+        28
+      ],
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        12,
+        21
+      ],
+      "INSTRUCTION": [
+        25,
+        266
+      ],
+      "LINE": [
+        4,
+        66
+      ],
+      "METHOD": [
+        2,
+        12
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#\u003cinit\u003e(Lorg/springframework/samples/petclinic/owner/OwnerRepository;Lorg/springframework/samples/petclinic/owner/PetTypeRepository;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        9
+      ],
+      "LINE": [
+        0,
+        4
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#findOwner(I)Lorg/springframework/samples/petclinic/owner/Owner;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        14
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#findPet(ILjava/lang/Integer;)Lorg/springframework/samples/petclinic/owner/Pet;": {
+      "BRANCH": [
+        0,
+        2
+      ],
+      "COMPLEXITY": [
+        0,
+        2
+      ],
+      "INSTRUCTION": [
+        0,
+        22
+      ],
+      "LINE": [
+        0,
+        5
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#initCreationForm(Lorg/springframework/samples/petclinic/owner/Owner;Lorg/springframework/ui/ModelMap;)Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        9
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#initOwnerBinder(Lorg/springframework/web/bind/WebDataBinder;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        13
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#initPetBinder(Lorg/springframework/web/bind/WebDataBinder;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        18
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#initUpdateForm()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        2
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#isDuplicatePetNameViolation(Lorg/springframework/dao/DataIntegrityViolationException;)Z": {
+      "BRANCH": [
+        2,
+        2
+      ],
+      "COMPLEXITY": [
+        2,
+        1
+      ],
+      "INSTRUCTION": [
+        1,
+        13
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#lambda$findOwner$0(I)Ljava/lang/IllegalArgumentException;": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        6,
+        0
+      ],
+      "LINE": [
+        1,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#lambda$findPet$1(I)Ljava/lang/IllegalArgumentException;": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        6,
+        0
+      ],
+      "LINE": [
+        1,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#populatePetTypes()Ljava/util/Collection;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#processCreationForm(Lorg/springframework/samples/petclinic/owner/Owner;Lorg/springframework/samples/petclinic/owner/Pet;Lorg/springframework/validation/BindingResult;Lorg/springframework/web/servlet/mvc/support/RedirectAttributes;)Ljava/lang/String;": {
+      "BRANCH": [
+        3,
+        11
+      ],
+      "COMPLEXITY": [
+        3,
+        5
+      ],
+      "INSTRUCTION": [
+        2,
+        65
+      ],
+      "LINE": [
+        1,
+        16
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#processUpdateForm(Lorg/springframework/samples/petclinic/owner/Owner;Lorg/springframework/samples/petclinic/owner/Pet;Lorg/springframework/validation/BindingResult;Lorg/springframework/web/servlet/mvc/support/RedirectAttributes;)Ljava/lang/String;": {
+      "BRANCH": [
+        3,
+        11
+      ],
+      "COMPLEXITY": [
+        3,
+        5
+      ],
+      "INSTRUCTION": [
+        6,
+        63
+      ],
+      "LINE": [
+        2,
+        17
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#updatePetDetails(Lorg/springframework/samples/petclinic/owner/Owner;Lorg/springframework/samples/petclinic/owner/Pet;)V": {
+      "BRANCH": [
+        2,
+        2
+      ],
+      "COMPLEXITY": [
+        2,
+        1
+      ],
+      "INSTRUCTION": [
+        4,
+        34
+      ],
+      "LINE": [
+        1,
+        9
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetType": {
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetType#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetTypeFormatter": {
+      "BRANCH": [
+        1,
+        5
+      ],
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        1,
+        5
+      ],
+      "INSTRUCTION": [
+        1,
+        43
+      ],
+      "LINE": [
+        0,
+        11
+      ],
+      "METHOD": [
+        0,
+        3
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetTypeFormatter#\u003cinit\u003e(Lorg/springframework/samples/petclinic/owner/PetTypeRepository;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        6
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Lorg/springframework/samples/petclinic/owner/PetType;": {
+      "BRANCH": [
+        0,
+        4
+      ],
+      "COMPLEXITY": [
+        0,
+        3
+      ],
+      "INSTRUCTION": [
+        0,
+        29
+      ],
+      "LINE": [
+        0,
+        6
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetTypeFormatter#print(Lorg/springframework/samples/petclinic/owner/PetType;Ljava/util/Locale;)Ljava/lang/String;": {
+      "BRANCH": [
+        1,
+        1
+      ],
+      "COMPLEXITY": [
+        1,
+        1
+      ],
+      "INSTRUCTION": [
+        1,
+        8
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetTypeRepository": {},
+    "org/springframework/samples/petclinic/owner/PetValidator": {
+      "BRANCH": [
+        0,
+        8
+      ],
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        7
+      ],
+      "INSTRUCTION": [
+        0,
+        41
+      ],
+      "LINE": [
+        0,
+        11
+      ],
+      "METHOD": [
+        0,
+        3
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetValidator#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetValidator#supports(Ljava/lang/Class;)Z": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetValidator#validate(Ljava/lang/Object;Lorg/springframework/validation/Errors;)V": {
+      "BRANCH": [
+        0,
+        8
+      ],
+      "COMPLEXITY": [
+        0,
+        5
+      ],
+      "INSTRUCTION": [
+        0,
+        34
+      ],
+      "LINE": [
+        0,
+        9
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Visit": {
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        5
+      ],
+      "INSTRUCTION": [
+        0,
+        22
+      ],
+      "LINE": [
+        0,
+        9
+      ],
+      "METHOD": [
+        0,
+        5
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Visit#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        8
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Visit#getDate()Ljava/time/LocalDate;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Visit#getDescription()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Visit#setDate(Ljava/time/LocalDate;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Visit#setDescription(Ljava/lang/String;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/VisitController": {
+      "BRANCH": [
+        2,
+        6
+      ],
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        3,
+        8
+      ],
+      "INSTRUCTION": [
+        13,
+        97
+      ],
+      "LINE": [
+        1,
+        24
+      ],
+      "METHOD": [
+        1,
+        6
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/VisitController#\u003cinit\u003e(Lorg/springframework/samples/petclinic/owner/OwnerRepository;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        6
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/VisitController#initNewVisitForm()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        2
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/VisitController#lambda$loadPetWithVisit$0(I)Ljava/lang/IllegalArgumentException;": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        6,
+        0
+      ],
+      "LINE": [
+        1,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/VisitController#loadPetWithVisit(IILjava/util/Map;)Lorg/springframework/samples/petclinic/owner/Visit;": {
+      "BRANCH": [
+        1,
+        1
+      ],
+      "COMPLEXITY": [
+        1,
+        1
+      ],
+      "INSTRUCTION": [
+        7,
+        38
+      ],
+      "LINE": [
+        1,
+        9
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/VisitController#minVisitDate()Ljava/time/LocalDate;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/VisitController#processNewVisitForm(Lorg/springframework/samples/petclinic/owner/Owner;ILorg/springframework/samples/petclinic/owner/Visit;Lorg/springframework/validation/BindingResult;Lorg/springframework/web/servlet/mvc/support/RedirectAttributes;)Ljava/lang/String;": {
+      "BRANCH": [
+        1,
+        5
+      ],
+      "COMPLEXITY": [
+        1,
+        3
+      ],
+      "INSTRUCTION": [
+        0,
+        34
+      ],
+      "LINE": [
+        0,
+        8
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/VisitController#setAllowedFields(Lorg/springframework/web/bind/WebDataBinder;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        13
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/system/CacheConfiguration": {
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        2,
+        2
+      ],
+      "INSTRUCTION": [
+        13,
+        6
+      ],
+      "LINE": [
+        1,
+        2
+      ],
+      "METHOD": [
+        2,
+        2
+      ]
+    },
+    "org/springframework/samples/petclinic/system/CacheConfiguration#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/system/CacheConfiguration#cacheConfiguration()Ljavax/cache/configuration/Configuration;": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        6,
+        0
+      ],
+      "LINE": [
+        1,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/system/CacheConfiguration#lambda$petclinicCacheConfigurationCustomizer$0(Ljavax/cache/CacheManager;)V": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        7,
+        0
+      ],
+      "LINE": [
+        1,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/system/CacheConfiguration#petclinicCacheConfigurationCustomizer()Lorg/springframework/boot/cache/autoconfigure/JCacheManagerCustomizer;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/system/CrashController": {
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        2
+      ],
+      "INSTRUCTION": [
+        0,
+        8
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        2
+      ]
+    },
+    "org/springframework/samples/petclinic/system/CrashController#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/system/CrashController#triggerException()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        5
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/system/WebConfiguration": {
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        4
+      ],
+      "INSTRUCTION": [
+        0,
+        27
+      ],
+      "LINE": [
+        0,
+        9
+      ],
+      "METHOD": [
+        0,
+        4
+      ]
+    },
+    "org/springframework/samples/petclinic/system/WebConfiguration#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/system/WebConfiguration#addInterceptors(Lorg/springframework/web/servlet/config/annotation/InterceptorRegistry;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        6
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/system/WebConfiguration#localeChangeInterceptor()Lorg/springframework/web/servlet/i18n/LocaleChangeInterceptor;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        9
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/system/WebConfiguration#localeResolver()Lorg/springframework/web/servlet/LocaleResolver;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        9
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/system/WelcomeController": {
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        2
+      ],
+      "INSTRUCTION": [
+        0,
+        5
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        2
+      ]
+    },
+    "org/springframework/samples/petclinic/system/WelcomeController#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/system/WelcomeController#welcome()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        2
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/Specialty": {
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/Specialty#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/Vet": {
+      "BRANCH": [
+        0,
+        2
+      ],
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        6
+      ],
+      "INSTRUCTION": [
+        0,
+        34
+      ],
+      "LINE": [
+        0,
+        10
+      ],
+      "METHOD": [
+        0,
+        5
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/Vet#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/Vet#addSpecialty(Lorg/springframework/samples/petclinic/vet/Specialty;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        6
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/Vet#getNrOfSpecialties()I": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/Vet#getSpecialties()Ljava/util/List;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        10
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/Vet#getSpecialtiesInternal()Ljava/util/Set;": {
+      "BRANCH": [
+        0,
+        2
+      ],
+      "COMPLEXITY": [
+        0,
+        2
+      ],
+      "INSTRUCTION": [
+        0,
+        11
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/VetController": {
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        5
+      ],
+      "INSTRUCTION": [
+        0,
+        72
+      ],
+      "LINE": [
+        0,
+        17
+      ],
+      "METHOD": [
+        0,
+        5
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/VetController#\u003cinit\u003e(Lorg/springframework/samples/petclinic/vet/VetRepository;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        6
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/VetController#addPaginationModel(ILorg/springframework/data/domain/Page;Lorg/springframework/ui/Model;)Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        30
+      ],
+      "LINE": [
+        0,
+        6
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/VetController#findPaginated(I)Lorg/springframework/data/domain/Page;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        13
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/VetController#showResourcesVetList()Lorg/springframework/samples/petclinic/vet/Vets;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        13
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/VetController#showVetList(ILorg/springframework/ui/Model;)Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        10
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/VetRepository": {},
+    "org/springframework/samples/petclinic/vet/Vets": {
+      "BRANCH": [
+        0,
+        2
+      ],
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        3
+      ],
+      "INSTRUCTION": [
+        0,
+        14
+      ],
+      "LINE": [
+        0,
+        4
+      ],
+      "METHOD": [
+        0,
+        2
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/Vets#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/Vets#getVetList()Ljava/util/List;": {
+      "BRANCH": [
+        0,
+        2
+      ],
+      "COMPLEXITY": [
+        0,
+        2
+      ],
+      "INSTRUCTION": [
+        0,
+        11
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    }
+  },
+  "differences": {},
+  "coexistence": {
+    "org/springframework/samples/petclinic/PetClinicApplication": {
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        1,
+        1
+      ],
+      "INSTRUCTION": [
+        5,
+        3
+      ],
+      "LINE": [
+        2,
+        1
+      ],
+      "METHOD": [
+        1,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/PetClinicApplication#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/PetClinicApplication#main([Ljava/lang/String;)V": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        5,
+        0
+      ],
+      "LINE": [
+        2,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/PetClinicRuntimeHints": {
+      "CLASS": [
+        1,
+        0
+      ],
+      "COMPLEXITY": [
+        5,
+        0
+      ],
+      "INSTRUCTION": [
+        57,
+        0
+      ],
+      "LINE": [
+        9,
+        0
+      ],
+      "METHOD": [
+        5,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/PetClinicRuntimeHints#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        3,
+        0
+      ],
+      "LINE": [
+        1,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/PetClinicRuntimeHints#lambda$registerHints$0(Lorg/springframework/aot/hint/TypeHint$Builder;)V": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        5,
+        0
+      ],
+      "LINE": [
+        1,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/PetClinicRuntimeHints#lambda$registerHints$1(Lorg/springframework/aot/hint/TypeHint$Builder;)V": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        5,
+        0
+      ],
+      "LINE": [
+        1,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/PetClinicRuntimeHints#lambda$registerHints$2(Lorg/springframework/aot/hint/TypeHint$Builder;)V": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        5,
+        0
+      ],
+      "LINE": [
+        1,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/PetClinicRuntimeHints#registerHints(Lorg/springframework/aot/hint/RuntimeHints;Ljava/lang/ClassLoader;)V": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        39,
+        0
+      ],
+      "LINE": [
+        8,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/model/BaseEntity": {
+      "BRANCH": [
+        0,
+        2
+      ],
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        5
+      ],
+      "INSTRUCTION": [
+        0,
+        17
+      ],
+      "LINE": [
+        0,
+        5
+      ],
+      "METHOD": [
+        0,
+        4
+      ]
+    },
+    "org/springframework/samples/petclinic/model/BaseEntity#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/model/BaseEntity#getId()Ljava/lang/Integer;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/model/BaseEntity#isNew()Z": {
+      "BRANCH": [
+        0,
+        2
+      ],
+      "COMPLEXITY": [
+        0,
+        2
+      ],
+      "INSTRUCTION": [
+        0,
+        7
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/model/BaseEntity#setId(Ljava/lang/Integer;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/model/NamedEntity": {
+      "BRANCH": [
+        0,
+        2
+      ],
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        5
+      ],
+      "INSTRUCTION": [
+        0,
+        19
+      ],
+      "LINE": [
+        0,
+        6
+      ],
+      "METHOD": [
+        0,
+        4
+      ]
+    },
+    "org/springframework/samples/petclinic/model/NamedEntity#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/model/NamedEntity#getName()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/model/NamedEntity#setName(Ljava/lang/String;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/model/NamedEntity#toString()Ljava/lang/String;": {
+      "BRANCH": [
+        0,
+        2
+      ],
+      "COMPLEXITY": [
+        0,
+        2
+      ],
+      "INSTRUCTION": [
+        0,
+        9
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/model/Person": {
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        5
+      ],
+      "INSTRUCTION": [
+        0,
+        17
+      ],
+      "LINE": [
+        0,
+        7
+      ],
+      "METHOD": [
+        0,
+        5
+      ]
+    },
+    "org/springframework/samples/petclinic/model/Person#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/model/Person#getFirstName()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/model/Person#getLastName()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/model/Person#setFirstName(Ljava/lang/String;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/model/Person#setLastName(Ljava/lang/String;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner": {
+      "BRANCH": [
+        5,
+        13
+      ],
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        5,
+        18
+      ],
+      "INSTRUCTION": [
+        2,
+        151
+      ],
+      "LINE": [
+        1,
+        43
+      ],
+      "METHOD": [
+        0,
+        14
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        8
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#addPet(Lorg/springframework/samples/petclinic/owner/Pet;)V": {
+      "BRANCH": [
+        1,
+        1
+      ],
+      "COMPLEXITY": [
+        1,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        9
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#addVisit(Ljava/lang/Integer;Lorg/springframework/samples/petclinic/owner/Visit;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        17
+      ],
+      "LINE": [
+        0,
+        6
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#getAddress()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#getCity()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#getPet(Ljava/lang/Integer;)Lorg/springframework/samples/petclinic/owner/Pet;": {
+      "BRANCH": [
+        2,
+        4
+      ],
+      "COMPLEXITY": [
+        2,
+        2
+      ],
+      "INSTRUCTION": [
+        2,
+        24
+      ],
+      "LINE": [
+        1,
+        6
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#getPet(Ljava/lang/String;)Lorg/springframework/samples/petclinic/owner/Pet;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        5
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#getPet(Ljava/lang/String;Z)Lorg/springframework/samples/petclinic/owner/Pet;": {
+      "BRANCH": [
+        2,
+        8
+      ],
+      "COMPLEXITY": [
+        2,
+        4
+      ],
+      "INSTRUCTION": [
+        0,
+        30
+      ],
+      "LINE": [
+        0,
+        7
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#getPets()Ljava/util/List;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#getTelephone()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#setAddress(Ljava/lang/String;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#setCity(Ljava/lang/String;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#setTelephone(Ljava/lang/String;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Owner#toString()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        34
+      ],
+      "LINE": [
+        0,
+        8
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController": {
+      "BRANCH": [
+        0,
+        14
+      ],
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        2,
+        19
+      ],
+      "INSTRUCTION": [
+        12,
+        221
+      ],
+      "LINE": [
+        0,
+        54
+      ],
+      "METHOD": [
+        2,
+        12
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#\u003cinit\u003e(Lorg/springframework/samples/petclinic/owner/OwnerRepository;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        6
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#addPaginationModel(ILorg/springframework/ui/Model;Lorg/springframework/data/domain/Page;)Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        30
+      ],
+      "LINE": [
+        0,
+        6
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#findOwner(Ljava/lang/Integer;)Lorg/springframework/samples/petclinic/owner/Owner;": {
+      "BRANCH": [
+        0,
+        2
+      ],
+      "COMPLEXITY": [
+        0,
+        2
+      ],
+      "INSTRUCTION": [
+        0,
+        15
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#findPaginatedForOwnersLastName(ILjava/lang/String;)Lorg/springframework/data/domain/Page;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        14
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#initCreationForm()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        2
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#initFindForm()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        2
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#initUpdateOwnerForm()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        2
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#lambda$findOwner$0(Ljava/lang/Integer;)Ljava/lang/IllegalArgumentException;": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        6,
+        0
+      ],
+      "LINE": [
+        1,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#lambda$showOwner$1(I)Ljava/lang/IllegalArgumentException;": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        6,
+        0
+      ],
+      "LINE": [
+        1,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#processCreationForm(Lorg/springframework/samples/petclinic/owner/Owner;Lorg/springframework/validation/BindingResult;Lorg/springframework/web/servlet/mvc/support/RedirectAttributes;)Ljava/lang/String;": {
+      "BRANCH": [
+        0,
+        2
+      ],
+      "COMPLEXITY": [
+        0,
+        2
+      ],
+      "INSTRUCTION": [
+        0,
+        24
+      ],
+      "LINE": [
+        0,
+        6
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#processFindForm(ILorg/springframework/samples/petclinic/owner/Owner;Lorg/springframework/validation/BindingResult;Lorg/springframework/ui/Model;)Ljava/lang/String;": {
+      "BRANCH": [
+        0,
+        6
+      ],
+      "COMPLEXITY": [
+        0,
+        4
+      ],
+      "INSTRUCTION": [
+        0,
+        46
+      ],
+      "LINE": [
+        0,
+        12
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#processUpdateOwnerForm(Lorg/springframework/samples/petclinic/owner/Owner;Lorg/springframework/validation/BindingResult;ILorg/springframework/web/servlet/mvc/support/RedirectAttributes;)Ljava/lang/String;": {
+      "BRANCH": [
+        0,
+        4
+      ],
+      "COMPLEXITY": [
+        0,
+        3
+      ],
+      "INSTRUCTION": [
+        0,
+        44
+      ],
+      "LINE": [
+        0,
+        11
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#setAllowedFields(Lorg/springframework/web/bind/WebDataBinder;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        13
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerController#showOwner(I)Lorg/springframework/web/servlet/ModelAndView;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        23
+      ],
+      "LINE": [
+        0,
+        5
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/OwnerRepository": {},
+    "org/springframework/samples/petclinic/owner/Pet": {
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        7
+      ],
+      "INSTRUCTION": [
+        0,
+        31
+      ],
+      "LINE": [
+        0,
+        11
+      ],
+      "METHOD": [
+        0,
+        7
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Pet#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        8
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Pet#addVisit(Lorg/springframework/samples/petclinic/owner/Visit;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        6
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Pet#getBirthDate()Ljava/time/LocalDate;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Pet#getType()Lorg/springframework/samples/petclinic/owner/PetType;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Pet#getVisits()Ljava/util/Collection;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Pet#setBirthDate(Ljava/time/LocalDate;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Pet#setType(Lorg/springframework/samples/petclinic/owner/PetType;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController": {
+      "BRANCH": [
+        10,
+        28
+      ],
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        12,
+        21
+      ],
+      "INSTRUCTION": [
+        25,
+        266
+      ],
+      "LINE": [
+        4,
+        66
+      ],
+      "METHOD": [
+        2,
+        12
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#\u003cinit\u003e(Lorg/springframework/samples/petclinic/owner/OwnerRepository;Lorg/springframework/samples/petclinic/owner/PetTypeRepository;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        9
+      ],
+      "LINE": [
+        0,
+        4
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#findOwner(I)Lorg/springframework/samples/petclinic/owner/Owner;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        14
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#findPet(ILjava/lang/Integer;)Lorg/springframework/samples/petclinic/owner/Pet;": {
+      "BRANCH": [
+        0,
+        2
+      ],
+      "COMPLEXITY": [
+        0,
+        2
+      ],
+      "INSTRUCTION": [
+        0,
+        22
+      ],
+      "LINE": [
+        0,
+        5
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#initCreationForm(Lorg/springframework/samples/petclinic/owner/Owner;Lorg/springframework/ui/ModelMap;)Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        9
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#initOwnerBinder(Lorg/springframework/web/bind/WebDataBinder;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        13
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#initPetBinder(Lorg/springframework/web/bind/WebDataBinder;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        18
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#initUpdateForm()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        2
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#isDuplicatePetNameViolation(Lorg/springframework/dao/DataIntegrityViolationException;)Z": {
+      "BRANCH": [
+        2,
+        2
+      ],
+      "COMPLEXITY": [
+        2,
+        1
+      ],
+      "INSTRUCTION": [
+        1,
+        13
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#lambda$findOwner$0(I)Ljava/lang/IllegalArgumentException;": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        6,
+        0
+      ],
+      "LINE": [
+        1,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#lambda$findPet$1(I)Ljava/lang/IllegalArgumentException;": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        6,
+        0
+      ],
+      "LINE": [
+        1,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#populatePetTypes()Ljava/util/Collection;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#processCreationForm(Lorg/springframework/samples/petclinic/owner/Owner;Lorg/springframework/samples/petclinic/owner/Pet;Lorg/springframework/validation/BindingResult;Lorg/springframework/web/servlet/mvc/support/RedirectAttributes;)Ljava/lang/String;": {
+      "BRANCH": [
+        3,
+        11
+      ],
+      "COMPLEXITY": [
+        3,
+        5
+      ],
+      "INSTRUCTION": [
+        2,
+        65
+      ],
+      "LINE": [
+        1,
+        16
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#processUpdateForm(Lorg/springframework/samples/petclinic/owner/Owner;Lorg/springframework/samples/petclinic/owner/Pet;Lorg/springframework/validation/BindingResult;Lorg/springframework/web/servlet/mvc/support/RedirectAttributes;)Ljava/lang/String;": {
+      "BRANCH": [
+        3,
+        11
+      ],
+      "COMPLEXITY": [
+        3,
+        5
+      ],
+      "INSTRUCTION": [
+        6,
+        63
+      ],
+      "LINE": [
+        2,
+        17
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetController#updatePetDetails(Lorg/springframework/samples/petclinic/owner/Owner;Lorg/springframework/samples/petclinic/owner/Pet;)V": {
+      "BRANCH": [
+        2,
+        2
+      ],
+      "COMPLEXITY": [
+        2,
+        1
+      ],
+      "INSTRUCTION": [
+        4,
+        34
+      ],
+      "LINE": [
+        1,
+        9
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetType": {
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetType#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetTypeFormatter": {
+      "BRANCH": [
+        1,
+        5
+      ],
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        1,
+        5
+      ],
+      "INSTRUCTION": [
+        1,
+        43
+      ],
+      "LINE": [
+        0,
+        11
+      ],
+      "METHOD": [
+        0,
+        3
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetTypeFormatter#\u003cinit\u003e(Lorg/springframework/samples/petclinic/owner/PetTypeRepository;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        6
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Lorg/springframework/samples/petclinic/owner/PetType;": {
+      "BRANCH": [
+        0,
+        4
+      ],
+      "COMPLEXITY": [
+        0,
+        3
+      ],
+      "INSTRUCTION": [
+        0,
+        29
+      ],
+      "LINE": [
+        0,
+        6
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetTypeFormatter#print(Lorg/springframework/samples/petclinic/owner/PetType;Ljava/util/Locale;)Ljava/lang/String;": {
+      "BRANCH": [
+        1,
+        1
+      ],
+      "COMPLEXITY": [
+        1,
+        1
+      ],
+      "INSTRUCTION": [
+        1,
+        8
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetTypeRepository": {},
+    "org/springframework/samples/petclinic/owner/PetValidator": {
+      "BRANCH": [
+        0,
+        8
+      ],
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        7
+      ],
+      "INSTRUCTION": [
+        0,
+        41
+      ],
+      "LINE": [
+        0,
+        11
+      ],
+      "METHOD": [
+        0,
+        3
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetValidator#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetValidator#supports(Ljava/lang/Class;)Z": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/PetValidator#validate(Ljava/lang/Object;Lorg/springframework/validation/Errors;)V": {
+      "BRANCH": [
+        0,
+        8
+      ],
+      "COMPLEXITY": [
+        0,
+        5
+      ],
+      "INSTRUCTION": [
+        0,
+        34
+      ],
+      "LINE": [
+        0,
+        9
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Visit": {
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        5
+      ],
+      "INSTRUCTION": [
+        0,
+        22
+      ],
+      "LINE": [
+        0,
+        9
+      ],
+      "METHOD": [
+        0,
+        5
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Visit#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        8
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Visit#getDate()Ljava/time/LocalDate;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Visit#getDescription()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Visit#setDate(Ljava/time/LocalDate;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/Visit#setDescription(Ljava/lang/String;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/VisitController": {
+      "BRANCH": [
+        2,
+        6
+      ],
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        3,
+        8
+      ],
+      "INSTRUCTION": [
+        13,
+        97
+      ],
+      "LINE": [
+        1,
+        24
+      ],
+      "METHOD": [
+        1,
+        6
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/VisitController#\u003cinit\u003e(Lorg/springframework/samples/petclinic/owner/OwnerRepository;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        6
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/VisitController#initNewVisitForm()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        2
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/VisitController#lambda$loadPetWithVisit$0(I)Ljava/lang/IllegalArgumentException;": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        6,
+        0
+      ],
+      "LINE": [
+        1,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/VisitController#loadPetWithVisit(IILjava/util/Map;)Lorg/springframework/samples/petclinic/owner/Visit;": {
+      "BRANCH": [
+        1,
+        1
+      ],
+      "COMPLEXITY": [
+        1,
+        1
+      ],
+      "INSTRUCTION": [
+        7,
+        38
+      ],
+      "LINE": [
+        1,
+        9
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/VisitController#minVisitDate()Ljava/time/LocalDate;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/VisitController#processNewVisitForm(Lorg/springframework/samples/petclinic/owner/Owner;ILorg/springframework/samples/petclinic/owner/Visit;Lorg/springframework/validation/BindingResult;Lorg/springframework/web/servlet/mvc/support/RedirectAttributes;)Ljava/lang/String;": {
+      "BRANCH": [
+        1,
+        5
+      ],
+      "COMPLEXITY": [
+        1,
+        3
+      ],
+      "INSTRUCTION": [
+        0,
+        34
+      ],
+      "LINE": [
+        0,
+        8
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/owner/VisitController#setAllowedFields(Lorg/springframework/web/bind/WebDataBinder;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        13
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/system/CacheConfiguration": {
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        2,
+        2
+      ],
+      "INSTRUCTION": [
+        13,
+        6
+      ],
+      "LINE": [
+        1,
+        2
+      ],
+      "METHOD": [
+        2,
+        2
+      ]
+    },
+    "org/springframework/samples/petclinic/system/CacheConfiguration#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/system/CacheConfiguration#cacheConfiguration()Ljavax/cache/configuration/Configuration;": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        6,
+        0
+      ],
+      "LINE": [
+        1,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/system/CacheConfiguration#lambda$petclinicCacheConfigurationCustomizer$0(Ljavax/cache/CacheManager;)V": {
+      "COMPLEXITY": [
+        1,
+        0
+      ],
+      "INSTRUCTION": [
+        7,
+        0
+      ],
+      "LINE": [
+        1,
+        0
+      ],
+      "METHOD": [
+        1,
+        0
+      ]
+    },
+    "org/springframework/samples/petclinic/system/CacheConfiguration#petclinicCacheConfigurationCustomizer()Lorg/springframework/boot/cache/autoconfigure/JCacheManagerCustomizer;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/system/CrashController": {
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        2
+      ],
+      "INSTRUCTION": [
+        0,
+        8
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        2
+      ]
+    },
+    "org/springframework/samples/petclinic/system/CrashController#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/system/CrashController#triggerException()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        5
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/system/WebConfiguration": {
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        4
+      ],
+      "INSTRUCTION": [
+        0,
+        27
+      ],
+      "LINE": [
+        0,
+        9
+      ],
+      "METHOD": [
+        0,
+        4
+      ]
+    },
+    "org/springframework/samples/petclinic/system/WebConfiguration#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/system/WebConfiguration#addInterceptors(Lorg/springframework/web/servlet/config/annotation/InterceptorRegistry;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        6
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/system/WebConfiguration#localeChangeInterceptor()Lorg/springframework/web/servlet/i18n/LocaleChangeInterceptor;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        9
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/system/WebConfiguration#localeResolver()Lorg/springframework/web/servlet/LocaleResolver;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        9
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/system/WelcomeController": {
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        2
+      ],
+      "INSTRUCTION": [
+        0,
+        5
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        2
+      ]
+    },
+    "org/springframework/samples/petclinic/system/WelcomeController#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/system/WelcomeController#welcome()Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        2
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/Specialty": {
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/Specialty#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/Vet": {
+      "BRANCH": [
+        0,
+        2
+      ],
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        6
+      ],
+      "INSTRUCTION": [
+        0,
+        34
+      ],
+      "LINE": [
+        0,
+        10
+      ],
+      "METHOD": [
+        0,
+        5
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/Vet#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/Vet#addSpecialty(Lorg/springframework/samples/petclinic/vet/Specialty;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        6
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/Vet#getNrOfSpecialties()I": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        4
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/Vet#getSpecialties()Ljava/util/List;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        10
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/Vet#getSpecialtiesInternal()Ljava/util/Set;": {
+      "BRANCH": [
+        0,
+        2
+      ],
+      "COMPLEXITY": [
+        0,
+        2
+      ],
+      "INSTRUCTION": [
+        0,
+        11
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/VetController": {
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        5
+      ],
+      "INSTRUCTION": [
+        0,
+        72
+      ],
+      "LINE": [
+        0,
+        17
+      ],
+      "METHOD": [
+        0,
+        5
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/VetController#\u003cinit\u003e(Lorg/springframework/samples/petclinic/vet/VetRepository;)V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        6
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/VetController#addPaginationModel(ILorg/springframework/data/domain/Page;Lorg/springframework/ui/Model;)Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        30
+      ],
+      "LINE": [
+        0,
+        6
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/VetController#findPaginated(I)Lorg/springframework/data/domain/Page;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        13
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/VetController#showResourcesVetList()Lorg/springframework/samples/petclinic/vet/Vets;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        13
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/VetController#showVetList(ILorg/springframework/ui/Model;)Ljava/lang/String;": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        10
+      ],
+      "LINE": [
+        0,
+        2
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/VetRepository": {},
+    "org/springframework/samples/petclinic/vet/Vets": {
+      "BRANCH": [
+        0,
+        2
+      ],
+      "CLASS": [
+        0,
+        1
+      ],
+      "COMPLEXITY": [
+        0,
+        3
+      ],
+      "INSTRUCTION": [
+        0,
+        14
+      ],
+      "LINE": [
+        0,
+        4
+      ],
+      "METHOD": [
+        0,
+        2
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/Vets#\u003cinit\u003e()V": {
+      "COMPLEXITY": [
+        0,
+        1
+      ],
+      "INSTRUCTION": [
+        0,
+        3
+      ],
+      "LINE": [
+        0,
+        1
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    },
+    "org/springframework/samples/petclinic/vet/Vets#getVetList()Ljava/util/List;": {
+      "BRANCH": [
+        0,
+        2
+      ],
+      "COMPLEXITY": [
+        0,
+        2
+      ],
+      "INSTRUCTION": [
+        0,
+        11
+      ],
+      "LINE": [
+        0,
+        3
+      ],
+      "METHOD": [
+        0,
+        1
+      ]
+    }
+  }
+}

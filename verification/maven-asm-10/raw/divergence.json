@@ -1,0 +1,740 @@
+{
+  "jacocoMethodEdges": 1400,
+  "globalMethods": {
+    "jacoco": 87,
+    "jacocoOnly": [],
+    "asm": 89,
+    "asmOnly": [
+      "org.springframework.samples.petclinic.owner.PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Ljava/lang/Object;",
+      "org.springframework.samples.petclinic.owner.PetTypeFormatter#print(Ljava/lang/Object;Ljava/util/Locale;)Ljava/lang/String;"
+    ]
+  },
+  "classEdges": {
+    "asm": 418,
+    "differences": [
+      {
+        "side": "JACOCO_ONLY",
+        "classification": "unexplained",
+        "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+        "class": "org.springframework.samples.petclinic.owner.OwnerController"
+      },
+      {
+        "side": "JACOCO_ONLY",
+        "classification": "unexplained",
+        "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+        "class": "org.springframework.samples.petclinic.owner.PetController"
+      },
+      {
+        "side": "JACOCO_ONLY",
+        "classification": "unexplained",
+        "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+        "class": "org.springframework.samples.petclinic.owner.PetTypeFormatter"
+      },
+      {
+        "side": "JACOCO_ONLY",
+        "classification": "unexplained",
+        "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+        "class": "org.springframework.samples.petclinic.owner.PetValidator"
+      },
+      {
+        "side": "JACOCO_ONLY",
+        "classification": "unexplained",
+        "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+        "class": "org.springframework.samples.petclinic.model.BaseEntity"
+      },
+      {
+        "side": "JACOCO_ONLY",
+        "classification": "unexplained",
+        "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+        "class": "org.springframework.samples.petclinic.model.NamedEntity"
+      },
+      {
+        "side": "JACOCO_ONLY",
+        "classification": "unexplained",
+        "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+        "class": "org.springframework.samples.petclinic.model.Person"
+      },
+      {
+        "side": "JACOCO_ONLY",
+        "classification": "unexplained",
+        "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+        "class": "org.springframework.samples.petclinic.owner.Owner"
+      },
+      {
+        "side": "JACOCO_ONLY",
+        "classification": "unexplained",
+        "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+        "class": "org.springframework.samples.petclinic.owner.OwnerController"
+      },
+      {
+        "side": "JACOCO_ONLY",
+        "classification": "unexplained",
+        "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+        "class": "org.springframework.samples.petclinic.owner.Pet"
+      },
+      {
+        "side": "JACOCO_ONLY",
+        "classification": "unexplained",
+        "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+        "class": "org.springframework.samples.petclinic.owner.PetType"
+      },
+      {
+        "side": "JACOCO_ONLY",
+        "classification": "unexplained",
+        "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+        "class": "org.springframework.samples.petclinic.model.BaseEntity"
+      },
+      {
+        "side": "JACOCO_ONLY",
+        "classification": "unexplained",
+        "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+        "class": "org.springframework.samples.petclinic.model.NamedEntity"
+      },
+      {
+        "side": "JACOCO_ONLY",
+        "classification": "unexplained",
+        "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+        "class": "org.springframework.samples.petclinic.model.Person"
+      },
+      {
+        "side": "JACOCO_ONLY",
+        "classification": "unexplained",
+        "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+        "class": "org.springframework.samples.petclinic.owner.Owner"
+      },
+      {
+        "side": "JACOCO_ONLY",
+        "classification": "unexplained",
+        "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+        "class": "org.springframework.samples.petclinic.owner.OwnerController"
+      },
+      {
+        "side": "JACOCO_ONLY",
+        "classification": "unexplained",
+        "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+        "class": "org.springframework.samples.petclinic.owner.Pet"
+      },
+      {
+        "side": "JACOCO_ONLY",
+        "classification": "unexplained",
+        "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+        "class": "org.springframework.samples.petclinic.owner.PetType"
+      },
+      {
+        "side": "JACOCO_ONLY",
+        "classification": "unexplained",
+        "test": "maven:.::org.springframework.samples.petclinic.system.CrashControllerIntegrationTests#triggerExceptionHtml",
+        "class": "org.springframework.samples.petclinic.system.CrashController"
+      },
+      {
+        "side": "JACOCO_ONLY",
+        "classification": "unexplained",
+        "test": "maven:.::org.springframework.samples.petclinic.system.CrashControllerIntegrationTests#triggerExceptionJson",
+        "class": "org.springframework.samples.petclinic.system.CrashController"
+      }
+    ],
+    "jacoco": 438
+  },
+  "countsByProductionClass": {
+    "org.springframework.samples.petclinic.model.BaseEntity": {
+      "unexplained": 6
+    },
+    "org.springframework.samples.petclinic.model.NamedEntity": {
+      "unexplained": 8
+    },
+    "org.springframework.samples.petclinic.model.Person": {
+      "unexplained": 9
+    },
+    "org.springframework.samples.petclinic.owner.Owner": {
+      "unexplained": 14
+    },
+    "org.springframework.samples.petclinic.owner.OwnerController": {
+      "unexplained": 11
+    },
+    "org.springframework.samples.petclinic.owner.Pet": {
+      "unexplained": 10
+    },
+    "org.springframework.samples.petclinic.owner.PetController": {
+      "unexplained": 7
+    },
+    "org.springframework.samples.petclinic.owner.PetType": {
+      "unexplained": 2
+    },
+    "org.springframework.samples.petclinic.owner.PetTypeFormatter": {
+      "additional-finding-generated-bridge-filtering": 17,
+      "unexplained": 2
+    },
+    "org.springframework.samples.petclinic.owner.PetValidator": {
+      "unexplained": 3
+    },
+    "org.springframework.samples.petclinic.system.CrashController": {
+      "unexplained": 2
+    }
+  },
+  "divergentEdges": [
+    {
+      "test": "maven:.::org.springframework.samples.petclinic.owner.PetControllerTests#initCreationForm",
+      "method": "org.springframework.samples.petclinic.owner.PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Ljava/lang/Object;",
+      "evidence": "formatter-and-repository-bytecode.txt; jacoco-synthetic-filter-bytecode.txt; per-test JaCoCo XML",
+      "side": "ASM_ONLY",
+      "classification": "additional-finding-generated-bridge-filtering"
+    },
+    {
+      "test": "maven:.::org.springframework.samples.petclinic.owner.PetControllerTests#processCreationFormSuccess",
+      "method": "org.springframework.samples.petclinic.owner.PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Ljava/lang/Object;",
+      "evidence": "formatter-and-repository-bytecode.txt; jacoco-synthetic-filter-bytecode.txt; per-test JaCoCo XML",
+      "side": "ASM_ONLY",
+      "classification": "additional-finding-generated-bridge-filtering"
+    },
+    {
+      "test": "maven:.::org.springframework.samples.petclinic.owner.PetControllerTests#processUpdateFormSuccess",
+      "method": "org.springframework.samples.petclinic.owner.PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Ljava/lang/Object;",
+      "evidence": "formatter-and-repository-bytecode.txt; jacoco-synthetic-filter-bytecode.txt; per-test JaCoCo XML",
+      "side": "ASM_ONLY",
+      "classification": "additional-finding-generated-bridge-filtering"
+    },
+    {
+      "test": "maven:.::org.springframework.samples.petclinic.owner.PetControllerTests#processUpdateFormWithSameName",
+      "method": "org.springframework.samples.petclinic.owner.PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Ljava/lang/Object;",
+      "evidence": "formatter-and-repository-bytecode.txt; jacoco-synthetic-filter-bytecode.txt; per-test JaCoCo XML",
+      "side": "ASM_ONLY",
+      "classification": "additional-finding-generated-bridge-filtering"
+    },
+    {
+      "test": "maven:.::org.springframework.samples.petclinic.owner.PetControllerTests$ProcessCreationFormHasErrors#initUpdateForm",
+      "method": "org.springframework.samples.petclinic.owner.PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Ljava/lang/Object;",
+      "evidence": "formatter-and-repository-bytecode.txt; jacoco-synthetic-filter-bytecode.txt; per-test JaCoCo XML",
+      "side": "ASM_ONLY",
+      "classification": "additional-finding-generated-bridge-filtering"
+    },
+    {
+      "test": "maven:.::org.springframework.samples.petclinic.owner.PetControllerTests$ProcessCreationFormHasErrors#processCreationFormWithBlankName",
+      "method": "org.springframework.samples.petclinic.owner.PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Ljava/lang/Object;",
+      "evidence": "formatter-and-repository-bytecode.txt; jacoco-synthetic-filter-bytecode.txt; per-test JaCoCo XML",
+      "side": "ASM_ONLY",
+      "classification": "additional-finding-generated-bridge-filtering"
+    },
+    {
+      "test": "maven:.::org.springframework.samples.petclinic.owner.PetControllerTests$ProcessCreationFormHasErrors#processCreationFormWithDataIntegrityViolation",
+      "method": "org.springframework.samples.petclinic.owner.PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Ljava/lang/Object;",
+      "evidence": "formatter-and-repository-bytecode.txt; jacoco-synthetic-filter-bytecode.txt; per-test JaCoCo XML",
+      "side": "ASM_ONLY",
+      "classification": "additional-finding-generated-bridge-filtering"
+    },
+    {
+      "test": "maven:.::org.springframework.samples.petclinic.owner.PetControllerTests$ProcessCreationFormHasErrors#processCreationFormWithDataIntegrityViolation",
+      "method": "org.springframework.samples.petclinic.owner.PetTypeFormatter#print(Ljava/lang/Object;Ljava/util/Locale;)Ljava/lang/String;",
+      "evidence": "formatter-and-repository-bytecode.txt; jacoco-synthetic-filter-bytecode.txt; per-test JaCoCo XML",
+      "side": "ASM_ONLY",
+      "classification": "additional-finding-generated-bridge-filtering"
+    },
+    {
+      "test": "maven:.::org.springframework.samples.petclinic.owner.PetControllerTests$ProcessCreationFormHasErrors#processCreationFormWithDuplicateName",
+      "method": "org.springframework.samples.petclinic.owner.PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Ljava/lang/Object;",
+      "evidence": "formatter-and-repository-bytecode.txt; jacoco-synthetic-filter-bytecode.txt; per-test JaCoCo XML",
+      "side": "ASM_ONLY",
+      "classification": "additional-finding-generated-bridge-filtering"
+    },
+    {
+      "test": "maven:.::org.springframework.samples.petclinic.owner.PetControllerTests$ProcessCreationFormHasErrors#processCreationFormWithInvalidBirthDate",
+      "method": "org.springframework.samples.petclinic.owner.PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Ljava/lang/Object;",
+      "evidence": "formatter-and-repository-bytecode.txt; jacoco-synthetic-filter-bytecode.txt; per-test JaCoCo XML",
+      "side": "ASM_ONLY",
+      "classification": "additional-finding-generated-bridge-filtering"
+    },
+    {
+      "test": "maven:.::org.springframework.samples.petclinic.owner.PetControllerTests$ProcessCreationFormHasErrors#processCreationFormWithMissingPetType",
+      "method": "org.springframework.samples.petclinic.owner.PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Ljava/lang/Object;",
+      "evidence": "formatter-and-repository-bytecode.txt; jacoco-synthetic-filter-bytecode.txt; per-test JaCoCo XML",
+      "side": "ASM_ONLY",
+      "classification": "additional-finding-generated-bridge-filtering"
+    },
+    {
+      "test": "maven:.::org.springframework.samples.petclinic.owner.PetControllerTests$ProcessUpdateFormHasErrors#processUpdateFormWithBlankName",
+      "method": "org.springframework.samples.petclinic.owner.PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Ljava/lang/Object;",
+      "evidence": "formatter-and-repository-bytecode.txt; jacoco-synthetic-filter-bytecode.txt; per-test JaCoCo XML",
+      "side": "ASM_ONLY",
+      "classification": "additional-finding-generated-bridge-filtering"
+    },
+    {
+      "test": "maven:.::org.springframework.samples.petclinic.owner.PetControllerTests$ProcessUpdateFormHasErrors#processUpdateFormWithDataIntegrityViolation",
+      "method": "org.springframework.samples.petclinic.owner.PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Ljava/lang/Object;",
+      "evidence": "formatter-and-repository-bytecode.txt; jacoco-synthetic-filter-bytecode.txt; per-test JaCoCo XML",
+      "side": "ASM_ONLY",
+      "classification": "additional-finding-generated-bridge-filtering"
+    },
+    {
+      "test": "maven:.::org.springframework.samples.petclinic.owner.PetControllerTests$ProcessUpdateFormHasErrors#processUpdateFormWithDataIntegrityViolation",
+      "method": "org.springframework.samples.petclinic.owner.PetTypeFormatter#print(Ljava/lang/Object;Ljava/util/Locale;)Ljava/lang/String;",
+      "evidence": "formatter-and-repository-bytecode.txt; jacoco-synthetic-filter-bytecode.txt; per-test JaCoCo XML",
+      "side": "ASM_ONLY",
+      "classification": "additional-finding-generated-bridge-filtering"
+    },
+    {
+      "test": "maven:.::org.springframework.samples.petclinic.owner.PetControllerTests$ProcessUpdateFormHasErrors#processUpdateFormWithDuplicateName",
+      "method": "org.springframework.samples.petclinic.owner.PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Ljava/lang/Object;",
+      "evidence": "formatter-and-repository-bytecode.txt; jacoco-synthetic-filter-bytecode.txt; per-test JaCoCo XML",
+      "side": "ASM_ONLY",
+      "classification": "additional-finding-generated-bridge-filtering"
+    },
+    {
+      "test": "maven:.::org.springframework.samples.petclinic.owner.PetControllerTests$ProcessUpdateFormHasErrors#processUpdateFormWithDuplicateName",
+      "method": "org.springframework.samples.petclinic.owner.PetTypeFormatter#print(Ljava/lang/Object;Ljava/util/Locale;)Ljava/lang/String;",
+      "evidence": "formatter-and-repository-bytecode.txt; jacoco-synthetic-filter-bytecode.txt; per-test JaCoCo XML",
+      "side": "ASM_ONLY",
+      "classification": "additional-finding-generated-bridge-filtering"
+    },
+    {
+      "test": "maven:.::org.springframework.samples.petclinic.owner.PetControllerTests$ProcessUpdateFormHasErrors#processUpdateFormWithInvalidBirthDate",
+      "method": "org.springframework.samples.petclinic.owner.PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Ljava/lang/Object;",
+      "evidence": "formatter-and-repository-bytecode.txt; jacoco-synthetic-filter-bytecode.txt; per-test JaCoCo XML",
+      "side": "ASM_ONLY",
+      "classification": "additional-finding-generated-bridge-filtering"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.model.BaseEntity#isNew()Z"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.model.NamedEntity#toString()Ljava/lang/String;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.model.Person#getFirstName()Ljava/lang/String;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.model.Person#getLastName()Ljava/lang/String;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.owner.Owner#addPet(Lorg/springframework/samples/petclinic/owner/Pet;)V"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.owner.Owner#getAddress()Ljava/lang/String;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.owner.Owner#getCity()Ljava/lang/String;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.owner.Owner#getTelephone()Ljava/lang/String;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.owner.OwnerController#findOwner(Ljava/lang/Integer;)Lorg/springframework/samples/petclinic/owner/Owner;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.owner.OwnerController#setAllowedFields(Lorg/springframework/web/bind/WebDataBinder;)V"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.owner.OwnerController#showOwner(I)Lorg/springframework/web/servlet/ModelAndView;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.owner.Pet#getBirthDate()Ljava/time/LocalDate;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.owner.Pet#getType()Lorg/springframework/samples/petclinic/owner/PetType;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.owner.Pet#getVisits()Ljava/util/Collection;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.owner.Pet#setBirthDate(Ljava/time/LocalDate;)V"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.owner.Pet#setType(Lorg/springframework/samples/petclinic/owner/PetType;)V"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.owner.PetController#findOwner(I)Lorg/springframework/samples/petclinic/owner/Owner;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.owner.PetController#findPet(ILjava/lang/Integer;)Lorg/springframework/samples/petclinic/owner/Pet;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.owner.PetController#initOwnerBinder(Lorg/springframework/web/bind/WebDataBinder;)V"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.owner.PetController#initPetBinder(Lorg/springframework/web/bind/WebDataBinder;)V"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.owner.PetController#isDuplicatePetNameViolation(Lorg/springframework/dao/DataIntegrityViolationException;)Z"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.owner.PetController#populatePetTypes()Ljava/util/Collection;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.owner.PetController#processCreationForm(Lorg/springframework/samples/petclinic/owner/Owner;Lorg/springframework/samples/petclinic/owner/Pet;Lorg/springframework/validation/BindingResult;Lorg/springframework/web/servlet/mvc/support/RedirectAttributes;)Ljava/lang/String;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.owner.PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Lorg/springframework/samples/petclinic/owner/PetType;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.owner.PetTypeFormatter#print(Lorg/springframework/samples/petclinic/owner/PetType;Ljava/util/Locale;)Ljava/lang/String;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.owner.PetValidator#\u003cinit\u003e()V"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.owner.PetValidator#supports(Ljava/lang/Class;)Z"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "method": "org.springframework.samples.petclinic.owner.PetValidator#validate(Ljava/lang/Object;Lorg/springframework/validation/Errors;)V"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "method": "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e()V"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "method": "org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "method": "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e()V"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "method": "org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "method": "org.springframework.samples.petclinic.model.NamedEntity#toString()Ljava/lang/String;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "method": "org.springframework.samples.petclinic.model.Person#\u003cinit\u003e()V"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "method": "org.springframework.samples.petclinic.model.Person#getFirstName()Ljava/lang/String;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "method": "org.springframework.samples.petclinic.model.Person#getLastName()Ljava/lang/String;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "method": "org.springframework.samples.petclinic.owner.Owner#\u003cinit\u003e()V"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "method": "org.springframework.samples.petclinic.owner.Owner#getAddress()Ljava/lang/String;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "method": "org.springframework.samples.petclinic.owner.Owner#getCity()Ljava/lang/String;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "method": "org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "method": "org.springframework.samples.petclinic.owner.Owner#getTelephone()Ljava/lang/String;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "method": "org.springframework.samples.petclinic.owner.OwnerController#findOwner(Ljava/lang/Integer;)Lorg/springframework/samples/petclinic/owner/Owner;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "method": "org.springframework.samples.petclinic.owner.OwnerController#setAllowedFields(Lorg/springframework/web/bind/WebDataBinder;)V"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "method": "org.springframework.samples.petclinic.owner.OwnerController#showOwner(I)Lorg/springframework/web/servlet/ModelAndView;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "method": "org.springframework.samples.petclinic.owner.Pet#\u003cinit\u003e()V"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "method": "org.springframework.samples.petclinic.owner.Pet#getBirthDate()Ljava/time/LocalDate;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "method": "org.springframework.samples.petclinic.owner.Pet#getType()Lorg/springframework/samples/petclinic/owner/PetType;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "method": "org.springframework.samples.petclinic.owner.Pet#getVisits()Ljava/util/Collection;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "method": "org.springframework.samples.petclinic.owner.PetType#\u003cinit\u003e()V"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "method": "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e()V"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "method": "org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "method": "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e()V"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "method": "org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "method": "org.springframework.samples.petclinic.model.NamedEntity#toString()Ljava/lang/String;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "method": "org.springframework.samples.petclinic.model.Person#\u003cinit\u003e()V"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "method": "org.springframework.samples.petclinic.model.Person#getFirstName()Ljava/lang/String;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "method": "org.springframework.samples.petclinic.model.Person#getLastName()Ljava/lang/String;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "method": "org.springframework.samples.petclinic.model.Person#setLastName(Ljava/lang/String;)V"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "method": "org.springframework.samples.petclinic.owner.Owner#\u003cinit\u003e()V"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "method": "org.springframework.samples.petclinic.owner.Owner#getAddress()Ljava/lang/String;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "method": "org.springframework.samples.petclinic.owner.Owner#getCity()Ljava/lang/String;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "method": "org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "method": "org.springframework.samples.petclinic.owner.Owner#getTelephone()Ljava/lang/String;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "method": "org.springframework.samples.petclinic.owner.OwnerController#addPaginationModel(ILorg/springframework/ui/Model;Lorg/springframework/data/domain/Page;)Ljava/lang/String;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "method": "org.springframework.samples.petclinic.owner.OwnerController#findOwner(Ljava/lang/Integer;)Lorg/springframework/samples/petclinic/owner/Owner;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "method": "org.springframework.samples.petclinic.owner.OwnerController#findPaginatedForOwnersLastName(ILjava/lang/String;)Lorg/springframework/data/domain/Page;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "method": "org.springframework.samples.petclinic.owner.OwnerController#processFindForm(ILorg/springframework/samples/petclinic/owner/Owner;Lorg/springframework/validation/BindingResult;Lorg/springframework/ui/Model;)Ljava/lang/String;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "method": "org.springframework.samples.petclinic.owner.OwnerController#setAllowedFields(Lorg/springframework/web/bind/WebDataBinder;)V"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "method": "org.springframework.samples.petclinic.owner.Pet#\u003cinit\u003e()V"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "method": "org.springframework.samples.petclinic.owner.PetType#\u003cinit\u003e()V"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.system.CrashControllerIntegrationTests#triggerExceptionHtml",
+      "method": "org.springframework.samples.petclinic.system.CrashController#triggerException()Ljava/lang/String;"
+    },
+    {
+      "side": "JACOCO_ONLY",
+      "classification": "unexplained",
+      "test": "maven:.::org.springframework.samples.petclinic.system.CrashControllerIntegrationTests#triggerExceptionJson",
+      "method": "org.springframework.samples.petclinic.system.CrashController#triggerException()Ljava/lang/String;"
+    }
+  ],
+  "asmMethodEdges": 1343
+}

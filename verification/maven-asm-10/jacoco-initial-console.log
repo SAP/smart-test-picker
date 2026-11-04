@@ -1,0 +1,35 @@
+[WARNING] [SmartTestPicker] Unsafe setup coverage artifact /private/tmp/stp-asm10.VvlrmI/jacoco/target/jacoco/session_setup_29710cc2.setup: missing setup report status
+[WARNING] [SmartTestPicker] Unsafe setup coverage artifact /private/tmp/stp-asm10.VvlrmI/jacoco/target/jacoco/session_setup_31fbcca.setup: missing setup report status
+[WARNING] [SmartTestPicker] Unsafe setup coverage artifact /private/tmp/stp-asm10.VvlrmI/jacoco/target/jacoco/session_setup_24a279b9.setup: missing setup report status
+[WARNING] [SmartTestPicker] Unsafe setup coverage artifact /private/tmp/stp-asm10.VvlrmI/jacoco/target/jacoco/session_setup_670e1382.setup: missing setup report status
+[WARNING] [SmartTestPicker] Unsafe setup coverage artifact /private/tmp/stp-asm10.VvlrmI/jacoco/target/jacoco/session_setup_6ae12de1.setup: missing setup report status
+[WARNING] [SmartTestPicker] Unsafe setup coverage artifact /private/tmp/stp-asm10.VvlrmI/jacoco/target/jacoco/session_setup_2db1804b.setup: missing setup report status
+[WARNING] [SmartTestPicker] Unsafe setup coverage artifact /private/tmp/stp-asm10.VvlrmI/jacoco/target/jacoco/session_setup_17e2eb23.setup: missing setup report status
+[WARNING] [SmartTestPicker] Unsafe setup coverage artifact /private/tmp/stp-asm10.VvlrmI/jacoco/target/jacoco/session_setup_62e74858.setup: missing setup report status
+[WARNING] [SmartTestPicker] Unsafe setup coverage artifact /private/tmp/stp-asm10.VvlrmI/jacoco/target/jacoco/session_setup_53f37e80.setup: missing setup report status
+[WARNING] [SmartTestPicker] Unsafe setup coverage artifact /private/tmp/stp-asm10.VvlrmI/jacoco/target/jacoco/session_setup_6cf6a64.setup: missing setup report status
+[WARNING] [SmartTestPicker] Unsafe setup coverage artifact /private/tmp/stp-asm10.VvlrmI/jacoco/target/jacoco/session_setup_67c5bf07.setup: missing setup report status
+[WARNING] [SmartTestPicker] Unsafe setup coverage artifact /private/tmp/stp-asm10.VvlrmI/jacoco/target/jacoco/session_setup_7a1304af.setup: missing setup report status
+[WARNING] [SmartTestPicker] Unsafe setup coverage artifact /private/tmp/stp-asm10.VvlrmI/jacoco/target/jacoco/session_setup_41ff02c0.setup: missing setup report status
+[WARNING] [SmartTestPicker] Unsafe setup coverage artifact /private/tmp/stp-asm10.VvlrmI/jacoco/target/jacoco/session_setup_5e0bb614.setup: missing setup report status
+[INFO] [SmartTestPicker] Generated schema-v3 coverage fragment: /private/tmp/stp-asm10.VvlrmI/jacoco/target/stp/coverage-fragment-v3.json (0 mapped, 69 unmapped, completed=false)
+[INFO] 
+[INFO] ------------< org.springframework.samples:spring-petclinic >------------
+[INFO] Building petclinic 4.0.0-SNAPSHOT
+[INFO]   from measurement-pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:aggregate-reactor-coverage-fragment (default-cli) @ spring-petclinic ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  27.648 s
+[INFO] Finished at: 2026-11-04T13:20:48+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal com.sap.oss.smart-test-picker:smart-test-picker-maven:0.3.0-SNAPSHOT:aggregate-reactor-coverage-fragment (default-cli) on project spring-petclinic: Maven reactor coverage aggregation failed: Incomplete module coverage fragment for maven:. -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

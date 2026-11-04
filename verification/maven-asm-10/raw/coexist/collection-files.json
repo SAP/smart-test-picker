@@ -1,0 +1,262 @@
+{
+  "target/classes/org/springframework/samples/petclinic/PetClinicApplication.class": {
+    "sha256": "c9df7a6c0dad987de29a33f6b57675059f781547c3c09bb0157c8dd249ad1067",
+    "bytes": 936
+  },
+  "target/classes/org/springframework/samples/petclinic/PetClinicRuntimeHints.class": {
+    "sha256": "a9eb97e6b0c455acf35440c89eb50952ee2d189ea809854ef654535283357ccf",
+    "bytes": 2727
+  },
+  "target/classes/org/springframework/samples/petclinic/model/BaseEntity.class": {
+    "sha256": "5d3132499c7aefd581e95ce4ccf3e2a7b7b61a9da61550017b583cf394162cb5",
+    "bytes": 989
+  },
+  "target/classes/org/springframework/samples/petclinic/model/NamedEntity.class": {
+    "sha256": "ae736c1eccf6285c43a61d95d9cafe8923d66e38d8f7ecbcd4bbc3b9e465386c",
+    "bytes": 1057
+  },
+  "target/classes/org/springframework/samples/petclinic/model/Person.class": {
+    "sha256": "de434304fe0031adb8815db24f4af97b761651e23bd4d6db4d58edee13de2340",
+    "bytes": 1227
+  },
+  "target/classes/org/springframework/samples/petclinic/model/package-info.class": {
+    "sha256": "672eeb4bcef5b314c978bbdc0267b321e47330e0592196dbb0b72ec53fee5d6f",
+    "bytes": 149
+  },
+  "target/classes/org/springframework/samples/petclinic/owner/Owner.class": {
+    "sha256": "5a2c006f659265acb7e675d0cb5ed52a64a7a7a89abf585d6e2a2170d0370415",
+    "bytes": 4832
+  },
+  "target/classes/org/springframework/samples/petclinic/owner/OwnerController.class": {
+    "sha256": "b9f7479abf340c7c5197cc85cf69fa01d8b4954e498d21ae6852f8a3e2a7dd4f",
+    "bytes": 9792
+  },
+  "target/classes/org/springframework/samples/petclinic/owner/OwnerRepository.class": {
+    "sha256": "a623b729f15a14d872224c431c02b5f6832157ff0c86c206abcb95b22ad7f9f8",
+    "bytes": 1199
+  },
+  "target/classes/org/springframework/samples/petclinic/owner/Pet.class": {
+    "sha256": "2462566a14a172b209fd3c92235fea1f2081980749167b8627a819f933099a7f",
+    "bytes": 2302
+  },
+  "target/classes/org/springframework/samples/petclinic/owner/PetController.class": {
+    "sha256": "36d0997e07ea67c22a605ddc6cc7ba562891d70608c82348e88da9a70608e54b",
+    "bytes": 9448
+  },
+  "target/classes/org/springframework/samples/petclinic/owner/PetType.class": {
+    "sha256": "f07fc585b4d6da91f9974a2d90bba114d9a2ea15394ae207b6715e2c62edcc61",
+    "bytes": 498
+  },
+  "target/classes/org/springframework/samples/petclinic/owner/PetTypeFormatter.class": {
+    "sha256": "f499cca2393678d13250a73cfcae813138a7ece7fced2fa3b005344eacb28d3d",
+    "bytes": 3059
+  },
+  "target/classes/org/springframework/samples/petclinic/owner/PetTypeRepository.class": {
+    "sha256": "c9613fad894fc84f35fbb5c5b68f38ebc56a89400e881e30cc991a52849d7246",
+    "bytes": 675
+  },
+  "target/classes/org/springframework/samples/petclinic/owner/PetValidator.class": {
+    "sha256": "bf5df72e7a4dbacfc0548e6a338aa12cb8ce399e413d2e3e8acbd7e7eca6f4fd",
+    "bytes": 1786
+  },
+  "target/classes/org/springframework/samples/petclinic/owner/Visit.class": {
+    "sha256": "d564de7451af0147ff74e2856b9cec590e31670edeab4e671ef8f61ad8d9f31a",
+    "bytes": 1423
+  },
+  "target/classes/org/springframework/samples/petclinic/owner/VisitController.class": {
+    "sha256": "4f5d6ee4bc8347ecf2486510c97aef226be7ca273d176a5e1fb3d498e68ab704",
+    "bytes": 6238
+  },
+  "target/classes/org/springframework/samples/petclinic/owner/package-info.class": {
+    "sha256": "ccaae2dca0a50acaf377c2fae31703e593054b2b9815ca7e253f42b8a931d582",
+    "bytes": 149
+  },
+  "target/classes/org/springframework/samples/petclinic/package-info.class": {
+    "sha256": "f7a08d469aa23e1e6af97b8aaeaa1808ea5ebc4377737dade04fd5a3b58b47ea",
+    "bytes": 143
+  },
+  "target/classes/org/springframework/samples/petclinic/system/CacheConfiguration.class": {
+    "sha256": "769eb1fbc180e4b84f3d0e542535213d3830514143b937bed0037187d706ebc8",
+    "bytes": 2137
+  },
+  "target/classes/org/springframework/samples/petclinic/system/CrashController.class": {
+    "sha256": "20d8c7ab4dc2fb59bccafef53120019a83dd299f26e145a41a2d076f956332cf",
+    "bytes": 795
+  },
+  "target/classes/org/springframework/samples/petclinic/system/WebConfiguration.class": {
+    "sha256": "7f2cba13f6e84883f0500fc8cf5f6979c2e36215b047c4b13332ca2bd446d82f",
+    "bytes": 1952
+  },
+  "target/classes/org/springframework/samples/petclinic/system/WelcomeController.class": {
+    "sha256": "d708221b1adef577bbeeb2e030cdc571dcc5c21b9e3e91d45ca163e76195b386",
+    "bytes": 634
+  },
+  "target/classes/org/springframework/samples/petclinic/system/package-info.class": {
+    "sha256": "f534fa59d066fc539a21bcf152d30cfa96128751fad0308b75e31cd9a1088b85",
+    "bytes": 150
+  },
+  "target/classes/org/springframework/samples/petclinic/vet/Specialty.class": {
+    "sha256": "1826874be4d75ee36bc70985199dfa16fa0c1ba90f84a217adadb4e014dde784",
+    "bytes": 506
+  },
+  "target/classes/org/springframework/samples/petclinic/vet/Vet.class": {
+    "sha256": "dd0c75c128d9c8e3b1b7411cddecca32508bba6339abac0f6e5b000f7d6a225b",
+    "bytes": 3031
+  },
+  "target/classes/org/springframework/samples/petclinic/vet/VetController.class": {
+    "sha256": "6d936236c3031c2ecce5724909c0964945fdc00aaf9fb72aeda47da6e9a57374",
+    "bytes": 3543
+  },
+  "target/classes/org/springframework/samples/petclinic/vet/VetRepository.class": {
+    "sha256": "d023238dc554ab35ac647f7f0cb52554bb48836e9c58f8c73cff685d176de0d9",
+    "bytes": 1076
+  },
+  "target/classes/org/springframework/samples/petclinic/vet/Vets.class": {
+    "sha256": "63e0f416eda6689c8bdefc95e0291178a229374e0ce5f569532f1b5e35eb3d3d",
+    "bytes": 849
+  },
+  "target/classes/org/springframework/samples/petclinic/vet/package-info.class": {
+    "sha256": "d93b2f8a5cbcf602d22207f36ef19d8849d4c33e3887e23c8c1330ddd28b7d27",
+    "bytes": 147
+  },
+  "target/jacoco.exec": {
+    "sha256": "236ad65a31ce7f1b9f2569248fb3e44df8eb7c39fef82d703156be3d177db23b",
+    "bytes": 757274
+  },
+  "target/stp/asm-agent-diagnostic.json": {
+    "sha256": "ffd951d08b0db5e2c474acddcc2183f86c5235d4f771cfe353ec877a96b4c8af",
+    "bytes": 376134
+  },
+  "target/stp/asm-production-sources.txt": {
+    "sha256": "58e8ac1ad516ad19f5917e07f1e80343f074fba55d8ba77a4d16455b7c2a20f0",
+    "bytes": 134
+  },
+  "target/stp/coverage-fragment-v3.json": {
+    "sha256": "0ecdbed9d086835971a9c69e3a49b6977ca24c42058ce2bf3618d8fc1820b8b9",
+    "bytes": 171563
+  },
+  "target/stp/execution-evidence-v2.json": {
+    "sha256": "629fe7166cc8e88bb1736450805f2fe55420fa9c0fc2a2beaa31c19ad4392338",
+    "bytes": 7906
+  },
+  "target/stp/selected-tests-failsafe-v3.txt": {
+    "sha256": "a9c12c7d93688057ad0fd25c1bcd73e176e25204eb55ac7c9bf37ee90ee5b145",
+    "bytes": 35
+  },
+  "target/stp/selected-tests-surefire-v3.txt": {
+    "sha256": "f56492eb14db5738e1e74025c25682475b264efb9916f1d25085d38193deb43d",
+    "bytes": 6629
+  },
+  "target/stp/suppress-all-failsafe-v3.txt": {
+    "sha256": "29daadc43ea6e3b8bd5f6260b46f217c02bca2a890e448275f089e3faceb6a59",
+    "bytes": 5
+  },
+  "target/test-classes/org/springframework/samples/petclinic/MySqlIntegrationTests.class": {
+    "sha256": "419f4c2f9bbf02c6cac1297282bd2ddb80b41c0590744fd5f1b7c98402d3079e",
+    "bytes": 4176
+  },
+  "target/test-classes/org/springframework/samples/petclinic/MysqlTestApplication.class": {
+    "sha256": "43e4aec52b41ff3844b4277a49cc877c06b2c75ddcbdf8fb3681bc61f56d6c4a",
+    "bytes": 1546
+  },
+  "target/test-classes/org/springframework/samples/petclinic/PetClinicConcurrencyTests.class": {
+    "sha256": "281a6d2a4e6bcf9e45c222d690e9c6e2a5422ef17ec9ad576d383dcf16615974",
+    "bytes": 9673
+  },
+  "target/test-classes/org/springframework/samples/petclinic/PetClinicIntegrationTests.class": {
+    "sha256": "960067c1742a75132e425af8276f1f2295c2ca1deada1de98bf6b958ba382bce",
+    "bytes": 4064
+  },
+  "target/test-classes/org/springframework/samples/petclinic/PostgresIntegrationTests$PropertiesLogger.class": {
+    "sha256": "18c377417d9dc3c3a1b7b99869c63ba380790c1c959ccc711705abc2503ac5ef",
+    "bytes": 5143
+  },
+  "target/test-classes/org/springframework/samples/petclinic/PostgresIntegrationTests.class": {
+    "sha256": "605fe2db78bd159b7ff8e2b29b629166c2f379bcab253a92a93e0adb69e6cd26",
+    "bytes": 5086
+  },
+  "target/test-classes/org/springframework/samples/petclinic/model/ValidatorTests.class": {
+    "sha256": "6af2be23616816eef081a963926e0029c05facee1047a8b61482e815ba50486a",
+    "bytes": 3668
+  },
+  "target/test-classes/org/springframework/samples/petclinic/owner/OwnerControllerTests.class": {
+    "sha256": "76a7cee884d12618cbd0eccbd5d3c3df0c849992d73171068d0955b9db2fd13e",
+    "bytes": 13162
+  },
+  "target/test-classes/org/springframework/samples/petclinic/owner/PetControllerTests$ProcessCreationFormHasErrors.class": {
+    "sha256": "170ae965f2fa4e88f166d43b40b473f361a3addcf3b4ff840554f875b6d3d130",
+    "bytes": 6283
+  },
+  "target/test-classes/org/springframework/samples/petclinic/owner/PetControllerTests$ProcessUpdateFormHasErrors.class": {
+    "sha256": "160456ddd7462cbd526f9570b11f23e75398fa71c55083a8e585154a1cabb6f8",
+    "bytes": 5440
+  },
+  "target/test-classes/org/springframework/samples/petclinic/owner/PetControllerTests.class": {
+    "sha256": "7f95099e55d9612c7b91f595e55250c1dd6a4654c07ade1d286b2f7d7d7c5c51",
+    "bytes": 6319
+  },
+  "target/test-classes/org/springframework/samples/petclinic/owner/PetTypeFormatterTests$1.class": {
+    "sha256": "5f006e6c38203223328c7e95899f48b92fbddfd37ca9c275892a508b9ca28127",
+    "bytes": 887
+  },
+  "target/test-classes/org/springframework/samples/petclinic/owner/PetTypeFormatterTests$2.class": {
+    "sha256": "71bd55c23145f4a6f51e09f0e653b682fd8304d536359fb216cd175d3ebbeab1",
+    "bytes": 888
+  },
+  "target/test-classes/org/springframework/samples/petclinic/owner/PetTypeFormatterTests.class": {
+    "sha256": "32efd0e7cae8faa11956147e2ae363231d0e243bfd9d98da49b68fa593a074cf",
+    "bytes": 4347
+  },
+  "target/test-classes/org/springframework/samples/petclinic/owner/PetValidatorTests$ValidateHasErrors.class": {
+    "sha256": "672cfda87106f49b561d7cdc5c9c1e05a4955a016e33b13b632b14f81217699e",
+    "bytes": 2476
+  },
+  "target/test-classes/org/springframework/samples/petclinic/owner/PetValidatorTests.class": {
+    "sha256": "ca30b5ae97fc10bf22bb20bf5e1e1d6ef0eb8583c7b12a9230ddee998bfa9603",
+    "bytes": 2762
+  },
+  "target/test-classes/org/springframework/samples/petclinic/owner/VisitControllerTests.class": {
+    "sha256": "f44ff49d6db29fe662aa99d721c98cf76f6e3efe1de06c797bf021e9cfb83f16",
+    "bytes": 5539
+  },
+  "target/test-classes/org/springframework/samples/petclinic/service/ClinicServiceTests.class": {
+    "sha256": "4e2a4c738df3d43f7f92feb29490e8011b9400e95689fa83051b00088282fd91",
+    "bytes": 12833
+  },
+  "target/test-classes/org/springframework/samples/petclinic/service/EntityUtils.class": {
+    "sha256": "ac5ed054e88dfa2716ad3bee5f8e9b13a9a035555493ea17bf8c2fb4e8dbe9db",
+    "bytes": 1687
+  },
+  "target/test-classes/org/springframework/samples/petclinic/system/CrashControllerIntegrationTests$1.class": {
+    "sha256": "ea34781a1aa5827b2786565c6154926e44b1dae751a630ae97f8d6249f815831",
+    "bytes": 1003
+  },
+  "target/test-classes/org/springframework/samples/petclinic/system/CrashControllerIntegrationTests$TestConfiguration.class": {
+    "sha256": "2bf648cb36130381a04382a4db7884d2829cbda25d9dbb9d2bfaf1909cdb3e36",
+    "bytes": 978
+  },
+  "target/test-classes/org/springframework/samples/petclinic/system/CrashControllerIntegrationTests.class": {
+    "sha256": "e6cb17bc3cf2fe73687fff314e069575f12bdbd3dce6559388266bd95bb18468",
+    "bytes": 5919
+  },
+  "target/test-classes/org/springframework/samples/petclinic/system/CrashControllerTests.class": {
+    "sha256": "002373c74ec4e0ffebddcc47540c6265e4af3a4374df9a818105e4f5f123c498",
+    "bytes": 2214
+  },
+  "target/test-classes/org/springframework/samples/petclinic/system/I18nPropertiesSyncTest.class": {
+    "sha256": "4765818585344fcc5971965338c17b7cdaf81c2d12cc9b7ab4583f3f1dc46b24",
+    "bytes": 8493
+  },
+  "target/test-classes/org/springframework/samples/petclinic/system/WelcomeControllerTests.class": {
+    "sha256": "2ed12488dd81f1353da39ea6dcdfb457dcf3e9b98facadbae102d1639a2f084b",
+    "bytes": 2181
+  },
+  "target/test-classes/org/springframework/samples/petclinic/vet/VetControllerTests.class": {
+    "sha256": "328a2225537f51f0f713aa461b02c5747ef91effa542170905870108d34c6dfd",
+    "bytes": 5817
+  },
+  "target/test-classes/org/springframework/samples/petclinic/vet/VetTests.class": {
+    "sha256": "f6af322c168f8d4dcc40f7fafd577f35d7a5ced5d7c965b1a760a06751b43591",
+    "bytes": 1596
+  }
+}

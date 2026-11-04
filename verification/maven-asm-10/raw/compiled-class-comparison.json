@@ -1,0 +1,14 @@
+{
+  "asm": {
+    "equalToBaseline": true,
+    "classFiles": 57
+  },
+  "coexist": {
+    "equalToBaseline": true,
+    "classFiles": 57
+  },
+  "jacoco": {
+    "equalToBaseline": true,
+    "classFiles": 57
+  }
+}

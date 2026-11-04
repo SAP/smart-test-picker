@@ -1,0 +1,15 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------< org.springframework.samples:spring-petclinic >------------
+[INFO] Building petclinic 4.0.0-SNAPSHOT
+[INFO]   from measurement-pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.10.0:tree (default-cli) @ spring-petclinic ---
+[INFO] Wrote dependency tree to: /Users/D061177/work/moje/smart-test-picker/verification/maven-asm-10/raw/coexist/dependencies.txt
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.578 s
+[INFO] Finished at: 2026-11-04T13:23:39+01:00
+[INFO] ------------------------------------------------------------------------

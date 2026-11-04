@@ -1,0 +1,2 @@
+/private/tmp/stp-asm10.VvlrmI/asm/target/classes
+/private/tmp/stp-asm10.VvlrmI/asm/target/spring-petclinic-4.0.0-SNAPSHOT.jar

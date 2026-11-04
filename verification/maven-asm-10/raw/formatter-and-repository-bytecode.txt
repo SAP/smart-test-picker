@@ -1,0 +1,382 @@
+Classfile /private/tmp/stp-asm10.VvlrmI/asm/target/classes/org/springframework/samples/petclinic/owner/PetTypeFormatter.class
+  Last modified 4 Nov 2026; size 3059 bytes
+  SHA-256 checksum f499cca2393678d13250a73cfcae813138a7ece7fced2fa3b005344eacb28d3d
+  Compiled from "PetTypeFormatter.java"
+public class org.springframework.samples.petclinic.owner.PetTypeFormatter extends java.lang.Object implements org.springframework.format.Formatter<org.springframework.samples.petclinic.owner.PetType>
+  minor version: 0
+  major version: 61
+  flags: (0x0021) ACC_PUBLIC, ACC_SUPER
+  this_class: #8                          // org/springframework/samples/petclinic/owner/PetTypeFormatter
+  super_class: #2                         // java/lang/Object
+  interfaces: 1, fields: 1, methods: 5, attributes: 5
+Constant pool:
+    #1 = Methodref          #2.#3         // java/lang/Object."<init>":()V
+    #2 = Class              #4            // java/lang/Object
+    #3 = NameAndType        #5:#6         // "<init>":()V
+    #4 = Utf8               java/lang/Object
+    #5 = Utf8               <init>
+    #6 = Utf8               ()V
+    #7 = Fieldref           #8.#9         // org/springframework/samples/petclinic/owner/PetTypeFormatter.types:Lorg/springframework/samples/petclinic/owner/PetTypeRepository;
+    #8 = Class              #10           // org/springframework/samples/petclinic/owner/PetTypeFormatter
+    #9 = NameAndType        #11:#12       // types:Lorg/springframework/samples/petclinic/owner/PetTypeRepository;
+   #10 = Utf8               org/springframework/samples/petclinic/owner/PetTypeFormatter
+   #11 = Utf8               types
+   #12 = Utf8               Lorg/springframework/samples/petclinic/owner/PetTypeRepository;
+   #13 = Methodref          #14.#15       // org/springframework/samples/petclinic/owner/PetType.getName:()Ljava/lang/String;
+   #14 = Class              #16           // org/springframework/samples/petclinic/owner/PetType
+   #15 = NameAndType        #17:#18       // getName:()Ljava/lang/String;
+   #16 = Utf8               org/springframework/samples/petclinic/owner/PetType
+   #17 = Utf8               getName
+   #18 = Utf8               ()Ljava/lang/String;
+   #19 = String             #20           // <null>
+   #20 = Utf8               <null>
+   #21 = InterfaceMethodref #22.#23       // org/springframework/samples/petclinic/owner/PetTypeRepository.findPetTypes:()Ljava/util/List;
+   #22 = Class              #24           // org/springframework/samples/petclinic/owner/PetTypeRepository
+   #23 = NameAndType        #25:#26       // findPetTypes:()Ljava/util/List;
+   #24 = Utf8               org/springframework/samples/petclinic/owner/PetTypeRepository
+   #25 = Utf8               findPetTypes
+   #26 = Utf8               ()Ljava/util/List;
+   #27 = InterfaceMethodref #28.#29       // java/util/Collection.iterator:()Ljava/util/Iterator;
+   #28 = Class              #30           // java/util/Collection
+   #29 = NameAndType        #31:#32       // iterator:()Ljava/util/Iterator;
+   #30 = Utf8               java/util/Collection
+   #31 = Utf8               iterator
+   #32 = Utf8               ()Ljava/util/Iterator;
+   #33 = InterfaceMethodref #34.#35       // java/util/Iterator.hasNext:()Z
+   #34 = Class              #36           // java/util/Iterator
+   #35 = NameAndType        #37:#38       // hasNext:()Z
+   #36 = Utf8               java/util/Iterator
+   #37 = Utf8               hasNext
+   #38 = Utf8               ()Z
+   #39 = InterfaceMethodref #34.#40       // java/util/Iterator.next:()Ljava/lang/Object;
+   #40 = NameAndType        #41:#42       // next:()Ljava/lang/Object;
+   #41 = Utf8               next
+   #42 = Utf8               ()Ljava/lang/Object;
+   #43 = Methodref          #44.#45       // java/util/Objects.equals:(Ljava/lang/Object;Ljava/lang/Object;)Z
+   #44 = Class              #46           // java/util/Objects
+   #45 = NameAndType        #47:#48       // equals:(Ljava/lang/Object;Ljava/lang/Object;)Z
+   #46 = Utf8               java/util/Objects
+   #47 = Utf8               equals
+   #48 = Utf8               (Ljava/lang/Object;Ljava/lang/Object;)Z
+   #49 = Class              #50           // java/text/ParseException
+   #50 = Utf8               java/text/ParseException
+   #51 = InvokeDynamic      #0:#52        // #0:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+   #52 = NameAndType        #53:#54       // makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+   #53 = Utf8               makeConcatWithConstants
+   #54 = Utf8               (Ljava/lang/String;)Ljava/lang/String;
+   #55 = Methodref          #49.#56       // java/text/ParseException."<init>":(Ljava/lang/String;I)V
+   #56 = NameAndType        #5:#57        // "<init>":(Ljava/lang/String;I)V
+   #57 = Utf8               (Ljava/lang/String;I)V
+   #58 = Methodref          #8.#59        // org/springframework/samples/petclinic/owner/PetTypeFormatter.print:(Lorg/springframework/samples/petclinic/owner/PetType;Ljava/util/Locale;)Ljava/lang/String;
+   #59 = NameAndType        #60:#61       // print:(Lorg/springframework/samples/petclinic/owner/PetType;Ljava/util/Locale;)Ljava/lang/String;
+   #60 = Utf8               print
+   #61 = Utf8               (Lorg/springframework/samples/petclinic/owner/PetType;Ljava/util/Locale;)Ljava/lang/String;
+   #62 = Methodref          #8.#63        // org/springframework/samples/petclinic/owner/PetTypeFormatter.parse:(Ljava/lang/String;Ljava/util/Locale;)Lorg/springframework/samples/petclinic/owner/PetType;
+   #63 = NameAndType        #64:#65       // parse:(Ljava/lang/String;Ljava/util/Locale;)Lorg/springframework/samples/petclinic/owner/PetType;
+   #64 = Utf8               parse
+   #65 = Utf8               (Ljava/lang/String;Ljava/util/Locale;)Lorg/springframework/samples/petclinic/owner/PetType;
+   #66 = Class              #67           // org/springframework/format/Formatter
+   #67 = Utf8               org/springframework/format/Formatter
+   #68 = Utf8               (Lorg/springframework/samples/petclinic/owner/PetTypeRepository;)V
+   #69 = Utf8               Code
+   #70 = Utf8               LineNumberTable
+   #71 = Utf8               LocalVariableTable
+   #72 = Utf8               this
+   #73 = Utf8               Lorg/springframework/samples/petclinic/owner/PetTypeFormatter;
+   #74 = Utf8               MethodParameters
+   #75 = Utf8               petType
+   #76 = Utf8               Lorg/springframework/samples/petclinic/owner/PetType;
+   #77 = Utf8               locale
+   #78 = Utf8               Ljava/util/Locale;
+   #79 = Utf8               name
+   #80 = Utf8               Ljava/lang/String;
+   #81 = Utf8               StackMapTable
+   #82 = Class              #83           // java/lang/String
+   #83 = Utf8               java/lang/String
+   #84 = Utf8               type
+   #85 = Utf8               text
+   #86 = Utf8               Ljava/util/Collection;
+   #87 = Utf8               LocalVariableTypeTable
+   #88 = Utf8               Ljava/util/Collection<Lorg/springframework/samples/petclinic/owner/PetType;>;
+   #89 = Utf8               Exceptions
+   #90 = Utf8               (Ljava/lang/Object;Ljava/util/Locale;)Ljava/lang/String;
+   #91 = Utf8               (Ljava/lang/String;Ljava/util/Locale;)Ljava/lang/Object;
+   #92 = Utf8               Signature
+   #93 = Utf8               Ljava/lang/Object;Lorg/springframework/format/Formatter<Lorg/springframework/samples/petclinic/owner/PetType;>;
+   #94 = Utf8               SourceFile
+   #95 = Utf8               PetTypeFormatter.java
+   #96 = Utf8               RuntimeVisibleAnnotations
+   #97 = Utf8               Lorg/springframework/stereotype/Component;
+   #98 = Utf8               BootstrapMethods
+   #99 = String             #100          // type not found: \u0001
+  #100 = Utf8               type not found: \u0001
+  #101 = MethodHandle       6:#102        // REF_invokeStatic java/lang/invoke/StringConcatFactory.makeConcatWithConstants:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;
+  #102 = Methodref          #103.#104     // java/lang/invoke/StringConcatFactory.makeConcatWithConstants:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;
+  #103 = Class              #105          // java/lang/invoke/StringConcatFactory
+  #104 = NameAndType        #53:#106      // makeConcatWithConstants:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;
+  #105 = Utf8               java/lang/invoke/StringConcatFactory
+  #106 = Utf8               (Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;
+  #107 = Utf8               InnerClasses
+  #108 = Class              #109          // java/lang/invoke/MethodHandles$Lookup
+  #109 = Utf8               java/lang/invoke/MethodHandles$Lookup
+  #110 = Class              #111          // java/lang/invoke/MethodHandles
+  #111 = Utf8               java/lang/invoke/MethodHandles
+  #112 = Utf8               Lookup
+{
+  private final org.springframework.samples.petclinic.owner.PetTypeRepository types;
+    descriptor: Lorg/springframework/samples/petclinic/owner/PetTypeRepository;
+    flags: (0x0012) ACC_PRIVATE, ACC_FINAL
+
+  public org.springframework.samples.petclinic.owner.PetTypeFormatter(org.springframework.samples.petclinic.owner.PetTypeRepository);
+    descriptor: (Lorg/springframework/samples/petclinic/owner/PetTypeRepository;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: aload_1
+         6: putfield      #7                  // Field types:Lorg/springframework/samples/petclinic/owner/PetTypeRepository;
+         9: return
+      LineNumberTable:
+        line 41: 0
+        line 42: 4
+        line 43: 9
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0  this   Lorg/springframework/samples/petclinic/owner/PetTypeFormatter;
+            0      10     1 types   Lorg/springframework/samples/petclinic/owner/PetTypeRepository;
+    MethodParameters:
+      Name                           Flags
+      types
+
+  public java.lang.String print(org.springframework.samples.petclinic.owner.PetType, java.util.Locale);
+    descriptor: (Lorg/springframework/samples/petclinic/owner/PetType;Ljava/util/Locale;)Ljava/lang/String;
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=4, args_size=3
+         0: aload_1
+         1: invokevirtual #13                 // Method org/springframework/samples/petclinic/owner/PetType.getName:()Ljava/lang/String;
+         4: astore_3
+         5: aload_3
+         6: ifnull        13
+         9: aload_3
+        10: goto          15
+        13: ldc           #19                 // String <null>
+        15: areturn
+      LineNumberTable:
+        line 47: 0
+        line 48: 5
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      16     0  this   Lorg/springframework/samples/petclinic/owner/PetTypeFormatter;
+            0      16     1 petType   Lorg/springframework/samples/petclinic/owner/PetType;
+            0      16     2 locale   Ljava/util/Locale;
+            5      11     3  name   Ljava/lang/String;
+      StackMapTable: number_of_entries = 2
+        frame_type = 252 /* append */
+          offset_delta = 13
+          locals = [ class java/lang/String ]
+        frame_type = 65 /* same_locals_1_stack_item */
+          stack = [ class java/lang/String ]
+    MethodParameters:
+      Name                           Flags
+      petType
+      locale
+
+  public org.springframework.samples.petclinic.owner.PetType parse(java.lang.String, java.util.Locale) throws java.text.ParseException;
+    descriptor: (Ljava/lang/String;Ljava/util/Locale;)Lorg/springframework/samples/petclinic/owner/PetType;
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=4, locals=6, args_size=3
+         0: aload_0
+         1: getfield      #7                  // Field types:Lorg/springframework/samples/petclinic/owner/PetTypeRepository;
+         4: invokeinterface #21,  1           // InterfaceMethod org/springframework/samples/petclinic/owner/PetTypeRepository.findPetTypes:()Ljava/util/List;
+         9: astore_3
+        10: aload_3
+        11: invokeinterface #27,  1           // InterfaceMethod java/util/Collection.iterator:()Ljava/util/Iterator;
+        16: astore        4
+        18: aload         4
+        20: invokeinterface #33,  1           // InterfaceMethod java/util/Iterator.hasNext:()Z
+        25: ifeq          58
+        28: aload         4
+        30: invokeinterface #39,  1           // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;
+        35: checkcast     #14                 // class org/springframework/samples/petclinic/owner/PetType
+        38: astore        5
+        40: aload         5
+        42: invokevirtual #13                 // Method org/springframework/samples/petclinic/owner/PetType.getName:()Ljava/lang/String;
+        45: aload_1
+        46: invokestatic  #43                 // Method java/util/Objects.equals:(Ljava/lang/Object;Ljava/lang/Object;)Z
+        49: ifeq          55
+        52: aload         5
+        54: areturn
+        55: goto          18
+        58: new           #49                 // class java/text/ParseException
+        61: dup
+        62: aload_1
+        63: invokedynamic #51,  0             // InvokeDynamic #0:makeConcatWithConstants:(Ljava/lang/String;)Ljava/lang/String;
+        68: iconst_0
+        69: invokespecial #55                 // Method java/text/ParseException."<init>":(Ljava/lang/String;I)V
+        72: athrow
+      LineNumberTable:
+        line 53: 0
+        line 54: 10
+        line 55: 40
+        line 56: 52
+        line 58: 55
+        line 59: 58
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+           40      15     5  type   Lorg/springframework/samples/petclinic/owner/PetType;
+            0      73     0  this   Lorg/springframework/samples/petclinic/owner/PetTypeFormatter;
+            0      73     1  text   Ljava/lang/String;
+            0      73     2 locale   Ljava/util/Locale;
+           10      63     3 findPetTypes   Ljava/util/Collection;
+      LocalVariableTypeTable:
+        Start  Length  Slot  Name   Signature
+           10      63     3 findPetTypes   Ljava/util/Collection<Lorg/springframework/samples/petclinic/owner/PetType;>;
+      StackMapTable: number_of_entries = 3
+        frame_type = 253 /* append */
+          offset_delta = 18
+          locals = [ class java/util/Collection, class java/util/Iterator ]
+        frame_type = 36 /* same */
+        frame_type = 250 /* chop */
+          offset_delta = 2
+    Exceptions:
+      throws java.text.ParseException
+    MethodParameters:
+      Name                           Flags
+      text
+      locale
+
+  public java.lang.String print(java.lang.Object, java.util.Locale);
+    descriptor: (Ljava/lang/Object;Ljava/util/Locale;)Ljava/lang/String;
+    flags: (0x1041) ACC_PUBLIC, ACC_BRIDGE, ACC_SYNTHETIC
+    Code:
+      stack=3, locals=3, args_size=3
+         0: aload_0
+         1: aload_1
+         2: checkcast     #14                 // class org/springframework/samples/petclinic/owner/PetType
+         5: aload_2
+         6: invokevirtual #58                 // Method print:(Lorg/springframework/samples/petclinic/owner/PetType;Ljava/util/Locale;)Ljava/lang/String;
+         9: areturn
+      LineNumberTable:
+        line 36: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0  this   Lorg/springframework/samples/petclinic/owner/PetTypeFormatter;
+    MethodParameters:
+      Name                           Flags
+      petType                        synthetic
+      locale                         synthetic
+
+  public java.lang.Object parse(java.lang.String, java.util.Locale) throws java.text.ParseException;
+    descriptor: (Ljava/lang/String;Ljava/util/Locale;)Ljava/lang/Object;
+    flags: (0x1041) ACC_PUBLIC, ACC_BRIDGE, ACC_SYNTHETIC
+    Code:
+      stack=3, locals=3, args_size=3
+         0: aload_0
+         1: aload_1
+         2: aload_2
+         3: invokevirtual #62                 // Method parse:(Ljava/lang/String;Ljava/util/Locale;)Lorg/springframework/samples/petclinic/owner/PetType;
+         6: areturn
+      LineNumberTable:
+        line 36: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       7     0  this   Lorg/springframework/samples/petclinic/owner/PetTypeFormatter;
+    Exceptions:
+      throws java.text.ParseException
+    MethodParameters:
+      Name                           Flags
+      text                           synthetic
+      locale                         synthetic
+}
+Signature: #93                          // Ljava/lang/Object;Lorg/springframework/format/Formatter<Lorg/springframework/samples/petclinic/owner/PetType;>;
+SourceFile: "PetTypeFormatter.java"
+RuntimeVisibleAnnotations:
+  0: #97()
+    org.springframework.stereotype.Component
+BootstrapMethods:
+  0: #101 REF_invokeStatic java/lang/invoke/StringConcatFactory.makeConcatWithConstants:(Ljava/lang/invoke/MethodHandles$Lookup;Ljava/lang/String;Ljava/lang/invoke/MethodType;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/invoke/CallSite;
+    Method arguments:
+      #99 type not found: \u0001
+InnerClasses:
+  public static final #112= #108 of #110; // Lookup=class java/lang/invoke/MethodHandles$Lookup of class java/lang/invoke/MethodHandles
+Classfile /private/tmp/stp-asm10.VvlrmI/asm/target/classes/org/springframework/samples/petclinic/vet/VetRepository.class
+  Last modified 4 Nov 2026; size 1076 bytes
+  SHA-256 checksum d023238dc554ab35ac647f7f0cb52554bb48836e9c58f8c73cff685d176de0d9
+  Compiled from "VetRepository.java"
+public interface org.springframework.samples.petclinic.vet.VetRepository extends org.springframework.data.repository.Repository<org.springframework.samples.petclinic.vet.Vet, java.lang.Integer>
+  minor version: 0
+  major version: 61
+  flags: (0x0601) ACC_PUBLIC, ACC_INTERFACE, ACC_ABSTRACT
+  this_class: #1                          // org/springframework/samples/petclinic/vet/VetRepository
+  super_class: #3                         // java/lang/Object
+  interfaces: 1, fields: 0, methods: 2, attributes: 2
+Constant pool:
+   #1 = Class              #2             // org/springframework/samples/petclinic/vet/VetRepository
+   #2 = Utf8               org/springframework/samples/petclinic/vet/VetRepository
+   #3 = Class              #4             // java/lang/Object
+   #4 = Utf8               java/lang/Object
+   #5 = Class              #6             // org/springframework/data/repository/Repository
+   #6 = Utf8               org/springframework/data/repository/Repository
+   #7 = Utf8               findAll
+   #8 = Utf8               ()Ljava/util/Collection;
+   #9 = Utf8               Exceptions
+  #10 = Class              #11            // org/springframework/dao/DataAccessException
+  #11 = Utf8               org/springframework/dao/DataAccessException
+  #12 = Utf8               Signature
+  #13 = Utf8               ()Ljava/util/Collection<Lorg/springframework/samples/petclinic/vet/Vet;>;
+  #14 = Utf8               RuntimeVisibleAnnotations
+  #15 = Utf8               Lorg/springframework/transaction/annotation/Transactional;
+  #16 = Utf8               readOnly
+  #17 = Integer            1
+  #18 = Utf8               Lorg/springframework/cache/annotation/Cacheable;
+  #19 = Utf8               value
+  #20 = Utf8               vets
+  #21 = Utf8               (Lorg/springframework/data/domain/Pageable;)Lorg/springframework/data/domain/Page;
+  #22 = Utf8               MethodParameters
+  #23 = Utf8               pageable
+  #24 = Utf8               (Lorg/springframework/data/domain/Pageable;)Lorg/springframework/data/domain/Page<Lorg/springframework/samples/petclinic/vet/Vet;>;
+  #25 = Utf8               Ljava/lang/Object;Lorg/springframework/data/repository/Repository<Lorg/springframework/samples/petclinic/vet/Vet;Ljava/lang/Integer;>;
+  #26 = Utf8               SourceFile
+  #27 = Utf8               VetRepository.java
+{
+  public abstract java.util.Collection<org.springframework.samples.petclinic.vet.Vet> findAll() throws org.springframework.dao.DataAccessException;
+    descriptor: ()Ljava/util/Collection;
+    flags: (0x0401) ACC_PUBLIC, ACC_ABSTRACT
+    Exceptions:
+      throws org.springframework.dao.DataAccessException
+    Signature: #13                          // ()Ljava/util/Collection<Lorg/springframework/samples/petclinic/vet/Vet;>;
+    RuntimeVisibleAnnotations:
+      0: #15(#16=Z#17)
+        org.springframework.transaction.annotation.Transactional(
+          readOnly=true
+        )
+      1: #18(#19=[s#20])
+        org.springframework.cache.annotation.Cacheable(
+          value=["vets"]
+        )
+
+  public abstract org.springframework.data.domain.Page<org.springframework.samples.petclinic.vet.Vet> findAll(org.springframework.data.domain.Pageable) throws org.springframework.dao.DataAccessException;
+    descriptor: (Lorg/springframework/data/domain/Pageable;)Lorg/springframework/data/domain/Page;
+    flags: (0x0401) ACC_PUBLIC, ACC_ABSTRACT
+    Exceptions:
+      throws org.springframework.dao.DataAccessException
+    MethodParameters:
+      Name                           Flags
+      pageable
+    Signature: #24                          // (Lorg/springframework/data/domain/Pageable;)Lorg/springframework/data/domain/Page<Lorg/springframework/samples/petclinic/vet/Vet;>;
+    RuntimeVisibleAnnotations:
+      0: #15(#16=Z#17)
+        org.springframework.transaction.annotation.Transactional(
+          readOnly=true
+        )
+      1: #18(#19=[s#20])
+        org.springframework.cache.annotation.Cacheable(
+          value=["vets"]
+        )
+}
+Signature: #25                          // Ljava/lang/Object;Lorg/springframework/data/repository/Repository<Lorg/springframework/samples/petclinic/vet/Vet;Ljava/lang/Integer;>;
+SourceFile: "VetRepository.java"

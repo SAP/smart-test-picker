@@ -1,0 +1,37 @@
+{
+  "asm": {
+    "mapBytes": 186899,
+    "mappingExecBytes": 0,
+    "mappingExecFiles": 0,
+    "maxRssBytes": 677494784,
+    "perTestXmlBytes": 0,
+    "perTestXmlFiles": 0,
+    "wallSeconds": 37.31
+  },
+  "baseline": {
+    "mappingExecBytes": 0,
+    "mappingExecFiles": 0,
+    "maxRssBytes": 536952832,
+    "perTestXmlBytes": 0,
+    "perTestXmlFiles": 0,
+    "wallSeconds": 25.25
+  },
+  "coexist": {
+    "mapBytes": 186899,
+    "mappingExecBytes": 0,
+    "mappingExecFiles": 0,
+    "maxRssBytes": 726646784,
+    "perTestXmlBytes": 0,
+    "perTestXmlFiles": 0,
+    "wallSeconds": 37.11
+  },
+  "jacoco": {
+    "mapBytes": 193525,
+    "mappingExecBytes": 7245254,
+    "mappingExecFiles": 87,
+    "maxRssBytes": 579846144,
+    "perTestXmlBytes": 1637163,
+    "perTestXmlFiles": 77,
+    "wallSeconds": 27.86
+  }
+}
