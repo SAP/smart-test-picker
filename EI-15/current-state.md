@@ -2,6 +2,52 @@
 
 > **Historical validation evidence.** This snapshot was recorded at revision `164f49b76b83d37fed009993c8f0cc4d5dbb22af` on 2026-09-14. The version table, paths, statuses, checksums, and validation totals below describe EI-15 and are not the current repository/component inventory. Preserve those results as recorded. Current development uses the unified `0.3.0-SNAPSHOT` line; use the [current development state](../docs/current-development-state.md), [compatibility table](../docs/compatibility.md), and root README for present usage.
 
+## Current boundary addendum from the Maven ASM series
+
+Added 2026-11-04 against STP `4f73dc3`; the EI-15 body below is preserved as a
+historical snapshot. Its blanket Maven-ASM rejection and claim that probe resets
+prevent forward leakage are **not current guarantees**. Use the
+[authoritative current collector boundary](../docs/asm-coverage-mapping-current-state.md#current-maven-collector-boundaries)
+and [coupled STP/Jenkins delivery record](../docs/current-development-state.md#coupled-maven-asm-delivery).
+
+- **JaCoCo:** the shipped listener calls `startSession` at `executionStarted` and
+  `snapshotAndReset` at `executionFinished`, against a process-global agent with
+  no thread filtering. Work caused by one test but executing in the following
+  test's window is attributed to the following test. A read HTTP response does
+  not prove completion of server work. ASM-13 demonstrated that bleed and
+  repeated destructive in-JVM parallel reset loss: executed coverage vanished,
+  yet a complete map was accepted without an attribution warning. No JaCoCo
+  parallel guard exists.
+- **Sequential PetClinic:** three method-order and three class-order runs were
+  order-stable for both collectors. ASM-14/15's combined changed-successor
+  differential had edge-specific power for 71 of 74 suspect edges, not all 74.
+  This is bounded negative evidence, not proof of temporal isolation.
+- **ASM HTTP:** in ASM-11, worker threads had no leaf context and retained a
+  captured open JUnit container. Their production hits became class-level setup
+  scopes. `SchemaV2TestSelector` consumes those scopes by selecting all head
+  tests in affected containers; that is conservative over-selection compared
+  with precise leaf edges, not loss of those dependencies.
+- **ASM cached web contexts:** ASM-12's shared Spring server retained its closed
+  first container. ERROR plus LATE_EVENT made the whole collection incomplete
+  and rejected. This is an adoption blocker for that topology, not usable degraded
+  coverage; the share of real suites affected is unknown.
+- **ASM parallel rejection:** ASM-13 rejected an unobserved JUnit ForkJoin
+  submission, not parallel tests as such. The rejection is incidental, not a
+  parallel guard.
+- **Unwired concepts:** runtime collectors do not produce `SetupScopeType.SHARED_CONTEXT`,
+  `SetupScopeType.INHERITED_SETUP`, or `SetupDiagnostic.Kind.PARALLEL_CONTAINER_SETUP_UNSUPPORTED`.
+  `beginUnboundedSharedContextSetup` has no production caller; simply calling it
+  still reports unsupported shared ownership at ERROR severity.
+
+**Complete map means identity accounting and structural completeness, not
+temporal isolation or attribution soundness.** This is the limit of the current
+fail-closed guarantee. The authoritative document links each finding to source
+and retained evidence and lists the [untaken product decisions](../docs/asm-coverage-mapping-current-state.md#open-product-decisions):
+JaCoCo parallel guarding, ASM shared-context support, the intended JaCoCo version
+pair, and the Jenkins claim boundary for HTTP-heavy Spring suites.
+
+## Historical EI-15 snapshot
+
 Status date: 2026-09-14. This is the concise authority for the reviewed STP and Jenkins prototype. Historical task reports remain evidence for the revisions they name; they are not universal compatibility claims.
 
 ## Production workflows
