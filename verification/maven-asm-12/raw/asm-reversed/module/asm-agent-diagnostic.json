@@ -1,0 +1,97 @@
+{
+  "schemaVersion": "agent-shell-1",
+  "collector": "ASM",
+  "runId": "6b6873fd-b6da-3de7-979c-996c5e5b7a2b",
+  "jvmId": "pid-9647",
+  "configuration": {
+    "output": "/private/tmp/stp-asm12.DzRWXM/asm-reversed/target/stp/asm-agent-diagnostic.json",
+    "fragmentOutput": "/private/tmp/stp-asm12.DzRWXM/asm-reversed/target/stp/coverage-fragment-v3.json",
+    "revision": "4bd8b6a40b0963ec9dd5deb9d9f3f3ebff004b09",
+    "shardId": "local",
+    "includes": ["example.shared."],
+    "excludes": ["com.sap.oss.smarttestpicker.", "jakarta.", "java.", "javax.", "jdk.", "net.bytebuddy.", "org.hibernate.", "org.jacoco.", "org.junit.", "org.mockito.", "org.springframework.", "sun."],
+    "productionSources": ["/private/tmp/stp-asm12.DzRWXM/asm-reversed/target/classes", "/private/tmp/stp-asm12.DzRWXM/asm-reversed/target/shared-spring-web-context-1.jar"],
+    "requireInstrumentation": true,
+    "debug": false,
+    "instrumentation": "on"
+  },
+  "metrics": {
+    "classesSeen": 7050,
+    "classesIncluded": 2,
+    "classesExcluded": 5486,
+    "classesIgnored": 1562,
+    "transformationErrors": 0,
+    "transformerTotalNanos": 15501709,
+    "agentStartNanos": 792817356806416,
+    "classLoaderPresent": 5640,
+    "classLoaderMissing": 1410,
+    "protectionDomainPresent": 5537,
+    "protectionDomainMissing": 1513,
+    "classesTransformed": 2,
+    "methodsConsidered": 3,
+    "methodsInstrumented": 3,
+    "methodsSkipped": 0,
+    "alreadyInstrumentedClasses": 0,
+    "methodIdCollisions": 0,
+    "rawMethodHits": 6,
+    "uniqueMethodHits": 3,
+    "runtimeRecordingNanos": 75733251
+  },
+  "methodIdAlgorithm": "fnv1a64-v1",
+  "methodCatalog": [
+    {"methodId":"346313216880536890","canonicalKeys":["example.shared.PingController#<init>()V"]},
+    {"methodId":"4458947154257063000","canonicalKeys":["example.shared.PingController#ping()Ljava/lang/String;"]},
+    {"methodId":"5883247844634089279","canonicalKeys":["example.shared.SharedApplication#<init>()V"]}
+  ],
+  "methodHits": [
+    {"methodId":"346313216880536890","count":1,"canonicalKeys":["example.shared.PingController#<init>()V"]},
+    {"methodId":"4458947154257063000","count":4,"canonicalKeys":["example.shared.PingController#ping()Ljava/lang/String;"]},
+    {"methodId":"5883247844634089279","count":1,"canonicalKeys":["example.shared.SharedApplication#<init>()V"]}
+  ],
+  "agentErrors": ["setup:ASYNC_SETUP_UNSUPPORTED:ERROR:example.shared.PingController#ping()Ljava/lang/String;:work captured by closed JUnit container [engine:junit-jupiter]/[class:example.shared.BSecondTests]"],
+  "bytecodeModified": true,
+  "runtimeEvents": {
+  "schemaVersion": "spike-2",
+  "runId": "6b6873fd-b6da-3de7-979c-996c5e5b7a2b",
+  "jvmId": "pid-9647",
+  "tests": [
+    {
+      "testId": "[engine:junit-jupiter]/[class:example.shared.AFirstTests]/[method:realRequest()]",
+      "displayName": "realRequest()",
+      "testClass": "example.shared.AFirstTests",
+      "testMethod": "realRequest",
+      "testMethodParameterTypes": "",
+      "engineId": "junit-jupiter",
+      "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+      "methods": [
+        {"methodId":"4458947154257063000","method":"example.shared.PingController#ping()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+      ],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 1,
+        "uniqueMethodHits": 1
+      }
+    },
+    {
+      "testId": "[engine:junit-jupiter]/[class:example.shared.BSecondTests]/[method:realRequest()]",
+      "displayName": "realRequest()",
+      "testClass": "example.shared.BSecondTests",
+      "testMethod": "realRequest",
+      "testMethodParameterTypes": "",
+      "engineId": "junit-jupiter",
+      "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+      "methods": [
+        {"methodId":"4458947154257063000","method":"example.shared.PingController#ping()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+      ],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 1,
+        "uniqueMethodHits": 1
+      }
+    }
+  ],
+  "unattributedEvents": [
+    {"reason":"LATE_EVENT","eventType":"METHOD","eventIdentity":"example.shared.PingController#ping()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+  ]
+}
+}

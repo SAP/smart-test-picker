@@ -1,0 +1,5 @@
+/Users/D061177/work/moje/smart-test-picker/verification/maven-asm-12/ContextObserver.java:3: error: package java.lang.instrument is not visible
+import java.lang.instrument.*;
+                ^
+  (package java.lang.instrument is declared in module java.instrument, but module org.objectweb.asm does not read it)
+1 error

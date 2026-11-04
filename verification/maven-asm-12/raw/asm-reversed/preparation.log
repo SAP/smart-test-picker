@@ -1,0 +1,30 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------< fixture:shared-spring-web-context >------------------
+[INFO] Building shared-spring-web-context 1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.15:prepare-agent (project-agent) @ shared-spring-web-context ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ shared-spring-web-context ---
+[INFO] skip non existing resourceDirectory /private/tmp/stp-asm12.DzRWXM/asm-reversed/src/main/resources
+[INFO] skip non existing resourceDirectory /private/tmp/stp-asm12.DzRWXM/asm-reversed/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ shared-spring-web-context ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 2 source files with javac [debug parameters release 17] to target/classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ shared-spring-web-context ---
+[INFO] skip non existing resourceDirectory /private/tmp/stp-asm12.DzRWXM/asm-reversed/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ shared-spring-web-context ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 3 source files with javac [debug parameters release 17] to target/test-classes
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.880 s
+[INFO] Finished at: 2026-11-04T14:15:32+01:00
+[INFO] ------------------------------------------------------------------------

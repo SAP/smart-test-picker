@@ -1,0 +1,24 @@
+{
+  "complete": true,
+  "statistics": {
+    "expectedTests": 2,
+    "mappedTests": 2,
+    "unmappedTests": 0,
+    "setupScopes": 1,
+    "classEdges": 2,
+    "methodEdges": 2
+  },
+  "outcomes": {
+    "maven:.::example.shared.AFirstTests#realRequest": "PASS/COLLECTED_WITH_COVERAGE",
+    "maven:.::example.shared.BSecondTests#realRequest": "PASS/COLLECTED_WITH_COVERAGE"
+  },
+  "positivelyNonExecuted": [],
+  "assignment": [
+    "maven:.::example.shared.AFirstTests#realRequest",
+    "maven:.::example.shared.BSecondTests#realRequest"
+  ],
+  "executed": [
+    "maven:.::example.shared.AFirstTests#realRequest",
+    "maven:.::example.shared.BSecondTests#realRequest"
+  ]
+}

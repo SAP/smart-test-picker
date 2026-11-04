@@ -1,0 +1,2 @@
+/private/tmp/stp-asm12.DzRWXM/asm-observed/target/classes
+/private/tmp/stp-asm12.DzRWXM/asm-observed/target/shared-spring-web-context-1.jar
