@@ -27,15 +27,7 @@ class GradleCollectorBackendFunctionalTest {
 	void capabilitiesMatchCollectedOutput(String collector) throws Exception {
 		boolean jacoco = collector.equals("JACOCO");
 		Path project = fixture("capabilities", collector, jacoco);
-		Files.delete(project.resolve("src/test/java/example/OverloadedServiceTest.java"));
-		Path probes = Path.of("../smart-test-picker-maven/src/test/fixtures/capability-probes");
-		for (String kind : java.util.List.of("main", "test")) {
-			try (var files = Files.list(probes.resolve(kind))) {
-				for (Path file : files.toList()) Files.copy(file,
-						project.resolve("src/" + kind + "/java/example/" + file.getFileName()),
-						java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-			}
-		}
+		addCapabilityProbes(project);
 		Path build = project.resolve("build.gradle");
 		if (jacoco) {
 			String revision = new String(new ProcessBuilder("git", "rev-parse", "HEAD")
@@ -96,6 +88,86 @@ class GradleCollectorBackendFunctionalTest {
 		System.out.println("Gradle " + collector + " observed: " + observed);
 		assertEquals(observed, jacoco ? new JacocoCoverageCollectorBackend(null).capabilities()
 				: new AsmCoverageCollectorBackend(null).capabilities());
+		if (jacoco) {
+			var decoded = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(fragment));
+			assertEquals("gradle::test", decoded.setupScopes().get(0).owner().toString());
+			assertEquals(com.sap.oss.smarttestpicker.coverage.model.SetupScopeType.FRAMEWORK_SETUP, decoded.setupScopes().get(0).type());
+			var selected = JacocoSetupSelectionTest.select(fragment, temporary.resolve("selection"),
+					Path.of("build/stp-gradle-setup-01/after-gradle"));
+			assertEquals("SELECTED", selected.getStatus());
+			assertEquals(java.util.List.of("example.CapabilitiesTest#probes"), selected.getSelectedTests());
+		}
+	}
+
+	@org.junit.jupiter.params.ParameterizedTest
+	@org.junit.jupiter.params.provider.ValueSource(strings = {"missing-owner", "missing-exec", "malformed-owner", "wrong-container", "corrupt-exec", "duplicate-container", "orphan-report"})
+	void unsafeSetupEvidenceRejectsExecutableMapping(String fault) throws Exception {
+		Path project = fixture("unsafe-setup", "JACOCO", true);
+		addCapabilityProbes(project);
+		String revision = new String(new ProcessBuilder("git", "rev-parse", "HEAD").directory(project.toFile())
+				.start().getInputStream().readAllBytes()).trim();
+		Files.writeString(project.resolve("assignment.json"), """
+			{"version":1,"revision":"%s","shardId":"fixture-unsafe-setup",
+			 "tests":["gradle::test::example.CapabilitiesTest#probes"]}
+			""".formatted(revision));
+		Path build = project.resolve("build.gradle");
+		Files.writeString(build, Files.readString(build) + """
+			smartTestPicker { runtimeSchemaVersion=3; revision='%s'; executableAssignmentFile='assignment.json' }
+			test.doLast {
+			 def exec = file('build/stp/jacoco/_test/fixture-unsafe-setup/exec')
+			 def owner = exec.listFiles().find { it.name.endsWith('.setup') }
+			 assert owner != null
+			 def data = new File(exec, owner.name.replace('.setup', '.exec'))
+			 switch ('%s') {
+			  case 'missing-owner': assert owner.delete(); break
+			  case 'missing-exec': assert data.delete(); break
+			  case 'malformed-owner': owner.text = 'format=1\\ncontainer=example.CapabilitiesTest\\ncontainer=duplicate\\n'; break
+			  case 'wrong-container': owner.text = 'format=1\\ncontainer=unrelated.OtherTest\\n'; break
+			  case 'corrupt-exec': data.text = 'invalid execution data'; break
+			  case 'orphan-report':
+			   def reports = file('build/stp/jacoco/_test/fixture-unsafe-setup/reports'); reports.mkdirs()
+			   new File(reports, owner.name.replace('.setup', '.status')).text = 'COVERED'
+			   assert owner.delete(); assert data.delete(); break
+			  case 'duplicate-container':
+			   new File(exec, 'session_setup_duplicate.setup').bytes = owner.bytes
+			   new File(exec, 'session_setup_duplicate.exec').bytes = data.bytes
+			 }
+			 file('build/stp/jacoco/_test/fixture-unsafe-setup/fragment.json').text = 'stale output'
+			}
+			""".formatted(revision, fault));
+		var result = GradleRunner.create().withProjectDir(project.toFile()).withPluginClasspath()
+				.withArguments("generateSmartTestMapping", "--stacktrace").buildAndFail();
+		assertTrue(result.getOutput().contains("Unsafe JaCoCo setup coverage"), result.getOutput());
+		assertFalse(Files.exists(project.resolve("build/stp/jacoco/_test/fixture-unsafe-setup/fragment.json")));
+		assertFalse(Files.exists(project.resolve("build/stp/executable-fragment.json")));
+		Path saved = Files.createDirectories(Path.of("build/stp-gradle-setup-01/negative-" + fault));
+		Files.writeString(saved.resolve("gradle.log"), result.getOutput());
+	}
+
+	@Test void legacyJacocoRejectsPositiveSetupRatherThanPublishingAPseudoTest() throws Exception {
+		Path project = fixture("legacy-setup", "JACOCO", true);
+		addCapabilityProbes(project);
+		Files.createDirectories(project.resolve("build"));
+		Files.writeString(project.resolve("build/test-coverage-map.json"), "stale map");
+		var result = GradleRunner.create().withProjectDir(project.toFile()).withPluginClasspath()
+				.withArguments("generateSmartTestMapping", "--stacktrace").buildAndFail();
+		assertTrue(result.getOutput().contains("Legacy Gradle JaCoCo mapping cannot represent positive setup coverage"), result.getOutput());
+		assertFalse(Files.exists(project.resolve("build/test-coverage-map.json")));
+		Path saved = Files.createDirectories(Path.of("build/stp-gradle-setup-01/legacy-rejected"));
+		Files.writeString(saved.resolve("gradle.log"), result.getOutput());
+		retain(project.resolve("build/jacoco-xml"), saved.resolve("reports"));
+	}
+
+	private static void addCapabilityProbes(Path project) throws IOException {
+		Files.delete(project.resolve("src/test/java/example/OverloadedServiceTest.java"));
+		Path probes = Path.of("../smart-test-picker-maven/src/test/fixtures/capability-probes");
+		for (String kind : java.util.List.of("main", "test")) {
+			try (var files = Files.list(probes.resolve(kind))) {
+				for (Path file : files.toList()) Files.copy(file,
+						project.resolve("src/" + kind + "/java/example/" + file.getFileName()),
+						java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+			}
+		}
 	}
 
 	private static void retain(Path source, Path destination) throws IOException {

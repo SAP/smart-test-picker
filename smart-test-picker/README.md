@@ -100,8 +100,12 @@ Set `coverageCollector = 'JACOCO'` to restore the pre-TASK-27 per-test exec/XML/
 is deliberately no `BOTH`, `AUTO`, or union mode. That legacy map uses legacy method strings;
 the executable schema-v3 JaCoCo path preserves JVM method descriptors. Descriptor preservation
 does not imply method-entry completeness: an implicit exception before a JaCoCo probe can leave
-an entered method absent. Neither Gradle JaCoCo path retains owned setup scopes or directly emits
-a schema-v2 fragment. The executable converter currently drops the listener's positive setup sessions.
+an entered method absent. The executable schema-v3 converter retains validated setup sessions as
+task-owned `FRAMEWORK_SETUP` scopes; changes to their production classes select the affected
+container's tests. Unsafe setup evidence rejects conversion. The legacy unversioned map cannot
+represent this ownership and now rejects positive setup coverage rather than publishing pseudo-tests;
+use executable schema 3 with an authoritative task assignment for such suites. Neither JaCoCo
+path directly emits a schema-v2 fragment. See the [setup fix and selection proof](../verification/stp-gradle-setup-01/REPORT.md).
 The legacy collector runtime and JaCoCo `test.exec` destination are configured only on the dedicated
 mapping task, which then orders per-test exec conversion, XML generation, and legacy JSON generation.
 ASM supplies class coverage, exact descriptor-aware method coverage, bounded supported setup scopes,

@@ -28,6 +28,9 @@ import com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentity;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutableUnmappedTest;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget;
 import com.sap.oss.smarttestpicker.coverage.model.ShardId;
+import com.sap.oss.smarttestpicker.coverage.model.SetupScope;
+import com.sap.oss.smarttestpicker.coverage.model.SetupScopeType;
+import com.sap.oss.smarttestpicker.coverage.model.TestContainer;
 import com.sap.oss.smarttestpicker.coverage.model.TestCoverage;
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 import com.sap.oss.smarttestpicker.coverage.model.TestOutcome;
@@ -56,6 +59,8 @@ public abstract class GenerateGradleJacocoExecutableFragmentTask extends Default
 
 	@TaskAction public void generate() {
 		try {
+			File output = getOutputFile().get().getAsFile();
+			Files.deleteIfExists(output.toPath());
 			new ExecToXmlEngine().generateReports(execDir, classesDirs, sourceDir, reportsDir,
 					new GradleEngineLogger(getLogger()), 1, (dir, name) -> name.startsWith("session_") && name.endsWith(".exec"));
 			Map<TestIdentity, File> executed = identities(".identity");
@@ -93,13 +98,55 @@ public abstract class GenerateGradleJacocoExecutableFragmentTask extends Default
 				} else { complete = false; unmapped.add(new ExecutableUnmappedTest(executable, UnmappedReason.COLLECTION_FAILED)); }
 			}
 			ExecutableCoverageFragment fragment = new ExecutableCoverageFragment(CoverageMapContract.SCHEMA_V3,
-					new CoverageMapRevision(revision), new ShardId(shardId), mapped, unmapped, List.of(), complete);
-			File output = getOutputFile().get().getAsFile(); output.getParentFile().mkdirs();
+					new CoverageMapRevision(revision), new ShardId(shardId), mapped, unmapped, setupScopes(mapper), complete);
+			output.getParentFile().mkdirs();
 			Files.write(output.toPath(), new ExecutableCoverageFragmentCodec().serialize(fragment));
 			if (!complete) throw new GradleException("JaCoCo Gradle executable collection is incomplete");
 		} catch (Exception failure) {
 			throw failure instanceof GradleException gradle ? gradle : new GradleException("Cannot generate Gradle JaCoCo executable fragment", failure);
 		}
+	}
+
+	private List<SetupScope> setupScopes(CoverageMapperJaxb mapper) throws Exception {
+		// Include orphan exec files: missing ownership must not silently erase positive coverage.
+		Set<String> bases = new java.util.TreeSet<>();
+		File[] files = execDir.listFiles((dir, name) -> name.startsWith("session_setup_")
+				&& (name.endsWith(".exec") || name.endsWith(".setup")));
+		if (files != null) for (File file : files) bases.add(file.getName().substring(0, file.getName().lastIndexOf('.')));
+		File[] reports = reportsDir.listFiles((dir, name) -> name.startsWith("session_setup_")
+				&& (name.endsWith(".xml") || name.endsWith(".status")));
+		if (reports != null) for (File report : reports) bases.add(report.getName().substring(0, report.getName().lastIndexOf('.')));
+		List<SetupScope> scopes = new ArrayList<>();
+		Set<String> containers = new java.util.HashSet<>();
+		for (String base : bases) {
+			try {
+				File metadata = new File(execDir, base + ".setup");
+				if (!metadata.isFile() || !new File(execDir, base + ".exec").isFile())
+					throw new IllegalArgumentException("missing setup ownership or execution data");
+				Map<String, String> values = new HashMap<>();
+				for (String line : Files.readAllLines(metadata.toPath(), StandardCharsets.UTF_8)) {
+					int at = line.indexOf('=');
+					if (at <= 0 || values.put(line.substring(0, at), line.substring(at + 1)) != null)
+						throw new IllegalArgumentException("malformed or duplicate setup field");
+				}
+				if (!"1".equals(values.get("format"))) throw new IllegalArgumentException("unsupported setup format");
+				String container = values.get("container");
+				if (container == null || container.isBlank() || assigned.stream().noneMatch(test ->
+						test.className().equals(container) || test.className().startsWith(container + "$")))
+					throw new IllegalArgumentException("setup container is not bound to this target assignment: " + container);
+				if (!containers.add(container)) throw new IllegalArgumentException("duplicate setup container: " + container);
+				String state = Files.readString(new File(reportsDir, base + ".status").toPath(), StandardCharsets.UTF_8).trim();
+				Set<String> classes;
+				if (state.equals("COVERED")) classes = mapper.readSchemaV2Coverage(new File(reportsDir, base + ".xml")).coveredClasses();
+				else if (state.equals("EMPTY")) classes = Set.of();
+				else throw new IllegalArgumentException("unsafe setup report status " + state);
+				if (!classes.isEmpty()) scopes.add(new SetupScope("junit-container:" + container,
+						SetupScopeType.FRAMEWORK_SETUP, classes, Set.of(new TestContainer(container)), target));
+			} catch (Exception failure) {
+				throw new GradleException("Unsafe JaCoCo setup coverage for " + target + " (" + base + "): " + failure.getMessage(), failure);
+			}
+		}
+		return scopes;
 	}
 
 	private Map<TestIdentity, File> identities(String suffix) throws Exception {
