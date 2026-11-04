@@ -1,0 +1,55 @@
+<!-- SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>fixture</groupId><artifactId>asm-jacoco-coexistence</artifactId><version>1</version>
+  <properties>
+    <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.source>17</maven.compiler.source><maven.compiler.target>17</maven.compiler.target>
+    <argLine></argLine><observerArgLine></observerArgLine>
+    <probe.control>false</probe.control>
+  </properties>
+  <dependencies>
+    <dependency><groupId>org.junit.jupiter</groupId><artifactId>junit-jupiter</artifactId><version>5.9.3</version><scope>test</scope></dependency>
+  </dependencies>
+  <build><plugins>
+    <plugin><artifactId>maven-surefire-plugin</artifactId><version>3.5.3</version><configuration>
+      <forkCount>1</forkCount><reuseForks>true</reuseForks>
+      <argLine>${observerArgLine} @{argLine} -Xmx256m -Dproject.literal=preserved</argLine>
+      <properties><configurationParameters>junit.jupiter.extensions.autodetection.enabled = true</configurationParameters></properties>
+      <systemPropertyVariables><probe.control>${probe.control}</probe.control></systemPropertyVariables>
+    </configuration></plugin>
+    <plugin><groupId>org.jacoco</groupId><artifactId>jacoco-maven-plugin</artifactId><version>0.8.13</version>
+      <configuration><destFile>${project.build.directory}/project.exec</destFile><dataFile>${project.build.directory}/project.exec</dataFile>
+        <classDumpDir>${project.build.directory}/jacoco-input</classDumpDir><append>false</append>
+      </configuration>
+      <executions>
+        <execution><id>project-agent</id><goals><goal>prepare-agent</goal></goals></execution>
+        <execution><id>project-report</id><phase>verify</phase><goals><goal>report</goal></goals></execution>
+      </executions>
+    </plugin>
+  </plugins></build>
+  <profiles>
+    <profile><id>literal</id><build><plugins>
+      <plugin><groupId>org.jacoco</groupId><artifactId>jacoco-maven-plugin</artifactId>
+        <executions><execution><id>project-agent</id><phase>none</phase></execution></executions>
+      </plugin>
+      <plugin><artifactId>maven-dependency-plugin</artifactId><version>3.8.1</version><executions><execution>
+        <id>project-agent-file</id><phase>process-test-classes</phase><goals><goal>copy</goal></goals>
+        <configuration><artifactItems><artifactItem><groupId>org.jacoco</groupId><artifactId>org.jacoco.agent</artifactId><version>0.8.13</version>
+          <classifier>runtime</classifier><outputDirectory>${project.build.directory}/project-agent</outputDirectory><destFileName>jacoco.jar</destFileName>
+        </artifactItem></artifactItems></configuration>
+      </execution></executions></plugin>
+      <plugin><artifactId>maven-surefire-plugin</artifactId><configuration>
+        <argLine>${observerArgLine} -Xmx256m -Dproject.literal=preserved -javaagent:${project.build.directory}/project-agent/jacoco.jar=destfile=${project.build.directory}/project.exec,append=false,classdumpdir=${project.build.directory}/jacoco-input</argLine>
+      </configuration></plugin>
+    </plugins></build></profile>
+    <profile><id>stp</id>
+      <dependencies><dependency><groupId>com.sap.oss.smart-test-picker</groupId><artifactId>smart-test-picker-core</artifactId><version>0.3.0-SNAPSHOT</version><scope>test</scope></dependency></dependencies>
+      <build><plugins><plugin><groupId>com.sap.oss.smart-test-picker</groupId><artifactId>smart-test-picker-maven</artifactId><version>0.3.0-SNAPSHOT</version>
+        <configuration><moduleFragmentOutput>${smartTestPicker.moduleFragmentOutput}</moduleFragmentOutput><moduleEvidenceOutput>${smartTestPicker.moduleEvidenceOutput}</moduleEvidenceOutput></configuration>
+        <executions><execution><id>fragment</id><phase>verify</phase><goals><goal>generate-coverage-fragment</goal></goals></execution></executions>
+      </plugin></plugins></build>
+    </profile>
+  </profiles>
+</project>

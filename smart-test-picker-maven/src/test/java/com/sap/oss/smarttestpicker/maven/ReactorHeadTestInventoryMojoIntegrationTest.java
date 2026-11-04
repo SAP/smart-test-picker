@@ -1126,7 +1126,7 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 
 	@FunctionalInterface private interface ThrowingAction { void run() throws Exception; }
 
-	private static Result maven(Path directory, String... arguments) throws Exception {
+	static Result maven(Path directory, String... arguments) throws Exception {
 		Path repository = Path.of(System.getProperty("smartTestPicker.functionalTestRepository"));
 		Path localRepository = LOCAL_REPOSITORY;
 		Path settings = directory.resolve("functional-test-settings.xml");
@@ -1148,7 +1148,7 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		return new Result(process.exitValue(), output);
 	}
 
-	private static Path copyFixture(String name, Path destination) throws IOException {
+	static Path copyFixture(String name, Path destination) throws IOException {
 		Path source = Path.of("src/test/fixtures", name);
 		try (var paths = Files.walk(source)) {
 			for (Path path : paths.toList()) {
@@ -1177,5 +1177,5 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		return output;
 	}
 
-	private record Result(int exitCode, String output) { }
+	static record Result(int exitCode, String output) { }
 }

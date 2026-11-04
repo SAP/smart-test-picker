@@ -16,6 +16,14 @@ The ASM STP prototype instruments direct production method entry and attributes 
 
 The retained tests prove specific coexistence configurations in which existing JaCoCo project coverage and the STP ASM runtime/instrumentation both operate. This is technical coexistence, not proof that every agent order, build plugin, JVM, or arbitrary simultaneous configuration is supported.
 
+[MAVEN-ASM-07](../verification/maven-asm-07/REPORT.md) adds a bounded Maven report-preservation
+proof: prepared ASM with JaCoCo first retains every project class/method counter
+for both literal and late-expanded argLine configurations, including filter-sensitive
+shapes. Runtime observation finds no STP reset/dump/snapshot calls. The deliberately
+inverted order changes report results and remains unsupported. Gradle's earlier
+technical coexistence evidence still does not prove preservation of its project
+JaCoCo report; that measurement remains separate work.
+
 “Existing JaCoCo project coverage + STP runtime” must not be confused with running two competing STP per-test collectors and merging or comparing their ownership as though they implemented one contract. The research did not establish such a dual-collector production mode.
 
 ## Comparison semantics
