@@ -130,6 +130,13 @@ final class AgentRuntime {
 	private void writeFragmentIfConfigured() {
 		if (configuration.fragmentOutput() == null) return;
 		AgentMetrics.Snapshot snapshot = metrics.snapshot();
+		if (configuration.requireInstrumentation() && snapshot.classesTransformed() == 0) {
+			String diagnostic = "ASM scope matched zero instrumented classes: classesTransformed=0; includes="
+					+ configuration.includes() + "; excludes=" + configuration.excludes() + "; productionSources=" + configuration.productionSources();
+			errors.add(diagnostic);
+			System.err.println("[stp-agent] " + diagnostic);
+			return; // premain invalidated any stale fragment; never publish a complete empty map.
+		}
 		try {
 			var projected = new AsmCoverageFragmentProjector().project(runtimeContext.aggregator().snapshot(),
 					FragmentProjectionConfig.of(configuration.revision(), configuration.shardId()),

@@ -23,6 +23,7 @@ final class MethodEntryClassFileTransformer implements ClassFileTransformer {
 	private static final String HOOK_OWNER = "com/sap/oss/smarttestpicker/runtime/RuntimeHooks";
 
 	private final NoOpClassFileTransformer classifier;
+	private final AgentConfiguration configuration;
 	private final AgentMetrics metrics;
 	private final MethodCatalog catalog;
 	private final Consumer<String> errorSink;
@@ -30,6 +31,7 @@ final class MethodEntryClassFileTransformer implements ClassFileTransformer {
 	public MethodEntryClassFileTransformer(AgentConfiguration configuration, AgentMetrics metrics,
 			MethodCatalog catalog, Consumer<String> errorSink) {
 		this.classifier = new NoOpClassFileTransformer(configuration, metrics);
+		this.configuration = configuration;
 		this.metrics = metrics;
 		this.catalog = catalog;
 		this.errorSink = errorSink;
@@ -50,7 +52,8 @@ final class MethodEntryClassFileTransformer implements ClassFileTransformer {
 				metrics.ignored();
 				return null;
 			}
-			if (isTestClassLocation(protectionDomain)) {
+			if (!configuration.acceptsSource(protectionDomain)
+					|| (configuration.productionSources().isEmpty() && isTestClassLocation(protectionDomain))) {
 				metrics.ignored();
 				return null;
 			}

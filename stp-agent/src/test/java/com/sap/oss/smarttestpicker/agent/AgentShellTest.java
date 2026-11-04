@@ -90,6 +90,8 @@ class AgentShellTest {
 				"com.sap.oss.smarttestpicker.")));
 		assertFalse(configuration.debug());
 		assertTrue(configuration.instrumentationEnabled());
+		assertTrue(configuration.productionSources().isEmpty());
+		assertFalse(configuration.requireInstrumentation());
 	}
 
 	@Test

@@ -97,6 +97,8 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 
 	@Parameter(property = "smartTestPicker.moduleEvidenceOutput")
 	private File moduleEvidenceOutput;
+	@Parameter(property = "smartTestPicker.moduleDiagnosticOutput")
+	private File moduleDiagnosticOutput;
 
 	@Parameter(defaultValue = "test", property = "smartTestPicker.testTarget")
 	private String testTarget;
@@ -162,6 +164,18 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 				getLog().info("[SmartTestPicker] No ASM assignment for " + target + "; no fragment/evidence produced");
 				return;
 			}
+			if (moduleDiagnosticOutput == null || !moduleDiagnosticOutput.isFile())
+				throw new IllegalArgumentException("Missing ASM agent diagnostic for " + target);
+			var diagnostic = com.google.gson.JsonParser.parseString(Files.readString(moduleDiagnosticOutput.toPath())).getAsJsonObject();
+			if (!"agent-shell-1".equals(diagnostic.get("schemaVersion").getAsString()))
+				throw new IllegalArgumentException("Unsupported ASM agent diagnostic");
+			var configuration = diagnostic.getAsJsonObject("configuration");
+			if (!revision.equals(configuration.get("revision").getAsString()) || !shardId.equals(configuration.get("shardId").getAsString())
+					|| !fragmentOutput.toPath().toAbsolutePath().normalize().equals(Path.of(configuration.get("fragmentOutput").getAsString()).toAbsolutePath().normalize()))
+				throw new IllegalArgumentException("ASM diagnostic does not match prepared revision/shard/fragment");
+			long instrumented = diagnostic.getAsJsonObject("metrics").get("classesTransformed").getAsLong();
+			if (instrumented <= 0) throw new IllegalArgumentException("ASM scope matched zero instrumented classes: classesTransformed="
+					+ instrumented + "; includes=" + configuration.get("includes") + "; excludes=" + configuration.get("excludes"));
 			if (!fragmentOutput.isFile()) throw new IllegalArgumentException("Missing ASM coverage fragment for " + target);
 			// Read immutable agent bytes. Never regenerate them from reports or remove SKIPPED entries.
 			var fragment = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(fragmentOutput.toPath()));
