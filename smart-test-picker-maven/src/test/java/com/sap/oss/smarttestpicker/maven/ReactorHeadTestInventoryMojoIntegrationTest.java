@@ -41,6 +41,121 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 			+ ProcessHandle.current().pid()).toAbsolutePath();
 
 	@ParameterizedTest
+	@ValueSource(strings = { "literal", "property", "expression", "execution", "profile", "management", "default-attribute", "cpu",
+			"zero", "reuse", "unresolved", "legacy", "failsafe" })
+	void asmMappingRejectsUnsafeForksBeforeAnyTestJvm(String source, @TempDir Path temp) throws Exception {
+		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor")); initializeGit(fixture);
+		String provider = source.equals("failsafe") ? "failsafe" : "surefire";
+		String setting = source.equals("reuse") ? "reuseForks" : source.equals("legacy") ? "forkMode" : "forkCount";
+		String value = switch (source) {
+			case "cpu" -> "2C"; case "zero" -> "0"; case "reuse" -> "false";
+			case "unresolved" -> "${unknown.mapping.forks}"; case "legacy" -> "always"; default -> "2";
+		};
+		String configured = source.equals("expression") ? "${mapping.forks}" : value;
+		String configuration = "<configuration><" + setting + ">" + configured + "</" + setting + "></configuration>";
+		if (source.equals("default-attribute")) configuration = "<configuration><forkCount default-value=\"2\"/></configuration>";
+		if (source.equals("execution")) configuration = "<executions><execution><id>default-test</id>" + configuration
+				+ "</execution></executions>";
+		Path modulePom = fixture.resolve("module-b/pom.xml");
+		String build = "<build><plugins><plugin><artifactId>maven-" + provider + "-plugin</artifactId>"
+				+ configuration + "</plugin></plugins></build>";
+		if (source.equals("management")) build = build.replace("<build>", "<build><pluginManagement>")
+				.replace("</build>", "</pluginManagement></build>");
+		if (!source.equals("property")) {
+			if (source.equals("profile")) build = "<profiles><profile><id>unsafe-forks</id>" + build + "</profile></profiles>";
+			Files.writeString(modulePom, Files.readString(modulePom).replace("</project>", build + "</project>"));
+		}
+		String target = "maven:module-b" + (provider.equals("failsafe") ? "@failsafe@fixture-it" : "");
+		Path assignment = fixture.resolve("assignment.json");
+		Files.writeString(assignment, executableAssignment(target + "::b.BTests#b2", target + "::shared.SharedTest#same"));
+		Path fragment = fixture.resolve("asm-fragment.json"), diagnostic = fixture.resolve("asm-runtime.json");
+		var arguments = new java.util.ArrayList<>(List.of(PLUGIN + "prepare-reactor-executable-mapping", "test",
+				"-DsmartTestPicker.testsFile=" + assignment, "-DsmartTestPicker.coverageCollector=ASM",
+				"-Djacoco.skip=true", "-DargLine=" + asmAgent(fragment, diagnostic)));
+		if (source.equals("property")) arguments.add("-DforkCount=2");
+		if (source.equals("expression")) arguments.add("-Dmapping.forks=2");
+		if (source.equals("profile")) arguments.add("-Punsafe-forks");
+		if (provider.equals("failsafe")) {
+			arguments.add("-DsmartTestPicker.executionType=failsafe");
+			arguments.add("-DsmartTestPicker.executionId=fixture-it");
+		}
+		Result result = maven(fixture, arguments.toArray(String[]::new));
+		Path saved = Files.createDirectories(Path.of("build/maven-asm-04", "rejected-" + source));
+		Files.writeString(saved.resolve("maven.log"), result.output());
+		assertTrue(result.exitCode() != 0, result.output());
+		assertTrue(result.output().contains("unsupported " + setting + "=" + value), result.output());
+		assertTrue(result.output().contains("module-b / maven-" + provider + "-plugin"), result.output());
+		assertFalse(result.output().contains("--- surefire:"), result.output());
+		assertFalse(Files.exists(fragment), "A rejected run must not publish a partial fragment");
+		assertFalse(Files.exists(diagnostic), "The ASM agent must not have started");
+		for (String module : List.of("module-a", "module-b", "module-zero")) {
+			assertFalse(Files.exists(fixture.resolve(module + "/target/surefire-reports")));
+			assertFalse(Files.exists(fixture.resolve(module + "/target/test-classes")), "Preparation must precede test compilation");
+		}
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = { "default", "property", "literal-over-property" })
+	void asmMappingSingleReusedForkRetainsBothTestClasses(String source, @TempDir Path temp) throws Exception {
+		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor")); initializeGit(fixture);
+		Result install = maven(fixture, "-pl", "module-a", "-am", "install", "-DskipTests");
+		assertEquals(0, install.exitCode(), install.output());
+		if (source.equals("literal-over-property")) {
+			Path pom = fixture.resolve("module-b/pom.xml");
+			Files.writeString(pom, Files.readString(pom).replace("</project>", """
+				<build><plugins><plugin><artifactId>maven-surefire-plugin</artifactId>
+				<configuration><forkCount>1</forkCount><reuseForks>true</reuseForks></configuration>
+				</plugin></plugins></build></project>
+				"""));
+		}
+		Path assignment = fixture.resolve("assignment.json");
+		Files.writeString(assignment, executableAssignment("maven:module-b::b.BTests#b2", "maven:module-b::shared.SharedTest#same"));
+		Path fragment = fixture.resolve("asm-fragment.json"), diagnostic = fixture.resolve("asm-runtime.json");
+		var arguments = new java.util.ArrayList<>(List.of("-pl", ".,module-b", PLUGIN + "prepare-reactor-executable-mapping", "test",
+				"-DsmartTestPicker.testsFile=" + assignment, "-DsmartTestPicker.reactorRoot=" + fixture,
+				"-DsmartTestPicker.coverageCollector=ASM", "-Djacoco.skip=true", "-DargLine=" + asmAgent(fragment, diagnostic)));
+		if (!source.equals("default")) arguments.add("-DforkCount=" + (source.equals("property") ? "1" : "2"));
+		Result result = maven(fixture, arguments.toArray(String[]::new));
+		Path saved = Files.createDirectories(Path.of("build/maven-asm-04", "accepted-" + source));
+		Files.writeString(saved.resolve("maven.log"), result.output());
+		assertEquals(0, result.exitCode(), result.output());
+		var decoded = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(fragment));
+		assertEquals(Set.of("maven:module-b::b.BTests#b2", "maven:module-b::shared.SharedTest#same"),
+				decoded.tests().keySet().stream().map(Object::toString).collect(java.util.stream.Collectors.toSet()));
+		assertTrue(decoded.collectionCompleted()); assertTrue(decoded.unmapped().isEmpty());
+		decoded.tests().forEach((identity, coverage) -> assertEquals(
+				identity.test().className().equals("b.BTests") ? Set.of("a.AValue", "b.BValue") : Set.of(), coverage.coveredClasses()));
+		Files.copy(fragment, saved.resolve("fragment.json"), StandardCopyOption.REPLACE_EXISTING);
+		Files.copy(diagnostic, saved.resolve("diagnostic.json"), StandardCopyOption.REPLACE_EXISTING);
+	}
+
+	private static String asmAgent(Path fragment, Path diagnostic) {
+		return "-javaagent:" + System.getProperty("stp.test.agent.jar") + "=output=" + diagnostic
+				+ ";fragmentOutput=" + fragment + ";schemaVersion=3;revision=reactor-revision;shardId=reactor-shard"
+				+ ";executionTarget=maven:module-b;runId=asm-fork-guard;includes=a.,b.";
+	}
+
+	@Test
+	void jacocoMappingStillAllowsTwoForks(@TempDir Path temp) throws Exception {
+		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor")); initializeGit(fixture);
+		Path assignment = fixture.resolve("assignment.json");
+		Files.writeString(assignment, executableAssignment("maven:module-a::a.ATests#a1", "maven:module-a::shared.SharedTest#same"));
+		Result result = maven(fixture, PLUGIN + "prepare-reactor-executable-mapping", "test",
+				"-DsmartTestPicker.testsFile=" + assignment, "-DforkCount=2");
+		Path saved = Files.createDirectories(Path.of("build/maven-asm-04/jacoco-two-forks"));
+		Files.writeString(saved.resolve("maven.log"), result.output());
+		assertEquals(0, result.exitCode(), result.output());
+		assertFalse(result.output().contains("ASM mapping requires"), result.output());
+		for (String test : List.of("a.ATests", "shared.SharedTest")) {
+			var report = javax.xml.parsers.DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(
+					fixture.resolve("module-a/target/surefire-reports/TEST-" + test + ".xml").toFile());
+			assertEquals("1", report.getDocumentElement().getAttribute("tests"));
+			assertEquals("0", report.getDocumentElement().getAttribute("errors"));
+			assertEquals("0", report.getDocumentElement().getAttribute("failures"));
+		}
+	}
+
+	@ParameterizedTest
 	@ValueSource(booleans = { false, true })
 	void ordinaryCoreConsumerRunsBothTestsWithoutCollection(boolean autodetection, @TempDir Path temp) throws Exception {
 		Path fixture = copyFixture("ordinary-core", temp.resolve("consumer"));

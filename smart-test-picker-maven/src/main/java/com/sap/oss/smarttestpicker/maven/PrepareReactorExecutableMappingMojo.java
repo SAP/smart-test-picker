@@ -65,6 +65,14 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 			Map<ExecutionTarget,Set<TestIdentity>> partitioned = new MavenExecutableAssignmentRouter()
 					.partition(assignment, revision, shardId, modules.keySet(),
 							completeInventory == null ? null : completeInventory.runnableTests());
+			// Validate the entire assignment before mutating configuration or starting tests.
+			for (var entry : modules.entrySet()) {
+				if (!partitioned.get(entry.getKey()).isEmpty()
+						&& StpMavenLifecycleParticipant.selectedCollector(entry.getValue(), session.getUserProperties())
+						== StpCollectorSelection.ASM) {
+					AsmMappingForkGuard.validate(entry.getValue(), session, executionType);
+				}
+			}
 			for (var entry : modules.entrySet()) configure(entry.getValue(), entry.getKey(),
 					partitioned.get(entry.getKey()), executionType,
 					StpMavenLifecycleParticipant.selectedCollector(entry.getValue(), session.getUserProperties()));
@@ -91,11 +99,13 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 		Xpp3Dom configuration = plugin.getConfiguration() instanceof Xpp3Dom configured
 				? new Xpp3Dom(configured) : new Xpp3Dom("configuration");
 		StpMavenLifecycleParticipant.configureCollector(configuration, collector);
+		if (collector == StpCollectorSelection.ASM) pinSingleFork(configuration);
 		plugin.setConfiguration(configuration);
 		for (var execution : plugin.getExecutions()) {
 			Xpp3Dom configured = execution.getConfiguration() instanceof Xpp3Dom value
 					? new Xpp3Dom(value) : new Xpp3Dom("configuration");
 			StpMavenLifecycleParticipant.configureCollector(configured, collector);
+			if (collector == StpCollectorSelection.ASM) pinSingleFork(configured);
 			execution.setConfiguration(configured);
 		}
 		boolean qualified = executionType != null && !executionType.isBlank();
@@ -123,6 +133,15 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 				new File(module.getBuild().getDirectory(), "stp/coverage-fragment-v3" + suffix + ".json").getAbsolutePath());
 		module.getProperties().setProperty("smartTestPicker.moduleEvidenceOutput",
 				new File(module.getBuild().getDirectory(), "stp/execution-evidence-v2" + suffix + ".json").getAbsolutePath());
+	}
+
+	private static void pinSingleFork(Xpp3Dom configuration) {
+		// Freeze the validated settings so later property-producing goals cannot change them.
+		for (String name : List.of("forkCount", "reuseForks")) {
+			Xpp3Dom child = configuration.getChild(name);
+			if (child == null) { child = new Xpp3Dom(name); configuration.addChild(child); }
+			child.setValue(name.equals("forkCount") ? "1" : "true");
+		}
 	}
 
 	private static String suppressAll(MavenProject module, String provider, String suffix) throws Exception {
