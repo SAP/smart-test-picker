@@ -24,6 +24,25 @@ Managed selected execution also explicitly activates its core evidence collectio
 Active JaCoCo without its runtime still fails closed with the existing error
 message. See [the activation correction and validation](../verification/maven-asm-03-fix/REPORT.md).
 
+### ASM mapping fork restriction
+
+When ASM is selected, `prepare-reactor-executable-mapping` rejects unsafe fork
+settings before test execution. Single-output ASM mapping requires `forkCount=1`
+and `reuseForks=true`. Concurrent forks and successive non-reused forks overwrite
+the same fragment; `forkCount=0` does not start the required agent fork.
+CPU-relative counts, unresolved expressions, and legacy `forkMode` are rejected
+conservatively. JaCoCo preparation is unchanged.
+
+The check uses the effective reactor model (including inherited configuration,
+plugin management and active profiles), execution-level configuration and Maven's
+parameter expression evaluator for user, project and JVM properties. Validated
+settings are frozen as literal values for the subsequent provider execution.
+All configurations of the chosen provider in assigned modules are checked, even
+if a particular execution will not run. Run preparation before the test lifecycle.
+Attaching the agent manually without this goal bypasses the guard; this does not
+implement automatic ASM attachment or per-fork merging. See the
+[fork guard evidence and limitations](../verification/maven-asm-04/REPORT.md).
+
 ## Coordinates
 
 ```xml
