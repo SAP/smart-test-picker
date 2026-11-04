@@ -35,6 +35,7 @@ import com.sap.oss.smarttestpicker.coverage.model.ExecutionPlanMode;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget;
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 import com.sap.oss.smarttestpicker.coverage.serialization.ExecutionPlanCodec;
+import com.sap.oss.smarttestpicker.StpCollectorSelection;
 
 /** Maven extension entry point for plan validation, reactor restriction and execution verification. */
 @Named
@@ -88,7 +89,7 @@ public final class StpMavenLifecycleParticipant extends AbstractMavenLifecyclePa
 					.distinct().toList();
 			MavenExecutionEvidence.clean(selectedModules);
 			enableRuntimeEvidence(session);
-			activateFilters(plan.tests(), selectedModules);
+			activateFilters(plan.tests(), selectedModules, session.getUserProperties());
 			Set<MavenProject> owningProjects = Set.copyOf(resolved.values());
 			List<MavenProject> narrowed = session.getProjects().stream().filter(owningProjects::contains).toList();
 			if (narrowed.size() != owningProjects.size()) throw new IllegalArgumentException("Ambiguous Maven reactor module resolution");
@@ -142,7 +143,7 @@ public final class StpMavenLifecycleParticipant extends AbstractMavenLifecyclePa
 	}
 
 	private static void activateFilters(Set<ExecutableTestIdentity> tests,
-			Map<ExecutionTarget, MavenProject> modules) throws IOException, URISyntaxException
+			Map<ExecutionTarget, MavenProject> modules, Properties userProperties) throws IOException, URISyntaxException
 	{
 		Map<String, Set<TestIdentity>> unqualified = new TreeMap<>();
 		Map<String, Map<String, Set<TestIdentity>>> qualified = new TreeMap<>();
@@ -160,6 +161,7 @@ public final class StpMavenLifecycleParticipant extends AbstractMavenLifecyclePa
 		for (var entry : distinctModules.entrySet())
 		{
 			MavenProject project = entry.getValue();
+			StpCollectorSelection collector = selectedCollector(project, userProperties);
 			String module = entry.getKey();
 			Set<TestIdentity> general = unqualified.getOrDefault(module, Set.of());
 			Map<String, Set<TestIdentity>> exact = qualified.getOrDefault(module, Map.of());
@@ -174,29 +176,31 @@ public final class StpMavenLifecycleParticipant extends AbstractMavenLifecyclePa
 			properties.setProperty("failsafe.includesFile", (general.isEmpty() ? none : generalIncludes).toString());
 			properties.setProperty("surefire.failIfNoSpecifiedTests", "false");
 			properties.setProperty("failsafe.failIfNoSpecifiedTests", "false");
-			configureRuntime(project, "surefire", generalEvidence, "maven:" + module);
-			configureRuntime(project, "failsafe", generalEvidence, "maven:" + module);
+			configureRuntime(project, "surefire", generalEvidence, "maven:" + module, collector);
+			configureRuntime(project, "failsafe", generalEvidence, "maven:" + module, collector);
 			for (var assignment : exact.entrySet())
 			{
 				QualifiedTarget target = QualifiedTarget.parse(assignment.getKey());
 				Path includes = writeIncludes(filterDirectory.resolve("selected-" + safe(target.type + "-" + target.executionId)
 						+ ".includes"), assignment.getValue());
 				Path evidence = evidenceDirectory.resolve("evidence-" + safe(assignment.getKey().replace('@', '-')));
-				configureExecution(project, target, includes, evidence, "maven:" + module + "@" + assignment.getKey());
+				configureExecution(project, target, includes, evidence, "maven:" + module + "@" + assignment.getKey(), collector);
 			}
 		}
 	}
 
 	private static void configureRuntime(MavenProject project, String type, Path evidence,
-			String canonicalTarget) throws URISyntaxException
+			String canonicalTarget, StpCollectorSelection collector) throws URISyntaxException
 	{
 		Properties properties = project.getProperties();
-		String runtime = runtimeClasspath().stream().map(Path::toString)
+		String runtime = runtimeClasspath(collector).stream().map(Path::toString)
 				.collect(java.util.stream.Collectors.joining(","));
 		String existing = properties.getProperty("maven.test.additionalClasspath");
-		if (existing == null || existing.isBlank()) properties.setProperty("maven.test.additionalClasspath", runtime);
-		else if (!java.util.Arrays.asList(existing.split(",")).containsAll(List.of(runtime.split(","))))
-			properties.setProperty("maven.test.additionalClasspath", existing + "," + runtime);
+		if (!runtime.isEmpty()) {
+			if (existing == null || existing.isBlank()) properties.setProperty("maven.test.additionalClasspath", runtime);
+			else if (!java.util.Arrays.asList(existing.split(",")).containsAll(List.of(runtime.split(","))))
+				properties.setProperty("maven.test.additionalClasspath", existing + "," + runtime);
+		}
 		String artifactId = "maven-" + type + "-plugin";
 		Plugin plugin = project.getBuild().getPlugins().stream().filter(value -> artifactId.equals(value.getArtifactId()))
 				.findFirst().orElse(null);
@@ -213,21 +217,22 @@ public final class StpMavenLifecycleParticipant extends AbstractMavenLifecyclePa
 		}
 		Xpp3Dom configuration = plugin.getConfiguration() instanceof Xpp3Dom configured
 				? new Xpp3Dom(configured) : new Xpp3Dom("configuration");
-		configureRuntime(configuration, evidence, canonicalTarget);
+		configureRuntime(configuration, evidence, canonicalTarget, collector);
 		plugin.setConfiguration(configuration);
 	}
 
-	private static void configureRuntime(Xpp3Dom configuration, Path evidence,
-			String canonicalTarget) throws URISyntaxException
+	static void configureRuntime(Xpp3Dom configuration, Path evidence,
+			String canonicalTarget, StpCollectorSelection collector) throws URISyntaxException
 	{
 		Xpp3Dom properties = configuration.getChild("systemPropertyVariables");
 		if (properties == null) { properties = new Xpp3Dom("systemPropertyVariables"); configuration.addChild(properties); }
 		set(properties, "stp.exec.dir", evidence.toAbsolutePath().normalize().toString());
 		set(properties, "smartTestPicker.executionTarget", canonicalTarget);
+		set(properties, StpCollectorSelection.PROPERTY, collector.name());
 		enableJunitAutodetection(configuration);
 		Xpp3Dom classpath = configuration.getChild("additionalClasspathElements");
 		if (classpath == null) { classpath = new Xpp3Dom("additionalClasspathElements"); configuration.addChild(classpath); }
-		for (Path runtime : runtimeClasspath())
+		for (Path runtime : runtimeClasspath(collector))
 		{
 			boolean present = java.util.Arrays.stream(classpath.getChildren("additionalClasspathElement"))
 					.anyMatch(value -> runtime.toString().equals(value.getValue()));
@@ -247,11 +252,19 @@ public final class StpMavenLifecycleParticipant extends AbstractMavenLifecyclePa
 		parameters.setValue(existing.isEmpty() ? required : existing + "\n" + required);
 	}
 
-	private static Set<Path> runtimeClasspath() throws URISyntaxException
+	static StpCollectorSelection selectedCollector(MavenProject project, Properties userProperties)
 	{
+		return StpCollectorSelection.parse(userProperties.getProperty(StpCollectorSelection.PROPERTY,
+				project.getProperties().getProperty(StpCollectorSelection.PROPERTY,
+						System.getProperty(StpCollectorSelection.PROPERTY))));
+	}
+
+	static Set<Path> runtimeClasspath(StpCollectorSelection collector) throws URISyntaxException
+	{
+		// ASM's runtime is supplied by the separately attached agent, not the JaCoCo core SPI.
+		if (collector == StpCollectorSelection.ASM) return Set.of();
 		Set<Path> result = new TreeSet<>();
 		addResourceRoot(result, "com/sap/oss/smarttestpicker/JacocoPerTestListener.class");
-		addResourceRoot(result, "META-INF/services/org.junit.platform.launcher.TestExecutionListener");
 		if (result.isEmpty()) throw new IllegalStateException("Packaged STP Maven adapter is missing its execution evidence runtime");
 		return result;
 	}
@@ -281,7 +294,7 @@ public final class StpMavenLifecycleParticipant extends AbstractMavenLifecyclePa
 	}
 
 	private static void configureExecution(MavenProject project, QualifiedTarget target, Path includes, Path evidence,
-			String canonicalTarget) throws URISyntaxException
+			String canonicalTarget, StpCollectorSelection collector) throws URISyntaxException
 	{
 		String artifactId = "maven-" + target.type + "-plugin";
 		Plugin plugin = project.getBuild().getPlugins().stream().filter(value -> artifactId.equals(value.getArtifactId()))
@@ -293,7 +306,7 @@ public final class StpMavenLifecycleParticipant extends AbstractMavenLifecyclePa
 				? new Xpp3Dom(existing) : new Xpp3Dom("configuration");
 		set(configuration, "includesFile", includes.toString());
 		set(configuration, "failIfNoSpecifiedTests", "false");
-		configureRuntime(configuration, evidence, canonicalTarget);
+		configureRuntime(configuration, evidence, canonicalTarget, collector);
 		execution.setConfiguration(configuration);
 	}
 

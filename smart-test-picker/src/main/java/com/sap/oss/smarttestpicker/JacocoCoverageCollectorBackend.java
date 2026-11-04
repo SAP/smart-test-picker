@@ -24,6 +24,7 @@ final class JacocoCoverageCollectorBackend implements CoverageCollectorBackend {
 	@Override
 	public void configure(Project project, SmartTestPickerExtension extension, Test test, Task mappingTask,
 			String executionTarget) {
+		test.systemProperty(StpCollectorSelection.PROPERTY, StpCollectorSelection.JACOCO.name());
 		if (test instanceof StpCoverageTest tracked) {
 			tracked.getCoverageCollector().set(type());
 			tracked.getCoverageRevision().set(extension.getRevision());

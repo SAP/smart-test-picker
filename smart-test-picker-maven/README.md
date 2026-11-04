@@ -2,6 +2,21 @@
 
 Maven plugin providing mojo implementations for the coverage pipeline.
 
+## Collector isolation
+
+Core's JaCoCo SPI components are gated by the test-JVM property
+`smartTestPicker.coverageCollector=ASM|JACOCO`. An absent value preserves the Maven
+JaCoCo default. In ASM experiments, pass `-DsmartTestPicker.coverageCollector=ASM`
+to Surefire/Failsafe alongside the separately configured ASM agent. Consumer-owned
+`smart-test-picker-core` dependencies may stay on the test classpath: their JaCoCo
+listener and extension are silent in ASM mode, even with extension autodetection.
+
+Managed Maven bootstrap propagates the selected value (user property, then project
+property, then JVM property) and injects core only for JaCoCo. This change does not
+attach an ASM agent or add ASM fragment/evidence orchestration to the Maven goals.
+Selecting JaCoCo without its runtime still fails closed with the existing error
+message. See [the decision and validation note](../docs/maven-asm-03-collector-isolation.md).
+
 ## Coordinates
 
 ```xml

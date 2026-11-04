@@ -17,17 +17,34 @@ Both mechanisms do the same thing:
 
 A coordination flag prevents duplicate processing when both are active.
 
+## Selected collector
+
+Both SPI components read the test-JVM property `smartTestPicker.coverageCollector`
+when constructed. `ASM` makes every JaCoCo collection callback a silent no-op,
+including when a consumer declares core itself. `JACOCO` (also the legacy default
+when this property is absent) still requires an active JaCoCo runtime. The platform
+listener validates that requirement during SPI construction, so a missing runtime
+fails launcher startup rather than becoming a swallowed callback warning. The
+diagnostic remains `Active JaCoCo runtime is unavailable for STP mapping`.
+
+Selection is fixed for the lifetime of each component; configure it before launcher
+startup, not between test callbacks. This property selects collection components;
+it does not attach an agent. See [MAVEN-ASM-03](../docs/maven-asm-03-collector-isolation.md).
+
 ## Setup
 
 ### Gradle (with Smart Test Picker plugin)
 
-No additional configuration needed. The plugin applies `jacoco`, adds the core dependency, and sets the exec directory automatically:
+For JaCoCo fallback, apply `jacoco` and explicitly select `JACOCO`. The STP plugin
+adds the collector runtime and sets the exec directory for its mapping task.
+The Gradle default remains ASM; both backends pass their selection to the test JVM.
 
 ```groovy
 plugins {
     id 'jacoco'
     id 'com.sap.oss.smart-test-picker' version '0.3.0-SNAPSHOT'
 }
+smartTestPicker { coverageCollector = 'JACOCO' }
 ```
 
 ### Maven
