@@ -1,0 +1,5 @@
+format=1
+className=org.springframework.samples.petclinic.owner.PetControllerTests$ProcessUpdateFormHasErrors
+methodName=processUpdateFormWithBlankName
+methodParameterTypes=
+outcome=PASS

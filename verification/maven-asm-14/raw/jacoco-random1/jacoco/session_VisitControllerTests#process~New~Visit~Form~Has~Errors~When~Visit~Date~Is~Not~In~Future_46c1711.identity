@@ -1,0 +1,5 @@
+format=1
+className=org.springframework.samples.petclinic.owner.VisitControllerTests
+methodName=processNewVisitFormHasErrorsWhenVisitDateIsNotInFuture
+methodParameterTypes=
+outcome=PASS

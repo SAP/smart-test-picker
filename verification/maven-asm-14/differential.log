@@ -1,0 +1,3 @@
+asm: perRun={name=1343, random1=1343, random2=1343} stable=1343 variableEdges=0 moverMethods=0
+jacoco: perRun={name=1400, random1=1400, random2=1400} stable=1400 variableEdges=0 moverMethods=0
+PASS: exact identities/outcomes, distinct actual orders, collector-paired orders, raw JaCoCo oracle equality and sequential configuration

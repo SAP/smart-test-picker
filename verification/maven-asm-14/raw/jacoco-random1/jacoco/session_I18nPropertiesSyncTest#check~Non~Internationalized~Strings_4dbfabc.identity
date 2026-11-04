@@ -1,0 +1,5 @@
+format=1
+className=org.springframework.samples.petclinic.system.I18nPropertiesSyncTest
+methodName=checkNonInternationalizedStrings
+methodParameterTypes=
+outcome=PASS
