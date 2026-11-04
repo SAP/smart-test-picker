@@ -1,0 +1,2080 @@
+{
+  "byTest": {
+    "org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked": 30,
+    "org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails": 21,
+    "org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList": 21,
+    "org.springframework.samples.petclinic.system.CrashControllerIntegrationTests#triggerExceptionHtml": 1,
+    "org.springframework.samples.petclinic.system.CrashControllerIntegrationTests#triggerExceptionJson": 1
+  },
+  "methodEdges": [
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 11,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-1",
+        "http-nio-auto-1-exec-3"
+      ],
+      "hits": 11,
+      "hitSequences": [
+        584,
+        644,
+        648,
+        679,
+        683,
+        690,
+        694,
+        722,
+        726,
+        729,
+        734
+      ],
+      "setupSequences": [
+        586,
+        646,
+        650,
+        681,
+        686,
+        692,
+        696,
+        724,
+        728,
+        732,
+        736
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.model.BaseEntity#isNew()Z",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 8,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-1",
+        "http-nio-auto-1-exec-2"
+      ],
+      "hits": 8,
+      "hitSequences": [
+        429,
+        435,
+        448,
+        454,
+        483,
+        484,
+        580,
+        1096
+      ],
+      "setupSequences": [
+        431,
+        437,
+        451,
+        456,
+        485,
+        487,
+        582,
+        1097
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 2,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-1",
+        "http-nio-auto-1-exec-2"
+      ],
+      "hits": 2,
+      "hitSequences": [
+        323,
+        324
+      ],
+      "setupSequences": [
+        325,
+        326
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.model.NamedEntity#toString()Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 19,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-1",
+        "http-nio-auto-1-exec-3"
+      ],
+      "hits": 19,
+      "hitSequences": [
+        665,
+        668,
+        673,
+        700,
+        709,
+        770,
+        774,
+        788,
+        792,
+        806,
+        862,
+        866,
+        880,
+        938,
+        942,
+        956,
+        1016,
+        1020,
+        1034
+      ],
+      "setupSequences": [
+        667,
+        670,
+        675,
+        702,
+        711,
+        771,
+        775,
+        789,
+        793,
+        807,
+        863,
+        867,
+        881,
+        939,
+        943,
+        957,
+        1017,
+        1021,
+        1035
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.model.Person#getFirstName()Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 2,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-1",
+        "http-nio-auto-1-exec-3"
+      ],
+      "hits": 2,
+      "hitSequences": [
+        588,
+        624
+      ],
+      "setupSequences": [
+        590,
+        626
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.model.Person#getLastName()Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 2,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-1",
+        "http-nio-auto-1-exec-3"
+      ],
+      "hits": 2,
+      "hitSequences": [
+        592,
+        628
+      ],
+      "setupSequences": [
+        594,
+        630
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.owner.Owner#addPet(Lorg/springframework/samples/petclinic/owner/Pet;)V",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 2,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-1",
+        "http-nio-auto-1-exec-2"
+      ],
+      "hits": 2,
+      "hitSequences": [
+        479,
+        480
+      ],
+      "setupSequences": [
+        481,
+        482
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.owner.Owner#getAddress()Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 1,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-3"
+      ],
+      "hits": 1,
+      "hitSequences": [
+        632
+      ],
+      "setupSequences": [
+        634
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.owner.Owner#getCity()Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 1,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-3"
+      ],
+      "hits": 1,
+      "hitSequences": [
+        636
+      ],
+      "setupSequences": [
+        638
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.owner.Owner#getTelephone()Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 1,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-3"
+      ],
+      "hits": 1,
+      "hitSequences": [
+        640
+      ],
+      "setupSequences": [
+        642
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.owner.OwnerController#findOwner(Ljava/lang/Integer;)Lorg/springframework/samples/petclinic/owner/Owner;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 1,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-3"
+      ],
+      "hits": 1,
+      "hitSequences": [
+        546
+      ],
+      "setupSequences": [
+        547
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.owner.OwnerController#setAllowedFields(Lorg/springframework/web/bind/WebDataBinder;)V",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 3,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-3"
+      ],
+      "hits": 3,
+      "hitSequences": [
+        544,
+        572,
+        619
+      ],
+      "setupSequences": [
+        545,
+        573,
+        621
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.owner.OwnerController#showOwner(I)Lorg/springframework/web/servlet/ModelAndView;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 1,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-3"
+      ],
+      "hits": 1,
+      "hitSequences": [
+        574
+      ],
+      "setupSequences": [
+        575
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.owner.Pet#getBirthDate()Ljava/time/LocalDate;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 14,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-1",
+        "http-nio-auto-1-exec-2",
+        "http-nio-auto-1-exec-3"
+      ],
+      "hits": 14,
+      "hitSequences": [
+        311,
+        312,
+        436,
+        443,
+        470,
+        472,
+        474,
+        476,
+        610,
+        614,
+        618,
+        622,
+        660,
+        701
+      ],
+      "setupSequences": [
+        313,
+        314,
+        438,
+        444,
+        473,
+        475,
+        477,
+        478,
+        612,
+        616,
+        620,
+        623,
+        662,
+        703
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.owner.Pet#getType()Lorg/springframework/samples/petclinic/owner/PetType;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 22,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-1",
+        "http-nio-auto-1-exec-2",
+        "http-nio-auto-1-exec-3"
+      ],
+      "hits": 22,
+      "hitSequences": [
+        327,
+        328,
+        432,
+        439,
+        625,
+        641,
+        645,
+        661,
+        664,
+        682,
+        695,
+        706,
+        778,
+        786,
+        796,
+        804,
+        870,
+        878,
+        946,
+        954,
+        1024,
+        1032
+      ],
+      "setupSequences": [
+        329,
+        330,
+        434,
+        441,
+        627,
+        643,
+        647,
+        663,
+        666,
+        684,
+        698,
+        708,
+        779,
+        787,
+        797,
+        805,
+        871,
+        879,
+        947,
+        955,
+        1025,
+        1033
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.owner.Pet#getVisits()Ljava/util/Collection;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 2,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-3"
+      ],
+      "hits": 2,
+      "hitSequences": [
+        676,
+        718
+      ],
+      "setupSequences": [
+        677,
+        720
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.owner.Pet#setBirthDate(Ljava/time/LocalDate;)V",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 2,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-1",
+        "http-nio-auto-1-exec-2"
+      ],
+      "hits": 2,
+      "hitSequences": [
+        315,
+        316
+      ],
+      "setupSequences": [
+        317,
+        318
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.owner.Pet#setType(Lorg/springframework/samples/petclinic/owner/PetType;)V",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 2,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-1",
+        "http-nio-auto-1-exec-2"
+      ],
+      "hits": 2,
+      "hitSequences": [
+        417,
+        422
+      ],
+      "setupSequences": [
+        419,
+        424
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.owner.PetController#findOwner(I)Lorg/springframework/samples/petclinic/owner/Owner;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 2,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-1",
+        "http-nio-auto-1-exec-2"
+      ],
+      "hits": 2,
+      "hitSequences": [
+        179,
+        180
+      ],
+      "setupSequences": [
+        181,
+        182
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.owner.PetController#findPet(ILjava/lang/Integer;)Lorg/springframework/samples/petclinic/owner/Pet;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 2,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-1",
+        "http-nio-auto-1-exec-2"
+      ],
+      "hits": 2,
+      "hitSequences": [
+        163,
+        164
+      ],
+      "setupSequences": [
+        165,
+        166
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.owner.PetController#initOwnerBinder(Lorg/springframework/web/bind/WebDataBinder;)V",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 2,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-1",
+        "http-nio-auto-1-exec-2"
+      ],
+      "hits": 2,
+      "hitSequences": [
+        294,
+        297
+      ],
+      "setupSequences": [
+        296,
+        299
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.owner.PetController#initPetBinder(Lorg/springframework/web/bind/WebDataBinder;)V",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 2,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-1",
+        "http-nio-auto-1-exec-2"
+      ],
+      "hits": 2,
+      "hitSequences": [
+        298,
+        301
+      ],
+      "setupSequences": [
+        300,
+        303
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.owner.PetController#isDuplicatePetNameViolation(Lorg/springframework/dao/DataIntegrityViolationException;)Z",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 1,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-1"
+      ],
+      "hits": 1,
+      "hitSequences": [
+        539
+      ],
+      "setupSequences": [
+        540
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.owner.PetController#populatePetTypes()Ljava/util/Collection;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 2,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-1",
+        "http-nio-auto-1-exec-2"
+      ],
+      "hits": 2,
+      "hitSequences": [
+        219,
+        220
+      ],
+      "setupSequences": [
+        221,
+        222
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.owner.PetController#processCreationForm(Lorg/springframework/samples/petclinic/owner/Owner;Lorg/springframework/samples/petclinic/owner/Pet;Lorg/springframework/validation/BindingResult;Lorg/springframework/web/servlet/mvc/support/RedirectAttributes;)Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 2,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-1",
+        "http-nio-auto-1-exec-2"
+      ],
+      "hits": 2,
+      "hitSequences": [
+        440,
+        447
+      ],
+      "setupSequences": [
+        442,
+        449
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.owner.PetTypeFormatter#parse(Ljava/lang/String;Ljava/util/Locale;)Lorg/springframework/samples/petclinic/owner/PetType;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 7,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-1",
+        "http-nio-auto-1-exec-2"
+      ],
+      "hits": 7,
+      "hitSequences": [
+        335,
+        337,
+        723,
+        818,
+        892,
+        968,
+        1046
+      ],
+      "setupSequences": [
+        336,
+        339,
+        725,
+        819,
+        893,
+        969,
+        1047
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.owner.PetTypeFormatter#print(Lorg/springframework/samples/petclinic/owner/PetType;Ljava/util/Locale;)Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 13,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-1"
+      ],
+      "hits": 13,
+      "hitSequences": [
+        633,
+        653,
+        688,
+        712,
+        782,
+        800,
+        812,
+        874,
+        886,
+        950,
+        962,
+        1028,
+        1040
+      ],
+      "setupSequences": [
+        635,
+        655,
+        689,
+        714,
+        783,
+        801,
+        813,
+        875,
+        887,
+        951,
+        963,
+        1029,
+        1041
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.owner.PetValidator#\u003cinit\u003e()V",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 2,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-1",
+        "http-nio-auto-1-exec-2"
+      ],
+      "hits": 2,
+      "hitSequences": [
+        302,
+        305
+      ],
+      "setupSequences": [
+        304,
+        307
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.owner.PetValidator#supports(Ljava/lang/Class;)Z",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 2,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-1",
+        "http-nio-auto-1-exec-2"
+      ],
+      "hits": 2,
+      "hitSequences": [
+        306,
+        308
+      ],
+      "setupSequences": [
+        309,
+        310
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicConcurrencyTests",
+      "method": "org.springframework.samples.petclinic.owner.PetValidator#validate(Ljava/lang/Object;Lorg/springframework/validation/Errors;)V",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "setupWrites": 2,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "threads": [
+        "http-nio-auto-1-exec-1",
+        "http-nio-auto-1-exec-2"
+      ],
+      "hits": 2,
+      "hitSequences": [
+        421,
+        427
+      ],
+      "setupSequences": [
+        423,
+        428
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e()V",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 6,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "threads": [
+        "http-nio-auto-2-exec-2"
+      ],
+      "hits": 6,
+      "hitSequences": [
+        1496,
+        1502,
+        1508,
+        1518,
+        1524,
+        1530
+      ],
+      "setupSequences": [
+        1497,
+        1503,
+        1509,
+        1519,
+        1525,
+        1531
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 6,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "threads": [
+        "http-nio-auto-2-exec-2"
+      ],
+      "hits": 6,
+      "hitSequences": [
+        1544,
+        1546,
+        1562,
+        1564,
+        1566,
+        1568
+      ],
+      "setupSequences": [
+        1545,
+        1547,
+        1563,
+        1565,
+        1567,
+        1569
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e()V",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 4,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "threads": [
+        "http-nio-auto-2-exec-2"
+      ],
+      "hits": 4,
+      "hitSequences": [
+        1500,
+        1506,
+        1522,
+        1528
+      ],
+      "setupSequences": [
+        1501,
+        1507,
+        1523,
+        1529
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 2,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "threads": [
+        "http-nio-auto-2-exec-2"
+      ],
+      "hits": 2,
+      "hitSequences": [
+        1550,
+        1558
+      ],
+      "setupSequences": [
+        1551,
+        1559
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.model.NamedEntity#toString()Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 1,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "threads": [
+        "http-nio-auto-2-exec-2"
+      ],
+      "hits": 1,
+      "hitSequences": [
+        1556
+      ],
+      "setupSequences": [
+        1557
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.model.Person#\u003cinit\u003e()V",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 2,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "threads": [
+        "http-nio-auto-2-exec-2"
+      ],
+      "hits": 2,
+      "hitSequences": [
+        1494,
+        1516
+      ],
+      "setupSequences": [
+        1495,
+        1517
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.model.Person#getFirstName()Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 1,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "threads": [
+        "http-nio-auto-2-exec-2"
+      ],
+      "hits": 1,
+      "hitSequences": [
+        1534
+      ],
+      "setupSequences": [
+        1535
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.model.Person#getLastName()Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 1,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "threads": [
+        "http-nio-auto-2-exec-2"
+      ],
+      "hits": 1,
+      "hitSequences": [
+        1536
+      ],
+      "setupSequences": [
+        1537
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.owner.Owner#\u003cinit\u003e()V",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 2,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "threads": [
+        "http-nio-auto-2-exec-2"
+      ],
+      "hits": 2,
+      "hitSequences": [
+        1492,
+        1514
+      ],
+      "setupSequences": [
+        1493,
+        1515
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.owner.Owner#getAddress()Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 1,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "threads": [
+        "http-nio-auto-2-exec-2"
+      ],
+      "hits": 1,
+      "hitSequences": [
+        1538
+      ],
+      "setupSequences": [
+        1539
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.owner.Owner#getCity()Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 1,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "threads": [
+        "http-nio-auto-2-exec-2"
+      ],
+      "hits": 1,
+      "hitSequences": [
+        1540
+      ],
+      "setupSequences": [
+        1541
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 1,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "threads": [
+        "http-nio-auto-2-exec-2"
+      ],
+      "hits": 1,
+      "hitSequences": [
+        1548
+      ],
+      "setupSequences": [
+        1549
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.owner.Owner#getTelephone()Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 1,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "threads": [
+        "http-nio-auto-2-exec-2"
+      ],
+      "hits": 1,
+      "hitSequences": [
+        1542
+      ],
+      "setupSequences": [
+        1543
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.owner.OwnerController#findOwner(Ljava/lang/Integer;)Lorg/springframework/samples/petclinic/owner/Owner;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 1,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "threads": [
+        "http-nio-auto-2-exec-2"
+      ],
+      "hits": 1,
+      "hitSequences": [
+        1490
+      ],
+      "setupSequences": [
+        1491
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.owner.OwnerController#setAllowedFields(Lorg/springframework/web/bind/WebDataBinder;)V",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 3,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "threads": [
+        "http-nio-auto-2-exec-2"
+      ],
+      "hits": 3,
+      "hitSequences": [
+        1488,
+        1510,
+        1532
+      ],
+      "setupSequences": [
+        1489,
+        1511,
+        1533
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.owner.OwnerController#showOwner(I)Lorg/springframework/web/servlet/ModelAndView;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 1,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "threads": [
+        "http-nio-auto-2-exec-2"
+      ],
+      "hits": 1,
+      "hitSequences": [
+        1512
+      ],
+      "setupSequences": [
+        1513
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.owner.Pet#\u003cinit\u003e()V",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 2,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "threads": [
+        "http-nio-auto-2-exec-2"
+      ],
+      "hits": 2,
+      "hitSequences": [
+        1498,
+        1520
+      ],
+      "setupSequences": [
+        1499,
+        1521
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.owner.Pet#getBirthDate()Ljava/time/LocalDate;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 1,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "threads": [
+        "http-nio-auto-2-exec-2"
+      ],
+      "hits": 1,
+      "hitSequences": [
+        1552
+      ],
+      "setupSequences": [
+        1553
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.owner.Pet#getType()Lorg/springframework/samples/petclinic/owner/PetType;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 1,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "threads": [
+        "http-nio-auto-2-exec-2"
+      ],
+      "hits": 1,
+      "hitSequences": [
+        1554
+      ],
+      "setupSequences": [
+        1555
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.owner.Pet#getVisits()Ljava/util/Collection;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 1,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "threads": [
+        "http-nio-auto-2-exec-2"
+      ],
+      "hits": 1,
+      "hitSequences": [
+        1560
+      ],
+      "setupSequences": [
+        1561
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.owner.PetType#\u003cinit\u003e()V",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 2,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "threads": [
+        "http-nio-auto-2-exec-2"
+      ],
+      "hits": 2,
+      "hitSequences": [
+        1504,
+        1526
+      ],
+      "setupSequences": [
+        1505,
+        1527
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e()V",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 17,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "threads": [
+        "http-nio-auto-2-exec-1"
+      ],
+      "hits": 17,
+      "hitSequences": [
+        1277,
+        1297,
+        1303,
+        1309,
+        1315,
+        1321,
+        1327,
+        1333,
+        1339,
+        1345,
+        1351,
+        1357,
+        1363,
+        1369,
+        1375,
+        1381,
+        1387
+      ],
+      "setupSequences": [
+        1278,
+        1298,
+        1304,
+        1310,
+        1316,
+        1322,
+        1328,
+        1334,
+        1340,
+        1346,
+        1352,
+        1358,
+        1364,
+        1370,
+        1376,
+        1382,
+        1388
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 5,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "threads": [
+        "http-nio-auto-2-exec-1"
+      ],
+      "hits": 5,
+      "hitSequences": [
+        1391,
+        1409,
+        1427,
+        1449,
+        1467
+      ],
+      "setupSequences": [
+        1392,
+        1410,
+        1428,
+        1450,
+        1468
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e()V",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 11,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "threads": [
+        "http-nio-auto-2-exec-1"
+      ],
+      "hits": 11,
+      "hitSequences": [
+        1325,
+        1331,
+        1337,
+        1343,
+        1349,
+        1355,
+        1361,
+        1367,
+        1373,
+        1379,
+        1385
+      ],
+      "setupSequences": [
+        1326,
+        1332,
+        1338,
+        1344,
+        1350,
+        1356,
+        1362,
+        1368,
+        1374,
+        1380,
+        1386
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 6,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "threads": [
+        "http-nio-auto-2-exec-1"
+      ],
+      "hits": 6,
+      "hitSequences": [
+        1407,
+        1425,
+        1443,
+        1447,
+        1465,
+        1483
+      ],
+      "setupSequences": [
+        1408,
+        1426,
+        1444,
+        1448,
+        1466,
+        1484
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.model.NamedEntity#toString()Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 6,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "threads": [
+        "http-nio-auto-2-exec-1"
+      ],
+      "hits": 6,
+      "hitSequences": [
+        1405,
+        1423,
+        1441,
+        1445,
+        1463,
+        1481
+      ],
+      "setupSequences": [
+        1406,
+        1424,
+        1442,
+        1446,
+        1464,
+        1482
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.model.Person#\u003cinit\u003e()V",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 6,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "threads": [
+        "http-nio-auto-2-exec-1"
+      ],
+      "hits": 6,
+      "hitSequences": [
+        1275,
+        1295,
+        1301,
+        1307,
+        1313,
+        1319
+      ],
+      "setupSequences": [
+        1276,
+        1296,
+        1302,
+        1308,
+        1314,
+        1320
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.model.Person#getFirstName()Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 5,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "threads": [
+        "http-nio-auto-2-exec-1"
+      ],
+      "hits": 5,
+      "hitSequences": [
+        1393,
+        1411,
+        1429,
+        1451,
+        1469
+      ],
+      "setupSequences": [
+        1394,
+        1412,
+        1430,
+        1452,
+        1470
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.model.Person#getLastName()Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 7,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "threads": [
+        "http-nio-auto-2-exec-1"
+      ],
+      "hits": 7,
+      "hitSequences": [
+        1283,
+        1289,
+        1395,
+        1413,
+        1431,
+        1453,
+        1471
+      ],
+      "setupSequences": [
+        1284,
+        1290,
+        1396,
+        1414,
+        1432,
+        1454,
+        1472
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.model.Person#setLastName(Ljava/lang/String;)V",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 1,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "threads": [
+        "http-nio-auto-2-exec-1"
+      ],
+      "hits": 1,
+      "hitSequences": [
+        1285
+      ],
+      "setupSequences": [
+        1286
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.owner.Owner#\u003cinit\u003e()V",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 6,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "threads": [
+        "http-nio-auto-2-exec-1"
+      ],
+      "hits": 6,
+      "hitSequences": [
+        1273,
+        1293,
+        1299,
+        1305,
+        1311,
+        1317
+      ],
+      "setupSequences": [
+        1274,
+        1294,
+        1300,
+        1306,
+        1312,
+        1318
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.owner.Owner#getAddress()Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 5,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "threads": [
+        "http-nio-auto-2-exec-1"
+      ],
+      "hits": 5,
+      "hitSequences": [
+        1397,
+        1415,
+        1433,
+        1455,
+        1473
+      ],
+      "setupSequences": [
+        1398,
+        1416,
+        1434,
+        1456,
+        1474
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.owner.Owner#getCity()Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 5,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "threads": [
+        "http-nio-auto-2-exec-1"
+      ],
+      "hits": 5,
+      "hitSequences": [
+        1399,
+        1417,
+        1435,
+        1457,
+        1475
+      ],
+      "setupSequences": [
+        1400,
+        1418,
+        1436,
+        1458,
+        1476
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 5,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "threads": [
+        "http-nio-auto-2-exec-1"
+      ],
+      "hits": 5,
+      "hitSequences": [
+        1403,
+        1421,
+        1439,
+        1461,
+        1479
+      ],
+      "setupSequences": [
+        1404,
+        1422,
+        1440,
+        1462,
+        1480
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.owner.Owner#getTelephone()Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 5,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "threads": [
+        "http-nio-auto-2-exec-1"
+      ],
+      "hits": 5,
+      "hitSequences": [
+        1401,
+        1419,
+        1437,
+        1459,
+        1477
+      ],
+      "setupSequences": [
+        1402,
+        1420,
+        1438,
+        1460,
+        1478
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.owner.OwnerController#addPaginationModel(ILorg/springframework/ui/Model;Lorg/springframework/data/domain/Page;)Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 1,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "threads": [
+        "http-nio-auto-2-exec-1"
+      ],
+      "hits": 1,
+      "hitSequences": [
+        1389
+      ],
+      "setupSequences": [
+        1390
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.owner.OwnerController#findOwner(Ljava/lang/Integer;)Lorg/springframework/samples/petclinic/owner/Owner;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 1,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "threads": [
+        "http-nio-auto-2-exec-1"
+      ],
+      "hits": 1,
+      "hitSequences": [
+        1271
+      ],
+      "setupSequences": [
+        1272
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.owner.OwnerController#findPaginatedForOwnersLastName(ILjava/lang/String;)Lorg/springframework/data/domain/Page;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 1,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "threads": [
+        "http-nio-auto-2-exec-1"
+      ],
+      "hits": 1,
+      "hitSequences": [
+        1291
+      ],
+      "setupSequences": [
+        1292
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.owner.OwnerController#processFindForm(ILorg/springframework/samples/petclinic/owner/Owner;Lorg/springframework/validation/BindingResult;Lorg/springframework/ui/Model;)Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 1,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "threads": [
+        "http-nio-auto-2-exec-1"
+      ],
+      "hits": 1,
+      "hitSequences": [
+        1287
+      ],
+      "setupSequences": [
+        1288
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.owner.OwnerController#setAllowedFields(Lorg/springframework/web/bind/WebDataBinder;)V",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 3,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "threads": [
+        "http-nio-auto-2-exec-1"
+      ],
+      "hits": 3,
+      "hitSequences": [
+        1269,
+        1279,
+        1281
+      ],
+      "setupSequences": [
+        1270,
+        1280,
+        1282
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.owner.Pet#\u003cinit\u003e()V",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 6,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "threads": [
+        "http-nio-auto-2-exec-1"
+      ],
+      "hits": 6,
+      "hitSequences": [
+        1323,
+        1335,
+        1347,
+        1359,
+        1371,
+        1383
+      ],
+      "setupSequences": [
+        1324,
+        1336,
+        1348,
+        1360,
+        1372,
+        1384
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.PetClinicIntegrationTests",
+      "method": "org.springframework.samples.petclinic.owner.PetType#\u003cinit\u003e()V",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "setupWrites": 5,
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "threads": [
+        "http-nio-auto-2-exec-1"
+      ],
+      "hits": 5,
+      "hitSequences": [
+        1329,
+        1341,
+        1353,
+        1365,
+        1377
+      ],
+      "setupSequences": [
+        1330,
+        1342,
+        1354,
+        1366,
+        1378
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.system.CrashControllerIntegrationTests",
+      "method": "org.springframework.samples.petclinic.system.CrashController#triggerException()Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.system.CrashControllerIntegrationTests"
+      ],
+      "setupWrites": 1,
+      "test": "maven:.::org.springframework.samples.petclinic.system.CrashControllerIntegrationTests#triggerExceptionHtml",
+      "threads": [
+        "http-nio-auto-3-exec-1"
+      ],
+      "hits": 1,
+      "hitSequences": [
+        4737
+      ],
+      "setupSequences": [
+        4738
+      ]
+    },
+    {
+      "activeTest": "none",
+      "capturedContainer": "org.springframework.samples.petclinic.system.CrashControllerIntegrationTests",
+      "method": "org.springframework.samples.petclinic.system.CrashController#triggerException()Ljava/lang/String;",
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.system.CrashControllerIntegrationTests"
+      ],
+      "setupWrites": 1,
+      "test": "maven:.::org.springframework.samples.petclinic.system.CrashControllerIntegrationTests#triggerExceptionJson",
+      "threads": [
+        "http-nio-auto-3-exec-2"
+      ],
+      "hits": 1,
+      "hitSequences": [
+        4742
+      ],
+      "setupSequences": [
+        4743
+      ]
+    }
+  ],
+  "classEdges": [
+    {
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "class": "org.springframework.samples.petclinic.owner.OwnerController"
+    },
+    {
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "class": "org.springframework.samples.petclinic.owner.PetController"
+    },
+    {
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "class": "org.springframework.samples.petclinic.owner.PetTypeFormatter"
+    },
+    {
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicConcurrencyTests"
+      ],
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicConcurrencyTests#testDuplicatePetNameRaceConditionIsBlocked",
+      "class": "org.springframework.samples.petclinic.owner.PetValidator"
+    },
+    {
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "class": "org.springframework.samples.petclinic.model.BaseEntity"
+    },
+    {
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "class": "org.springframework.samples.petclinic.model.NamedEntity"
+    },
+    {
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "class": "org.springframework.samples.petclinic.model.Person"
+    },
+    {
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "class": "org.springframework.samples.petclinic.owner.Owner"
+    },
+    {
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "class": "org.springframework.samples.petclinic.owner.OwnerController"
+    },
+    {
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "class": "org.springframework.samples.petclinic.owner.Pet"
+    },
+    {
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerDetails",
+      "class": "org.springframework.samples.petclinic.owner.PetType"
+    },
+    {
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "class": "org.springframework.samples.petclinic.model.BaseEntity"
+    },
+    {
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "class": "org.springframework.samples.petclinic.model.NamedEntity"
+    },
+    {
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "class": "org.springframework.samples.petclinic.model.Person"
+    },
+    {
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "class": "org.springframework.samples.petclinic.owner.Owner"
+    },
+    {
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "class": "org.springframework.samples.petclinic.owner.OwnerController"
+    },
+    {
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "class": "org.springframework.samples.petclinic.owner.Pet"
+    },
+    {
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.PetClinicIntegrationTests"
+      ],
+      "test": "maven:.::org.springframework.samples.petclinic.PetClinicIntegrationTests#ownerList",
+      "class": "org.springframework.samples.petclinic.owner.PetType"
+    },
+    {
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.system.CrashControllerIntegrationTests"
+      ],
+      "test": "maven:.::org.springframework.samples.petclinic.system.CrashControllerIntegrationTests#triggerExceptionHtml",
+      "class": "org.springframework.samples.petclinic.system.CrashController"
+    },
+    {
+      "retainedSetupScopes": [
+        "junit-container:org.springframework.samples.petclinic.system.CrashControllerIntegrationTests"
+      ],
+      "test": "maven:.::org.springframework.samples.petclinic.system.CrashControllerIntegrationTests#triggerExceptionJson",
+      "class": "org.springframework.samples.petclinic.system.CrashController"
+    }
+  ]
+}

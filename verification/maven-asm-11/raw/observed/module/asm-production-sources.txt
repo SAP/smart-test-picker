@@ -1,0 +1,2 @@
+/private/tmp/stp-asm11.qlDtEo/subject/target/classes
+/private/tmp/stp-asm11.qlDtEo/subject/target/spring-petclinic-4.0.0-SNAPSHOT.jar

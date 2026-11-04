@@ -1,0 +1,100 @@
+{
+  "original": {
+    "agentMetrics": {
+      "classesSeen": 19261,
+      "classesIncluded": 30,
+      "classesExcluded": 15255,
+      "classesIgnored": 3976,
+      "transformationErrors": 0,
+      "transformerTotalNanos": 42528933,
+      "agentStartNanos": 789403573177666,
+      "classLoaderPresent": 16916,
+      "classLoaderMissing": 2345,
+      "protectionDomainPresent": 16691,
+      "protectionDomainMissing": 2570,
+      "classesTransformed": 23,
+      "methodsConsidered": 121,
+      "methodsInstrumented": 116,
+      "methodsSkipped": 5,
+      "alreadyInstrumentedClasses": 0,
+      "methodIdCollisions": 0,
+      "rawMethodHits": 3816,
+      "uniqueMethodHits": 102,
+      "runtimeRecordingNanos": 52217220
+    },
+    "runtimeTestRecords": 69,
+    "globalUnattributedCounts": {
+      "LATE_EVENT": 0,
+      "NO_ACTIVE_TEST": 0,
+      "SHUTDOWN": 0,
+      "STARTUP": 0,
+      "TEST_ALREADY_FINISHED": 0,
+      "TRANSFORMATION_ERROR": 0,
+      "UNKNOWN_CONTEXT": 0
+    },
+    "perTestMetricSums": {
+      "rawMethodHits": 3079,
+      "uniqueMethodHits": 1343
+    },
+    "perTestUnattributedCounts": {
+      "LATE_EVENT": 0,
+      "NO_ACTIVE_TEST": 0,
+      "SHUTDOWN": 0,
+      "STARTUP": 0,
+      "TEST_ALREADY_FINISHED": 0,
+      "TRANSFORMATION_ERROR": 0,
+      "UNKNOWN_CONTEXT": 0
+    },
+    "setupDiagnosticsSerialized": false,
+    "agentErrors": []
+  },
+  "observed": {
+    "agentMetrics": {
+      "classesSeen": 19260,
+      "classesIncluded": 30,
+      "classesExcluded": 15254,
+      "classesIgnored": 3976,
+      "transformationErrors": 0,
+      "transformerTotalNanos": 35972367,
+      "agentStartNanos": 791307049092791,
+      "classLoaderPresent": 16919,
+      "classLoaderMissing": 2341,
+      "protectionDomainPresent": 16694,
+      "protectionDomainMissing": 2566,
+      "classesTransformed": 23,
+      "methodsConsidered": 121,
+      "methodsInstrumented": 116,
+      "methodsSkipped": 5,
+      "alreadyInstrumentedClasses": 0,
+      "methodIdCollisions": 0,
+      "rawMethodHits": 3816,
+      "uniqueMethodHits": 102,
+      "runtimeRecordingNanos": 28430280317
+    },
+    "runtimeTestRecords": 69,
+    "globalUnattributedCounts": {
+      "LATE_EVENT": 0,
+      "NO_ACTIVE_TEST": 0,
+      "SHUTDOWN": 0,
+      "STARTUP": 0,
+      "TEST_ALREADY_FINISHED": 0,
+      "TRANSFORMATION_ERROR": 0,
+      "UNKNOWN_CONTEXT": 0
+    },
+    "perTestMetricSums": {
+      "rawMethodHits": 3079,
+      "uniqueMethodHits": 1343
+    },
+    "perTestUnattributedCounts": {
+      "LATE_EVENT": 0,
+      "NO_ACTIVE_TEST": 0,
+      "SHUTDOWN": 0,
+      "STARTUP": 0,
+      "TEST_ALREADY_FINISHED": 0,
+      "TRANSFORMATION_ERROR": 0,
+      "UNKNOWN_CONTEXT": 0
+    },
+    "setupDiagnosticsSerialized": false,
+    "agentErrors": []
+  }
+}

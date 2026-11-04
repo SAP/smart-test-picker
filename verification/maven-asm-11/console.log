@@ -1,0 +1,3 @@
+PRODUCTION CODECS PASS assignment=69 mapped=69 executableUnmapped=0 positiveNonExecution=0
+EXACT XML IDENTITIES AND OUTCOMES PASS tests=69
+Observed run passed; candidate map byte-identical to ASM-10

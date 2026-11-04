@@ -1,0 +1,702 @@
+[
+  {
+    "sequence": 1642,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Owner#\u003cinit\u003e()V"
+  },
+  {
+    "sequence": 1643,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.Person#\u003cinit\u003e()V"
+  },
+  {
+    "sequence": 1644,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e()V"
+  },
+  {
+    "sequence": 1645,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.BaseEntity#setId(Ljava/lang/Integer;)V"
+  },
+  {
+    "sequence": 1646,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.Person#setFirstName(Ljava/lang/String;)V"
+  },
+  {
+    "sequence": 1647,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.Person#setLastName(Ljava/lang/String;)V"
+  },
+  {
+    "sequence": 1648,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Owner#setAddress(Ljava/lang/String;)V"
+  },
+  {
+    "sequence": 1649,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Owner#setCity(Ljava/lang/String;)V"
+  },
+  {
+    "sequence": 1650,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Owner#setTelephone(Ljava/lang/String;)V"
+  },
+  {
+    "sequence": 1651,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Pet#\u003cinit\u003e()V"
+  },
+  {
+    "sequence": 1652,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e()V"
+  },
+  {
+    "sequence": 1653,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e()V"
+  },
+  {
+    "sequence": 1654,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.PetType#\u003cinit\u003e()V"
+  },
+  {
+    "sequence": 1655,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.NamedEntity#\u003cinit\u003e()V"
+  },
+  {
+    "sequence": 1656,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e()V"
+  },
+  {
+    "sequence": 1657,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V"
+  },
+  {
+    "sequence": 1658,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Pet#setType(Lorg/springframework/samples/petclinic/owner/PetType;)V"
+  },
+  {
+    "sequence": 1659,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.NamedEntity#setName(Ljava/lang/String;)V"
+  },
+  {
+    "sequence": 1660,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Pet#setBirthDate(Ljava/time/LocalDate;)V"
+  },
+  {
+    "sequence": 1661,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Owner#addPet(Lorg/springframework/samples/petclinic/owner/Pet;)V"
+  },
+  {
+    "sequence": 1662,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.BaseEntity#isNew()Z"
+  },
+  {
+    "sequence": 1663,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;"
+  },
+  {
+    "sequence": 1664,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.BaseEntity#setId(Ljava/lang/Integer;)V"
+  },
+  {
+    "sequence": 1665,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Visit#\u003cinit\u003e()V"
+  },
+  {
+    "sequence": 1666,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.BaseEntity#\u003cinit\u003e()V"
+  },
+  {
+    "sequence": 1667,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Visit#setDate(Ljava/time/LocalDate;)V"
+  },
+  {
+    "sequence": 1668,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Owner#getPet(Ljava/lang/String;)Lorg/springframework/samples/petclinic/owner/Pet;"
+  },
+  {
+    "sequence": 1669,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Owner#getPet(Ljava/lang/String;Z)Lorg/springframework/samples/petclinic/owner/Pet;"
+  },
+  {
+    "sequence": 1670,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;"
+  },
+  {
+    "sequence": 1671,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;"
+  },
+  {
+    "sequence": 1672,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Pet#getVisits()Ljava/util/Collection;"
+  },
+  {
+    "sequence": 1673,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.OwnerController#setAllowedFields(Lorg/springframework/web/bind/WebDataBinder;)V"
+  },
+  {
+    "sequence": 1674,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.OwnerController#findOwner(Ljava/lang/Integer;)Lorg/springframework/samples/petclinic/owner/Owner;"
+  },
+  {
+    "sequence": 1675,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.OwnerController#setAllowedFields(Lorg/springframework/web/bind/WebDataBinder;)V"
+  },
+  {
+    "sequence": 1676,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.OwnerController#showOwner(I)Lorg/springframework/web/servlet/ModelAndView;"
+  },
+  {
+    "sequence": 1677,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.OwnerController#setAllowedFields(Lorg/springframework/web/bind/WebDataBinder;)V"
+  },
+  {
+    "sequence": 1678,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.Person#getFirstName()Ljava/lang/String;"
+  },
+  {
+    "sequence": 1679,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.Person#getLastName()Ljava/lang/String;"
+  },
+  {
+    "sequence": 1680,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Owner#getAddress()Ljava/lang/String;"
+  },
+  {
+    "sequence": 1681,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Owner#getCity()Ljava/lang/String;"
+  },
+  {
+    "sequence": 1682,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Owner#getTelephone()Ljava/lang/String;"
+  },
+  {
+    "sequence": 1683,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;"
+  },
+  {
+    "sequence": 1684,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;"
+  },
+  {
+    "sequence": 1685,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;"
+  },
+  {
+    "sequence": 1686,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;"
+  },
+  {
+    "sequence": 1687,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Pet#getBirthDate()Ljava/time/LocalDate;"
+  },
+  {
+    "sequence": 1688,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Pet#getType()Lorg/springframework/samples/petclinic/owner/PetType;"
+  },
+  {
+    "sequence": 1689,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.NamedEntity#toString()Ljava/lang/String;"
+  },
+  {
+    "sequence": 1690,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.NamedEntity#getName()Ljava/lang/String;"
+  },
+  {
+    "sequence": 1691,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Pet#getVisits()Ljava/util/Collection;"
+  },
+  {
+    "sequence": 1692,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Visit#getDate()Ljava/time/LocalDate;"
+  },
+  {
+    "sequence": 1693,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Visit#getDescription()Ljava/lang/String;"
+  },
+  {
+    "sequence": 1694,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;"
+  },
+  {
+    "sequence": 1695,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;"
+  },
+  {
+    "sequence": 1696,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;"
+  },
+  {
+    "sequence": 1697,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;"
+  },
+  {
+    "sequence": 1698,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Owner#toString()Ljava/lang/String;"
+  },
+  {
+    "sequence": 1699,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.BaseEntity#getId()Ljava/lang/Integer;"
+  },
+  {
+    "sequence": 1700,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.BaseEntity#isNew()Z"
+  },
+  {
+    "sequence": 1701,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.Person#getLastName()Ljava/lang/String;"
+  },
+  {
+    "sequence": 1702,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.Person#getFirstName()Ljava/lang/String;"
+  },
+  {
+    "sequence": 1703,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.Person#getLastName()Ljava/lang/String;"
+  },
+  {
+    "sequence": 1704,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.model.Person#getFirstName()Ljava/lang/String;"
+  },
+  {
+    "sequence": 1705,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Owner#getAddress()Ljava/lang/String;"
+  },
+  {
+    "sequence": 1706,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Owner#getCity()Ljava/lang/String;"
+  },
+  {
+    "sequence": 1707,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Owner#getTelephone()Ljava/lang/String;"
+  },
+  {
+    "sequence": 1708,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;"
+  },
+  {
+    "sequence": 1709,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Owner#getPets()Ljava/util/List;"
+  },
+  {
+    "sequence": 1710,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "active": "org.springframework.samples.petclinic.owner.OwnerControllerTests#showOwner",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.owner.OwnerControllerTests",
+    "detail": "org.springframework.samples.petclinic.owner.Pet#getVisits()Ljava/util/Collection;"
+  },
+  {
+    "sequence": 4748,
+    "event": "HIT",
+    "thread": "main",
+    "interval": "org.springframework.samples.petclinic.system.CrashControllerTests#triggerException",
+    "active": "org.springframework.samples.petclinic.system.CrashControllerTests#triggerException",
+    "captured": "none",
+    "current": "org.springframework.samples.petclinic.system.CrashControllerTests",
+    "detail": "org.springframework.samples.petclinic.system.CrashController#triggerException()Ljava/lang/String;"
+  }
+]

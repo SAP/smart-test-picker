@@ -1,0 +1,15 @@
+{
+  "retainedClassEdges": 20,
+  "events": {
+    "BEGIN": 69,
+    "CAPTURE": 215,
+    "END": 69,
+    "HIT": 3816,
+    "READY": 1,
+    "SETUP": 737,
+    "WATCH": 8
+  },
+  "resolvedMethodEdges": 74,
+  "rows": 4915,
+  "positiveControls": 70
+}
