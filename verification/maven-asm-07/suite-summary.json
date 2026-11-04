@@ -1,0 +1,12 @@
+{
+  "command": "./gradlew :smart-test-picker-common:test :smart-test-picker-core:test :smart-test-picker-maven:test :smart-test-picker:test --rerun-tasks --console=plain",
+  "exitCode": 0,
+  "duration": "12m 19s",
+  "tasksExecuted": 52,
+  "suites": {
+    "smart-test-picker-common": {"tests": 333, "skipped": 11, "failures": 0, "errors": 0},
+    "smart-test-picker-core": {"tests": 29, "skipped": 5, "failures": 0, "errors": 0},
+    "smart-test-picker-maven": {"tests": 130, "skipped": 0, "failures": 0, "errors": 0},
+    "smart-test-picker": {"tests": 46, "skipped": 0, "failures": 0, "errors": 0}
+  }
+}

@@ -1,0 +1,1623 @@
+{
+  "matchedInputReport": {
+    "fixture/BridgeValue": {
+      "CLASS": {
+        "missed": 0,
+        "covered": 1
+      },
+      "COMPLEXITY": {
+        "missed": 0,
+        "covered": 2
+      },
+      "INSTRUCTION": {
+        "missed": 0,
+        "covered": 9
+      },
+      "LINE": {
+        "missed": 0,
+        "covered": 2
+      },
+      "METHOD": {
+        "missed": 0,
+        "covered": 2
+      }
+    },
+    "fixture/BridgeValue#\u003cinit\u003e()V": {
+      "COMPLEXITY": {
+        "missed": 0,
+        "covered": 1
+      },
+      "INSTRUCTION": {
+        "missed": 0,
+        "covered": 5
+      },
+      "LINE": {
+        "missed": 0,
+        "covered": 1
+      },
+      "METHOD": {
+        "missed": 0,
+        "covered": 1
+      }
+    },
+    "fixture/BridgeValue#get()Ljava/lang/String;": {
+      "COMPLEXITY": {
+        "missed": 0,
+        "covered": 1
+      },
+      "INSTRUCTION": {
+        "missed": 0,
+        "covered": 4
+      },
+      "LINE": {
+        "missed": 0,
+        "covered": 1
+      },
+      "METHOD": {
+        "missed": 0,
+        "covered": 1
+      }
+    },
+    "fixture/EmptyEnum": {
+      "CLASS": {
+        "missed": 0,
+        "covered": 1
+      },
+      "COMPLEXITY": {
+        "missed": 0,
+        "covered": 2
+      },
+      "INSTRUCTION": {
+        "missed": 0,
+        "covered": 18
+      },
+      "LINE": {
+        "missed": 0,
+        "covered": 3
+      },
+      "METHOD": {
+        "missed": 0,
+        "covered": 2
+      }
+    },
+    "fixture/EmptyEnum#\u003cclinit\u003e()V": {
+      "COMPLEXITY": {
+        "missed": 0,
+        "covered": 1
+      },
+      "INSTRUCTION": {
+        "missed": 0,
+        "covered": 11
+      },
+      "LINE": {
+        "missed": 0,
+        "covered": 2
+      },
+      "METHOD": {
+        "missed": 0,
+        "covered": 1
+      }
+    },
+    "fixture/EmptyEnum#\u003cinit\u003e(Ljava/lang/String;I)V": {
+      "COMPLEXITY": {
+        "missed": 0,
+        "covered": 1
+      },
+      "INSTRUCTION": {
+        "missed": 0,
+        "covered": 7
+      },
+      "LINE": {
+        "missed": 0,
+        "covered": 1
+      },
+      "METHOD": {
+        "missed": 0,
+        "covered": 1
+      }
+    },
+    "fixture/GenericValue": {},
+    "fixture/ImplicitException": {
+      "CLASS": {
+        "missed": 0,
+        "covered": 1
+      },
+      "COMPLEXITY": {
+        "missed": 0,
+        "covered": 2
+      },
+      "INSTRUCTION": {
+        "missed": 3,
+        "covered": 7
+      },
+      "LINE": {
+        "missed": 1,
+        "covered": 1
+      },
+      "METHOD": {
+        "missed": 0,
+        "covered": 2
+      }
+    },
+    "fixture/ImplicitException#\u003cinit\u003e()V": {
+      "COMPLEXITY": {
+        "missed": 0,
+        "covered": 1
+      },
+      "INSTRUCTION": {
+        "missed": 0,
+        "covered": 5
+      },
+      "LINE": {
+        "missed": 0,
+        "covered": 1
+      },
+      "METHOD": {
+        "missed": 0,
+        "covered": 1
+      }
+    },
+    "fixture/ImplicitException#length(Ljava/lang/String;)I": {
+      "COMPLEXITY": {
+        "missed": 0,
+        "covered": 1
+      },
+      "INSTRUCTION": {
+        "missed": 3,
+        "covered": 2
+      },
+      "LINE": {
+        "missed": 1,
+        "covered": 0
+      },
+      "METHOD": {
+        "missed": 0,
+        "covered": 1
+      }
+    },
+    "fixture/ValueRecord": {
+      "CLASS": {
+        "missed": 0,
+        "covered": 1
+      },
+      "COMPLEXITY": {
+        "missed": 3,
+        "covered": 3
+      },
+      "INSTRUCTION": {
+        "missed": 16,
+        "covered": 21
+      },
+      "LINE": {
+        "missed": 0,
+        "covered": 1
+      },
+      "METHOD": {
+        "missed": 3,
+        "covered": 3
+      }
+    },
+    "fixture/ValueRecord#\u003cinit\u003e(Ljava/lang/String;I)V": {
+      "COMPLEXITY": {
+        "missed": 0,
+        "covered": 1
+      },
+      "INSTRUCTION": {
+        "missed": 0,
+        "covered": 11
+      },
+      "LINE": {
+        "missed": 0,
+        "covered": 1
+      },
+      "METHOD": {
+        "missed": 0,
+        "covered": 1
+      }
+    },
+    "fixture/ValueRecord#equals(Ljava/lang/Object;)Z": {
+      "COMPLEXITY": {
+        "missed": 1,
+        "covered": 0
+      },
+      "INSTRUCTION": {
+        "missed": 6,
+        "covered": 0
+      },
+      "LINE": {
+        "missed": 1,
+        "covered": 0
+      },
+      "METHOD": {
+        "missed": 1,
+        "covered": 0
+      }
+    },
+    "fixture/ValueRecord#hashCode()I": {
+      "COMPLEXITY": {
+        "missed": 1,
+        "covered": 0
+      },
+      "INSTRUCTION": {
+        "missed": 5,
+        "covered": 0
+      },
+      "LINE": {
+        "missed": 1,
+        "covered": 0
+      },
+      "METHOD": {
+        "missed": 1,
+        "covered": 0
+      }
+    },
+    "fixture/ValueRecord#number()I": {
+      "COMPLEXITY": {
+        "missed": 0,
+        "covered": 1
+      },
+      "INSTRUCTION": {
+        "missed": 0,
+        "covered": 5
+      },
+      "LINE": {
+        "missed": 0,
+        "covered": 1
+      },
+      "METHOD": {
+        "missed": 0,
+        "covered": 1
+      }
+    },
+    "fixture/ValueRecord#text()Ljava/lang/String;": {
+      "COMPLEXITY": {
+        "missed": 0,
+        "covered": 1
+      },
+      "INSTRUCTION": {
+        "missed": 0,
+        "covered": 5
+      },
+      "LINE": {
+        "missed": 0,
+        "covered": 1
+      },
+      "METHOD": {
+        "missed": 0,
+        "covered": 1
+      }
+    },
+    "fixture/ValueRecord#toString()Ljava/lang/String;": {
+      "COMPLEXITY": {
+        "missed": 1,
+        "covered": 0
+      },
+      "INSTRUCTION": {
+        "missed": 5,
+        "covered": 0
+      },
+      "LINE": {
+        "missed": 1,
+        "covered": 0
+      },
+      "METHOD": {
+        "missed": 1,
+        "covered": 0
+      }
+    }
+  },
+  "projectReport": {
+    "fixture/BridgeValue": {
+      "CLASS": {
+        "missed": 1,
+        "covered": 0
+      },
+      "COMPLEXITY": {
+        "missed": 2,
+        "covered": 0
+      },
+      "INSTRUCTION": {
+        "missed": 5,
+        "covered": 0
+      },
+      "LINE": {
+        "missed": 2,
+        "covered": 0
+      },
+      "METHOD": {
+        "missed": 2,
+        "covered": 0
+      }
+    },
+    "fixture/BridgeValue#\u003cinit\u003e()V": {
+      "COMPLEXITY": {
+        "missed": 1,
+        "covered": 0
+      },
+      "INSTRUCTION": {
+        "missed": 3,
+        "covered": 0
+      },
+      "LINE": {
+        "missed": 1,
+        "covered": 0
+      },
+      "METHOD": {
+        "missed": 1,
+        "covered": 0
+      }
+    },
+    "fixture/BridgeValue#get()Ljava/lang/String;": {
+      "COMPLEXITY": {
+        "missed": 1,
+        "covered": 0
+      },
+      "INSTRUCTION": {
+        "missed": 2,
+        "covered": 0
+      },
+      "LINE": {
+        "missed": 1,
+        "covered": 0
+      },
+      "METHOD": {
+        "missed": 1,
+        "covered": 0
+      }
+    },
+    "fixture/EmptyEnum": {
+      "CLASS": {
+        "missed": 1,
+        "covered": 0
+      },
+      "COMPLEXITY": {
+        "missed": 1,
+        "covered": 0
+      },
+      "INSTRUCTION": {
+        "missed": 9,
+        "covered": 0
+      },
+      "LINE": {
+        "missed": 2,
+        "covered": 0
+      },
+      "METHOD": {
+        "missed": 1,
+        "covered": 0
+      }
+    },
+    "fixture/EmptyEnum#\u003cclinit\u003e()V": {
+      "COMPLEXITY": {
+        "missed": 1,
+        "covered": 0
+      },
+      "INSTRUCTION": {
+        "missed": 9,
+        "covered": 0
+      },
+      "LINE": {
+        "missed": 2,
+        "covered": 0
+      },
+      "METHOD": {
+        "missed": 1,
+        "covered": 0
+      }
+    },
+    "fixture/GenericValue": {},
+    "fixture/ImplicitException": {
+      "CLASS": {
+        "missed": 1,
+        "covered": 0
+      },
+      "COMPLEXITY": {
+        "missed": 2,
+        "covered": 0
+      },
+      "INSTRUCTION": {
+        "missed": 6,
+        "covered": 0
+      },
+      "LINE": {
+        "missed": 2,
+        "covered": 0
+      },
+      "METHOD": {
+        "missed": 2,
+        "covered": 0
+      }
+    },
+    "fixture/ImplicitException#\u003cinit\u003e()V": {
+      "COMPLEXITY": {
+        "missed": 1,
+        "covered": 0
+      },
+      "INSTRUCTION": {
+        "missed": 3,
+        "covered": 0
+      },
+      "LINE": {
+        "missed": 1,
+        "covered": 0
+      },
+      "METHOD": {
+        "missed": 1,
+        "covered": 0
+      }
+    },
+    "fixture/ImplicitException#length(Ljava/lang/String;)I": {
+      "COMPLEXITY": {
+        "missed": 1,
+        "covered": 0
+      },
+      "INSTRUCTION": {
+        "missed": 3,
+        "covered": 0
+      },
+      "LINE": {
+        "missed": 1,
+        "covered": 0
+      },
+      "METHOD": {
+        "missed": 1,
+        "covered": 0
+      }
+    },
+    "fixture/ValueRecord": {
+      "CLASS": {
+        "missed": 1,
+        "covered": 0
+      },
+      "COMPLEXITY": {
+        "missed": 1,
+        "covered": 0
+      },
+      "INSTRUCTION": {
+        "missed": 9,
+        "covered": 0
+      },
+      "LINE": {
+        "missed": 1,
+        "covered": 0
+      },
+      "METHOD": {
+        "missed": 1,
+        "covered": 0
+      }
+    },
+    "fixture/ValueRecord#\u003cinit\u003e(Ljava/lang/String;I)V": {
+      "COMPLEXITY": {
+        "missed": 1,
+        "covered": 0
+      },
+      "INSTRUCTION": {
+        "missed": 9,
+        "covered": 0
+      },
+      "LINE": {
+        "missed": 1,
+        "covered": 0
+      },
+      "METHOD": {
+        "missed": 1,
+        "covered": 0
+      }
+    }
+  },
+  "projectReportDifferences": {
+    "fixture/BridgeValue": {
+      "baseline": {
+        "CLASS": {
+          "missed": 0,
+          "covered": 1
+        },
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 2
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 5
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 2
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 2
+        }
+      },
+      "other": {
+        "CLASS": {
+          "missed": 1,
+          "covered": 0
+        },
+        "COMPLEXITY": {
+          "missed": 2,
+          "covered": 0
+        },
+        "INSTRUCTION": {
+          "missed": 5,
+          "covered": 0
+        },
+        "LINE": {
+          "missed": 2,
+          "covered": 0
+        },
+        "METHOD": {
+          "missed": 2,
+          "covered": 0
+        }
+      }
+    },
+    "fixture/BridgeValue#\u003cinit\u003e()V": {
+      "baseline": {
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 1
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 3
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 1
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 1
+        }
+      },
+      "other": {
+        "COMPLEXITY": {
+          "missed": 1,
+          "covered": 0
+        },
+        "INSTRUCTION": {
+          "missed": 3,
+          "covered": 0
+        },
+        "LINE": {
+          "missed": 1,
+          "covered": 0
+        },
+        "METHOD": {
+          "missed": 1,
+          "covered": 0
+        }
+      }
+    },
+    "fixture/BridgeValue#get()Ljava/lang/String;": {
+      "baseline": {
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 1
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 2
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 1
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 1
+        }
+      },
+      "other": {
+        "COMPLEXITY": {
+          "missed": 1,
+          "covered": 0
+        },
+        "INSTRUCTION": {
+          "missed": 2,
+          "covered": 0
+        },
+        "LINE": {
+          "missed": 1,
+          "covered": 0
+        },
+        "METHOD": {
+          "missed": 1,
+          "covered": 0
+        }
+      }
+    },
+    "fixture/EmptyEnum": {
+      "baseline": {
+        "CLASS": {
+          "missed": 0,
+          "covered": 1
+        },
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 1
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 9
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 2
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 1
+        }
+      },
+      "other": {
+        "CLASS": {
+          "missed": 1,
+          "covered": 0
+        },
+        "COMPLEXITY": {
+          "missed": 1,
+          "covered": 0
+        },
+        "INSTRUCTION": {
+          "missed": 9,
+          "covered": 0
+        },
+        "LINE": {
+          "missed": 2,
+          "covered": 0
+        },
+        "METHOD": {
+          "missed": 1,
+          "covered": 0
+        }
+      }
+    },
+    "fixture/EmptyEnum#\u003cclinit\u003e()V": {
+      "baseline": {
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 1
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 9
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 2
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 1
+        }
+      },
+      "other": {
+        "COMPLEXITY": {
+          "missed": 1,
+          "covered": 0
+        },
+        "INSTRUCTION": {
+          "missed": 9,
+          "covered": 0
+        },
+        "LINE": {
+          "missed": 2,
+          "covered": 0
+        },
+        "METHOD": {
+          "missed": 1,
+          "covered": 0
+        }
+      }
+    },
+    "fixture/ImplicitException": {
+      "baseline": {
+        "CLASS": {
+          "missed": 0,
+          "covered": 1
+        },
+        "COMPLEXITY": {
+          "missed": 1,
+          "covered": 1
+        },
+        "INSTRUCTION": {
+          "missed": 3,
+          "covered": 3
+        },
+        "LINE": {
+          "missed": 1,
+          "covered": 1
+        },
+        "METHOD": {
+          "missed": 1,
+          "covered": 1
+        }
+      },
+      "other": {
+        "CLASS": {
+          "missed": 1,
+          "covered": 0
+        },
+        "COMPLEXITY": {
+          "missed": 2,
+          "covered": 0
+        },
+        "INSTRUCTION": {
+          "missed": 6,
+          "covered": 0
+        },
+        "LINE": {
+          "missed": 2,
+          "covered": 0
+        },
+        "METHOD": {
+          "missed": 2,
+          "covered": 0
+        }
+      }
+    },
+    "fixture/ImplicitException#\u003cinit\u003e()V": {
+      "baseline": {
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 1
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 3
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 1
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 1
+        }
+      },
+      "other": {
+        "COMPLEXITY": {
+          "missed": 1,
+          "covered": 0
+        },
+        "INSTRUCTION": {
+          "missed": 3,
+          "covered": 0
+        },
+        "LINE": {
+          "missed": 1,
+          "covered": 0
+        },
+        "METHOD": {
+          "missed": 1,
+          "covered": 0
+        }
+      }
+    },
+    "fixture/ValueRecord": {
+      "baseline": {
+        "CLASS": {
+          "missed": 0,
+          "covered": 1
+        },
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 1
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 9
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 1
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 1
+        }
+      },
+      "other": {
+        "CLASS": {
+          "missed": 1,
+          "covered": 0
+        },
+        "COMPLEXITY": {
+          "missed": 1,
+          "covered": 0
+        },
+        "INSTRUCTION": {
+          "missed": 9,
+          "covered": 0
+        },
+        "LINE": {
+          "missed": 1,
+          "covered": 0
+        },
+        "METHOD": {
+          "missed": 1,
+          "covered": 0
+        }
+      }
+    },
+    "fixture/ValueRecord#\u003cinit\u003e(Ljava/lang/String;I)V": {
+      "baseline": {
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 1
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 9
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 1
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 1
+        }
+      },
+      "other": {
+        "COMPLEXITY": {
+          "missed": 1,
+          "covered": 0
+        },
+        "INSTRUCTION": {
+          "missed": 9,
+          "covered": 0
+        },
+        "LINE": {
+          "missed": 1,
+          "covered": 0
+        },
+        "METHOD": {
+          "missed": 1,
+          "covered": 0
+        }
+      }
+    }
+  },
+  "matchedInputDifferences": {
+    "fixture/BridgeValue": {
+      "baseline": {
+        "CLASS": {
+          "missed": 0,
+          "covered": 1
+        },
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 2
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 5
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 2
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 2
+        }
+      },
+      "other": {
+        "CLASS": {
+          "missed": 0,
+          "covered": 1
+        },
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 2
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 9
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 2
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 2
+        }
+      }
+    },
+    "fixture/BridgeValue#\u003cinit\u003e()V": {
+      "baseline": {
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 1
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 3
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 1
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 1
+        }
+      },
+      "other": {
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 1
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 5
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 1
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 1
+        }
+      }
+    },
+    "fixture/BridgeValue#get()Ljava/lang/String;": {
+      "baseline": {
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 1
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 2
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 1
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 1
+        }
+      },
+      "other": {
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 1
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 4
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 1
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 1
+        }
+      }
+    },
+    "fixture/EmptyEnum": {
+      "baseline": {
+        "CLASS": {
+          "missed": 0,
+          "covered": 1
+        },
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 1
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 9
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 2
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 1
+        }
+      },
+      "other": {
+        "CLASS": {
+          "missed": 0,
+          "covered": 1
+        },
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 2
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 18
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 3
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 2
+        }
+      }
+    },
+    "fixture/EmptyEnum#\u003cclinit\u003e()V": {
+      "baseline": {
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 1
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 9
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 2
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 1
+        }
+      },
+      "other": {
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 1
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 11
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 2
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 1
+        }
+      }
+    },
+    "fixture/EmptyEnum#\u003cinit\u003e(Ljava/lang/String;I)V": {
+      "baseline": null,
+      "other": {
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 1
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 7
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 1
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 1
+        }
+      }
+    },
+    "fixture/ImplicitException": {
+      "baseline": {
+        "CLASS": {
+          "missed": 0,
+          "covered": 1
+        },
+        "COMPLEXITY": {
+          "missed": 1,
+          "covered": 1
+        },
+        "INSTRUCTION": {
+          "missed": 3,
+          "covered": 3
+        },
+        "LINE": {
+          "missed": 1,
+          "covered": 1
+        },
+        "METHOD": {
+          "missed": 1,
+          "covered": 1
+        }
+      },
+      "other": {
+        "CLASS": {
+          "missed": 0,
+          "covered": 1
+        },
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 2
+        },
+        "INSTRUCTION": {
+          "missed": 3,
+          "covered": 7
+        },
+        "LINE": {
+          "missed": 1,
+          "covered": 1
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 2
+        }
+      }
+    },
+    "fixture/ImplicitException#\u003cinit\u003e()V": {
+      "baseline": {
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 1
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 3
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 1
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 1
+        }
+      },
+      "other": {
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 1
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 5
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 1
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 1
+        }
+      }
+    },
+    "fixture/ImplicitException#length(Ljava/lang/String;)I": {
+      "baseline": {
+        "COMPLEXITY": {
+          "missed": 1,
+          "covered": 0
+        },
+        "INSTRUCTION": {
+          "missed": 3,
+          "covered": 0
+        },
+        "LINE": {
+          "missed": 1,
+          "covered": 0
+        },
+        "METHOD": {
+          "missed": 1,
+          "covered": 0
+        }
+      },
+      "other": {
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 1
+        },
+        "INSTRUCTION": {
+          "missed": 3,
+          "covered": 2
+        },
+        "LINE": {
+          "missed": 1,
+          "covered": 0
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 1
+        }
+      }
+    },
+    "fixture/ValueRecord": {
+      "baseline": {
+        "CLASS": {
+          "missed": 0,
+          "covered": 1
+        },
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 1
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 9
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 1
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 1
+        }
+      },
+      "other": {
+        "CLASS": {
+          "missed": 0,
+          "covered": 1
+        },
+        "COMPLEXITY": {
+          "missed": 3,
+          "covered": 3
+        },
+        "INSTRUCTION": {
+          "missed": 16,
+          "covered": 21
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 1
+        },
+        "METHOD": {
+          "missed": 3,
+          "covered": 3
+        }
+      }
+    },
+    "fixture/ValueRecord#\u003cinit\u003e(Ljava/lang/String;I)V": {
+      "baseline": {
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 1
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 9
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 1
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 1
+        }
+      },
+      "other": {
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 1
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 11
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 1
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 1
+        }
+      }
+    },
+    "fixture/ValueRecord#equals(Ljava/lang/Object;)Z": {
+      "baseline": null,
+      "other": {
+        "COMPLEXITY": {
+          "missed": 1,
+          "covered": 0
+        },
+        "INSTRUCTION": {
+          "missed": 6,
+          "covered": 0
+        },
+        "LINE": {
+          "missed": 1,
+          "covered": 0
+        },
+        "METHOD": {
+          "missed": 1,
+          "covered": 0
+        }
+      }
+    },
+    "fixture/ValueRecord#hashCode()I": {
+      "baseline": null,
+      "other": {
+        "COMPLEXITY": {
+          "missed": 1,
+          "covered": 0
+        },
+        "INSTRUCTION": {
+          "missed": 5,
+          "covered": 0
+        },
+        "LINE": {
+          "missed": 1,
+          "covered": 0
+        },
+        "METHOD": {
+          "missed": 1,
+          "covered": 0
+        }
+      }
+    },
+    "fixture/ValueRecord#number()I": {
+      "baseline": null,
+      "other": {
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 1
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 5
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 1
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 1
+        }
+      }
+    },
+    "fixture/ValueRecord#text()Ljava/lang/String;": {
+      "baseline": null,
+      "other": {
+        "COMPLEXITY": {
+          "missed": 0,
+          "covered": 1
+        },
+        "INSTRUCTION": {
+          "missed": 0,
+          "covered": 5
+        },
+        "LINE": {
+          "missed": 0,
+          "covered": 1
+        },
+        "METHOD": {
+          "missed": 0,
+          "covered": 1
+        }
+      }
+    },
+    "fixture/ValueRecord#toString()Ljava/lang/String;": {
+      "baseline": null,
+      "other": {
+        "COMPLEXITY": {
+          "missed": 1,
+          "covered": 0
+        },
+        "INSTRUCTION": {
+          "missed": 5,
+          "covered": 0
+        },
+        "LINE": {
+          "missed": 1,
+          "covered": 0
+        },
+        "METHOD": {
+          "missed": 1,
+          "covered": 0
+        }
+      }
+    }
+  },
+  "baseline": {
+    "fixture/BridgeValue": {
+      "CLASS": {
+        "missed": 0,
+        "covered": 1
+      },
+      "COMPLEXITY": {
+        "missed": 0,
+        "covered": 2
+      },
+      "INSTRUCTION": {
+        "missed": 0,
+        "covered": 5
+      },
+      "LINE": {
+        "missed": 0,
+        "covered": 2
+      },
+      "METHOD": {
+        "missed": 0,
+        "covered": 2
+      }
+    },
+    "fixture/BridgeValue#\u003cinit\u003e()V": {
+      "COMPLEXITY": {
+        "missed": 0,
+        "covered": 1
+      },
+      "INSTRUCTION": {
+        "missed": 0,
+        "covered": 3
+      },
+      "LINE": {
+        "missed": 0,
+        "covered": 1
+      },
+      "METHOD": {
+        "missed": 0,
+        "covered": 1
+      }
+    },
+    "fixture/BridgeValue#get()Ljava/lang/String;": {
+      "COMPLEXITY": {
+        "missed": 0,
+        "covered": 1
+      },
+      "INSTRUCTION": {
+        "missed": 0,
+        "covered": 2
+      },
+      "LINE": {
+        "missed": 0,
+        "covered": 1
+      },
+      "METHOD": {
+        "missed": 0,
+        "covered": 1
+      }
+    },
+    "fixture/EmptyEnum": {
+      "CLASS": {
+        "missed": 0,
+        "covered": 1
+      },
+      "COMPLEXITY": {
+        "missed": 0,
+        "covered": 1
+      },
+      "INSTRUCTION": {
+        "missed": 0,
+        "covered": 9
+      },
+      "LINE": {
+        "missed": 0,
+        "covered": 2
+      },
+      "METHOD": {
+        "missed": 0,
+        "covered": 1
+      }
+    },
+    "fixture/EmptyEnum#\u003cclinit\u003e()V": {
+      "COMPLEXITY": {
+        "missed": 0,
+        "covered": 1
+      },
+      "INSTRUCTION": {
+        "missed": 0,
+        "covered": 9
+      },
+      "LINE": {
+        "missed": 0,
+        "covered": 2
+      },
+      "METHOD": {
+        "missed": 0,
+        "covered": 1
+      }
+    },
+    "fixture/GenericValue": {},
+    "fixture/ImplicitException": {
+      "CLASS": {
+        "missed": 0,
+        "covered": 1
+      },
+      "COMPLEXITY": {
+        "missed": 1,
+        "covered": 1
+      },
+      "INSTRUCTION": {
+        "missed": 3,
+        "covered": 3
+      },
+      "LINE": {
+        "missed": 1,
+        "covered": 1
+      },
+      "METHOD": {
+        "missed": 1,
+        "covered": 1
+      }
+    },
+    "fixture/ImplicitException#\u003cinit\u003e()V": {
+      "COMPLEXITY": {
+        "missed": 0,
+        "covered": 1
+      },
+      "INSTRUCTION": {
+        "missed": 0,
+        "covered": 3
+      },
+      "LINE": {
+        "missed": 0,
+        "covered": 1
+      },
+      "METHOD": {
+        "missed": 0,
+        "covered": 1
+      }
+    },
+    "fixture/ImplicitException#length(Ljava/lang/String;)I": {
+      "COMPLEXITY": {
+        "missed": 1,
+        "covered": 0
+      },
+      "INSTRUCTION": {
+        "missed": 3,
+        "covered": 0
+      },
+      "LINE": {
+        "missed": 1,
+        "covered": 0
+      },
+      "METHOD": {
+        "missed": 1,
+        "covered": 0
+      }
+    },
+    "fixture/ValueRecord": {
+      "CLASS": {
+        "missed": 0,
+        "covered": 1
+      },
+      "COMPLEXITY": {
+        "missed": 0,
+        "covered": 1
+      },
+      "INSTRUCTION": {
+        "missed": 0,
+        "covered": 9
+      },
+      "LINE": {
+        "missed": 0,
+        "covered": 1
+      },
+      "METHOD": {
+        "missed": 0,
+        "covered": 1
+      }
+    },
+    "fixture/ValueRecord#\u003cinit\u003e(Ljava/lang/String;I)V": {
+      "COMPLEXITY": {
+        "missed": 0,
+        "covered": 1
+      },
+      "INSTRUCTION": {
+        "missed": 0,
+        "covered": 9
+      },
+      "LINE": {
+        "missed": 0,
+        "covered": 1
+      },
+      "METHOD": {
+        "missed": 0,
+        "covered": 1
+      }
+    }
+  }
+}

@@ -88,6 +88,22 @@ attachment-only stage and [the current evidence decision](../verification/maven-
 The [Maven ASM fragment/evidence validation](../verification/maven-asm-06/REPORT.md)
 records real Surefire/Failsafe outcomes and aggregation checks.
 
+### Project JaCoCo report coexistence
+
+The prepared ASM path preserves the project's JaCoCo XML counters in the tested
+Maven/Surefire configuration, with both a literal JaCoCo agent argLine and
+`prepare-agent` plus `@{argLine}`. The permanent regression compares every class
+and method counter, including enum/record/bridge filters and an implicit exception,
+and checks the actual fork command for JaCoCo-before-STP ordering. Core can remain
+on the test classpath: the measured ASM runs make no reset/dump/snapshot calls
+against the project's JaCoCo runtime.
+
+Keep the project JaCoCo agent before STP; do not manually reverse the order.
+ASM-first causes execution-data/class mismatches in the ordinary report and changes
+generated-code filtering when analyzing the transformed bytes. This bounded Maven
+proof does not establish Gradle report preservation or arbitrary agent order/JVM
+compatibility. See [versions, exact counters and inverse-order evidence](../verification/maven-asm-07/REPORT.md).
+
 ### ASM fragment finalization and aggregation
 
 Keep the existing mapping profile's `generate-coverage-fragment` binding at

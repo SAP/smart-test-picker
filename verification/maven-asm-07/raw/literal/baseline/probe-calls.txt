@@ -1,0 +1,13 @@
+OBSERVER_READY
+WATCH org/jacoco/agent/rt/internal_0e20598/Agent#reset()V
+WATCH org/jacoco/agent/rt/internal_0e20598/Agent#getExecutionData(Z)[B
+WATCH org/jacoco/agent/rt/internal_0e20598/Agent#dump(Z)V
+WATCH org/jacoco/agent/rt/internal_0e20598/core/runtime/RuntimeData#collect(Lorg/jacoco/agent/rt/internal_0e20598/core/data/IExecutionDataVisitor;Lorg/jacoco/agent/rt/internal_0e20598/core/data/ISessionInfoVisitor;Z)V
+WATCH org/jacoco/agent/rt/internal_0e20598/core/runtime/RuntimeData#reset()V
+CALL org/jacoco/agent/rt/internal_0e20598/core/runtime/RuntimeData#collect(Lorg/jacoco/agent/rt/internal_0e20598/core/data/IExecutionDataVisitor;Lorg/jacoco/agent/rt/internal_0e20598/core/data/ISessionInfoVisitor;Z)V reset=false
+  at java.base/java.lang.Thread.getStackTrace(Thread.java:2451)
+  at observation.ProbeObserver.called(ProbeObserver.java:55)
+  at org.jacoco.agent.rt.internal_0e20598.core.runtime.RuntimeData.collect(RuntimeData.java)
+  at org.jacoco.agent.rt.internal_0e20598.output.FileOutput.writeExecutionData(FileOutput.java:64)
+  at org.jacoco.agent.rt.internal_0e20598.Agent.shutdown(Agent.java:145)
+  at org.jacoco.agent.rt.internal_0e20598.Agent$1.run(Agent.java:58)

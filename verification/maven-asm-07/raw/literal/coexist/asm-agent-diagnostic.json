@@ -1,0 +1,155 @@
+{
+  "schemaVersion": "agent-shell-1",
+  "collector": "ASM",
+  "runId": "99dfba65-4e12-342f-94f7-90a8a0f62c98",
+  "jvmId": "pid-43740",
+  "configuration": {
+    "output": "/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-9994088449487242482/coexist/target/stp/asm-agent-diagnostic.json",
+    "fragmentOutput": "/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-9994088449487242482/coexist/target/stp/coverage-fragment-v3.json",
+    "revision": "coexistence-revision",
+    "shardId": "coexistence-shard",
+    "includes": ["fixture."],
+    "excludes": ["com.sap.oss.smarttestpicker.", "jakarta.", "java.", "javax.", "jdk.", "net.bytebuddy.", "org.hibernate.", "org.jacoco.", "org.junit.", "org.mockito.", "org.springframework.", "sun."],
+    "debug": false,
+    "instrumentation": "on"
+  },
+  "metrics": {
+    "classesSeen": 1143,
+    "classesIncluded": 5,
+    "classesExcluded": 841,
+    "classesIgnored": 297,
+    "transformationErrors": 0,
+    "transformerTotalNanos": 13489422,
+    "agentStartNanos": 777701193309375,
+    "classLoaderPresent": 680,
+    "classLoaderMissing": 463,
+    "protectionDomainPresent": 674,
+    "protectionDomainMissing": 469,
+    "classesTransformed": 4,
+    "methodsConsidered": 21,
+    "methodsInstrumented": 16,
+    "methodsSkipped": 5,
+    "alreadyInstrumentedClasses": 0,
+    "methodIdCollisions": 0,
+    "rawMethodHits": 11,
+    "uniqueMethodHits": 11,
+    "runtimeRecordingNanos": 7909123
+  },
+  "methodIdAlgorithm": "fnv1a64-v1",
+  "methodCatalog": [
+    {"methodId":"717264521735981370","canonicalKeys":["fixture.BridgeValue#<init>()V"]},
+    {"methodId":"1858880775955851905","canonicalKeys":["fixture.ValueRecord#equals(Ljava/lang/Object;)Z"]},
+    {"methodId":"2533164168034905694","canonicalKeys":["fixture.ValueRecord#toString()Ljava/lang/String;"]},
+    {"methodId":"2869854987815011726","canonicalKeys":["fixture.EmptyEnum#$values()[Lfixture/EmptyEnum;"]},
+    {"methodId":"3442504075541288648","canonicalKeys":["fixture.BridgeValue#get()Ljava/lang/Object;"]},
+    {"methodId":"3758267087672610224","canonicalKeys":["fixture.EmptyEnum#values()[Lfixture/EmptyEnum;"]},
+    {"methodId":"4340790946778964437","canonicalKeys":["fixture.ValueRecord#text()Ljava/lang/String;"]},
+    {"methodId":"4530593600331461555","canonicalKeys":["fixture.EmptyEnum#valueOf(Ljava/lang/String;)Lfixture/EmptyEnum;"]},
+    {"methodId":"7713703444919887904","canonicalKeys":["fixture.ImplicitException#<init>()V"]},
+    {"methodId":"7993537310327457083","canonicalKeys":["fixture.EmptyEnum#<clinit>()V"]},
+    {"methodId":"8329591784122333534","canonicalKeys":["fixture.ValueRecord#number()I"]},
+    {"methodId":"8609953918712841770","canonicalKeys":["fixture.BridgeValue#get()Ljava/lang/String;"]},
+    {"methodId":"10125001423548896145","canonicalKeys":["fixture.ValueRecord#<init>(Ljava/lang/String;I)V"]},
+    {"methodId":"13625429737874890966","canonicalKeys":["fixture.ValueRecord#hashCode()I"]},
+    {"methodId":"18322830505109113373","canonicalKeys":["fixture.EmptyEnum#<init>(Ljava/lang/String;I)V"]},
+    {"methodId":"18405311397881808041","canonicalKeys":["fixture.ImplicitException#length(Ljava/lang/String;)I"]}
+  ],
+  "methodHits": [
+    {"methodId":"717264521735981370","count":1,"canonicalKeys":["fixture.BridgeValue#<init>()V"]},
+    {"methodId":"2869854987815011726","count":1,"canonicalKeys":["fixture.EmptyEnum#$values()[Lfixture/EmptyEnum;"]},
+    {"methodId":"3442504075541288648","count":1,"canonicalKeys":["fixture.BridgeValue#get()Ljava/lang/Object;"]},
+    {"methodId":"4340790946778964437","count":1,"canonicalKeys":["fixture.ValueRecord#text()Ljava/lang/String;"]},
+    {"methodId":"7713703444919887904","count":1,"canonicalKeys":["fixture.ImplicitException#<init>()V"]},
+    {"methodId":"7993537310327457083","count":1,"canonicalKeys":["fixture.EmptyEnum#<clinit>()V"]},
+    {"methodId":"8329591784122333534","count":1,"canonicalKeys":["fixture.ValueRecord#number()I"]},
+    {"methodId":"8609953918712841770","count":1,"canonicalKeys":["fixture.BridgeValue#get()Ljava/lang/String;"]},
+    {"methodId":"10125001423548896145","count":1,"canonicalKeys":["fixture.ValueRecord#<init>(Ljava/lang/String;I)V"]},
+    {"methodId":"18322830505109113373","count":1,"canonicalKeys":["fixture.EmptyEnum#<init>(Ljava/lang/String;I)V"]},
+    {"methodId":"18405311397881808041","count":1,"canonicalKeys":["fixture.ImplicitException#length(Ljava/lang/String;)I"]}
+  ],
+  "agentErrors": [],
+  "bytecodeModified": true,
+  "runtimeEvents": {
+  "schemaVersion": "spike-2",
+  "runId": "99dfba65-4e12-342f-94f7-90a8a0f62c98",
+  "jvmId": "pid-43740",
+  "tests": [
+    {
+      "testId": "[engine:junit-jupiter]/[class:fixture.ShapesTest]/[method:bridgeShape()]",
+      "displayName": "bridgeShape()",
+      "testClass": "fixture.ShapesTest",
+      "testMethod": "bridgeShape",
+      "testMethodParameterTypes": "",
+      "engineId": "junit-jupiter",
+      "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+      "methods": [
+        {"methodId":"717264521735981370","method":"fixture.BridgeValue#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+        {"methodId":"3442504075541288648","method":"fixture.BridgeValue#get()Ljava/lang/Object;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+        {"methodId":"8609953918712841770","method":"fixture.BridgeValue#get()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+      ],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 3,
+        "uniqueMethodHits": 3
+      }
+    },
+    {
+      "testId": "[engine:junit-jupiter]/[class:fixture.ShapesTest]/[method:enumShape()]",
+      "displayName": "enumShape()",
+      "testClass": "fixture.ShapesTest",
+      "testMethod": "enumShape",
+      "testMethodParameterTypes": "",
+      "engineId": "junit-jupiter",
+      "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+      "methods": [
+        {"methodId":"2869854987815011726","method":"fixture.EmptyEnum#$values()[Lfixture/EmptyEnum;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+        {"methodId":"7993537310327457083","method":"fixture.EmptyEnum#<clinit>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+        {"methodId":"18322830505109113373","method":"fixture.EmptyEnum#<init>(Ljava/lang/String;I)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+      ],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 3,
+        "uniqueMethodHits": 3
+      }
+    },
+    {
+      "testId": "[engine:junit-jupiter]/[class:fixture.ShapesTest]/[method:implicitExceptionShape()]",
+      "displayName": "implicitExceptionShape()",
+      "testClass": "fixture.ShapesTest",
+      "testMethod": "implicitExceptionShape",
+      "testMethodParameterTypes": "",
+      "engineId": "junit-jupiter",
+      "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+      "methods": [
+        {"methodId":"7713703444919887904","method":"fixture.ImplicitException#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+        {"methodId":"18405311397881808041","method":"fixture.ImplicitException#length(Ljava/lang/String;)I","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+      ],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 2,
+        "uniqueMethodHits": 2
+      }
+    },
+    {
+      "testId": "[engine:junit-jupiter]/[class:fixture.ShapesTest]/[method:recordShape()]",
+      "displayName": "recordShape()",
+      "testClass": "fixture.ShapesTest",
+      "testMethod": "recordShape",
+      "testMethodParameterTypes": "",
+      "engineId": "junit-jupiter",
+      "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+      "methods": [
+        {"methodId":"10125001423548896145","method":"fixture.ValueRecord#<init>(Ljava/lang/String;I)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+        {"methodId":"8329591784122333534","method":"fixture.ValueRecord#number()I","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+        {"methodId":"4340790946778964437","method":"fixture.ValueRecord#text()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+      ],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 3,
+        "uniqueMethodHits": 3
+      }
+    }
+  ],
+  "unattributedEvents": []
+}
+}

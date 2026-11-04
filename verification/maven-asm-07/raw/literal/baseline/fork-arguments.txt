@@ -1,0 +1,4 @@
+-javaagent:/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-9994088449487242482/probe-observer.jar=/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-9994088449487242482/baseline/target/probe-calls.txt
+-Xmx256m
+-Dproject.literal=preserved
+-javaagent:/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-9994088449487242482/baseline/target/project-agent/jacoco.jar=destfile=/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-9994088449487242482/baseline/target/project.exec,append=false,classdumpdir=/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-9994088449487242482/baseline/target/jacoco-input

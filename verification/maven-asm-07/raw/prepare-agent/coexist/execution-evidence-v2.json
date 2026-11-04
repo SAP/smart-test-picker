@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "revision": "coexistence-revision",
+  "shardId": "coexistence-shard",
+  "executionTarget": "maven:.",
+  "EXECUTED": [
+    "maven:.::fixture.ShapesTest#bridgeShape",
+    "maven:.::fixture.ShapesTest#enumShape",
+    "maven:.::fixture.ShapesTest#implicitExceptionShape",
+    "maven:.::fixture.ShapesTest#recordShape"
+  ],
+  "NON_EXECUTED": []
+}

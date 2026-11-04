@@ -1,0 +1,4 @@
+-javaagent:/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-8884381878159399660/probe-observer.jar=/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-8884381878159399660/control/target/probe-calls.txt
+-javaagent:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/build/functional-test-maven-local-43397/org/jacoco/org.jacoco.agent/0.8.13/org.jacoco.agent-0.8.13-runtime.jar=destfile=/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-8884381878159399660/control/target/project.exec,append=false,classdumpdir=/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-8884381878159399660/control/target/jacoco-input
+-Xmx256m
+-Dproject.literal=preserved

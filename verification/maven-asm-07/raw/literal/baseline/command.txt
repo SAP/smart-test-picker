@@ -1,0 +1,1 @@
+mvn -U --batch-mode --no-transfer-progress --settings functional-test-settings.xml -X -Dexpect.stp=false -Dprobe.control=false -DobserverArgLine=-javaagent:/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-9994088449487242482/probe-observer.jar=/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-9994088449487242482/baseline/target/probe-calls.txt -Pliteral verify

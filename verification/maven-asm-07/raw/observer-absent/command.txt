@@ -1,0 +1,1 @@
+mvn -U --batch-mode --no-transfer-progress --settings functional-test-settings.xml -X -Dexpect.stp=false -Dprobe.control=false verify
