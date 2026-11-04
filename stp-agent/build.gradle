@@ -88,4 +88,4 @@ test {
     }
 }
 
-// The agent is currently consumed from the build; release publication is follow-up work.
+// Publication supplies the shaded agent as a standalone file, without runtime dependencies in its POM.

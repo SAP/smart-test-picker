@@ -34,6 +34,7 @@ dependencies {
 test {
     useJUnitPlatform()
     dependsOn ':stp-agent:agentJar'
+    dependsOn ':stp-agent:publishAllPublicationsToFunctionalTestRepository'
     systemProperty 'stp.test.agent.jar', project(':stp-agent').layout.buildDirectory.file('libs/stp-agent.jar').get().asFile
     dependsOn ':smart-test-picker-common:publishAllPublicationsToFunctionalTestRepository'
     dependsOn ':smart-test-picker-core:publishAllPublicationsToFunctionalTestRepository'

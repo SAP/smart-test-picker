@@ -14,6 +14,11 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugin.descriptor.PluginDescriptor;
+import org.eclipse.aether.RepositorySystem;
+import org.eclipse.aether.artifact.DefaultArtifact;
+import org.eclipse.aether.resolution.ArtifactRequest;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Plugin;
@@ -40,6 +45,10 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 	@Parameter(property = "smartTestPicker.executionProfile") private String executionProfile;
 	@Parameter(property = "smartTestPicker.completeInventoryFile") private File completeInventoryFile;
 	@Parameter(property = "smartTestPicker.reactorRoot") private File reactorRoot;
+	@Parameter(defaultValue = "${plugin}", readonly = true, required = true) private PluginDescriptor pluginDescriptor;
+	@Component private RepositorySystem repositorySystem;
+	@Parameter(property = "smartTestPicker.asm.includes") private String asmIncludes;
+	@Parameter(property = "smartTestPicker.asm.excludes") private String asmExcludes;
 
 	@Override public void execute() throws MojoExecutionException {
 		try {
@@ -73,11 +82,40 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 					AsmMappingForkGuard.validate(entry.getValue(), session, executionType);
 				}
 			}
-			for (var entry : modules.entrySet()) configure(entry.getValue(), entry.getKey(),
-					partitioned.get(entry.getKey()), executionType,
-					StpMavenLifecycleParticipant.selectedCollector(entry.getValue(), session.getUserProperties()));
+			boolean needsAgent = modules.entrySet().stream().anyMatch(entry -> !partitioned.get(entry.getKey()).isEmpty()
+					&& StpMavenLifecycleParticipant.selectedCollector(entry.getValue(), session.getUserProperties()) == StpCollectorSelection.ASM);
+			boolean asmMapping = modules.values().stream().anyMatch(module ->
+					StpMavenLifecycleParticipant.selectedCollector(module, session.getUserProperties()) == StpCollectorSelection.ASM);
+			String includes = asmMapping ? AsmMappingAttachment.prefixes(asmIncludes, true) : null;
+			String excludes = asmMapping ? AsmMappingAttachment.prefixes(asmExcludes, false) : null;
+			File agent = needsAgent ? resolveAgent() : null;
+			for (var entry : modules.entrySet()) {
+				var collector = StpMavenLifecycleParticipant.selectedCollector(entry.getValue(), session.getUserProperties());
+				configure(entry.getValue(), entry.getKey(), partitioned.get(entry.getKey()), executionType, collector);
+				if (collector == StpCollectorSelection.ASM && !partitioned.get(entry.getKey()).isEmpty()) {
+					AsmMappingAttachment.attach(entry.getValue(), session, executionType, agent, entry.getKey(),
+							assignment.revision().value(), assignment.shardId().value(), includes, excludes);
+				}
+			}
 		} catch (Exception failure) {
 			throw new MojoExecutionException("Cannot prepare schema-v3 Maven mapping: " + failure.getMessage(), failure);
+		}
+	}
+
+	private File resolveAgent() throws Exception {
+		String version = pluginDescriptor == null ? null : pluginDescriptor.getVersion();
+		if (version == null || version.isBlank() || version.contains("${"))
+			throw new IllegalArgumentException("Cannot determine the running Maven plugin version for ASM agent resolution");
+		var artifact = new DefaultArtifact("com.sap.oss.smart-test-picker", "stp-agent", "", "jar", version);
+		try {
+			File file = repositorySystem.resolveArtifact(session.getRepositorySession(),
+					new ArtifactRequest(artifact, project.getRemoteProjectRepositories(), "stp-asm-mapping")).getArtifact().getFile();
+			if (file == null || !file.isFile()) throw new IllegalArgumentException("Resolved agent file is missing");
+			getLog().info("ASM mapping agent " + artifact + " resolved to " + file);
+			getLog().debug("ASM mapping plugin realm: " + java.util.Arrays.toString(pluginDescriptor.getClassRealm().getURLs()));
+			return file;
+		} catch (Exception failure) {
+			throw new IllegalArgumentException("Cannot resolve ASM mapping agent " + artifact, failure);
 		}
 	}
 
