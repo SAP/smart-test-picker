@@ -12,6 +12,10 @@ is_allowlisted() {
 	case "$1" in
 		# Canonical 25,281-edge TASK 19 inventory; already minified and uniquely required for audit/sampling.
 		stp-spring-core-spike/task19/evidence/divergent-edge-inventory.json) return 0 ;;
+		# Immutable EI-10 published-map evidence (30,045,626 bytes); preserve the original audit input, not a current distribution artifact.
+		EI-10/artifacts/published-r0-map.json) return 0 ;;
+		# Exact EI-11 deployed HPI evidence (10,450,073 bytes), identified in EI-11/technical-report.md; retain binary provenance.
+		EI-11/artifacts/deployed-smart-test-picker.hpi) return 0 ;;
 		*) return 1 ;;
 	esac
 }
