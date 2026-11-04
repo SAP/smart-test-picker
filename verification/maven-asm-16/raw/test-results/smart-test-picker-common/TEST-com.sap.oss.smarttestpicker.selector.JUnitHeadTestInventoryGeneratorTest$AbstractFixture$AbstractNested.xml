@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGeneratorTest$AbstractFixture$AbstractNested" tests="1" skipped="1" failures="0" errors="0" timestamp="2026-11-04T16:16:05.220Z" hostname="WDVJD22XQC" time="0.0">
+  <properties/>
+  <testcase name="nested()" classname="com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGeneratorTest$AbstractFixture$AbstractNested" time="0.0">
+    <skipped/>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

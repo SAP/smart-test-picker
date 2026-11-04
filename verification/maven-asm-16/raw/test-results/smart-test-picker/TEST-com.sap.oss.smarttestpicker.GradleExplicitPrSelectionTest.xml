@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.GradleExplicitPrSelectionTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-04T16:29:57.861Z" hostname="WDVJD22XQC" time="3.864">
+  <properties/>
+  <testcase name="staleAndDivergentHeadsAreBaseOutOfDate()" classname="com.sap.oss.smarttestpicker.GradleExplicitPrSelectionTest" time="0.792"/>
+  <testcase name="localModeGateRequiresNoExplicitRevision()" classname="com.sap.oss.smarttestpicker.GradleExplicitPrSelectionTest" time="0.004"/>
+  <testcase name="inventoryMismatchAndRevisionlessInventoryAreErrors()" classname="com.sap.oss.smarttestpicker.GradleExplicitPrSelectionTest" time="0.867"/>
+  <testcase name="freshAndStaleMapUseCommonExplicitInterval()" classname="com.sap.oss.smarttestpicker.GradleExplicitPrSelectionTest" time="1.376"/>
+  <testcase name="tooOldMapIsFullSuite()" classname="com.sap.oss.smarttestpicker.GradleExplicitPrSelectionTest" time="0.822"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

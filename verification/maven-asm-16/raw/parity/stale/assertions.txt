@@ -1,0 +1,3 @@
+Previous valid fragment contained maven:module-b::b.BTests#b2.
+Preparation alone removed fragment, diagnostic and evidence before any test fork.
+Finalization without a new fork rejected missing diagnostics; stale coverage was not consumed.

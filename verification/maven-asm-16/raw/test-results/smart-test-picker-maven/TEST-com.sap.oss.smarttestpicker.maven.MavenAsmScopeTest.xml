@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.maven.MavenAsmScopeTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-04T16:20:51.407Z" hostname="WDVJD22XQC" time="0.126">
+  <properties/>
+  <testcase name="[1] &quot;missing-output&quot;" classname="com.sap.oss.smarttestpicker.maven.MavenAsmScopeTest" time="0.068"/>
+  <testcase name="[2] &quot;empty-output&quot;" classname="com.sap.oss.smarttestpicker.maven.MavenAsmScopeTest" time="0.01"/>
+  <testcase name="[3] &quot;default-package&quot;" classname="com.sap.oss.smarttestpicker.maven.MavenAsmScopeTest" time="0.01"/>
+  <testcase name="[4] &quot;overlapping-output&quot;" classname="com.sap.oss.smarttestpicker.maven.MavenAsmScopeTest" time="0.008"/>
+  <testcase name="[5] &quot;blank-override&quot;" classname="com.sap.oss.smarttestpicker.maven.MavenAsmScopeTest" time="0.008"/>
+  <testcase name="derivedPackagesIgnoreGroupIdAndTestOutputsWhileExplicitScopeOverrides(Path)" classname="com.sap.oss.smarttestpicker.maven.MavenAsmScopeTest" time="0.018"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

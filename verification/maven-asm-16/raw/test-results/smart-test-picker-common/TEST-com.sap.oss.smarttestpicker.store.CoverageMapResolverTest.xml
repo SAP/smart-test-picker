@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.store.CoverageMapResolverTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-04T16:16:18.319Z" hostname="WDVJD22XQC" time="1.603">
+  <properties/>
+  <testcase name="returnsRemoteMapWhenOnlyRemoteExists()" classname="com.sap.oss.smarttestpicker.store.CoverageMapResolverTest" time="0.155"/>
+  <testcase name="localModeSelectsLocalWhenBothExist()" classname="com.sap.oss.smarttestpicker.store.CoverageMapResolverTest" time="0.157"/>
+  <testcase name="returnsLocalMapWhenOnlyLocalExists()" classname="com.sap.oss.smarttestpicker.store.CoverageMapResolverTest" time="0.147"/>
+  <testcase name="nearestPrefersRemoteWhenEqualDistance()" classname="com.sap.oss.smarttestpicker.store.CoverageMapResolverTest" time="0.257"/>
+  <testcase name="nearestPrefersCloserMap()" classname="com.sap.oss.smarttestpicker.store.CoverageMapResolverTest" time="0.393"/>
+  <testcase name="remoteModeIgnoresLocalMap()" classname="com.sap.oss.smarttestpicker.store.CoverageMapResolverTest" time="0.135"/>
+  <testcase name="remoteModeSelectsRemoteWhenBothExist()" classname="com.sap.oss.smarttestpicker.store.CoverageMapResolverTest" time="0.126"/>
+  <testcase name="localModeFallsBackToRemoteWhenLocalMissing()" classname="com.sap.oss.smarttestpicker.store.CoverageMapResolverTest" time="0.138"/>
+  <testcase name="returnsNullWhenNoCachedMaps()" classname="com.sap.oss.smarttestpicker.store.CoverageMapResolverTest" time="0.093"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

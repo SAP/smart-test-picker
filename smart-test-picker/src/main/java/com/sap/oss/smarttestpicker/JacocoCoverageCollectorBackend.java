@@ -8,7 +8,7 @@ import org.gradle.api.artifacts.Configuration;
 import org.gradle.testing.jacoco.plugins.JacocoTaskExtension;
 import org.gradle.api.tasks.testing.Test;
 
-final class JacocoCoverageCollectorBackend implements CoverageCollectorBackend {
+final class JacocoCoverageCollectorBackend implements GradleCoverageCollectorBackend {
 	private final Configuration collectorRuntime;
 
 	JacocoCoverageCollectorBackend(Configuration collectorRuntime) {

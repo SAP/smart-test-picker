@@ -1,0 +1,43 @@
+exitCode=1
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] executable-reactor                                                 [pom]
+[INFO] module-a                                                           [jar]
+[INFO] module-b                                                           [jar]
+[INFO] module-zero                                                        [jar]
+[INFO] 
+[INFO] ---------------------< fixture:executable-reactor >---------------------
+[INFO] Building executable-reactor 1                                      [1/4]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:prepare-reactor-executable-mapping (default-cli) @ executable-reactor ---
+[INFO] ASM mapping scope includes=a.,b.; excludes=; productionSources=[/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-4713203551031640529/reactor/module-a/target/classes, /private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-4713203551031640529/reactor/module-a/target/module-a-1.jar, /private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-4713203551031640529/reactor/module-b/target/classes, /private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-4713203551031640529/reactor/module-b/target/module-b-1.jar, /private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-4713203551031640529/reactor/module-zero/target/classes]
+[INFO] ASM mapping agent com.sap.oss.smart-test-picker:stp-agent:jar:0.3.0-SNAPSHOT resolved to /Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/build/functional-test-maven-local-68921/com/sap/oss/smart-test-picker/stp-agent/0.3.0-SNAPSHOT/stp-agent-0.3.0-SNAPSHOT.jar
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Skipping executable-reactor
+[INFO] This project has been banned from the build due to previous failures.
+[INFO] ------------------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for executable-reactor 1:
+[INFO] 
+[INFO] executable-reactor ................................. FAILURE [  0.358 s]
+[INFO] module-a ........................................... SKIPPED
+[INFO] module-b ........................................... SKIPPED
+[INFO] module-zero ........................................ SKIPPED
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.501 s
+[INFO] Finished at: 2026-11-04T17:17:57+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal com.sap.oss.smart-test-picker:smart-test-picker-maven:0.3.0-SNAPSHOT:prepare-reactor-executable-mapping (default-cli) on project executable-reactor: Cannot prepare schema-v3 Maven mapping: /private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-4713203551031640529/reactor/module-b/target/stp/asm-agent-diagnostic.json -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

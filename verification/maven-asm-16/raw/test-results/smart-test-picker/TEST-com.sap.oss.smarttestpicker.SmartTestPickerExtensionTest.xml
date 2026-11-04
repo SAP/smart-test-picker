@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.SmartTestPickerExtensionTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-11-04T16:30:04.326Z" hostname="WDVJD22XQC" time="0.948">
+  <properties/>
+  <testcase name="unknownCollectorIsRejectedClearly()" classname="com.sap.oss.smarttestpicker.SmartTestPickerExtensionTest" time="0.538"/>
+  <testcase name="remoteStoreCredentialsCanBeSet()" classname="com.sap.oss.smarttestpicker.SmartTestPickerExtensionTest" time="0.056"/>
+  <testcase name="collectorAcceptsCaseInsensitiveDslString()" classname="com.sap.oss.smarttestpicker.SmartTestPickerExtensionTest" time="0.045"/>
+  <testcase name="defaultBaseBranch()" classname="com.sap.oss.smarttestpicker.SmartTestPickerExtensionTest" time="0.052"/>
+  <testcase name="remoteStoreExtensionIsAccessible()" classname="com.sap.oss.smarttestpicker.SmartTestPickerExtensionTest" time="0.036"/>
+  <testcase name="pullCoverageMapTaskIsRegistered()" classname="com.sap.oss.smarttestpicker.SmartTestPickerExtensionTest" time="0.034"/>
+  <testcase name="remoteStorePushDefaultsToNotPresent()" classname="com.sap.oss.smarttestpicker.SmartTestPickerExtensionTest" time="0.047"/>
+  <testcase name="asmIsDefaultCollector()" classname="com.sap.oss.smarttestpicker.SmartTestPickerExtensionTest" time="0.032"/>
+  <testcase name="remoteStoreUrlCanBeSet()" classname="com.sap.oss.smarttestpicker.SmartTestPickerExtensionTest" time="0.036"/>
+  <testcase name="pushCoverageMapTaskIsRegistered()" classname="com.sap.oss.smarttestpicker.SmartTestPickerExtensionTest" time="0.038"/>
+  <testcase name="pullTaskIsSkippedWhenUrlNotSet()" classname="com.sap.oss.smarttestpicker.SmartTestPickerExtensionTest" time="0.031"/>
+  <system-out><![CDATA[[SmartTestPickerPlugin] Plugin applied.
+[SmartTestPickerPlugin] Plugin applied.
+[SmartTestPickerPlugin] Plugin applied.
+[SmartTestPickerPlugin] Plugin applied.
+[SmartTestPickerPlugin] Plugin applied.
+[SmartTestPickerPlugin] Plugin applied.
+[SmartTestPickerPlugin] Plugin applied.
+[SmartTestPickerPlugin] Plugin applied.
+[SmartTestPickerPlugin] Plugin applied.
+[SmartTestPickerPlugin] Plugin applied.
+[SmartTestPickerPlugin] Plugin applied.
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.CoverageCollectorContractTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-04T16:15:33.694Z" hostname="WDVJD22XQC" time="0.016">
+  <properties/>
+  <testcase name="collectorParsingRetainsTheGradleContractWithoutBuildToolDependencies()" classname="com.sap.oss.smarttestpicker.CoverageCollectorContractTest" time="0.016"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

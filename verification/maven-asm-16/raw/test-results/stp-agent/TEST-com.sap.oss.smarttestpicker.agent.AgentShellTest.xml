@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.agent.AgentShellTest" tests="24" skipped="0" failures="0" errors="0" timestamp="2026-11-04T16:30:07.437Z" hostname="WDVJD22XQC" time="1.384">
+  <properties/>
+  <testcase name="suppliesSafeDefaults()" classname="com.sap.oss.smarttestpicker.agent.AgentShellTest" time="0.024"/>
+  <testcase name="isolatedJvmAgentAndRealJunitProduceSchemaV2FragmentWithoutJacocoConversion()" classname="com.sap.oss.smarttestpicker.agent.AgentShellTest" time="0.582"/>
+  <testcase name="agentJarHasRequiredManifestAndRuntimeClasses()" classname="com.sap.oss.smarttestpicker.agent.AgentShellTest" time="0.014"/>
+  <testcase name="failedAgentRuntimeInitializationRollsBackRegistry()" classname="com.sap.oss.smarttestpicker.agent.AgentShellTest" time="0.013"/>
+  <testcase name="isolatedJvmInstallsRuntimeBeforeServiceLoadedJunitListenerIsConstructed()" classname="com.sap.oss.smarttestpicker.agent.AgentShellTest" time="0.188"/>
+  <testcase name="sequentialIsolatedJvmRunsDoNotLeakRegistryState()" classname="com.sap.oss.smarttestpicker.agent.AgentShellTest" time="0.222"/>
+  <testcase name="isolatedJvmStartsAndWritesOutputAndRuntimeIsVisibleToApplicationLoader()" classname="com.sap.oss.smarttestpicker.agent.AgentShellTest" time="0.124"/>
+  <testcase name="shutdownJsonIsDeterministicAndConfirmsNoTransformation()" classname="com.sap.oss.smarttestpicker.agent.AgentShellTest" time="0.006"/>
+  <testcase name="agentJarContainsNoOriginalAsmPackageOrSigningMetadata()" classname="com.sap.oss.smarttestpicker.agent.AgentShellTest" time="0.013"/>
+  <testcase name="fragmentPublicationInvalidatesStaleTargetAndUsesAValidatedCommitPoint()" classname="com.sap.oss.smarttestpicker.agent.AgentShellTest" time="0.01"/>
+  <testcase name="transformerAlwaysReturnsNullAndCountsDecisions()" classname="com.sap.oss.smarttestpicker.agent.AgentShellTest" time="0.039"/>
+  <testcase name="excludesJdkAndFrameworkClasses()" classname="com.sap.oss.smarttestpicker.agent.AgentShellTest" time="0.003"/>
+  <testcase name="premainFailureAfterRuntimeInstallationLeavesNoRegistryState()" classname="com.sap.oss.smarttestpicker.agent.AgentShellTest" time="0.013"/>
+  <testcase name="includesConfiguredApplicationClass()" classname="com.sap.oss.smarttestpicker.agent.AgentShellTest" time="0.002"/>
+  <testcase name="failedFinalReplacementLeavesNoTemporaryOrOldCompletedFragment()" classname="com.sap.oss.smarttestpicker.agent.AgentShellTest" time="0.008"/>
+  <testcase name="exclusionOverridesInclusion()" classname="com.sap.oss.smarttestpicker.agent.AgentShellTest" time="0.001"/>
+  <testcase name="parsesValidArgumentsAndNormalizesPrefixes()" classname="com.sap.oss.smarttestpicker.agent.AgentShellTest" time="0.001"/>
+  <testcase name="rejectsUnknownArgument()" classname="com.sap.oss.smarttestpicker.agent.AgentShellTest" time="0.002"/>
+  <testcase name="agentAndNoArgumentJunitListenerResolveSameRuntimeAndShutdownCleansRegistry()" classname="com.sap.oss.smarttestpicker.agent.AgentShellTest" time="0.014"/>
+  <testcase name="invalidOutputPathFailsClearlyBeforeApplicationMain()" classname="com.sap.oss.smarttestpicker.agent.AgentShellTest" time="0.081"/>
+  <testcase name="rejectsMalformedPrefixLists()" classname="com.sap.oss.smarttestpicker.agent.AgentShellTest" time="0.004"/>
+  <testcase name="fragmentBindingInputsAreExplicitAndAtomic()" classname="com.sap.oss.smarttestpicker.agent.AgentShellTest" time="0.003"/>
+  <testcase name="rejectsDuplicateArgument()" classname="com.sap.oss.smarttestpicker.agent.AgentShellTest" time="0.002"/>
+  <testcase name="schemaV3TargetIsParsedBeforeCollectionAndV2CompatibilityRemainsExplicit()" classname="com.sap.oss.smarttestpicker.agent.AgentShellTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.maven.GenerateCoverageFragmentMojoTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-04T16:20:50.895Z" hostname="WDVJD22XQC" time="0.51">
+  <properties/>
+  <testcase name="jacocoFactsProduceExecutableMappedAndUnmappedSchemaV3Fragment(Path)" classname="com.sap.oss.smarttestpicker.maven.GenerateCoverageFragmentMojoTest" time="0.29"/>
+  <testcase name="schemaV3ReconcilesAssignedSkippedSurefireTestsWithExactDescriptor(Path)" classname="com.sap.oss.smarttestpicker.maven.GenerateCoverageFragmentMojoTest" time="0.039"/>
+  <testcase name="schemaV3FailsClosedForMissingAndMalformedTarget(Path)" classname="com.sap.oss.smarttestpicker.maven.GenerateCoverageFragmentMojoTest" time="0.003"/>
+  <testcase name="failedParameterizedInvocationDominatesSuccessfulSiblingRegardlessOfOrder(Path)" classname="com.sap.oss.smarttestpicker.maven.GenerateCoverageFragmentMojoTest" time="0.034"/>
+  <testcase name="writesDeterministicDescriptorAwareFragmentWithoutInventedSetup(Path)" classname="com.sap.oss.smarttestpicker.maven.GenerateCoverageFragmentMojoTest" time="0.103"/>
+  <testcase name="exactSidecarsAggregateMixedAndAllSkippedLogicalIdentities(Path)" classname="com.sap.oss.smarttestpicker.maven.GenerateCoverageFragmentMojoTest" time="0.023"/>
+  <testcase name="missingLocalReportStatusProducesIncompleteUnmappedFragment(Path)" classname="com.sap.oss.smarttestpicker.maven.GenerateCoverageFragmentMojoTest" time="0.015"/>
+  <system-out><![CDATA[[info] [SmartTestPicker] Generated schema-v3 coverage fragment: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-1223637172413374075/fragment-v3.json (1 mapped, 1 unmapped, completed=true)
+[info] [SmartTestPicker] Generated schema-v3 coverage fragment: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-9713731774539861678/fragment-v3.json (0 mapped, 0 unmapped, completed=true)
+[info] [SmartTestPicker] Generated schema-v2 coverage fragment: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-13824238016487216483/fragment.json (0 mapped, 1 unmapped, completed=true)
+[info] [SmartTestPicker] Generated schema-v2 coverage fragment: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-9565502088710993723/fragment.json (2 mapped, 0 unmapped, completed=true)
+[info] [SmartTestPicker] Generated schema-v2 coverage fragment: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-9565502088710993723/fragment.json (2 mapped, 0 unmapped, completed=true)
+[info] [SmartTestPicker] Generated schema-v2 coverage fragment: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-8455487049901243602/fragment.json (1 mapped, 0 unmapped, completed=true)
+[info] [SmartTestPicker] Generated schema-v2 coverage fragment: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-462220989868345045/fragment.json (0 mapped, 1 unmapped, completed=false)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

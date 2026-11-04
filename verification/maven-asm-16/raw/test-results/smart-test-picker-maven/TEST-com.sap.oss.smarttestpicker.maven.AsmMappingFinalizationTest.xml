@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" tests="27" skipped="0" failures="0" errors="0" timestamp="2026-11-04T16:19:30.033Z" hostname="WDVJD22XQC" time="0.615">
+  <properties/>
+  <testcase name="[1] &quot;missing-fragment&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.035"/>
+  <testcase name="[2] &quot;incomplete&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.021"/>
+  <testcase name="[3] &quot;missing-observation&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.016"/>
+  <testcase name="[4] &quot;silent-empty&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.017"/>
+  <testcase name="[5] &quot;unexpected&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.045"/>
+  <testcase name="[6] &quot;wrong-target&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.018"/>
+  <testcase name="[7] &quot;wrong-revision&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.017"/>
+  <testcase name="[8] &quot;wrong-shard&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.018"/>
+  <testcase name="[9] &quot;duplicate&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.02"/>
+  <testcase name="[1] &quot;missing-fragment&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.023"/>
+  <testcase name="[2] &quot;missing-evidence&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.016"/>
+  <testcase name="[3] &quot;missing-observation&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.02"/>
+  <testcase name="[4] &quot;silent-empty&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.019"/>
+  <testcase name="[5] &quot;duplicate&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.018"/>
+  <testcase name="[6] &quot;unexpected&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.028"/>
+  <testcase name="[7] &quot;wrong-target&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.02"/>
+  <testcase name="[8] &quot;incomplete&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.019"/>
+  <testcase name="[9] &quot;wrong-revision&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.017"/>
+  <testcase name="[10] &quot;wrong-shard&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.016"/>
+  <testcase name="[11] &quot;overlap&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.026"/>
+  <testcase name="[12] &quot;duplicate-evidence&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.022"/>
+  <testcase name="[13] &quot;wrong-evidence-target&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.027"/>
+  <testcase name="[14] &quot;wrong-version&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.022"/>
+  <testcase name="[15] &quot;missing-identity&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.024"/>
+  <testcase name="[16] &quot;missing-nonexecution&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.025"/>
+  <testcase name="[17] &quot;skipped-as-executed&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.023"/>
+  <testcase name="finalizesPositiveEvidenceWithoutChangingFragmentBytes(Path)" classname="com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest" time="0.02"/>
+  <system-out><![CDATA[[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-15964311715364439039/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-15070329123021061199/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-9652554651501654470/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-17174730648472554547/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-18318097738849987623/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-7620122935704458026/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-14236915703013402677/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-9468790937301878121/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-17087039734828237009/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-16341999110296381031/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-7488732660126152295/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-1649538499976514167/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-12150046948022823435/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-1878309572219373620/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-3234492708681282661/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-6295812510314464945/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-16092730937443641803/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-104028363346004851/module/target/stp/execution-evidence-v2.json
+]]></system-out>
+  <system-err><![CDATA[SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+]]></system-err>
+</testsuite>

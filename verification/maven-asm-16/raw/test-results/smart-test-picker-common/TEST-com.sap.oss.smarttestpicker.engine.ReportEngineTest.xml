@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.engine.ReportEngineTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-04T16:15:51.789Z" hostname="WDVJD22XQC" time="1.366">
+  <properties/>
+  <testcase name="chunkModeActivatesForLargeMaps()" classname="com.sap.oss.smarttestpicker.engine.ReportEngineTest" time="0.386"/>
+  <testcase name="generatesHtmlFromValidInputs()" classname="com.sap.oss.smarttestpicker.engine.ReportEngineTest" time="0.394"/>
+  <testcase name="handlesMissingSelectedTestsGracefully()" classname="com.sap.oss.smarttestpicker.engine.ReportEngineTest" time="0.357"/>
+  <testcase name="handlesEmptyCoverageMapGracefully()" classname="com.sap.oss.smarttestpicker.engine.ReportEngineTest" time="0.227"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

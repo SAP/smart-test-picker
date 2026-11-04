@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.selector.HeadTestInventoryCodecTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-04T16:16:05.190Z" hostname="WDVJD22XQC" time="0.029">
+  <properties/>
+  <testcase name="roundTripsInDeterministicNaturalOrder()" classname="com.sap.oss.smarttestpicker.selector.HeadTestInventoryCodecTest" time="0.008"/>
+  <testcase name="rejectsInvalidRepresentations()" classname="com.sap.oss.smarttestpicker.selector.HeadTestInventoryCodecTest" time="0.015"/>
+  <testcase name="readsLegacyRevisionlessInventoryForLocalCompatibility()" classname="com.sap.oss.smarttestpicker.selector.HeadTestInventoryCodecTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

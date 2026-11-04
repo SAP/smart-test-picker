@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.maven.MavenExplicitPrSelectionTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-04T16:20:51.595Z" hostname="WDVJD22XQC" time="3.559">
+  <properties/>
+  <testcase name="localModeGateRequiresNoExplicitRevision()" classname="com.sap.oss.smarttestpicker.maven.MavenExplicitPrSelectionTest" time="0.009"/>
+  <testcase name="inventoryMismatchAndRevisionlessInventoryAreErrors()" classname="com.sap.oss.smarttestpicker.maven.MavenExplicitPrSelectionTest" time="1.077"/>
+  <testcase name="freshAndStaleMapUseCommonExplicitInterval()" classname="com.sap.oss.smarttestpicker.maven.MavenExplicitPrSelectionTest" time="1.523"/>
+  <testcase name="stalePrInvalidHeadAndTooOldMapPreserveCommonStatuses()" classname="com.sap.oss.smarttestpicker.maven.MavenExplicitPrSelectionTest" time="0.948"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.maven.SmartTestFilterTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-04T16:29:08.615Z" hostname="WDVJD22XQC" time="0.034">
+  <properties/>
+  <testcase name="nullAndUnknownOutputFailOpenByRemovingRestriction()" classname="com.sap.oss.smarttestpicker.maven.SmartTestFilterTest" time="0.009"/>
+  <testcase name="writesSentinelForNoneWithoutUnmapped()" classname="com.sap.oss.smarttestpicker.maven.SmartTestFilterTest" time="0.007"/>
+  <testcase name="selectedUsesOnlyMandatorySelectedTests()" classname="com.sap.oss.smarttestpicker.maven.SmartTestFilterTest" time="0.005"/>
+  <testcase name="writesSelectedClassPatterns()" classname="com.sap.oss.smarttestpicker.maven.SmartTestFilterTest" time="0.005"/>
+  <testcase name="fullSuiteRemovesStaleRestrictiveFile()" classname="com.sap.oss.smarttestpicker.maven.SmartTestFilterTest" time="0.003"/>
+  <testcase name="noneIgnoresDiagnosticUnmappedAndWritesSentinel()" classname="com.sap.oss.smarttestpicker.maven.SmartTestFilterTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

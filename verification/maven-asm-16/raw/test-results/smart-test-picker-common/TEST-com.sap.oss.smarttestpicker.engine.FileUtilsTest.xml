@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.engine.FileUtilsTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-04T16:15:46.658Z" hostname="WDVJD22XQC" time="0.017">
+  <properties/>
+  <testcase name="createsParentDirectoryWhenMissing()" classname="com.sap.oss.smarttestpicker.engine.FileUtilsTest" time="0.004"/>
+  <testcase name="doesNothingWhenParentAlreadyExists()" classname="com.sap.oss.smarttestpicker.engine.FileUtilsTest" time="0.002"/>
+  <testcase name="handlesNestedDirectoryCreation()" classname="com.sap.oss.smarttestpicker.engine.FileUtilsTest" time="0.008"/>
+  <testcase name="handlesFileWithNoParent()" classname="com.sap.oss.smarttestpicker.engine.FileUtilsTest" time="0.002"/>
+  <testcase name="handlesFileInCurrentDirectory()" classname="com.sap.oss.smarttestpicker.engine.FileUtilsTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

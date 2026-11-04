@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGeneratorTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-04T16:16:05.221Z" hostname="WDVJD22XQC" time="0.269">
+  <properties/>
+  <testcase name="ignoresVintageClassDescriptorsReportedAsTests()" classname="com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGeneratorTest" time="0.006"/>
+  <testcase name="derivesVintageMethodNameWhenOlderPlatformProvidesOnlyClassSource()" classname="com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGeneratorTest" time="0.004"/>
+  <testcase name="isolatedClassSourceOnlyVintageDiscoveryMatchesNonIsolatedIdentity()" classname="com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGeneratorTest" time="0.208"/>
+  <testcase name="discoversExactLogicalDeclaredIdentitiesWithoutExecutingBodies()" classname="com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGeneratorTest" time="0.046"/>
+  <testcase name="targetRuntimeOwnsVintageEngineAndItsPlatformApi()" classname="com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGeneratorTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Nov 04, 2026 5:16:05 PM org.junit.platform.launcher.core.DiscoveryIssueNotifier logIssues
+INFO: TestEngine with ID 'junit-vintage' encountered a non-critical issue during test discovery:
+
+(1) [INFO] The JUnit Vintage engine is deprecated and should only be used temporarily while migrating tests to JUnit Jupiter or another testing framework with native JUnit Platform support.
+Nov 04, 2026 5:16:05 PM org.junit.platform.launcher.core.DiscoveryIssueNotifier logIssues
+INFO: TestEngine with ID 'junit-vintage' encountered a non-critical issue during test discovery:
+
+(1) [INFO] The JUnit Vintage engine is deprecated and should only be used temporarily while migrating tests to JUnit Jupiter or another testing framework with native JUnit Platform support.
+Nov 04, 2026 5:16:05 PM org.junit.platform.launcher.core.DiscoveryIssueNotifier logIssues
+INFO: TestEngine with ID 'junit-vintage' encountered a non-critical issue during test discovery:
+
+(1) [INFO] The JUnit Vintage engine is deprecated and should only be used temporarily while migrating tests to JUnit Jupiter or another testing framework with native JUnit Platform support.
+Nov 04, 2026 5:16:05 PM org.junit.platform.launcher.core.DiscoveryIssueNotifier logIssues
+INFO: TestEngine with ID 'junit-vintage' encountered a non-critical issue during test discovery:
+
+(1) [INFO] The JUnit Vintage engine is deprecated and should only be used temporarily while migrating tests to JUnit Jupiter or another testing framework with native JUnit Platform support.
+]]></system-err>
+</testsuite>

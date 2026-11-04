@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.coverage.Task40PetClinicFixtureTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-04T16:15:43.935Z" hostname="WDVJD22XQC" time="0.012">
+  <properties/>
+  <testcase name="canonicalAlignedFixtureHasExactLogicalPartitionAndPreservedCoverage()" classname="com.sap.oss.smarttestpicker.coverage.Task40PetClinicFixtureTest" time="0.012"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

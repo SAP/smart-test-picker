@@ -10,7 +10,7 @@ import org.gradle.api.GradleException;
 import org.gradle.api.file.FileCollection;
 import org.gradle.api.tasks.testing.Test;
 
-final class AsmCoverageCollectorBackend implements CoverageCollectorBackend {
+final class AsmCoverageCollectorBackend implements GradleCoverageCollectorBackend {
 	private final FileCollection agent;
 
 	AsmCoverageCollectorBackend(FileCollection agent) {

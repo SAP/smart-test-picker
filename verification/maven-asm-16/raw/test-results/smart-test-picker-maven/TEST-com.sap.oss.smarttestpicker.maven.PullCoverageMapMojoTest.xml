@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.maven.PullCoverageMapMojoTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-04T16:20:55.316Z" hostname="WDVJD22XQC" time="0.26">
+  <properties/>
+  <testcase name="pullReturnsNullWhenNoRemoteMap()" classname="com.sap.oss.smarttestpicker.maven.PullCoverageMapMojoTest" time="0.226"/>
+  <testcase name="pullWithCredentialsSendsAuthHeader()" classname="com.sap.oss.smarttestpicker.maven.PullCoverageMapMojoTest" time="0.008"/>
+  <testcase name="pullWritesMapToOutputFile()" classname="com.sap.oss.smarttestpicker.maven.PullCoverageMapMojoTest" time="0.021"/>
+  <testcase name="pullSkippedWhenLocalMapExists()" classname="com.sap.oss.smarttestpicker.maven.PullCoverageMapMojoTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

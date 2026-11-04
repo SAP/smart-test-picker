@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.selector.SelectionOutputTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-04T16:16:18.303Z" hostname="WDVJD22XQC" time="0.001">
+  <properties/>
+  <testcase name="setChangedClassesPersists()" classname="com.sap.oss.smarttestpicker.selector.SelectionOutputTest" time="0.0"/>
+  <testcase name="nullSelectedTestsFromConstructor()" classname="com.sap.oss.smarttestpicker.selector.SelectionOutputTest" time="0.0"/>
+  <testcase name="constructorAndGetters()" classname="com.sap.oss.smarttestpicker.selector.SelectionOutputTest" time="0.0"/>
+  <testcase name="gsonRoundTrip()" classname="com.sap.oss.smarttestpicker.selector.SelectionOutputTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -110,8 +110,8 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 		if (shardId == null || shardId.isBlank()) throw new MojoExecutionException("smartTestPicker.shardId must not be blank");
 		ExecutionTarget target = validateRuntimeContext();
 		selectOutputs();
-		if (com.sap.oss.smarttestpicker.StpCollectorSelection.parse(coverageCollector)
-				== com.sap.oss.smarttestpicker.StpCollectorSelection.ASM) {
+		if (MavenCoverageCollectorBackend.selected(com.sap.oss.smarttestpicker.StpCollectorSelection.parse(coverageCollector))
+				== MavenCoverageCollectorBackend.ASM) {
 			finalizeAsm(target);
 			return;
 		}

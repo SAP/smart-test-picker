@@ -46,6 +46,18 @@ and retained evidence and lists the [untaken product decisions](../docs/asm-cove
 JaCoCo parallel guarding, ASM shared-context support, the intended JaCoCo version
 pair, and the Jenkins claim boundary for HTTP-heavy Spring suites.
 
+### Current collector support matrix (MAVEN-ASM-16)
+
+| Path | Supported mapping | Current boundary |
+| --- | --- | --- |
+| Gradle ASM | Existing logical schema 2 and executable schema 3 paths; default collector unchanged | Supported ownership/submission topology only; a capability declaration is not universal attribution qualification. |
+| Maven ASM | Prepared schema-v3 Surefire/Failsafe mapping, derived reactor production scope, guarded automatic agent attachment, cross-module edges, target-qualified fragments and evidence-v2 finalization | Single reusable fork; stale outputs invalidated before attachment; exact fragment revision/shard/target binding. Shared cached Spring web contexts reject collection. No schema-v2 Maven ASM finalization, S7 ClassSource-only Vintage support, per-fork merge, or general in-JVM parallel guard is claimed. |
+| Maven JaCoCo | Existing logical/executable mapping paths, unchanged | Interval-based attribution; escaped work and concurrent probe resets retain the limitations documented above. |
+
+MAVEN-ASM-16 shares the neutral collector type/capability interface through common;
+Gradle Project/Test wiring remains in the Gradle module. See its
+[implementation and fixture evidence](../verification/maven-asm-16/REPORT.md).
+
 ## Historical EI-15 snapshot
 
 Status date: 2026-09-14. This is the concise authority for the reviewed STP and Jenkins prototype. Historical task reports remain evidence for the revisions they name; they are not universal compatibility claims.
@@ -96,7 +108,7 @@ These are compatible only as the pinned producer/consumer set packaged and teste
 
 ## Collector, lifecycle, and execution semantics
 
-Gradle mapping supports ASM (default) and JaCoCo; Maven mapping supports JaCoCo and rejects ASM. JUnit Platform is the production lifecycle bridge. JUnit 4 is supported only through the Vintage engine in the tested Platform configuration. The retained builds exercise JUnit Platform 1.9.3/5.9.3 and 6.1.3 libraries in their stated modules, and Maven Surefire/Failsafe 3.5.3 in focused fixtures. This is not a claim for every JUnit 5/6 or build-tool version.
+At the historical EI-15 checkpoint, Gradle mapping supported ASM (default) and JaCoCo, while Maven mapping supported JaCoCo and rejected ASM. That Maven restriction was superseded by the prepared schema-v3 ASM path described in the current matrix above. JUnit Platform is the production lifecycle bridge. JUnit 4 is supported only through the Vintage engine in the tested Platform configuration. The retained builds exercise JUnit Platform 1.9.3/5.9.3 and 6.1.3 libraries in their stated modules, and Maven Surefire/Failsafe 3.5.3 in focused fixtures. This is not a claim for every JUnit 5/6 or build-tool version.
 
 Disabled/skipped declarations and aborted-only declarations are non-executed and are never published as mapped. A failed invocation is executed but is published only as `unmapped/FAILED`; its partial edge set is discarded, and failure dominates successful siblings of the same declaration independent of invocation order. An aborted sibling does not erase valid successful coverage. Per-test snapshots are reset so coverage cannot leak forward. `BeforeEach`/`AfterEach` work falls in the leaf interval. Bounded class-container setup is represented by target-owned setup scopes in both Gradle ASM and Maven JaCoCo; unattributable shared work makes a fragment incomplete instead of guessing. `AfterAll` and late work cannot be attached to the last leaf.
 
@@ -118,6 +130,6 @@ The retained EI-14 schema-v3 map is 4,158,128 bytes with 1,905 mapped executable
 
 EI-13 proves its exact Commons Statistics Maven 3.9.16/JDK 21/Surefire scenario, including independent expected/actual reconciliation and NONE. EI-14 replaces only the aborted-invocation accounting and unknown-target boundary, and retains EI-13 evidence for unchanged discovery, sharding, selection, storage, and project tests. Current unit/functional gates validate changed local artifacts; no new full Spring or SonarJava run is claimed.
 
-Unsupported boundaries include Maven+ASM, Gradle included/composite builds for executable mapping, arbitrary parallel test forks, automatic SCM providers other than GitHub Branch Source, synthetic-merge selective inventory, multi-controller publication, remote backends other than RAW_HTTP, direct reactive/reflection context propagation, release signing/publishing, and universal JUnit/build-tool compatibility.
+The historical unsupported list included Maven+ASM; that blanket restriction is superseded, not a current boundary. The demonstrated current Maven ASM boundary is shared cached Spring web contexts, which reject collection rather than yield degraded coverage. The other EI-15 limitations recorded here were Gradle included/composite builds for executable mapping, arbitrary parallel test forks, automatic SCM providers other than GitHub Branch Source, synthetic-merge selective inventory, multi-controller publication, remote backends other than RAW_HTTP, direct reactive/reflection context propagation, release signing/publishing, and universal JUnit/build-tool compatibility; the current collector matrix and boundary addendum take precedence for present claims.
 
 EI-15 completed clean initially-empty-cache builds for both repositories and the Java-21 packaged Docker smoke. Its maintained Maven multimodule scenario runs R0 mapping/publication and R1 lookup/automatic inventory/selection/execution through all six production steps; expected, selected, and raw executed are exactly `com.example.modulea.FooTest#foo`, while `FooTest#notSelected` is excluded. A controlled `SCMRevisionAction` supplies PR metadata; GitHub webhook delivery and PR discovery are outside this proof. Direct selector mode still runs the full suite without authoritative inventory, while explicitly supplied plans remain supported. Release prerequisites still unmet are signing/distribution and the Jenkins LICENSE/NOTICE disposition. EI-15 does not publish artifacts.

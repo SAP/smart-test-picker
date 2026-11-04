@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.mapper.CoverageMapperJaxbTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-04T16:15:56.666Z" hostname="WDVJD22XQC" time="0.018">
+  <properties/>
+  <testcase name="parsesXmlAndGeneratesCorrectMapping()" classname="com.sap.oss.smarttestpicker.mapper.CoverageMapperJaxbTest" time="0.003"/>
+  <testcase name="emptyDirectoryReturnsEmptyMap(Path)" classname="com.sap.oss.smarttestpicker.mapper.CoverageMapperJaxbTest" time="0.002"/>
+  <testcase name="nonSessionFilesAreIgnored(Path)" classname="com.sap.oss.smarttestpicker.mapper.CoverageMapperJaxbTest" time="0.008"/>
+  <testcase name="schemaV2MappingPreservesExactJacocoDescriptors()" classname="com.sap.oss.smarttestpicker.mapper.CoverageMapperJaxbTest" time="0.003"/>
+  <testcase name="emptyXmlFileIsSkipped(Path)" classname="com.sap.oss.smarttestpicker.mapper.CoverageMapperJaxbTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -9,7 +9,7 @@ public enum CoverageCollectorType {
 	ASM,
 	JACOCO;
 
-	static CoverageCollectorType parse(Object value) {
+	public static CoverageCollectorType parse(Object value) {
 		if (value instanceof CoverageCollectorType type) return type;
 		if (value instanceof CharSequence text) {
 			try {
