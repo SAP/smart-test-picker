@@ -16,6 +16,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 import com.sap.oss.smarttestpicker.selector.HeadTestInventoryCodec;
@@ -29,6 +31,115 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 	private static final String PLUGIN = "com.sap.oss.smart-test-picker:smart-test-picker-maven:" + STP_VERSION + ":";
 	private static final Path LOCAL_REPOSITORY = Path.of("build/functional-test-maven-local-"
 			+ ProcessHandle.current().pid()).toAbsolutePath();
+
+	@ParameterizedTest
+	@ValueSource(strings = { "default", "surefire", "failsafe" })
+	void isolatedClassSourceOnlyVintageInventoryMatchesJacocoMapping(String provider, @TempDir Path temp) throws Exception {
+		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor"));
+		Path pom = fixture.resolve("module-a/pom.xml");
+		Files.writeString(pom, Files.readString(pom).replace("</dependencies>", """
+				<dependency><groupId>org.junit.platform</groupId><artifactId>junit-platform-launcher</artifactId><version>1.9.3</version><scope>test</scope></dependency>
+				<dependency><groupId>org.junit.vintage</groupId><artifactId>junit-vintage-engine</artifactId><version>5.9.3</version><scope>test</scope></dependency>
+				<dependency><groupId>junit</groupId><artifactId>junit</artifactId><version>4.13.2</version><scope>test</scope></dependency>
+				</dependencies>
+				"""));
+		// A field-backed custom runner intentionally provides no Java test method / MethodSource.
+		Files.writeString(fixture.resolve("module-a/src/test/java/a/ClassSourceOnlyTest.java"), """
+				package a;
+				@org.junit.runner.RunWith(ClassSourceOnlyTest.RuleRunner.class)
+				public class ClassSourceOnlyTest {
+				    public static final String architecture_rule = "rule";
+				    public static class RuleRunner extends org.junit.runner.Runner {
+				        private final org.junit.runner.Description root;
+				        private final org.junit.runner.Description rule;
+				        public RuleRunner(Class<?> type) {
+				            root = org.junit.runner.Description.createSuiteDescription(type);
+				            rule = org.junit.runner.Description.createTestDescription(type, "architecture_rule");
+				            root.addChild(rule);
+				        }
+				        public org.junit.runner.Description getDescription() { return root; }
+				        public void run(org.junit.runner.notification.RunNotifier notifier) {
+				            notifier.fireTestStarted(rule);
+				            try { org.junit.Assert.assertEquals(1, new AValue().value()); }
+				            catch (Throwable failure) {
+				                notifier.fireTestFailure(new org.junit.runner.notification.Failure(rule, failure));
+				            } finally { notifier.fireTestFinished(rule); }
+				        }
+				    }
+				}
+				""");
+		String revision = initializeGit(fixture);
+		boolean qualified = !provider.equals("default");
+		String executionType = qualified ? provider : "";
+		String executionId = qualified ? (provider.equals("surefire") ? "default-test" : "fixture-it") : "";
+		String expected = "maven:module-a" + (qualified ? "@" + provider + "@" + executionId : "")
+				+ "::a.ClassSourceOnlyTest#architecture_rule";
+		Path inventoryFile = fixture.resolve("complete-inventory.json");
+		Result discovery = maven(fixture, "-X", "-Pfailsafe", "process-test-classes",
+				PLUGIN + "generate-reactor-head-test-inventory", "-DsmartTestPicker.schemaVersion=3",
+				"-DsmartTestPicker.prHeadRevision=" + revision, "-DsmartTestPicker.executionType=" + executionType,
+				"-DsmartTestPicker.executionId=" + executionId,
+				"-DsmartTestPicker.testFilter=a.ClassSourceOnlyTest", "-DsmartTestPicker.outputFile=" + inventoryFile);
+		assertEquals(0, discovery.exitCode(), discovery.output());
+		assertTrue(discovery.output().lines().anyMatch(line -> line.contains("fixture:module-a:jar:1")
+				&& line.contains("TargetJUnitClassLoader")), discovery.output());
+		var inventory = new ExecutableHeadTestInventoryCodec().read(inventoryFile.toFile());
+		assertEquals(Set.of(expected), inventory.runnableTests().stream().map(Object::toString)
+				.collect(java.util.stream.Collectors.toSet()));
+		assertEquals(revision, inventory.revision());
+		assertFalse(Files.exists(fixture.resolve("module-a/target/surefire-reports")));
+		assertFalse(Files.exists(fixture.resolve("module-a/target/failsafe-reports")));
+		Path assignment = fixture.resolve("assignment.json");
+		Files.writeString(assignment, executableAssignmentAtRevision(revision, expected));
+		String suffix = qualified ? "-module-a_" + provider + "_" + executionId : "";
+		Path fragment = fixture.resolve("module-a/target/stp/coverage-fragment-v3" + suffix + ".json");
+		Path evidence = fixture.resolve("module-a/target/stp/execution-evidence-v2" + suffix + ".json");
+		Result collection = maven(fixture, "-Pfailsafe", PLUGIN + "prepare-reactor-executable-mapping",
+				"verify", "-DsmartTestPicker.schemaVersion=3",
+				"-DsmartTestPicker.testsFile=" + assignment, "-DsmartTestPicker.revision=" + revision,
+				"-DsmartTestPicker.completeInventoryFile=" + inventoryFile,
+				"-DsmartTestPicker.executionType=" + executionType, "-DsmartTestPicker.executionId=" + executionId);
+		assertEquals(0, collection.exitCode(), collection.output());
+		String reportProvider = provider.equals("failsafe") ? "failsafe" : "surefire";
+		assertTrue(Files.isRegularFile(fixture.resolve("module-a/target/" + reportProvider
+				+ "-reports/TEST-a.ClassSourceOnlyTest.xml")));
+		String otherProvider = reportProvider.equals("failsafe") ? "surefire" : "failsafe";
+		assertFalse(Files.exists(fixture.resolve("module-a/target/" + otherProvider
+				+ "-reports/TEST-a.ClassSourceOnlyTest.xml")));
+		String collectionLog = collection.output();
+		if (!qualified) {
+			fragment = fixture.resolve("target/vintage-fragment.json");
+			evidence = fixture.resolve("target/vintage-evidence.json");
+			Result aggregate = maven(fixture, PLUGIN + "aggregate-reactor-coverage-fragment",
+					"-DsmartTestPicker.schemaVersion=3", "-DsmartTestPicker.testsFile=" + assignment,
+					"-DsmartTestPicker.revision=" + revision, "-DsmartTestPicker.fragmentOutput=" + fragment,
+					"-DsmartTestPicker.evidenceOutput=" + evidence);
+			assertEquals(0, aggregate.exitCode(), aggregate.output());
+			collectionLog += aggregate.output();
+		}
+		var decoded = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(fragment));
+		assertEquals(inventory.runnableTests(), decoded.tests().keySet());
+		assertTrue(decoded.collectionCompleted());
+		assertTrue(decoded.unmapped().isEmpty());
+		var coverage = decoded.tests().values().iterator().next();
+		assertEquals(com.sap.oss.smarttestpicker.coverage.model.TestOutcome.PASS, coverage.outcome());
+		assertEquals(com.sap.oss.smarttestpicker.coverage.model.CollectionStatus.COLLECTED_WITH_COVERAGE,
+				coverage.collectionStatus());
+		assertEquals(Set.of("a.AValue"), coverage.coveredClasses());
+		assertTrue(coverage.coveredMethods().stream().anyMatch(method ->
+				method.binaryClassName().equals("a.AValue") && method.methodName().equals("value")));
+		var actual = JsonParser.parseString(Files.readString(evidence)).getAsJsonObject();
+		assertEquals(List.of(expected), actual.getAsJsonArray("EXECUTED").asList().stream()
+				.map(value -> value.getAsString()).toList());
+		assertEquals(0, actual.getAsJsonArray("NON_EXECUTED").size());
+		// Retain the real outputs for inspection, separate from disposable Maven workspaces.
+		Path saved = Files.createDirectories(Path.of("build/stp-inv-01", provider));
+		Files.copy(inventoryFile, saved.resolve("inventory.json"), StandardCopyOption.REPLACE_EXISTING);
+		Files.copy(fragment, saved.resolve("fragment.json"), StandardCopyOption.REPLACE_EXISTING);
+		Files.copy(evidence, saved.resolve("evidence.json"), StandardCopyOption.REPLACE_EXISTING);
+		Files.writeString(saved.resolve("inventory.log"), discovery.output());
+		Files.writeString(saved.resolve("collection.log"), collectionLog);
+	}
 
 	@Test
 	void schemaV3InventoryKeepsSameLogicalTestUnderBothModuleTargets(@TempDir Path temp) throws Exception {

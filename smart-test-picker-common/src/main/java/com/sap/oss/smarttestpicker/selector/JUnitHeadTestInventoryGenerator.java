@@ -230,7 +230,8 @@ public final class JUnitHeadTestInventoryGenerator {
 		return uniqueId.contains("[engine:junit-vintage]") && !uniqueId.contains("[test:");
 	}
 
-	static Optional<String> vintageMethodName(String legacyReportingName) {
+	/** Shared with the isolated discovery worker, which belongs to a different runtime package/classloader. */
+	public static Optional<String> vintageMethodName(String legacyReportingName) {
 		if (legacyReportingName == null) return Optional.empty();
 		String method = legacyReportingName;
 		int classSuffix = method.indexOf('(');
