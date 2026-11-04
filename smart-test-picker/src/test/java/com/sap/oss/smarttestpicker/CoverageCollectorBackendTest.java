@@ -21,20 +21,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class CoverageCollectorBackendTest {
 	@TempDir Path temporary;
 	@Test
-	void capabilitiesDescribeCurrentSemantics() {
-		CollectorCapabilities asm = new AsmCoverageCollectorBackend(null).capabilities();
-		assertTrue(asm.classCoverage());
-		assertTrue(asm.exactMethodCoverage());
-		assertTrue(asm.setupScopes());
-		assertTrue(asm.descriptorAwareMethods());
-		assertTrue(asm.directSchemaV2Fragment());
-
-		CollectorCapabilities jacoco = new JacocoCoverageCollectorBackend(null).capabilities();
-		assertTrue(jacoco.classCoverage());
-		assertFalse(jacoco.exactMethodCoverage());
-		assertFalse(jacoco.setupScopes());
-		assertFalse(jacoco.descriptorAwareMethods());
-		assertFalse(jacoco.directSchemaV2Fragment());
+	void backendsRetainTheirCollectorTypes() {
+		// Capabilities are checked against collected output in GradleCollectorBackendFunctionalTest.
+		assertEquals(CoverageCollectorType.ASM, new AsmCoverageCollectorBackend(null).type());
+		assertEquals(CoverageCollectorType.JACOCO, new JacocoCoverageCollectorBackend(null).type());
 	}
 
 	@Test

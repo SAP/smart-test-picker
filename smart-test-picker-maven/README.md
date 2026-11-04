@@ -362,7 +362,10 @@ The aggregator uses `STP_MAPPING_TESTS_FILE` as its authoritative shard assignme
 module outputs, binding mismatches, global identity duplication, evidence overlap, and identities
 outside the shard. Non-POM modules with no assigned JUnit tests and no sidecars do not participate.
 There are no defaults for revision
-or shard. Maven preserves exact method descriptors from JaCoCo XML and emits no setup scopes because
-the JaCoCo adapter has no affected-container setup ownership. A missing identity, exec, status, XML,
+or shard. Maven preserves JVM method descriptors from JaCoCo XML and converts positive
+`setup:<className>` sessions into `FRAMEWORK_SETUP` scopes owned by that test container.
+Descriptor preservation does not guarantee method-entry completeness or temporal attribution
+soundness. See the [capability verification](../verification/stp-capabilities-01/REPORT.md).
+A missing identity, exec, status, XML,
 or a malformed artifact makes the local fragment incomplete. This is collector-local truth only;
 expected-test and expected-shard completeness remain orchestration concerns.

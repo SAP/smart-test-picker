@@ -97,12 +97,18 @@ The default revision is `-Dstp.revision`, then `GIT_COMMIT`, then the explicit d
 `gradle::generateSmartTestCoverage` identity.
 
 Set `coverageCollector = 'JACOCO'` to restore the pre-TASK-27 per-test exec/XML/legacy-map flow. There
-is deliberately no `BOTH`, `AUTO`, or union mode. JaCoCo supplies class coverage and legacy method
-strings, but not exact descriptor-aware methods, bounded setup scopes, or direct schema-v2 fragments.
+is deliberately no `BOTH`, `AUTO`, or union mode. That legacy map uses legacy method strings;
+the executable schema-v3 JaCoCo path preserves JVM method descriptors. Descriptor preservation
+does not imply method-entry completeness: an implicit exception before a JaCoCo probe can leave
+an entered method absent. Neither Gradle JaCoCo path retains owned setup scopes or directly emits
+a schema-v2 fragment. The executable converter currently drops the listener's positive setup sessions.
 The legacy collector runtime and JaCoCo `test.exec` destination are configured only on the dedicated
 mapping task, which then orders per-test exec conversion, XML generation, and legacy JSON generation.
 ASM supplies class coverage, exact descriptor-aware method coverage, bounded supported setup scopes,
 and direct schema-v2 fragments.
+
+The [capability verification](../verification/stp-capabilities-01/REPORT.md) distinguishes
+these output properties from attribution soundness and records probes for all four backends.
 
 The collector is attached only to `generateSmartTestCoverage`, not to normal `test` or `smartTest`.
 An independently applied project JaCoCo plugin may still attach its own agent to that mapping JVM;

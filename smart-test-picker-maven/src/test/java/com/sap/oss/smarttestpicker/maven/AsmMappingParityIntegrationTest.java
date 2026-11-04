@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import com.google.gson.JsonParser;
-import com.sap.oss.smarttestpicker.CollectorCapabilities;
 import com.sap.oss.smarttestpicker.CoverageCollectorBackend;
 import com.sap.oss.smarttestpicker.CoverageCollectorType;
 import com.sap.oss.smarttestpicker.StpCollectorSelection;
@@ -30,10 +29,10 @@ class AsmMappingParityIntegrationTest {
 	private static final String DIAGNOSTIC = "asm-agent-diagnostic.json";
 	private static final String EVIDENCE = "execution-evidence-v2.json";
 
-	@Test void mavenDeclaresSharedCapabilitiesWithoutAdvertisingLogicalAsmFinalization() {
+	@Test void mavenUsesSharedCollectorTypes() {
 		CoverageCollectorBackend backend = MavenCoverageCollectorBackend.selected(StpCollectorSelection.ASM);
 		assertEquals(CoverageCollectorType.ASM, backend.type());
-		assertEquals(new CollectorCapabilities(true, true, true, true, false), backend.capabilities());
+		// CollectorCapabilitiesIntegrationTest checks declarations against collected output.
 		assertEquals(CoverageCollectorType.JACOCO,
 				MavenCoverageCollectorBackend.selected(StpCollectorSelection.JACOCO).type());
 	}
