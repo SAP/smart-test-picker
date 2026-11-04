@@ -1,0 +1,131 @@
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] executable-reactor                                                 [pom]
+[INFO] module-a                                                           [jar]
+[INFO] module-b                                                           [jar]
+[INFO] module-zero                                                        [jar]
+[INFO] 
+[INFO] ---------------------< fixture:executable-reactor >---------------------
+[INFO] Building executable-reactor 1                                      [1/4]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:prepare-reactor-executable-mapping (default-cli) @ executable-reactor ---
+[INFO] 
+[INFO] ---------------------< fixture:executable-reactor >---------------------
+[INFO] Building executable-reactor 1                                      [2/4]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.13:prepare-agent (default) @ executable-reactor ---
+[INFO] argLine set to -javaagent:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/build/functional-test-maven-local-21376/org/jacoco/org.jacoco.agent/0.8.13/org.jacoco.agent-0.8.13-runtime.jar=destfile=/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-6807392608740133890/reactor/target/jacoco/test.exec,append=false
+[INFO] 
+[INFO] --------------------------< fixture:module-a >--------------------------
+[INFO] Building module-a 1                                                [3/4]
+[INFO]   from module-a/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.13:prepare-agent (default) @ module-a ---
+[INFO] argLine set to -javaagent:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/build/functional-test-maven-local-21376/org/jacoco/org.jacoco.agent/0.8.13/org.jacoco.agent-0.8.13-runtime.jar=destfile=/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-6807392608740133890/reactor/module-a/target/jacoco/test.exec,append=false
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ module-a ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-6807392608740133890/reactor/module-a/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ module-a ---
+[INFO] Recompiling the module because of changed source code.
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[INFO] Compiling 1 source file with javac [debug release 17] to target/classes
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ module-a ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-6807392608740133890/reactor/module-a/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ module-a ---
+[INFO] Recompiling the module because of changed dependency.
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[INFO] Compiling 3 source files with javac [debug release 17] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.5.3:test (default-test) @ module-a ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running shared.SharedTest
+[INFO] Running a.ATests
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.049 s -- in shared.SharedTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.042 s -- in a.ATests
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --------------------------< fixture:module-b >--------------------------
+[INFO] Building module-b 1                                                [4/4]
+[INFO]   from module-b/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.13:prepare-agent (default) @ module-b ---
+[INFO] argLine set to -javaagent:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/build/functional-test-maven-local-21376/org/jacoco/org.jacoco.agent/0.8.13/org.jacoco.agent-0.8.13-runtime.jar=destfile=/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-6807392608740133890/reactor/module-b/target/jacoco/test.exec,append=false
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ module-b ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-6807392608740133890/reactor/module-b/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ module-b ---
+[INFO] Recompiling the module because of changed dependency.
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[INFO] Compiling 1 source file with javac [debug release 17] to target/classes
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ module-b ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-6807392608740133890/reactor/module-b/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ module-b ---
+[INFO] Recompiling the module because of changed dependency.
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[INFO] Compiling 2 source files with javac [debug release 17] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.5.3:test (default-test) @ module-b ---
+[INFO] 
+[INFO] ------------------------< fixture:module-zero >-------------------------
+[INFO] Building module-zero 1                                             [5/4]
+[INFO]   from module-zero/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.13:prepare-agent (default) @ module-zero ---
+[INFO] argLine set to -javaagent:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/build/functional-test-maven-local-21376/org/jacoco/org.jacoco.agent/0.8.13/org.jacoco.agent-0.8.13-runtime.jar=destfile=/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-6807392608740133890/reactor/module-zero/target/jacoco/test.exec,append=false
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ module-zero ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-6807392608740133890/reactor/module-zero/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ module-zero ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ module-zero ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-6807392608740133890/reactor/module-zero/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ module-zero ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.5.3:test (default-test) @ module-zero ---
+[INFO] No tests to run.
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for executable-reactor 1:
+[INFO] 
+[INFO] executable-reactor ................................. SUCCESS [  0.072 s]
+[INFO] module-a ........................................... SUCCESS [  1.509 s]
+[INFO] module-b ........................................... SUCCESS [  0.094 s]
+[INFO] module-zero ........................................ SUCCESS [  0.008 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.053 s
+[INFO] Finished at: 2026-11-04T08:29:42+01:00
+[INFO] ------------------------------------------------------------------------

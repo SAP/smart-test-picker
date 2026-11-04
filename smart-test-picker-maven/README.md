@@ -13,13 +13,15 @@ For active collection, `smartTestPicker.coverageCollector=ASM|JACOCO` selects th
 collector; absent/blank selection defaults to JaCoCo. Schema-v3 mapping preparation
 sets activation and selection in Surefire/Failsafe. Legacy/manual mapping profiles
 must explicitly enable collection; an output directory alone does not activate it.
-For manual ASM experiments, pass both `-DsmartTestPicker.collectionEnabled=true`
-and `-DsmartTestPicker.coverageCollector=ASM` alongside the separately attached
-ASM agent. Core remains silent in active ASM mode.
+For prepared ASM mapping, select `-DsmartTestPicker.coverageCollector=ASM` and
+provide explicit `-DsmartTestPicker.asm.includes=your.package.,another.package.`.
+Preparation supplies activation and attaches the agent automatically after fork
+validation. Core remains silent in active ASM mode.
 
 Managed Maven bootstrap propagates the selected value (user property, then project
-property, then JVM property) and injects core only for JaCoCo. This change does not
-attach an ASM agent or add ASM fragment/evidence orchestration to the Maven goals.
+property, then JVM property) and injects core only for JaCoCo. Automatic ASM
+attachment belongs exclusively to mapping preparation, not managed selection.
+ASM fragment/evidence orchestration into the Maven aggregation goals is still deferred.
 Managed selected execution also explicitly activates its core evidence collection.
 Active JaCoCo without its runtime still fails closed with the existing error
 message. See [the activation correction and validation](../verification/maven-asm-03-fix/REPORT.md).
@@ -39,9 +41,51 @@ parameter expression evaluator for user, project and JVM properties. Validated
 settings are frozen as literal values for the subsequent provider execution.
 All configurations of the chosen provider in assigned modules are checked, even
 if a particular execution will not run. Run preparation before the test lifecycle.
-Attaching the agent manually without this goal bypasses the guard; this does not
-implement automatic ASM attachment or per-fork merging. See the
+Attaching the agent manually without this goal bypasses the guard and is not the
+supported prepared path. Per-fork merging remains deferred. See the
 [fork guard evidence and limitations](../verification/maven-asm-04/REPORT.md).
+
+### Prepared ASM attachment
+
+With an existing schema-v3 shard assignment and matching revision/shard inputs:
+
+```sh
+mvn com.sap.oss.smart-test-picker:smart-test-picker-maven:0.3.0-SNAPSHOT:prepare-reactor-executable-mapping \
+  test -DsmartTestPicker.testsFile="$ASSIGNMENT" \
+  -DsmartTestPicker.revision="$REVISION" -DsmartTestPicker.shardId="$SHARD" \
+  -DsmartTestPicker.coverageCollector=ASM -DsmartTestPicker.asm.includes=com.example.
+```
+
+Do not add a manual STP `-javaagent` argument. The explicit include set is required;
+absent, blank or malformed scope fails preparation. Optional
+`smartTestPicker.asm.excludes` accepts the same comma-separated package-prefix
+syntax. Prefixes may use dots or slashes and are normalized to trailing dots. No
+scope is inferred from `groupId` or the reactor. Agent mandatory exclusions still apply.
+
+Preparation resolves `com.sap.oss.smart-test-picker:stp-agent:jar:<plugin-version>`
+through the current Maven repository session and **project dependency repositories**.
+Publish the shaded `stp-agent` artifact at the same version as the Maven plugin;
+declaring it as a plugin or test dependency is unnecessary. Missing version metadata
+or an unresolvable artifact fails preparation. The agent JAR supplies its bundled
+runtime and JUnit adapter without adding them to the Maven plugin realm.
+
+Existing provider `argLine` content stays first and STP is appended last. Use
+`@{argLine}` to retain JaCoCo `prepare-agent` late expansion with literal options,
+for example `@{argLine} -Xmx2g -Dproject.option=value`. An absent `argLine` uses
+that late-expansion property automatically; `${argLine}` is preserved as late
+expansion as well. The proven combined order is JaCoCo, project options, STP.
+No reversed-agent-order claim is made. Quoted STP arguments support paths with
+spaces; values containing agent-protocol delimiters or unresolved placeholders
+fail preparation.
+
+Each assigned target gets its own canonical target, revision, shard, deterministic
+run ID, fragment output and diagnostic output. Unassigned modules receive no agent.
+The fragment uses `smartTestPicker.moduleFragmentOutput`; the diagnostic uses
+`smartTestPicker.moduleEvidenceOutput`. **The latter currently contains ASM
+`agent-shell-1` diagnostics, not Maven execution evidence v2.** This task validates
+attachment through `test` or Failsafe `integration-test`; it does not make the
+existing JaCoCo fragment-generation/aggregation goals ASM-aware. See
+[automatic attachment evidence and remaining work](../verification/maven-asm-05/REPORT.md).
 
 ## Coordinates
 

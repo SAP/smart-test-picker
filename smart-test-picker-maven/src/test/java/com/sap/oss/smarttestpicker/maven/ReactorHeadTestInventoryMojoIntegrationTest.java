@@ -3,6 +3,7 @@
 package com.sap.oss.smarttestpicker.maven;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -68,10 +69,11 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		String target = "maven:module-b" + (provider.equals("failsafe") ? "@failsafe@fixture-it" : "");
 		Path assignment = fixture.resolve("assignment.json");
 		Files.writeString(assignment, executableAssignment(target + "::b.BTests#b2", target + "::shared.SharedTest#same"));
-		Path fragment = fixture.resolve("asm-fragment.json"), diagnostic = fixture.resolve("asm-runtime.json");
+		Path fragment = fixture.resolve("module-b/target/stp/coverage-fragment-v3.json"),
+				diagnostic = fixture.resolve("module-b/target/stp/execution-evidence-v2.json");
 		var arguments = new java.util.ArrayList<>(List.of(PLUGIN + "prepare-reactor-executable-mapping", "test",
 				"-DsmartTestPicker.testsFile=" + assignment, "-DsmartTestPicker.coverageCollector=ASM",
-				"-Djacoco.skip=true", "-DargLine=" + asmAgent(fragment, diagnostic)));
+				"-Djacoco.skip=true", "-DsmartTestPicker.asm.includes=a.,b."));
 		if (source.equals("property")) arguments.add("-DforkCount=2");
 		if (source.equals("expression")) arguments.add("-Dmapping.forks=2");
 		if (source.equals("profile")) arguments.add("-Punsafe-forks");
@@ -85,6 +87,7 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		assertTrue(result.exitCode() != 0, result.output());
 		assertTrue(result.output().contains("unsupported " + setting + "=" + value), result.output());
 		assertTrue(result.output().contains("module-b / maven-" + provider + "-plugin"), result.output());
+		assertFalse(result.output().contains("ASM mapping agent "), "Fork validation must precede agent resolution");
 		assertFalse(result.output().contains("--- surefire:"), result.output());
 		assertFalse(Files.exists(fragment), "A rejected run must not publish a partial fragment");
 		assertFalse(Files.exists(diagnostic), "The ASM agent must not have started");
@@ -110,10 +113,11 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		}
 		Path assignment = fixture.resolve("assignment.json");
 		Files.writeString(assignment, executableAssignment("maven:module-b::b.BTests#b2", "maven:module-b::shared.SharedTest#same"));
-		Path fragment = fixture.resolve("asm-fragment.json"), diagnostic = fixture.resolve("asm-runtime.json");
+		Path fragment = fixture.resolve("module-b/target/stp/coverage-fragment-v3.json"),
+				diagnostic = fixture.resolve("module-b/target/stp/execution-evidence-v2.json");
 		var arguments = new java.util.ArrayList<>(List.of("-pl", ".,module-b", PLUGIN + "prepare-reactor-executable-mapping", "test",
 				"-DsmartTestPicker.testsFile=" + assignment, "-DsmartTestPicker.reactorRoot=" + fixture,
-				"-DsmartTestPicker.coverageCollector=ASM", "-Djacoco.skip=true", "-DargLine=" + asmAgent(fragment, diagnostic)));
+				"-DsmartTestPicker.coverageCollector=ASM", "-Djacoco.skip=true", "-DsmartTestPicker.asm.includes=a.,b."));
 		if (!source.equals("default")) arguments.add("-DforkCount=" + (source.equals("property") ? "1" : "2"));
 		Result result = maven(fixture, arguments.toArray(String[]::new));
 		Path saved = Files.createDirectories(Path.of("build/maven-asm-04", "accepted-" + source));
@@ -129,10 +133,125 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		Files.copy(diagnostic, saved.resolve("diagnostic.json"), StandardCopyOption.REPLACE_EXISTING);
 	}
 
-	private static String asmAgent(Path fragment, Path diagnostic) {
-		return "-javaagent:" + System.getProperty("stp.test.agent.jar") + "=output=" + diagnostic
-				+ ";fragmentOutput=" + fragment + ";schemaVersion=3;revision=reactor-revision;shardId=reactor-shard"
-				+ ";executionTarget=maven:module-b;runId=asm-fork-guard;includes=a.,b.";
+	@ParameterizedTest
+	@ValueSource(strings = { "literal", "prepare-agent", "both", "user-property", "user-late-property" })
+	void asmPreparedAttachmentPreservesArgLineShapes(String shape, @TempDir Path temp) throws Exception {
+		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor with spaces")); initializeGit(fixture);
+		String argLine = switch (shape) {
+			case "literal" -> "-Xmx256m -Dproject.literal=preserved";
+			case "prepare-agent" -> "@{argLine}";
+			default -> "@{argLine} -Xmx256m -Dproject.literal=preserved";
+		};
+		Path pom = fixture.resolve("module-b/pom.xml");
+		boolean userProperty = shape.startsWith("user-");
+		boolean jacoco = !shape.equals("literal") && !shape.equals("user-property");
+		Files.writeString(pom, Files.readString(pom).replace("</project>", userProperty
+				? "<properties><argLine>-Dproject.literal=wrong</argLine></properties></project>"
+				: "<build><plugins><plugin><artifactId>maven-surefire-plugin</artifactId><configuration><argLine>"
+				+ argLine + "</argLine></configuration></plugin></plugins></build></project>"));
+		Path test = fixture.resolve("module-b/src/test/java/b/BTests.java");
+		Files.writeString(test, Files.readString(test).replace("new BValue().value();", """
+			org.junit.jupiter.api.Assertions.assertEquals("true", System.getProperty("smartTestPicker.collectionEnabled"));
+			org.junit.jupiter.api.Assertions.assertEquals("ASM", System.getProperty("smartTestPicker.coverageCollector"));
+			java.util.List<String> arguments = java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments();
+			long stpAgents = arguments.stream().filter(a -> a.startsWith("-javaagent:") && a.contains("stp-agent")).count();
+			org.junit.jupiter.api.Assertions.assertEquals(1L, stpAgents);
+			%s
+			new BValue().value();
+			""".formatted(shape.equals("prepare-agent") ? "" :
+				"org.junit.jupiter.api.Assertions.assertEquals(\"preserved\", System.getProperty(\"project.literal\"));")));
+		Path assignment = fixture.resolve("assignment.json");
+		Files.writeString(assignment, executableAssignment("maven:module-b::b.BTests#b2", "maven:module-b::shared.SharedTest#same"));
+		var command = new java.util.ArrayList<>(List.of("-X", PLUGIN + "prepare-reactor-executable-mapping", "test",
+				"-DsmartTestPicker.testsFile=" + assignment, "-DsmartTestPicker.coverageCollector=ASM",
+				"-DsmartTestPicker.asm.includes=a.,b.", "-Djacoco.skip=" + !jacoco));
+		if (userProperty) command.add("-DargLine=" + (jacoco ? "@{argLine} " : "") + "-Xmx256m -Dproject.literal=preserved");
+		Result result = maven(fixture, command.toArray(String[]::new));
+		Path saved = Files.createDirectories(Path.of("build/maven-asm-05", shape));
+		Files.writeString(saved.resolve("maven.log"), result.output());
+		assertEquals(0, result.exitCode(), result.output());
+		assertTrue(result.output().contains("ASM mapping agent com.sap.oss.smart-test-picker:stp-agent:jar:" + STP_VERSION), result.output());
+		assertTrue(result.output().contains(LOCAL_REPOSITORY.resolve("com/sap/oss/smart-test-picker/stp-agent").toString()), result.output());
+		assertArrayEquals(Files.readAllBytes(Path.of(System.getProperty("stp.test.agent.jar"))),
+				Files.readAllBytes(LOCAL_REPOSITORY.resolve("com/sap/oss/smart-test-picker/stp-agent/" + STP_VERSION
+						+ "/stp-agent-" + STP_VERSION + ".jar")), "Resolved agent must match the current shaded build");
+		String realm = result.output().lines().filter(line -> line.contains("ASM mapping plugin realm:")).findFirst().orElseThrow();
+		assertFalse(realm.contains("stp-agent"), realm); assertFalse(realm.contains("stp-runtime"), realm);
+		assertFalse(realm.contains("stp-junit-adapter"), realm);
+		String fork = result.output().lines().filter(line -> line.contains("Forking command line:") && line.contains("stp-agent")).findFirst().orElseThrow();
+		if (jacoco) {
+			assertTrue(fork.indexOf("org.jacoco.agent") < fork.indexOf("stp-agent"), fork);
+			if (shape.equals("both")) assertTrue(fork.indexOf("org.jacoco.agent") < fork.indexOf("-Dproject.literal"), fork);
+		}
+		Path fragmentPath = fixture.resolve("module-b/target/stp/coverage-fragment-v3.json");
+		var fragment = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(fragmentPath));
+		assertEquals(Set.of(ExecutableTestIdentity.parse("maven:module-b::b.BTests#b2"),
+				ExecutableTestIdentity.parse("maven:module-b::shared.SharedTest#same")), fragment.tests().keySet());
+		assertTrue(fragment.unmapped().isEmpty()); assertTrue(fragment.collectionCompleted());
+		fragment.tests().forEach((identity, coverage) -> assertEquals(identity.test().className().equals("b.BTests")
+				? Set.of("a.AValue", "b.BValue") : Set.of(), coverage.coveredClasses()));
+		Files.copy(fragmentPath, saved.resolve("fragment.json"), StandardCopyOption.REPLACE_EXISTING);
+		Files.copy(fixture.resolve("module-b/target/stp/execution-evidence-v2.json"), saved.resolve("diagnostic.json"), StandardCopyOption.REPLACE_EXISTING);
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = { "absent", "", "  ", "," })
+	void asmPreparedAttachmentRejectsMissingScope(String includes, @TempDir Path temp) throws Exception {
+		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor")); initializeGit(fixture);
+		Path assignment = fixture.resolve("assignment.json");
+		Files.writeString(assignment, executableAssignment("maven:module-b::b.BTests#b2"));
+		var args = new java.util.ArrayList<>(List.of(PLUGIN + "prepare-reactor-executable-mapping", "test",
+				"-DsmartTestPicker.testsFile=" + assignment, "-DsmartTestPicker.coverageCollector=ASM"));
+		if (!includes.equals("absent")) args.add("-DsmartTestPicker.asm.includes=" + includes);
+		Result result = maven(fixture, args.toArray(String[]::new));
+		assertTrue(result.exitCode() != 0, result.output());
+		assertTrue(result.output().contains("smartTestPicker.asm.includes"), result.output());
+		assertFalse(result.output().contains("ASM mapping agent "), result.output());
+		assertFalse(Files.exists(fixture.resolve("module-b/target/test-classes")));
+		assertFalse(Files.exists(fixture.resolve("module-b/target/stp/coverage-fragment-v3.json")));
+		Path saved = Files.createDirectories(Path.of("build/maven-asm-05/scope-" + (includes.equals("absent") ? "absent" : Integer.toHexString(includes.hashCode()))));
+		Files.writeString(saved.resolve("maven.log"), result.output());
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = { "surefire", "failsafe" })
+	void asmPreparedAttachmentUsesDistinctCanonicalTargets(String provider, @TempDir Path temp) throws Exception {
+		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor")); initializeGit(fixture);
+		boolean failsafe = provider.equals("failsafe");
+		String qualifier = failsafe ? "@failsafe@fixture-it" : "";
+		Path assignment = fixture.resolve("assignment.json");
+		Files.writeString(assignment, executableAssignment("maven:module-a" + qualifier + "::a.ATests#a1",
+				"maven:module-b" + qualifier + "::b.BTests#b2"));
+		var args = new java.util.ArrayList<>(List.of(PLUGIN + "prepare-reactor-executable-mapping",
+				failsafe ? "integration-test" : "test", "-DsmartTestPicker.testsFile=" + assignment,
+				"-DsmartTestPicker.coverageCollector=ASM", "-DsmartTestPicker.asm.includes=a.,b.",
+				"-DsmartTestPicker.asm.excludes=unused.package.", "-Djacoco.skip=true"));
+		if (failsafe) {
+			args.addAll(List.of("-Pfailsafe", "-DsmartTestPicker.executionType=failsafe", "-DsmartTestPicker.executionId=fixture-it"));
+		}
+		Result result = maven(fixture, args.toArray(String[]::new));
+		Path saved = Files.createDirectories(Path.of("build/maven-asm-05/targets-" + provider));
+		Files.writeString(saved.resolve("maven.log"), result.output());
+		assertEquals(0, result.exitCode(), result.output());
+		var runIds = new java.util.HashSet<String>();
+		for (String module : List.of("module-a", "module-b")) {
+			String suffix = failsafe ? "-" + module + "_failsafe_fixture-it" : "";
+			Path fragmentFile = fixture.resolve(module + "/target/stp/coverage-fragment-v3" + suffix + ".json");
+			Path diagnosticFile = fixture.resolve(module + "/target/stp/execution-evidence-v2" + suffix + ".json");
+			var fragment = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(fragmentFile));
+			String target = "maven:" + module + qualifier;
+			assertEquals(Set.of(ExecutableTestIdentity.parse(target + (module.equals("module-a") ? "::a.ATests#a1" : "::b.BTests#b2"))), fragment.tests().keySet());
+			assertTrue(fragment.collectionCompleted()); assertTrue(fragment.unmapped().isEmpty());
+			var diagnostic = JsonParser.parseString(Files.readString(diagnosticFile)).getAsJsonObject();
+			String runId = diagnostic.get("runId").getAsString();
+			assertEquals(java.util.UUID.nameUUIDFromBytes(("reactor-revision\nreactor-shard\n" + target)
+					.getBytes(java.nio.charset.StandardCharsets.UTF_8)).toString(), runId);
+			assertTrue(runIds.add(runId));
+			assertTrue(diagnostic.getAsJsonObject("configuration").getAsJsonArray("excludes").asList().stream()
+					.anyMatch(value -> value.getAsString().equals("unused.package.")));
+			Files.copy(fragmentFile, saved.resolve(module + "-fragment.json"), StandardCopyOption.REPLACE_EXISTING);
+			Files.copy(diagnosticFile, saved.resolve(module + "-diagnostic.json"), StandardCopyOption.REPLACE_EXISTING);
+		}
 	}
 
 	@Test

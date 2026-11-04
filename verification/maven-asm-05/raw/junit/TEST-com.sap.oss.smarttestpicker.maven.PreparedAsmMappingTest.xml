@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.maven.PreparedAsmMappingTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-04T07:25:12.197Z" hostname="WDVJD22XQC" time="0.048">
+  <properties/>
+  <testcase name="unknownPluginVersionHasNoFallback(Path)" classname="com.sap.oss.smarttestpicker.maven.PreparedAsmMappingTest" time="0.035"/>
+  <testcase name="guardPrecedesResolutionEvenWithUnavailableAgent(Path)" classname="com.sap.oss.smarttestpicker.maven.PreparedAsmMappingTest" time="0.005"/>
+  <testcase name="missingAgentFailsClosedAtAlignedPluginVersion(Path)" classname="com.sap.oss.smarttestpicker.maven.PreparedAsmMappingTest" time="0.006"/>
+  <testcase name="scopeValidationNormalizesPrefixesAndRejectsEmptyEntries()" classname="com.sap.oss.smarttestpicker.maven.PreparedAsmMappingTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

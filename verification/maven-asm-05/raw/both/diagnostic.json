@@ -1,0 +1,96 @@
+{
+  "schemaVersion": "agent-shell-1",
+  "collector": "ASM",
+  "runId": "7bda0a9d-7db4-304d-90f0-63e1403f0830",
+  "jvmId": "pid-23538",
+  "configuration": {
+    "output": "/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-17740552239406690747/reactor with spaces/module-b/target/stp/execution-evidence-v2.json",
+    "fragmentOutput": "/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-17740552239406690747/reactor with spaces/module-b/target/stp/coverage-fragment-v3.json",
+    "revision": "reactor-revision",
+    "shardId": "reactor-shard",
+    "includes": ["a.", "b."],
+    "excludes": ["com.sap.oss.smarttestpicker.", "jakarta.", "java.", "javax.", "jdk.", "net.bytebuddy.", "org.hibernate.", "org.jacoco.", "org.junit.", "org.mockito.", "org.springframework.", "sun."],
+    "debug": false,
+    "instrumentation": "on"
+  },
+  "metrics": {
+    "classesSeen": 1164,
+    "classesIncluded": 2,
+    "classesExcluded": 864,
+    "classesIgnored": 298,
+    "transformationErrors": 0,
+    "transformerTotalNanos": 7283599,
+    "agentStartNanos": 772138422939666,
+    "classLoaderPresent": 674,
+    "classLoaderMissing": 490,
+    "protectionDomainPresent": 670,
+    "protectionDomainMissing": 494,
+    "classesTransformed": 2,
+    "methodsConsidered": 6,
+    "methodsInstrumented": 4,
+    "methodsSkipped": 2,
+    "alreadyInstrumentedClasses": 0,
+    "methodIdCollisions": 0,
+    "rawMethodHits": 4,
+    "uniqueMethodHits": 4,
+    "runtimeRecordingNanos": 5694458
+  },
+  "methodIdAlgorithm": "fnv1a64-v1",
+  "methodCatalog": [
+    {"methodId":"326333488874548158","canonicalKeys":["a.AValue#<init>()V"]},
+    {"methodId":"7765523254049471258","canonicalKeys":["b.BValue#value()I"]},
+    {"methodId":"16778698043071263750","canonicalKeys":["a.AValue#value()I"]},
+    {"methodId":"18264671601501798066","canonicalKeys":["b.BValue#<init>()V"]}
+  ],
+  "methodHits": [
+    {"methodId":"326333488874548158","count":1,"canonicalKeys":["a.AValue#<init>()V"]},
+    {"methodId":"7765523254049471258","count":1,"canonicalKeys":["b.BValue#value()I"]},
+    {"methodId":"16778698043071263750","count":1,"canonicalKeys":["a.AValue#value()I"]},
+    {"methodId":"18264671601501798066","count":1,"canonicalKeys":["b.BValue#<init>()V"]}
+  ],
+  "agentErrors": [],
+  "bytecodeModified": true,
+  "runtimeEvents": {
+  "schemaVersion": "spike-2",
+  "runId": "7bda0a9d-7db4-304d-90f0-63e1403f0830",
+  "jvmId": "pid-23538",
+  "tests": [
+    {
+      "testId": "[engine:junit-jupiter]/[class:b.BTests]/[method:b2()]",
+      "displayName": "b2()",
+      "testClass": "b.BTests",
+      "testMethod": "b2",
+      "testMethodParameterTypes": "",
+      "engineId": "junit-jupiter",
+      "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+      "methods": [
+        {"methodId":"326333488874548158","method":"a.AValue#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+        {"methodId":"16778698043071263750","method":"a.AValue#value()I","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+        {"methodId":"18264671601501798066","method":"b.BValue#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+        {"methodId":"7765523254049471258","method":"b.BValue#value()I","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+      ],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 4,
+        "uniqueMethodHits": 4
+      }
+    },
+    {
+      "testId": "[engine:junit-jupiter]/[class:shared.SharedTest]/[method:same()]",
+      "displayName": "same()",
+      "testClass": "shared.SharedTest",
+      "testMethod": "same",
+      "testMethodParameterTypes": "",
+      "engineId": "junit-jupiter",
+      "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+      "methods": [],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 0,
+        "uniqueMethodHits": 0
+      }
+    }
+  ],
+  "unattributedEvents": []
+}
+}

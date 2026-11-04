@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "agent-shell-1",
+  "collector": "ASM",
+  "runId": "3c3ab47f-ca8f-3f1f-816e-0de268a7670d",
+  "jvmId": "pid-23348",
+  "configuration": {
+    "output": "/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-9501400019749589928/reactor/module-a/target/stp/execution-evidence-v2-module-a_failsafe_fixture-it.json",
+    "fragmentOutput": "/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-9501400019749589928/reactor/module-a/target/stp/coverage-fragment-v3-module-a_failsafe_fixture-it.json",
+    "revision": "reactor-revision",
+    "shardId": "reactor-shard",
+    "includes": ["a.", "b."],
+    "excludes": ["com.sap.oss.smarttestpicker.", "jakarta.", "java.", "javax.", "jdk.", "net.bytebuddy.", "org.hibernate.", "org.jacoco.", "org.junit.", "org.mockito.", "org.springframework.", "sun.", "unused.package."],
+    "debug": false,
+    "instrumentation": "on"
+  },
+  "metrics": {
+    "classesSeen": 1309,
+    "classesIncluded": 1,
+    "classesExcluded": 1012,
+    "classesIgnored": 296,
+    "transformationErrors": 0,
+    "transformerTotalNanos": 5683786,
+    "agentStartNanos": 772105656172875,
+    "classLoaderPresent": 681,
+    "classLoaderMissing": 628,
+    "protectionDomainPresent": 671,
+    "protectionDomainMissing": 638,
+    "classesTransformed": 1,
+    "methodsConsidered": 2,
+    "methodsInstrumented": 2,
+    "methodsSkipped": 0,
+    "alreadyInstrumentedClasses": 0,
+    "methodIdCollisions": 0,
+    "rawMethodHits": 2,
+    "uniqueMethodHits": 2,
+    "runtimeRecordingNanos": 6542750
+  },
+  "methodIdAlgorithm": "fnv1a64-v1",
+  "methodCatalog": [
+    {"methodId":"326333488874548158","canonicalKeys":["a.AValue#<init>()V"]},
+    {"methodId":"16778698043071263750","canonicalKeys":["a.AValue#value()I"]}
+  ],
+  "methodHits": [
+    {"methodId":"326333488874548158","count":1,"canonicalKeys":["a.AValue#<init>()V"]},
+    {"methodId":"16778698043071263750","count":1,"canonicalKeys":["a.AValue#value()I"]}
+  ],
+  "agentErrors": [],
+  "bytecodeModified": true,
+  "runtimeEvents": {
+  "schemaVersion": "spike-2",
+  "runId": "3c3ab47f-ca8f-3f1f-816e-0de268a7670d",
+  "jvmId": "pid-23348",
+  "tests": [
+    {
+      "testId": "[engine:junit-jupiter]/[class:a.ATests]/[method:a1()]",
+      "displayName": "a1()",
+      "testClass": "a.ATests",
+      "testMethod": "a1",
+      "testMethodParameterTypes": "",
+      "engineId": "junit-jupiter",
+      "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+      "methods": [
+        {"methodId":"326333488874548158","method":"a.AValue#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+        {"methodId":"16778698043071263750","method":"a.AValue#value()I","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+      ],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 2,
+        "uniqueMethodHits": 2
+      }
+    }
+  ],
+  "unattributedEvents": []
+}
+}
