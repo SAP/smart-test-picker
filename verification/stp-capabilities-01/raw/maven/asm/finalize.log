@@ -1,0 +1,19 @@
+exitCode=0
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< fixture:module-b >--------------------------
+[INFO] Building module-b 1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:generate-reports (default-cli) @ module-b ---
+[INFO] [SmartTestPicker] ASM mapping does not require JaCoCo XML reports
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:generate-coverage-fragment (default-cli) @ module-b ---
+[INFO] [SmartTestPicker] Finalized ASM evidence v2 for maven:module-b: /private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-15019611055054649974/reactor/module-b/target/stp/execution-evidence-v2.json
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.425 s
+[INFO] Finished at: 2026-11-04T18:11:44+01:00
+[INFO] ------------------------------------------------------------------------

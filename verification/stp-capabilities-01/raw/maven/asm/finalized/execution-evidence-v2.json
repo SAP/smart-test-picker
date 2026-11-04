@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "revision": "reactor-revision",
+  "shardId": "reactor-shard",
+  "executionTarget": "maven:module-b",
+  "EXECUTED": [
+    "maven:module-b::example.CapabilitiesTest#probes"
+  ],
+  "NON_EXECUTED": []
+}

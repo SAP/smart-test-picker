@@ -1,0 +1,5 @@
+format=1
+className=example.CapabilitiesTest
+methodName=probes
+methodParameterTypes=
+outcome=PASS

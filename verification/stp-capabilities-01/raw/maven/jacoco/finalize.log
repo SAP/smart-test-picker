@@ -1,0 +1,21 @@
+exitCode=0
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< fixture:module-b >--------------------------
+[INFO] Building module-b 1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:generate-reports (default-cli) @ module-b ---
+[INFO] [SmartTestPicker] Generating XML reports for 2 exec files using 2 threads across 1 classes directories
+[INFO] [SmartTestPicker] Preloaded 4 class files (0MB) in 3ms
+[INFO] [SmartTestPicker] Report generation complete: 2 generated, 0 skipped (no coverage), 0 failed, 32ms elapsed
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:generate-coverage-fragment (default-cli) @ module-b ---
+[INFO] [SmartTestPicker] Generated schema-v3 coverage fragment: /private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-331162974920033103/reactor/module-b/target/stp/coverage-fragment-v3.json (1 mapped, 0 unmapped, completed=true)
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.649 s
+[INFO] Finished at: 2026-11-04T18:11:57+01:00
+[INFO] ------------------------------------------------------------------------

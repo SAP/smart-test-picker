@@ -1,0 +1,275 @@
+[SETTINGS] Adding local Maven repository
+[SETTINGS] Prevent adding the "MavenLocal" (file:/Users/D061177/.m2/repository/) repository configuration
+[SETTINGS] Setting the "build-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/build-snapshots-cx-commerce-maven/) repository configuration
+[SETTINGS] Setting the "deploy-milestones-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-milestones-cx-commerce-maven/) repository configuration
+[SETTINGS] Setting the "deploy-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-snapshots-cx-commerce-maven/) repository configuration
+[SETTINGS] Setting the "build-releases" (https://int.repositories.cloud.sap/artifactory/build-releases/) repository configuration
+[PROJECT][:] Adding local Maven repository
+[PROJECT][:] Prevent adding the "MavenLocal" (file:/Users/D061177/.m2/repository/) repository configuration
+[PROJECT][:] Setting the "build-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/build-snapshots-cx-commerce-maven/) repository configuration
+[PROJECT][:] Setting the "deploy-milestones-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-milestones-cx-commerce-maven/) repository configuration
+[PROJECT][:] Setting the "deploy-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-snapshots-cx-commerce-maven/) repository configuration
+[PROJECT][:] Setting the "build-releases" (https://int.repositories.cloud.sap/artifactory/build-releases/) repository configuration
+[BUILD SCRIPT][:] Adding local Maven repository
+[BUILD SCRIPT][:] Prevent adding the "MavenLocal" (file:/Users/D061177/.m2/repository/) repository configuration
+[BUILD SCRIPT][:] Setting the "build-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/build-snapshots-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:] Setting the "deploy-milestones-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-milestones-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:] Setting the "deploy-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-snapshots-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:] Setting the "build-releases" (https://int.repositories.cloud.sap/artifactory/build-releases/) repository configuration
+[BUILD SCRIPT][:] Prevent adding the "MavenLocal2" (file:/Users/D061177/.m2/repository/) repository configuration
+[PROJECT][:smart-test-picker] Adding local Maven repository
+[PROJECT][:smart-test-picker] Prevent adding the "MavenLocal" (file:/Users/D061177/.m2/repository/) repository configuration
+[PROJECT][:smart-test-picker] Setting the "build-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/build-snapshots-cx-commerce-maven/) repository configuration
+[PROJECT][:smart-test-picker] Setting the "deploy-milestones-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-milestones-cx-commerce-maven/) repository configuration
+[PROJECT][:smart-test-picker] Setting the "deploy-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-snapshots-cx-commerce-maven/) repository configuration
+[PROJECT][:smart-test-picker] Setting the "build-releases" (https://int.repositories.cloud.sap/artifactory/build-releases/) repository configuration
+[BUILD SCRIPT][:smart-test-picker] Adding local Maven repository
+[BUILD SCRIPT][:smart-test-picker] Prevent adding the "MavenLocal" (file:/Users/D061177/.m2/repository/) repository configuration
+[BUILD SCRIPT][:smart-test-picker] Setting the "build-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/build-snapshots-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:smart-test-picker] Setting the "deploy-milestones-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-milestones-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:smart-test-picker] Setting the "deploy-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-snapshots-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:smart-test-picker] Setting the "build-releases" (https://int.repositories.cloud.sap/artifactory/build-releases/) repository configuration
+[BUILD SCRIPT][:smart-test-picker] Prevent adding the "MavenLocal2" (file:/Users/D061177/.m2/repository/) repository configuration
+[PROJECT][:smart-test-picker-cli] Adding local Maven repository
+[PROJECT][:smart-test-picker-cli] Prevent adding the "MavenLocal" (file:/Users/D061177/.m2/repository/) repository configuration
+[PROJECT][:smart-test-picker-cli] Setting the "build-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/build-snapshots-cx-commerce-maven/) repository configuration
+[PROJECT][:smart-test-picker-cli] Setting the "deploy-milestones-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-milestones-cx-commerce-maven/) repository configuration
+[PROJECT][:smart-test-picker-cli] Setting the "deploy-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-snapshots-cx-commerce-maven/) repository configuration
+[PROJECT][:smart-test-picker-cli] Setting the "build-releases" (https://int.repositories.cloud.sap/artifactory/build-releases/) repository configuration
+[BUILD SCRIPT][:smart-test-picker-cli] Adding local Maven repository
+[BUILD SCRIPT][:smart-test-picker-cli] Prevent adding the "MavenLocal" (file:/Users/D061177/.m2/repository/) repository configuration
+[BUILD SCRIPT][:smart-test-picker-cli] Setting the "build-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/build-snapshots-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:smart-test-picker-cli] Setting the "deploy-milestones-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-milestones-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:smart-test-picker-cli] Setting the "deploy-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-snapshots-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:smart-test-picker-cli] Setting the "build-releases" (https://int.repositories.cloud.sap/artifactory/build-releases/) repository configuration
+[BUILD SCRIPT][:smart-test-picker-cli] Prevent adding the "MavenLocal2" (file:/Users/D061177/.m2/repository/) repository configuration
+[PROJECT][:smart-test-picker-common] Adding local Maven repository
+[PROJECT][:smart-test-picker-common] Prevent adding the "MavenLocal" (file:/Users/D061177/.m2/repository/) repository configuration
+[PROJECT][:smart-test-picker-common] Setting the "build-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/build-snapshots-cx-commerce-maven/) repository configuration
+[PROJECT][:smart-test-picker-common] Setting the "deploy-milestones-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-milestones-cx-commerce-maven/) repository configuration
+[PROJECT][:smart-test-picker-common] Setting the "deploy-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-snapshots-cx-commerce-maven/) repository configuration
+[PROJECT][:smart-test-picker-common] Setting the "build-releases" (https://int.repositories.cloud.sap/artifactory/build-releases/) repository configuration
+[BUILD SCRIPT][:smart-test-picker-common] Adding local Maven repository
+[BUILD SCRIPT][:smart-test-picker-common] Prevent adding the "MavenLocal" (file:/Users/D061177/.m2/repository/) repository configuration
+[BUILD SCRIPT][:smart-test-picker-common] Setting the "build-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/build-snapshots-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:smart-test-picker-common] Setting the "deploy-milestones-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-milestones-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:smart-test-picker-common] Setting the "deploy-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-snapshots-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:smart-test-picker-common] Setting the "build-releases" (https://int.repositories.cloud.sap/artifactory/build-releases/) repository configuration
+[BUILD SCRIPT][:smart-test-picker-common] Prevent adding the "MavenLocal2" (file:/Users/D061177/.m2/repository/) repository configuration
+[PROJECT][:smart-test-picker-core] Adding local Maven repository
+[PROJECT][:smart-test-picker-core] Prevent adding the "MavenLocal" (file:/Users/D061177/.m2/repository/) repository configuration
+[PROJECT][:smart-test-picker-core] Setting the "build-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/build-snapshots-cx-commerce-maven/) repository configuration
+[PROJECT][:smart-test-picker-core] Setting the "deploy-milestones-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-milestones-cx-commerce-maven/) repository configuration
+[PROJECT][:smart-test-picker-core] Setting the "deploy-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-snapshots-cx-commerce-maven/) repository configuration
+[PROJECT][:smart-test-picker-core] Setting the "build-releases" (https://int.repositories.cloud.sap/artifactory/build-releases/) repository configuration
+[BUILD SCRIPT][:smart-test-picker-core] Adding local Maven repository
+[BUILD SCRIPT][:smart-test-picker-core] Prevent adding the "MavenLocal" (file:/Users/D061177/.m2/repository/) repository configuration
+[BUILD SCRIPT][:smart-test-picker-core] Setting the "build-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/build-snapshots-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:smart-test-picker-core] Setting the "deploy-milestones-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-milestones-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:smart-test-picker-core] Setting the "deploy-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-snapshots-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:smart-test-picker-core] Setting the "build-releases" (https://int.repositories.cloud.sap/artifactory/build-releases/) repository configuration
+[BUILD SCRIPT][:smart-test-picker-core] Prevent adding the "MavenLocal2" (file:/Users/D061177/.m2/repository/) repository configuration
+[PROJECT][:smart-test-picker-maven] Adding local Maven repository
+[PROJECT][:smart-test-picker-maven] Prevent adding the "MavenLocal" (file:/Users/D061177/.m2/repository/) repository configuration
+[PROJECT][:smart-test-picker-maven] Setting the "build-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/build-snapshots-cx-commerce-maven/) repository configuration
+[PROJECT][:smart-test-picker-maven] Setting the "deploy-milestones-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-milestones-cx-commerce-maven/) repository configuration
+[PROJECT][:smart-test-picker-maven] Setting the "deploy-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-snapshots-cx-commerce-maven/) repository configuration
+[PROJECT][:smart-test-picker-maven] Setting the "build-releases" (https://int.repositories.cloud.sap/artifactory/build-releases/) repository configuration
+[BUILD SCRIPT][:smart-test-picker-maven] Adding local Maven repository
+[BUILD SCRIPT][:smart-test-picker-maven] Prevent adding the "MavenLocal" (file:/Users/D061177/.m2/repository/) repository configuration
+[BUILD SCRIPT][:smart-test-picker-maven] Setting the "build-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/build-snapshots-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:smart-test-picker-maven] Setting the "deploy-milestones-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-milestones-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:smart-test-picker-maven] Setting the "deploy-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-snapshots-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:smart-test-picker-maven] Setting the "build-releases" (https://int.repositories.cloud.sap/artifactory/build-releases/) repository configuration
+[BUILD SCRIPT][:smart-test-picker-maven] Prevent adding the "MavenLocal2" (file:/Users/D061177/.m2/repository/) repository configuration
+[PROJECT][:stp-agent] Adding local Maven repository
+[PROJECT][:stp-agent] Prevent adding the "MavenLocal" (file:/Users/D061177/.m2/repository/) repository configuration
+[PROJECT][:stp-agent] Setting the "build-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/build-snapshots-cx-commerce-maven/) repository configuration
+[PROJECT][:stp-agent] Setting the "deploy-milestones-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-milestones-cx-commerce-maven/) repository configuration
+[PROJECT][:stp-agent] Setting the "deploy-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-snapshots-cx-commerce-maven/) repository configuration
+[PROJECT][:stp-agent] Setting the "build-releases" (https://int.repositories.cloud.sap/artifactory/build-releases/) repository configuration
+[BUILD SCRIPT][:stp-agent] Adding local Maven repository
+[BUILD SCRIPT][:stp-agent] Prevent adding the "MavenLocal" (file:/Users/D061177/.m2/repository/) repository configuration
+[BUILD SCRIPT][:stp-agent] Setting the "build-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/build-snapshots-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:stp-agent] Setting the "deploy-milestones-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-milestones-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:stp-agent] Setting the "deploy-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-snapshots-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:stp-agent] Setting the "build-releases" (https://int.repositories.cloud.sap/artifactory/build-releases/) repository configuration
+[BUILD SCRIPT][:stp-agent] Prevent adding the "MavenLocal2" (file:/Users/D061177/.m2/repository/) repository configuration
+[PROJECT][:stp-junit-adapter] Adding local Maven repository
+[PROJECT][:stp-junit-adapter] Prevent adding the "MavenLocal" (file:/Users/D061177/.m2/repository/) repository configuration
+[PROJECT][:stp-junit-adapter] Setting the "build-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/build-snapshots-cx-commerce-maven/) repository configuration
+[PROJECT][:stp-junit-adapter] Setting the "deploy-milestones-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-milestones-cx-commerce-maven/) repository configuration
+[PROJECT][:stp-junit-adapter] Setting the "deploy-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-snapshots-cx-commerce-maven/) repository configuration
+[PROJECT][:stp-junit-adapter] Setting the "build-releases" (https://int.repositories.cloud.sap/artifactory/build-releases/) repository configuration
+[BUILD SCRIPT][:stp-junit-adapter] Adding local Maven repository
+[BUILD SCRIPT][:stp-junit-adapter] Prevent adding the "MavenLocal" (file:/Users/D061177/.m2/repository/) repository configuration
+[BUILD SCRIPT][:stp-junit-adapter] Setting the "build-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/build-snapshots-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:stp-junit-adapter] Setting the "deploy-milestones-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-milestones-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:stp-junit-adapter] Setting the "deploy-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-snapshots-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:stp-junit-adapter] Setting the "build-releases" (https://int.repositories.cloud.sap/artifactory/build-releases/) repository configuration
+[BUILD SCRIPT][:stp-junit-adapter] Prevent adding the "MavenLocal2" (file:/Users/D061177/.m2/repository/) repository configuration
+[PROJECT][:stp-runtime] Adding local Maven repository
+[PROJECT][:stp-runtime] Prevent adding the "MavenLocal" (file:/Users/D061177/.m2/repository/) repository configuration
+[PROJECT][:stp-runtime] Setting the "build-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/build-snapshots-cx-commerce-maven/) repository configuration
+[PROJECT][:stp-runtime] Setting the "deploy-milestones-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-milestones-cx-commerce-maven/) repository configuration
+[PROJECT][:stp-runtime] Setting the "deploy-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-snapshots-cx-commerce-maven/) repository configuration
+[PROJECT][:stp-runtime] Setting the "build-releases" (https://int.repositories.cloud.sap/artifactory/build-releases/) repository configuration
+[BUILD SCRIPT][:stp-runtime] Adding local Maven repository
+[BUILD SCRIPT][:stp-runtime] Prevent adding the "MavenLocal" (file:/Users/D061177/.m2/repository/) repository configuration
+[BUILD SCRIPT][:stp-runtime] Setting the "build-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/build-snapshots-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:stp-runtime] Setting the "deploy-milestones-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-milestones-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:stp-runtime] Setting the "deploy-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-snapshots-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:stp-runtime] Setting the "build-releases" (https://int.repositories.cloud.sap/artifactory/build-releases/) repository configuration
+[BUILD SCRIPT][:stp-runtime] Prevent adding the "MavenLocal2" (file:/Users/D061177/.m2/repository/) repository configuration
+
+> Configure project :
+[BUILD SCRIPT][:] Prevent adding the "__plugin_repository__MavenLocal" repository configuration
+[BUILD SCRIPT][:] Prevent adding the "__plugin_repository__build-snapshots-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:] Prevent adding the "__plugin_repository__deploy-milestones-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:] Prevent adding the "__plugin_repository__deploy-snapshots-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:] Prevent adding the "__plugin_repository__build-releases" repository configuration
+[PROJECT][:smart-test-picker] Prevent adding the "MavenRepo" (https://repo.maven.apache.org/maven2/) repository configuration
+[PROJECT][:smart-test-picker-cli] Prevent adding the "MavenRepo" (https://repo.maven.apache.org/maven2/) repository configuration
+[PROJECT][:smart-test-picker-common] Prevent adding the "MavenRepo" (https://repo.maven.apache.org/maven2/) repository configuration
+[PROJECT][:smart-test-picker-core] Prevent adding the "MavenRepo" (https://repo.maven.apache.org/maven2/) repository configuration
+[PROJECT][:smart-test-picker-maven] Prevent adding the "MavenRepo" (https://repo.maven.apache.org/maven2/) repository configuration
+[PROJECT][:stp-agent] Prevent adding the "MavenRepo" (https://repo.maven.apache.org/maven2/) repository configuration
+[PROJECT][:stp-junit-adapter] Prevent adding the "MavenRepo" (https://repo.maven.apache.org/maven2/) repository configuration
+[PROJECT][:stp-runtime] Prevent adding the "MavenRepo" (https://repo.maven.apache.org/maven2/) repository configuration
+
+> Configure project :smart-test-picker
+[BUILD SCRIPT][:smart-test-picker] Prevent adding the "__plugin_repository__MavenLocal" repository configuration
+[BUILD SCRIPT][:smart-test-picker] Prevent adding the "__plugin_repository__build-snapshots-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:smart-test-picker] Prevent adding the "__plugin_repository__deploy-milestones-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:smart-test-picker] Prevent adding the "__plugin_repository__deploy-snapshots-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:smart-test-picker] Prevent adding the "__plugin_repository__build-releases" repository configuration
+[PROJECT][:smart-test-picker] Prevent adding the "MavenRepo2" (https://repo.maven.apache.org/maven2/) repository configuration
+[PROJECT][:smart-test-picker] Prevent adding the "MavenLocal2" (file:/Users/D061177/.m2/repository/) repository configuration
+
+> Configure project :smart-test-picker-cli
+[BUILD SCRIPT][:smart-test-picker-cli] Prevent adding the "__plugin_repository__MavenLocal" repository configuration
+[BUILD SCRIPT][:smart-test-picker-cli] Prevent adding the "__plugin_repository__build-snapshots-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:smart-test-picker-cli] Prevent adding the "__plugin_repository__deploy-milestones-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:smart-test-picker-cli] Prevent adding the "__plugin_repository__deploy-snapshots-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:smart-test-picker-cli] Prevent adding the "__plugin_repository__build-releases" repository configuration
+
+> Configure project :smart-test-picker-common
+[BUILD SCRIPT][:smart-test-picker-common] Prevent adding the "__plugin_repository__MavenLocal" repository configuration
+[BUILD SCRIPT][:smart-test-picker-common] Prevent adding the "__plugin_repository__build-snapshots-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:smart-test-picker-common] Prevent adding the "__plugin_repository__deploy-milestones-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:smart-test-picker-common] Prevent adding the "__plugin_repository__deploy-snapshots-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:smart-test-picker-common] Prevent adding the "__plugin_repository__build-releases" repository configuration
+
+> Configure project :smart-test-picker-core
+[BUILD SCRIPT][:smart-test-picker-core] Prevent adding the "__plugin_repository__MavenLocal" repository configuration
+[BUILD SCRIPT][:smart-test-picker-core] Prevent adding the "__plugin_repository__build-snapshots-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:smart-test-picker-core] Prevent adding the "__plugin_repository__deploy-milestones-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:smart-test-picker-core] Prevent adding the "__plugin_repository__deploy-snapshots-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:smart-test-picker-core] Prevent adding the "__plugin_repository__build-releases" repository configuration
+[PROJECT][:smart-test-picker-core] Prevent adding the "MavenRepo2" (https://repo.maven.apache.org/maven2/) repository configuration
+
+> Configure project :smart-test-picker-maven
+[BUILD SCRIPT][:smart-test-picker-maven] Prevent adding the "__plugin_repository__MavenLocal" repository configuration
+[BUILD SCRIPT][:smart-test-picker-maven] Prevent adding the "__plugin_repository__build-snapshots-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:smart-test-picker-maven] Prevent adding the "__plugin_repository__deploy-milestones-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:smart-test-picker-maven] Prevent adding the "__plugin_repository__deploy-snapshots-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:smart-test-picker-maven] Prevent adding the "__plugin_repository__build-releases" repository configuration
+[PROJECT][:smart-test-picker-maven] Prevent adding the "MavenRepo2" (https://repo.maven.apache.org/maven2/) repository configuration
+[PROJECT][:smart-test-picker-maven] Prevent adding the "MavenLocal2" (file:/Users/D061177/.m2/repository/) repository configuration
+
+> Configure project :stp-agent
+[BUILD SCRIPT][:stp-agent] Prevent adding the "__plugin_repository__MavenLocal" repository configuration
+[BUILD SCRIPT][:stp-agent] Prevent adding the "__plugin_repository__build-snapshots-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:stp-agent] Prevent adding the "__plugin_repository__deploy-milestones-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:stp-agent] Prevent adding the "__plugin_repository__deploy-snapshots-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:stp-agent] Prevent adding the "__plugin_repository__build-releases" repository configuration
+
+> Configure project :stp-junit-adapter
+[BUILD SCRIPT][:stp-junit-adapter] Prevent adding the "__plugin_repository__MavenLocal" repository configuration
+[BUILD SCRIPT][:stp-junit-adapter] Prevent adding the "__plugin_repository__build-snapshots-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:stp-junit-adapter] Prevent adding the "__plugin_repository__deploy-milestones-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:stp-junit-adapter] Prevent adding the "__plugin_repository__deploy-snapshots-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:stp-junit-adapter] Prevent adding the "__plugin_repository__build-releases" repository configuration
+
+> Configure project :stp-runtime
+[BUILD SCRIPT][:stp-runtime] Prevent adding the "__plugin_repository__MavenLocal" repository configuration
+[BUILD SCRIPT][:stp-runtime] Prevent adding the "__plugin_repository__build-snapshots-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:stp-runtime] Prevent adding the "__plugin_repository__deploy-milestones-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:stp-runtime] Prevent adding the "__plugin_repository__deploy-snapshots-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:stp-runtime] Prevent adding the "__plugin_repository__build-releases" repository configuration
+
+> Task :smart-test-picker-common:compileJava
+> Task :smart-test-picker-common:processResources NO-SOURCE
+> Task :smart-test-picker-common:classes
+> Task :smart-test-picker-common:jar
+> Task :smart-test-picker-core:compileJava UP-TO-DATE
+> Task :smart-test-picker-core:processResources UP-TO-DATE
+> Task :smart-test-picker-core:classes UP-TO-DATE
+> Task :smart-test-picker-core:jar UP-TO-DATE
+> Task :smart-test-picker:compileJava UP-TO-DATE
+> Task :smart-test-picker:pluginDescriptors UP-TO-DATE
+> Task :smart-test-picker:processResources UP-TO-DATE
+> Task :smart-test-picker:writePluginVersion UP-TO-DATE
+> Task :smart-test-picker:classes UP-TO-DATE
+> Task :smart-test-picker:jar UP-TO-DATE
+> Task :smart-test-picker:compileTestJava
+> Task :smart-test-picker:pluginUnderTestMetadata
+> Task :smart-test-picker:generateMetadataFileForPluginMavenPublication
+> Task :smart-test-picker:generatePomFileForPluginMavenPublication
+> Task :smart-test-picker:publishPluginMavenPublicationToFunctionalTestRepository
+> Task :smart-test-picker:generatePomFileForSmartTestPickerPluginMarkerMavenPublication
+> Task :smart-test-picker:publishSmartTestPickerPluginMarkerMavenPublicationToFunctionalTestRepository
+> Task :smart-test-picker:processTestResources NO-SOURCE
+> Task :smart-test-picker:testClasses
+> Task :smart-test-picker-common:generateMetadataFileForMavenJavaPublication
+> Task :smart-test-picker-common:generatePomFileForMavenJavaPublication
+> Task :smart-test-picker-common:publishMavenJavaPublicationToFunctionalTestRepository
+> Task :smart-test-picker-core:generateMetadataFileForMavenJavaPublication
+> Task :smart-test-picker-core:generatePomFileForMavenJavaPublication
+> Task :smart-test-picker-core:publishMavenJavaPublicationToFunctionalTestRepository
+> Task :stp-agent:generatePomFileForAgentPublication
+> Task :stp-runtime:compileJava UP-TO-DATE
+> Task :stp-junit-adapter:compileJava UP-TO-DATE
+> Task :stp-agent:compileJava UP-TO-DATE
+> Task :stp-agent:processResources NO-SOURCE
+> Task :stp-agent:classes UP-TO-DATE
+> Task :stp-junit-adapter:processResources UP-TO-DATE
+> Task :stp-junit-adapter:classes UP-TO-DATE
+> Task :stp-runtime:processResources NO-SOURCE
+> Task :stp-runtime:classes UP-TO-DATE
+> Task :stp-runtime:jar UP-TO-DATE
+> Task :stp-agent:shadowJar
+> Task :stp-agent:publishAgentPublicationToFunctionalTestRepository
+
+> Task :smart-test-picker:test
+
+GradleCollectorBackendFunctionalTest > capabilitiesMatchCollectedOutput(String) > [1] ASM FAILED
+    java.lang.NumberFormatException at GradleCollectorBackendFunctionalTest.java:87
+
+GradleCollectorBackendFunctionalTest > capabilitiesMatchCollectedOutput(String) > [2] JACOCO FAILED
+    org.opentest4j.AssertionFailedError at GradleCollectorBackendFunctionalTest.java:97
+
+2 tests completed, 2 failed
+
+> Task :smart-test-picker:test FAILED
+> Task :smart-test-picker:jacocoTestReport
+
+[Incubating] Problems report is available at: file:///Users/D061177/work/moje/smart-test-picker/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':smart-test-picker:test'.
+> There were failing tests. See the report at: file:///Users/D061177/work/moje/smart-test-picker/smart-test-picker/build/reports/tests/test/index.html
+
+* Try:
+> Run with --scan to get full insights.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 15s
+33 actionable tasks: 20 executed, 13 up-to-date

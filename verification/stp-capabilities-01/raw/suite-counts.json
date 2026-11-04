@@ -1,0 +1,747 @@
+{
+  "smart-test-picker-common": {
+    "totals": {
+      "tests": 334,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 11
+    },
+    "suites": [
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.CoverageCollectorContractTest.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.change.GitChangeDetectorTest.xml",
+        "tests": 21,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest.xml",
+        "tests": 25,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.coverage.ExecutableAssignmentOrchestratorTest.xml",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.coverage.ExecutableCoverageMapContractTest.xml",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.coverage.ExecutableFragmentAssignmentValidatorTest.xml",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.coverage.ExecutableShardingAndJoinTest.xml",
+        "tests": 9,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.coverage.JGraphTCoverageMapV1IntegrationTest.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.coverage.Task40PetClinicFixtureTest.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentityTest.xml",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.coverage.model.ExecutionTargetTest.xml",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.coverage.model.TestIdentityRegressionTest.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.coverage.serialization.ExecutionPlanCodecTest.xml",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.engine.CoverageMapEngineTest.xml",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.engine.ExecToXmlEngineTest.xml",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.engine.FileUtilsTest.xml",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.engine.NewTestDetectorTest.xml",
+        "tests": 25,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.engine.ReportEngineTest.xml",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.engine.TestSelectionEngineTest.xml",
+        "tests": 9,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.mapper.CoverageMapReaderTest.xml",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.mapper.CoverageMapperJaxbTest.xml",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.mapper.IndexedCoverageMapTest.xml",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.mapper.TestClassFilterTest.xml",
+        "tests": 11,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.policy.CentralFailurePolicyTest.xml",
+        "tests": 11,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.report.ChunkDataWriterTest.xml",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest.xml",
+        "tests": 38,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.report.SourceCoverageGeneratorTest.xml",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.selector.ExecutableHeadTestInventoryCodecTest.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.selector.ExplicitPrSelectorFlowTest.xml",
+        "tests": 12,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.selector.HeadTestInventoryCodecTest.xml",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGeneratorTest$AbstractFixture$AbstractNested.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGeneratorTest$ConcreteFixture.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGeneratorTest$InventoryFixture$NestedFixture.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGeneratorTest$InventoryFixture.xml",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 5
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGeneratorTest$JUnitFourFixture.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGeneratorTest$JUnitSixFixture$NestedFixture.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGeneratorTest$JUnitSixFixture.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGeneratorTest.xml",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.selector.RevisionPreflightTest.xml",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.selector.SchemaV2SelectionAnalyzerTest.xml",
+        "tests": 10,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.selector.SchemaV2TestSelectorTest.xml",
+        "tests": 10,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.selector.SelectionOutputTest.xml",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.selector.TestSelectorTest.xml",
+        "tests": 13,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.store.CoverageMapResolverTest.xml",
+        "tests": 9,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-common/build/test-results/test/TEST-com.sap.oss.smarttestpicker.store.RemoteStoreClientTest.xml",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "smart-test-picker-core": {
+    "totals": {
+      "tests": 29,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 5
+    },
+    "suites": [
+      {
+        "file": "smart-test-picker-core/build/test-results/test/TEST-com.sap.oss.smarttestpicker.CollectorSelectionForkMain$Probe.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1
+      },
+      {
+        "file": "smart-test-picker-core/build/test-results/test/TEST-com.sap.oss.smarttestpicker.JacocoExecutionDataSourceTest.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-core/build/test-results/test/TEST-com.sap.oss.smarttestpicker.JacocoPerTestListenerTest$AbortedTestFixture.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1
+      },
+      {
+        "file": "smart-test-picker-core/build/test-results/test/TEST-com.sap.oss.smarttestpicker.JacocoPerTestListenerTest$BeforeAllAbortFixture.xml",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 2
+      },
+      {
+        "file": "smart-test-picker-core/build/test-results/test/TEST-com.sap.oss.smarttestpicker.JacocoPerTestListenerTest$DisabledParameterizedFixture.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1
+      },
+      {
+        "file": "smart-test-picker-core/build/test-results/test/TEST-com.sap.oss.smarttestpicker.JacocoPerTestListenerTest$VintageCustomRunnerFixture.xml",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-core/build/test-results/test/TEST-com.sap.oss.smarttestpicker.JacocoPerTestListenerTest.xml",
+        "tests": 12,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-core/build/test-results/test/TEST-com.sap.oss.smarttestpicker.StpCollectorSelectionTest.xml",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "smart-test-picker-maven": {
+    "totals": {
+      "tests": 151,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "suites": [
+      {
+        "file": "smart-test-picker-maven/build/test-results/test/TEST-com.sap.oss.smarttestpicker.maven.AsmJacocoCoexistenceIntegrationTest.xml",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-maven/build/test-results/test/TEST-com.sap.oss.smarttestpicker.maven.AsmMappingFinalizationTest.xml",
+        "tests": 27,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-maven/build/test-results/test/TEST-com.sap.oss.smarttestpicker.maven.AsmMappingParityIntegrationTest.xml",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-maven/build/test-results/test/TEST-com.sap.oss.smarttestpicker.maven.AsmReactorScopeIntegrationTest.xml",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-maven/build/test-results/test/TEST-com.sap.oss.smarttestpicker.maven.CollectorCapabilitiesIntegrationTest.xml",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-maven/build/test-results/test/TEST-com.sap.oss.smarttestpicker.maven.GenerateCoverageFragmentMojoTest.xml",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-maven/build/test-results/test/TEST-com.sap.oss.smarttestpicker.maven.MavenAsmScopeTest.xml",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-maven/build/test-results/test/TEST-com.sap.oss.smarttestpicker.maven.MavenExecutableAssignmentRouterTest.xml",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-maven/build/test-results/test/TEST-com.sap.oss.smarttestpicker.maven.MavenExecutionEvidenceTest.xml",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-maven/build/test-results/test/TEST-com.sap.oss.smarttestpicker.maven.MavenExecutionTargetResolverTest.xml",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-maven/build/test-results/test/TEST-com.sap.oss.smarttestpicker.maven.MavenExplicitPrSelectionTest.xml",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-maven/build/test-results/test/TEST-com.sap.oss.smarttestpicker.maven.MavenSurefireTestFilterTest.xml",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-maven/build/test-results/test/TEST-com.sap.oss.smarttestpicker.maven.MergeExecutableHeadTestInventoriesMojoTest.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-maven/build/test-results/test/TEST-com.sap.oss.smarttestpicker.maven.MergeExecutableTargetFragmentsMojoTest.xml",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-maven/build/test-results/test/TEST-com.sap.oss.smarttestpicker.maven.PreparedAsmMappingTest.xml",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-maven/build/test-results/test/TEST-com.sap.oss.smarttestpicker.maven.PullCoverageMapMojoTest.xml",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-maven/build/test-results/test/TEST-com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest.xml",
+        "tests": 58,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-maven/build/test-results/test/TEST-com.sap.oss.smarttestpicker.maven.SmartTestFilterTest.xml",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-maven/build/test-results/test/TEST-com.sap.oss.smarttestpicker.maven.StpMavenCollectorSelectionTest.xml",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "smart-test-picker": {
+    "totals": {
+      "tests": 48,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "suites": [
+      {
+        "file": "smart-test-picker/build/test-results/test/TEST-com.sap.oss.smarttestpicker.CoverageCollectorBackendTest.xml",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker/build/test-results/test/TEST-com.sap.oss.smarttestpicker.GradleCollectorBackendFunctionalTest.xml",
+        "tests": 13,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker/build/test-results/test/TEST-com.sap.oss.smarttestpicker.GradleExecutableAssignmentRouterTest.xml",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker/build/test-results/test/TEST-com.sap.oss.smarttestpicker.GradleExecutableRoutingFunctionalTest.xml",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker/build/test-results/test/TEST-com.sap.oss.smarttestpicker.GradleExplicitPrSelectionTest.xml",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker/build/test-results/test/TEST-com.sap.oss.smarttestpicker.HeadInventoryFunctionalTest.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker/build/test-results/test/TEST-com.sap.oss.smarttestpicker.SmartTestExecutionFilterTest.xml",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker/build/test-results/test/TEST-com.sap.oss.smarttestpicker.SmartTestPickerExtensionTest.xml",
+        "tests": 11,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "stp-agent": {
+    "totals": {
+      "tests": 45,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1
+    },
+    "suites": [
+      {
+        "file": "stp-agent/build/test-results/test/TEST-com.sap.oss.smarttestpicker.agent.AgentShellTest.xml",
+        "tests": 24,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "stp-agent/build/test-results/test/TEST-com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest.xml",
+        "tests": 21,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 1
+      }
+    ]
+  },
+  "stp-runtime": {
+    "totals": {
+      "tests": 47,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "suites": [
+      {
+        "file": "stp-runtime/build/test-results/test/TEST-com.sap.oss.smarttestpicker.runtime.AsmCoverageFragmentProjectorTest.xml",
+        "tests": 13,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "stp-runtime/build/test-results/test/TEST-com.sap.oss.smarttestpicker.runtime.ExecutableCoverageFragmentQualifierTest.xml",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "stp-runtime/build/test-results/test/TEST-com.sap.oss.smarttestpicker.runtime.ForkJoinContextTest.xml",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "stp-runtime/build/test-results/test/TEST-com.sap.oss.smarttestpicker.runtime.RuntimeContextRegistryTest.xml",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "stp-runtime/build/test-results/test/TEST-com.sap.oss.smarttestpicker.runtime.RuntimeContextServiceTest.xml",
+        "tests": 12,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "stp-runtime/build/test-results/test/TEST-com.sap.oss.smarttestpicker.runtime.RuntimeEventAggregatorTest.xml",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "stp-junit-adapter": {
+    "totals": {
+      "tests": 21,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "suites": [
+      {
+        "file": "stp-junit-adapter/build/test-results/test/TEST-com.sap.oss.smarttestpicker.junit.StpRuntimeTestExecutionListenerTest.xml",
+        "tests": 21,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "smart-test-picker-cli": {
+    "totals": {
+      "tests": 36,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "suites": [
+      {
+        "file": "smart-test-picker-cli/build/test-results/test/TEST-com.sap.oss.smarttestpicker.cli.ExplicitPrSelectTestsCommandTest.xml",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-cli/build/test-results/test/TEST-com.sap.oss.smarttestpicker.cli.GenerateReportCommandTest.xml",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-cli/build/test-results/test/TEST-com.sap.oss.smarttestpicker.cli.PlatformScannerTest.xml",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-cli/build/test-results/test/TEST-com.sap.oss.smarttestpicker.cli.QueryCommandTest.xml",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-cli/build/test-results/test/TEST-com.sap.oss.smarttestpicker.cli.RefreshedReportCommandTest.xml",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "file": "smart-test-picker-cli/build/test-results/test/TEST-com.sap.oss.smarttestpicker.cli.SelectTestsCommandTest.xml",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  }
+}

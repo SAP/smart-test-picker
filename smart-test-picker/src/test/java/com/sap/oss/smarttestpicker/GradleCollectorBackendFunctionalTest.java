@@ -23,6 +23,115 @@ class GradleCollectorBackendFunctionalTest {
 	@TempDir Path temporary;
 
 	@org.junit.jupiter.params.ParameterizedTest
+	@org.junit.jupiter.params.provider.ValueSource(strings = { "ASM", "JACOCO" })
+	void capabilitiesMatchCollectedOutput(String collector) throws Exception {
+		boolean jacoco = collector.equals("JACOCO");
+		Path project = fixture("capabilities", collector, jacoco);
+		Files.delete(project.resolve("src/test/java/example/OverloadedServiceTest.java"));
+		Path probes = Path.of("../smart-test-picker-maven/src/test/fixtures/capability-probes");
+		for (String kind : java.util.List.of("main", "test")) {
+			try (var files = Files.list(probes.resolve(kind))) {
+				for (Path file : files.toList()) Files.copy(file,
+						project.resolve("src/" + kind + "/java/example/" + file.getFileName()),
+						java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+			}
+		}
+		Path build = project.resolve("build.gradle");
+		if (jacoco) {
+			String revision = new String(new ProcessBuilder("git", "rev-parse", "HEAD")
+					.directory(project.toFile()).start().getInputStream().readAllBytes()).trim();
+			Files.writeString(project.resolve("assignment.json"), """
+				{"version":1,"revision":"%s","shardId":"fixture-capabilities",
+				 "tests":["gradle::test::example.CapabilitiesTest#probes"]}
+				""".formatted(revision));
+			Files.writeString(build, Files.readString(build) + """
+				smartTestPicker { runtimeSchemaVersion=3; revision='%s'; executableAssignmentFile='assignment.json' }
+				// Snapshot runtime artifacts before the dependent fragment-conversion task executes.
+				test.doLast { copy { from 'build/stp'; into 'collection-snapshot' } }
+				""".formatted(revision));
+		}
+		BuildResult result = run(project, jacoco ? "generateSmartTestMapping" : "generateSmartTestCoverage");
+		Path fragment = project.resolve(jacoco ? "build/stp/executable-fragment.json"
+				: "build/stp/coverage/_generateSmartTestCoverage/fixture-capabilities/fragment.json");
+		Path collected = project.resolve(jacoco ? "collection-snapshot" : "build/stp/coverage");
+		Path saved = Files.createDirectories(Path.of("build/stp-capabilities-01/" + collector.toLowerCase()));
+		Files.writeString(saved.resolve("gradle.log"), result.getOutput());
+		retain(collected, saved.resolve("collected"));
+		retain(project.resolve("build/test-results"), saved.resolve("test-results"));
+		if (jacoco) retain(project.resolve("build/stp/jacoco"), saved.resolve("converted"));
+		Files.copy(fragment, saved.resolve("fragment.json"), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+		JsonObject json = JsonParser.parseString(Files.readString(fragment)).getAsJsonObject();
+		if (jacoco) new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(fragment));
+		else new com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec().deserialize(Files.readAllBytes(fragment));
+		assertTrue(json.getAsJsonObject("collection").get("completed").getAsBoolean());
+		assertEquals(0, json.getAsJsonArray("unmapped").size());
+		assertEquals(1, json.getAsJsonObject("tests").size());
+		String identity = (jacoco ? "gradle::test::" : "") + "example.CapabilitiesTest#probes";
+		JsonObject leaf = json.getAsJsonObject("tests").getAsJsonObject(identity);
+		assertNotNull(leaf, identity);
+		assertEquals("PASS", leaf.get("outcome").getAsString());
+		String methods = leaf.getAsJsonArray("methods").toString();
+		assertTrue(methods.contains("example.OverloadedService#value"), methods);
+		assertFalse(leaf.getAsJsonArray("classes").toString().contains("example.SetupOnly"));
+		boolean setup = json.getAsJsonArray("setupScopes").toString().contains("example.SetupOnly");
+		if (setup) assertTrue(json.getAsJsonArray("setupScopes").toString().contains("example.CapabilitiesTest"));
+		if (jacoco) {
+			assertTrue(hasFile(collected, ".exec"));
+			assertTrue(hasFile(collected, ".setup"), "Setup executed but no positive setup session was collected");
+			assertSetupReport(project.resolve("build/stp/jacoco"));
+		}
+		boolean direct = false;
+		try (var files = Files.walk(collected)) {
+			for (Path file : files.filter(p -> p.toString().endsWith(".json")).toList()) {
+				JsonObject value = JsonParser.parseString(Files.readString(file)).getAsJsonObject();
+				if (value.has("tests") && value.has("schemaVersion") && value.get("schemaVersion").getAsString().equals("2")) direct = true;
+			}
+		}
+		CollectorCapabilities observed = new CollectorCapabilities(
+				leaf.getAsJsonArray("classes").toString().contains("example.OverloadedService"),
+				methods.contains("example.ImplicitException#length"), setup,
+				methods.contains("example.OverloadedService#value(Ljava/lang/String;)Ljava/lang/String;")
+						&& !methods.contains("example.OverloadedService#value(I)I"), direct);
+		Files.writeString(saved.resolve("observed.txt"), observed + "\n");
+		System.out.println("Gradle " + collector + " observed: " + observed);
+		assertEquals(observed, jacoco ? new JacocoCoverageCollectorBackend(null).capabilities()
+				: new AsmCoverageCollectorBackend(null).capabilities());
+	}
+
+	private static void retain(Path source, Path destination) throws IOException {
+		if (!Files.exists(source)) return;
+		try (var files = Files.walk(source)) {
+			for (Path file : files.filter(Files::isRegularFile).toList()) {
+				Path output = destination.resolve(source.relativize(file));
+				Files.createDirectories(output.getParent());
+				Files.copy(file, output, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+			}
+		}
+	}
+
+	private static void assertSetupReport(Path root) throws Exception {
+		var factory = javax.xml.parsers.DocumentBuilderFactory.newInstance();
+		factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+		boolean covered = false;
+		try (var files = Files.walk(root)) {
+			for (Path file : files.filter(p -> p.getFileName().toString().startsWith("session_setup_")
+					&& p.toString().endsWith(".xml")).toList()) {
+				var methods = factory.newDocumentBuilder().parse(file.toFile()).getElementsByTagName("method");
+				for (int i = 0; i < methods.getLength(); i++) {
+					var method = (org.w3c.dom.Element) methods.item(i);
+					if (!method.getAttribute("name").equals("setupOnly")) continue;
+					var counters = method.getElementsByTagName("counter");
+					for (int j = 0; j < counters.getLength(); j++) {
+						var counter = (org.w3c.dom.Element) counters.item(j);
+						if (counter.getAttribute("type").equals("METHOD") && counter.getAttribute("covered").equals("1")) covered = true;
+					}
+				}
+			}
+		}
+		assertTrue(covered, "Positive setup-only coverage must exist before deciding whether the fragment retains it");
+	}
+
+	@org.junit.jupiter.params.ParameterizedTest
 	@org.junit.jupiter.params.provider.ValueSource(booleans = { false, true })
 	void ordinaryCoreConsumerRunsBothTestsWithoutCollection(boolean autodetection) throws Exception {
 		Path project = Files.createDirectories(temporary.resolve("ordinary"));

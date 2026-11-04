@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.maven.CollectorCapabilitiesIntegrationTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-04T17:11:30.330Z" hostname="WDVJD22XQC" time="27.673">
+  <properties/>
+  <testcase name="[1] &quot;ASM&quot;" classname="com.sap.oss.smarttestpicker.maven.CollectorCapabilitiesIntegrationTest" time="13.866"/>
+  <testcase name="[2] &quot;JACOCO&quot;" classname="com.sap.oss.smarttestpicker.maven.CollectorCapabilitiesIntegrationTest" time="13.806"/>
+  <system-out><![CDATA[Maven ASM observed: CollectorCapabilities[classCoverage=true, exactMethodCoverage=true, setupScopes=true, descriptorAwareMethods=true, directSchemaV2Fragment=false]
+Maven JACOCO observed: CollectorCapabilities[classCoverage=true, exactMethodCoverage=false, setupScopes=true, descriptorAwareMethods=true, directSchemaV2Fragment=false]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

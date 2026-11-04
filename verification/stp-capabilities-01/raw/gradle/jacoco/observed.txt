@@ -1,0 +1,1 @@
+CollectorCapabilities[classCoverage=true, exactMethodCoverage=false, setupScopes=false, descriptorAwareMethods=true, directSchemaV2Fragment=false]
