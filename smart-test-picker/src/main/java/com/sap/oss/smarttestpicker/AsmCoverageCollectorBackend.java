@@ -26,6 +26,7 @@ final class AsmCoverageCollectorBackend implements CoverageCollectorBackend {
 	@Override
 	public void configure(Project project, SmartTestPickerExtension extension, Test test, Task mappingTask,
 			String executionTarget) {
+		test.systemProperty(StpCollectorSelection.PROPERTY, StpCollectorSelection.ASM.name());
 		String taskSegment = safe(test.getPath());
 		String shard = extension.getShardId().getOrElse("gradle:" + test.getPath());
 		String shardSegment = safe(shard);

@@ -23,6 +23,26 @@ class GradleCollectorBackendFunctionalTest {
 	@TempDir Path temporary;
 
 	@Test
+	void defaultAsmIgnoresConsumerDeclaredCoreWithExtensionAutodetection() throws Exception {
+		Path project = fixture("consumer-core", null, false);
+		Path build = project.resolve("build.gradle");
+		Files.writeString(build, Files.readString(build) + """
+			dependencies { testImplementation files('%s') }
+			test { systemProperty 'junit.jupiter.extensions.autodetection.enabled', 'true' }
+			""".formatted(slash(coreJar())));
+		BuildResult result = run(project, "generateSmartTestCoverage");
+		assertEquals(SUCCESS, result.task(":generateSmartTestCoverage").getOutcome());
+		assertFalse(result.getOutput().contains("Active JaCoCo runtime"), result.getOutput());
+		assertFalse(result.getOutput().contains("JacocoPerTestListener"), result.getOutput());
+		assertAsmFragment(project, "revision-consumer-core", "fixture-consumer-core");
+		var json = JsonParser.parseString(Files.readString(project.resolve(
+				"build/stp/coverage/_generateSmartTestCoverage/fixture-consumer-core/fragment.json"))).getAsJsonObject();
+		assertEquals(1, json.getAsJsonObject("tests").size());
+		assertEquals(0, json.getAsJsonArray("unmapped").size());
+		assertFalse(Files.exists(project.resolve("build/jacoco")));
+	}
+
+	@Test
 	void defaultAndExplicitAsmProduceDescriptorAwareSchemaV2FragmentsAndRemainIsolated() throws Exception {
 		Path defaultProject = fixture("default-asm", null, false);
 		BuildResult defaultBuild = run(defaultProject, "generateSmartTestCoverage");

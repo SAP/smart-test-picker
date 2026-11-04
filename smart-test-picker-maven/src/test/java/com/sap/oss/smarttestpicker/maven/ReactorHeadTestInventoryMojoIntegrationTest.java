@@ -32,6 +32,53 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 	private static final Path LOCAL_REPOSITORY = Path.of("build/functional-test-maven-local-"
 			+ ProcessHandle.current().pid()).toAbsolutePath();
 
+	@Test
+	void asmCollectorWithConsumerCoreAndAutodetectionDoesNotActivateJacoco(@TempDir Path temp) throws Exception {
+		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor"));
+		Path test = fixture.resolve("module-b/src/test/java/b/BTests.java");
+		Files.writeString(test, Files.readString(test).replace("new BValue().value();", """
+				org.junit.jupiter.api.Assertions.assertEquals("ASM", System.getProperty("smartTestPicker.coverageCollector"));
+				org.junit.jupiter.api.Assertions.assertEquals("true", System.getProperty("junit.jupiter.extensions.autodetection.enabled"));
+				org.junit.jupiter.api.Assertions.assertThrows(ClassNotFoundException.class,
+				    () -> Class.forName("org.jacoco.agent.rt.RT"));
+				org.junit.jupiter.api.Assertions.assertTrue(com.sap.oss.smarttestpicker.JacocoPerTestListener.class
+				    .getProtectionDomain().getCodeSource().getLocation().toString().contains("smart-test-picker-core"));
+				new BValue().value();
+				"""));
+		String revision = initializeGit(fixture);
+		Result install = maven(fixture, "-pl", "module-a", "-am", "install", "-DskipTests");
+		assertEquals(0, install.exitCode(), install.output());
+		Path fragment = fixture.resolve("asm-fragment.json");
+		Path diagnostic = fixture.resolve("asm-diagnostic.json");
+		String options = "output=" + diagnostic + ";fragmentOutput=" + fragment
+				+ ";schemaVersion=3;revision=" + revision
+				+ ";shardId=asm-shard;executionTarget=maven:module-b;runId=asm-core;includes=a.,b.";
+		// Manual attachment is fixture setup only; this task does not add Maven ASM orchestration.
+		Result result = maven(fixture, "-pl", "module-b", "test", "-Dtest=b.BTests#b2,shared.SharedTest",
+				"-Djacoco.skip=true", "-DsmartTestPicker.coverageCollector=ASM",
+				"-Djunit.jupiter.extensions.autodetection.enabled=true",
+				"-DargLine=-javaagent:" + System.getProperty("stp.test.agent.jar") + "=" + options);
+		assertEquals(0, result.exitCode(), result.output());
+		assertFalse(result.output().contains("Active JaCoCo runtime"), result.output());
+		assertFalse(result.output().contains("JacocoPerTestListener"), result.output());
+		var decoded = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(fragment));
+		assertEquals(revision, decoded.revision().value());
+		assertTrue(decoded.collectionCompleted());
+		assertTrue(decoded.unmapped().isEmpty());
+		assertEquals(Set.of("maven:module-b::b.BTests#b2", "maven:module-b::shared.SharedTest#same"),
+				decoded.tests().keySet().stream().map(Object::toString).collect(java.util.stream.Collectors.toSet()));
+		decoded.tests().forEach((identity, coverage) -> {
+			assertEquals(com.sap.oss.smarttestpicker.coverage.model.TestOutcome.PASS, coverage.outcome());
+			assertEquals(identity.test().className().equals("b.BTests") ? Set.of("a.AValue", "b.BValue") : Set.of(),
+					coverage.coveredClasses());
+		});
+		assertFalse(Files.exists(fixture.resolve("module-b/target/jacoco")), "Inactive collector wrote files");
+		Path saved = Files.createDirectories(Path.of("build/maven-asm-03"));
+		Files.copy(fragment, saved.resolve("fragment.json"), StandardCopyOption.REPLACE_EXISTING);
+		Files.copy(diagnostic, saved.resolve("diagnostic.json"), StandardCopyOption.REPLACE_EXISTING);
+		Files.writeString(saved.resolve("maven.log"), result.output());
+	}
+
 	@ParameterizedTest
 	@ValueSource(strings = { "default", "surefire", "failsafe" })
 	void isolatedClassSourceOnlyVintageInventoryMatchesJacocoMapping(String provider, @TempDir Path temp) throws Exception {

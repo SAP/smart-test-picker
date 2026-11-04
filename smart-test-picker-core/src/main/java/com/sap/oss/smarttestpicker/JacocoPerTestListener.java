@@ -47,13 +47,30 @@ public class JacocoPerTestListener implements TestExecutionListener
 	private final ThreadLocal<String> setupContainer = new ThreadLocal<>();
 	private volatile TestPlan testPlan;
 	private JacocoExecutionDataSource executionData;
+	private final boolean enabled;
+
+	public JacocoPerTestListener()
+	{
+		enabled = StpCollectorSelection.current() == StpCollectorSelection.JACOCO;
+		// ServiceLoader construction failures stop launcher startup. Callback exceptions
+		// are only logged by JUnit and cannot enforce the selected collector's preconditions.
+		if (enabled) {
+			try { executionData = JacocoExecutionDataSource.active(); }
+			catch (IllegalStateException failure) {
+				// Surefire may report only ServiceConfigurationError's outer message.
+				System.err.println("[SmartTestPicker] " + failure.getMessage());
+				throw failure;
+			}
+		}
+	}
 
 	@Override
-	public void testPlanExecutionStarted(TestPlan plan) { testPlan = plan; }
+	public void testPlanExecutionStarted(TestPlan plan) { if (enabled) testPlan = plan; }
 
 	@Override
 	public void executionStarted(TestIdentifier id)
 	{
+		if (!enabled) return;
 		if (!id.isTest())
 		{
 			id.getSource().filter(ClassSource.class::isInstance).map(ClassSource.class::cast).ifPresent(source -> {
@@ -90,6 +107,7 @@ public class JacocoPerTestListener implements TestExecutionListener
 	@Override
 	public void executionFinished(TestIdentifier id, TestExecutionResult result)
 	{
+		if (!enabled) return;
 		if (!id.isTest())
 		{
 			if (result.getStatus() == TestExecutionResult.Status.ABORTED)
@@ -145,6 +163,7 @@ public class JacocoPerTestListener implements TestExecutionListener
 	@Override
 	public void executionSkipped(TestIdentifier id, String reason)
 	{
+		if (!enabled) return;
 		markNonExecuted(id);
 	}
 

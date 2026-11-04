@@ -51,6 +51,7 @@ public class TestLifecycleExtension implements BeforeTestExecutionCallback, Afte
 	/** Session ID for the currently executing test ({@code ClassName#methodName}). */
 	private String sessionId;
 	private JacocoExecutionDataSource executionData;
+	private final boolean enabled = StpCollectorSelection.current() == StpCollectorSelection.JACOCO;
 
 	/**
 	 * Resolves the directory where JaCoCo execution data files are written.
@@ -102,6 +103,7 @@ public class TestLifecycleExtension implements BeforeTestExecutionCallback, Afte
 	@Override
 	public void beforeTestExecution(ExtensionContext context)
 	{
+		if (!enabled) return;
 		// If TestExecutionListener (JacocoPerTestListener) is already active,
 		// skip to avoid duplicate per-test coverage processing.
 		// This happens on Gradle where both mechanisms are loaded.
@@ -136,6 +138,7 @@ public class TestLifecycleExtension implements BeforeTestExecutionCallback, Afte
 	@Override
 	public void afterTestExecution(ExtensionContext context)
 	{
+		if (!enabled) return;
 		if (JacocoPerTestListener.active)
 		{
 			return;
