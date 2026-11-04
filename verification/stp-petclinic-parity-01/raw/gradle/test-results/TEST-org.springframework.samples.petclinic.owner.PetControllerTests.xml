@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.springframework.samples.petclinic.owner.PetControllerTests" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-04T18:47:51.714Z" hostname="WDVJD22XQC" time="0.387">
+  <properties/>
+  <testcase name="processUpdateFormSuccess()" classname="org.springframework.samples.petclinic.owner.PetControllerTests" time="0.013"/>
+  <testcase name="processUpdateFormWithSameName()" classname="org.springframework.samples.petclinic.owner.PetControllerTests" time="0.01"/>
+  <testcase name="processCreationFormSuccess()" classname="org.springframework.samples.petclinic.owner.PetControllerTests" time="0.008"/>
+  <testcase name="initCreationForm()" classname="org.springframework.samples.petclinic.owner.PetControllerTests" time="0.043"/>
+  <system-out><![CDATA[2026-11-04T19:47:51.716+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.PetControllerTests]: PetControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-04T19:47:51.723+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.PetControllerTests
+2026-11-04T19:47:51.724+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.PetControllerTests]: PetControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-04T19:47:51.730+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.PetControllerTests
+
+
+              |\      _,,,--,,_
+             /,`.-'`'   ._  \-;;,_
+  _______ __|,4-  ) )_   .;.(__`'-'__     ___ __    _ ___ _______
+ |       | '---''(_/._)-'(_\_)   |   |   |   |  |  | |   |       |
+ |    _  |    ___|_     _|       |   |   |   |   |_| |   |       | __ _ _
+ |   |_| |   |___  |   | |       |   |   |   |       |   |       | \ \ \ \
+ |    ___|    ___| |   | |      _|   |___|   |  _    |   |      _|  \ \ \ \
+ |   |   |   |___  |   | |     |_|       |   | | |   |   |     |_    ) ) ) )
+ |___|   |_______| |___| |_______|_______|___|_|  |__|___|_______|  / / / /
+ ==================================================================/_/_/_/
+
+:: Built with Spring Boot :: 4.1.0
+
+
+2026-11-04T19:47:51.756+01:00  INFO 82312 --- [    Test worker] o.s.s.p.owner.PetControllerTests         : Starting PetControllerTests using Java 17.0.21.0.3 with PID 82312 (started by D061177 in /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle)
+2026-11-04T19:47:51.757+01:00  INFO 82312 --- [    Test worker] o.s.s.p.owner.PetControllerTests         : No active profile set, falling back to 1 default profile: "default"
+2026-11-04T19:47:52.006+01:00  INFO 82312 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-11-04T19:47:52.006+01:00  INFO 82312 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-11-04T19:47:52.007+01:00  INFO 82312 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-11-04T19:47:52.019+01:00  INFO 82312 --- [    Test worker] o.s.s.p.owner.PetControllerTests         : Started PetControllerTests in 0.285 seconds (process running for 10.942)
+2026-11-04T19:47:52.104+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.PetControllerTests$ProcessUpdateFormHasErrors]: ProcessUpdateFormHasErrors does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-04T19:47:52.111+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.PetControllerTests$ProcessUpdateFormHasErrors
+2026-11-04T19:47:52.111+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.PetControllerTests$ProcessUpdateFormHasErrors]: ProcessUpdateFormHasErrors does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-04T19:47:52.112+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.PetControllerTests]: PetControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-04T19:47:52.117+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.PetControllerTests$ProcessUpdateFormHasErrors
+2026-11-04T19:47:52.266+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.PetControllerTests$ProcessCreationFormHasErrors]: ProcessCreationFormHasErrors does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-04T19:47:52.272+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.PetControllerTests$ProcessCreationFormHasErrors
+2026-11-04T19:47:52.273+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.PetControllerTests$ProcessCreationFormHasErrors]: ProcessCreationFormHasErrors does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-04T19:47:52.273+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.PetControllerTests]: PetControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-04T19:47:52.278+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.PetControllerTests$ProcessCreationFormHasErrors
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

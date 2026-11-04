@@ -1,0 +1,2 @@
+/private/tmp/stp-petclinic-parity-01.fJDgaN/maven/target/classes
+/private/tmp/stp-petclinic-parity-01.fJDgaN/maven/target/spring-petclinic-4.0.0-SNAPSHOT.jar

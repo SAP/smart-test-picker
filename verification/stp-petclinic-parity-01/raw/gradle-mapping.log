@@ -1,0 +1,1113 @@
+Initialized native services in: /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/native
+Initialized jansi services in: /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/native
+The current JVM process isn't compatible with build requirement. The maximum heap size is insufficient.
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.5.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Starting process 'Gradle build daemon'. Working directory: /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/daemon/9.5.1 Command: /Library/Java/JavaVirtualMachines/sapmachine-21.jdk/Contents/Home/bin/java --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.prefs/java.util.prefs=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED --add-opens=java.base/java.nio.charset=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED --add-opens=java.xml/javax.xml.namespace=ALL-UNNAMED --add-opens=java.base/java.time=ALL-UNNAMED -XX:MaxMetaspaceSize=384m -XX:+HeapDumpOnOutOfMemoryError -Xms256m -Xmx512m -Dfile.encoding=UTF-8 -Duser.country=DE -Duser.language=en -Duser.variant -cp /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/wrapper/dists/gradle-9.5.1-bin/iq79hdu3mqx29lgffhp8bfmx/gradle-9.5.1/lib/gradle-daemon-main-9.5.1.jar -javaagent:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/wrapper/dists/gradle-9.5.1-bin/iq79hdu3mqx29lgffhp8bfmx/gradle-9.5.1/lib/agents/gradle-instrumentation-agent-9.5.1.jar org.gradle.launcher.daemon.bootstrap.GradleDaemon 9.5.1
+Successfully started process 'Gradle build daemon'
+An attempt to start the daemon took 0.759 secs.
+The client will now receive all logging from the daemon (pid: 82298). The daemon log file: /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/daemon/9.5.1/daemon-82298.out.log
+Daemon will be stopped at the end of the build 
+Using 10 worker leases.
+Operational build model parameters: {cachingModelBuilding=false, configurationCache=false, configurationCacheDisabledReason=null, configurationCacheParallelLoad=false, configurationCacheParallelStore=false, configureOnDemand=false, invalidateCoupledProjects=false, isolatedProjects=false, modelAsProjectDependency=false, modelBuilding=false, parallelModelBuilding=false, parallelProjectConfiguration=false, parallelProjectExecution=false, resilientModelBuilding=false}
+Received JVM installation metadata from '/Library/Java/JavaVirtualMachines/sapmachine-21.jdk/Contents/Home': {JAVA_HOME=/Library/Java/JavaVirtualMachines/sapmachine-21.jdk/Contents/Home, JAVA_VERSION=21.0.13.0.3, JAVA_VENDOR=SAP SE, RUNTIME_NAME=OpenJDK Runtime Environment, RUNTIME_VERSION=21.0.13.0.3+1-LTS, VM_NAME=OpenJDK 64-Bit Server VM, VM_VERSION=21.0.13.0.3+1-LTS, VM_VENDOR=SAP SE, OS_ARCH=aarch64}
+Watching the file system is configured to be enabled if available
+Now considering [/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle] as hierarchies to watch
+File system watching is active
+Cached resource file:/Users/D061177/work/moje/smart-test-picker/build/functional-test-maven-repository/com/sap/oss/smart-test-picker/smart-test-picker-common/0.3.0-SNAPSHOT/smart-test-picker-common-0.3.0-20261104.181020-70.jar is up-to-date (lastModified: Wed Nov 04 19:11:16 CET 2026).
+Cached resource file:/Users/D061177/work/moje/smart-test-picker/build/functional-test-maven-repository/com/sap/oss/smart-test-picker/smart-test-picker/0.3.0-SNAPSHOT/smart-test-picker-0.3.0-20261104.181020-26.jar is up-to-date (lastModified: Wed Nov 04 19:23:38 CET 2026).
+Cached resource file:/Users/D061177/work/moje/smart-test-picker/build/functional-test-maven-repository/com/sap/oss/smart-test-picker/smart-test-picker-core/0.3.0-SNAPSHOT/smart-test-picker-core-0.3.0-20261104.181020-70.jar is up-to-date (lastModified: Wed Nov 04 19:11:16 CET 2026).
+Starting Build
+Settings evaluated using settings file '/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/settings.gradle'.
+Projects loaded. Root project using build file '/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/build.gradle'.
+Included projects: [root project 'spring-petclinic']
+[SmartTestPickerPlugin] Plugin applied.
+Starting process 'command '/usr/libexec/java_home''. Working directory: /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/daemon/9.5.1 Command: /usr/libexec/java_home -V
+Successfully started process 'command '/usr/libexec/java_home''
+Starting process 'command '/Library/Java/JavaVirtualMachines/sapmachine-17.jdk/Contents/Home/bin/java''. Working directory: /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/.tmp/tmp-jvm11455066797091279994probe Command: /Library/Java/JavaVirtualMachines/sapmachine-17.jdk/Contents/Home/bin/java -Xmx32m -Xms32m -cp . JavaProbe
+Successfully started process 'command '/Library/Java/JavaVirtualMachines/sapmachine-17.jdk/Contents/Home/bin/java''
+Received JVM installation metadata from '/Library/Java/JavaVirtualMachines/sapmachine-17.jdk/Contents/Home': {JAVA_HOME=/Library/Java/JavaVirtualMachines/sapmachine-17.jdk/Contents/Home, JAVA_VERSION=17.0.21.0.3, JAVA_VENDOR=SAP SE, RUNTIME_NAME=OpenJDK Runtime Environment, RUNTIME_VERSION=17.0.21.0.3+1-LTS, VM_NAME=OpenJDK 64-Bit Server VM, VM_VERSION=17.0.21.0.3+1-LTS, VM_VENDOR=SAP SE, OS_ARCH=aarch64}
+Starting process 'command '/Library/Java/JavaVirtualMachines/sapmachine-jdk-11.0.16.jdk/Contents/Home/bin/java''. Working directory: /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/.tmp/tmp-jvm16213619931437670597probe Command: /Library/Java/JavaVirtualMachines/sapmachine-jdk-11.0.16.jdk/Contents/Home/bin/java -Xmx32m -Xms32m -cp . JavaProbe
+Successfully started process 'command '/Library/Java/JavaVirtualMachines/sapmachine-jdk-11.0.16.jdk/Contents/Home/bin/java''
+Received JVM installation metadata from '/Library/Java/JavaVirtualMachines/sapmachine-jdk-11.0.16.jdk/Contents/Home': {JAVA_HOME=/Library/Java/JavaVirtualMachines/sapmachine-jdk-11.0.16.jdk/Contents/Home, JAVA_VERSION=11.0.16, JAVA_VENDOR=SAP SE, RUNTIME_NAME=OpenJDK Runtime Environment, RUNTIME_VERSION=11.0.16+8-LTS-sapmachine, VM_NAME=OpenJDK 64-Bit Server VM, VM_VERSION=11.0.16+8-LTS-sapmachine, VM_VENDOR=SAP SE, OS_ARCH=aarch64}
+Starting process 'command '/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin/java''. Working directory: /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/.tmp/tmp-jvm14942067228896440922probe Command: /Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin/java -Xmx32m -Xms32m -cp . JavaProbe
+Successfully started process 'command '/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin/java''
+Received JVM installation metadata from '/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home': {JAVA_HOME=/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home, JAVA_VERSION=1.8.0_333, JAVA_VENDOR=Oracle Corporation, RUNTIME_NAME=Java(TM) SE Runtime Environment, RUNTIME_VERSION=1.8.0_333-b02, VM_NAME=Java HotSpot(TM) 64-Bit Server VM, VM_VERSION=25.333-b02, VM_VENDOR=Oracle Corporation, OS_ARCH=x86_64}
+
+> Configure project :
+Evaluating root project 'spring-petclinic' using build file '/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/build.gradle'.
+Resolved plugin [id: 'java']
+Resolved plugin [id: 'checkstyle']
+Resolved plugin [id: 'org.springframework.boot', version: '4.1.0']
+Resolved plugin [id: 'io.spring.dependency-management', version: '1.1.7']
+Resolved plugin [id: 'org.graalvm.buildtools.native', version: '1.1.2']
+Resolved plugin [id: 'org.cyclonedx.bom', version: '3.2.4']
+Resolved plugin [id: 'io.spring.javaformat', version: '0.0.47']
+Resolved plugin [id: 'io.spring.nohttp', version: '0.0.11']
+Applying dependency management to configuration 'annotationProcessor' in project 'spring-petclinic'
+Applying dependency management to configuration 'apiElements' in project 'spring-petclinic'
+Applying dependency management to configuration 'archives' in project 'spring-petclinic'
+Applying dependency management to configuration 'bootArchives' in project 'spring-petclinic'
+Applying dependency management to configuration 'checkstyle' in project 'spring-petclinic'
+Applying dependency management to configuration 'compileClasspath' in project 'spring-petclinic'
+Applying dependency management to configuration 'compileOnly' in project 'spring-petclinic'
+Applying dependency management to configuration 'default' in project 'spring-petclinic'
+Applying dependency management to configuration 'developmentOnly' in project 'spring-petclinic'
+Applying dependency management to configuration 'implementation' in project 'spring-petclinic'
+Applying dependency management to configuration 'mainSourceElements' in project 'spring-petclinic'
+Applying dependency management to configuration 'productionRuntimeClasspath' in project 'spring-petclinic'
+Applying dependency management to configuration 'runtimeClasspath' in project 'spring-petclinic'
+Applying dependency management to configuration 'runtimeElements' in project 'spring-petclinic'
+Applying dependency management to configuration 'runtimeOnly' in project 'spring-petclinic'
+Applying dependency management to configuration 'stpAgent' in project 'spring-petclinic'
+Applying dependency management to configuration 'stpJacocoCollector' in project 'spring-petclinic'
+Applying dependency management to configuration 'testAndDevelopmentOnly' in project 'spring-petclinic'
+Applying dependency management to configuration 'testAnnotationProcessor' in project 'spring-petclinic'
+Applying dependency management to configuration 'testCompileClasspath' in project 'spring-petclinic'
+Applying dependency management to configuration 'testCompileOnly' in project 'spring-petclinic'
+Applying dependency management to configuration 'testImplementation' in project 'spring-petclinic'
+Applying dependency management to configuration 'testResultsElementsForTest' in project 'spring-petclinic'
+Applying dependency management to configuration 'testRuntimeClasspath' in project 'spring-petclinic'
+Applying dependency management to configuration 'testRuntimeOnly' in project 'spring-petclinic'
+[native-image-plugin] ====================
+[native-image-plugin] Initializing project: spring-petclinic
+[native-image-plugin] ====================
+Applying dependency management to configuration 'nativeImageCompileOnly' in project 'spring-petclinic'
+Applying dependency management to configuration 'nativeImageClasspath' in project 'spring-petclinic'
+Applying dependency management to configuration 'nativeImageTestCompileOnly' in project 'spring-petclinic'
+Applying dependency management to configuration 'nativeImageTestClasspath' in project 'spring-petclinic'
+Applying dependency management to configuration 'aotImplementation' in project 'spring-petclinic'
+Applying dependency management to configuration 'aotCompileOnly' in project 'spring-petclinic'
+Applying dependency management to configuration 'aotCompileClasspath' in project 'spring-petclinic'
+Applying dependency management to configuration 'aotAnnotationProcessor' in project 'spring-petclinic'
+Applying dependency management to configuration 'aotRuntimeOnly' in project 'spring-petclinic'
+Applying dependency management to configuration 'aotRuntimeClasspath' in project 'spring-petclinic'
+Applying dependency management to configuration 'aotTestImplementation' in project 'spring-petclinic'
+Applying dependency management to configuration 'aotTestCompileOnly' in project 'spring-petclinic'
+Applying dependency management to configuration 'aotTestCompileClasspath' in project 'spring-petclinic'
+Applying dependency management to configuration 'aotTestAnnotationProcessor' in project 'spring-petclinic'
+Applying dependency management to configuration 'aotTestRuntimeOnly' in project 'spring-petclinic'
+Applying dependency management to configuration 'aotTestRuntimeClasspath' in project 'spring-petclinic'
+Applying dependency management to configuration 'processAotClasspath' in project 'spring-petclinic'
+Applying dependency management to configuration 'processTestAotClasspath' in project 'spring-petclinic'
+Applying dependency management to configuration 'cyclonedxDirectBom' in project 'spring-petclinic'
+Applying dependency management to configuration 'cyclonedxBom' in project 'spring-petclinic'
+Applying dependency management to configuration 'nohttp' in project 'spring-petclinic'
+Applying dependency management to configuration 'nohttp-cli' in project 'spring-petclinic'
+Applying dependency management to configuration 'nativeImageTestCompileOnlyAuto' in project 'spring-petclinic'
+Applying dependency management to configuration 'nativeImageTestClasspathInternal' in project 'spring-petclinic'
+Starting process 'command '/Library/Java/JavaVirtualMachines/jdk1.8.0_333.jdk/Contents/Home/bin/java''. Working directory: /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/.tmp/tmp-jvm10682969640505970264probe Command: /Library/Java/JavaVirtualMachines/jdk1.8.0_333.jdk/Contents/Home/bin/java -Xmx32m -Xms32m -cp . JavaProbe
+Successfully started process 'command '/Library/Java/JavaVirtualMachines/jdk1.8.0_333.jdk/Contents/Home/bin/java''
+Received JVM installation metadata from '/Library/Java/JavaVirtualMachines/jdk1.8.0_333.jdk/Contents/Home': {JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_333.jdk/Contents/Home/jre, JAVA_VERSION=1.8.0_333, JAVA_VENDOR=Oracle Corporation, RUNTIME_NAME=Java(TM) SE Runtime Environment, RUNTIME_VERSION=1.8.0_333-b02, VM_NAME=Java HotSpot(TM) 64-Bit Server VM, VM_VERSION=25.333-b02, VM_VENDOR=Oracle Corporation, OS_ARCH=x86_64}
+[native-image-plugin] Not instrumenting task with native-image-agent: checkFormatAot. Reason: Task does not match user predicate
+[native-image-plugin] Not instrumenting task with native-image-agent: checkFormatAotTest. Reason: Task does not match user predicate
+[native-image-plugin] Not instrumenting task with native-image-agent: checkstyleAot. Reason: Task does not match user predicate
+[native-image-plugin] Not instrumenting task with native-image-agent: checkstyleAotTest. Reason: Task does not match user predicate
+[native-image-plugin] Not instrumenting task with native-image-agent: checkstyleNohttp. Reason: Task does not match user predicate
+[native-image-plugin] Not instrumenting task with native-image-agent: compileTestJava. Reason: Task does not match user predicate
+[native-image-plugin] Not instrumenting task with native-image-agent: dependencyManagement. Reason: Task does not match user predicate
+[native-image-plugin] Not instrumenting task with native-image-agent: formatAot. Reason: Task does not match user predicate
+[native-image-plugin] Not instrumenting task with native-image-agent: formatAotTest. Reason: Task does not match user predicate
+All projects evaluated.
+[native-image-plugin] Not instrumenting task with native-image-agent: generateGradleExecutableProjectInventory. Reason: Task does not match user predicate
+[native-image-plugin] Not instrumenting task with native-image-agent: generateGradleExecutableHeadTestInventory. Reason: Task does not match user predicate
+[native-image-plugin] Not instrumenting task with native-image-agent: generateSmartTestMapping. Reason: Task does not match user predicate
+[native-image-plugin] Not instrumenting task with native-image-agent: aggregateGradleExecutableCoverage. Reason: Task does not match user predicate
+[native-image-plugin] Not instrumenting task with native-image-agent: resolveStpAgentArtifact. Reason: Task does not match user predicate
+Smart Test Picker coverage collector: ASM
+Task name matched 'generateSmartTestMapping'
+Selected primary task 'generateSmartTestMapping' from project :
+[native-image-plugin] Not instrumenting task with native-image-agent: compileAotTestJava. Reason: Task does not match user predicate
+[native-image-plugin] Not instrumenting task with native-image-agent: aotTestClasses. Reason: Task does not match user predicate
+Resolving global dependency management for project 'spring-petclinic'
+Excluding [com.google.protobuf:protobuf-java]
+Excluding []
+[native-image-plugin] Not instrumenting task with native-image-agent: compileJava. Reason: Task does not match user predicate
+[native-image-plugin] Not instrumenting task with native-image-agent: classes. Reason: Task does not match user predicate
+[native-image-plugin] Not instrumenting task with native-image-agent: testClasses. Reason: Task does not match user predicate
+[native-image-plugin] Not instrumenting task with native-image-agent: jar. Reason: Task does not match user predicate
+[native-image-plugin] Not instrumenting task with native-image-agent: bootJar. Reason: Task does not match user predicate
+[native-image-plugin] Not instrumenting task with native-image-agent: nativeCompileClasspathJar. Reason: Task does not match user predicate
+[native-image-plugin] Not instrumenting task with native-image-agent: nativeTestCompileClasspathJar. Reason: Task does not match user predicate
+[native-image-plugin] Not instrumenting task with native-image-agent: processAotTestResources. Reason: Task does not match user predicate
+Excluding []
+Excluding []
+Excluding []
+[native-image-plugin] Not instrumenting task with native-image-agent: processResources. Reason: Task does not match user predicate
+Excluding []
+Excluding []
+[native-image-plugin] Not instrumenting task with native-image-agent: cyclonedxBom. Reason: Task does not match user predicate
+[native-image-plugin] Not instrumenting task with native-image-agent: cyclonedxDirectBom. Reason: Task does not match user predicate
+Excluding []
+Excluding []
+Excluding []
+Excluding []
+[CycloneDX] Resolving dependencies for project [root project 'spring-petclinic']
+[CycloneDX] For project spring-petclinic following configurations are in scope to build the dependency graph: annotationProcessor,aotAnnotationProcessor,aotCompileClasspath,aotRuntimeClasspath,checkstyle,compileClasspath,cyclonedxBom,developmentOnly,nativeImageClasspath,nohttp,nohttp-cli,processAotClasspath,productionRuntimeClasspath,runtimeClasspath,stpAgent,stpJacocoCollector
+Excluding []
+Excluding [com.google.protobuf:protobuf-java]
+Excluding [com.google.protobuf:protobuf-java]
+[native-image-plugin] Not instrumenting task with native-image-agent: compileAotJava. Reason: Task does not match user predicate
+Excluding []
+Excluding []
+Excluding [com.google.protobuf:protobuf-java]
+Excluding [com.google.protobuf:protobuf-java]
+Excluding [com.google.protobuf:protobuf-java]
+Excluding []
+Excluding []
+[CycloneDX] For project spring-petclinic following configurations are in scope to build the dependency graph: annotationProcessor,aotAnnotationProcessor,aotCompileClasspath,aotRuntimeClasspath,checkstyle,compileClasspath,cyclonedxBom,developmentOnly,nativeImageClasspath,nohttp,nohttp-cli,processAotClasspath,productionRuntimeClasspath,runtimeClasspath,stpAgent,stpJacocoCollector
+Excluding []
+Excluding []
+[native-image-plugin] Not instrumenting task with native-image-agent: processTestResources. Reason: Task does not match user predicate
+Tasks to be executed: [task ':compileJava', task ':cyclonedxDirectBom', task ':cyclonedxBom', task ':processResources', task ':classes', task ':compileTestJava', task ':processTestResources', task ':testClasses', task ':processTestAot', task ':compileAotTestJava', task ':processAotTestResources', task ':aotTestClasses', task ':resolveStpAgentArtifact', task ':test', task ':aggregateGradleExecutableCoverage', task ':generateSmartTestMapping']
+Tasks that were excluded: []
+[native-image-plugin] Not instrumenting task with native-image-agent: clean. Reason: Task does not match user predicate
+Resolve mutations for :compileJava (Thread[#91,Execution worker Thread 2,5,main]) started.
+:compileJava (Thread[#91,Execution worker Thread 2,5,main]) started.
+
+> Task :compileJava UP-TO-DATE
+Custom actions are attached to task ':compileJava'.
+Caching disabled for task ':compileJava' because:
+  Build cache is disabled
+Skipping task ':compileJava' as it is up-to-date.
+Resolve mutations for :cyclonedxDirectBom (Thread[#91,Execution worker Thread 2,5,main]) started.
+:cyclonedxDirectBom (Thread[#91,Execution worker Thread 2,5,main]) started.
+
+> Task :cyclonedxDirectBom UP-TO-DATE
+Caching disabled for task ':cyclonedxDirectBom' because:
+  Build cache is disabled
+Skipping task ':cyclonedxDirectBom' as it is up-to-date.
+work action resolve bom.json (root project :) (Thread[#91,Execution worker Thread 2,5,main]) started.
+work action resolve bom.xml (root project :) (Thread[#91,Execution worker Thread 2,5,main]) started.
+Resolve mutations for :cyclonedxBom (Thread[#91,Execution worker Thread 2,5,main]) started.
+:cyclonedxBom (Thread[#91,Execution worker Thread 2,5,main]) started.
+
+> Task :cyclonedxBom UP-TO-DATE
+Caching disabled for task ':cyclonedxBom' because:
+  Build cache is disabled
+Skipping task ':cyclonedxBom' as it is up-to-date.
+Resolve mutations for :processResources (Thread[#91,Execution worker Thread 2,5,main]) started.
+:processResources (Thread[#91,Execution worker Thread 2,5,main]) started.
+
+> Task :processResources UP-TO-DATE
+Caching disabled for task ':processResources' because:
+  Build cache is disabled
+  Not worth caching
+Skipping task ':processResources' as it is up-to-date.
+Resolve mutations for :classes (Thread[#91,Execution worker Thread 2,5,main]) started.
+:classes (Thread[#91,Execution worker Thread 2,5,main]) started.
+
+> Task :classes UP-TO-DATE
+Skipping task ':classes' as it has no actions.
+Resolve mutations for :compileTestJava (Thread[#91,Execution worker Thread 2,5,main]) started.
+:compileTestJava (Thread[#91,Execution worker Thread 2,5,main]) started.
+
+> Task :compileTestJava UP-TO-DATE
+Custom actions are attached to task ':compileTestJava'.
+Caching disabled for task ':compileTestJava' because:
+  Build cache is disabled
+Skipping task ':compileTestJava' as it is up-to-date.
+Resolve mutations for :processTestResources (Thread[#91,Execution worker Thread 2,5,main]) started.
+:processTestResources (Thread[#91,Execution worker Thread 2,5,main]) started.
+
+> Task :processTestResources NO-SOURCE
+Skipping task ':processTestResources' as it has no source files and no previous output files.
+Resolve mutations for :testClasses (Thread[#91,Execution worker Thread 2,5,main]) started.
+:testClasses (Thread[#91,Execution worker Thread 2,5,main]) started.
+
+> Task :testClasses UP-TO-DATE
+Skipping task ':testClasses' as it has no actions.
+Resolve mutations for :processTestAot (Thread[#91,Execution worker Thread 2,5,main]) started.
+:processTestAot (Thread[#92,Execution worker Thread 3,5,main]) started.
+
+> Task :processTestAot
+Skip creation of directory /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/agent-config (already created).
+Custom actions are attached to task ':processTestAot'.
+Caching disabled for task ':processTestAot' because:
+  Build cache is disabled
+Task ':processTestAot' is not up-to-date because:
+  No history is available.
+Starting process 'command '/Library/Java/JavaVirtualMachines/sapmachine-17.jdk/Contents/Home/bin/java''. Working directory: /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle Command: /Library/Java/JavaVirtualMachines/sapmachine-17.jdk/Contents/Home/bin/java -Dfile.encoding=UTF-8 -Duser.country=DE -Duser.language=en -Duser.variant -cp /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/build/classes/java/main:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/build/resources/main:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/build/classes/java/test:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/build/resources/test:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-cache/4.1.0/a1eeb694e80f3be4702f0f71643930386e68cc69/spring-boot-starter-cache-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-data-jpa-test/4.1.0/45b886e65ad640f46dd225aaa252c6b1b64e290a/spring-boot-starter-data-jpa-test-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-data-jpa/4.1.0/252e31911d5042a8ae811ad9bfc3e18ec4ac42a5/spring-boot-starter-data-jpa-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-thymeleaf/4.1.0/d3252bc119bc8a5cae3669324e3e13d4f25b6507/spring-boot-starter-thymeleaf-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-webmvc-test/4.1.0/4bc3a9d6f7e15870cade8bcb2dff4bd1683f8fdd/spring-boot-starter-webmvc-test-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-webmvc/4.1.0/bbde05100fc621297f7dcb5246f631e5af390ef7/spring-boot-starter-webmvc-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-validation/4.1.0/36c16acdbe1b86463616aeb218f18764c9baff2d/spring-boot-starter-validation-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-data-jpa-test/4.1.0/e42e3b676e832da183be0490f3d74014a151c516/spring-boot-data-jpa-test-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-data-jpa/4.1.0/d29dbdc6734afe2f4d5c56cf3112c491c3582642/spring-boot-data-jpa-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-hibernate/4.1.0/af702315125871004a8a7df290f55ac5e5617d91/spring-boot-hibernate-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.hibernate.orm/hibernate-core/7.4.1.Final/b405096e4aa04ff9c99a3e6e632eb2b8d252e1f1/hibernate-core-7.4.1.Final.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/javax.cache/cache-api/1.1.1/c56fb980eb5208bfee29a9a5b9d951aba076bd91/cache-api-1.1.1.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-restclient-test/4.1.0/2c06d3d60d6ffbccde53051e7ef8fa3ac07720c9/spring-boot-starter-restclient-test-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-jdbc-test/4.1.0/581473dc473de034683c089f1fb223334b36793c/spring-boot-starter-jdbc-test-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-jackson-test/4.1.0/cab6d664d5307c3c3672b898478593140fc29ff4/spring-boot-starter-jackson-test-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-test/4.1.0/9fdedc132b9cd2ba57857c7f17357def9300cd95/spring-boot-starter-test-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.glassfish.jaxb/jaxb-runtime/4.0.9/500c199572538675d2819c938fbafe34935d8d6b/jaxb-runtime-4.0.9.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.glassfish.jaxb/jaxb-core/4.0.9/3f32ec949d109d666fa30994223d1c25a47b105f/jaxb-core-4.0.9.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/jakarta.xml.bind/jakarta.xml.bind-api/4.0.5/161811f36cad3c65991502e80317f2f6703361df/jakarta.xml.bind-api-4.0.5.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter/6.0.3/da72f4bc0feccbca639b901ace26e3a62512ebec/junit-jupiter-6.0.3.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-engine/6.0.3/e26f7e17d06cfc85ba7643b5ad00c87d5f2084dd/junit-jupiter-engine-6.0.3.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.junit.platform/junit-platform-engine/6.0.3/101305612e7daa4ce978d3ba73fd02dd4a5f22d9/junit-platform-engine-6.0.3.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.mockito/mockito-junit-jupiter/5.23.0/e66b5f34ffea58bf4388aba58f66a209daeba4fd/mockito-junit-jupiter-5.23.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-params/6.0.3/6cd3efadd171a3ddd70413868a9c3af988a45907/junit-jupiter-params-6.0.3.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-api/6.0.3/2e6cfb62db85350179f0408ed5270f7cdf8cefda/junit-jupiter-api-6.0.3.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.junit.platform/junit-platform-commons/6.0.3/1093a7faa2ba47c28aa83f378d9a2083463bb20c/junit-platform-commons-6.0.3.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.junit.platform/junit-platform-launcher/6.0.3/4a721cdd640ebdaa4c6850f5eee0b0377cf698b0/junit-platform-launcher-6.0.3.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-actuator/4.1.0/bd15774d0bb852ab3d4f3bdbf7b134a51ef8063d/spring-boot-starter-actuator-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.webjars/webjars-locator-lite/1.1.3/217ce590453251b39b72c4a9af3986998f6fdbd9/webjars-locator-lite-1.1.3.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.webjars.npm/bootstrap/5.3.8/1a2f960f569cba04bce1c79ff07ab8985a0f56a0/bootstrap-5.3.8.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.webjars.npm/font-awesome/4.7.0/309276dbcb8afe0482a1698a78b081b918e0e445/font-awesome-4.7.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/com.github.ben-manes.caffeine/caffeine/3.2.4/c63b303adf59c733d2a96125ad6670e938a2c15d/caffeine-3.2.4.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/com.h2database/h2/2.4.240/686180ad33981ad943fdc0ab381e619b2c2fdfe5/h2-2.4.240.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/com.mysql/mysql-connector-j/9.7.0/4e6e3e8765e4a9d0609744b3e8fe75afe1b98cba/mysql-connector-j-9.7.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.postgresql/postgresql/42.7.11/4c21cdd1b3938f400703716d37c4e8ca4d332808/postgresql-42.7.11.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-testcontainers/4.1.0/110c6e137e7bf1ea1a90f71a430e95739e12401d/spring-boot-testcontainers-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-docker-compose/4.1.0/ed8f05c8a593b1a498d16f873de5a7a99f638072/spring-boot-docker-compose-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.testcontainers/testcontainers-junit-jupiter/2.0.5/89bd1ef45ec60b17b323c747da1e6f2af6187543/testcontainers-junit-jupiter-2.0.5.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.testcontainers/testcontainers-mysql/2.0.5/9040e9d27b8e0b44955b78f96ddb5c2a77d95ae2/testcontainers-mysql-2.0.5.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-jdbc/4.1.0/aa7c6585dd28891cb052d95606776076b5445df2/spring-boot-starter-jdbc-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-restclient/4.1.0/2f23541ef00728c2406ba0714ee09d5ea63624c0/spring-boot-starter-restclient-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-jackson/4.1.0/2feada57005e69f8d939815af7400b43f2c07b9e/spring-boot-starter-jackson-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-tomcat/4.1.0/6dbb6ad6bb33b7f1ce15a5822cfd1443966245e0/spring-boot-starter-tomcat-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-micrometer-metrics/4.1.0/e2b5a25dd872e30d15832626c0789db9a4c3657/spring-boot-starter-micrometer-metrics-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter/4.1.0/4d1f5fcf982ec75223a3ee44169e268b6dd044f7/spring-boot-starter-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-cache/4.1.0/ed94c2d47058204b56f7ba43aed55331fb898bba/spring-boot-cache-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-jpa-test/4.1.0/20cb01816cc1165232940cca7116a5b7a15a2b7d/spring-boot-jpa-test-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-jdbc-test/4.1.0/543e2129f10be95d9cdad17a639e1500469edf3b/spring-boot-jdbc-test-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-jpa/4.1.0/bf645cdf194c71f829225793a5d6545d9dfe96ae/spring-boot-jpa-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-jdbc/4.1.0/71f00c6af0ae910530d9fce8f5ae6e54c595f690/spring-boot-jdbc-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-thymeleaf/4.1.0/eea0a2aaa94223eac5641e791eba22d4182517b4/spring-boot-thymeleaf-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-webmvc-test/4.1.0/977bae6039a35c982cd1c75c991a9a55f45ec4d7/spring-boot-webmvc-test-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-webmvc/4.1.0/2cb542ef7d4fa572d3031616544db20b6f7de4c7/spring-boot-webmvc-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-resttestclient/4.1.0/aba3a64a670bfb4d690c68c7abfa5ef020769092/spring-boot-resttestclient-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-restclient-test/4.1.0/45bd65eea3e1efcba0eebd77cbf564759c02c374/spring-boot-restclient-test-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-restclient/4.1.0/d3f9fadf2847b18b7a5438d7737be3b041fe168e/spring-boot-restclient-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-http-client/4.1.0/eb43e8087894445e5e84174c910fbf41453c9f66/spring-boot-http-client-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-http-converter/4.1.0/c3b90921e920dfa7dcb78a5045f18ca0e4bc0b44/spring-boot-http-converter-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-validation/4.1.0/fcd0b07c0c7e29f42e495f91710154dbc81d2c8c/spring-boot-validation-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.eclipse.angus/angus-activation/2.0.3/7f80607ea5014fef0b1779e6c33d63a88a45a563/angus-activation-2.0.3.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/jakarta.activation/jakarta.activation-api/2.1.4/9e5c2a0d75dde71a0bedc4dbdbe47b78a5dc50f8/jakarta.activation-api-2.1.4.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.assertj/assertj-core/3.27.7/2f4f64f054c9d618d4b1d89e7611559f5e2cfff7/assertj-core-3.27.7.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-jackson/4.1.0/bada14f54b1961279f9942c54b5039c90cd6a252/spring-boot-jackson-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/tools.jackson.core/jackson-core/3.1.4/f9fd39204bd3d4922b42f6a54b81f46bd8ed575a/jackson-core-3.1.4.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/tools.jackson.core/jackson-databind/3.1.4/c7be3c757289893a791b2a4967ec09d1a8b6c576/jackson-databind-3.1.4.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.testcontainers/testcontainers-jdbc/2.0.5/8b93b3febba94df8a3bd67c9fde8f63c8ddf2177/testcontainers-jdbc-2.0.5.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.testcontainers/testcontainers-database-commons/2.0.5/bc1eeea337c461c108507f596122b3e6fdb62122/testcontainers-database-commons-2.0.5.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.testcontainers/testcontainers/2.0.5/7e5013c78fd678ba8958db23c6883274019f2f2f/testcontainers-2.0.5.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/com.github.docker-java/docker-java-api/3.7.1/2df91233a782749e85139991cc94d4ef40b59038/docker-java-api-3.7.1.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.21/b1bc1868bf02dc0bd6c7836257a036a331005309/jackson-annotations-2.21.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-logging/4.1.0/f2e2615d9fb27a035a8fc7aef19670769739ae76/spring-boot-starter-logging-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-to-slf4j/2.25.4/68df56640a5d245192e91bd2ac89e504b477cc10/log4j-to-slf4j-2.25.4.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-api/2.25.4/89ff2217b193fb187b134aa6ebcbfa8a28b018a9/log4j-api-2.25.4.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/io.micrometer/micrometer-jakarta9/1.17.0/e8a0380f6a92110cd76d7d9a329a3c57740c6e3f/micrometer-jakarta9-1.17.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-servlet/4.1.0/a067e9b4b7c255a8587852b6eb842413cc458e70/spring-boot-servlet-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework/spring-webmvc/7.0.8/d08172cf66f9625a42935d596ca4c83d21265996/spring-webmvc-7.0.8.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-tomcat-runtime/4.1.0/6107a851e178c1233b64634270b11b8d5490733a/spring-boot-starter-tomcat-runtime-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-tomcat/4.1.0/502aeed70cb11c3754c365324acd9f3ee746354/spring-boot-tomcat-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-web-server/4.1.0/e67513b382c2cef7b8bc364e8e85cd7f0940e331/spring-boot-web-server-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework/spring-web/7.0.8/d7cddac31ee023d25d37f48e2ff0e168cf635c14/spring-web-7.0.8.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-micrometer-metrics/4.1.0/91c5d35269ce2ae1b832180617b9a52fbfec4f29/spring-boot-micrometer-metrics-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/io.micrometer/micrometer-core/1.17.0/b71d95b2819c5959bedf186e9a667e932b573dad/micrometer-core-1.17.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-health/4.1.0/5ac1d047f93ca1658bfcfda813b5da3f5bb6765b/spring-boot-health-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-actuator-autoconfigure/4.1.0/a8c1a01cc75f6d39eb795d5cbc7c05d4b6c93ed/spring-boot-actuator-autoconfigure-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-autoconfigure/4.1.0/a921df4e39389e43dacac5615a1185708ee8a960/spring-boot-autoconfigure-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-data-commons/4.1.0/3d587cffcde8c18fa784e0486a2c0a8a4728f262/spring-boot-data-commons-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-sql/4.1.0/7a5ef86020d10e926b2e98e1d7b4b79258fb2f38/spring-boot-sql-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-transaction/4.1.0/93b102fb7c2eb6558b8e52fb24f1152c837db3f6/spring-boot-transaction-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-actuator/4.1.0/aff3955601271f4efdff207afeffa832fcb2835f/spring-boot-actuator-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-test-autoconfigure/4.1.0/d8c05e21151a63ae829cd313418b942c92334874/spring-boot-test-autoconfigure-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-test/4.1.0/f6c9cb2cc423397ce6c7c8ab5eb4296734290ad0/spring-boot-test-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-persistence/4.1.0/12b6d5aa8a97c458a5c8eba8e8cb0e38e326d9d8/spring-boot-persistence-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-micrometer-observation/4.1.0/f0e219fbac48d71acbabd7f4c8116f58d72d4102/spring-boot-micrometer-observation-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.boot/spring-boot/4.1.0/bcf26d4c27ab080ef60c13220e96a37d687f9e26/spring-boot-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework/spring-context-support/7.0.8/1c9bd9da34fca09f3423d86f8e33bd9c099232eb/spring-context-support-7.0.8.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.data/spring-data-jpa/4.1.0/6387c88a4a9637f129e0ebcad50ada478ad01c3f/spring-data-jpa-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework/spring-context/7.0.8/6c58b590fd8d71afc36797cf6555e82500f1eb64/spring-context-7.0.8.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/io.micrometer/micrometer-observation/1.17.0/2037bdaeb5725bdddb2390cbf93be3c19f8b8b48/micrometer-observation-1.17.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/io.micrometer/micrometer-commons/1.17.0/2edbb561cdd2b2777fbcd83aa9f2204ebabf592b/micrometer-commons-1.17.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.mockito/mockito-core/5.23.0/a5cf3cf244300e4cd05f779827cf50d373a8460e/mockito-core-5.23.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/4.1.0/e8d1077d09c20e9ecf3574a72ce5cc90a29b902a/spring-data-commons-4.1.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework/spring-aop/7.0.8/b73e58e9b7dbc4db6b4ebbe3336be0e901b0d261/spring-aop-7.0.8.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework/spring-aspects/7.0.8/daf535194ee6cd1e1e23c7368c58b5f02fe18f65/spring-aspects-7.0.8.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework/spring-orm/7.0.8/8c40fad8ecc72337353818da54ef2d104b3fa7a9/spring-orm-7.0.8.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework/spring-jdbc/7.0.8/f979da380cd01fd363510ca98a7f544d1959a914/spring-jdbc-7.0.8.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework/spring-tx/7.0.8/96c66acfb3920457421a9cb3648a32e62f42f815/spring-tx-7.0.8.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework/spring-beans/7.0.8/829cdf4c82a9409e0e10922b9e57e2ef12d5f04d/spring-beans-7.0.8.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework/spring-test/7.0.8/a69fb470b6fbf2960552150e4a37e6903dbd2f49/spring-test-7.0.8.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework/spring-expression/7.0.8/bb844eefd513820e356b575d7ea0f7084147af59/spring-expression-7.0.8.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.springframework/spring-core/7.0.8/25f5ebd179f92d7d12779e3761c96da4b0109ad/spring-core-7.0.8.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.aspectj/aspectjweaver/1.9.25.1/a713c790da4d794c7dfb542b550d4e44898d5e23/aspectjweaver-1.9.25.1.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.awaitility/awaitility/4.3.0/f0c0bc1e404e500bab3f498b922eaedeae1c0207/awaitility-4.3.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy/1.18.10/5b34812ced047973a6d42654d50c3b69124ce587/byte-buddy-1.18.10.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.18.10/9426d28828bdcdf42666bb7a68c468279ea78f59/byte-buddy-agent-1.18.10.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.hibernate.validator/hibernate-validator/9.1.0.Final/53505ad984428ab42b4a4f3456aab9ec343bf2f2/hibernate-validator-9.1.0.Final.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/com.fasterxml/classmate/1.7.3/f61c7e7b81e9249b0f6a05914eff9d54fb09f4a0/classmate-1.7.3.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.apache.commons/commons-compress/1.28.0/e482f2c7a88dac3c497e96aa420b6a769f59c8d7/commons-compress-1.28.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/commons-codec/commons-codec/1.21.0/d95f998db5f89900fe895daf6cd2cddcb2f1d64b/commons-codec-1.21.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.20.0/65897b3e5731220962e659e001904af3c3cbeba9/commons-lang3-3.20.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/commons-logging/commons-logging/1.3.6/63e78ca6cd446c0ad166d14f03ed99e7efb3896d/commons-logging-1.3.6.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.glassfish.jaxb/txw2/4.0.9/70325ebdebca3e7aae1dfa395fd41fc25d8a6f4e/txw2-4.0.9.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.hamcrest/hamcrest/3.0/8fd9b78a8e6a6510a078a9e30e9e86a6035cfaf7/hamcrest-3.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/com.zaxxer/HikariCP/7.0.2/c2b43c946b86a14a96342379e22b004c56c6166d/HikariCP-7.0.2.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/jakarta.annotation/jakarta.annotation-api/3.0.0/54f928fadec906a99d558536756d171917b9d936/jakarta.annotation-api-3.0.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/jakarta.inject/jakarta.inject-api/2.0.1/4c28afe1991a941d7702fe1362c365f0a8641d1e/jakarta.inject-api-2.0.1.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/jakarta.persistence/jakarta.persistence-api/3.2.0/bb75a113f3fa191c2c7ee7b206d8e674251b3129/jakarta.persistence-api-3.2.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/jakarta.transaction/jakarta.transaction-api/2.0.1/51a520e3fae406abb84e2e1148e6746ce3f80a1a/jakarta.transaction-api-2.0.1.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/jakarta.validation/jakarta.validation-api/3.1.1/ec8622148afc5564235d17af80ea80288d0e7f92/jakarta.validation-api-3.1.1.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.hibernate.models/hibernate-models/1.1.1/c890a4cc781fd8720e0e2613b4a24b33cdaa80a1/hibernate-models-1.1.1.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.jboss.logging/jboss-logging/3.6.3.Final/1cc9f976725720bb4a66f80af3e3aa6b9890d969/jboss-logging-3.6.3.Final.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/com.jayway.jsonpath/json-path/2.10.0/e1a0b2e6db75401181c9c1c64c6d155ca5c6d608/json-path-2.10.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/net.minidev/json-smart/2.6.0/5f858a43a325a8673da6869ab2bc787a1bcb2244/json-smart-2.6.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.skyscreamer/jsonassert/1.5.3/aaa43e0823d2a0e106e8754d6a9c4ab24e05e9bc/jsonassert-1.5.3.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.jspecify/jspecify/1.0.0/7425a601c1c7ec76645a78d22b8c6a627edee507/jspecify-1.0.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.5.34/e598899bad5824511cd3019299254230468e1fa2/logback-classic-1.5.34.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.5.34/378692f76c337b3325c15bffb89e013dc1f897b4/logback-core-1.5.34.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.slf4j/jul-to-slf4j/2.0.18/79739c98001d5c9d078d087d5a348ec9e474ec8f/jul-to-slf4j-2.0.18.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.thymeleaf/thymeleaf-spring6/3.1.5.RELEASE/d9dcb89be976a321df29518cc634d89a83973800/thymeleaf-spring6-3.1.5.RELEASE.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/com.github.docker-java/docker-java-transport-zerodep/3.7.1/6b1af9996b2004703a41e0fbbf1031cabbbe4e6b/docker-java-transport-zerodep-3.7.1.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.thymeleaf/thymeleaf/3.1.5.RELEASE/8986b45086f74f7773c440055a2f473817dd3fa8/thymeleaf-3.1.5.RELEASE.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.slf4j/slf4j-api/2.0.18/78a9e7a37cd6360e0b818e86341b24123d28d4df/slf4j-api-2.0.18.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.yaml/snakeyaml/2.6/2bc14918a2f8d5414749ab12d0c590cd3198b8c1/snakeyaml-2.6.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.apache.tomcat.embed/tomcat-embed-websocket/11.0.22/5686ff1ad745491d981d771514027d8fc55aed4f/tomcat-embed-websocket-11.0.22.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.apache.tomcat.embed/tomcat-embed-core/11.0.22/cc7307efaa60c0d31784bf053ec4aa48a404f44b/tomcat-embed-core-11.0.22.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.apache.tomcat.embed/tomcat-embed-el/11.0.22/db92447e16c3561e9ca7bf9311b6b6389816699e/tomcat-embed-el-11.0.22.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.xmlunit/xmlunit-core/2.11.0/85521d7f60fb599a4ac1bdec0d19628c3a264156/xmlunit-core-2.11.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/com.google.errorprone/error_prone_annotations/2.49.0/8b42a2e3865f6e0576da3fad51dbb96732ff0f14/error_prone_annotations-2.49.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.opentest4j/opentest4j/1.3.0/152ea56b3a72f655d4fd677fc0ef2596c3dd5e6e/opentest4j-1.3.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.rnorth.duct-tape/duct-tape/1.0.8/92edc22a9ab2f3e17c9bf700aaee377d50e8b530/duct-tape-1.0.8.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.antlr/antlr4-runtime/4.13.2/fc3db6d844df652a3d5db31c87fa12757f13691d/antlr4-runtime-4.13.2.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.hdrhistogram/HdrHistogram/2.2.2/7959933ebcc0f05b2eaa5af0a0c8689fa257b15c/HdrHistogram-2.2.2.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/net.minidev/accessors-smart/2.6.0/2d96f1d9b6ab7f13261aa81b15703574185747a0/accessors-smart-2.6.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.objenesis/objenesis/3.3/1049c09f1de4331e8193e579448d0916d75b7631/objenesis-3.3.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/com.vaadin.external.google/android-json/0.0.20131108.vaadin1/fa26d351fe62a6a17f5cda1287c1c6110dec413f/android-json-0.0.20131108.vaadin1.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/commons-io/commons-io/2.20.0/36f3474daec2849c149e877614e7f979b2082cd2/commons-io-2.20.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.jetbrains/annotations/17.0.0/8ceead41f4e71821919dbdb7a9847608f1a938cb/annotations-17.0.0.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/com.github.docker-java/docker-java-transport/3.7.1/7b8f1b7486e83f2871d9f98a7e12c529dfddc9c2/docker-java-transport-3.7.1.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/net.java.dev.jna/jna/5.18.1/b27ba04287cc4abe769642fe8318d39fc89bf937/jna-5.18.1.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.attoparser/attoparser/2.0.7.RELEASE/e5d0e988d9124139d645bb5872b24dfa23e283cc/attoparser-2.0.7.RELEASE.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.unbescape/unbescape/1.1.6.RELEASE/7b90360afb2b860e09e8347112800d12c12b2a13/unbescape-1.1.6.RELEASE.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/org.ow2.asm/asm/9.7.1/f0ed132a49244b042cd0e15702ab9f2ce3cc8436/asm-9.7.1.jar:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/caches/modules-2/files-2.1/com.sun.istack/istack-commons-runtime/4.1.2/18ec117c85f3ba0ac65409136afa8e42bc74e739/istack-commons-runtime-4.1.2.jar org.springframework.boot.test.context.SpringBootTestAotProcessor /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/build/classes/java/test /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/build/generated/aotTestSources /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/build/generated/aotTestResources /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/build/generated/aotTestClasses org.springframework.samples spring-petclinic
+Successfully started process 'command '/Library/Java/JavaVirtualMachines/sapmachine-17.jdk/Contents/Home/bin/java''
+19:47:26.960 [main] INFO org.springframework.test.context.aot.TestClassScanner -- Scanning for Spring test classes in all packages in classpath roots [/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/build/classes/java/test]
+19:47:27.313 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.MySqlIntegrationTests]: MySqlIntegrationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.335 [main] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+19:47:27.336 [main] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+19:47:27.410 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.MySqlIntegrationTests
+19:47:27.449 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.MySqlIntegrationTests]: MySqlIntegrationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.451 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.MySqlIntegrationTests
+19:47:27.454 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.PetClinicConcurrencyTests]: PetClinicConcurrencyTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.457 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.PetClinicConcurrencyTests
+19:47:27.458 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.PetClinicConcurrencyTests]: PetClinicConcurrencyTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.459 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.PetClinicConcurrencyTests
+19:47:27.460 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.PetClinicIntegrationTests]: PetClinicIntegrationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.461 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.PetClinicIntegrationTests
+19:47:27.462 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.PetClinicIntegrationTests]: PetClinicIntegrationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.462 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.PetClinicIntegrationTests
+19:47:27.464 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.PostgresIntegrationTests]: PostgresIntegrationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.465 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.PostgresIntegrationTests
+19:47:27.465 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.PostgresIntegrationTests]: PostgresIntegrationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.466 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.PostgresIntegrationTests
+19:47:27.468 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.OwnerControllerTests]: OwnerControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.502 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.OwnerControllerTests
+19:47:27.503 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.OwnerControllerTests]: OwnerControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.508 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.OwnerControllerTests
+19:47:27.511 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.PetControllerTests]: PetControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.519 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.PetControllerTests
+19:47:27.519 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.PetControllerTests]: PetControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.524 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.PetControllerTests
+19:47:27.527 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.PetControllerTests$ProcessCreationFormHasErrors]: ProcessCreationFormHasErrors does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.531 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.PetControllerTests$ProcessCreationFormHasErrors
+19:47:27.532 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.PetControllerTests$ProcessCreationFormHasErrors]: ProcessCreationFormHasErrors does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.532 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.PetControllerTests]: PetControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.536 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.PetControllerTests$ProcessCreationFormHasErrors
+19:47:27.538 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.PetControllerTests$ProcessUpdateFormHasErrors]: ProcessUpdateFormHasErrors does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.542 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.PetControllerTests$ProcessUpdateFormHasErrors
+19:47:27.543 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.PetControllerTests$ProcessUpdateFormHasErrors]: ProcessUpdateFormHasErrors does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.543 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.PetControllerTests]: PetControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.549 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.PetControllerTests$ProcessUpdateFormHasErrors
+19:47:27.552 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.VisitControllerTests]: VisitControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.555 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.VisitControllerTests
+19:47:27.556 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.VisitControllerTests]: VisitControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.558 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.VisitControllerTests
+19:47:27.561 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.service.ClinicServiceTests]: ClinicServiceTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.574 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.service.ClinicServiceTests
+19:47:27.574 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.service.ClinicServiceTests]: ClinicServiceTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.579 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.service.ClinicServiceTests
+19:47:27.586 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.system.WelcomeControllerTests]: WelcomeControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.594 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.system.CrashControllerIntegrationTests$TestConfiguration for test class org.springframework.samples.petclinic.system.WelcomeControllerTests
+19:47:27.595 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.system.WelcomeControllerTests]: WelcomeControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.598 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.system.CrashControllerIntegrationTests$TestConfiguration for test class org.springframework.samples.petclinic.system.WelcomeControllerTests
+19:47:27.599 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.vet.VetControllerTests]: VetControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.610 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.vet.VetControllerTests
+19:47:27.611 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.vet.VetControllerTests]: VetControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:27.613 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.vet.VetControllerTests
+19:47:27.615 [main] INFO org.springframework.test.context.aot.TestContextAotGenerator -- Skipping AOT processing due to the presence of @DisabledInAotMode for test classes [org.springframework.samples.petclinic.MySqlIntegrationTests]
+
+
+              |\      _,,,--,,_
+             /,`.-'`'   ._  \-;;,_
+  _______ __|,4-  ) )_   .;.(__`'-'__     ___ __    _ ___ _______
+ |       | '---''(_/._)-'(_\_)   |   |   |   |  |  | |   |       |
+ |    _  |    ___|_     _|       |   |   |   |   |_| |   |       | __ _ _
+ |   |_| |   |___  |   | |       |   |   |   |       |   |       | \ \ \ \
+ |    ___|    ___| |   | |      _|   |___|   |  _    |   |      _|  \ \ \ \
+ |   |   |   |___  |   | |     |_|       |   | | |   |   |     |_    ) ) ) )
+ |___|   |_______| |___| |_______|_______|___|_|  |__|___|_______|  / / / /
+ ==================================================================/_/_/_/
+
+:: Built with Spring Boot :: 4.1.0
+
+
+2026-11-04T19:47:27.772+01:00  INFO 82306 --- [           main] o.s.s.p.PetClinicConcurrencyTests        : Starting PetClinicConcurrencyTests using Java 17.0.21.0.3 with PID 82306 (/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/build/classes/java/test started by D061177 in /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle)
+2026-11-04T19:47:27.773+01:00  INFO 82306 --- [           main] o.s.s.p.PetClinicConcurrencyTests        : No active profile set, falling back to 1 default profile: "default"
+2026-11-04T19:47:28.142+01:00  INFO 82306 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-11-04T19:47:28.172+01:00  INFO 82306 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25 ms. Found 3 JPA repository interfaces.
+2026-11-04T19:47:28.944+01:00  INFO 82306 --- [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: AotMetamodel]
+2026-11-04T19:47:28.966+01:00  INFO 82306 --- [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.1.Final
+2026-11-04T19:47:29.155+01:00  INFO 82306 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-11-04T19:47:29.172+01:00  INFO 82306 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [undefined/unknown]
+	Database driver: undefined/unknown
+	Database dialect: SpringDataJpaAotDialect
+	Database version: 0.0
+	Default catalog/schema: unknown/unknown
+	Autocommit mode: undefined/unknown
+	Isolation level: <unknown>
+	JDBC fetch size: undefined/unknown
+	Pool: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-11-04T19:47:29.705+01:00  INFO 82306 --- [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-11-04T19:47:30.093+01:00  INFO 82306 --- [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+
+
+              |\      _,,,--,,_
+             /,`.-'`'   ._  \-;;,_
+  _______ __|,4-  ) )_   .;.(__`'-'__     ___ __    _ ___ _______
+ |       | '---''(_/._)-'(_\_)   |   |   |   |  |  | |   |       |
+ |    _  |    ___|_     _|       |   |   |   |   |_| |   |       | __ _ _
+ |   |_| |   |___  |   | |       |   |   |   |       |   |       | \ \ \ \
+ |    ___|    ___| |   | |      _|   |___|   |  _    |   |      _|  \ \ \ \
+ |   |   |   |___  |   | |     |_|       |   | | |   |   |     |_    ) ) ) )
+ |___|   |_______| |___| |_______|_______|___|_|  |__|___|_______|  / / / /
+ ==================================================================/_/_/_/
+
+:: Built with Spring Boot :: 4.1.0
+
+
+2026-11-04T19:47:30.656+01:00  INFO 82306 --- [           main] o.s.s.p.PetClinicIntegrationTests        : Starting PetClinicIntegrationTests using Java 17.0.21.0.3 with PID 82306 (/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/build/classes/java/test started by D061177 in /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle)
+2026-11-04T19:47:30.657+01:00  INFO 82306 --- [           main] o.s.s.p.PetClinicIntegrationTests        : No active profile set, falling back to 1 default profile: "default"
+2026-11-04T19:47:30.765+01:00  INFO 82306 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-11-04T19:47:30.774+01:00  INFO 82306 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 8 ms. Found 3 JPA repository interfaces.
+2026-11-04T19:47:30.915+01:00  INFO 82306 --- [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: AotMetamodel]
+2026-11-04T19:47:30.926+01:00  INFO 82306 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-11-04T19:47:30.927+01:00  INFO 82306 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [undefined/unknown]
+	Database driver: undefined/unknown
+	Database dialect: SpringDataJpaAotDialect
+	Database version: 0.0
+	Default catalog/schema: unknown/unknown
+	Autocommit mode: undefined/unknown
+	Isolation level: <unknown>
+	JDBC fetch size: undefined/unknown
+	Pool: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-11-04T19:47:30.959+01:00  INFO 82306 --- [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+
+
+              |\      _,,,--,,_
+             /,`.-'`'   ._  \-;;,_
+  _______ __|,4-  ) )_   .;.(__`'-'__     ___ __    _ ___ _______
+ |       | '---''(_/._)-'(_\_)   |   |   |   |  |  | |   |       |
+ |    _  |    ___|_     _|       |   |   |   |   |_| |   |       | __ _ _
+ |   |_| |   |___  |   | |       |   |   |   |       |   |       | \ \ \ \
+ |    ___|    ___| |   | |      _|   |___|   |  _    |   |      _|  \ \ \ \
+ |   |   |   |___  |   | |     |_|       |   | | |   |   |     |_    ) ) ) )
+ |___|   |_______| |___| |_______|_______|___|_|  |__|___|_______|  / / / /
+ ==================================================================/_/_/_/
+
+:: Built with Spring Boot :: 4.1.0
+
+
+2026-11-04T19:47:31.329+01:00  INFO 82306 --- [           main] o.s.s.p.PostgresIntegrationTests         : Starting PostgresIntegrationTests using Java 17.0.21.0.3 with PID 82306 (/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/build/classes/java/test started by D061177 in /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle)
+2026-11-04T19:47:31.329+01:00  INFO 82306 --- [           main] o.s.s.p.PostgresIntegrationTests         : The following 1 profile is active: "postgres"
+2026-11-04T19:47:31.419+01:00  INFO 82306 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-11-04T19:47:31.428+01:00  INFO 82306 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7 ms. Found 3 JPA repository interfaces.
+2026-11-04T19:47:31.543+01:00  INFO 82306 --- [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: AotMetamodel]
+2026-11-04T19:47:31.551+01:00  INFO 82306 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-11-04T19:47:31.552+01:00  INFO 82306 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [undefined/unknown]
+	Database driver: undefined/unknown
+	Database dialect: SpringDataJpaAotDialect
+	Database version: 0.0
+	Default catalog/schema: unknown/unknown
+	Autocommit mode: undefined/unknown
+	Isolation level: <unknown>
+	JDBC fetch size: undefined/unknown
+	Pool: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-11-04T19:47:31.583+01:00  INFO 82306 --- [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-11-04T19:47:31.898+01:00  INFO 82306 --- [           main] o.s.t.c.aot.TestContextAotGenerator      : Skipping AOT processing due to the presence of @DisabledInAotMode for test classes [org.springframework.samples.petclinic.owner.OwnerControllerTests]
+2026-11-04T19:47:31.898+01:00  INFO 82306 --- [           main] o.s.t.c.aot.TestContextAotGenerator      : Skipping AOT processing due to the presence of @DisabledInAotMode for test classes [org.springframework.samples.petclinic.owner.PetControllerTests, org.springframework.samples.petclinic.owner.PetControllerTests$ProcessCreationFormHasErrors, org.springframework.samples.petclinic.owner.PetControllerTests$ProcessUpdateFormHasErrors]
+2026-11-04T19:47:31.899+01:00  INFO 82306 --- [           main] o.s.t.c.aot.TestContextAotGenerator      : Skipping AOT processing due to the presence of @DisabledInAotMode for test classes [org.springframework.samples.petclinic.owner.VisitControllerTests]
+
+
+              |\      _,,,--,,_
+             /,`.-'`'   ._  \-;;,_
+  _______ __|,4-  ) )_   .;.(__`'-'__     ___ __    _ ___ _______
+ |       | '---''(_/._)-'(_\_)   |   |   |   |  |  | |   |       |
+ |    _  |    ___|_     _|       |   |   |   |   |_| |   |       | __ _ _
+ |   |_| |   |___  |   | |       |   |   |   |       |   |       | \ \ \ \
+ |    ___|    ___| |   | |      _|   |___|   |  _    |   |      _|  \ \ \ \
+ |   |   |   |___  |   | |     |_|       |   | | |   |   |     |_    ) ) ) )
+ |___|   |_______| |___| |_______|_______|___|_|  |__|___|_______|  / / / /
+ ==================================================================/_/_/_/
+
+:: Built with Spring Boot :: 4.1.0
+
+
+2026-11-04T19:47:31.910+01:00  INFO 82306 --- [           main] o.s.s.p.service.ClinicServiceTests       : Starting ClinicServiceTests using Java 17.0.21.0.3 with PID 82306 (/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/build/classes/java/test started by D061177 in /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle)
+2026-11-04T19:47:31.910+01:00  INFO 82306 --- [           main] o.s.s.p.service.ClinicServiceTests       : No active profile set, falling back to 1 default profile: "default"
+2026-11-04T19:47:31.944+01:00  INFO 82306 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-11-04T19:47:31.953+01:00  INFO 82306 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7 ms. Found 3 JPA repository interfaces.
+2026-11-04T19:47:31.973+01:00  INFO 82306 --- [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: AotMetamodel]
+2026-11-04T19:47:31.982+01:00  INFO 82306 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-11-04T19:47:31.983+01:00  INFO 82306 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [undefined/unknown]
+	Database driver: undefined/unknown
+	Database dialect: SpringDataJpaAotDialect
+	Database version: 0.0
+	Default catalog/schema: unknown/unknown
+	Autocommit mode: undefined/unknown
+	Isolation level: <unknown>
+	JDBC fetch size: undefined/unknown
+	Pool: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-11-04T19:47:32.012+01:00  INFO 82306 --- [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+
+
+              |\      _,,,--,,_
+             /,`.-'`'   ._  \-;;,_
+  _______ __|,4-  ) )_   .;.(__`'-'__     ___ __    _ ___ _______
+ |       | '---''(_/._)-'(_\_)   |   |   |   |  |  | |   |       |
+ |    _  |    ___|_     _|       |   |   |   |   |_| |   |       | __ _ _
+ |   |_| |   |___  |   | |       |   |   |   |       |   |       | \ \ \ \
+ |    ___|    ___| |   | |      _|   |___|   |  _    |   |      _|  \ \ \ \
+ |   |   |   |___  |   | |     |_|       |   | | |   |   |     |_    ) ) ) )
+ |___|   |_______| |___| |_______|_______|___|_|  |__|___|_______|  / / / /
+ ==================================================================/_/_/_/
+
+:: Built with Spring Boot :: 4.1.0
+
+
+2026-11-04T19:47:32.143+01:00  INFO 82306 --- [           main] .s.s.p.s.CrashControllerIntegrationTests : Starting CrashControllerIntegrationTests using Java 17.0.21.0.3 with PID 82306 (/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/build/classes/java/test started by D061177 in /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle)
+2026-11-04T19:47:32.143+01:00  INFO 82306 --- [           main] .s.s.p.s.CrashControllerIntegrationTests : No active profile set, falling back to 1 default profile: "default"
+2026-11-04T19:47:32.444+01:00  INFO 82306 --- [           main] o.s.t.c.aot.TestContextAotGenerator      : Skipping AOT processing due to the presence of @DisabledInAotMode for test classes [org.springframework.samples.petclinic.system.WelcomeControllerTests]
+2026-11-04T19:47:32.444+01:00  INFO 82306 --- [           main] o.s.t.c.aot.TestContextAotGenerator      : Skipping AOT processing due to the presence of @DisabledInAotMode for test classes [org.springframework.samples.petclinic.vet.VetControllerTests]
+Resolve mutations for :compileAotTestJava (Thread[#92,Execution worker Thread 3,5,main]) started.
+:compileAotTestJava (Thread[#92,Execution worker Thread 3,5,main]) started.
+This JVM does not support getting OS memory, so no OS memory status updates will be broadcast
+
+> Task :compileAotTestJava
+Custom actions are attached to task ':compileAotTestJava'.
+Caching disabled for task ':compileAotTestJava' because:
+  Build cache is disabled
+Task ':compileAotTestJava' is not up-to-date because:
+  No history is available.
+The input changes require a full rebuild for incremental task ':compileAotTestJava'.
+Compilation mode: default, forking compiler
+Full recompilation is required because no incremental change information is available. This is usually caused by clean builds or changing compiler arguments.
+Compiling with toolchain '/Library/Java/JavaVirtualMachines/sapmachine-17.jdk/Contents/Home'.
+file or directory '/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/src/aotTest/java', not found
+Starting process 'Gradle Worker Daemon 1'. Working directory: /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/workers Command: /Library/Java/JavaVirtualMachines/sapmachine-17.jdk/Contents/Home/bin/java --add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED @/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/.tmp/gradle-worker-classpath8221131340153534751txt -Xmx512m -Dfile.encoding=UTF-8 -Duser.country=DE -Duser.language=en -Duser.variant worker.org.gradle.process.internal.worker.GradleWorkerMain 'Gradle Worker Daemon 1'
+Successfully started process 'Gradle Worker Daemon 1'
+Started Gradle worker daemon (0.349 secs) with fork options DaemonForkOptions{executable=/Library/Java/JavaVirtualMachines/sapmachine-17.jdk/Contents/Home/bin/java, minHeapSize=null, maxHeapSize=null, jvmArgs=[--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED, --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED], keepAliveMode=DAEMON}.
+Compiling with JDK Java compiler API.
+warning: unknown enum constant Status.STABLE
+  reason: class file for org.apiguardian.api.API$Status not found
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+1 warning
+Class dependency analysis for incremental compilation took 0.907 secs.
+Created classpath snapshot for incremental compilation in 0.741 secs.
+Resolve mutations for :processAotTestResources (Thread[#92,Execution worker Thread 3,5,main]) started.
+:processAotTestResources (Thread[#92,Execution worker Thread 3,5,main]) started.
+
+> Task :processAotTestResources
+Caching disabled for task ':processAotTestResources' because:
+  Build cache is disabled
+  Not worth caching
+Task ':processAotTestResources' is not up-to-date because:
+  No history is available.
+file or directory '/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/src/aotTest/resources', not found
+Resolve mutations for :aotTestClasses (Thread[#92,Execution worker Thread 3,5,main]) started.
+:aotTestClasses (Thread[#92,Execution worker Thread 3,5,main]) started.
+
+> Task :aotTestClasses
+Skipping task ':aotTestClasses' as it has no actions.
+Resolve mutations for :resolveStpAgentArtifact (Thread[#92,Execution worker Thread 3,5,main]) started.
+:resolveStpAgentArtifact (Thread[#92,Execution worker Thread 3,5,main]) started.
+
+> Task :resolveStpAgentArtifact
+Caching disabled for task ':resolveStpAgentArtifact' because:
+  Build cache is disabled
+  Caching has not been enabled for the task
+Task ':resolveStpAgentArtifact' is not up-to-date because:
+  No history is available.
+Resolve mutations for :test (Thread[#92,Execution worker Thread 3,5,main]) started.
+:test (Thread[#92,Execution worker Thread 3,5,main]) started.
+Gradle Test Executor 2 started executing tests.
+
+> Task :test
+Custom actions are attached to task ':test'.
+Caching disabled for task ':test' because:
+  Build cache is disabled
+Task ':test' is not up-to-date because:
+  No history is available.
+Starting process 'Gradle Test Executor 2'. Working directory: /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle Command: /Library/Java/JavaVirtualMachines/sapmachine-17.jdk/Contents/Home/bin/java -Djunit.jupiter.execution.parallel.enabled=false -Djunit.platform.listeners.uid.tracking.enabled=true -Djunit.platform.listeners.uid.tracking.output.dir=/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/build/test-results/test/testlist -Dorg.gradle.internal.worker.tmpdir=/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/build/tmp/test/work -DsmartTestPicker.collectionEnabled=true -DsmartTestPicker.coverageCollector=ASM -DsmartTestPicker.executionTarget=gradle::test -javaagent:/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/build/stp/artifacts/stp-agent.jar=output=/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/build/stp/coverage/_test/local/agent-diagnostic.json;fragmentOutput=/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/build/stp/coverage/_test/local/fragment.json;revision=88e37c15cf6fc8490b01bc3e8e2c800cec1ac272;shardId=local;schemaVersion=3;runId=gradle::test:local;executionTarget=gradle::test;includes=org.springframework.samples.petclinic.,org.springframework.samples.petclinic.model.,org.springframework.samples.petclinic.owner.,org.springframework.samples.petclinic.system.,org.springframework.samples.petclinic.vet. @/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle-home/.tmp/gradle-worker-classpath12066390619654881176txt -Xmx768m -Dfile.encoding=UTF-8 -Duser.country=DE -Duser.language=en -Duser.variant -ea worker.org.gradle.process.internal.worker.GradleWorkerMain 'Gradle Test Executor 2'
+Successfully started process 'Gradle Test Executor 2'
+
+PetClinicConcurrencyTests STANDARD_OUT
+    19:47:42.021 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.PetClinicConcurrencyTests]: PetClinicConcurrencyTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+    19:47:42.151 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.PetClinicConcurrencyTests
+    19:47:42.223 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.PetClinicConcurrencyTests]: PetClinicConcurrencyTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+    19:47:42.225 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.PetClinicConcurrencyTests
+
+
+                  |\      _,,,--,,_
+                 /,`.-'`'   ._  \-;;,_
+      _______ __|,4-  ) )_   .;.(__`'-'__     ___ __    _ ___ _______
+     |       | '---''(_/._)-'(_\_)   |   |   |   |  |  | |   |       |
+     |    _  |    ___|_     _|       |   |   |   |   |_| |   |       | __ _ _
+     |   |_| |   |___  |   | |       |   |   |   |       |   |       | \ \ \ \
+     |    ___|    ___| |   | |      _|   |___|   |  _    |   |      _|  \ \ \ \
+     |   |   |   |___  |   | |     |_|       |   | | |   |   |     |_    ) ) ) )
+     |___|   |_______| |___| |_______|_______|___|_|  |__|___|_______|  / / / /
+     ==================================================================/_/_/_/
+
+    :: Built with Spring Boot :: 4.1.0
+
+
+    2026-11-04T19:47:42.524+01:00  INFO 82312 --- [    Test worker] o.s.s.p.PetClinicConcurrencyTests        : Starting PetClinicConcurrencyTests using Java 17.0.21.0.3 with PID 82312 (started by D061177 in /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle)
+    2026-11-04T19:47:42.525+01:00  INFO 82312 --- [    Test worker] o.s.s.p.PetClinicConcurrencyTests        : No active profile set, falling back to 1 default profile: "default"
+    2026-11-04T19:47:43.172+01:00  INFO 82312 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+    2026-11-04T19:47:43.229+01:00  INFO 82312 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 49 ms. Found 3 JPA repository interfaces.
+    2026-11-04T19:47:43.733+01:00  INFO 82312 --- [    Test worker] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+    2026-11-04T19:47:43.744+01:00  INFO 82312 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+    2026-11-04T19:47:43.744+01:00  INFO 82312 --- [    Test worker] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.22]
+    2026-11-04T19:47:43.843+01:00  INFO 82312 --- [    Test worker] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1295 ms
+    2026-11-04T19:47:43.986+01:00  INFO 82312 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+    2026-11-04T19:47:44.186+01:00  INFO 82312 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:f20d711c-8576-413c-bc58-e72d440648a8 user=SA
+    2026-11-04T19:47:44.187+01:00  INFO 82312 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+    2026-11-04T19:47:44.312+01:00  INFO 82312 --- [    Test worker] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+    2026-11-04T19:47:44.357+01:00  INFO 82312 --- [    Test worker] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.1.Final
+    2026-11-04T19:47:44.737+01:00  INFO 82312 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+    2026-11-04T19:47:44.819+01:00  INFO 82312 --- [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+    	Database JDBC URL [jdbc:h2:mem:f20d711c-8576-413c-bc58-e72d440648a8]
+    	Database driver: H2 JDBC Driver
+    	Database dialect: H2Dialect
+    	Database version: 2.4.240
+    	Default catalog/schema: F20D711C-8576-413C-BC58-E72D440648A8/PUBLIC
+    	Autocommit mode: undefined/unknown
+    	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+    	JDBC fetch size: 100
+    	Pool: DataSourceConnectionProvider
+    	Minimum pool size: undefined/unknown
+    	Maximum pool size: undefined/unknown
+    2026-11-04T19:47:45.861+01:00  INFO 82312 --- [    Test worker] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+    2026-11-04T19:47:45.867+01:00  INFO 82312 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+    2026-11-04T19:47:45.928+01:00  INFO 82312 --- [    Test worker] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+    2026-11-04T19:47:46.999+01:00  INFO 82312 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 13 endpoints beneath base path '/actuator'
+    2026-11-04T19:47:47.057+01:00  INFO 82312 --- [    Test worker] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 49896 (http) with context path '/'
+    2026-11-04T19:47:47.064+01:00  INFO 82312 --- [    Test worker] o.s.s.p.PetClinicConcurrencyTests        : Started PetClinicConcurrencyTests in 4.793 seconds (process running for 5.987)
+
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :test
+
+PetClinicConcurrencyTests > testDuplicatePetNameRaceConditionIsBlocked() STANDARD_OUT
+    2026-11-04T19:47:49.529+01:00  INFO 82312 --- [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+    2026-11-04T19:47:49.529+01:00  INFO 82312 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+    2026-11-04T19:47:49.530+01:00  INFO 82312 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+    2026-11-04T19:47:49.714+01:00  WARN 82312 --- [o-auto-1-exec-1] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 23505, SQLState: 23505
+    2026-11-04T19:47:49.714+01:00  WARN 82312 --- [o-auto-1-exec-1] org.hibernate.orm.jdbc.error             : Unique index or primary key violation: "PUBLIC.UNIQUE_OWNER_PET_NAME INDEX PUBLIC.UNIQUE_OWNER_PET_NAME_INDEX_2 ON PUBLIC.PETS(OWNER_ID NULLS FIRST, NAME NULLS FIRST) VALUES ( /* key:15 */ 1, CAST('ConcurrencyTestPet' AS VARCHAR_IGNORECASE(18)))"; SQL statement:
+    update pets set owner_id=? where id=? [23505-240]
+    --- Concurrency Test Assertions ---
+    Successful additions: 1
+    Failed additions: 1
+    Original Pet Count: 1
+    Final Pet Count: 2
+
+PetClinicIntegrationTests STANDARD_OUT
+    2026-11-04T19:47:50.031+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.PetClinicIntegrationTests]: PetClinicIntegrationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+    2026-11-04T19:47:50.032+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.PetClinicIntegrationTests
+    2026-11-04T19:47:50.033+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.PetClinicIntegrationTests]: PetClinicIntegrationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+    2026-11-04T19:47:50.033+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.PetClinicIntegrationTests
+
+
+                  |\      _,,,--,,_
+                 /,`.-'`'   ._  \-;;,_
+      _______ __|,4-  ) )_   .;.(__`'-'__     ___ __    _ ___ _______
+     |       | '---''(_/._)-'(_\_)   |   |   |   |  |  | |   |       |
+     |    _  |    ___|_     _|       |   |   |   |   |_| |   |       | __ _ _
+     |   |_| |   |___  |   | |       |   |   |   |       |   |       | \ \ \ \
+     |    ___|    ___| |   | |      _|   |___|   |  _    |   |      _|  \ \ \ \
+     |   |   |   |___  |   | |     |_|       |   | | |   |   |     |_    ) ) ) )
+     |___|   |_______| |___| |_______|_______|___|_|  |__|___|_______|  / / / /
+     ==================================================================/_/_/_/
+
+    :: Built with Spring Boot :: 4.1.0
+
+
+    2026-11-04T19:47:50.049+01:00  INFO 82312 --- [    Test worker] o.s.s.p.PetClinicIntegrationTests        : Starting PetClinicIntegrationTests using Java 17.0.21.0.3 with PID 82312 (started by D061177 in /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle)
+    2026-11-04T19:47:50.049+01:00  INFO 82312 --- [    Test worker] o.s.s.p.PetClinicIntegrationTests        : No active profile set, falling back to 1 default profile: "default"
+    2026-11-04T19:47:50.189+01:00  INFO 82312 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+    2026-11-04T19:47:50.206+01:00  INFO 82312 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 15 ms. Found 3 JPA repository interfaces.
+    2026-11-04T19:47:50.291+01:00  INFO 82312 --- [    Test worker] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+    2026-11-04T19:47:50.292+01:00  INFO 82312 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+    2026-11-04T19:47:50.292+01:00  INFO 82312 --- [    Test worker] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.22]
+    2026-11-04T19:47:50.305+01:00  INFO 82312 --- [    Test worker] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 254 ms
+    2026-11-04T19:47:50.338+01:00  INFO 82312 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+    2026-11-04T19:47:50.339+01:00  INFO 82312 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:a42c41a4-9962-40c0-ac80-5b4776292540 user=SA
+    2026-11-04T19:47:50.339+01:00  INFO 82312 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+    2026-11-04T19:47:50.363+01:00  INFO 82312 --- [    Test worker] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+    2026-11-04T19:47:50.375+01:00  INFO 82312 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+    2026-11-04T19:47:50.376+01:00  INFO 82312 --- [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+    	Database JDBC URL [jdbc:h2:mem:a42c41a4-9962-40c0-ac80-5b4776292540]
+    	Database driver: H2 JDBC Driver
+    	Database dialect: H2Dialect
+    	Database version: 2.4.240
+    	Default catalog/schema: A42C41A4-9962-40C0-AC80-5B4776292540/PUBLIC
+    	Autocommit mode: undefined/unknown
+    	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+    	JDBC fetch size: 100
+    	Pool: DataSourceConnectionProvider
+    	Minimum pool size: undefined/unknown
+    	Maximum pool size: undefined/unknown
+    2026-11-04T19:47:50.418+01:00  INFO 82312 --- [    Test worker] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+    2026-11-04T19:47:50.419+01:00  INFO 82312 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+    2026-11-04T19:47:50.563+01:00  INFO 82312 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 13 endpoints beneath base path '/actuator'
+    2026-11-04T19:47:50.576+01:00  INFO 82312 --- [    Test worker] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 49903 (http) with context path '/'
+    2026-11-04T19:47:50.578+01:00  INFO 82312 --- [    Test worker] o.s.s.p.PetClinicIntegrationTests        : Started PetClinicIntegrationTests in 0.542 seconds (process running for 9.502)
+
+PetClinicIntegrationTests > findAll() STANDARD_OUT
+    2026-11-04T19:47:50.599+01:00 DEBUG 82312 --- [    Test worker] org.hibernate.SQL                        : select v1_0.id,v1_0.first_name,v1_0.last_name from vets v1_0
+    2026-11-04T19:47:50.601+01:00 DEBUG 82312 --- [    Test worker] org.hibernate.SQL                        : select s1_0.vet_id,s1_1.id,s1_1.name from vet_specialties s1_0 join specialties s1_1 on s1_1.id=s1_0.specialty_id where s1_0.vet_id in (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+
+PetClinicIntegrationTests > ownerList() STANDARD_OUT
+    2026-11-04T19:47:50.611+01:00  INFO 82312 --- [o-auto-2-exec-1] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+    2026-11-04T19:47:50.611+01:00  INFO 82312 --- [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+    2026-11-04T19:47:50.612+01:00  INFO 82312 --- [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+    2026-11-04T19:47:50.648+01:00 DEBUG 82312 --- [o-auto-2-exec-1] org.hibernate.SQL                        : select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone from owners o1_0 where o1_0.last_name like ? escape '\' fetch first ? rows only
+    2026-11-04T19:47:50.650+01:00 DEBUG 82312 --- [o-auto-2-exec-1] org.hibernate.SQL                        : select p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from pets p1_0 left join types t1_0 on t1_0.id=p1_0.type_id where p1_0.owner_id in (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) order by p1_0.name
+    2026-11-04T19:47:50.652+01:00 DEBUG 82312 --- [o-auto-2-exec-1] org.hibernate.SQL                        : select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id in (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) order by v1_0.visit_date
+    2026-11-04T19:47:50.670+01:00 DEBUG 82312 --- [o-auto-2-exec-1] org.hibernate.SQL                        : select count(o1_0.id) from owners o1_0 where o1_0.last_name like ? escape '\'
+
+PetClinicIntegrationTests > ownerDetails() STANDARD_OUT
+    2026-11-04T19:47:50.713+01:00 DEBUG 82312 --- [o-auto-2-exec-2] org.hibernate.SQL                        : select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone,p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from owners o1_0 left join pets p1_0 on o1_0.id=p1_0.owner_id left join types t1_0 on t1_0.id=p1_0.type_id where o1_0.id=? order by p1_0.name
+    2026-11-04T19:47:50.714+01:00 DEBUG 82312 --- [o-auto-2-exec-2] org.hibernate.SQL                        : select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id=? order by v1_0.visit_date
+    2026-11-04T19:47:50.715+01:00 DEBUG 82312 --- [o-auto-2-exec-2] org.hibernate.SQL                        : select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone,p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from owners o1_0 left join pets p1_0 on o1_0.id=p1_0.owner_id left join types t1_0 on t1_0.id=p1_0.type_id where o1_0.id=? order by p1_0.name
+    2026-11-04T19:47:50.716+01:00 DEBUG 82312 --- [o-auto-2-exec-2] org.hibernate.SQL                        : select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id=? order by v1_0.visit_date
+
+OwnerControllerTests STANDARD_OUT
+    2026-11-04T19:47:50.761+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.OwnerControllerTests]: OwnerControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+    2026-11-04T19:47:50.786+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.OwnerControllerTests
+    2026-11-04T19:47:50.787+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.OwnerControllerTests]: OwnerControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+    2026-11-04T19:47:50.790+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.OwnerControllerTests
+
+
+                  |\      _,,,--,,_
+                 /,`.-'`'   ._  \-;;,_
+      _______ __|,4-  ) )_   .;.(__`'-'__     ___ __    _ ___ _______
+     |       | '---''(_/._)-'(_\_)   |   |   |   |  |  | |   |       |
+     |    _  |    ___|_     _|       |   |   |   |   |_| |   |       | __ _ _
+     |   |_| |   |___  |   | |       |   |   |   |       |   |       | \ \ \ \
+     |    ___|    ___| |   | |      _|   |___|   |  _    |   |      _|  \ \ \ \
+     |   |   |   |___  |   | |     |_|       |   | | |   |   |     |_    ) ) ) )
+     |___|   |_______| |___| |_______|_______|___|_|  |__|___|_______|  / / / /
+     ==================================================================/_/_/_/
+
+    :: Built with Spring Boot :: 4.1.0
+
+
+    2026-11-04T19:47:50.809+01:00  INFO 82312 --- [    Test worker] o.s.s.p.owner.OwnerControllerTests       : Starting OwnerControllerTests using Java 17.0.21.0.3 with PID 82312 (started by D061177 in /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle)
+    2026-11-04T19:47:50.809+01:00  INFO 82312 --- [    Test worker] o.s.s.p.owner.OwnerControllerTests       : No active profile set, falling back to 1 default profile: "default"
+    2026-11-04T19:47:51.283+01:00  INFO 82312 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+    2026-11-04T19:47:51.283+01:00  INFO 82312 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+    2026-11-04T19:47:51.284+01:00  INFO 82312 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+    2026-11-04T19:47:51.314+01:00  INFO 82312 --- [    Test worker] o.s.s.p.owner.OwnerControllerTests       : Started OwnerControllerTests in 0.518 seconds (process running for 10.238)
+
+PetControllerTests STANDARD_OUT
+    2026-11-04T19:47:51.716+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.PetControllerTests]: PetControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+    2026-11-04T19:47:51.723+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.PetControllerTests
+    2026-11-04T19:47:51.724+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.PetControllerTests]: PetControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+    2026-11-04T19:47:51.730+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.PetControllerTests
+
+
+                  |\      _,,,--,,_
+                 /,`.-'`'   ._  \-;;,_
+      _______ __|,4-  ) )_   .;.(__`'-'__     ___ __    _ ___ _______
+     |       | '---''(_/._)-'(_\_)   |   |   |   |  |  | |   |       |
+     |    _  |    ___|_     _|       |   |   |   |   |_| |   |       | __ _ _
+     |   |_| |   |___  |   | |       |   |   |   |       |   |       | \ \ \ \
+     |    ___|    ___| |   | |      _|   |___|   |  _    |   |      _|  \ \ \ \
+     |   |   |   |___  |   | |     |_|       |   | | |   |   |     |_    ) ) ) )
+     |___|   |_______| |___| |_______|_______|___|_|  |__|___|_______|  / / / /
+     ==================================================================/_/_/_/
+
+    :: Built with Spring Boot :: 4.1.0
+
+
+    2026-11-04T19:47:51.756+01:00  INFO 82312 --- [    Test worker] o.s.s.p.owner.PetControllerTests         : Starting PetControllerTests using Java 17.0.21.0.3 with PID 82312 (started by D061177 in /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle)
+    2026-11-04T19:47:51.757+01:00  INFO 82312 --- [    Test worker] o.s.s.p.owner.PetControllerTests         : No active profile set, falling back to 1 default profile: "default"
+    2026-11-04T19:47:52.006+01:00  INFO 82312 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+    2026-11-04T19:47:52.006+01:00  INFO 82312 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+    2026-11-04T19:47:52.007+01:00  INFO 82312 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+    2026-11-04T19:47:52.019+01:00  INFO 82312 --- [    Test worker] o.s.s.p.owner.PetControllerTests         : Started PetControllerTests in 0.285 seconds (process running for 10.942)
+
+PetControllerTests > ProcessUpdateFormHasErrors STANDARD_OUT
+    2026-11-04T19:47:52.104+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.PetControllerTests$ProcessUpdateFormHasErrors]: ProcessUpdateFormHasErrors does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+    2026-11-04T19:47:52.111+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.PetControllerTests$ProcessUpdateFormHasErrors
+    2026-11-04T19:47:52.111+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.PetControllerTests$ProcessUpdateFormHasErrors]: ProcessUpdateFormHasErrors does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+    2026-11-04T19:47:52.112+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.PetControllerTests]: PetControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+    2026-11-04T19:47:52.117+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.PetControllerTests$ProcessUpdateFormHasErrors
+
+PetControllerTests > ProcessCreationFormHasErrors STANDARD_OUT
+    2026-11-04T19:47:52.266+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.PetControllerTests$ProcessCreationFormHasErrors]: ProcessCreationFormHasErrors does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+    2026-11-04T19:47:52.272+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.PetControllerTests$ProcessCreationFormHasErrors
+    2026-11-04T19:47:52.273+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.PetControllerTests$ProcessCreationFormHasErrors]: ProcessCreationFormHasErrors does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+    2026-11-04T19:47:52.273+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.PetControllerTests]: PetControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+    2026-11-04T19:47:52.278+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.PetControllerTests$ProcessCreationFormHasErrors
+
+VisitControllerTests STANDARD_OUT
+    2026-11-04T19:47:52.530+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.VisitControllerTests]: VisitControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+    2026-11-04T19:47:52.535+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.VisitControllerTests
+    2026-11-04T19:47:52.535+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.VisitControllerTests]: VisitControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+    2026-11-04T19:47:52.539+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.VisitControllerTests
+
+
+                  |\      _,,,--,,_
+                 /,`.-'`'   ._  \-;;,_
+      _______ __|,4-  ) )_   .;.(__`'-'__     ___ __    _ ___ _______
+     |       | '---''(_/._)-'(_\_)   |   |   |   |  |  | |   |       |
+     |    _  |    ___|_     _|       |   |   |   |   |_| |   |       | __ _ _
+     |   |_| |   |___  |   | |       |   |   |   |       |   |       | \ \ \ \
+     |    ___|    ___| |   | |      _|   |___|   |  _    |   |      _|  \ \ \ \
+     |   |   |   |___  |   | |     |_|       |   | | |   |   |     |_    ) ) ) )
+     |___|   |_______| |___| |_______|_______|___|_|  |__|___|_______|  / / / /
+     ==================================================================/_/_/_/
+
+    :: Built with Spring Boot :: 4.1.0
+
+
+    2026-11-04T19:47:52.558+01:00  INFO 82312 --- [    Test worker] o.s.s.p.owner.VisitControllerTests       : Starting VisitControllerTests using Java 17.0.21.0.3 with PID 82312 (started by D061177 in /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle)
+    2026-11-04T19:47:52.559+01:00  INFO 82312 --- [    Test worker] o.s.s.p.owner.VisitControllerTests       : No active profile set, falling back to 1 default profile: "default"
+    2026-11-04T19:47:52.726+01:00  INFO 82312 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+    2026-11-04T19:47:52.726+01:00  INFO 82312 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+    2026-11-04T19:47:52.726+01:00  INFO 82312 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+    2026-11-04T19:47:52.738+01:00  INFO 82312 --- [    Test worker] o.s.s.p.owner.VisitControllerTests       : Started VisitControllerTests in 0.196 seconds (process running for 11.661)
+
+ClinicServiceTests STANDARD_OUT
+    2026-11-04T19:47:52.828+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.service.ClinicServiceTests]: ClinicServiceTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+    2026-11-04T19:47:52.853+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.service.ClinicServiceTests
+    2026-11-04T19:47:52.854+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.service.ClinicServiceTests]: ClinicServiceTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+    2026-11-04T19:47:52.864+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.service.ClinicServiceTests
+
+
+                  |\      _,,,--,,_
+                 /,`.-'`'   ._  \-;;,_
+      _______ __|,4-  ) )_   .;.(__`'-'__     ___ __    _ ___ _______
+     |       | '---''(_/._)-'(_\_)   |   |   |   |  |  | |   |       |
+     |    _  |    ___|_     _|       |   |   |   |   |_| |   |       | __ _ _
+     |   |_| |   |___  |   | |       |   |   |   |       |   |       | \ \ \ \
+     |    ___|    ___| |   | |      _|   |___|   |  _    |   |      _|  \ \ \ \
+     |   |   |   |___  |   | |     |_|       |   | | |   |   |     |_    ) ) ) )
+     |___|   |_______| |___| |_______|_______|___|_|  |__|___|_______|  / / / /
+     ==================================================================/_/_/_/
+
+    :: Built with Spring Boot :: 4.1.0
+
+
+    2026-11-04T19:47:52.884+01:00  INFO 82312 --- [    Test worker] o.s.s.p.service.ClinicServiceTests       : Starting ClinicServiceTests using Java 17.0.21.0.3 with PID 82312 (started by D061177 in /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle)
+    2026-11-04T19:47:52.884+01:00  INFO 82312 --- [    Test worker] o.s.s.p.service.ClinicServiceTests       : No active profile set, falling back to 1 default profile: "default"
+    2026-11-04T19:47:52.952+01:00  INFO 82312 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+    2026-11-04T19:47:52.972+01:00  INFO 82312 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 18 ms. Found 3 JPA repository interfaces.
+    2026-11-04T19:47:52.998+01:00  INFO 82312 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+    2026-11-04T19:47:53.000+01:00  INFO 82312 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection conn20: url=jdbc:h2:mem:e3296460-6cb7-4104-83a6-a3d06848d181 user=SA
+    2026-11-04T19:47:53.000+01:00  INFO 82312 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+    2026-11-04T19:47:53.037+01:00  INFO 82312 --- [    Test worker] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+    2026-11-04T19:47:53.054+01:00  INFO 82312 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+    2026-11-04T19:47:53.056+01:00  INFO 82312 --- [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+    	Database JDBC URL [jdbc:h2:mem:e3296460-6cb7-4104-83a6-a3d06848d181]
+    	Database driver: H2 JDBC Driver
+    	Database dialect: H2Dialect
+    	Database version: 2.4.240
+    	Default catalog/schema: E3296460-6CB7-4104-83A6-A3D06848D181/PUBLIC
+    	Autocommit mode: undefined/unknown
+    	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+    	JDBC fetch size: 100
+    	Pool: DataSourceConnectionProvider
+    	Minimum pool size: undefined/unknown
+    	Maximum pool size: undefined/unknown
+    2026-11-04T19:47:53.114+01:00  INFO 82312 --- [    Test worker] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+    2026-11-04T19:47:53.116+01:00  INFO 82312 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+    2026-11-04T19:47:53.167+01:00  INFO 82312 --- [    Test worker] o.s.s.p.service.ClinicServiceTests       : Started ClinicServiceTests in 0.3 seconds (process running for 12.091)
+
+ClinicServiceTests > shouldFindVets() STANDARD_OUT
+    Hibernate: select v1_0.id,v1_0.first_name,v1_0.last_name from vets v1_0
+    Hibernate: select s1_0.vet_id,s1_1.id,s1_1.name from vet_specialties s1_0 join specialties s1_1 on s1_1.id=s1_0.specialty_id where s1_0.vet_id in (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+
+ClinicServiceTests > shouldFindOwnersByLastName() STANDARD_OUT
+    Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone from owners o1_0 where o1_0.last_name like ? escape '\'
+    Hibernate: select p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from pets p1_0 left join types t1_0 on t1_0.id=p1_0.type_id where p1_0.owner_id in (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) order by p1_0.name
+    Hibernate: select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id in (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) order by v1_0.visit_date
+    Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone from owners o1_0 where o1_0.last_name like ? escape '\'
+
+ClinicServiceTests > shouldFailToInsertDuplicatePetNameForSameOwner() STANDARD_OUT
+    Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone,p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from owners o1_0 left join pets p1_0 on o1_0.id=p1_0.owner_id left join types t1_0 on t1_0.id=p1_0.type_id where o1_0.id=? order by p1_0.name
+    Hibernate: select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id=? order by v1_0.visit_date
+    Hibernate: select pt1_0.id,pt1_0.name from types pt1_0 order by pt1_0.name
+    Hibernate: insert into pets (birth_date,name,type_id,id) values (?,?,?,default)
+    Hibernate: update pets set owner_id=? where id=?
+    Hibernate: insert into pets (birth_date,name,type_id,id) values (?,?,?,default)
+    Hibernate: update pets set owner_id=? where id=?
+    2026-11-04T19:47:53.218+01:00  WARN 82312 --- [    Test worker] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 23505, SQLState: 23505
+    2026-11-04T19:47:53.218+01:00  WARN 82312 --- [    Test worker] org.hibernate.orm.jdbc.error             : Unique index or primary key violation: "PUBLIC.UNIQUE_OWNER_PET_NAME INDEX PUBLIC.UNIQUE_OWNER_PET_NAME_INDEX_2 ON PUBLIC.PETS(OWNER_ID NULLS FIRST, NAME NULLS FIRST) VALUES ( /* key:14 */ 1, CAST('DuplicatePetName' AS VARCHAR_IGNORECASE(16)))"; SQL statement:
+    update pets set owner_id=? where id=? [23505-240]
+
+ClinicServiceTests > shouldAddNewVisitForPet() STANDARD_OUT
+    Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone,p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from owners o1_0 left join pets p1_0 on o1_0.id=p1_0.owner_id left join types t1_0 on t1_0.id=p1_0.type_id where o1_0.id=? order by p1_0.name
+    Hibernate: select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id in (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) order by v1_0.visit_date
+    Hibernate: insert into visits (visit_date,description,id) values (?,?,default)
+
+ClinicServiceTests > shouldUpdateOwner() STANDARD_OUT
+    Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone,p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from owners o1_0 left join pets p1_0 on o1_0.id=p1_0.owner_id left join types t1_0 on t1_0.id=p1_0.type_id where o1_0.id=? order by p1_0.name
+    Hibernate: select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id=? order by v1_0.visit_date
+
+ClinicServiceTests > shouldFindVisitsByPetId() STANDARD_OUT
+    Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone,p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from owners o1_0 left join pets p1_0 on o1_0.id=p1_0.owner_id left join types t1_0 on t1_0.id=p1_0.type_id where o1_0.id=? order by p1_0.name
+    Hibernate: select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id in (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) order by v1_0.visit_date
+
+ClinicServiceTests > shouldInsertPetIntoDatabaseAndGenerateId() STANDARD_OUT
+    Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone,p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from owners o1_0 left join pets p1_0 on o1_0.id=p1_0.owner_id left join types t1_0 on t1_0.id=p1_0.type_id where o1_0.id=? order by p1_0.name
+    Hibernate: select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id in (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) order by v1_0.visit_date
+    Hibernate: select pt1_0.id,pt1_0.name from types pt1_0 order by pt1_0.name
+    Hibernate: insert into pets (birth_date,name,type_id,id) values (?,?,?,default)
+
+ClinicServiceTests > shouldInsertOwner() STANDARD_OUT
+    Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone from owners o1_0 where o1_0.last_name like ? escape '\'
+    Hibernate: insert into owners (address,city,first_name,last_name,telephone,id) values (?,?,?,?,?,default)
+    Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone from owners o1_0 where o1_0.last_name like ? escape '\'
+
+ClinicServiceTests > shouldFindSingleOwnerWithPet() STANDARD_OUT
+    Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone,p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from owners o1_0 left join pets p1_0 on o1_0.id=p1_0.owner_id left join types t1_0 on t1_0.id=p1_0.type_id where o1_0.id=? order by p1_0.name
+    Hibernate: select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id=? order by v1_0.visit_date
+
+ClinicServiceTests > shouldUpdatePetName() STANDARD_OUT
+    Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone,p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from owners o1_0 left join pets p1_0 on o1_0.id=p1_0.owner_id left join types t1_0 on t1_0.id=p1_0.type_id where o1_0.id=? order by p1_0.name
+    Hibernate: select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id in (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) order by v1_0.visit_date
+
+ClinicServiceTests > shouldFindAllPetTypes() STANDARD_OUT
+    Hibernate: select pt1_0.id,pt1_0.name from types pt1_0 order by pt1_0.name
+
+ClinicServiceTests > shouldAllowSamePetNameForDifferentOwners() STANDARD_OUT
+    Hibernate: select pt1_0.id,pt1_0.name from types pt1_0 order by pt1_0.name
+    Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone,p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from owners o1_0 left join pets p1_0 on o1_0.id=p1_0.owner_id left join types t1_0 on t1_0.id=p1_0.type_id where o1_0.id=? order by p1_0.name
+    Hibernate: select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id=? order by v1_0.visit_date
+    Hibernate: insert into pets (birth_date,name,type_id,id) values (?,?,?,default)
+    Hibernate: update pets set owner_id=? where id=?
+    Hibernate: select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone,p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from owners o1_0 left join pets p1_0 on o1_0.id=p1_0.owner_id left join types t1_0 on t1_0.id=p1_0.type_id where o1_0.id=? order by p1_0.name
+    Hibernate: select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id=? order by v1_0.visit_date
+    Hibernate: insert into pets (birth_date,name,type_id,id) values (?,?,?,default)
+    Hibernate: update pets set owner_id=? where id=?
+
+CrashControllerIntegrationTests STANDARD_OUT
+
+
+                  |\      _,,,--,,_
+                 /,`.-'`'   ._  \-;;,_
+      _______ __|,4-  ) )_   .;.(__`'-'__     ___ __    _ ___ _______
+     |       | '---''(_/._)-'(_\_)   |   |   |   |  |  | |   |       |
+     |    _  |    ___|_     _|       |   |   |   |   |_| |   |       | __ _ _
+     |   |_| |   |___  |   | |       |   |   |   |       |   |       | \ \ \ \
+     |    ___|    ___| |   | |      _|   |___|   |  _    |   |      _|  \ \ \ \
+     |   |   |   |___  |   | |     |_|       |   | | |   |   |     |_    ) ) ) )
+     |___|   |_______| |___| |_______|_______|___|_|  |__|___|_______|  / / / /
+     ==================================================================/_/_/_/
+
+    :: Built with Spring Boot :: 4.1.0
+
+
+    2026-11-04T19:47:53.344+01:00  INFO 82312 --- [    Test worker] .s.s.p.s.CrashControllerIntegrationTests : Starting CrashControllerIntegrationTests using Java 17.0.21.0.3 with PID 82312 (started by D061177 in /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle)
+    2026-11-04T19:47:53.344+01:00  INFO 82312 --- [    Test worker] .s.s.p.s.CrashControllerIntegrationTests : No active profile set, falling back to 1 default profile: "default"
+    2026-11-04T19:47:53.546+01:00  INFO 82312 --- [    Test worker] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+    2026-11-04T19:47:53.547+01:00  INFO 82312 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+    2026-11-04T19:47:53.547+01:00  INFO 82312 --- [    Test worker] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.22]
+    2026-11-04T19:47:53.562+01:00  INFO 82312 --- [    Test worker] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 216 ms
+    2026-11-04T19:47:53.765+01:00  INFO 82312 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 0 endpoints beneath base path '/actuator'
+    2026-11-04T19:47:53.785+01:00  INFO 82312 --- [    Test worker] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 49906 (http) with context path '/'
+    2026-11-04T19:47:53.790+01:00  INFO 82312 --- [    Test worker] .s.s.p.s.CrashControllerIntegrationTests : Started CrashControllerIntegrationTests in 0.462 seconds (process running for 12.714)
+
+CrashControllerIntegrationTests > triggerExceptionHtml() STANDARD_OUT
+    2026-11-04T19:47:53.797+01:00  INFO 82312 --- [o-auto-3-exec-1] o.a.c.c.C.[Tomcat-2].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+    2026-11-04T19:47:53.797+01:00  INFO 82312 --- [o-auto-3-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+    2026-11-04T19:47:53.798+01:00  INFO 82312 --- [o-auto-3-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+    2026-11-04T19:47:53.803+01:00 ERROR 82312 --- [o-auto-3-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.RuntimeException: Expected: controller used to showcase what happens when an exception is thrown] with root cause
+
+    java.lang.RuntimeException: Expected: controller used to showcase what happens when an exception is thrown
+    	at org.springframework.samples.petclinic.system.CrashController.triggerException(CrashController.java:33) ~[main/:na]
+    	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+    	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+    	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+    	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+    	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:252) ~[spring-web-7.0.8.jar:7.0.8]
+    	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:184) ~[spring-web-7.0.8.jar:7.0.8]
+    	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117) ~[spring-webmvc-7.0.8.jar:7.0.8]
+    	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:934) ~[spring-webmvc-7.0.8.jar:7.0.8]
+    	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:853) ~[spring-webmvc-7.0.8.jar:7.0.8]
+    	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:86) ~[spring-webmvc-7.0.8.jar:7.0.8]
+    	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:963) ~[spring-webmvc-7.0.8.jar:7.0.8]
+    	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:866) ~[spring-webmvc-7.0.8.jar:7.0.8]
+    	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1000) ~[spring-webmvc-7.0.8.jar:7.0.8]
+    	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:892) ~[spring-webmvc-7.0.8.jar:7.0.8]
+    	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:622) ~[tomcat-embed-core-11.0.22.jar:6.1]
+    	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:874) ~[spring-webmvc-7.0.8.jar:7.0.8]
+    	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:710) ~[tomcat-embed-core-11.0.22.jar:6.1]
+    	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:128) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-11.0.22.jar:11.0.22]
+    	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.springframework.web.servlet.resource.ResourceUrlEncodingFilter.doFilter(ResourceUrlEncodingFilter.java:66) ~[spring-webmvc-7.0.8.jar:7.0.8]
+    	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-7.0.8.jar:7.0.8]
+    	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.8.jar:7.0.8]
+    	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-7.0.8.jar:7.0.8]
+    	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.8.jar:7.0.8]
+    	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:110) ~[spring-web-7.0.8.jar:7.0.8]
+    	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.8.jar:7.0.8]
+    	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:199) ~[spring-web-7.0.8.jar:7.0.8]
+    	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.8.jar:7.0.8]
+    	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:77) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:492) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:1272) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1801) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:946) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:480) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:57) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at com.sap.oss.smarttestpicker.runtime.RuntimeContextService.runWith(RuntimeContextService.java:177) ~[stp-agent.jar:0.3.0-SNAPSHOT]
+    	at com.sap.oss.smarttestpicker.runtime.RuntimeContextService.lambda$wrap$2(RuntimeContextService.java:138) ~[stp-agent.jar:0.3.0-SNAPSHOT]
+    	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+
+CrashControllerIntegrationTests > triggerExceptionJson() STANDARD_OUT
+    2026-11-04T19:47:53.884+01:00 ERROR 82312 --- [o-auto-3-exec-2] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.RuntimeException: Expected: controller used to showcase what happens when an exception is thrown] with root cause
+
+    java.lang.RuntimeException: Expected: controller used to showcase what happens when an exception is thrown
+    	at org.springframework.samples.petclinic.system.CrashController.triggerException(CrashController.java:33) ~[main/:na]
+    	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+    	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+    	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+    	at java.base/java.lang.reflect.Method.invoke(Method.java:569) ~[na:na]
+    	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:252) ~[spring-web-7.0.8.jar:7.0.8]
+    	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:184) ~[spring-web-7.0.8.jar:7.0.8]
+    	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117) ~[spring-webmvc-7.0.8.jar:7.0.8]
+    	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:934) ~[spring-webmvc-7.0.8.jar:7.0.8]
+    	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:853) ~[spring-webmvc-7.0.8.jar:7.0.8]
+    	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:86) ~[spring-webmvc-7.0.8.jar:7.0.8]
+    	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:963) ~[spring-webmvc-7.0.8.jar:7.0.8]
+    	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:866) ~[spring-webmvc-7.0.8.jar:7.0.8]
+    	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1000) ~[spring-webmvc-7.0.8.jar:7.0.8]
+    	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:892) ~[spring-webmvc-7.0.8.jar:7.0.8]
+    	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:622) ~[tomcat-embed-core-11.0.22.jar:6.1]
+    	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:874) ~[spring-webmvc-7.0.8.jar:7.0.8]
+    	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:710) ~[tomcat-embed-core-11.0.22.jar:6.1]
+    	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:128) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-11.0.22.jar:11.0.22]
+    	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.springframework.web.servlet.resource.ResourceUrlEncodingFilter.doFilter(ResourceUrlEncodingFilter.java:66) ~[spring-webmvc-7.0.8.jar:7.0.8]
+    	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-7.0.8.jar:7.0.8]
+    	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.8.jar:7.0.8]
+    	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-7.0.8.jar:7.0.8]
+    	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.8.jar:7.0.8]
+    	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:110) ~[spring-web-7.0.8.jar:7.0.8]
+    	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.8.jar:7.0.8]
+    	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:199) ~[spring-web-7.0.8.jar:7.0.8]
+    	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.8.jar:7.0.8]
+    	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:77) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:492) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:1272) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1801) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:946) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:480) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:57) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+    	at com.sap.oss.smarttestpicker.runtime.RuntimeContextService.runWith(RuntimeContextService.java:177) ~[stp-agent.jar:0.3.0-SNAPSHOT]
+    	at com.sap.oss.smarttestpicker.runtime.RuntimeContextService.lambda$wrap$2(RuntimeContextService.java:138) ~[stp-agent.jar:0.3.0-SNAPSHOT]
+    	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+
+WelcomeControllerTests STANDARD_OUT
+    2026-11-04T19:47:54.030+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.system.WelcomeControllerTests]: WelcomeControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+    2026-11-04T19:47:54.040+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.system.CrashControllerIntegrationTests$TestConfiguration for test class org.springframework.samples.petclinic.system.WelcomeControllerTests
+    2026-11-04T19:47:54.040+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.system.WelcomeControllerTests]: WelcomeControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+    2026-11-04T19:47:54.046+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.system.CrashControllerIntegrationTests$TestConfiguration for test class org.springframework.samples.petclinic.system.WelcomeControllerTests
+
+
+                  |\      _,,,--,,_
+                 /,`.-'`'   ._  \-;;,_
+      _______ __|,4-  ) )_   .;.(__`'-'__     ___ __    _ ___ _______
+     |       | '---''(_/._)-'(_\_)   |   |   |   |  |  | |   |       |
+     |    _  |    ___|_     _|       |   |   |   |   |_| |   |       | __ _ _
+     |   |_| |   |___  |   | |       |   |   |   |       |   |       | \ \ \ \
+     |    ___|    ___| |   | |      _|   |___|   |  _    |   |      _|  \ \ \ \
+     |   |   |   |___  |   | |     |_|       |   | | |   |   |     |_    ) ) ) )
+     |___|   |_______| |___| |_______|_______|___|_|  |__|___|_______|  / / / /
+     ==================================================================/_/_/_/
+
+    :: Built with Spring Boot :: 4.1.0
+
+
+    2026-11-04T19:47:54.063+01:00  INFO 82312 --- [    Test worker] o.s.s.p.system.WelcomeControllerTests    : Starting WelcomeControllerTests using Java 17.0.21.0.3 with PID 82312 (started by D061177 in /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle)
+    2026-11-04T19:47:54.063+01:00  INFO 82312 --- [    Test worker] o.s.s.p.system.WelcomeControllerTests    : No active profile set, falling back to 1 default profile: "default"
+    2026-11-04T19:47:54.170+01:00  INFO 82312 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+    2026-11-04T19:47:54.170+01:00  INFO 82312 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+    2026-11-04T19:47:54.171+01:00  INFO 82312 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+    2026-11-04T19:47:54.176+01:00  INFO 82312 --- [    Test worker] o.s.s.p.system.WelcomeControllerTests    : Started WelcomeControllerTests in 0.127 seconds (process running for 13.1)
+
+VetControllerTests STANDARD_OUT
+    2026-11-04T19:47:54.216+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.vet.VetControllerTests]: VetControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+    2026-11-04T19:47:54.234+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.vet.VetControllerTests
+    2026-11-04T19:47:54.235+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.vet.VetControllerTests]: VetControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+    2026-11-04T19:47:54.239+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.vet.VetControllerTests
+
+
+                  |\      _,,,--,,_
+                 /,`.-'`'   ._  \-;;,_
+      _______ __|,4-  ) )_   .;.(__`'-'__     ___ __    _ ___ _______
+     |       | '---''(_/._)-'(_\_)   |   |   |   |  |  | |   |       |
+     |    _  |    ___|_     _|       |   |   |   |   |_| |   |       | __ _ _
+     |   |_| |   |___  |   | |       |   |   |   |       |   |       | \ \ \ \
+     |    ___|    ___| |   | |      _|   |___|   |  _    |   |      _|  \ \ \ \
+     |   |   |   |___  |   | |     |_|       |   | | |   |   |     |_    ) ) ) )
+     |___|   |_______| |___| |_______|_______|___|_|  |__|___|_______|  / / / /
+     ==================================================================/_/_/_/
+
+    :: Built with Spring Boot :: 4.1.0
+
+
+    2026-11-04T19:47:54.255+01:00  INFO 82312 --- [    Test worker] o.s.s.petclinic.vet.VetControllerTests   : Starting VetControllerTests using Java 17.0.21.0.3 with PID 82312 (started by D061177 in /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle)
+    2026-11-04T19:47:54.256+01:00  INFO 82312 --- [    Test worker] o.s.s.petclinic.vet.VetControllerTests   : No active profile set, falling back to 1 default profile: "default"
+    2026-11-04T19:47:54.437+01:00  INFO 82312 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+    2026-11-04T19:47:54.437+01:00  INFO 82312 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+    2026-11-04T19:47:54.437+01:00  INFO 82312 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+    2026-11-04T19:47:54.443+01:00  INFO 82312 --- [    Test worker] o.s.s.petclinic.vet.VetControllerTests   : Started VetControllerTests in 0.201 seconds (process running for 13.366)
+
+Gradle Test Executor 2 finished executing tests.
+2026-11-04T19:47:54.579+01:00  INFO 82312 --- [ionShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-11-04T19:47:55.584+01:00  INFO 82312 --- [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-11-04T19:47:55.588+01:00  INFO 82312 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-11-04T19:47:55.590+01:00  INFO 82312 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-11-04T19:47:55.591+01:00  INFO 82312 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-11-04T19:47:55.601+01:00  INFO 82312 --- [ionShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-11-04T19:47:55.683+01:00  INFO 82312 --- [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-11-04T19:47:55.686+01:00  INFO 82312 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-11-04T19:47:55.686+01:00  INFO 82312 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2026-11-04T19:47:55.687+01:00  INFO 82312 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2026-11-04T19:47:55.702+01:00  INFO 82312 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-11-04T19:47:55.702+01:00  INFO 82312 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2026-11-04T19:47:55.702+01:00  INFO 82312 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2026-11-04T19:47:55.703+01:00  INFO 82312 --- [ionShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-11-04T19:47:56.708+01:00  INFO 82312 --- [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+
+> Task :test
+Generating HTML test report...
+Finished generating test html results (0.098 secs) into: /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/build/reports/tests/test
+Finished generating test XML results (0.024 secs) into: /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/build/test-results/test
+Resolve mutations for :aggregateGradleExecutableCoverage (Thread[#92,Execution worker Thread 3,5,main]) started.
+:aggregateGradleExecutableCoverage (Thread[#92,Execution worker Thread 3,5,main]) started.
+
+> Task :aggregateGradleExecutableCoverage
+Caching disabled for task ':aggregateGradleExecutableCoverage' because:
+  Build cache is disabled
+  Input fragment topology is configured from concrete Test tasks
+Task ':aggregateGradleExecutableCoverage' is not up-to-date because:
+  No history is available.
+Resolve mutations for :generateSmartTestMapping (Thread[#92,Execution worker Thread 3,5,main]) started.
+:generateSmartTestMapping (Thread[#92,Execution worker Thread 3,5,main]) started.
+
+> Task :generateSmartTestMapping
+Skipping task ':generateSmartTestMapping' as it has no actions.
+
+[Incubating] Problems report is available at: file:///private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 41s
+11 actionable tasks: 6 executed, 5 up-to-date
+Watched directory hierarchies: [/private/tmp/stp-petclinic-parity-01.fJDgaN/gradle]
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.5.1/userguide/configuration_cache_enabling.html

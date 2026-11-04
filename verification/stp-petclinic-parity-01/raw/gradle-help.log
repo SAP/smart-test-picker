@@ -1,0 +1,40 @@
+Fetching distribution.
+Downloading https://services.gradle.org/distributions/gradle-9.5.1-bin.zip
+.............10%.............20%..............30%.............40%.............50%..............60%.............70%..............80%.............90%.............100%
+
+Welcome to Gradle 9.5.1!
+
+Here are the highlights of this release:
+ - Task provenance in reports and failure messages
+ - Type-safe accessors for precompiled Kotlin Settings plugins
+
+For more details see https://docs.gradle.org/9.5.1/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.5.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+[SETTINGS] Adding local Maven repository
+[SETTINGS] Prevent adding the "MavenLocal" (file:/Users/D061177/.m2/repository/) repository configuration
+[SETTINGS] Setting the "build-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/build-snapshots-cx-commerce-maven/) repository configuration
+[SETTINGS] Setting the "deploy-milestones-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-milestones-cx-commerce-maven/) repository configuration
+[SETTINGS] Setting the "deploy-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-snapshots-cx-commerce-maven/) repository configuration
+[SETTINGS] Setting the "build-releases" (https://int.repositories.cloud.sap/artifactory/build-releases/) repository configuration
+[PROJECT][:] Adding local Maven repository
+[PROJECT][:] Prevent adding the "MavenLocal" (file:/Users/D061177/.m2/repository/) repository configuration
+[PROJECT][:] Setting the "build-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/build-snapshots-cx-commerce-maven/) repository configuration
+[PROJECT][:] Setting the "deploy-milestones-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-milestones-cx-commerce-maven/) repository configuration
+[PROJECT][:] Setting the "deploy-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-snapshots-cx-commerce-maven/) repository configuration
+[PROJECT][:] Setting the "build-releases" (https://int.repositories.cloud.sap/artifactory/build-releases/) repository configuration
+[BUILD SCRIPT][:] Adding local Maven repository
+[BUILD SCRIPT][:] Prevent adding the "MavenLocal" (file:/Users/D061177/.m2/repository/) repository configuration
+[BUILD SCRIPT][:] Setting the "build-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/build-snapshots-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:] Setting the "deploy-milestones-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-milestones-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:] Setting the "deploy-snapshots-cx-commerce-maven" (https://common.repositories.cloud.sap/deploy-snapshots-cx-commerce-maven/) repository configuration
+[BUILD SCRIPT][:] Setting the "build-releases" (https://int.repositories.cloud.sap/artifactory/build-releases/) repository configuration
+[BUILD SCRIPT][:] Prevent adding the "MavenLocal2" (file:/Users/D061177/.m2/repository/) repository configuration
+
+> Configure project :
+[BUILD SCRIPT][:] Prevent adding the "__plugin_repository__MavenLocal" repository configuration
+[BUILD SCRIPT][:] Prevent adding the "__plugin_repository__build-snapshots-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:] Prevent adding the "__plugin_repository__deploy-milestones-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:] Prevent adding the "__plugin_repository__deploy-snapshots-cx-commerce-maven" repository configuration
+[BUILD SCRIPT][:] Prevent adding the "__plugin_repository__build-releases" repository configuration

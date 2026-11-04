@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.springframework.samples.petclinic.PetClinicIntegrationTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-04T18:47:50.029Z" hostname="WDVJD22XQC" time="0.697">
+  <properties/>
+  <testcase name="findAll()" classname="org.springframework.samples.petclinic.PetClinicIntegrationTests" time="0.024"/>
+  <testcase name="ownerList()" classname="org.springframework.samples.petclinic.PetClinicIntegrationTests" time="0.102"/>
+  <testcase name="ownerDetails()" classname="org.springframework.samples.petclinic.PetClinicIntegrationTests" time="0.019"/>
+  <system-out><![CDATA[2026-11-04T19:47:50.031+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.PetClinicIntegrationTests]: PetClinicIntegrationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-04T19:47:50.032+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.PetClinicIntegrationTests
+2026-11-04T19:47:50.033+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.PetClinicIntegrationTests]: PetClinicIntegrationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-04T19:47:50.033+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.PetClinicIntegrationTests
+
+
+              |\      _,,,--,,_
+             /,`.-'`'   ._  \-;;,_
+  _______ __|,4-  ) )_   .;.(__`'-'__     ___ __    _ ___ _______
+ |       | '---''(_/._)-'(_\_)   |   |   |   |  |  | |   |       |
+ |    _  |    ___|_     _|       |   |   |   |   |_| |   |       | __ _ _
+ |   |_| |   |___  |   | |       |   |   |   |       |   |       | \ \ \ \
+ |    ___|    ___| |   | |      _|   |___|   |  _    |   |      _|  \ \ \ \
+ |   |   |   |___  |   | |     |_|       |   | | |   |   |     |_    ) ) ) )
+ |___|   |_______| |___| |_______|_______|___|_|  |__|___|_______|  / / / /
+ ==================================================================/_/_/_/
+
+:: Built with Spring Boot :: 4.1.0
+
+
+2026-11-04T19:47:50.049+01:00  INFO 82312 --- [    Test worker] o.s.s.p.PetClinicIntegrationTests        : Starting PetClinicIntegrationTests using Java 17.0.21.0.3 with PID 82312 (started by D061177 in /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle)
+2026-11-04T19:47:50.049+01:00  INFO 82312 --- [    Test worker] o.s.s.p.PetClinicIntegrationTests        : No active profile set, falling back to 1 default profile: "default"
+2026-11-04T19:47:50.189+01:00  INFO 82312 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-11-04T19:47:50.206+01:00  INFO 82312 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 15 ms. Found 3 JPA repository interfaces.
+2026-11-04T19:47:50.291+01:00  INFO 82312 --- [    Test worker] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-11-04T19:47:50.292+01:00  INFO 82312 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-04T19:47:50.292+01:00  INFO 82312 --- [    Test worker] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-11-04T19:47:50.305+01:00  INFO 82312 --- [    Test worker] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 254 ms
+2026-11-04T19:47:50.338+01:00  INFO 82312 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-11-04T19:47:50.339+01:00  INFO 82312 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:a42c41a4-9962-40c0-ac80-5b4776292540 user=SA
+2026-11-04T19:47:50.339+01:00  INFO 82312 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-11-04T19:47:50.363+01:00  INFO 82312 --- [    Test worker] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-11-04T19:47:50.375+01:00  INFO 82312 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-11-04T19:47:50.376+01:00  INFO 82312 --- [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:a42c41a4-9962-40c0-ac80-5b4776292540]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: A42C41A4-9962-40C0-AC80-5B4776292540/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-11-04T19:47:50.418+01:00  INFO 82312 --- [    Test worker] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-11-04T19:47:50.419+01:00  INFO 82312 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-11-04T19:47:50.563+01:00  INFO 82312 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 13 endpoints beneath base path '/actuator'
+2026-11-04T19:47:50.576+01:00  INFO 82312 --- [    Test worker] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 49903 (http) with context path '/'
+2026-11-04T19:47:50.578+01:00  INFO 82312 --- [    Test worker] o.s.s.p.PetClinicIntegrationTests        : Started PetClinicIntegrationTests in 0.542 seconds (process running for 9.502)
+2026-11-04T19:47:50.599+01:00 DEBUG 82312 --- [    Test worker] org.hibernate.SQL                        : select v1_0.id,v1_0.first_name,v1_0.last_name from vets v1_0
+2026-11-04T19:47:50.601+01:00 DEBUG 82312 --- [    Test worker] org.hibernate.SQL                        : select s1_0.vet_id,s1_1.id,s1_1.name from vet_specialties s1_0 join specialties s1_1 on s1_1.id=s1_0.specialty_id where s1_0.vet_id in (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+2026-11-04T19:47:50.611+01:00  INFO 82312 --- [o-auto-2-exec-1] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-04T19:47:50.611+01:00  INFO 82312 --- [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-04T19:47:50.612+01:00  INFO 82312 --- [o-auto-2-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-11-04T19:47:50.648+01:00 DEBUG 82312 --- [o-auto-2-exec-1] org.hibernate.SQL                        : select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone from owners o1_0 where o1_0.last_name like ? escape '\' fetch first ? rows only
+2026-11-04T19:47:50.650+01:00 DEBUG 82312 --- [o-auto-2-exec-1] org.hibernate.SQL                        : select p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from pets p1_0 left join types t1_0 on t1_0.id=p1_0.type_id where p1_0.owner_id in (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) order by p1_0.name
+2026-11-04T19:47:50.652+01:00 DEBUG 82312 --- [o-auto-2-exec-1] org.hibernate.SQL                        : select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id in (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) order by v1_0.visit_date
+2026-11-04T19:47:50.670+01:00 DEBUG 82312 --- [o-auto-2-exec-1] org.hibernate.SQL                        : select count(o1_0.id) from owners o1_0 where o1_0.last_name like ? escape '\'
+2026-11-04T19:47:50.713+01:00 DEBUG 82312 --- [o-auto-2-exec-2] org.hibernate.SQL                        : select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone,p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from owners o1_0 left join pets p1_0 on o1_0.id=p1_0.owner_id left join types t1_0 on t1_0.id=p1_0.type_id where o1_0.id=? order by p1_0.name
+2026-11-04T19:47:50.714+01:00 DEBUG 82312 --- [o-auto-2-exec-2] org.hibernate.SQL                        : select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id=? order by v1_0.visit_date
+2026-11-04T19:47:50.715+01:00 DEBUG 82312 --- [o-auto-2-exec-2] org.hibernate.SQL                        : select o1_0.id,o1_0.address,o1_0.city,o1_0.first_name,o1_0.last_name,o1_0.telephone,p1_0.owner_id,p1_0.id,p1_0.birth_date,p1_0.name,t1_0.id,t1_0.name from owners o1_0 left join pets p1_0 on o1_0.id=p1_0.owner_id left join types t1_0 on t1_0.id=p1_0.type_id where o1_0.id=? order by p1_0.name
+2026-11-04T19:47:50.716+01:00 DEBUG 82312 --- [o-auto-2-exec-2] org.hibernate.SQL                        : select v1_0.pet_id,v1_0.id,v1_0.visit_date,v1_0.description from visits v1_0 where v1_0.pet_id=? order by v1_0.visit_date
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

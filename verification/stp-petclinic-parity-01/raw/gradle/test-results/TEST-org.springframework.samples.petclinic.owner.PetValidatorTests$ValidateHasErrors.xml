@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.springframework.samples.petclinic.owner.PetValidatorTests$ValidateHasErrors" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-04T18:47:52.524Z" hostname="WDVJD22XQC" time="0.003">
+  <properties/>
+  <testcase name="validateWithInvalidPetName()" classname="org.springframework.samples.petclinic.owner.PetValidatorTests$ValidateHasErrors" time="0.001"/>
+  <testcase name="validateWithInvalidPetType()" classname="org.springframework.samples.petclinic.owner.PetValidatorTests$ValidateHasErrors" time="0.0"/>
+  <testcase name="validateWithInvalidBirthDate()" classname="org.springframework.samples.petclinic.owner.PetValidatorTests$ValidateHasErrors" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

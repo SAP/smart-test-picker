@@ -1,0 +1,33 @@
+// External measurement configuration; the pinned subject's build and sources stay unchanged.
+initscript {
+    repositories {
+        maven { url = new File(System.getProperty('parity.stpRepo')).toURI() }
+        mavenCentral()
+    }
+    dependencies { classpath 'com.sap.oss.smart-test-picker:smart-test-picker:0.3.0-SNAPSHOT' }
+}
+allprojects { project ->
+    project.repositories {
+        maven { url = new File(System.getProperty('parity.stpRepo')).toURI() }
+        mavenCentral()
+    }
+    project.apply plugin: com.sap.oss.smarttestpicker.SmartTestPickerPlugin
+    project.smartTestPicker {
+        coverageCollector = 'ASM'
+        runtimeSchemaVersion = 3
+        revision = '88e37c15cf6fc8490b01bc3e8e2c800cec1ac272'
+        shardId = 'local'
+        mappingTestTasks = [':test']
+        coverageIncludes = ['org.springframework.samples.petclinic.',
+            'org.springframework.samples.petclinic.model.', 'org.springframework.samples.petclinic.owner.',
+            'org.springframework.samples.petclinic.system.', 'org.springframework.samples.petclinic.vet.']
+        coverageExcludes = []
+    }
+    project.tasks.withType(org.gradle.api.tasks.testing.Test).configureEach {
+        exclude '**/MySqlIntegrationTests.class', '**/PostgresIntegrationTests.class'
+        maxParallelForks = 1
+        forkEvery = 0
+        maxHeapSize = '768m'
+        systemProperty 'junit.jupiter.execution.parallel.enabled', 'false'
+    }
+}

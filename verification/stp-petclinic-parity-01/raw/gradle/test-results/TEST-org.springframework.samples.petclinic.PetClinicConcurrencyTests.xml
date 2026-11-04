@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.springframework.samples.petclinic.PetClinicConcurrencyTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-04T18:47:41.872Z" hostname="WDVJD22XQC" time="8.148">
+  <properties/>
+  <testcase name="testDuplicatePetNameRaceConditionIsBlocked()" classname="org.springframework.samples.petclinic.PetClinicConcurrencyTests" time="2.922"/>
+  <system-out><![CDATA[19:47:42.021 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.PetClinicConcurrencyTests]: PetClinicConcurrencyTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:42.151 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.PetClinicConcurrencyTests
+19:47:42.223 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [org.springframework.samples.petclinic.PetClinicConcurrencyTests]: PetClinicConcurrencyTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:47:42.225 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.PetClinicConcurrencyTests
+
+
+              |\      _,,,--,,_
+             /,`.-'`'   ._  \-;;,_
+  _______ __|,4-  ) )_   .;.(__`'-'__     ___ __    _ ___ _______
+ |       | '---''(_/._)-'(_\_)   |   |   |   |  |  | |   |       |
+ |    _  |    ___|_     _|       |   |   |   |   |_| |   |       | __ _ _
+ |   |_| |   |___  |   | |       |   |   |   |       |   |       | \ \ \ \
+ |    ___|    ___| |   | |      _|   |___|   |  _    |   |      _|  \ \ \ \
+ |   |   |   |___  |   | |     |_|       |   | | |   |   |     |_    ) ) ) )
+ |___|   |_______| |___| |_______|_______|___|_|  |__|___|_______|  / / / /
+ ==================================================================/_/_/_/
+
+:: Built with Spring Boot :: 4.1.0
+
+
+2026-11-04T19:47:42.524+01:00  INFO 82312 --- [    Test worker] o.s.s.p.PetClinicConcurrencyTests        : Starting PetClinicConcurrencyTests using Java 17.0.21.0.3 with PID 82312 (started by D061177 in /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle)
+2026-11-04T19:47:42.525+01:00  INFO 82312 --- [    Test worker] o.s.s.p.PetClinicConcurrencyTests        : No active profile set, falling back to 1 default profile: "default"
+2026-11-04T19:47:43.172+01:00  INFO 82312 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-11-04T19:47:43.229+01:00  INFO 82312 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 49 ms. Found 3 JPA repository interfaces.
+2026-11-04T19:47:43.733+01:00  INFO 82312 --- [    Test worker] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-11-04T19:47:43.744+01:00  INFO 82312 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-04T19:47:43.744+01:00  INFO 82312 --- [    Test worker] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-11-04T19:47:43.843+01:00  INFO 82312 --- [    Test worker] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1295 ms
+2026-11-04T19:47:43.986+01:00  INFO 82312 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-11-04T19:47:44.186+01:00  INFO 82312 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:f20d711c-8576-413c-bc58-e72d440648a8 user=SA
+2026-11-04T19:47:44.187+01:00  INFO 82312 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-11-04T19:47:44.312+01:00  INFO 82312 --- [    Test worker] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-11-04T19:47:44.357+01:00  INFO 82312 --- [    Test worker] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.1.Final
+2026-11-04T19:47:44.737+01:00  INFO 82312 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-11-04T19:47:44.819+01:00  INFO 82312 --- [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:f20d711c-8576-413c-bc58-e72d440648a8]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: F20D711C-8576-413C-BC58-E72D440648A8/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-11-04T19:47:45.861+01:00  INFO 82312 --- [    Test worker] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-11-04T19:47:45.867+01:00  INFO 82312 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-11-04T19:47:45.928+01:00  INFO 82312 --- [    Test worker] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-11-04T19:47:46.999+01:00  INFO 82312 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 13 endpoints beneath base path '/actuator'
+2026-11-04T19:47:47.057+01:00  INFO 82312 --- [    Test worker] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 49896 (http) with context path '/'
+2026-11-04T19:47:47.064+01:00  INFO 82312 --- [    Test worker] o.s.s.p.PetClinicConcurrencyTests        : Started PetClinicConcurrencyTests in 4.793 seconds (process running for 5.987)
+2026-11-04T19:47:49.529+01:00  INFO 82312 --- [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-04T19:47:49.529+01:00  INFO 82312 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-04T19:47:49.530+01:00  INFO 82312 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-11-04T19:47:49.714+01:00  WARN 82312 --- [o-auto-1-exec-1] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 23505, SQLState: 23505
+2026-11-04T19:47:49.714+01:00  WARN 82312 --- [o-auto-1-exec-1] org.hibernate.orm.jdbc.error             : Unique index or primary key violation: "PUBLIC.UNIQUE_OWNER_PET_NAME INDEX PUBLIC.UNIQUE_OWNER_PET_NAME_INDEX_2 ON PUBLIC.PETS(OWNER_ID NULLS FIRST, NAME NULLS FIRST) VALUES ( /* key:15 */ 1, CAST('ConcurrencyTestPet' AS VARCHAR_IGNORECASE(18)))"; SQL statement:
+update pets set owner_id=? where id=? [23505-240]
+--- Concurrency Test Assertions ---
+Successful additions: 1
+Failed additions: 1
+Original Pet Count: 1
+Final Pet Count: 2
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

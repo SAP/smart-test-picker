@@ -1,0 +1,4 @@
+Executed identities equal: 69
+Exact test coverage/outcomes equal: true; methods=1343; classes=418
+Normalized setup scopes equal: true; scopes=10
+Fresh Maven entire fragment equals ASM-10: true; empty identities=6

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.springframework.samples.petclinic.owner.VisitControllerTests" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-04T18:47:52.528Z" hostname="WDVJD22XQC" time="0.295">
+  <properties/>
+  <testcase name="processNewVisitFormHasErrors()" classname="org.springframework.samples.petclinic.owner.VisitControllerTests" time="0.046"/>
+  <testcase name="processNewVisitFormSuccess()" classname="org.springframework.samples.petclinic.owner.VisitControllerTests" time="0.008"/>
+  <testcase name="initNewVisitForm()" classname="org.springframework.samples.petclinic.owner.VisitControllerTests" time="0.011"/>
+  <testcase name="processNewVisitFormHasErrorsWhenVisitDateIsNotInFuture()" classname="org.springframework.samples.petclinic.owner.VisitControllerTests" time="0.012"/>
+  <system-out><![CDATA[2026-11-04T19:47:52.530+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.VisitControllerTests]: VisitControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-04T19:47:52.535+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.VisitControllerTests
+2026-11-04T19:47:52.535+01:00  INFO 82312 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.springframework.samples.petclinic.owner.VisitControllerTests]: VisitControllerTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-04T19:47:52.539+01:00  INFO 82312 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.springframework.samples.petclinic.PetClinicApplication for test class org.springframework.samples.petclinic.owner.VisitControllerTests
+
+
+              |\      _,,,--,,_
+             /,`.-'`'   ._  \-;;,_
+  _______ __|,4-  ) )_   .;.(__`'-'__     ___ __    _ ___ _______
+ |       | '---''(_/._)-'(_\_)   |   |   |   |  |  | |   |       |
+ |    _  |    ___|_     _|       |   |   |   |   |_| |   |       | __ _ _
+ |   |_| |   |___  |   | |       |   |   |   |       |   |       | \ \ \ \
+ |    ___|    ___| |   | |      _|   |___|   |  _    |   |      _|  \ \ \ \
+ |   |   |   |___  |   | |     |_|       |   | | |   |   |     |_    ) ) ) )
+ |___|   |_______| |___| |_______|_______|___|_|  |__|___|_______|  / / / /
+ ==================================================================/_/_/_/
+
+:: Built with Spring Boot :: 4.1.0
+
+
+2026-11-04T19:47:52.558+01:00  INFO 82312 --- [    Test worker] o.s.s.p.owner.VisitControllerTests       : Starting VisitControllerTests using Java 17.0.21.0.3 with PID 82312 (started by D061177 in /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle)
+2026-11-04T19:47:52.559+01:00  INFO 82312 --- [    Test worker] o.s.s.p.owner.VisitControllerTests       : No active profile set, falling back to 1 default profile: "default"
+2026-11-04T19:47:52.726+01:00  INFO 82312 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-11-04T19:47:52.726+01:00  INFO 82312 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-11-04T19:47:52.726+01:00  INFO 82312 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-11-04T19:47:52.738+01:00  INFO 82312 --- [    Test worker] o.s.s.p.owner.VisitControllerTests       : Started VisitControllerTests in 0.196 seconds (process running for 11.661)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

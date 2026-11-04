@@ -1,0 +1,13 @@
+STP source revision, subject revision, subject tree, then SHA-256 files:
+6413679624792f263e196174fb6089f8bc9f891f
+88e37c15cf6fc8490b01bc3e8e2c800cec1ac272
+3129e707de6f32acf23549d9e0706d3d1c270405
+dfa69a8afe2689b13e8ccecd9ee26817f252aa354485e4ffa37279e7ded981cc  /private/tmp/stp-petclinic-parity-01.fJDgaN/gradle/build/stp/artifacts/stp-agent.jar
+dfa69a8afe2689b13e8ccecd9ee26817f252aa354485e4ffa37279e7ded981cc  /private/tmp/stp-petclinic-parity-01.fJDgaN/m2/com/sap/oss/smart-test-picker/stp-agent/0.3.0-SNAPSHOT/stp-agent-0.3.0-SNAPSHOT.jar
+0a367a95bbc57e4650a2181df425f09b7f75106cc035e8a01eae1012122327ac  smart-test-picker/build/libs/smart-test-picker-0.3.0-SNAPSHOT.jar
+ccd530d2d1c6f3fac5727e58f45a5e582271795459333da8619fe4fe3a993bf3  smart-test-picker-maven/build/libs/smart-test-picker-maven-0.3.0-SNAPSHOT.jar
+0ecdbed9d086835971a9c69e3a49b6977ca24c42058ce2bf3618d8fc1820b8b9  verification/maven-asm-10/raw/asm/module/coverage-fragment-v3.json
+0ecdbed9d086835971a9c69e3a49b6977ca24c42058ce2bf3618d8fc1820b8b9  verification/stp-petclinic-parity-01/raw/maven/stp/coverage-fragment-v3.json
+Both subject git diff --exit-code checks succeeded with empty output.
+Maven mapping exit code: 0. Gradle mapping exit code: 0.
+Gradle configuration/inventory/measurement used an isolated Gradle home after the preliminary init-script-contaminated help attempt was cancelled.
