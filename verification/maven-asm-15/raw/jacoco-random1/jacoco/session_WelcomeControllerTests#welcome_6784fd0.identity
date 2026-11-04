@@ -1,0 +1,5 @@
+format=1
+className=org.springframework.samples.petclinic.system.WelcomeControllerTests
+methodName=welcome
+methodParameterTypes=
+outcome=PASS

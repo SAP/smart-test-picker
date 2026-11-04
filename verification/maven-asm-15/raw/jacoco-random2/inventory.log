@@ -1,0 +1,16 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------< org.springframework.samples:spring-petclinic >------------
+[INFO] Building petclinic 4.0.0-SNAPSHOT
+[INFO]   from measurement-pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:generate-reactor-head-test-inventory (default-cli) @ spring-petclinic ---
+[INFO] [SmartTestPicker] Module maven:.: 69 logical JUnit tests
+[INFO] [SmartTestPicker] Discovered 69 executable JUnit tests
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.318 s
+[INFO] Finished at: 2026-11-04T16:21:39+01:00
+[INFO] ------------------------------------------------------------------------

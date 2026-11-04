@@ -1,0 +1,5 @@
+Apache Maven 3.9.15 (98b2cdbfdb5f1ac8781f537ea9acccaed7922349)
+Maven home: /Users/D061177/Programs/apache-maven-3.9.15
+Java version: 21.0.13.0.3, vendor: SAP SE, runtime: /Library/Java/JavaVirtualMachines/sapmachine-21.jdk/Contents/Home
+Default locale: en_DE, platform encoding: UTF-8
+OS name: "mac os x", version: "26.7.1", arch: "aarch64", family: "mac"

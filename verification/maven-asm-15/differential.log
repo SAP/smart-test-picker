@@ -1,0 +1,4 @@
+PASS: offline differential controls detect an equal-count owner swap and identify identical-set blindness
+asm: perRun={alpha=1343, random1=1343, random2=1343} stable=1343 variableEdges=0 moverMethods=0
+jacoco: perRun={alpha=1400, random1=1400, random2=1400} stable=1400 variableEdges=0 moverMethods=0
+PASS: exact identities/outcomes, distinct actual class orders, fixed within-class method order, collector-paired orders, raw JaCoCo oracle equality and sequential configuration

@@ -1,0 +1,2 @@
+asm: changed boundaries=41, detectable=40, suspect incident edges=0/74, successor edges=0/74
+jacoco: changed boundaries=41, detectable=40, suspect incident edges=53/74, successor edges=52/74
