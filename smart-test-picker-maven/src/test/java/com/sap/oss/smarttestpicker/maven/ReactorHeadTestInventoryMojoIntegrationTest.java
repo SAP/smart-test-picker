@@ -5,6 +5,7 @@ package com.sap.oss.smarttestpicker.maven;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -20,6 +21,13 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentity;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutableTestInventory;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutableShardPlan;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutionPlan;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutionPlanMode;
+import com.sap.oss.smarttestpicker.coverage.model.GeneratorProvenance;
+import com.sap.oss.smarttestpicker.coverage.ExecutableCoverageFragmentJoiner;
 import com.sap.oss.smarttestpicker.selector.HeadTestInventoryCodec;
 import com.sap.oss.smarttestpicker.selector.ExecutableHeadTestInventoryCodec;
 import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableCoverageFragmentCodec;
@@ -32,11 +40,33 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 	private static final Path LOCAL_REPOSITORY = Path.of("build/functional-test-maven-local-"
 			+ ProcessHandle.current().pid()).toAbsolutePath();
 
+	@ParameterizedTest
+	@ValueSource(booleans = { false, true })
+	void ordinaryCoreConsumerRunsBothTestsWithoutCollection(boolean autodetection, @TempDir Path temp) throws Exception {
+		Path fixture = copyFixture("ordinary-core", temp.resolve("consumer"));
+		Result result = maven(fixture, "test", "-Djunit.jupiter.extensions.autodetection.enabled=" + autodetection);
+		assertEquals(0, result.exitCode(), result.output());
+		assertTrue(result.output().contains("Tests run: 2, Failures: 0, Errors: 0, Skipped: 0"), result.output());
+		var report = javax.xml.parsers.DocumentBuilderFactory.newInstance().newDocumentBuilder()
+				.parse(fixture.resolve("target/surefire-reports/TEST-fixture.OrdinaryTest.xml").toFile());
+		assertEquals("2", report.getDocumentElement().getAttribute("tests"));
+		assertEquals(2, report.getElementsByTagName("testcase").getLength());
+		assertEquals(0, report.getElementsByTagName("failure").getLength());
+		assertEquals(0, report.getElementsByTagName("error").getLength());
+		assertFalse(result.output().contains("Active JaCoCo runtime"), result.output());
+		assertFalse(Files.exists(fixture.resolve("target/jacoco")));
+		Path saved = Files.createDirectories(Path.of("build/maven-asm-03-fix/ordinary-" + autodetection));
+		Files.writeString(saved.resolve("maven.log"), result.output());
+		Files.copy(fixture.resolve("target/surefire-reports/TEST-fixture.OrdinaryTest.xml"),
+				saved.resolve("tests.xml"), StandardCopyOption.REPLACE_EXISTING);
+	}
+
 	@Test
 	void asmCollectorWithConsumerCoreAndAutodetectionDoesNotActivateJacoco(@TempDir Path temp) throws Exception {
 		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor"));
 		Path test = fixture.resolve("module-b/src/test/java/b/BTests.java");
 		Files.writeString(test, Files.readString(test).replace("new BValue().value();", """
+				org.junit.jupiter.api.Assertions.assertEquals("true", System.getProperty("smartTestPicker.collectionEnabled"));
 				org.junit.jupiter.api.Assertions.assertEquals("ASM", System.getProperty("smartTestPicker.coverageCollector"));
 				org.junit.jupiter.api.Assertions.assertEquals("true", System.getProperty("junit.jupiter.extensions.autodetection.enabled"));
 				org.junit.jupiter.api.Assertions.assertThrows(ClassNotFoundException.class,
@@ -55,6 +85,7 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 				+ ";shardId=asm-shard;executionTarget=maven:module-b;runId=asm-core;includes=a.,b.";
 		// Manual attachment is fixture setup only; this task does not add Maven ASM orchestration.
 		Result result = maven(fixture, "-pl", "module-b", "test", "-Dtest=b.BTests#b2,shared.SharedTest",
+				"-DsmartTestPicker.collectionEnabled=true",
 				"-Djacoco.skip=true", "-DsmartTestPicker.coverageCollector=ASM",
 				"-Djunit.jupiter.extensions.autodetection.enabled=true",
 				"-DargLine=-javaagent:" + System.getProperty("stp.test.agent.jar") + "=" + options);
@@ -77,6 +108,55 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		Files.copy(fragment, saved.resolve("fragment.json"), StandardCopyOption.REPLACE_EXISTING);
 		Files.copy(diagnostic, saved.resolve("diagnostic.json"), StandardCopyOption.REPLACE_EXISTING);
 		Files.writeString(saved.resolve("maven.log"), result.output());
+	}
+
+	@Test
+	void omittedActivationCannotSatisfyMappingEvidenceOrJoin(@TempDir Path temp) throws Exception {
+		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor")); initializeGit(fixture);
+		var identity = ExecutableTestIdentity.parse("maven:module-a::a.ATests#a1");
+		Path module = fixture.resolve("module-a");
+		Path output = module.resolve("target/stp/coverage-fragment-v3.json");
+		Path evidence = module.resolve("target/stp/execution-evidence-v2.json");
+		// Deliberately omit preparation/activation, but retain the real JaCoCo agent and output directories.
+		Files.createDirectories(module.resolve("target/jacoco-xml"));
+		Result collection = maven(fixture, "-pl", "module-a", "verify", "-Dtest=a.ATests#a1",
+				"-DsmartTestPicker.schemaVersion=3", "-DsmartTestPicker.executionTarget=maven:module-a",
+				"-DsmartTestPicker.moduleFragmentOutput=" + output, "-DsmartTestPicker.moduleEvidenceOutput=" + evidence);
+		assertEquals(0, collection.exitCode(), collection.output());
+		assertTrue(collection.output().contains("Tests run: 1, Failures: 0, Errors: 0, Skipped: 0"), collection.output());
+		try (var files = Files.list(module.resolve("target/jacoco"))) {
+			assertFalse(files.anyMatch(file -> file.getFileName().toString().startsWith("session_")),
+					"Inactive collection must not write per-test exec or identity artifacts");
+		}
+		var fragment = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(output));
+		assertFalse(fragment.collectionCompleted());
+		assertTrue(fragment.tests().isEmpty()); assertTrue(fragment.unmapped().isEmpty());
+		var project = new org.apache.maven.project.MavenProject();
+		var build = new org.apache.maven.model.Build(); build.setDirectory(module.resolve("target").toString()); project.setBuild(build);
+		var plan = new ExecutionPlan(com.sap.oss.smarttestpicker.coverage.ExecutionPlanContract.VERSION,
+				ExecutionPlanMode.SELECT, Set.of(identity), fragment.revision());
+		var verified = MavenExecutionEvidence.verify(plan, java.util.Map.of(identity.target(), project), true);
+		assertFalse(verified.valid()); assertEquals(Set.of(identity), verified.missing());
+		var inventory = new ExecutableTestInventory(fragment.revision(), Set.of(identity));
+		var shards = new ExecutableShardPlan(fragment.revision(), java.util.Map.of(fragment.shardId(), Set.of(identity)));
+		var rejected = assertThrows(IllegalArgumentException.class, () -> new ExecutableCoverageFragmentJoiner().join(
+				inventory, shards, List.of(fragment), Set.of(), java.time.Instant.EPOCH,
+				new GeneratorProvenance(STP_VERSION, STP_VERSION, "0.8.13", "17")));
+		assertTrue(rejected.getMessage().toLowerCase().contains("missing"), rejected.getMessage());
+		Path assignment = fixture.resolve("assignment.json");
+		Files.writeString(assignment, executableAssignment(identity.toString()));
+		Result aggregation = maven(fixture, PLUGIN + "aggregate-reactor-coverage-fragment",
+				"-DsmartTestPicker.schemaVersion=3", "-DsmartTestPicker.testsFile=" + assignment,
+				"-DsmartTestPicker.fragmentOutput=" + fixture.resolve("final.json"),
+				"-DsmartTestPicker.evidenceOutput=" + fixture.resolve("final-evidence.json"));
+		assertTrue(aggregation.exitCode() != 0, aggregation.output());
+		assertTrue(aggregation.output().contains("Incomplete module coverage fragment"), aggregation.output());
+		assertFalse(Files.exists(fixture.resolve("final.json")));
+		Path saved = Files.createDirectories(Path.of("build/maven-asm-03-fix/omitted-activation"));
+		Files.copy(output, saved.resolve("fragment.json"), StandardCopyOption.REPLACE_EXISTING);
+		Files.writeString(saved.resolve("collection.log"), collection.output());
+		Files.writeString(saved.resolve("aggregation.log"), aggregation.output());
+		Files.writeString(saved.resolve("verification.txt"), "missing=" + verified.missing() + "\njoin=" + rejected.getMessage() + "\n");
 	}
 
 	@ParameterizedTest

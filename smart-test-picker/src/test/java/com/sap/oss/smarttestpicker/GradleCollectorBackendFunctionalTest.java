@@ -22,6 +22,44 @@ import static org.junit.jupiter.api.Assertions.*;
 class GradleCollectorBackendFunctionalTest {
 	@TempDir Path temporary;
 
+	@org.junit.jupiter.params.ParameterizedTest
+	@org.junit.jupiter.params.provider.ValueSource(booleans = { false, true })
+	void ordinaryCoreConsumerRunsBothTestsWithoutCollection(boolean autodetection) throws Exception {
+		Path project = Files.createDirectories(temporary.resolve("ordinary"));
+		Files.writeString(project.resolve("settings.gradle"), "rootProject.name = 'ordinary-consumer'\n");
+		Files.writeString(project.resolve("build.gradle"), """
+			plugins { id 'java' }
+			repositories {
+			    maven { url = uri('%s') }
+			    mavenCentral()
+			}
+			dependencies {
+			    testImplementation 'com.sap.oss.smart-test-picker:smart-test-picker-core:0.3.0-SNAPSHOT'
+			    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+			    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.9.3'
+			}
+			test { useJUnitPlatform(); systemProperty 'junit.jupiter.extensions.autodetection.enabled', '%s' }
+			""".formatted(slash(new File(System.getProperty("stp.test.maven.repository"))), autodetection));
+		Path source = Files.createDirectories(project.resolve("src/test/java/fixture"));
+		Files.copy(Path.of("../smart-test-picker-maven/src/test/fixtures/ordinary-core/src/test/java/fixture/OrdinaryTest.java"),
+				source.resolve("OrdinaryTest.java"));
+		// No plugin-under-test classpath: this is an ordinary Java consumer, not an STP task.
+		BuildResult result = GradleRunner.create().withProjectDir(project.toFile()).withArguments("test").build();
+		assertEquals(SUCCESS, result.task(":test").getOutcome());
+		Path xml = project.resolve("build/test-results/test/TEST-fixture.OrdinaryTest.xml");
+		var report = javax.xml.parsers.DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xml.toFile());
+		assertEquals("2", report.getDocumentElement().getAttribute("tests"));
+		assertEquals("0", report.getDocumentElement().getAttribute("failures"));
+		assertEquals("0", report.getDocumentElement().getAttribute("errors"));
+		assertEquals("0", report.getDocumentElement().getAttribute("skipped"));
+		assertEquals(2, report.getElementsByTagName("testcase").getLength());
+		assertFalse(result.getOutput().contains("Active JaCoCo runtime"), result.getOutput());
+		assertFalse(Files.exists(project.resolve("build/jacoco")));
+		Path saved = Files.createDirectories(Path.of("build/maven-asm-03-fix/ordinary-" + autodetection));
+		Files.writeString(saved.resolve("gradle.log"), result.getOutput());
+		Files.copy(xml, saved.resolve("tests.xml"), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+	}
+
 	@Test
 	void defaultAsmIgnoresConsumerDeclaredCoreWithExtensionAutodetection() throws Exception {
 		Path project = fixture("consumer-core", null, false);
@@ -214,6 +252,7 @@ class GradleCollectorBackendFunctionalTest {
 			import static org.junit.jupiter.api.Assertions.*;
 			class OverloadedServiceTest {
 			    @Test void mapsDescriptorExactly() {
+			        assertEquals("true", System.getProperty("smartTestPicker.collectionEnabled"));
 			        assertEquals("present", System.getProperty("stp.fixture.flag"));
 			        assertEquals("x", new OverloadedService().value(" x "));
 			    }

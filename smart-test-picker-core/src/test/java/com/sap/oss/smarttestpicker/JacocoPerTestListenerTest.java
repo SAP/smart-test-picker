@@ -36,6 +36,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class JacocoPerTestListenerTest
 {
+	private String previousActivation;
+
+	@org.junit.jupiter.api.BeforeEach void enableCollection()
+	{
+		previousActivation = System.getProperty(StpCollectorSelection.ACTIVATION_PROPERTY);
+		System.setProperty(StpCollectorSelection.ACTIVATION_PROPERTY, "true");
+	}
+
+	@org.junit.jupiter.api.AfterEach void restoreCollection()
+	{
+		if (previousActivation == null) System.clearProperty(StpCollectorSelection.ACTIVATION_PROPERTY);
+		else System.setProperty(StpCollectorSelection.ACTIVATION_PROPERTY, previousActivation);
+	}
 
 	@Test
 	void buildSessionId_includesHashSuffix()

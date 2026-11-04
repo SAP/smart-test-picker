@@ -12,6 +12,55 @@ import org.junit.jupiter.api.io.TempDir;
 
 class StpCollectorSelectionTest
 {
+	@Test void inactiveIgnoresSelectionAndConstructionFreezesBothSignals()
+	{
+		String activation = System.getProperty(StpCollectorSelection.ACTIVATION_PROPERTY);
+		String selection = System.getProperty(StpCollectorSelection.PROPERTY);
+		try {
+			for (String value : new String[] { "ASM", "JACOCO", "", "invalid" }) {
+				System.clearProperty(StpCollectorSelection.ACTIVATION_PROPERTY);
+				System.setProperty(StpCollectorSelection.PROPERTY, value);
+				var listener = new JacocoPerTestListener();
+				var extension = new TestLifecycleExtension();
+				System.setProperty(StpCollectorSelection.ACTIVATION_PROPERTY, "true");
+				System.setProperty(StpCollectorSelection.PROPERTY, "invalid");
+				listener.executionStarted(null); listener.executionFinished(null, null);
+				listener.executionSkipped(null, "ignored"); listener.testPlanExecutionStarted(null);
+				extension.beforeTestExecution(null); extension.afterTestExecution(null);
+			}
+			assertThrows(IllegalArgumentException.class, JacocoPerTestListener::new);
+			assertThrows(IllegalArgumentException.class, TestLifecycleExtension::new);
+			System.setProperty(StpCollectorSelection.ACTIVATION_PROPERTY, "false");
+			assertDoesNotThrow(JacocoPerTestListener::new);
+			assertDoesNotThrow(TestLifecycleExtension::new);
+			System.setProperty(StpCollectorSelection.ACTIVATION_PROPERTY, "typo");
+			assertThrows(IllegalArgumentException.class, JacocoPerTestListener::new);
+		} finally {
+			if (activation == null) System.clearProperty(StpCollectorSelection.ACTIVATION_PROPERTY);
+			else System.setProperty(StpCollectorSelection.ACTIVATION_PROPERTY, activation);
+			if (selection == null) System.clearProperty(StpCollectorSelection.PROPERTY);
+			else System.setProperty(StpCollectorSelection.PROPERTY, selection);
+		}
+	}
+
+	@Test void inactiveInvalidSelectionIsSilentWithoutRuntime(@TempDir Path temporary) throws Exception
+	{
+		Path marker = temporary.resolve("executed");
+		Path log = temporary.resolve("run.log");
+		Process process = new ProcessBuilder(Path.of(System.getProperty("java.home"), "bin/java").toString(),
+				"-D" + StpCollectorSelection.PROPERTY + "=invalid", "-Dstp.probe.marker=" + marker,
+				"-Dstp.exec.dir=" + temporary.resolve("exec"),
+				"-cp", System.getProperty("java.class.path"), CollectorSelectionForkMain.class.getName())
+				.redirectErrorStream(true).redirectOutput(log.toFile()).start();
+		try {
+			assertTrue(process.waitFor(30, TimeUnit.SECONDS));
+			assertEquals(0, process.exitValue(), Files.readString(log));
+			assertTrue(Files.exists(marker));
+			assertFalse(Files.exists(temporary.resolve("exec")));
+			assertFalse(Files.readString(log).contains("SmartTestPicker"));
+		} finally { if (process.isAlive()) process.destroyForcibly(); }
+	}
+
 	@Test void selectionKeepsLegacyDefaultAndRejectsUnknownCollectors()
 	{
 		assertEquals(StpCollectorSelection.JACOCO, StpCollectorSelection.parse(null));
@@ -24,6 +73,8 @@ class StpCollectorSelectionTest
 	@Test void unselectedComponentsIgnoreEveryCallback()
 	{
 		String previous = System.getProperty(StpCollectorSelection.PROPERTY);
+		String previousActivation = System.getProperty(StpCollectorSelection.ACTIVATION_PROPERTY);
+		System.setProperty(StpCollectorSelection.ACTIVATION_PROPERTY, "true");
 		System.setProperty(StpCollectorSelection.PROPERTY, "ASM");
 		try {
 			boolean active = JacocoPerTestListener.active;
@@ -37,6 +88,8 @@ class StpCollectorSelectionTest
 			extension.afterTestExecution(null);
 			assertEquals(active, JacocoPerTestListener.active);
 		} finally {
+			if (previousActivation == null) System.clearProperty(StpCollectorSelection.ACTIVATION_PROPERTY);
+			else System.setProperty(StpCollectorSelection.ACTIVATION_PROPERTY, previousActivation);
 			if (previous == null) System.clearProperty(StpCollectorSelection.PROPERTY);
 			else System.setProperty(StpCollectorSelection.PROPERTY, previous);
 		}
@@ -44,10 +97,11 @@ class StpCollectorSelectionTest
 
 	@Test void spiFailsStartupForSelectedJacocoButIsSilentForAsm(@TempDir Path temporary) throws Exception
 	{
-		for (String collector : new String[] { "ASM", "JACOCO" }) {
+		for (String collector : new String[] { "ASM", "JACOCO", "" }) {
 			Path marker = temporary.resolve(collector + ".executed");
 			Path log = temporary.resolve(collector + ".log");
 			Process process = new ProcessBuilder(Path.of(System.getProperty("java.home"), "bin/java").toString(),
+					"-D" + StpCollectorSelection.ACTIVATION_PROPERTY + "=true",
 					"-D" + StpCollectorSelection.PROPERTY + "=" + collector,
 					"-Dstp.probe.marker=" + marker, "-Dstp.exec.dir=" + temporary.resolve("exec"),
 					"-cp", System.getProperty("java.class.path"), CollectorSelectionForkMain.class.getName())

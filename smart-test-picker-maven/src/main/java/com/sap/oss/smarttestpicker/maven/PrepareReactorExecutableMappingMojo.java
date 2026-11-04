@@ -15,6 +15,10 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.execution.MavenSession;
+import org.apache.maven.model.Plugin;
+import org.codehaus.plexus.util.xml.Xpp3Dom;
+import com.sap.oss.smarttestpicker.StpCollectorSelection;
 
 import com.sap.oss.smarttestpicker.coverage.model.ExecutableShardAssignment;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget;
@@ -26,6 +30,7 @@ import com.sap.oss.smarttestpicker.selector.ExecutableHeadTestInventoryCodec;
 @Mojo(name = "prepare-reactor-executable-mapping", aggregator = true, defaultPhase = LifecyclePhase.INITIALIZE)
 public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 	@Parameter(defaultValue = "${project}", readonly = true, required = true) private MavenProject project;
+	@Parameter(defaultValue = "${session}", readonly = true, required = true) private MavenSession session;
 	@Parameter(defaultValue = "${reactorProjects}", readonly = true, required = true) private List<MavenProject> reactorProjects;
 	@Parameter(defaultValue = "${env.STP_MAPPING_TESTS_FILE}", property = "smartTestPicker.testsFile", required = true) private File assignmentFile;
 	@Parameter(property = "smartTestPicker.revision", required = true) private String revision;
@@ -61,17 +66,38 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 					.partition(assignment, revision, shardId, modules.keySet(),
 							completeInventory == null ? null : completeInventory.runnableTests());
 			for (var entry : modules.entrySet()) configure(entry.getValue(), entry.getKey(),
-					partitioned.get(entry.getKey()), executionType);
+					partitioned.get(entry.getKey()), executionType,
+					StpMavenLifecycleParticipant.selectedCollector(entry.getValue(), session.getUserProperties()));
 		} catch (Exception failure) {
 			throw new MojoExecutionException("Cannot prepare schema-v3 Maven mapping: " + failure.getMessage(), failure);
 		}
 	}
 
 	private static void configure(MavenProject module, ExecutionTarget target, Set<TestIdentity> tests,
-			String executionType) throws Exception {
+			String executionType, StpCollectorSelection collector) throws Exception {
 		String provider = executionType == null || executionType.isBlank() ? "surefire" : executionType;
 		if (!provider.equals("surefire") && !provider.equals("failsafe"))
 			throw new IllegalArgumentException("Unsupported Maven test execution type: " + provider);
+		// Mapping preparation owns activation; output-directory defaults are independent.
+		module.getProperties().setProperty(StpCollectorSelection.ACTIVATION_PROPERTY, "true");
+		module.getProperties().setProperty(StpCollectorSelection.PROPERTY, collector.name());
+		String artifact = "maven-" + provider + "-plugin";
+		Plugin plugin = module.getBuild().getPlugins().stream()
+				.filter(value -> artifact.equals(value.getArtifactId())).findFirst().orElse(null);
+		if (plugin == null) {
+			plugin = new Plugin(); plugin.setGroupId("org.apache.maven.plugins"); plugin.setArtifactId(artifact);
+			module.getBuild().addPlugin(plugin);
+		}
+		Xpp3Dom configuration = plugin.getConfiguration() instanceof Xpp3Dom configured
+				? new Xpp3Dom(configured) : new Xpp3Dom("configuration");
+		StpMavenLifecycleParticipant.configureCollector(configuration, collector);
+		plugin.setConfiguration(configuration);
+		for (var execution : plugin.getExecutions()) {
+			Xpp3Dom configured = execution.getConfiguration() instanceof Xpp3Dom value
+					? new Xpp3Dom(value) : new Xpp3Dom("configuration");
+			StpMavenLifecycleParticipant.configureCollector(configured, collector);
+			execution.setConfiguration(configured);
+		}
 		boolean qualified = executionType != null && !executionType.isBlank();
 		String scope = target.targetId().replaceAll("[^A-Za-z0-9_.-]", "_");
 		String suffix = qualified ? "-" + scope : "";

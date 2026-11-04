@@ -1,0 +1,38 @@
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] executable-reactor                                                 [pom]
+[INFO] module-a                                                           [jar]
+[INFO] module-b                                                           [jar]
+[INFO] module-zero                                                        [jar]
+[INFO] 
+[INFO] ---------------------< fixture:executable-reactor >---------------------
+[INFO] Building executable-reactor 1                                      [1/4]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[WARNING] The following dependencies could not be resolved at this point of the build but seem to be part of the reactor:
+[WARNING] o fixture:module-a:jar:1 (compile)
+[WARNING] Try running the build up to the lifecycle phase "package"
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:aggregate-reactor-coverage-fragment (default-cli) @ executable-reactor ---
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for executable-reactor 1:
+[INFO] 
+[INFO] executable-reactor ................................. FAILURE [  0.577 s]
+[INFO] module-a ........................................... SKIPPED
+[INFO] module-b ........................................... SKIPPED
+[INFO] module-zero ........................................ SKIPPED
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.691 s
+[INFO] Finished at: 2026-11-04T07:25:44+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal com.sap.oss.smart-test-picker:smart-test-picker-maven:0.3.0-SNAPSHOT:aggregate-reactor-coverage-fragment (default-cli) on project executable-reactor: Maven reactor coverage aggregation failed: Incomplete module coverage fragment for maven:module-a -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

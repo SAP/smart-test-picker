@@ -1,5 +1,10 @@
 # MAVEN-ASM-03: selected collector isolation
 
+> Historical implementation snapshot of `bd889ab`. Its absent-selection behavior
+> regressed ordinary consumers. The [MAVEN-ASM-03-FIX report](../verification/maven-asm-03-fix/REPORT.md)
+> supersedes activation behavior: collection now defaults to inactive and selection
+> is evaluated only after explicit activation. Original results below are preserved.
+
 ## Decision and scope
 
 Implemented on `research/asm-codex`, starting from `e5c314d` (which includes the

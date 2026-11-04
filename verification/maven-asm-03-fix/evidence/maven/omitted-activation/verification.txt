@@ -1,0 +1,2 @@
+missing=[maven:module-a::a.ATests#a1]
+join=Fragment collection is not completed; incomplete executable collection: missingTests=[maven:module-a::a.ATests#a1], unexpectedTests=[], missingShards=[], duplicateShards=[], duplicateTests=[]
