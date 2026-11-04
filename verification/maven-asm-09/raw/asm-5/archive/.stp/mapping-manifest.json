@@ -1,0 +1,20 @@
+{
+  "manifestVersion": 3,
+  "revision": "0e3218bce297672d173e2dce6ce747c42a5d2b8b",
+  "inventory": ".stp/head-test-inventory.json",
+  "fragmentPattern": "build/stp/fragment-{shardId}.json",
+  "mappingSchemaVersion": 3,
+  "requestedShards": 1,
+  "inventoryArtifactVersion": 1,
+  "assignmentArtifactVersion": 1,
+  "assignmentPattern": "build/stp/shards/assignment-{shardId}.json",
+  "expectedShardIds": ["0"],
+  "project": "maven-asm-09-asm-stable",
+  "branch": "main",
+  "buildTool": "maven",
+  "testTarget": "test",
+  "collector": "ASM",
+  "diagnosticPattern": "build/stp/diagnostic-{shardId}.json",
+  "evidencePattern": "build/stp/execution-evidence-{shardId}.json",
+  "stashPattern": "stp-map-maven-asm-09-asm-stable-0f3aae42b5e92607-{shardId}"
+}

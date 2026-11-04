@@ -1,0 +1,81 @@
+ Service jenkins-controller  Building
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [jenkins-controller internal] load build definition from Dockerfile
+#1 transferring dockerfile: 602B done
+#1 DONE 0.0s
+
+#2 [jenkins-controller internal] load metadata for docker.io/jenkins/jenkins:2.516.2-lts-jdk21
+#2 DONE 0.0s
+
+#3 [jenkins-controller internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [jenkins-controller 1/7] FROM docker.io/jenkins/jenkins:2.516.2-lts-jdk21
+#4 DONE 0.0s
+
+#5 [jenkins-controller internal] load build context
+#5 transferring context: 14.10MB 0.1s done
+#5 DONE 0.1s
+
+#6 [jenkins-controller 2/7] COPY docker/controller/plugins.txt /usr/share/jenkins/ref/plugins.txt
+#6 CACHED
+
+#7 [jenkins-controller 3/7] RUN jenkins-plugin-cli --latest=false --plugin-file /usr/share/jenkins/ref/plugins.txt
+#7 15.24 
+#7 15.24 Security warnings:
+#7 15.24 github-branch-source (1917.v9ee8a_39b_3d0d): SECURITY-3702 Missing permission check allows performing a connection test https://www.jenkins.io/security/advisory/2026-04-29/#SECURITY-3702
+#7 15.24 github-branch-source (1917.v9ee8a_39b_3d0d): SECURITY-3808 Missing permission check allows enumerating GitHub Enterprise server URLs https://www.jenkins.io/security/advisory/2026-06-24/#SECURITY-3808
+#7 15.24 workflow-multibranch (795.ve0cb_1f45ca_9a_): SECURITY-3729 Exposure of System-scoped credentials https://www.jenkins.io/security/advisory/2026-09-16/#SECURITY-3729
+#7 15.24 git-client (6.1.0): SECURITY-3590 File system information disclosure vulnerability https://www.jenkins.io/security/advisory/2025-09-03/#SECURITY-3590
+#7 15.24 git-client (6.1.0): SECURITY-3614 OS command injection vulnerability on agents https://www.jenkins.io/security/advisory/2025-12-10/#SECURITY-3614
+#7 15.24 git-client (6.1.0): SECURITY-3723 OS command injection vulnerability on agents https://www.jenkins.io/security/advisory/2026-06-24/#SECURITY-3723
+#7 15.24 github (1.45.0): SECURITY-3704 XSS vulnerability https://www.jenkins.io/security/advisory/2026-04-29/#SECURITY-3704
+#7 15.24 pipeline-groovy-lib (744.v5b_556ee7c253): SECURITY-3727 Arbitrary file read vulnerability through symbolic links https://www.jenkins.io/security/advisory/2026-05-27/#SECURITY-3727
+#7 15.24 pipeline-groovy-lib (744.v5b_556ee7c253): SECURITY-3815 CSRF vulnerability https://www.jenkins.io/security/advisory/2026-09-02/#SECURITY-3815
+#7 15.24 pipeline-groovy-lib (744.v5b_556ee7c253): SECURITY-3796 Path traversal vulnerability https://www.jenkins.io/security/advisory/2026-09-16/#SECURITY-3796
+#7 15.24 jakarta-mail-api (2.1.3-1): SECURITY-3617 SMTP command injection vulnerability https://www.jenkins.io/security/advisory/2025-09-03/#SECURITY-3617
+#7 15.24 credentials-binding (687.v619cb_15e923f): SECURITY-3499 Improper masking of credentials https://www.jenkins.io/security/advisory/2025-07-09/#SECURITY-3499
+#7 15.24 credentials-binding (687.v619cb_15e923f): SECURITY-3672 Path traversal vulnerability https://www.jenkins.io/security/advisory/2026-04-29/#SECURITY-3672
+#7 15.24 credentials-binding (687.v619cb_15e923f): SECURITY-3790 Path traversal vulnerability https://www.jenkins.io/security/advisory/2026-05-27/#SECURITY-3790
+#7 15.24 pipeline-build-step (540.vb_e8849e1a_b_d8): SECURITY-3870 Missing permission check allows canceling downstream builds https://www.jenkins.io/security/advisory/2026-09-02/#SECURITY-3870
+#7 15.24 workflow-cps (4002.v80ca_d0f47d7f): SECURITY-3677 CSRF vulnerability and unrestricted instantiation of types https://www.jenkins.io/security/advisory/2026-06-24/#SECURITY-3677
+#7 15.24 script-security (1378.vf25626395f49): SECURITY-3662 Missing permission check allows enumerating pending and approved classpaths https://www.jenkins.io/security/advisory/2026-04-29/#SECURITY-3662
+#7 15.24 script-security (1378.vf25626395f49): SECURITY-3792 Sandbox bypass vulnerability https://www.jenkins.io/security/advisory/2026-06-24/#SECURITY-3792
+#7 15.24 script-security (1378.vf25626395f49): SECURITY-3793 Script security bypass vulnerability https://www.jenkins.io/security/advisory/2026-06-24/#SECURITY-3793
+#7 15.24 script-security (1378.vf25626395f49): SECURITY-3986 Improper access control https://www.jenkins.io/security/advisory/2026-09-02/#SECURITY-3986
+#7 15.24 script-security (1378.vf25626395f49): SECURITY-3897 Classpath approval bypass vulnerability https://www.jenkins.io/security/advisory/2026-09-16/#SECURITY-3897
+#7 15.24 script-security (1378.vf25626395f49): SECURITY-3923 Sandbox bypass vulnerability https://www.jenkins.io/security/advisory/2026-09-16/#SECURITY-3923
+#7 15.24 script-security (1378.vf25626395f49): SECURITY-3925-1 Sandbox bypass vulnerability https://www.jenkins.io/security/advisory/2026-09-16/#SECURITY-3925%20(1)
+#7 15.24 script-security (1378.vf25626395f49): SECURITY-3925-2 Sandbox bypass vulnerability https://www.jenkins.io/security/advisory/2026-09-16/#SECURITY-3925%20(2)
+#7 15.24 script-security (1378.vf25626395f49): SECURITY-3929 Sandbox bypass vulnerability https://www.jenkins.io/security/advisory/2026-09-16/#SECURITY-3929
+#7 15.24 script-security (1378.vf25626395f49): SECURITY-3931 Sandbox bypass vulnerability https://www.jenkins.io/security/advisory/2026-09-16/#SECURITY-3931
+#7 15.24 script-security (1378.vf25626395f49): SECURITY-3932 TOCTOU race condition https://www.jenkins.io/security/advisory/2026-09-16/#SECURITY-3932
+#7 15.24 script-security (1378.vf25626395f49): SECURITY-3977 Sandbox bypass vulnerability https://www.jenkins.io/security/advisory/2026-09-16/#SECURITY-3977
+#7 42.07 Done
+#7 DONE 42.4s
+
+#8 [jenkins-controller 4/7] COPY --chown=jenkins:jenkins target/smart-test-picker.hpi /usr/share/jenkins/ref/plugins/smart-test-picker.jpi
+#8 DONE 0.1s
+
+#9 [jenkins-controller 5/7] COPY --chown=jenkins:jenkins docker/controller/casc /usr/share/jenkins/ref/casc
+#9 DONE 0.0s
+
+#10 [jenkins-controller 6/7] COPY --chown=jenkins:jenkins docker/controller/init.groovy.d /usr/share/jenkins/ref/init.groovy.d
+#10 DONE 0.0s
+
+#11 [jenkins-controller 7/7] COPY --chown=jenkins:jenkins pipelines /opt/stp-plugin/pipelines
+#11 DONE 0.0s
+
+#12 [jenkins-controller] exporting to image
+#12 exporting layers
+#12 exporting layers 0.2s done
+#12 writing image sha256:14184a7be3f8a71ef84d677c818b6e5f58db7ad07b7685cea42c443e00b18e99
+ Service jenkins-controller  Built
+#12 writing image sha256:14184a7be3f8a71ef84d677c818b6e5f58db7ad07b7685cea42c443e00b18e99 done
+#12 naming to docker.io/library/stp-jenkins-plugin-poc-jenkins-controller done
+#12 DONE 0.2s
+
+#13 [jenkins-controller] resolving provenance for metadata file
+#13 DONE 0.0s

@@ -50,6 +50,7 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 	@Component private RepositorySystem repositorySystem;
 	@Parameter(property = "smartTestPicker.asm.includes") private String asmIncludes;
 	@Parameter(property = "smartTestPicker.asm.excludes") private String asmExcludes;
+	@Parameter(defaultValue = "${env.STP_MAPPING_COLLECTOR}", readonly = true) private String expectedCollector;
 
 	@Override public void execute() throws MojoExecutionException {
 		try {
@@ -77,6 +78,12 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 							completeInventory == null ? null : completeInventory.runnableTests());
 			// Validate the entire assignment before mutating configuration or starting tests.
 			for (var entry : modules.entrySet()) {
+				var selected = StpMavenLifecycleParticipant.selectedCollector(entry.getValue(), session.getUserProperties());
+				// A project property or CLI override must not bypass the orchestrator's frozen collector.
+				if (expectedCollector != null && !expectedCollector.isBlank()
+						&& selected != StpCollectorSelection.parse(expectedCollector))
+					throw new IllegalArgumentException("Mapping collector mismatch: manifest=" + expectedCollector
+							+ ", effective=" + selected + ", module=" + entry.getValue().getId());
 				if (!partitioned.get(entry.getKey()).isEmpty()
 						&& StpMavenLifecycleParticipant.selectedCollector(entry.getValue(), session.getUserProperties())
 						== StpCollectorSelection.ASM) {

@@ -1,0 +1,1 @@
+{"version":1,"revision":"0e3218bce297672d173e2dce6ce747c42a5d2b8b","tests":["maven:module-b::b.BTests#b2","maven:module-b::shared.SharedTest#same"]}

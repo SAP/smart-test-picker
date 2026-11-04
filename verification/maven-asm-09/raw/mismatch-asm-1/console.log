@@ -1,0 +1,301 @@
+Started by user admin
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on stp-agent in /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm
+[Pipeline] {
+[Pipeline] deleteDir
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Exact fixture preparation)
+[Pipeline] sh
++ set -eu
++ cp -R /opt/asm09/schema-v3-reactor/. .
++ git init -q
++ git config user.email fixture@example.invalid
++ git config user.name ASM09 fixture
++ git add .
++ GIT_AUTHOR_DATE=2026-11-04T00:00:00Z GIT_COMMITTER_DATE=2026-11-04T00:00:00Z git commit -qm Existing schema-v3 reactor fixture
++ git rev-parse HEAD
++ mvn -B -ntp -s /opt/asm09/settings.xml install -DskipTests -Djacoco.skip=true
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] executable-reactor                                                 [pom]
+[INFO] module-a                                                           [jar]
+[INFO] module-b                                                           [jar]
+[INFO] module-zero                                                        [jar]
+[INFO] 
+[INFO] ---------------------< fixture:executable-reactor >---------------------
+[INFO] Building executable-reactor 1                                      [1/4]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.13:prepare-agent (default) @ executable-reactor ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] argLine set to empty
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:generate-reports (reports) @ executable-reactor ---
+[WARNING] [SmartTestPicker] Exec directory not found: /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/target/jacoco — run tests with JaCoCo agent first
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:generate-coverage-fragment (fragment) @ executable-reactor ---
+[INFO] [SmartTestPicker] Generated schema-v2 coverage fragment: /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/target/coverage-fragment-v2.json (0 mapped, 0 unmapped, completed=false)
+[INFO] 
+[INFO] --- install:3.1.4:install (default-install) @ executable-reactor ---
+[INFO] Installing /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/pom.xml to /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/.m2/repository/fixture/executable-reactor/1/executable-reactor-1.pom
+[INFO] 
+[INFO] --------------------------< fixture:module-a >--------------------------
+[INFO] Building module-a 1                                                [2/4]
+[INFO]   from module-a/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.13:prepare-agent (default) @ module-a ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] argLine set to empty
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ module-a ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/module-a/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ module-a ---
+[INFO] Recompiling the module because of changed source code.
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[INFO] Compiling 1 source file with javac [debug release 17] to target/classes
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ module-a ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/module-a/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ module-a ---
+[INFO] Recompiling the module because of changed dependency.
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[INFO] Compiling 3 source files with javac [debug release 17] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.5.3:test (default-test) @ module-a ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.5.0:jar (default-jar) @ module-a ---
+[INFO] Building jar: /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/module-a/target/module-a-1.jar
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:generate-reports (reports) @ module-a ---
+[WARNING] [SmartTestPicker] Exec directory not found: /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/module-a/target/jacoco — run tests with JaCoCo agent first
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:generate-coverage-fragment (fragment) @ module-a ---
+[INFO] [SmartTestPicker] Generated schema-v2 coverage fragment: /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/module-a/target/coverage-fragment-v2.json (0 mapped, 0 unmapped, completed=false)
+[INFO] 
+[INFO] --- install:3.1.4:install (default-install) @ module-a ---
+[INFO] Installing /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/module-a/pom.xml to /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/.m2/repository/fixture/module-a/1/module-a-1.pom
+[INFO] Installing /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/module-a/target/module-a-1.jar to /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/.m2/repository/fixture/module-a/1/module-a-1.jar
+[INFO] 
+[INFO] --------------------------< fixture:module-b >--------------------------
+[INFO] Building module-b 1                                                [3/4]
+[INFO]   from module-b/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.13:prepare-agent (default) @ module-b ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] argLine set to empty
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ module-b ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/module-b/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ module-b ---
+[INFO] Recompiling the module because of changed dependency.
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[INFO] Compiling 1 source file with javac [debug release 17] to target/classes
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ module-b ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/module-b/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ module-b ---
+[INFO] Recompiling the module because of changed dependency.
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[INFO] Compiling 2 source files with javac [debug release 17] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.5.3:test (default-test) @ module-b ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.5.0:jar (default-jar) @ module-b ---
+[INFO] Building jar: /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/module-b/target/module-b-1.jar
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:generate-reports (reports) @ module-b ---
+[WARNING] [SmartTestPicker] Exec directory not found: /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/module-b/target/jacoco — run tests with JaCoCo agent first
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:generate-coverage-fragment (fragment) @ module-b ---
+[INFO] [SmartTestPicker] Generated schema-v2 coverage fragment: /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/module-b/target/coverage-fragment-v2.json (0 mapped, 0 unmapped, completed=false)
+[INFO] 
+[INFO] --- install:3.1.4:install (default-install) @ module-b ---
+[INFO] Installing /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/module-b/pom.xml to /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/.m2/repository/fixture/module-b/1/module-b-1.pom
+[INFO] Installing /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/module-b/target/module-b-1.jar to /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/.m2/repository/fixture/module-b/1/module-b-1.jar
+[INFO] 
+[INFO] ------------------------< fixture:module-zero >-------------------------
+[INFO] Building module-zero 1                                             [4/4]
+[INFO]   from module-zero/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.13:prepare-agent (default) @ module-zero ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] argLine set to empty
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ module-zero ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/module-zero/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ module-zero ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ module-zero ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/module-zero/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ module-zero ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.5.3:test (default-test) @ module-zero ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.5.0:jar (default-jar) @ module-zero ---
+[WARNING] JAR will be empty - no content was marked for inclusion!
+[INFO] Building jar: /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/module-zero/target/module-zero-1.jar
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:generate-reports (reports) @ module-zero ---
+[WARNING] [SmartTestPicker] Exec directory not found: /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/module-zero/target/jacoco — run tests with JaCoCo agent first
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:generate-coverage-fragment (fragment) @ module-zero ---
+[INFO] [SmartTestPicker] Generated schema-v2 coverage fragment: /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/module-zero/target/coverage-fragment-v2.json (0 mapped, 0 unmapped, completed=false)
+[INFO] 
+[INFO] --- install:3.1.4:install (default-install) @ module-zero ---
+[INFO] Installing /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/module-zero/pom.xml to /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/.m2/repository/fixture/module-zero/1/module-zero-1.pom
+[INFO] Installing /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/module-zero/target/module-zero-1.jar to /home/jenkins/agent/workspace/maven-asm-09-mismatch-asm/.m2/repository/fixture/module-zero/1/module-zero-1.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for executable-reactor 1:
+[INFO] 
+[INFO] executable-reactor ................................. SUCCESS [ 14.088 s]
+[INFO] module-a ........................................... SUCCESS [ 17.595 s]
+[INFO] module-b ........................................... SUCCESS [  0.068 s]
+[INFO] module-zero ........................................ SUCCESS [  0.012 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  31.826 s
+[INFO] Finished at: 2026-11-04T11:11:34Z
+[INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] readFile
+[Pipeline] stage
+[Pipeline] { (Prepare frozen mapping)
+[Pipeline] stpPrepareCoverageMapping
+[maven-asm-09-mismatch-asm] $ git rev-parse HEAD
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ mvn -B -ntp -s /opt/asm09/settings.xml -pl .,module-b com.sap.oss.smart-test-picker:smart-test-picker-maven:0.3.0-SNAPSHOT:generate-reactor-head-test-inventory -DsmartTestPicker.testFilter=b.BTests#b2,shared.SharedTest#same
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] executable-reactor                                                 [pom]
+[INFO] module-b                                                           [jar]
+[INFO] 
+[INFO] ---------------------< fixture:executable-reactor >---------------------
+[INFO] Building executable-reactor 1                                      [1/2]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:generate-reactor-head-test-inventory (default-cli) @ executable-reactor ---
+[INFO] [SmartTestPicker] Module maven:module-b: 2 logical JUnit tests
+[INFO] [SmartTestPicker] Discovered 2 executable JUnit tests
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for executable-reactor 1:
+[INFO] 
+[INFO] executable-reactor ................................. SUCCESS [  0.473 s]
+[INFO] module-b ........................................... SKIPPED
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.587 s
+[INFO] Finished at: 2026-11-04T11:11:36Z
+[INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[maven-asm-09-mismatch-asm] $ git rev-parse HEAD
+[STP] Mapping prepared after authoritative discovery: tests=2 shards=1
+[STP] Mapping manifest: .stp/mapping-manifest.json
+[Pipeline] // stpPrepareCoverageMapping
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Collect and aggregate)
+[Pipeline] stpCoverageMap
+[Pipeline] // stpCoverageMap
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] archiveArtifacts
+Archiving artifacts
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Also:   org.jenkinsci.plugins.workflow.actions.ErrorAction$ErrorId: d11a6ca4-bb31-4075-814b-9d197a979b8f
+java.lang.IllegalArgumentException: mapping collector mismatch: manifest=ASM, requested=JACOCO
+	at PluginClassLoader for smart-test-picker//io.github.smarttestpicker.jenkins.StpCoverageMapStep$Execution.start(StpCoverageMapStep.java:45)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.DSL.invokeStep(DSL.java:339)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.DSL.invokeMethod(DSL.java:199)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsScript.invokeMethod(CpsScript.java:124)
+	at groovy.lang.MetaClassImpl.invokeMethodOnGroovyObject(MetaClassImpl.java:1295)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1184)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1034)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:822)
+	at groovy.lang.GroovyObjectSupport.invokeMethod(GroovyObjectSupport.java:46)
+	at groovy.lang.MetaClassImpl.invokeMethodOnGroovyObject(MetaClassImpl.java:1295)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1184)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1034)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:822)
+	at groovy.lang.GroovyObjectSupport.invokeMethod(GroovyObjectSupport.java:46)
+	at groovy.lang.MetaClassImpl.invokeMethodOnGroovyObject(MetaClassImpl.java:1295)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1184)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1034)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.call(PogoMetaClassSite.java:41)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:47)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:116)
+	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.sandbox.DefaultInvoker.methodCall(DefaultInvoker.java:20)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.LoggingInvoker.methodCall(LoggingInvoker.java:124)
+	at WorkflowScript.run(WorkflowScript:43)
+	at ___cps.transform___(Native Method)
+	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.ContinuationGroup.methodCall(ContinuationGroup.java:107)
+	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.FunctionCallBlock$ContinuationImpl.dispatchOrArg(FunctionCallBlock.java:118)
+	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.FunctionCallBlock$ContinuationImpl.fixArg(FunctionCallBlock.java:87)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.ContinuationPtr$ContinuationImpl.receive(ContinuationPtr.java:71)
+	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.ClosureBlock.eval(ClosureBlock.java:49)
+	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.Next.step(Next.java:84)
+	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.Continuable.run0(Continuable.java:142)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsThread.runNextChunk(CpsThread.java:188)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsThreadGroup.run(CpsThreadGroup.java:464)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsThreadGroup$2.call(CpsThreadGroup.java:372)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsThreadGroup$2.call(CpsThreadGroup.java:302)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService.lambda$wrap$4(CpsVmExecutorService.java:143)
+	at java.base/java.util.concurrent.FutureTask.run(Unknown Source)
+	at hudson.remoting.SingleLaneExecutorService$1.run(SingleLaneExecutorService.java:139)
+	at jenkins.util.ContextResettingExecutorService$1.run(ContextResettingExecutorService.java:28)
+	at jenkins.security.ImpersonatingExecutorService$1.run(ImpersonatingExecutorService.java:68)
+	at jenkins.util.ErrorLoggingExecutorService.lambda$wrap$0(ErrorLoggingExecutorService.java:51)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.base/java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService$1.call(CpsVmExecutorService.java:53)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService$1.call(CpsVmExecutorService.java:50)
+	at org.codehaus.groovy.runtime.GroovyCategorySupport$ThreadCategoryInfo.use(GroovyCategorySupport.java:136)
+	at org.codehaus.groovy.runtime.GroovyCategorySupport.use(GroovyCategorySupport.java:275)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService.lambda$categoryThreadFactory$0(CpsVmExecutorService.java:50)
+	at java.base/java.lang.Thread.run(Unknown Source)
+Finished: FAILURE

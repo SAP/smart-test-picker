@@ -1,0 +1,5 @@
+/var/jenkins_home/smart-test-picker/maps/projects/maven-asm-09-asm--eae5a38503cf5217/revisions/723769e5ebd6680afa3fbc1668bcb2fdda4f7906--9f7b94c665519d68/coverage-map-v2.json
+/var/jenkins_home/smart-test-picker/maps/projects/maven-asm-09-asm--eae5a38503cf5217/revisions/0e3218bce297672d173e2dce6ce747c42a5d2b8b--0f3aae42b5e92607/coverage-map-v2.json
+/var/jenkins_home/smart-test-picker/maps/projects/maven-asm-09-jacoco--f7ac996ac91c3f91/revisions/0e3218bce297672d173e2dce6ce747c42a5d2b8b--0f3aae42b5e92607/coverage-map-v2.json
+/var/jenkins_home/smart-test-picker/maps/projects/maven-asm-09-qualified--4f9fa0f3df943c28/revisions/0e3218bce297672d173e2dce6ce747c42a5d2b8b--0f3aae42b5e92607/coverage-map-v2.json
+/var/jenkins_home/smart-test-picker/maps/projects/maven-asm-09-asm-stable--1941ca99d8354de9/revisions/0e3218bce297672d173e2dce6ce747c42a5d2b8b--0f3aae42b5e92607/coverage-map-v2.json

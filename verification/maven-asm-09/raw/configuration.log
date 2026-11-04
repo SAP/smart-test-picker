@@ -1,0 +1,12 @@
+maven-asm-09-asm
+maven-asm-09-jacoco
+maven-asm-09-qualified
+maven-asm-09-mismatch-asm
+maven-asm-09-mismatch-jacoco
+maven-asm-09-cli-mismatch-asm
+maven-asm-09-cli-mismatch-jacoco
+maven-asm-09-forks
+maven-asm-09-zero-scope
+maven-asm-09-missing-fragment
+maven-asm-09-incomplete-fragment
+Result: [asm, jacoco, qualified, mismatch-asm, mismatch-jacoco, cli-mismatch-asm, cli-mismatch-jacoco, forks, zero-scope, missing-fragment, incomplete-fragment]

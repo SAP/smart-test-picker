@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="shared.SharedTest" time="0.035" tests="1" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="21"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/home/jenkins/agent/workspace/maven-asm-09-asm/module-b/target/test-classes:/home/jenkins/agent/workspace/maven-asm-09-asm/module-b/target/classes:/home/jenkins/agent/workspace/maven-asm-09-asm/module-a/target/module-a-1.jar:/home/jenkins/agent/workspace/maven-asm-09-asm/.m2/repository/org/junit/jupiter/junit-jupiter/5.9.3/junit-jupiter-5.9.3.jar:/home/jenkins/agent/workspace/maven-asm-09-asm/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.9.3/junit-jupiter-api-5.9.3.jar:/home/jenkins/agent/workspace/maven-asm-09-asm/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/home/jenkins/agent/workspace/maven-asm-09-asm/.m2/repository/org/junit/platform/junit-platform-commons/1.9.3/junit-platform-commons-1.9.3.jar:/home/jenkins/agent/workspace/maven-asm-09-asm/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/jenkins/agent/workspace/maven-asm-09-asm/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.9.3/junit-jupiter-params-5.9.3.jar:/home/jenkins/agent/workspace/maven-asm-09-asm/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.9.3/junit-jupiter-engine-5.9.3.jar:/home/jenkins/agent/workspace/maven-asm-09-asm/.m2/repository/org/junit/platform/junit-platform-engine/1.9.3/junit-platform-engine-1.9.3.jar:/home/jenkins/agent/workspace/maven-asm-09-asm/.m2/repository/com/sap/oss/smart-test-picker/smart-test-picker-core/0.3.0-SNAPSHOT/smart-test-picker-core-0.3.0-SNAPSHOT.jar:"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="stp.exec.dir" value="/home/jenkins/agent/workspace/maven-asm-09-asm/module-b/target/jacoco"/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="os.name" value="Linux"/>
+    <property name="java.vm.specification.version" value="21"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.boot.library.path" value="/opt/java/openjdk/lib"/>
+    <property name="sun.java.command" value="/home/jenkins/agent/workspace/maven-asm-09-asm/module-b/target/surefire/surefirebooter-20261104110624931_3.jar /home/jenkins/agent/workspace/maven-asm-09-asm/module-b/target/surefire 2026-11-04T11-06-22_516-jvmRun1 surefire-20261104110624931_1tmp surefire_0-20261104110624931_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/home/jenkins/agent/workspace/maven-asm-09-asm/module-b/target/test-classes:/home/jenkins/agent/workspace/maven-asm-09-asm/module-b/target/classes:/home/jenkins/agent/workspace/maven-asm-09-asm/module-a/target/module-a-1.jar:/home/jenkins/agent/workspace/maven-asm-09-asm/.m2/repository/org/junit/jupiter/junit-jupiter/5.9.3/junit-jupiter-5.9.3.jar:/home/jenkins/agent/workspace/maven-asm-09-asm/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.9.3/junit-jupiter-api-5.9.3.jar:/home/jenkins/agent/workspace/maven-asm-09-asm/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/home/jenkins/agent/workspace/maven-asm-09-asm/.m2/repository/org/junit/platform/junit-platform-commons/1.9.3/junit-platform-commons-1.9.3.jar:/home/jenkins/agent/workspace/maven-asm-09-asm/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/jenkins/agent/workspace/maven-asm-09-asm/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.9.3/junit-jupiter-params-5.9.3.jar:/home/jenkins/agent/workspace/maven-asm-09-asm/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.9.3/junit-jupiter-engine-5.9.3.jar:/home/jenkins/agent/workspace/maven-asm-09-asm/.m2/repository/org/junit/platform/junit-platform-engine/1.9.3/junit-platform-engine-1.9.3.jar:/home/jenkins/agent/workspace/maven-asm-09-asm/.m2/repository/com/sap/oss/smart-test-picker/smart-test-picker-core/0.3.0-SNAPSHOT/smart-test-picker-core-0.3.0-SNAPSHOT.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/home/jenkins"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-08-18"/>
+    <property name="java.home" value="/opt/java/openjdk"/>
+    <property name="jacoco.skip" value="true"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/home/jenkins/agent/workspace/maven-asm-09-asm/module-b"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="/home/jenkins/agent/workspace/maven-asm-09-asm/module-b/target/surefire/surefirebooter-20261104110624931_3.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="21.0.12.1+1-LTS"/>
+    <property name="user.name" value="jenkins"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="6.10.14-linuxkit"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="smartTestPicker.collectionEnabled" value="true"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Temurin-21.0.12.1+1"/>
+    <property name="localRepository" value="/home/jenkins/agent/workspace/maven-asm-09-asm/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="java.version" value="21.0.12.1"/>
+    <property name="user.dir" value="/home/jenkins/agent/workspace/maven-asm-09-asm/module-b"/>
+    <property name="os.arch" value="aarch64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="smartTestPicker.coverageCollector" value="ASM"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.version" value="21.0.12.1+1-LTS"/>
+    <property name="smartTestPicker.executionTarget" value="maven:module-b"/>
+    <property name="smartTestPicker.schemaVersion" value="3"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="65.0"/>
+  </properties>
+  <testcase name="same" classname="shared.SharedTest" time="0.013"/>
+</testsuite>

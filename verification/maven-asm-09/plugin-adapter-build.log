@@ -1,0 +1,60 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------< io.github.smarttestpicker:stp-maven-adapter >-------------
+[INFO] Building stp-maven-adapter 0.3.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ stp-maven-adapter ---
+[INFO] Deleting /Users/D061177/work/moje/stp-jenkins-plugin-poc/adapters/maven-extension/target
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ stp-maven-adapter ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ stp-maven-adapter ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 1 source file with javac [debug release 8] to target/classes
+[WARNING] source value 8 is obsolete and will be removed in a future release
+[WARNING] target value 8 is obsolete and will be removed in a future release
+[WARNING] To suppress warnings about obsolete options, use -Xlint:-options.
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ stp-maven-adapter ---
+[INFO] skip non existing resourceDirectory /Users/D061177/work/moje/stp-jenkins-plugin-poc/adapters/maven-extension/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ stp-maven-adapter ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ stp-maven-adapter ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ stp-maven-adapter ---
+[INFO] Building jar: /Users/D061177/work/moje/stp-jenkins-plugin-poc/adapters/maven-extension/target/stp-maven-adapter-0.3.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --- shade:3.6.1:shade (default) @ stp-maven-adapter ---
+[WARNING] Discovered module-info.class. Shading will break its strong encapsulation.
+[WARNING] gson-2.10.1.jar, jackson-annotations-2.20.jar, jackson-core-2.20.0.jar, jackson-databind-2.20.0.jar, smart-test-picker-common-0.3.0-SNAPSHOT.jar, smart-test-picker-core-0.3.0-SNAPSHOT.jar, smart-test-picker-maven-0.3.0-SNAPSHOT.jar, stp-maven-adapter-0.3.0-SNAPSHOT.jar define 1 overlapping resource: 
+[WARNING]   - META-INF/MANIFEST.MF
+[WARNING] gson-2.10.1.jar, jackson-core-2.20.0.jar, jackson-databind-2.20.0.jar define 1 overlapping classes: 
+[WARNING]   - META-INF.versions.9.module-info
+[WARNING] jackson-annotations-2.20.jar, jackson-core-2.20.0.jar, jackson-databind-2.20.0.jar define 2 overlapping resources: 
+[WARNING]   - META-INF/LICENSE
+[WARNING]   - META-INF/NOTICE
+[WARNING] maven-shade-plugin has detected that some files are
+[WARNING] present in two or more JARs. When this happens, only one
+[WARNING] single version of the file is copied to the uber jar.
+[WARNING] Usually this is not harmful and you can skip these warnings,
+[WARNING] otherwise try to manually exclude artifacts based on
+[WARNING] mvn dependency:tree -Ddetail=true and the above output.
+[WARNING] See https://maven.apache.org/plugins/maven-shade-plugin/
+[INFO] Replacing original artifact with shaded artifact.
+[INFO] 
+[INFO] --- install:3.1.4:install (default-install) @ stp-maven-adapter ---
+[INFO] Installing /Users/D061177/work/moje/stp-jenkins-plugin-poc/adapters/maven-extension/pom.xml to /Users/D061177/.m2/repository/io/github/smarttestpicker/stp-maven-adapter/0.3.0-SNAPSHOT/stp-maven-adapter-0.3.0-SNAPSHOT.pom
+[INFO] Installing /Users/D061177/work/moje/stp-jenkins-plugin-poc/adapters/maven-extension/target/stp-maven-adapter-0.3.0-SNAPSHOT.jar to /Users/D061177/.m2/repository/io/github/smarttestpicker/stp-maven-adapter/0.3.0-SNAPSHOT/stp-maven-adapter-0.3.0-SNAPSHOT.jar
+[WARNING] Artifact io.github.smarttestpicker:stp-maven-adapter JAR (about to be installed/deployed) contains Maven Plugin metadata for conflicting coordinates: com.sap.oss.smart-test-picker:smart-test-picker-maven. Your JAR contains rogue Maven Plugin metadata. Possible causes may be: shaded into this JAR some Maven Plugin or some rogue resource.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  8.116 s
+[INFO] Finished at: 2026-11-04T11:51:20+01:00
+[INFO] ------------------------------------------------------------------------

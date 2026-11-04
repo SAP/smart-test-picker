@@ -1,0 +1,6 @@
+/home/jenkins/agent/workspace/maven-asm-09-zero-scope/module-a/target/classes
+/home/jenkins/agent/workspace/maven-asm-09-zero-scope/module-a/target/module-a-1.jar
+/home/jenkins/agent/workspace/maven-asm-09-zero-scope/module-b/target/classes
+/home/jenkins/agent/workspace/maven-asm-09-zero-scope/module-b/target/module-b-1.jar
+/home/jenkins/agent/workspace/maven-asm-09-zero-scope/module-zero/target/classes
+/home/jenkins/agent/workspace/maven-asm-09-zero-scope/module-zero/target/module-zero-1.jar

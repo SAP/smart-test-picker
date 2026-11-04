@@ -1,0 +1,5 @@
+/home/jenkins/agent/workspace/maven-asm-09-missing-fragment/module-a/target/classes
+/home/jenkins/agent/workspace/maven-asm-09-missing-fragment/module-a/target/module-a-1.jar
+/home/jenkins/agent/workspace/maven-asm-09-missing-fragment/module-b/target/classes
+/home/jenkins/agent/workspace/maven-asm-09-missing-fragment/module-b/target/module-b-1.jar
+/home/jenkins/agent/workspace/maven-asm-09-missing-fragment/module-zero/target/classes

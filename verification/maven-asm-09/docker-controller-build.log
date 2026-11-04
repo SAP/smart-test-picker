@@ -1,0 +1,70 @@
+ Service jenkins-controller  Building
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [jenkins-controller internal] load build definition from Dockerfile
+#1 transferring dockerfile: 587B 0.0s done
+#1 DONE 0.0s
+
+#2 [jenkins-controller internal] load metadata for docker.io/jenkins/jenkins:2.516.2-lts-jdk21
+#2 DONE 0.0s
+
+#3 [jenkins-controller internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [jenkins-controller 1/7] FROM docker.io/jenkins/jenkins:2.516.2-lts-jdk21
+#4 DONE 0.0s
+
+#5 [jenkins-controller internal] load build context
+#5 ...
+
+#4 [jenkins-controller 1/7] FROM docker.io/jenkins/jenkins:2.516.2-lts-jdk21
+#4 DONE 0.2s
+
+#5 [jenkins-controller internal] load build context
+#5 transferring context: 14.10MB 0.4s done
+#5 DONE 0.4s
+
+#6 [jenkins-controller 2/7] COPY docker/controller/plugins.txt /usr/share/jenkins/ref/plugins.txt
+#6 DONE 0.0s
+
+#7 [jenkins-controller 3/7] RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/plugins.txt
+#7 7.321 
+#7 7.321 Security warnings:
+#7 7.322 github-branch-source (1917.v9ee8a_39b_3d0d): SECURITY-3702 Missing permission check allows performing a connection test https://www.jenkins.io/security/advisory/2026-04-29/#SECURITY-3702
+#7 7.322 github-branch-source (1917.v9ee8a_39b_3d0d): SECURITY-3808 Missing permission check allows enumerating GitHub Enterprise server URLs https://www.jenkins.io/security/advisory/2026-06-24/#SECURITY-3808
+#7 7.322 workflow-multibranch (841.vec5b_9e1806ec): SECURITY-3729 Exposure of System-scoped credentials https://www.jenkins.io/security/advisory/2026-09-16/#SECURITY-3729
+#7 7.322 git-client (6.1.0): SECURITY-3590 File system information disclosure vulnerability https://www.jenkins.io/security/advisory/2025-09-03/#SECURITY-3590
+#7 7.322 git-client (6.1.0): SECURITY-3614 OS command injection vulnerability on agents https://www.jenkins.io/security/advisory/2025-12-10/#SECURITY-3614
+#7 7.322 git-client (6.1.0): SECURITY-3723 OS command injection vulnerability on agents https://www.jenkins.io/security/advisory/2026-06-24/#SECURITY-3723
+#7 7.322 github (1.45.0): SECURITY-3704 XSS vulnerability https://www.jenkins.io/security/advisory/2026-04-29/#SECURITY-3704
+#7 7.322 pipeline-groovy-lib (798.v5cc688825312): SECURITY-3815 CSRF vulnerability https://www.jenkins.io/security/advisory/2026-09-02/#SECURITY-3815
+#7 7.322 pipeline-groovy-lib (798.v5cc688825312): SECURITY-3796 Path traversal vulnerability https://www.jenkins.io/security/advisory/2026-09-16/#SECURITY-3796
+#7 7.325 Multiple plugin prerequisites not met:
+#7 7.325 
+#7 7.325 plugin-util-api (6.1192.v30fe6e2837ff) requires a greater version of Jenkins (2.516.3) than 2.516.2,
+#7 7.325 
+#7 7.325 font-awesome-api (7.2.0-965.ve3840b_696418) requires a greater version of Jenkins (2.516.3) than 2.516.2,
+#7 7.325 
+#7 7.325 bootstrap5-api (5.3.8-895.v4d0d8e47fea_d) requires a greater version of Jenkins (2.516.3) than 2.516.2,
+#7 7.325 
+#7 7.325 workflow-job (1571.1585.v21fce07cd04d) requires a greater version of Jenkins (2.516.3) than 2.516.2,
+#7 7.325 
+#7 7.325 workflow-cps (4350.vcc65d4958821) requires a greater version of Jenkins (2.516.3) than 2.516.2,
+#7 7.325 
+#7 7.325 prism-api (1.30.0-717.vb_f8360844b_53) requires a greater version of Jenkins (2.516.3) than 2.516.2
+#7 ERROR: process "/bin/sh -c jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/plugins.txt" did not complete successfully: exit code: 1
+------
+ > [jenkins-controller 3/7] RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/plugins.txt:
+7.325 
+7.325 font-awesome-api (7.2.0-965.ve3840b_696418) requires a greater version of Jenkins (2.516.3) than 2.516.2,
+7.325 
+7.325 bootstrap5-api (5.3.8-895.v4d0d8e47fea_d) requires a greater version of Jenkins (2.516.3) than 2.516.2,
+7.325 
+7.325 workflow-job (1571.1585.v21fce07cd04d) requires a greater version of Jenkins (2.516.3) than 2.516.2,
+7.325 
+7.325 workflow-cps (4350.vcc65d4958821) requires a greater version of Jenkins (2.516.3) than 2.516.2,
+7.325 
+7.325 prism-api (1.30.0-717.vb_f8360844b_53) requires a greater version of Jenkins (2.516.3) than 2.516.2
+------
+failed to solve: process "/bin/sh -c jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/plugins.txt" did not complete successfully: exit code: 1

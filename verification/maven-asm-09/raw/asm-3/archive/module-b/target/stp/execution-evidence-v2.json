@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "revision": "723769e5ebd6680afa3fbc1668bcb2fdda4f7906",
+  "shardId": "0",
+  "executionTarget": "maven:module-b",
+  "EXECUTED": [
+    "maven:module-b::b.BTests#b2",
+    "maven:module-b::shared.SharedTest#same"
+  ],
+  "NON_EXECUTED": []
+}

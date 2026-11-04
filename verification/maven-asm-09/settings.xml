@@ -1,0 +1,13 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.2.0">
+  <!-- Each disposable job starts with no local STP or fixture artifacts. -->
+  <localRepository>${env.WORKSPACE}/.m2/repository</localRepository>
+  <profiles><profile><id>functional-test-repository</id>
+    <repositories><repository><id>stp-functional</id><url>file:///opt/asm09/repository</url>
+      <snapshots><enabled>true</enabled><updatePolicy>always</updatePolicy></snapshots>
+    </repository></repositories>
+    <pluginRepositories><pluginRepository><id>stp-functional</id><url>file:///opt/asm09/repository</url>
+      <snapshots><enabled>true</enabled><updatePolicy>always</updatePolicy></snapshots>
+    </pluginRepository></pluginRepositories>
+  </profile></profiles>
+  <activeProfiles><activeProfile>functional-test-repository</activeProfile></activeProfiles>
+</settings>

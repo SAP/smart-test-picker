@@ -1,0 +1,4 @@
+maven:module-b::b.BTests#b2 classes=[b.BValue, a.AValue] methods=[b.BValue#value()I, a.AValue#<init>()V, b.BValue#<init>()V, a.AValue#value()I]
+maven:module-b::shared.SharedTest#same classes=[] methods=[]
+ASM09 FIXTURE-ONLY MAP EQUALITY PASS; no collector equivalence claim
+ASM09 PRODUCTION CODECS PASS

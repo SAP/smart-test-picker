@@ -1,0 +1,5 @@
+smart-test-picker-common: {"tests"=>333, "failures"=>0, "errors"=>0, "skipped"=>11}
+smart-test-picker-core: {"tests"=>29, "failures"=>0, "errors"=>0, "skipped"=>5}
+smart-test-picker-maven: {"tests"=>143, "failures"=>0, "errors"=>0, "skipped"=>0}
+smart-test-picker: {"tests"=>46, "failures"=>0, "errors"=>0, "skipped"=>0}
+stp-agent: {"tests"=>45, "failures"=>0, "errors"=>0, "skipped"=>1}

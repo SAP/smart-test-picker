@@ -23,6 +23,20 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 class PreparedAsmMappingTest {
+	@Test void frozenCollectorRejectsCliOverridesBeforeResolution(@TempDir Path temp) throws Exception {
+		for (String expected : List.of("ASM", "JACOCO")) {
+			AtomicInteger requests = new AtomicInteger();
+			var mojo = mojo(temp, "7.8-test", requests);
+			set(mojo, "expectedCollector", expected);
+			var field = PrepareReactorExecutableMappingMojo.class.getDeclaredField("session"); field.setAccessible(true);
+			String effective = expected.equals("ASM") ? "JACOCO" : "ASM";
+			((MavenSession) field.get(mojo)).getUserProperties().setProperty("smartTestPicker.coverageCollector", effective);
+			var failure = assertThrows(MojoExecutionException.class, mojo::execute);
+			assertTrue(failure.getMessage().contains("Mapping collector mismatch: manifest=" + expected + ", effective=" + effective), failure.getMessage());
+			assertEquals(0, requests.get());
+			assertFalse(Files.exists(temp.resolve("target")));
+		}
+	}
 	@Test void missingAgentFailsClosedAtAlignedPluginVersion(@TempDir Path temp) throws Exception {
 		AtomicInteger requests = new AtomicInteger();
 		var mojo = mojo(temp, "7.8-test", requests);

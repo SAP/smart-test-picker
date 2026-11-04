@@ -1,0 +1,4 @@
+maven:module-b::b.BTests#b2 classes=[a.AValue, b.BValue] methods=[b.BValue#value()I, a.AValue#value()I, b.BValue#<init>()V, a.AValue#<init>()V]
+maven:module-b::shared.SharedTest#same classes=[] methods=[]
+ASM09 ASM / JACOCO EXACT PARITY PASS
+ASM09 PRODUCTION CODECS PASS

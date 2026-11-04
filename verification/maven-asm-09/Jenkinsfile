@@ -1,0 +1,91 @@
+// One shard on the existing reactor fixture; no PetClinic, AE, or distributed campaign.
+@NonCPS
+def parseNegativeEvidence(String text) {
+    return new groovy.json.JsonSlurperClassic().parseText(text)
+}
+
+node('stp-agent') {
+    deleteDir()
+    def scenario = params.CASE
+    def collector = scenario == 'jacoco' || scenario.endsWith('mismatch-jacoco') ? 'JACOCO' : 'ASM'
+    def qualified = scenario == 'qualified'
+    // The exploratory ASM run used a different synthetic history; do not replace its pointer.
+    def project = scenario == 'asm' ? 'maven-asm-09-asm-stable' : "maven-asm-09-${scenario}"
+    withEnv(['PATH+MAVEN=/opt/maven/bin', 'MAVEN_OPTS=']) {
+        try {
+            stage('Exact fixture preparation') {
+                sh '''set -eu
+                    cp -R /opt/asm09/schema-v3-reactor/. .
+                    git init -q
+                    git config user.email fixture@example.invalid
+                    git config user.name 'ASM09 fixture'
+                    git add .
+                    GIT_AUTHOR_DATE=2026-11-04T00:00:00Z GIT_COMMITTER_DATE=2026-11-04T00:00:00Z \
+                        git commit -qm 'Existing schema-v3 reactor fixture'
+                    git rev-parse HEAD > revision.txt
+                    mvn -B -ntp -s /opt/asm09/settings.xml install -DskipTests -Djacoco.skip=true
+                '''
+            }
+            def revision = readFile('revision.txt').trim()
+            def qualifier = qualified ? '-DsmartTestPicker.executionType=surefire -DsmartTestPicker.executionId=default-test' : ''
+            def manifest
+            stage('Prepare frozen mapping') {
+                manifest = stpPrepareCoverageMapping(shards: 1, schemaVersion: 3,
+                    revision: revision, project: project, branch: 'main',
+                    buildTool: 'maven', testTarget: 'test', collector: collector) {
+                    // The same B2 + empty-test assignment as ASM06/08, discovered by the real mojo.
+                    withEnv(["FIXTURE_QUALIFIER=${qualifier}"]) {
+                        sh '''mvn -B -ntp -s /opt/asm09/settings.xml -pl .,module-b \
+                          "$STP_MAVEN_HEAD_INVENTORY_GOAL" \
+                          '-DsmartTestPicker.testFilter=b.BTests#b2,shared.SharedTest#same' $FIXTURE_QUALIFIER'''
+                    }
+                }
+            }
+            stage('Collect and aggregate') {
+                def mapping = [tool: 'maven', mapping: manifest, shardId: '0']
+                if (scenario.startsWith('mismatch-')) {
+                    mapping.collector = collector == 'ASM' ? 'JACOCO' : 'ASM'
+                }
+                stpCoverageMap(mapping) {
+                    echo 'ASM09_MAPPING_BODY_ENTERED'
+                    def extra = scenario == 'forks' ? '-DforkCount=2' :
+                        scenario == 'zero-scope' ? '-DsmartTestPicker.asm.includes=not.a.project.package.' : ''
+                    if (scenario.startsWith('cli-mismatch-')) {
+                        extra = '-DsmartTestPicker.coverageCollector=' + (collector == 'ASM' ? 'JACOCO' : 'ASM')
+                    }
+                    withEnv(["FIXTURE_QUALIFIER=${qualifier}", "FIXTURE_EXTRA=${extra}",
+                             "FIXTURE_JACOCO_SKIP=${collector == 'ASM'}"]) {
+                        sh '''mvn -B -ntp -s /opt/asm09/settings.xml \
+                          "$STP_MAVEN_MAPPING_GOAL" verify "$STP_MAVEN_MERGE_GOAL" \
+                          -Djacoco.skip="$FIXTURE_JACOCO_SKIP" $FIXTURE_QUALIFIER $FIXTURE_EXTRA'''
+                    }
+                }
+            }
+            if (scenario == 'missing-fragment' || scenario == 'incomplete-fragment') {
+                // Negative transport injection only, after a real successful collection.
+                def frozen = parseNegativeEvidence(readFile(manifest))
+                def fragment = frozen.fragmentPattern.replace('{shardId}', '0')
+                def evidence = frozen.evidencePattern.replace('{shardId}', '0')
+                def stashName = frozen.stashPattern.replace('{shardId}', '0')
+                if (scenario == 'missing-fragment') {
+                    sh "rm '${fragment}'"
+                    stash name: stashName, includes: evidence
+                } else {
+                    def broken = parseNegativeEvidence(readFile(fragment))
+                    broken.collection.completed = false
+                    writeFile file: fragment, text: groovy.json.JsonOutput.toJson(broken)
+                    stash name: stashName, includes: "${fragment},${evidence}"
+                }
+            }
+            stage('Publish on controller') {
+                stpPublishCoverageMap(mapping: manifest, project: project, branch: 'main', build: env.BUILD_NUMBER)
+            }
+            stage('Verify production codecs') {
+                sh '''/opt/asm09/verify.sh "$WORKSPACE"'''
+            }
+        } finally {
+            archiveArtifacts artifacts: '.stp/*.json,build/stp/**/*.json,**/target/stp/*.json,**/target/stp/asm-production-sources*.txt,**/target/surefire-reports/*.xml,revision.txt',
+                allowEmptyArchive: true
+        }
+    }
+}
