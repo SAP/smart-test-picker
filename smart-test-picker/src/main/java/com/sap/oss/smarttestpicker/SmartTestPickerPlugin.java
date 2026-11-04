@@ -302,7 +302,7 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 					standardTest.getFilter().getIncludePatterns().toArray(String[]::new));
 			mappingTest.getFilter().setExcludePatterns(
 					standardTest.getFilter().getExcludePatterns().toArray(String[]::new));
-			CoverageCollectorBackend backend = switch (CoverageCollectorType.parse(ext.getCoverageCollector().get())) {
+			GradleCoverageCollectorBackend backend = switch (CoverageCollectorType.parse(ext.getCoverageCollector().get())) {
 				case ASM -> new AsmCoverageCollectorBackend(stpAgent);
 				case JACOCO -> new JacocoCoverageCollectorBackend(stpJacocoCollector);
 			};
@@ -377,7 +377,7 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 		java.util.List<ExecutionTarget> known = targets.stream().map(GradleExecutionTargets::forTask).toList();
 		var partitions = new GradleExecutableAssignmentRouter().partition(assignment, ext.getRevision().get(),
 				ext.getShardId().getOrElse("gradle:" + mappingTask.getPath()), known);
-		CoverageCollectorBackend backend = switch (CoverageCollectorType.parse(ext.getCoverageCollector().get())) {
+		GradleCoverageCollectorBackend backend = switch (CoverageCollectorType.parse(ext.getCoverageCollector().get())) {
 			case ASM -> new AsmCoverageCollectorBackend(root.files(resolvedStpAgent.get().getOutputFile()));
 			case JACOCO -> new JacocoCoverageCollectorBackend(stpJacocoCollector);
 		};

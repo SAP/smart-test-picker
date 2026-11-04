@@ -103,8 +103,9 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 			File agent = needsAgent ? resolveAgent() : null;
 			for (var entry : modules.entrySet()) {
 				var collector = StpMavenLifecycleParticipant.selectedCollector(entry.getValue(), session.getUserProperties());
+				var backend = MavenCoverageCollectorBackend.selected(collector);
 				configure(entry.getValue(), entry.getKey(), partitioned.get(entry.getKey()), executionType, collector);
-				if (collector == StpCollectorSelection.ASM && !partitioned.get(entry.getKey()).isEmpty()) {
+				if (backend == MavenCoverageCollectorBackend.ASM && !partitioned.get(entry.getKey()).isEmpty()) {
 					AsmMappingAttachment.attach(entry.getValue(), session, executionType, agent, entry.getKey(),
 							assignment.revision().value(), assignment.shardId().value(), scope);
 				}
