@@ -1,0 +1,31 @@
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] executable-reactor                                                 [pom]
+[INFO] module-a                                                           [jar]
+[INFO] module-b                                                           [jar]
+[INFO] module-zero                                                        [jar]
+[INFO] 
+[INFO] ---------------------< fixture:executable-reactor >---------------------
+[INFO] Building executable-reactor 1                                      [1/4]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[WARNING] The following dependencies could not be resolved at this point of the build but seem to be part of the reactor:
+[WARNING] o fixture:module-a:jar:1 (compile)
+[WARNING] Try running the build up to the lifecycle phase "package"
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:aggregate-reactor-coverage-fragment (default-cli) @ executable-reactor ---
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for executable-reactor 1:
+[INFO] 
+[INFO] executable-reactor ................................. SUCCESS [  1.007 s]
+[INFO] module-a ........................................... SKIPPED
+[INFO] module-b ........................................... SKIPPED
+[INFO] module-zero ........................................ SKIPPED
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.158 s
+[INFO] Finished at: 2026-11-04T09:27:19+01:00
+[INFO] ------------------------------------------------------------------------

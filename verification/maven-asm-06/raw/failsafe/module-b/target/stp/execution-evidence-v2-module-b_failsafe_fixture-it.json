@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "revision": "reactor-revision",
+  "shardId": "reactor-shard",
+  "executionTarget": "maven:module-b@failsafe@fixture-it",
+  "EXECUTED": [
+    "maven:module-b@failsafe@fixture-it::b.BTests#b2",
+    "maven:module-b@failsafe@fixture-it::b.OutcomeTests#failure",
+    "maven:module-b@failsafe@fixture-it::b.OutcomeTests#mixed(org.junit.jupiter.api.RepetitionInfo)",
+    "maven:module-b@failsafe@fixture-it::b.OutcomeTests#plain",
+    "maven:module-b@failsafe@fixture-it::shared.SharedTest#same"
+  ],
+  "NON_EXECUTED": [
+    "maven:module-b@failsafe@fixture-it::b.DisabledTests#disabledClass",
+    "maven:module-b@failsafe@fixture-it::b.OutcomeTests#aborted",
+    "maven:module-b@failsafe@fixture-it::b.OutcomeTests#disabled"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "smart-test-picker-common": {
+    "tests": 333,
+    "skipped": 11,
+    "failures": 0,
+    "errors": 0
+  },
+  "smart-test-picker-core": {
+    "tests": 29,
+    "skipped": 5,
+    "failures": 0,
+    "errors": 0
+  },
+  "smart-test-picker-maven": {
+    "tests": 127,
+    "skipped": 0,
+    "failures": 0,
+    "errors": 0
+  },
+  "smart-test-picker": {
+    "tests": 46,
+    "skipped": 0,
+    "failures": 0,
+    "errors": 0
+  }
+}

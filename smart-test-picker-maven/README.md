@@ -21,7 +21,7 @@ validation. Core remains silent in active ASM mode.
 Managed Maven bootstrap propagates the selected value (user property, then project
 property, then JVM property) and injects core only for JaCoCo. Automatic ASM
 attachment belongs exclusively to mapping preparation, not managed selection.
-ASM fragment/evidence orchestration into the Maven aggregation goals is still deferred.
+ASM fragment finalization and reactor aggregation use the evidence contract below.
 Managed selected execution also explicitly activates its core evidence collection.
 Active JaCoCo without its runtime still fails closed with the existing error
 message. See [the activation correction and validation](../verification/maven-asm-03-fix/REPORT.md).
@@ -80,12 +80,59 @@ fail preparation.
 
 Each assigned target gets its own canonical target, revision, shard, deterministic
 run ID, fragment output and diagnostic output. Unassigned modules receive no agent.
-The fragment uses `smartTestPicker.moduleFragmentOutput`; the diagnostic uses
-`smartTestPicker.moduleEvidenceOutput`. **The latter currently contains ASM
-`agent-shell-1` diagnostics, not Maven execution evidence v2.** This task validates
-attachment through `test` or Failsafe `integration-test`; it does not make the
-existing JaCoCo fragment-generation/aggregation goals ASM-aware. See
-[automatic attachment evidence and remaining work](../verification/maven-asm-05/REPORT.md).
+The fragment uses `smartTestPicker.moduleFragmentOutput`; diagnostics use
+`smartTestPicker.moduleDiagnosticOutput`. `smartTestPicker.moduleEvidenceOutput`
+is reserved for real execution evidence v2, written by `generate-coverage-fragment`.
+See [attachment validation](../verification/maven-asm-05/REPORT.md) for the earlier
+attachment-only stage and [the current evidence decision](../verification/maven-asm-06/DECISION.md).
+The [Maven ASM fragment/evidence validation](../verification/maven-asm-06/REPORT.md)
+records real Surefire/Failsafe outcomes and aggregation checks.
+
+### ASM fragment finalization and aggregation
+
+Keep the existing mapping profile's `generate-coverage-fragment` binding at
+`verify`. `generate-reports`, if bound, skips JaCoCo XML conversion in ASM mode.
+With that project configuration (as in the `schema-v3-reactor` fixture), the full
+Maven collection command is:
+
+```sh
+mvn com.sap.oss.smart-test-picker:smart-test-picker-maven:0.3.0-SNAPSHOT:prepare-reactor-executable-mapping \
+  verify com.sap.oss.smart-test-picker:smart-test-picker-maven:0.3.0-SNAPSHOT:aggregate-reactor-coverage-fragment \
+  -DsmartTestPicker.schemaVersion=3 -DsmartTestPicker.coverageCollector=ASM \
+  -DsmartTestPicker.asm.includes=com.example. -DsmartTestPicker.testsFile="$ASSIGNMENT" \
+  -DsmartTestPicker.revision="$REVISION" -DsmartTestPicker.shardId="$SHARD" \
+  -DsmartTestPicker.fragmentOutput="$SHARD_FRAGMENT" -DsmartTestPicker.evidenceOutput="$SHARD_EVIDENCE"
+```
+
+Preparation sets per-module paths under the configured build directory's `stp/`:
+
+| Artifact | Filename | Writer |
+| --- | --- | --- |
+| Schema-v3 fragment | `coverage-fragment-v3<suffix>.json` | ASM agent |
+| Diagnostic (`agent-shell-1`) | `asm-agent-diagnostic<suffix>.json` | ASM agent |
+| Execution evidence v2 | `execution-evidence-v2<suffix>.json` | Maven fragment goal |
+
+Unqualified targets have no suffix. Qualified targets retain the preparation
+suffix, for example `-module-b_failsafe_fixture-it`. Aggregation resolves all
+assigned targets against the active reactor and reads their exact qualified files;
+it does not scan for a latest file. Collect each provider with its matching
+assignment and `executionType`/`executionId`, then aggregate their union assignment.
+Preparation clears only the current target's prior outputs, preserving other
+provider results. No per-fork merge is supported.
+
+Finalization validates the immutable agent fragment and derives positive evidence:
+mapped and FAILED identities are EXECUTED; SKIPPED (disabled or aborted-only)
+identities are NON_EXECUTED. FAILED retains no partial coverage and dominates an
+aborted invocation of the same logical test. SKIPPED remains in the fragment;
+it is not an executed coverage owner. Missing observations are never inferred as
+non-execution. Binding, exact assignment partition, duplicates and collection
+completeness are validated before the final pair is accepted.
+
+Maven test failures still fail the build. STP does not enable test-failure-ignore;
+inspection of failed-test evidence must preserve the original test result. The
+agent fragment is never rewritten by finalization. Missing or unsafe inputs leave
+no successful evidence output. This does not enable ASM in Jenkins or add scope
+derivation, per-fork merging, or ClassSource-only Vintage support.
 
 ## Coordinates
 
@@ -102,7 +149,7 @@ existing JaCoCo fragment-generation/aggregation goals ASM-aware. See
 | Goal | Mojo Class | Description |
 |------|-----------|-------------|
 | `generate-coverage-map` | `GenerateCoverageMapMojo` | Generates JSON coverage map from per-test XML reports |
-| `generate-coverage-fragment` | `GenerateCoverageFragmentMojo` | Generates a revision/shard-bound schema-v2 fragment |
+| `generate-coverage-fragment` | `GenerateCoverageFragmentMojo` | Generates JaCoCo schema-v2/v3 fragments or validates immutable ASM schema-v3 fragments and writes execution evidence |
 | `generate-head-test-inventory` | `GenerateHeadTestInventoryMojo` | Discovers exact JUnit identities for the current module without running tests |
 | `generate-reactor-head-test-inventory` | `GenerateReactorHeadTestInventoryMojo` | Writes one authoritative inventory for the effective reactor |
 | `prepare-reactor-executable-mapping` | `PrepareReactorExecutableMappingMojo` | Routes a schema-3 executable assignment to exact reactor targets before test execution |

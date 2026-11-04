@@ -40,7 +40,7 @@ final class AsmMappingAttachment {
 		var plugin = module.getBuildPlugins().stream().filter(p -> p.getArtifactId().equals("maven-" + provider + "-plugin"))
 				.findFirst().orElseThrow();
 		String fragment = module.getProperties().getProperty("smartTestPicker.moduleFragmentOutput");
-		String diagnostic = module.getProperties().getProperty("smartTestPicker.moduleEvidenceOutput");
+		String diagnostic = module.getProperties().getProperty("smartTestPicker.moduleDiagnosticOutput");
 		String runId = UUID.nameUUIDFromBytes((revision + "\n" + shardId + "\n" + target).getBytes(StandardCharsets.UTF_8)).toString();
 		String argument = "-javaagent:" + safe(agent.getAbsolutePath()) + "=output=" + safe(diagnostic)
 				+ ";fragmentOutput=" + safe(fragment) + ";schemaVersion=3;revision=" + safe(revision)

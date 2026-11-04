@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "agent-shell-1",
+  "collector": "ASM",
+  "runId": "7bda0a9d-7db4-304d-90f0-63e1403f0830",
+  "jvmId": "pid-38092",
+  "configuration": {
+    "output": "/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-18100130023090029649/reactor/module-b/target/stp/asm-agent-diagnostic.json",
+    "fragmentOutput": "/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-18100130023090029649/reactor/module-b/target/stp/coverage-fragment-v3.json",
+    "revision": "reactor-revision",
+    "shardId": "reactor-shard",
+    "includes": ["a.", "b."],
+    "excludes": ["com.sap.oss.smarttestpicker.", "jakarta.", "java.", "javax.", "jdk.", "net.bytebuddy.", "org.hibernate.", "org.jacoco.", "org.junit.", "org.mockito.", "org.springframework.", "sun."],
+    "debug": false,
+    "instrumentation": "on"
+  },
+  "metrics": {
+    "classesSeen": 1288,
+    "classesIncluded": 1,
+    "classesExcluded": 995,
+    "classesIgnored": 292,
+    "transformationErrors": 0,
+    "transformerTotalNanos": 5267784,
+    "agentStartNanos": 775784572289250,
+    "classLoaderPresent": 670,
+    "classLoaderMissing": 618,
+    "protectionDomainPresent": 663,
+    "protectionDomainMissing": 625,
+    "classesTransformed": 1,
+    "methodsConsidered": 2,
+    "methodsInstrumented": 2,
+    "methodsSkipped": 0,
+    "alreadyInstrumentedClasses": 0,
+    "methodIdCollisions": 0,
+    "rawMethodHits": 2,
+    "uniqueMethodHits": 2,
+    "runtimeRecordingNanos": 7469166
+  },
+  "methodIdAlgorithm": "fnv1a64-v1",
+  "methodCatalog": [
+    {"methodId":"7765523254049471258","canonicalKeys":["b.BValue#value()I"]},
+    {"methodId":"18264671601501798066","canonicalKeys":["b.BValue#<init>()V"]}
+  ],
+  "methodHits": [
+    {"methodId":"7765523254049471258","count":1,"canonicalKeys":["b.BValue#value()I"]},
+    {"methodId":"18264671601501798066","count":1,"canonicalKeys":["b.BValue#<init>()V"]}
+  ],
+  "agentErrors": [],
+  "bytecodeModified": true,
+  "runtimeEvents": {
+  "schemaVersion": "spike-2",
+  "runId": "7bda0a9d-7db4-304d-90f0-63e1403f0830",
+  "jvmId": "pid-38092",
+  "tests": [
+    {
+      "testId": "[engine:junit-jupiter]/[class:b.OutcomeTests]/[method:failure()]",
+      "displayName": "failure()",
+      "testClass": "b.OutcomeTests",
+      "testMethod": "failure",
+      "testMethodParameterTypes": "",
+      "engineId": "junit-jupiter",
+      "result": {"status":"FAILED","failureType":"org.opentest4j.AssertionFailedError","failureMessage":"expected fixture failure"},
+      "methods": [
+        {"methodId":"18264671601501798066","method":"b.BValue#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+        {"methodId":"7765523254049471258","method":"b.BValue#value()I","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+      ],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 2,
+        "uniqueMethodHits": 2
+      }
+    }
+  ],
+  "unattributedEvents": []
+}
+}

@@ -1,0 +1,216 @@
+{
+  "schemaVersion": "agent-shell-1",
+  "collector": "ASM",
+  "runId": "4bc4e11a-919d-3661-954d-f81e2b3435d2",
+  "jvmId": "pid-33241",
+  "configuration": {
+    "output": "/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-16420285433813910764/reactor/module-b/target/stp/asm-agent-diagnostic-module-b_surefire_default-test.json",
+    "fragmentOutput": "/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-16420285433813910764/reactor/module-b/target/stp/coverage-fragment-v3-module-b_surefire_default-test.json",
+    "revision": "reactor-revision",
+    "shardId": "reactor-shard",
+    "includes": ["a.", "b."],
+    "excludes": ["com.sap.oss.smarttestpicker.", "jakarta.", "java.", "javax.", "jdk.", "net.bytebuddy.", "org.hibernate.", "org.jacoco.", "org.junit.", "org.mockito.", "org.springframework.", "sun."],
+    "debug": false,
+    "instrumentation": "on"
+  },
+  "metrics": {
+    "classesSeen": 1332,
+    "classesIncluded": 2,
+    "classesExcluded": 1026,
+    "classesIgnored": 304,
+    "transformationErrors": 0,
+    "transformerTotalNanos": 6107164,
+    "agentStartNanos": 775502727599458,
+    "classLoaderPresent": 696,
+    "classLoaderMissing": 636,
+    "protectionDomainPresent": 689,
+    "protectionDomainMissing": 643,
+    "classesTransformed": 2,
+    "methodsConsidered": 4,
+    "methodsInstrumented": 4,
+    "methodsSkipped": 0,
+    "alreadyInstrumentedClasses": 0,
+    "methodIdCollisions": 0,
+    "rawMethodHits": 14,
+    "uniqueMethodHits": 4,
+    "runtimeRecordingNanos": 6712416
+  },
+  "methodIdAlgorithm": "fnv1a64-v1",
+  "methodCatalog": [
+    {"methodId":"326333488874548158","canonicalKeys":["a.AValue#<init>()V"]},
+    {"methodId":"7765523254049471258","canonicalKeys":["b.BValue#value()I"]},
+    {"methodId":"16778698043071263750","canonicalKeys":["a.AValue#value()I"]},
+    {"methodId":"18264671601501798066","canonicalKeys":["b.BValue#<init>()V"]}
+  ],
+  "methodHits": [
+    {"methodId":"326333488874548158","count":1,"canonicalKeys":["a.AValue#<init>()V"]},
+    {"methodId":"7765523254049471258","count":6,"canonicalKeys":["b.BValue#value()I"]},
+    {"methodId":"16778698043071263750","count":1,"canonicalKeys":["a.AValue#value()I"]},
+    {"methodId":"18264671601501798066","count":6,"canonicalKeys":["b.BValue#<init>()V"]}
+  ],
+  "agentErrors": [],
+  "bytecodeModified": true,
+  "runtimeEvents": {
+  "schemaVersion": "spike-2",
+  "runId": "4bc4e11a-919d-3661-954d-f81e2b3435d2",
+  "jvmId": "pid-33241",
+  "tests": [
+    {
+      "testId": "[engine:junit-jupiter]/[class:b.BTests]/[method:b2()]",
+      "displayName": "b2()",
+      "testClass": "b.BTests",
+      "testMethod": "b2",
+      "testMethodParameterTypes": "",
+      "engineId": "junit-jupiter",
+      "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+      "methods": [
+        {"methodId":"326333488874548158","method":"a.AValue#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+        {"methodId":"16778698043071263750","method":"a.AValue#value()I","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+        {"methodId":"18264671601501798066","method":"b.BValue#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+        {"methodId":"7765523254049471258","method":"b.BValue#value()I","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+      ],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 4,
+        "uniqueMethodHits": 4
+      }
+    },
+    {
+      "testId": "[engine:junit-jupiter]/[class:b.DisabledTests]/[method:disabledClass()]",
+      "displayName": "disabledClass()",
+      "testClass": "b.DisabledTests",
+      "testMethod": "disabledClass",
+      "testMethodParameterTypes": "",
+      "engineId": "junit-jupiter",
+      "result": {"status":"ABORTED","failureType":null,"failureMessage":"class b.DisabledTests is @Disabled"},
+      "methods": [],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 0,
+        "uniqueMethodHits": 0
+      }
+    },
+    {
+      "testId": "[engine:junit-jupiter]/[class:b.OutcomeTests]/[method:aborted()]",
+      "displayName": "aborted()",
+      "testClass": "b.OutcomeTests",
+      "testMethod": "aborted",
+      "testMethodParameterTypes": "",
+      "engineId": "junit-jupiter",
+      "result": {"status":"ABORTED","failureType":"org.opentest4j.TestAbortedException","failureMessage":"Assumption failed: assumption is not true"},
+      "methods": [
+        {"methodId":"18264671601501798066","method":"b.BValue#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+        {"methodId":"7765523254049471258","method":"b.BValue#value()I","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+      ],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 2,
+        "uniqueMethodHits": 2
+      }
+    },
+    {
+      "testId": "[engine:junit-jupiter]/[class:b.OutcomeTests]/[method:disabled()]",
+      "displayName": "disabled()",
+      "testClass": "b.OutcomeTests",
+      "testMethod": "disabled",
+      "testMethodParameterTypes": "",
+      "engineId": "junit-jupiter",
+      "result": {"status":"ABORTED","failureType":null,"failureMessage":"void b.OutcomeTests.disabled() is @Disabled"},
+      "methods": [],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 0,
+        "uniqueMethodHits": 0
+      }
+    },
+    {
+      "testId": "[engine:junit-jupiter]/[class:b.OutcomeTests]/[method:failure()]",
+      "displayName": "failure()",
+      "testClass": "b.OutcomeTests",
+      "testMethod": "failure",
+      "testMethodParameterTypes": "",
+      "engineId": "junit-jupiter",
+      "result": {"status":"FAILED","failureType":"org.opentest4j.AssertionFailedError","failureMessage":"expected fixture failure"},
+      "methods": [
+        {"methodId":"18264671601501798066","method":"b.BValue#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+        {"methodId":"7765523254049471258","method":"b.BValue#value()I","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+      ],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 2,
+        "uniqueMethodHits": 2
+      }
+    },
+    {
+      "testId": "[engine:junit-jupiter]/[class:b.OutcomeTests]/[method:plain()]",
+      "displayName": "plain()",
+      "testClass": "b.OutcomeTests",
+      "testMethod": "plain",
+      "testMethodParameterTypes": "",
+      "engineId": "junit-jupiter",
+      "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+      "methods": [
+        {"methodId":"18264671601501798066","method":"b.BValue#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+        {"methodId":"7765523254049471258","method":"b.BValue#value()I","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+      ],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 2,
+        "uniqueMethodHits": 2
+      }
+    },
+    {
+      "testId": "[engine:junit-jupiter]/[class:b.OutcomeTests]/[test-template:mixed(org.junit.jupiter.api.RepetitionInfo)]/[test-template-invocation:#1]",
+      "displayName": "repetition 1 of 2",
+      "testClass": "b.OutcomeTests",
+      "testMethod": "mixed",
+      "testMethodParameterTypes": "org.junit.jupiter.api.RepetitionInfo",
+      "engineId": "junit-jupiter",
+      "result": {"status":"FAILED","failureType":"org.opentest4j.AssertionFailedError","failureMessage":"failure dominates later abort"},
+      "methods": [
+        {"methodId":"18264671601501798066","method":"b.BValue#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+        {"methodId":"7765523254049471258","method":"b.BValue#value()I","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+      ],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 2,
+        "uniqueMethodHits": 2
+      }
+    },
+    {
+      "testId": "[engine:junit-jupiter]/[class:b.OutcomeTests]/[test-template:mixed(org.junit.jupiter.api.RepetitionInfo)]/[test-template-invocation:#2]",
+      "displayName": "repetition 2 of 2",
+      "testClass": "b.OutcomeTests",
+      "testMethod": "mixed",
+      "testMethodParameterTypes": "org.junit.jupiter.api.RepetitionInfo",
+      "engineId": "junit-jupiter",
+      "result": {"status":"ABORTED","failureType":"org.opentest4j.TestAbortedException","failureMessage":"Assumption failed: assumption is not true"},
+      "methods": [
+        {"methodId":"18264671601501798066","method":"b.BValue#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+        {"methodId":"7765523254049471258","method":"b.BValue#value()I","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+      ],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 2,
+        "uniqueMethodHits": 2
+      }
+    },
+    {
+      "testId": "[engine:junit-jupiter]/[class:shared.SharedTest]/[method:same()]",
+      "displayName": "same()",
+      "testClass": "shared.SharedTest",
+      "testMethod": "same",
+      "testMethodParameterTypes": "",
+      "engineId": "junit-jupiter",
+      "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+      "methods": [],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 0,
+        "uniqueMethodHits": 0
+      }
+    }
+  ],
+  "unattributedEvents": []
+}
+}

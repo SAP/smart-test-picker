@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "revision": "reactor-revision",
+  "shardId": "reactor-shard",
+  "executionTarget": "maven:module-b@surefire@default-test",
+  "EXECUTED": [
+    "maven:module-b@surefire@default-test::b.BTests#b2",
+    "maven:module-b@surefire@default-test::b.OutcomeTests#failure",
+    "maven:module-b@surefire@default-test::b.OutcomeTests#mixed(org.junit.jupiter.api.RepetitionInfo)",
+    "maven:module-b@surefire@default-test::b.OutcomeTests#plain",
+    "maven:module-b@surefire@default-test::shared.SharedTest#same"
+  ],
+  "NON_EXECUTED": [
+    "maven:module-b@surefire@default-test::b.DisabledTests#disabledClass",
+    "maven:module-b@surefire@default-test::b.OutcomeTests#aborted",
+    "maven:module-b@surefire@default-test::b.OutcomeTests#disabled"
+  ]
+}

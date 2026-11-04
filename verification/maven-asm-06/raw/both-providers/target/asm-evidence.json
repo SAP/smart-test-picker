@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "revision": "reactor-revision",
+  "shardId": "reactor-shard",
+  "testTarget": "test",
+  "buildTool": "maven",
+  "EXECUTED": [
+    "maven:module-b@failsafe@fixture-it::b.BTests#b2",
+    "maven:module-b@failsafe@fixture-it::b.OutcomeTests#failure",
+    "maven:module-b@failsafe@fixture-it::b.OutcomeTests#mixed(org.junit.jupiter.api.RepetitionInfo)",
+    "maven:module-b@failsafe@fixture-it::b.OutcomeTests#plain",
+    "maven:module-b@failsafe@fixture-it::shared.SharedTest#same",
+    "maven:module-b@surefire@default-test::b.BTests#b2",
+    "maven:module-b@surefire@default-test::b.OutcomeTests#failure",
+    "maven:module-b@surefire@default-test::b.OutcomeTests#mixed(org.junit.jupiter.api.RepetitionInfo)",
+    "maven:module-b@surefire@default-test::b.OutcomeTests#plain",
+    "maven:module-b@surefire@default-test::shared.SharedTest#same"
+  ],
+  "NON_EXECUTED": [
+    "maven:module-b@failsafe@fixture-it::b.DisabledTests#disabledClass",
+    "maven:module-b@failsafe@fixture-it::b.OutcomeTests#aborted",
+    "maven:module-b@failsafe@fixture-it::b.OutcomeTests#disabled",
+    "maven:module-b@surefire@default-test::b.DisabledTests#disabledClass",
+    "maven:module-b@surefire@default-test::b.OutcomeTests#aborted",
+    "maven:module-b@surefire@default-test::b.OutcomeTests#disabled"
+  ]
+}

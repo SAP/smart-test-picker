@@ -106,11 +106,11 @@ public final class MergeExecutableTargetFragmentsMojo extends AbstractMojo {
 		Set<ExecutableTestIdentity> overlap = new TreeSet<>(executed); overlap.retainAll(nonExecuted);
 		if (!overlap.isEmpty()) throw new IllegalArgumentException("EXECUTED/NON_EXECUTED overlap: " + overlap);
 		if (!evidenceOwners.equals(assignment.tests())) throw new IllegalArgumentException("Target evidence does not own exactly the shard assignment");
-		Set<ExecutableTestIdentity> coverageOwners = new TreeSet<>(mapped.keySet()); coverageOwners.addAll(unmapped.keySet());
-		if (!coverageOwners.equals(executed)) throw new IllegalArgumentException("Coverage owners differ from executed target evidence");
 		var result = new ExecutableCoverageFragment(CoverageMapContract.SCHEMA_V3,
 				new CoverageMapRevision(revision), new ShardId(shardId), mapped,
 				new ArrayList<>(unmapped.values()), new ArrayList<>(scopes.values()), true);
+		if (!MavenMappingEvidence.coverageOwners(result).equals(executed))
+			throw new IllegalArgumentException("Coverage owners differ from executed target evidence");
 		ExecutableFragmentAssignmentValidator.validate(result, assignment, nonExecuted);
 		Files.createDirectories(fragmentOutput.toPath().getParent());
 		Files.write(fragmentOutput.toPath(), codec.serialize(result));

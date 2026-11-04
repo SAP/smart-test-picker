@@ -13,6 +13,23 @@ import com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget;
 
 /** Canonical Maven execution-target derivation shared by inventory and mapping. */
 final class MavenExecutionTargetResolver {
+	static String outputSuffix(ExecutionTarget target) {
+		return target.targetId().contains("@") ? "-" + target.targetId().replaceAll("[^A-Za-z0-9_.-]", "_") : "";
+	}
+
+	/** Validate an assigned qualifier using the same contract that produced inventory targets. */
+	ExecutionTarget resolveAssigned(File root, MavenProject module, ExecutionTarget assigned) {
+		String[] parts = assigned.targetId().split("@", -1);
+		if (parts.length != 1 && parts.length != 3 && parts.length != 4)
+			throw new IllegalArgumentException("Malformed Maven execution target: " + assigned);
+		if (parts.length > 1 && !parts[1].equals("surefire") && !parts[1].equals("failsafe"))
+			throw new IllegalArgumentException("Unsupported Maven test execution type: " + parts[1]);
+		ExecutionTarget resolved = resolve(root, module, parts.length > 1 ? parts[1] : null,
+				parts.length > 1 ? parts[2] : null, parts.length == 4 ? parts[3] : null);
+		if (!resolved.equals(assigned)) throw new IllegalArgumentException("Maven target does not resolve to module: " + assigned);
+		return resolved;
+	}
+
 	String reactorModuleId(ExecutionTarget target) {
 		if (target == null || target.buildTool() != BuildTool.MAVEN)
 			throw new IllegalArgumentException("Not a Maven execution target: " + target);

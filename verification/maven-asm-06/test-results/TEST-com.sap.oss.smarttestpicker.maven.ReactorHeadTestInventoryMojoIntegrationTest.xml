@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" tests="58" skipped="0" failures="0" errors="0" timestamp="2026-11-04T08:23:26.284Z" hostname="WDVJD22XQC" time="504.619">
+  <properties/>
+  <testcase name="[1] &quot;literal&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="14.771"/>
+  <testcase name="[2] &quot;property&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="3.965"/>
+  <testcase name="[3] &quot;expression&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="3.849"/>
+  <testcase name="[4] &quot;execution&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="4.136"/>
+  <testcase name="[5] &quot;profile&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="3.859"/>
+  <testcase name="[6] &quot;management&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="4.676"/>
+  <testcase name="[7] &quot;default-attribute&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="4.064"/>
+  <testcase name="[8] &quot;cpu&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="4.116"/>
+  <testcase name="[9] &quot;zero&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="3.761"/>
+  <testcase name="[10] &quot;reuse&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="3.655"/>
+  <testcase name="[11] &quot;unresolved&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="3.658"/>
+  <testcase name="[12] &quot;legacy&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="3.679"/>
+  <testcase name="[13] &quot;failsafe&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="4.317"/>
+  <testcase name="isolatesDifferentCompleteJUnitRuntimesPerModule(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="16.382"/>
+  <testcase name="asmMappingCompletesFragmentAndReactorEvidenceWithoutJacoco(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="20.147"/>
+  <testcase name="[1] &quot;default&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="16.932"/>
+  <testcase name="[2] &quot;surefire&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="11.638"/>
+  <testcase name="[3] &quot;failsafe&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="11.365"/>
+  <testcase name="schemaV3PreparationRejectsAbsentAndNonMavenTargets(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="7.837"/>
+  <testcase name="schemaV3UsesActiveAgentBytesWithProjectOwnedLiteralArgLine(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="26.301"/>
+  <testcase name="reportsModuleAndJUnitOriginsForInternallyBrokenRuntime(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="4.78"/>
+  <testcase name="schemaV3MappingRoutesStrictSubsetAndAggregatesExecutableOwners(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="16.627"/>
+  <testcase name="realMavenReactorWritesOneRevisionBoundInventoryWithoutRunningTests(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="5.165"/>
+  <testcase name="historicalSingleModuleInvocationPublishesCustomJenkinsPairWithoutAggregator(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="5.773"/>
+  <testcase name="realReactorAggregatesModuleFragmentsAndEvidenceDeterministically(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="11.169"/>
+  <testcase name="asmOutcomeShapesAggregateAcrossSurefireAndFailsafeWithoutRewritingFragments(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="16.624"/>
+  <testcase name="existingGoalStillGeneratesSingleModuleInventory(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="4.763"/>
+  <testcase name="schemaV3ExecutesParameterizedMethodsAndAccountsDisabledParameterizedContainers(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="6.427"/>
+  <testcase name="reactorAggregationFailsClosedForUnsafeModuleInputs(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="58.257"/>
+  <testcase name="schemaV3RoutesFailsafeWithoutEnablingSurefireAndKeepsQualifiedOutputs(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="12.818"/>
+  <testcase name="jacocoMappingStillAllowsTwoForks(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="5.611"/>
+  <testcase name="schemaV3PreventsTestsInAReactorModuleWithNoAssignment(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="6.141"/>
+  <testcase name="reactorWithNoCompiledTestOutputFailsWithoutPublishing(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="3.742"/>
+  <testcase name="dependencyClasspathReuseHasOneOwnerAndConflictingOutputFailsClosed(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="16.492"/>
+  <testcase name="duplicateIdentityAndWrongRevisionBothDeleteStaleOutput(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="8.584"/>
+  <testcase name="schemaV3InventoryKeepsSameLogicalTestUnderBothModuleTargets(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="4.88"/>
+  <testcase name="[1] &quot;surefire&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="6.117"/>
+  <testcase name="[2] &quot;failsafe&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="6.491"/>
+  <testcase name="omittedActivationCannotSatisfyMappingEvidenceOrJoin(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="9.923"/>
+  <testcase name="schemaV3KeepsSameContainerSetupOwnedByEachMavenTarget(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="6.277"/>
+  <testcase name="[1] &quot;literal&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="5.96"/>
+  <testcase name="[2] &quot;prepare-agent&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="6.308"/>
+  <testcase name="[3] &quot;both&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="5.712"/>
+  <testcase name="[4] &quot;user-property&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="5.623"/>
+  <testcase name="[5] &quot;user-late-property&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="5.666"/>
+  <testcase name="schemaV3FailedTestRetainsNoPartialJacocoCoverage(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="5.642"/>
+  <testcase name="[1] &quot;default&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="11.876"/>
+  <testcase name="[2] &quot;property&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="10.071"/>
+  <testcase name="[3] &quot;literal-over-property&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="9.954"/>
+  <testcase name="[1] &quot;absent&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="3.845"/>
+  <testcase name="[2] &quot;&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="3.751"/>
+  <testcase name="[3] &quot;  &quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="3.766"/>
+  <testcase name="[4] &quot;,&quot;" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="3.751"/>
+  <testcase name="[1] false" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="8.192"/>
+  <testcase name="[2] true" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="4.316"/>
+  <testcase name="asmCollectorWithConsumerCoreAndAutodetectionDoesNotActivateJacoco(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="9.949"/>
+  <testcase name="schemaV3FailsClosedWhenTestForkHasNoActiveJacocoRuntime(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="4.911"/>
+  <testcase name="asmFailedTestStillFailsMavenBeforeVerify(Path)" classname="com.sap.oss.smarttestpicker.maven.ReactorHeadTestInventoryMojoIntegrationTest" time="5.549"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
