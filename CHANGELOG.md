@@ -20,7 +20,9 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 - JUnit Vintage `ClassSource` executions and implicit Surefire providers now produce canonical, invocation-bound execution evidence.
+- Gradle JaCoCo executable mapping preserves collected container setup coverage as target-owned `FRAMEWORK_SETUP` scopes, so setup-only changes select the affected container's tests. Invalid setup evidence rejects fragment generation.
 
 ### Migration notes
+- The legacy unversioned Gradle JaCoCo map cannot represent setup ownership and now rejects positive setup coverage instead of publishing it under a pseudo-test. Use executable schema 3 with an authoritative task assignment; see [STP-GRADLE-SETUP-01](verification/stp-gradle-setup-01/REPORT.md).
 - Schema 2 maps cannot be treated as schema 3 executable maps; regenerate or retain the matching reader/workflow rather than changing the declared schema version.
 - Consumers of the previous Maven coordinates, Gradle plugin ID, or Java package root must update to the `com.sap.oss.smart-test-picker` / `com.sap.oss.smarttestpicker` namespaces.

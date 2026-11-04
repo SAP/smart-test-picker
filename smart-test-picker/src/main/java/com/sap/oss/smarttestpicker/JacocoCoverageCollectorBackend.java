@@ -18,7 +18,7 @@ final class JacocoCoverageCollectorBackend implements GradleCoverageCollectorBac
 	@Override public CoverageCollectorType type() { return CoverageCollectorType.JACOCO; }
 
 	@Override public CollectorCapabilities capabilities() {
-		return new CollectorCapabilities(true, false, false, true, false);
+		return new CollectorCapabilities(true, false, true, true, false);
 	}
 
 	@Override

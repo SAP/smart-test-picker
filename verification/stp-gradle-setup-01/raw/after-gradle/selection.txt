@@ -1,0 +1,4 @@
+input=/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit8096935119284181824/capabilities/build/stp/executable-fragment.json
+changed=[example.SetupOnly]
+status=SELECTED
+selected=[example.CapabilitiesTest#probes]

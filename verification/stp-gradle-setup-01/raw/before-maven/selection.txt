@@ -1,0 +1,4 @@
+input=../verification/stp-capabilities-01/raw/maven/jacoco/finalized/coverage-fragment-v3.json
+changed=[example.SetupOnly]
+status=SELECTED
+selected=[example.CapabilitiesTest#probes]

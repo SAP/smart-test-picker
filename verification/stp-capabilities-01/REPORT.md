@@ -1,5 +1,9 @@
 # STP-CAPABILITIES-01
 
+> Historical verification at `bda91d3`. Its results and raw artifacts remain unchanged.
+> [STP-GRADLE-SETUP-01](../stp-gradle-setup-01/REPORT.md) subsequently fixes the Gradle
+> JaCoCo setup-scope loss and updates that capability to true.
+
 Initial source: `research/asm-codex`, `0aec5c79b36a257bece3880d314979fd66c607f0`.
 
 ## Step 0 — consumers (before changes)

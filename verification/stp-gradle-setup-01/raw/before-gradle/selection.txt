@@ -1,0 +1,4 @@
+input=../verification/stp-capabilities-01/raw/gradle/jacoco/fragment.json
+changed=[example.SetupOnly]
+status=NONE
+selected=[]

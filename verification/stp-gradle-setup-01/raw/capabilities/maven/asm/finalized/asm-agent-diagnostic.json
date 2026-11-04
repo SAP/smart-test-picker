@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "agent-shell-1",
+  "collector": "ASM",
+  "runId": "7bda0a9d-7db4-304d-90f0-63e1403f0830",
+  "jvmId": "pid-62189",
+  "configuration": {
+    "output": "/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-3578738299860625628/reactor/module-b/target/stp/asm-agent-diagnostic.json",
+    "fragmentOutput": "/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-3578738299860625628/reactor/module-b/target/stp/coverage-fragment-v3.json",
+    "revision": "reactor-revision",
+    "shardId": "reactor-shard",
+    "includes": ["a.", "b.", "example."],
+    "excludes": ["com.sap.oss.smarttestpicker.", "jakarta.", "java.", "javax.", "jdk.", "net.bytebuddy.", "org.hibernate.", "org.jacoco.", "org.junit.", "org.mockito.", "org.springframework.", "sun."],
+    "productionSources": ["/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-3578738299860625628/reactor/module-a/target/classes", "/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-3578738299860625628/reactor/module-a/target/module-a-1.jar", "/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-3578738299860625628/reactor/module-b/target/classes", "/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-3578738299860625628/reactor/module-b/target/module-b-1.jar", "/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-3578738299860625628/reactor/module-zero/target/classes"],
+    "requireInstrumentation": true,
+    "debug": false,
+    "instrumentation": "on"
+  },
+  "metrics": {
+    "classesSeen": 1243,
+    "classesIncluded": 3,
+    "classesExcluded": 943,
+    "classesIgnored": 297,
+    "transformationErrors": 0,
+    "transformerTotalNanos": 9505044,
+    "agentStartNanos": 810708145469541,
+    "classLoaderPresent": 674,
+    "classLoaderMissing": 569,
+    "protectionDomainPresent": 669,
+    "protectionDomainMissing": 574,
+    "classesTransformed": 3,
+    "methodsConsidered": 7,
+    "methodsInstrumented": 7,
+    "methodsSkipped": 0,
+    "alreadyInstrumentedClasses": 0,
+    "methodIdCollisions": 0,
+    "rawMethodHits": 5,
+    "uniqueMethodHits": 5,
+    "runtimeRecordingNanos": 8013624
+  },
+  "methodIdAlgorithm": "fnv1a64-v1",
+  "methodCatalog": [
+    {"methodId":"7756647458153881830","canonicalKeys":["example.OverloadedService#value(I)I"]},
+    {"methodId":"8836714044297157857","canonicalKeys":["example.OverloadedService#<init>()V"]},
+    {"methodId":"8971700244846664646","canonicalKeys":["example.ImplicitException#length(Ljava/lang/String;)I"]},
+    {"methodId":"10487630731143216442","canonicalKeys":["example.SetupOnly#setupOnly()I"]},
+    {"methodId":"14611186694220806876","canonicalKeys":["example.SetupOnly#<init>()V"]},
+    {"methodId":"15208831309584155123","canonicalKeys":["example.ImplicitException#<init>()V"]},
+    {"methodId":"17954799957812207892","canonicalKeys":["example.OverloadedService#value(Ljava/lang/String;)Ljava/lang/String;"]}
+  ],
+  "methodHits": [
+    {"methodId":"8836714044297157857","count":1,"canonicalKeys":["example.OverloadedService#<init>()V"]},
+    {"methodId":"8971700244846664646","count":1,"canonicalKeys":["example.ImplicitException#length(Ljava/lang/String;)I"]},
+    {"methodId":"10487630731143216442","count":1,"canonicalKeys":["example.SetupOnly#setupOnly()I"]},
+    {"methodId":"15208831309584155123","count":1,"canonicalKeys":["example.ImplicitException#<init>()V"]},
+    {"methodId":"17954799957812207892","count":1,"canonicalKeys":["example.OverloadedService#value(Ljava/lang/String;)Ljava/lang/String;"]}
+  ],
+  "agentErrors": [],
+  "bytecodeModified": true,
+  "runtimeEvents": {
+  "schemaVersion": "spike-2",
+  "runId": "7bda0a9d-7db4-304d-90f0-63e1403f0830",
+  "jvmId": "pid-62189",
+  "tests": [
+    {
+      "testId": "[engine:junit-jupiter]/[class:example.CapabilitiesTest]/[method:probes()]",
+      "displayName": "probes()",
+      "testClass": "example.CapabilitiesTest",
+      "testMethod": "probes",
+      "testMethodParameterTypes": "",
+      "engineId": "junit-jupiter",
+      "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+      "methods": [
+        {"methodId":"15208831309584155123","method":"example.ImplicitException#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+        {"methodId":"8971700244846664646","method":"example.ImplicitException#length(Ljava/lang/String;)I","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+        {"methodId":"8836714044297157857","method":"example.OverloadedService#<init>()V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+        {"methodId":"17954799957812207892","method":"example.OverloadedService#value(Ljava/lang/String;)Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+      ],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 4,
+        "uniqueMethodHits": 4
+      }
+    }
+  ],
+  "unattributedEvents": []
+}
+}

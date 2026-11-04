@@ -1,0 +1,11 @@
+diff --git a/src/main/java/example/SetupOnly.java b/src/main/java/example/SetupOnly.java
+index 2a01938..e3012f5 100644
+--- a/src/main/java/example/SetupOnly.java
++++ b/src/main/java/example/SetupOnly.java
+@@ -4,5 +4,5 @@ package example;
+ 
+ /** The setup-only production shape from the executable-routing fixtures. */
+ public class SetupOnly {
+-    public static int setupOnly() { return 7; }
++    public static int setupOnly() { return 8; }
+ }
