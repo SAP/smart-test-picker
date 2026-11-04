@@ -224,11 +224,10 @@ public final class StpMavenLifecycleParticipant extends AbstractMavenLifecyclePa
 	static void configureRuntime(Xpp3Dom configuration, Path evidence,
 			String canonicalTarget, StpCollectorSelection collector) throws URISyntaxException
 	{
+		configureCollector(configuration, collector);
 		Xpp3Dom properties = configuration.getChild("systemPropertyVariables");
-		if (properties == null) { properties = new Xpp3Dom("systemPropertyVariables"); configuration.addChild(properties); }
 		set(properties, "stp.exec.dir", evidence.toAbsolutePath().normalize().toString());
 		set(properties, "smartTestPicker.executionTarget", canonicalTarget);
-		set(properties, StpCollectorSelection.PROPERTY, collector.name());
 		enableJunitAutodetection(configuration);
 		Xpp3Dom classpath = configuration.getChild("additionalClasspathElements");
 		if (classpath == null) { classpath = new Xpp3Dom("additionalClasspathElements"); configuration.addChild(classpath); }
@@ -238,6 +237,14 @@ public final class StpMavenLifecycleParticipant extends AbstractMavenLifecyclePa
 					.anyMatch(value -> runtime.toString().equals(value.getValue()));
 			if (!present) { Xpp3Dom element = new Xpp3Dom("additionalClasspathElement"); element.setValue(runtime.toString()); classpath.addChild(element); }
 		}
+	}
+
+	static void configureCollector(Xpp3Dom configuration, StpCollectorSelection collector)
+	{
+		Xpp3Dom properties = configuration.getChild("systemPropertyVariables");
+		if (properties == null) { properties = new Xpp3Dom("systemPropertyVariables"); configuration.addChild(properties); }
+		set(properties, StpCollectorSelection.ACTIVATION_PROPERTY, "true");
+		set(properties, StpCollectorSelection.PROPERTY, collector.name());
 	}
 
 	private static void enableJunitAutodetection(Xpp3Dom configuration)

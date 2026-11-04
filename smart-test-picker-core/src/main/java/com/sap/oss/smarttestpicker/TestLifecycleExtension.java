@@ -16,6 +16,8 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 /**
  * JUnit 5 extension that enables per-test coverage tracking with JaCoCo
  * and optional test metrics collection.
+ * Collection is inactive unless {@code smartTestPicker.collectionEnabled=true};
+ * active ASM selection also leaves this extension inactive.
  *
  * <p>Before each test method, this extension sets the JaCoCo session ID to
  * {@code TestClass#testMethod}, isolating coverage data per test. After the test
@@ -51,7 +53,13 @@ public class TestLifecycleExtension implements BeforeTestExecutionCallback, Afte
 	/** Session ID for the currently executing test ({@code ClassName#methodName}). */
 	private String sessionId;
 	private JacocoExecutionDataSource executionData;
-	private final boolean enabled = StpCollectorSelection.current() == StpCollectorSelection.JACOCO;
+	private final boolean enabled;
+
+	public TestLifecycleExtension()
+	{
+		enabled = StpCollectorSelection.jacocoEnabled();
+		if (enabled) executionData = JacocoExecutionDataSource.active();
+	}
 
 	/**
 	 * Resolves the directory where JaCoCo execution data files are written.
@@ -117,7 +125,6 @@ public class TestLifecycleExtension implements BeforeTestExecutionCallback, Afte
 		String testMethod = context.getTestMethod().map(method -> method.getName()).orElse("UnknownMethod");
 
 		sessionId = JacocoPerTestListener.buildSessionId(simpleClass, testMethod, fullClass);
-		executionData = JacocoExecutionDataSource.active();
 		executionData.startSession(sessionId);
 
 		if (isMetricsEnabled())

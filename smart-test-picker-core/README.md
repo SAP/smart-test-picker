@@ -17,19 +17,24 @@ Both mechanisms do the same thing:
 
 A coordination flag prevents duplicate processing when both are active.
 
-## Selected collector
+## Collection activation and selected collector
 
-Both SPI components read the test-JVM property `smartTestPicker.coverageCollector`
-when constructed. `ASM` makes every JaCoCo collection callback a silent no-op,
-including when a consumer declares core itself. `JACOCO` (also the legacy default
-when this property is absent) still requires an active JaCoCo runtime. The platform
-listener validates that requirement during SPI construction, so a missing runtime
-fails launcher startup rather than becoming a swallowed callback warning. The
-diagnostic remains `Active JaCoCo runtime is unavailable for STP mapping`.
+Both SPI components first read the test-JVM property
+`smartTestPicker.collectionEnabled` when constructed. Absent, blank or `false`
+means inactive: ordinary tests run without STP collection, even if core is a test
+dependency and extension autodetection is enabled. Inactive components ignore
+collector selection, including invalid selection values, without runtime access.
+
+Only when activation is `true` do they read `smartTestPicker.coverageCollector`.
+`ASM` disables JaCoCo components. `JACOCO`, absent or blank selection requires an
+active JaCoCo runtime; invalid selection is rejected. Both decisions are made at
+construction, before callbacks. A missing selected runtime fails closed with
+`Active JaCoCo runtime is unavailable for STP mapping`.
 
 Selection is fixed for the lifetime of each component; configure it before launcher
 startup, not between test callbacks. This property selects collection components;
-it does not attach an agent. See [MAVEN-ASM-03](../docs/maven-asm-03-collector-isolation.md).
+it does not attach an agent. `stp.exec.dir` remains only an output-directory
+override, never an activation signal. See [the correction and evidence](../verification/maven-asm-03-fix/REPORT.md).
 
 ## Setup
 
@@ -49,7 +54,7 @@ smartTestPicker { coverageCollector = 'JACOCO' }
 
 ### Maven
 
-Add the core module as a test dependency and enable Jupiter extension auto-detection:
+Add core as a test dependency. It remains inactive during ordinary tests:
 
 ```xml
 <dependency>
@@ -60,10 +65,16 @@ Add the core module as a test dependency and enable Jupiter extension auto-detec
 </dependency>
 ```
 
-In your surefire configuration:
+`prepare-reactor-executable-mapping` supplies activation for schema-v3 mapping.
+For a manually configured JaCoCo mapping profile (including legacy schema-v2),
+attach JaCoCo and use this Surefire/Failsafe configuration **only in that profile**:
 
 ```xml
 <configuration>
+    <systemPropertyVariables>
+        <smartTestPicker.collectionEnabled>true</smartTestPicker.collectionEnabled>
+        <smartTestPicker.coverageCollector>JACOCO</smartTestPicker.coverageCollector>
+    </systemPropertyVariables>
     <properties>
         <configurationParameters>
             junit.jupiter.extensions.autodetection.enabled = true
@@ -74,12 +85,15 @@ In your surefire configuration:
 
 ### Gradle (without the plugin)
 
-Add the dependency and enable auto-detection:
+For a manually configured mapping task, add core, attach JaCoCo and explicitly
+enable collection. Do not enable this on ordinary tests unless collection is intended:
 
 ```groovy
 testRuntimeOnly 'com.sap.oss.smart-test-picker:smart-test-picker-core:0.3.0-SNAPSHOT'
 
 tasks.named('test') {
+    systemProperty 'smartTestPicker.collectionEnabled', 'true'
+    systemProperty 'smartTestPicker.coverageCollector', 'JACOCO'
     systemProperty 'junit.jupiter.extensions.autodetection.enabled', 'true'
     systemProperty 'stp.exec.dir', "${buildDir}/jacoco/"
 }

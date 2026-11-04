@@ -4,12 +4,24 @@ package com.sap.oss.smarttestpicker;
 
 import java.util.Locale;
 
-/** Collector selection transported into a test JVM; legacy core consumers default to JaCoCo. */
+/** Collector choice for explicitly activated test-JVM collection; selection defaults to JaCoCo. */
 public enum StpCollectorSelection
 {
 	ASM, JACOCO;
 
 	public static final String PROPERTY = "smartTestPicker.coverageCollector";
+	public static final String ACTIVATION_PROPERTY = "smartTestPicker.collectionEnabled";
+
+	/** Inactive consumers do not parse selection, even when it contains an invalid value. */
+	public static boolean jacocoEnabled()
+	{
+		String activation = System.getProperty(ACTIVATION_PROPERTY);
+		if (activation == null || activation.isBlank() || "false".equalsIgnoreCase(activation.trim())) return false;
+		if (!"true".equalsIgnoreCase(activation.trim()))
+			throw new IllegalArgumentException("Unsupported " + ACTIVATION_PROPERTY + "=" + activation
+					+ "; expected true or false");
+		return current() == JACOCO;
+	}
 
 	public static StpCollectorSelection current()
 	{

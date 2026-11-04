@@ -379,6 +379,9 @@ public class SmartTestMojo extends AbstractMojo
 		request.setBatchMode(true);
 
 		Properties props = new Properties();
+		// This legacy workflow refreshes JaCoCo coverage after executing selected tests.
+		props.setProperty(com.sap.oss.smarttestpicker.StpCollectorSelection.ACTIVATION_PROPERTY, "true");
+		props.setProperty(com.sap.oss.smarttestpicker.StpCollectorSelection.PROPERTY, "JACOCO");
 		String profiles = springProfiles;
 		if (profiles == null || profiles.isEmpty())
 		{

@@ -4,18 +4,25 @@ Maven plugin providing mojo implementations for the coverage pipeline.
 
 ## Collector isolation
 
-Core's JaCoCo SPI components are gated by the test-JVM property
-`smartTestPicker.coverageCollector=ASM|JACOCO`. An absent value preserves the Maven
-JaCoCo default. In ASM experiments, pass `-DsmartTestPicker.coverageCollector=ASM`
-to Surefire/Failsafe alongside the separately configured ASM agent. Consumer-owned
-`smart-test-picker-core` dependencies may stay on the test classpath: their JaCoCo
-listener and extension are silent in ASM mode, even with extension autodetection.
+Core's SPI components are inactive unless the test JVM receives
+`smartTestPicker.collectionEnabled=true`. Plain `mvn test` with consumer-declared
+core works without any agent, with extension autodetection on or off. Inactive
+components ignore even an invalid `smartTestPicker.coverageCollector` value.
+
+For active collection, `smartTestPicker.coverageCollector=ASM|JACOCO` selects the
+collector; absent/blank selection defaults to JaCoCo. Schema-v3 mapping preparation
+sets activation and selection in Surefire/Failsafe. Legacy/manual mapping profiles
+must explicitly enable collection; an output directory alone does not activate it.
+For manual ASM experiments, pass both `-DsmartTestPicker.collectionEnabled=true`
+and `-DsmartTestPicker.coverageCollector=ASM` alongside the separately attached
+ASM agent. Core remains silent in active ASM mode.
 
 Managed Maven bootstrap propagates the selected value (user property, then project
 property, then JVM property) and injects core only for JaCoCo. This change does not
 attach an ASM agent or add ASM fragment/evidence orchestration to the Maven goals.
-Selecting JaCoCo without its runtime still fails closed with the existing error
-message. See [the decision and validation note](../docs/maven-asm-03-collector-isolation.md).
+Managed selected execution also explicitly activates its core evidence collection.
+Active JaCoCo without its runtime still fails closed with the existing error
+message. See [the activation correction and validation](../verification/maven-asm-03-fix/REPORT.md).
 
 ## Coordinates
 

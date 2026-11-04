@@ -35,6 +35,8 @@ class StpMavenCollectorSelectionTest
 					"maven:module", collector);
 			assertEquals(collector.name(), configuration.getChild("systemPropertyVariables")
 					.getChild(StpCollectorSelection.PROPERTY).getValue());
+			assertEquals("true", configuration.getChild("systemPropertyVariables")
+					.getChild(StpCollectorSelection.ACTIVATION_PROPERTY).getValue());
 			assertEquals(collector == StpCollectorSelection.ASM ? 0 : 1,
 					configuration.getChild("additionalClasspathElements").getChildCount());
 		}

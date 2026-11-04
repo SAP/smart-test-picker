@@ -24,6 +24,8 @@ import org.junit.platform.launcher.TestPlan;
  * and any other engine.
  *
  * <p>Registered via SPI: {@code META-INF/services/org.junit.platform.launcher.TestExecutionListener}</p>
+ * <p>SPI discovery alone does not enable collection. Activation and collector
+ * selection are evaluated once, during construction.</p>
  */
 public class JacocoPerTestListener implements TestExecutionListener
 {
@@ -51,7 +53,7 @@ public class JacocoPerTestListener implements TestExecutionListener
 
 	public JacocoPerTestListener()
 	{
-		enabled = StpCollectorSelection.current() == StpCollectorSelection.JACOCO;
+		enabled = StpCollectorSelection.jacocoEnabled();
 		// ServiceLoader construction failures stop launcher startup. Callback exceptions
 		// are only logged by JUnit and cannot enforce the selected collector's preconditions.
 		if (enabled) {
