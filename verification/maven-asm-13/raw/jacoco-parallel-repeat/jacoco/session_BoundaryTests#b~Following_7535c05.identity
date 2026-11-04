@@ -1,0 +1,5 @@
+format=1
+className=example.boundary.BoundaryTests
+methodName=bFollowing
+methodParameterTypes=
+outcome=PASS

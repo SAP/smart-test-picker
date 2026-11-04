@@ -1,0 +1,1031 @@
+{
+  "asm-parallel": {
+    "agentErrors": [
+      "setup:ASYNC_SETUP_UNSUPPORTED:ERROR:unknown:ForkJoinTask: execution without observed submission: org.junit.platform.engine.support.hierarchical.ForkJoinPoolHierarchicalTestExecutorService$ExclusiveTask"
+    ],
+    "complete": false,
+    "distinctiveReturn": {
+      "sequence": 24,
+      "thread": "http-nio-auto-1-exec-1",
+      "kind": "DISTINCTIVE_RETURN",
+      "detail": "41327"
+    },
+    "fixtureRevision": "98405df1227b03d7c61d6e37de1c9d4a2f329be7",
+    "followingEnd": {
+      "sequence": 35,
+      "thread": "ForkJoinPool-1-worker-1",
+      "kind": "ASM_endTest_EXIT",
+      "detail": "TestIdentity[platformUniqueId\u003d[engine:junit-jupiter]/[class:example.boundary.BoundaryTests]/[method:bFollowing()], displayName\u003dbFollowing(), testClass\u003dexample.boundary.BoundaryTests, testMethod\u003dbFollowing, testMethodParameterTypes\u003d, engineId\u003djunit-jupiter, runId\u003d53f7389b-cb56-31e6-9ecf-0cee6d25f720, jvmId\u003dpid-20850]"
+    },
+    "followingStart": {
+      "sequence": 27,
+      "thread": "ForkJoinPool-1-worker-1",
+      "kind": "ASM_beginTest_EXIT",
+      "detail": "TestIdentity[platformUniqueId\u003d[engine:junit-jupiter]/[class:example.boundary.BoundaryTests]/[method:bFollowing()], displayName\u003dbFollowing(), testClass\u003dexample.boundary.BoundaryTests, testMethod\u003dbFollowing, testMethodParameterTypes\u003d, engineId\u003djunit-jupiter, runId\u003d53f7389b-cb56-31e6-9ecf-0cee6d25f720, jvmId\u003dpid-20850]"
+    },
+    "fragment": {
+      "schemaVersion": 3,
+      "revision": "98405df1227b03d7c61d6e37de1c9d4a2f329be7",
+      "shardId": "local",
+      "tests": {
+        "maven:.::example.boundary.BoundaryTests#aRequest": {
+          "classes": [],
+          "methods": [],
+          "outcome": "PASS",
+          "collectionStatus": "COLLECTED_EMPTY"
+        },
+        "maven:.::example.boundary.BoundaryTests#bFollowing": {
+          "classes": [],
+          "methods": [],
+          "outcome": "PASS",
+          "collectionStatus": "COLLECTED_EMPTY"
+        }
+      },
+      "unmapped": [],
+      "setupScopes": [
+        {
+          "id": "junit-container:example.boundary.BoundaryTests",
+          "type": "CONTAINER",
+          "owner": "maven:.",
+          "coveredClasses": [
+            "example.boundary.BoundaryApplication",
+            "example.boundary.BoundaryController"
+          ],
+          "affectedContainers": [
+            "example.boundary.BoundaryTests"
+          ]
+        }
+      ],
+      "collection": {
+        "completed": false
+      }
+    },
+    "observedMarkerOwnership": {
+      "sequence": 23,
+      "thread": "http-nio-auto-1-exec-1",
+      "kind": "ASM_HIT",
+      "detail": "MethodHitEvent[methodId\u003d6425806867513602516, method\u003dMethodIdentity[binaryClassName\u003dexample.boundary.PostResponseOnly, methodName\u003ddistinctiveAfterResponse, jvmDescriptor\u003d()I], evidence\u003dEvidence[source\u003dASM_METHOD_ENTRY, certainty\u003dOBSERVED]] active\u003dOptional.empty captured\u003dnull open\u003dfalse"
+    },
+    "productionValidation": {
+      "assignmentValidation": "IllegalArgumentException: Fragment collection is not completed",
+      "completed": false,
+      "fragmentExists": true,
+      "join": "IllegalArgumentException: Fragment collection is not completed",
+      "mapped": [
+        "maven:.::example.boundary.BoundaryTests#aRequest",
+        "maven:.::example.boundary.BoundaryTests#bFollowing"
+      ],
+      "publication": "NOT RUN: no Jenkins/storage operation; local candidate join only",
+      "setupScopes": [
+        {
+          "id": "junit-container:example.boundary.BoundaryTests",
+          "type": "CONTAINER",
+          "coveredClasses": [
+            "example.boundary.BoundaryController",
+            "example.boundary.BoundaryApplication"
+          ],
+          "affectedContainers": [
+            {
+              "binaryName": "example.boundary.BoundaryTests"
+            }
+          ],
+          "owner": {
+            "buildTool": "MAVEN",
+            "targetId": "."
+          }
+        }
+      ],
+      "unmapped": []
+    },
+    "release": {
+      "sequence": 20,
+      "thread": "ForkJoinPool-1-worker-2",
+      "kind": "SIGNAL",
+      "detail": "RELEASE_LATE"
+    },
+    "requestEnd": {
+      "sequence": 42,
+      "thread": "ForkJoinPool-1-worker-2",
+      "kind": "ASM_endTest_EXIT",
+      "detail": "TestIdentity[platformUniqueId\u003d[engine:junit-jupiter]/[class:example.boundary.BoundaryTests]/[method:aRequest()], displayName\u003daRequest(), testClass\u003dexample.boundary.BoundaryTests, testMethod\u003daRequest, testMethodParameterTypes\u003d, engineId\u003djunit-jupiter, runId\u003d53f7389b-cb56-31e6-9ecf-0cee6d25f720, jvmId\u003dpid-20850]"
+    },
+    "requestStart": {
+      "sequence": 13,
+      "thread": "ForkJoinPool-1-worker-2",
+      "kind": "ASM_beginTest_EXIT",
+      "detail": "TestIdentity[platformUniqueId\u003d[engine:junit-jupiter]/[class:example.boundary.BoundaryTests]/[method:aRequest()], displayName\u003daRequest(), testClass\u003dexample.boundary.BoundaryTests, testMethod\u003daRequest, testMethodParameterTypes\u003d, engineId\u003djunit-jupiter, runId\u003d53f7389b-cb56-31e6-9ecf-0cee6d25f720, jvmId\u003dpid-20850]"
+    },
+    "responseRead": {
+      "sequence": 19,
+      "thread": "ForkJoinPool-1-worker-2",
+      "kind": "SIGNAL",
+      "detail": "RESPONSE_READ"
+    },
+    "tests": [
+      "example.boundary.BoundaryTests#aRequest",
+      "example.boundary.BoundaryTests#bFollowing"
+    ],
+    "unattributedCountsGlobalAndLeaf": {
+      "LATE_EVENT": 0,
+      "NO_ACTIVE_TEST": 2,
+      "SHUTDOWN": 0,
+      "STARTUP": 0,
+      "TEST_ALREADY_FINISHED": 0,
+      "TRANSFORMATION_ERROR": 0,
+      "UNKNOWN_CONTEXT": 0
+    }
+  },
+  "asm-sequential": {
+    "agentErrors": [],
+    "complete": true,
+    "distinctiveReturn": {
+      "sequence": 32,
+      "thread": "http-nio-auto-1-exec-1",
+      "kind": "DISTINCTIVE_RETURN",
+      "detail": "41327"
+    },
+    "fixtureRevision": "98405df1227b03d7c61d6e37de1c9d4a2f329be7",
+    "followingEnd": {
+      "sequence": 37,
+      "thread": "main",
+      "kind": "ASM_endTest_EXIT",
+      "detail": "TestIdentity[platformUniqueId\u003d[engine:junit-jupiter]/[class:example.boundary.BoundaryTests]/[method:bFollowing()], displayName\u003dbFollowing(), testClass\u003dexample.boundary.BoundaryTests, testMethod\u003dbFollowing, testMethodParameterTypes\u003d, engineId\u003djunit-jupiter, runId\u003d53f7389b-cb56-31e6-9ecf-0cee6d25f720, jvmId\u003dpid-20712]"
+    },
+    "followingStart": {
+      "sequence": 24,
+      "thread": "main",
+      "kind": "ASM_beginTest_EXIT",
+      "detail": "TestIdentity[platformUniqueId\u003d[engine:junit-jupiter]/[class:example.boundary.BoundaryTests]/[method:bFollowing()], displayName\u003dbFollowing(), testClass\u003dexample.boundary.BoundaryTests, testMethod\u003dbFollowing, testMethodParameterTypes\u003d, engineId\u003djunit-jupiter, runId\u003d53f7389b-cb56-31e6-9ecf-0cee6d25f720, jvmId\u003dpid-20712]"
+    },
+    "fragment": {
+      "schemaVersion": 3,
+      "revision": "98405df1227b03d7c61d6e37de1c9d4a2f329be7",
+      "shardId": "local",
+      "tests": {
+        "maven:.::example.boundary.BoundaryTests#aRequest": {
+          "classes": [],
+          "methods": [],
+          "outcome": "PASS",
+          "collectionStatus": "COLLECTED_EMPTY"
+        },
+        "maven:.::example.boundary.BoundaryTests#bFollowing": {
+          "classes": [],
+          "methods": [],
+          "outcome": "PASS",
+          "collectionStatus": "COLLECTED_EMPTY"
+        }
+      },
+      "unmapped": [],
+      "setupScopes": [
+        {
+          "id": "junit-container:example.boundary.BoundaryTests",
+          "type": "CONTAINER",
+          "owner": "maven:.",
+          "coveredClasses": [
+            "example.boundary.BoundaryApplication",
+            "example.boundary.BoundaryController",
+            "example.boundary.PostResponseOnly"
+          ],
+          "affectedContainers": [
+            "example.boundary.BoundaryTests"
+          ]
+        }
+      ],
+      "collection": {
+        "completed": true
+      }
+    },
+    "observedMarkerOwnership": {
+      "sequence": 31,
+      "thread": "http-nio-auto-1-exec-1",
+      "kind": "ASM_HIT",
+      "detail": "MethodHitEvent[methodId\u003d6425806867513602516, method\u003dMethodIdentity[binaryClassName\u003dexample.boundary.PostResponseOnly, methodName\u003ddistinctiveAfterResponse, jvmDescriptor\u003d()I], evidence\u003dEvidence[source\u003dASM_METHOD_ENTRY, certainty\u003dOBSERVED]] active\u003dOptional.empty captured\u003dContainerIdentity[uniqueId\u003d[engine:junit-jupiter]/[class:example.boundary.BoundaryTests], binaryName\u003dexample.boundary.BoundaryTests, nested\u003dfalse] open\u003dtrue"
+    },
+    "productionAccounting": {
+      "statistics": {
+        "expectedTests": 2,
+        "mappedTests": 2,
+        "unmappedTests": 0,
+        "setupScopes": 1,
+        "classEdges": 0,
+        "methodEdges": 0
+      },
+      "outcomes": {
+        "maven:.::example.boundary.BoundaryTests#aRequest": "PASS/COLLECTED_EMPTY",
+        "maven:.::example.boundary.BoundaryTests#bFollowing": "PASS/COLLECTED_EMPTY"
+      },
+      "positivelyNonExecuted": [],
+      "assignment": [
+        "maven:.::example.boundary.BoundaryTests#aRequest",
+        "maven:.::example.boundary.BoundaryTests#bFollowing"
+      ],
+      "executed": [
+        "maven:.::example.boundary.BoundaryTests#aRequest",
+        "maven:.::example.boundary.BoundaryTests#bFollowing"
+      ],
+      "complete": true
+    },
+    "productionValidation": {
+      "assignmentValidation": "ACCEPTED",
+      "completed": true,
+      "fragmentExists": true,
+      "join": "ACCEPTED_CANDIDATE",
+      "mapped": [
+        "maven:.::example.boundary.BoundaryTests#aRequest",
+        "maven:.::example.boundary.BoundaryTests#bFollowing"
+      ],
+      "publication": "NOT RUN: no Jenkins/storage operation; local candidate join only",
+      "setupScopes": [
+        {
+          "id": "junit-container:example.boundary.BoundaryTests",
+          "type": "CONTAINER",
+          "coveredClasses": [
+            "example.boundary.BoundaryApplication",
+            "example.boundary.BoundaryController",
+            "example.boundary.PostResponseOnly"
+          ],
+          "affectedContainers": [
+            {
+              "binaryName": "example.boundary.BoundaryTests"
+            }
+          ],
+          "owner": {
+            "buildTool": "MAVEN",
+            "targetId": "."
+          }
+        }
+      ],
+      "unmapped": []
+    },
+    "release": {
+      "sequence": 28,
+      "thread": "main",
+      "kind": "SIGNAL",
+      "detail": "RELEASE_LATE"
+    },
+    "requestEnd": {
+      "sequence": 18,
+      "thread": "main",
+      "kind": "ASM_endTest_EXIT",
+      "detail": "TestIdentity[platformUniqueId\u003d[engine:junit-jupiter]/[class:example.boundary.BoundaryTests]/[method:aRequest()], displayName\u003daRequest(), testClass\u003dexample.boundary.BoundaryTests, testMethod\u003daRequest, testMethodParameterTypes\u003d, engineId\u003djunit-jupiter, runId\u003d53f7389b-cb56-31e6-9ecf-0cee6d25f720, jvmId\u003dpid-20712]"
+    },
+    "requestStart": {
+      "sequence": 10,
+      "thread": "main",
+      "kind": "ASM_beginTest_EXIT",
+      "detail": "TestIdentity[platformUniqueId\u003d[engine:junit-jupiter]/[class:example.boundary.BoundaryTests]/[method:aRequest()], displayName\u003daRequest(), testClass\u003dexample.boundary.BoundaryTests, testMethod\u003daRequest, testMethodParameterTypes\u003d, engineId\u003djunit-jupiter, runId\u003d53f7389b-cb56-31e6-9ecf-0cee6d25f720, jvmId\u003dpid-20712]"
+    },
+    "responseRead": {
+      "sequence": 14,
+      "thread": "main",
+      "kind": "SIGNAL",
+      "detail": "RESPONSE_READ"
+    },
+    "tests": [
+      "example.boundary.BoundaryTests#aRequest",
+      "example.boundary.BoundaryTests#bFollowing"
+    ],
+    "unattributedCountsGlobalAndLeaf": {
+      "LATE_EVENT": 0,
+      "NO_ACTIVE_TEST": 0,
+      "SHUTDOWN": 0,
+      "STARTUP": 0,
+      "TEST_ALREADY_FINISHED": 0,
+      "TRANSFORMATION_ERROR": 0,
+      "UNKNOWN_CONTEXT": 0
+    }
+  },
+  "jacoco-parallel": {
+    "complete": true,
+    "distinctiveReturn": {
+      "sequence": 23,
+      "thread": "http-nio-auto-1-exec-1",
+      "kind": "DISTINCTIVE_RETURN",
+      "detail": "41327"
+    },
+    "fixtureRevision": "98405df1227b03d7c61d6e37de1c9d4a2f329be7",
+    "followingEnd": {
+      "sequence": 37,
+      "thread": "ForkJoinPool-1-worker-1",
+      "kind": "JACOCO_LISTENER_executionFinished_EXIT",
+      "detail": "TestIdentifier [uniqueId \u003d [engine:junit-jupiter]/[class:example.boundary.BoundaryTests]/[method:bFollowing()], parentId \u003d [engine:junit-jupiter]/[class:example.boundary.BoundaryTests], displayName \u003d \u0027bFollowing()\u0027, legacyReportingName \u003d \u0027bFollowing()\u0027, source \u003d MethodSource [className \u003d \u0027example.boundary.BoundaryTests\u0027, methodName \u003d \u0027bFollowing\u0027, methodParameterTypes \u003d \u0027\u0027], tags \u003d [], type \u003d TEST]"
+    },
+    "followingStart": {
+      "sequence": 26,
+      "thread": "ForkJoinPool-1-worker-1",
+      "kind": "JACOCO_DATA_startSession_EXIT",
+      "detail": "BoundaryTests#bFollowing_7535c05"
+    },
+    "fragment": {
+      "schemaVersion": 3,
+      "revision": "98405df1227b03d7c61d6e37de1c9d4a2f329be7",
+      "shardId": "local",
+      "tests": {
+        "maven:.::example.boundary.BoundaryTests#aRequest": {
+          "classes": [],
+          "methods": [],
+          "outcome": "PASS",
+          "collectionStatus": "COLLECTED_EMPTY"
+        },
+        "maven:.::example.boundary.BoundaryTests#bFollowing": {
+          "classes": [],
+          "methods": [],
+          "outcome": "PASS",
+          "collectionStatus": "COLLECTED_EMPTY"
+        }
+      },
+      "unmapped": [],
+      "setupScopes": [
+        {
+          "id": "junit-container:example.boundary.BoundaryTests",
+          "type": "FRAMEWORK_SETUP",
+          "owner": "maven:.",
+          "coveredClasses": [
+            "example.boundary.BoundaryApplication",
+            "example.boundary.BoundaryController"
+          ],
+          "affectedContainers": [
+            "example.boundary.BoundaryTests"
+          ]
+        }
+      ],
+      "collection": {
+        "completed": true
+      }
+    },
+    "markerSessionOwners": [],
+    "productionAccounting": {
+      "complete": true,
+      "executed": [
+        "maven:.::example.boundary.BoundaryTests#aRequest",
+        "maven:.::example.boundary.BoundaryTests#bFollowing"
+      ],
+      "assignment": [
+        "maven:.::example.boundary.BoundaryTests#aRequest",
+        "maven:.::example.boundary.BoundaryTests#bFollowing"
+      ],
+      "positivelyNonExecuted": [],
+      "outcomes": {
+        "maven:.::example.boundary.BoundaryTests#aRequest": "PASS/COLLECTED_EMPTY",
+        "maven:.::example.boundary.BoundaryTests#bFollowing": "PASS/COLLECTED_EMPTY"
+      },
+      "statistics": {
+        "expectedTests": 2,
+        "mappedTests": 2,
+        "unmappedTests": 0,
+        "setupScopes": 1,
+        "classEdges": 0,
+        "methodEdges": 0
+      }
+    },
+    "productionValidation": {
+      "assignmentValidation": "ACCEPTED",
+      "completed": true,
+      "fragmentExists": true,
+      "join": "ACCEPTED_CANDIDATE",
+      "mapped": [
+        "maven:.::example.boundary.BoundaryTests#aRequest",
+        "maven:.::example.boundary.BoundaryTests#bFollowing"
+      ],
+      "publication": "NOT RUN: no Jenkins/storage operation; local candidate join only",
+      "setupScopes": [
+        {
+          "id": "junit-container:example.boundary.BoundaryTests",
+          "type": "FRAMEWORK_SETUP",
+          "coveredClasses": [
+            "example.boundary.BoundaryController",
+            "example.boundary.BoundaryApplication"
+          ],
+          "affectedContainers": [
+            {
+              "binaryName": "example.boundary.BoundaryTests"
+            }
+          ],
+          "owner": {
+            "buildTool": "MAVEN",
+            "targetId": "."
+          }
+        }
+      ],
+      "unmapped": []
+    },
+    "rawSessionOracle": {
+      "session_BoundaryTests#a~Request_55ff023.exec": {
+        "coveredMethods": [],
+        "embeddedSessionIds": [
+          "BoundaryTests#bFollowing_7535c05"
+        ],
+        "identity": "format\u003d1\nclassName\u003dexample.boundary.BoundaryTests\nmethodName\u003daRequest\nmethodParameterTypes\u003d\noutcome\u003dPASS\n",
+        "methodCounters": {
+          "example.boundary.BoundaryApplication#\u003cinit\u003e()V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 3,
+            "coveredMethod": 0
+          },
+          "example.boundary.BoundaryController#\u003cinit\u003e()V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 3,
+            "coveredMethod": 0
+          },
+          "example.boundary.BoundaryController#late(Ljakarta/servlet/http/HttpServletResponse;)V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 26,
+            "coveredMethod": 0
+          },
+          "example.boundary.PostResponseOnly#\u003cinit\u003e()V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 3,
+            "coveredMethod": 0
+          },
+          "example.boundary.PostResponseOnly#distinctiveAfterResponse()I": {
+            "coveredInstructions": 0,
+            "missedInstructions": 2,
+            "coveredMethod": 0
+          }
+        }
+      },
+      "session_BoundaryTests#b~Following_7535c05.exec": {
+        "coveredMethods": [],
+        "embeddedSessionIds": [
+          "BoundaryTests#bFollowing_7535c05"
+        ],
+        "identity": "format\u003d1\nclassName\u003dexample.boundary.BoundaryTests\nmethodName\u003dbFollowing\nmethodParameterTypes\u003d\noutcome\u003dPASS\n",
+        "methodCounters": {
+          "example.boundary.BoundaryApplication#\u003cinit\u003e()V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 3,
+            "coveredMethod": 0
+          },
+          "example.boundary.BoundaryController#\u003cinit\u003e()V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 3,
+            "coveredMethod": 0
+          },
+          "example.boundary.BoundaryController#late(Ljakarta/servlet/http/HttpServletResponse;)V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 26,
+            "coveredMethod": 0
+          },
+          "example.boundary.PostResponseOnly#\u003cinit\u003e()V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 3,
+            "coveredMethod": 0
+          },
+          "example.boundary.PostResponseOnly#distinctiveAfterResponse()I": {
+            "coveredInstructions": 0,
+            "missedInstructions": 2,
+            "coveredMethod": 0
+          }
+        }
+      },
+      "session_setup_2a954237.exec": {
+        "coveredMethods": [
+          "example.boundary.BoundaryApplication#\u003cinit\u003e()V",
+          "example.boundary.BoundaryController#\u003cinit\u003e()V"
+        ],
+        "embeddedSessionIds": [
+          "setup:example.boundary.BoundaryTests"
+        ],
+        "methodCounters": {
+          "example.boundary.BoundaryApplication#\u003cinit\u003e()V": {
+            "coveredInstructions": 3,
+            "missedInstructions": 0,
+            "coveredMethod": 1
+          },
+          "example.boundary.BoundaryController#\u003cinit\u003e()V": {
+            "coveredInstructions": 3,
+            "missedInstructions": 0,
+            "coveredMethod": 1
+          },
+          "example.boundary.BoundaryController#late(Ljakarta/servlet/http/HttpServletResponse;)V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 26,
+            "coveredMethod": 0
+          },
+          "example.boundary.PostResponseOnly#\u003cinit\u003e()V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 3,
+            "coveredMethod": 0
+          },
+          "example.boundary.PostResponseOnly#distinctiveAfterResponse()I": {
+            "coveredInstructions": 0,
+            "missedInstructions": 2,
+            "coveredMethod": 0
+          }
+        },
+        "setup": "format\u003d1\ncontainer\u003dexample.boundary.BoundaryTests\n"
+      }
+    },
+    "release": {
+      "sequence": 20,
+      "thread": "ForkJoinPool-1-worker-2",
+      "kind": "SIGNAL",
+      "detail": "RELEASE_LATE"
+    },
+    "requestEnd": {
+      "sequence": 44,
+      "thread": "ForkJoinPool-1-worker-2",
+      "kind": "JACOCO_LISTENER_executionFinished_EXIT",
+      "detail": "TestIdentifier [uniqueId \u003d [engine:junit-jupiter]/[class:example.boundary.BoundaryTests]/[method:aRequest()], parentId \u003d [engine:junit-jupiter]/[class:example.boundary.BoundaryTests], displayName \u003d \u0027aRequest()\u0027, legacyReportingName \u003d \u0027aRequest()\u0027, source \u003d MethodSource [className \u003d \u0027example.boundary.BoundaryTests\u0027, methodName \u003d \u0027aRequest\u0027, methodParameterTypes \u003d \u0027\u0027], tags \u003d [], type \u003d TEST]"
+    },
+    "requestStart": {
+      "sequence": 12,
+      "thread": "ForkJoinPool-1-worker-2",
+      "kind": "JACOCO_DATA_startSession_EXIT",
+      "detail": "BoundaryTests#aRequest_55ff023"
+    },
+    "responseRead": {
+      "sequence": 19,
+      "thread": "ForkJoinPool-1-worker-2",
+      "kind": "SIGNAL",
+      "detail": "RESPONSE_READ"
+    },
+    "tests": [
+      "example.boundary.BoundaryTests#aRequest",
+      "example.boundary.BoundaryTests#bFollowing"
+    ]
+  },
+  "jacoco-parallel-repeat": {
+    "complete": true,
+    "distinctiveReturn": {
+      "sequence": 23,
+      "thread": "http-nio-auto-1-exec-1",
+      "kind": "DISTINCTIVE_RETURN",
+      "detail": "41327"
+    },
+    "fixtureRevision": "98405df1227b03d7c61d6e37de1c9d4a2f329be7",
+    "followingEnd": {
+      "sequence": 37,
+      "thread": "ForkJoinPool-1-worker-1",
+      "kind": "JACOCO_LISTENER_executionFinished_EXIT",
+      "detail": "TestIdentifier [uniqueId \u003d [engine:junit-jupiter]/[class:example.boundary.BoundaryTests]/[method:bFollowing()], parentId \u003d [engine:junit-jupiter]/[class:example.boundary.BoundaryTests], displayName \u003d \u0027bFollowing()\u0027, legacyReportingName \u003d \u0027bFollowing()\u0027, source \u003d MethodSource [className \u003d \u0027example.boundary.BoundaryTests\u0027, methodName \u003d \u0027bFollowing\u0027, methodParameterTypes \u003d \u0027\u0027], tags \u003d [], type \u003d TEST]"
+    },
+    "followingStart": {
+      "sequence": 26,
+      "thread": "ForkJoinPool-1-worker-1",
+      "kind": "JACOCO_DATA_startSession_EXIT",
+      "detail": "BoundaryTests#bFollowing_7535c05"
+    },
+    "fragment": {
+      "schemaVersion": 3,
+      "revision": "98405df1227b03d7c61d6e37de1c9d4a2f329be7",
+      "shardId": "local",
+      "tests": {
+        "maven:.::example.boundary.BoundaryTests#aRequest": {
+          "classes": [],
+          "methods": [],
+          "outcome": "PASS",
+          "collectionStatus": "COLLECTED_EMPTY"
+        },
+        "maven:.::example.boundary.BoundaryTests#bFollowing": {
+          "classes": [],
+          "methods": [],
+          "outcome": "PASS",
+          "collectionStatus": "COLLECTED_EMPTY"
+        }
+      },
+      "unmapped": [],
+      "setupScopes": [],
+      "collection": {
+        "completed": true
+      }
+    },
+    "markerSessionOwners": [],
+    "productionAccounting": {
+      "complete": true,
+      "executed": [
+        "maven:.::example.boundary.BoundaryTests#aRequest",
+        "maven:.::example.boundary.BoundaryTests#bFollowing"
+      ],
+      "assignment": [
+        "maven:.::example.boundary.BoundaryTests#aRequest",
+        "maven:.::example.boundary.BoundaryTests#bFollowing"
+      ],
+      "positivelyNonExecuted": [],
+      "outcomes": {
+        "maven:.::example.boundary.BoundaryTests#aRequest": "PASS/COLLECTED_EMPTY",
+        "maven:.::example.boundary.BoundaryTests#bFollowing": "PASS/COLLECTED_EMPTY"
+      },
+      "statistics": {
+        "expectedTests": 2,
+        "mappedTests": 2,
+        "unmappedTests": 0,
+        "setupScopes": 0,
+        "classEdges": 0,
+        "methodEdges": 0
+      }
+    },
+    "productionValidation": {
+      "assignmentValidation": "ACCEPTED",
+      "completed": true,
+      "fragmentExists": true,
+      "join": "ACCEPTED_CANDIDATE",
+      "mapped": [
+        "maven:.::example.boundary.BoundaryTests#aRequest",
+        "maven:.::example.boundary.BoundaryTests#bFollowing"
+      ],
+      "publication": "NOT RUN: no Jenkins/storage operation; local candidate join only",
+      "setupScopes": [],
+      "unmapped": []
+    },
+    "rawSessionOracle": {
+      "session_BoundaryTests#a~Request_55ff023.exec": {
+        "coveredMethods": [],
+        "embeddedSessionIds": [
+          "BoundaryTests#bFollowing_7535c05"
+        ],
+        "identity": "format\u003d1\nclassName\u003dexample.boundary.BoundaryTests\nmethodName\u003daRequest\nmethodParameterTypes\u003d\noutcome\u003dPASS\n",
+        "methodCounters": {
+          "example.boundary.BoundaryApplication#\u003cinit\u003e()V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 3,
+            "coveredMethod": 0
+          },
+          "example.boundary.BoundaryController#\u003cinit\u003e()V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 3,
+            "coveredMethod": 0
+          },
+          "example.boundary.BoundaryController#late(Ljakarta/servlet/http/HttpServletResponse;)V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 26,
+            "coveredMethod": 0
+          },
+          "example.boundary.PostResponseOnly#\u003cinit\u003e()V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 3,
+            "coveredMethod": 0
+          },
+          "example.boundary.PostResponseOnly#distinctiveAfterResponse()I": {
+            "coveredInstructions": 0,
+            "missedInstructions": 2,
+            "coveredMethod": 0
+          }
+        }
+      },
+      "session_BoundaryTests#b~Following_7535c05.exec": {
+        "coveredMethods": [],
+        "embeddedSessionIds": [
+          "BoundaryTests#bFollowing_7535c05"
+        ],
+        "identity": "format\u003d1\nclassName\u003dexample.boundary.BoundaryTests\nmethodName\u003dbFollowing\nmethodParameterTypes\u003d\noutcome\u003dPASS\n",
+        "methodCounters": {
+          "example.boundary.BoundaryApplication#\u003cinit\u003e()V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 3,
+            "coveredMethod": 0
+          },
+          "example.boundary.BoundaryController#\u003cinit\u003e()V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 3,
+            "coveredMethod": 0
+          },
+          "example.boundary.BoundaryController#late(Ljakarta/servlet/http/HttpServletResponse;)V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 26,
+            "coveredMethod": 0
+          },
+          "example.boundary.PostResponseOnly#\u003cinit\u003e()V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 3,
+            "coveredMethod": 0
+          },
+          "example.boundary.PostResponseOnly#distinctiveAfterResponse()I": {
+            "coveredInstructions": 0,
+            "missedInstructions": 2,
+            "coveredMethod": 0
+          }
+        }
+      },
+      "session_setup_2a954237.exec": {
+        "coveredMethods": [],
+        "embeddedSessionIds": [
+          "BoundaryTests#aRequest_55ff023"
+        ],
+        "methodCounters": {
+          "example.boundary.BoundaryApplication#\u003cinit\u003e()V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 3,
+            "coveredMethod": 0
+          },
+          "example.boundary.BoundaryController#\u003cinit\u003e()V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 3,
+            "coveredMethod": 0
+          },
+          "example.boundary.BoundaryController#late(Ljakarta/servlet/http/HttpServletResponse;)V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 26,
+            "coveredMethod": 0
+          },
+          "example.boundary.PostResponseOnly#\u003cinit\u003e()V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 3,
+            "coveredMethod": 0
+          },
+          "example.boundary.PostResponseOnly#distinctiveAfterResponse()I": {
+            "coveredInstructions": 0,
+            "missedInstructions": 2,
+            "coveredMethod": 0
+          }
+        },
+        "setup": "format\u003d1\ncontainer\u003dexample.boundary.BoundaryTests\n"
+      }
+    },
+    "release": {
+      "sequence": 20,
+      "thread": "ForkJoinPool-1-worker-2",
+      "kind": "SIGNAL",
+      "detail": "RELEASE_LATE"
+    },
+    "requestEnd": {
+      "sequence": 44,
+      "thread": "ForkJoinPool-1-worker-2",
+      "kind": "JACOCO_LISTENER_executionFinished_EXIT",
+      "detail": "TestIdentifier [uniqueId \u003d [engine:junit-jupiter]/[class:example.boundary.BoundaryTests]/[method:aRequest()], parentId \u003d [engine:junit-jupiter]/[class:example.boundary.BoundaryTests], displayName \u003d \u0027aRequest()\u0027, legacyReportingName \u003d \u0027aRequest()\u0027, source \u003d MethodSource [className \u003d \u0027example.boundary.BoundaryTests\u0027, methodName \u003d \u0027aRequest\u0027, methodParameterTypes \u003d \u0027\u0027], tags \u003d [], type \u003d TEST]"
+    },
+    "requestStart": {
+      "sequence": 11,
+      "thread": "ForkJoinPool-1-worker-2",
+      "kind": "JACOCO_DATA_startSession_EXIT",
+      "detail": "BoundaryTests#aRequest_55ff023"
+    },
+    "responseRead": {
+      "sequence": 18,
+      "thread": "ForkJoinPool-1-worker-2",
+      "kind": "SIGNAL",
+      "detail": "RESPONSE_READ"
+    },
+    "tests": [
+      "example.boundary.BoundaryTests#aRequest",
+      "example.boundary.BoundaryTests#bFollowing"
+    ]
+  },
+  "jacoco-sequential": {
+    "complete": true,
+    "distinctiveReturn": {
+      "sequence": 32,
+      "thread": "http-nio-auto-1-exec-1",
+      "kind": "DISTINCTIVE_RETURN",
+      "detail": "41327"
+    },
+    "fixtureRevision": "98405df1227b03d7c61d6e37de1c9d4a2f329be7",
+    "followingEnd": {
+      "sequence": 39,
+      "thread": "main",
+      "kind": "JACOCO_LISTENER_executionFinished_EXIT",
+      "detail": "TestIdentifier [uniqueId \u003d [engine:junit-jupiter]/[class:example.boundary.BoundaryTests]/[method:bFollowing()], parentId \u003d [engine:junit-jupiter]/[class:example.boundary.BoundaryTests], displayName \u003d \u0027bFollowing()\u0027, legacyReportingName \u003d \u0027bFollowing()\u0027, source \u003d MethodSource [className \u003d \u0027example.boundary.BoundaryTests\u0027, methodName \u003d \u0027bFollowing\u0027, methodParameterTypes \u003d \u0027\u0027], tags \u003d [], type \u003d TEST]"
+    },
+    "followingStart": {
+      "sequence": 24,
+      "thread": "main",
+      "kind": "JACOCO_DATA_startSession_EXIT",
+      "detail": "BoundaryTests#bFollowing_7535c05"
+    },
+    "fragment": {
+      "schemaVersion": 3,
+      "revision": "98405df1227b03d7c61d6e37de1c9d4a2f329be7",
+      "shardId": "local",
+      "tests": {
+        "maven:.::example.boundary.BoundaryTests#aRequest": {
+          "classes": [
+            "example.boundary.BoundaryController"
+          ],
+          "methods": [
+            "example.boundary.BoundaryController#late(Ljakarta/servlet/http/HttpServletResponse;)V"
+          ],
+          "outcome": "PASS",
+          "collectionStatus": "COLLECTED_WITH_COVERAGE"
+        },
+        "maven:.::example.boundary.BoundaryTests#bFollowing": {
+          "classes": [
+            "example.boundary.BoundaryController",
+            "example.boundary.PostResponseOnly"
+          ],
+          "methods": [
+            "example.boundary.BoundaryController#late(Ljakarta/servlet/http/HttpServletResponse;)V",
+            "example.boundary.PostResponseOnly#distinctiveAfterResponse()I"
+          ],
+          "outcome": "PASS",
+          "collectionStatus": "COLLECTED_WITH_COVERAGE"
+        }
+      },
+      "unmapped": [],
+      "setupScopes": [
+        {
+          "id": "junit-container:example.boundary.BoundaryTests",
+          "type": "FRAMEWORK_SETUP",
+          "owner": "maven:.",
+          "coveredClasses": [
+            "example.boundary.BoundaryApplication",
+            "example.boundary.BoundaryController"
+          ],
+          "affectedContainers": [
+            "example.boundary.BoundaryTests"
+          ]
+        }
+      ],
+      "collection": {
+        "completed": true
+      }
+    },
+    "markerSessionOwners": [
+      "session_BoundaryTests#b~Following_7535c05.exec"
+    ],
+    "productionAccounting": {
+      "executed": [
+        "maven:.::example.boundary.BoundaryTests#aRequest",
+        "maven:.::example.boundary.BoundaryTests#bFollowing"
+      ],
+      "assignment": [
+        "maven:.::example.boundary.BoundaryTests#aRequest",
+        "maven:.::example.boundary.BoundaryTests#bFollowing"
+      ],
+      "positivelyNonExecuted": [],
+      "outcomes": {
+        "maven:.::example.boundary.BoundaryTests#aRequest": "PASS/COLLECTED_WITH_COVERAGE",
+        "maven:.::example.boundary.BoundaryTests#bFollowing": "PASS/COLLECTED_WITH_COVERAGE"
+      },
+      "statistics": {
+        "expectedTests": 2,
+        "mappedTests": 2,
+        "unmappedTests": 0,
+        "setupScopes": 1,
+        "classEdges": 3,
+        "methodEdges": 3
+      },
+      "complete": true
+    },
+    "productionValidation": {
+      "assignmentValidation": "ACCEPTED",
+      "completed": true,
+      "fragmentExists": true,
+      "join": "ACCEPTED_CANDIDATE",
+      "mapped": [
+        "maven:.::example.boundary.BoundaryTests#bFollowing",
+        "maven:.::example.boundary.BoundaryTests#aRequest"
+      ],
+      "publication": "NOT RUN: no Jenkins/storage operation; local candidate join only",
+      "setupScopes": [
+        {
+          "id": "junit-container:example.boundary.BoundaryTests",
+          "type": "FRAMEWORK_SETUP",
+          "coveredClasses": [
+            "example.boundary.BoundaryApplication",
+            "example.boundary.BoundaryController"
+          ],
+          "affectedContainers": [
+            {
+              "binaryName": "example.boundary.BoundaryTests"
+            }
+          ],
+          "owner": {
+            "buildTool": "MAVEN",
+            "targetId": "."
+          }
+        }
+      ],
+      "unmapped": []
+    },
+    "rawSessionOracle": {
+      "session_BoundaryTests#a~Request_55ff023.exec": {
+        "coveredMethods": [
+          "example.boundary.BoundaryController#late(Ljakarta/servlet/http/HttpServletResponse;)V"
+        ],
+        "embeddedSessionIds": [
+          "BoundaryTests#aRequest_55ff023"
+        ],
+        "identity": "format\u003d1\nclassName\u003dexample.boundary.BoundaryTests\nmethodName\u003daRequest\nmethodParameterTypes\u003d\noutcome\u003dPASS\n",
+        "methodCounters": {
+          "example.boundary.BoundaryApplication#\u003cinit\u003e()V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 3,
+            "coveredMethod": 0
+          },
+          "example.boundary.BoundaryController#\u003cinit\u003e()V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 3,
+            "coveredMethod": 0
+          },
+          "example.boundary.BoundaryController#late(Ljakarta/servlet/http/HttpServletResponse;)V": {
+            "coveredInstructions": 21,
+            "missedInstructions": 5,
+            "coveredMethod": 1
+          },
+          "example.boundary.PostResponseOnly#\u003cinit\u003e()V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 3,
+            "coveredMethod": 0
+          },
+          "example.boundary.PostResponseOnly#distinctiveAfterResponse()I": {
+            "coveredInstructions": 0,
+            "missedInstructions": 2,
+            "coveredMethod": 0
+          }
+        }
+      },
+      "session_BoundaryTests#b~Following_7535c05.exec": {
+        "coveredMethods": [
+          "example.boundary.BoundaryController#late(Ljakarta/servlet/http/HttpServletResponse;)V",
+          "example.boundary.PostResponseOnly#distinctiveAfterResponse()I"
+        ],
+        "embeddedSessionIds": [
+          "BoundaryTests#bFollowing_7535c05"
+        ],
+        "identity": "format\u003d1\nclassName\u003dexample.boundary.BoundaryTests\nmethodName\u003dbFollowing\nmethodParameterTypes\u003d\noutcome\u003dPASS\n",
+        "methodCounters": {
+          "example.boundary.BoundaryApplication#\u003cinit\u003e()V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 3,
+            "coveredMethod": 0
+          },
+          "example.boundary.BoundaryController#\u003cinit\u003e()V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 3,
+            "coveredMethod": 0
+          },
+          "example.boundary.BoundaryController#late(Ljakarta/servlet/http/HttpServletResponse;)V": {
+            "coveredInstructions": 5,
+            "missedInstructions": 21,
+            "coveredMethod": 1
+          },
+          "example.boundary.PostResponseOnly#\u003cinit\u003e()V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 3,
+            "coveredMethod": 0
+          },
+          "example.boundary.PostResponseOnly#distinctiveAfterResponse()I": {
+            "coveredInstructions": 2,
+            "missedInstructions": 0,
+            "coveredMethod": 1
+          }
+        }
+      },
+      "session_setup_2a954237.exec": {
+        "coveredMethods": [
+          "example.boundary.BoundaryApplication#\u003cinit\u003e()V",
+          "example.boundary.BoundaryController#\u003cinit\u003e()V"
+        ],
+        "embeddedSessionIds": [
+          "setup:example.boundary.BoundaryTests"
+        ],
+        "methodCounters": {
+          "example.boundary.BoundaryApplication#\u003cinit\u003e()V": {
+            "coveredInstructions": 3,
+            "missedInstructions": 0,
+            "coveredMethod": 1
+          },
+          "example.boundary.BoundaryController#\u003cinit\u003e()V": {
+            "coveredInstructions": 3,
+            "missedInstructions": 0,
+            "coveredMethod": 1
+          },
+          "example.boundary.BoundaryController#late(Ljakarta/servlet/http/HttpServletResponse;)V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 26,
+            "coveredMethod": 0
+          },
+          "example.boundary.PostResponseOnly#\u003cinit\u003e()V": {
+            "coveredInstructions": 0,
+            "missedInstructions": 3,
+            "coveredMethod": 0
+          },
+          "example.boundary.PostResponseOnly#distinctiveAfterResponse()I": {
+            "coveredInstructions": 0,
+            "missedInstructions": 2,
+            "coveredMethod": 0
+          }
+        },
+        "setup": "format\u003d1\ncontainer\u003dexample.boundary.BoundaryTests\n"
+      }
+    },
+    "release": {
+      "sequence": 29,
+      "thread": "main",
+      "kind": "SIGNAL",
+      "detail": "RELEASE_LATE"
+    },
+    "requestEnd": {
+      "sequence": 21,
+      "thread": "main",
+      "kind": "JACOCO_LISTENER_executionFinished_EXIT",
+      "detail": "TestIdentifier [uniqueId \u003d [engine:junit-jupiter]/[class:example.boundary.BoundaryTests]/[method:aRequest()], parentId \u003d [engine:junit-jupiter]/[class:example.boundary.BoundaryTests], displayName \u003d \u0027aRequest()\u0027, legacyReportingName \u003d \u0027aRequest()\u0027, source \u003d MethodSource [className \u003d \u0027example.boundary.BoundaryTests\u0027, methodName \u003d \u0027aRequest\u0027, methodParameterTypes \u003d \u0027\u0027], tags \u003d [], type \u003d TEST]"
+    },
+    "requestStart": {
+      "sequence": 11,
+      "thread": "main",
+      "kind": "JACOCO_DATA_startSession_EXIT",
+      "detail": "BoundaryTests#aRequest_55ff023"
+    },
+    "responseRead": {
+      "sequence": 16,
+      "thread": "main",
+      "kind": "SIGNAL",
+      "detail": "RESPONSE_READ"
+    },
+    "tests": [
+      "example.boundary.BoundaryTests#aRequest",
+      "example.boundary.BoundaryTests#bFollowing"
+    ]
+  }
+}

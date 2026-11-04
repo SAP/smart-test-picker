@@ -1,0 +1,31 @@
+{
+  "assignmentValidation": "ACCEPTED",
+  "completed": true,
+  "fragmentExists": true,
+  "join": "ACCEPTED_CANDIDATE",
+  "mapped": [
+    "maven:.::example.boundary.BoundaryTests#bFollowing",
+    "maven:.::example.boundary.BoundaryTests#aRequest"
+  ],
+  "publication": "NOT RUN: no Jenkins/storage operation; local candidate join only",
+  "setupScopes": [
+    {
+      "id": "junit-container:example.boundary.BoundaryTests",
+      "type": "FRAMEWORK_SETUP",
+      "coveredClasses": [
+        "example.boundary.BoundaryApplication",
+        "example.boundary.BoundaryController"
+      ],
+      "affectedContainers": [
+        {
+          "binaryName": "example.boundary.BoundaryTests"
+        }
+      ],
+      "owner": {
+        "buildTool": "MAVEN",
+        "targetId": "."
+      }
+    }
+  ],
+  "unmapped": []
+}

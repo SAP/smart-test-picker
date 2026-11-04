@@ -1,0 +1,38 @@
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+  <modelVersion>4.0.0</modelVersion>
+  <parent><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-parent</artifactId><version>4.1.0</version><relativePath/></parent>
+  <groupId>fixture</groupId><artifactId>http-reset-boundary</artifactId><version>1</version>
+  <properties><java.version>17</java.version><argLine></argLine><measurement.parallel>false</measurement.parallel></properties>
+  <dependencies>
+    <dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-webmvc</artifactId></dependency>
+    <dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-test</artifactId><scope>test</scope></dependency>
+    <dependency><groupId>com.sap.oss.smart-test-picker</groupId><artifactId>smart-test-picker-core</artifactId><version>0.3.0-SNAPSHOT</version><scope>test</scope></dependency>
+    <!-- Disposable synchronization/observation support, outside target/classes and the measured scope. -->
+    <dependency><groupId>verification</groupId><artifactId>boundary-observer</artifactId><version>1</version><scope>system</scope><systemPath>${measurement.observer.jar}</systemPath></dependency>
+  </dependencies>
+  <build><plugins>
+    <plugin><artifactId>maven-surefire-plugin</artifactId><version>3.5.6</version><configuration>
+      <forkCount>1</forkCount><reuseForks>true</reuseForks>
+      <argLine>@{argLine} -javaagent:${measurement.observer.jar} -Xmx512m</argLine>
+      <systemPropertyVariables>
+        <measurement.parallel>${measurement.parallel}</measurement.parallel>
+        <measurement.events>${project.build.directory}/boundary-events.tsv</measurement.events>
+        <junit.jupiter.execution.parallel.enabled>${measurement.parallel}</junit.jupiter.execution.parallel.enabled>
+        <junit.jupiter.execution.parallel.mode.default>concurrent</junit.jupiter.execution.parallel.mode.default>
+        <junit.jupiter.execution.parallel.config.strategy>fixed</junit.jupiter.execution.parallel.config.strategy>
+        <junit.jupiter.execution.parallel.config.fixed.parallelism>2</junit.jupiter.execution.parallel.config.fixed.parallelism>
+      </systemPropertyVariables>
+    </configuration></plugin>
+    <plugin><groupId>org.jacoco</groupId><artifactId>jacoco-maven-plugin</artifactId><version>0.8.15</version>
+      <executions><execution><goals><goal>prepare-agent</goal></goals></execution></executions>
+    </plugin>
+    <plugin><groupId>com.sap.oss.smart-test-picker</groupId><artifactId>smart-test-picker-maven</artifactId><version>0.3.0-SNAPSHOT</version>
+      <configuration><moduleFragmentOutput>${smartTestPicker.moduleFragmentOutput}</moduleFragmentOutput><moduleEvidenceOutput>${smartTestPicker.moduleEvidenceOutput}</moduleEvidenceOutput></configuration>
+      <executions>
+        <execution><id>reports</id><phase>verify</phase><goals><goal>generate-reports</goal></goals></execution>
+        <execution><id>fragment</id><phase>verify</phase><goals><goal>generate-coverage-fragment</goal></goals></execution>
+      </executions>
+    </plugin>
+  </plugins></build>
+</project>

@@ -1,0 +1,3 @@
+PRODUCTION CODECS PASS assignment=2 mapped=2 executableUnmapped=0 positiveNonExecution=0
+Decoded 3 raw JaCoCo sessions into /Users/D061177/work/moje/smart-test-picker/verification/maven-asm-13/raw/jacoco-parallel-repeat/session-oracle.json
+jacoco-parallel mapping=0 aggregation=0

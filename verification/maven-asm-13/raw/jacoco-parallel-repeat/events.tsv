@@ -1,0 +1,48 @@
+1	796592395659291	ForkJoinPool-1-worker-1	JACOCO_LISTENER_executionStarted_ENTER	TestIdentifier [uniqueId = [engine:junit-jupiter], parentId = null, displayName = 'JUnit Jupiter', legacyReportingName = 'JUnit Jupiter', source = null, tags = [], type = CONTAINER]
+2	796592402519916	ForkJoinPool-1-worker-1	JACOCO_LISTENER_executionStarted_EXIT	TestIdentifier [uniqueId = [engine:junit-jupiter], parentId = null, displayName = 'JUnit Jupiter', legacyReportingName = 'JUnit Jupiter', source = null, tags = [], type = CONTAINER]
+3	796592430956625	ForkJoinPool-1-worker-1	JACOCO_LISTENER_executionStarted_ENTER	TestIdentifier [uniqueId = [engine:junit-jupiter]/[class:example.boundary.BoundaryTests], parentId = [engine:junit-jupiter], displayName = 'BoundaryTests', legacyReportingName = 'example.boundary.BoundaryTests', source = ClassSource [className = 'example.boundary.BoundaryTests', filePosition = null], tags = [], type = CONTAINER]
+4	796592437695916	ForkJoinPool-1-worker-1	JACOCO_DATA_startSession_ENTER	setup:example.boundary.BoundaryTests
+5	796592443131875	ForkJoinPool-1-worker-1	JACOCO_DATA_startSession_EXIT	setup:example.boundary.BoundaryTests
+6	796592479281750	ForkJoinPool-1-worker-1	JACOCO_LISTENER_executionStarted_EXIT	TestIdentifier [uniqueId = [engine:junit-jupiter]/[class:example.boundary.BoundaryTests], parentId = [engine:junit-jupiter], displayName = 'BoundaryTests', legacyReportingName = 'example.boundary.BoundaryTests', source = ClassSource [className = 'example.boundary.BoundaryTests', filePosition = null], tags = [], type = CONTAINER]
+7	796594280131916	ForkJoinPool-1-worker-2	JACOCO_LISTENER_executionStarted_ENTER	TestIdentifier [uniqueId = [engine:junit-jupiter]/[class:example.boundary.BoundaryTests]/[method:aRequest()], parentId = [engine:junit-jupiter]/[class:example.boundary.BoundaryTests], displayName = 'aRequest()', legacyReportingName = 'aRequest()', source = MethodSource [className = 'example.boundary.BoundaryTests', methodName = 'aRequest', methodParameterTypes = ''], tags = [], type = TEST]
+8	796594290951875	ForkJoinPool-1-worker-1	JACOCO_LISTENER_executionStarted_ENTER	TestIdentifier [uniqueId = [engine:junit-jupiter]/[class:example.boundary.BoundaryTests]/[method:bFollowing()], parentId = [engine:junit-jupiter]/[class:example.boundary.BoundaryTests], displayName = 'bFollowing()', legacyReportingName = 'bFollowing()', source = MethodSource [className = 'example.boundary.BoundaryTests', methodName = 'bFollowing', methodParameterTypes = ''], tags = [], type = TEST]
+9	796594300159791	ForkJoinPool-1-worker-2	JACOCO_DATA_startSession_ENTER	BoundaryTests#aRequest_55ff023
+10	796594314449208	ForkJoinPool-1-worker-1	JACOCO_DATA_snapshotAndReset_ENTER	
+11	796594329100416	ForkJoinPool-1-worker-2	JACOCO_DATA_startSession_EXIT	BoundaryTests#aRequest_55ff023
+12	796594332180500	ForkJoinPool-1-worker-1	JACOCO_DATA_snapshotAndReset_EXIT	
+13	796594335796291	ForkJoinPool-1-worker-2	JACOCO_LISTENER_executionStarted_EXIT	TestIdentifier [uniqueId = [engine:junit-jupiter]/[class:example.boundary.BoundaryTests]/[method:aRequest()], parentId = [engine:junit-jupiter]/[class:example.boundary.BoundaryTests], displayName = 'aRequest()', legacyReportingName = 'aRequest()', source = MethodSource [className = 'example.boundary.BoundaryTests', methodName = 'aRequest', methodParameterTypes = ''], tags = [], type = TEST]
+14	796594344507250	ForkJoinPool-1-worker-1	JACOCO_DATA_startSession_ENTER	BoundaryTests#bFollowing_7535c05
+15	796594349560458	ForkJoinPool-1-worker-1	WAIT	LATE_DONE
+16	796595475700958	ForkJoinPool-1-worker-2	REQUEST_TEST_BODY	HTTP only; no direct production call
+17	796595607050083	http-nio-auto-1-exec-1	SERVER_FLUSHED	response has fixed length 2
+18	796595621185333	ForkJoinPool-1-worker-2	SIGNAL	RESPONSE_READ
+19	796595635065583	http-nio-auto-1-exec-1	WAIT	RELEASE_LATE
+20	796595643222125	ForkJoinPool-1-worker-2	SIGNAL	RELEASE_LATE
+21	796595646808416	ForkJoinPool-1-worker-2	WAIT	FOLLOWING_FINISHED
+22	796595658098083	http-nio-auto-1-exec-1	RESUMED	RELEASE_LATE
+23	796595662928916	http-nio-auto-1-exec-1	DISTINCTIVE_RETURN	41327
+24	796595666459583	http-nio-auto-1-exec-1	SIGNAL	LATE_DONE
+25	796595672272500	ForkJoinPool-1-worker-1	RESUMED	LATE_DONE
+26	796595676491708	ForkJoinPool-1-worker-1	JACOCO_DATA_startSession_EXIT	BoundaryTests#bFollowing_7535c05
+27	796595680274958	ForkJoinPool-1-worker-1	JACOCO_LISTENER_executionStarted_EXIT	TestIdentifier [uniqueId = [engine:junit-jupiter]/[class:example.boundary.BoundaryTests]/[method:bFollowing()], parentId = [engine:junit-jupiter]/[class:example.boundary.BoundaryTests], displayName = 'bFollowing()', legacyReportingName = 'bFollowing()', source = MethodSource [className = 'example.boundary.BoundaryTests', methodName = 'bFollowing', methodParameterTypes = ''], tags = [], type = TEST]
+28	796595685546416	ForkJoinPool-1-worker-1	FOLLOWING_TEST_BODY	no production calls
+29	796595693745375	ForkJoinPool-1-worker-1	WAIT	RESPONSE_READ
+30	796595697768458	ForkJoinPool-1-worker-1	RESUMED	RESPONSE_READ
+31	796595701473833	ForkJoinPool-1-worker-1	WAIT	LATE_DONE
+32	796595705297750	ForkJoinPool-1-worker-1	RESUMED	LATE_DONE
+33	796595709202833	ForkJoinPool-1-worker-1	FOLLOWING_TEST_RETURN	
+34	796595728868500	ForkJoinPool-1-worker-1	JACOCO_LISTENER_executionFinished_ENTER	TestIdentifier [uniqueId = [engine:junit-jupiter]/[class:example.boundary.BoundaryTests]/[method:bFollowing()], parentId = [engine:junit-jupiter]/[class:example.boundary.BoundaryTests], displayName = 'bFollowing()', legacyReportingName = 'bFollowing()', source = MethodSource [className = 'example.boundary.BoundaryTests', methodName = 'bFollowing', methodParameterTypes = ''], tags = [], type = TEST]
+35	796595733359333	ForkJoinPool-1-worker-1	JACOCO_DATA_snapshotAndReset_ENTER	
+36	796595740584375	ForkJoinPool-1-worker-1	JACOCO_DATA_snapshotAndReset_EXIT	
+37	796595746074333	ForkJoinPool-1-worker-1	JACOCO_LISTENER_executionFinished_EXIT	TestIdentifier [uniqueId = [engine:junit-jupiter]/[class:example.boundary.BoundaryTests]/[method:bFollowing()], parentId = [engine:junit-jupiter]/[class:example.boundary.BoundaryTests], displayName = 'bFollowing()', legacyReportingName = 'bFollowing()', source = MethodSource [className = 'example.boundary.BoundaryTests', methodName = 'bFollowing', methodParameterTypes = ''], tags = [], type = TEST]
+38	796595750360083	ForkJoinPool-1-worker-1	SIGNAL	FOLLOWING_FINISHED
+39	796595754353958	ForkJoinPool-1-worker-2	RESUMED	FOLLOWING_FINISHED
+40	796595758132291	ForkJoinPool-1-worker-2	REQUEST_TEST_RETURN	
+41	796595763113583	ForkJoinPool-1-worker-2	JACOCO_LISTENER_executionFinished_ENTER	TestIdentifier [uniqueId = [engine:junit-jupiter]/[class:example.boundary.BoundaryTests]/[method:aRequest()], parentId = [engine:junit-jupiter]/[class:example.boundary.BoundaryTests], displayName = 'aRequest()', legacyReportingName = 'aRequest()', source = MethodSource [className = 'example.boundary.BoundaryTests', methodName = 'aRequest', methodParameterTypes = ''], tags = [], type = TEST]
+42	796595767511416	ForkJoinPool-1-worker-2	JACOCO_DATA_snapshotAndReset_ENTER	
+43	796595775881166	ForkJoinPool-1-worker-2	JACOCO_DATA_snapshotAndReset_EXIT	
+44	796595783351375	ForkJoinPool-1-worker-2	JACOCO_LISTENER_executionFinished_EXIT	TestIdentifier [uniqueId = [engine:junit-jupiter]/[class:example.boundary.BoundaryTests]/[method:aRequest()], parentId = [engine:junit-jupiter]/[class:example.boundary.BoundaryTests], displayName = 'aRequest()', legacyReportingName = 'aRequest()', source = MethodSource [className = 'example.boundary.BoundaryTests', methodName = 'aRequest', methodParameterTypes = ''], tags = [], type = TEST]
+45	796595792459666	ForkJoinPool-1-worker-1	JACOCO_LISTENER_executionFinished_ENTER	TestIdentifier [uniqueId = [engine:junit-jupiter]/[class:example.boundary.BoundaryTests], parentId = [engine:junit-jupiter], displayName = 'BoundaryTests', legacyReportingName = 'example.boundary.BoundaryTests', source = ClassSource [className = 'example.boundary.BoundaryTests', filePosition = null], tags = [], type = CONTAINER]
+46	796595796374750	ForkJoinPool-1-worker-1	JACOCO_LISTENER_executionFinished_EXIT	TestIdentifier [uniqueId = [engine:junit-jupiter]/[class:example.boundary.BoundaryTests], parentId = [engine:junit-jupiter], displayName = 'BoundaryTests', legacyReportingName = 'example.boundary.BoundaryTests', source = ClassSource [className = 'example.boundary.BoundaryTests', filePosition = null], tags = [], type = CONTAINER]
+47	796595800861875	main	JACOCO_LISTENER_executionFinished_ENTER	TestIdentifier [uniqueId = [engine:junit-jupiter], parentId = null, displayName = 'JUnit Jupiter', legacyReportingName = 'JUnit Jupiter', source = null, tags = [], type = CONTAINER]
+48	796595808463083	main	JACOCO_LISTENER_executionFinished_EXIT	TestIdentifier [uniqueId = [engine:junit-jupiter], parentId = null, displayName = 'JUnit Jupiter', legacyReportingName = 'JUnit Jupiter', source = null, tags = [], type = CONTAINER]

@@ -1,0 +1,112 @@
+{
+  "session_BoundaryTests#a~Request_55ff023.exec": {
+    "coveredMethods": [
+      "example.boundary.BoundaryController#late(Ljakarta/servlet/http/HttpServletResponse;)V"
+    ],
+    "embeddedSessionIds": [
+      "BoundaryTests#aRequest_55ff023"
+    ],
+    "identity": "format\u003d1\nclassName\u003dexample.boundary.BoundaryTests\nmethodName\u003daRequest\nmethodParameterTypes\u003d\noutcome\u003dPASS\n",
+    "methodCounters": {
+      "example.boundary.BoundaryApplication#\u003cinit\u003e()V": {
+        "coveredInstructions": 0,
+        "missedInstructions": 3,
+        "coveredMethod": 0
+      },
+      "example.boundary.BoundaryController#\u003cinit\u003e()V": {
+        "coveredInstructions": 0,
+        "missedInstructions": 3,
+        "coveredMethod": 0
+      },
+      "example.boundary.BoundaryController#late(Ljakarta/servlet/http/HttpServletResponse;)V": {
+        "coveredInstructions": 21,
+        "missedInstructions": 5,
+        "coveredMethod": 1
+      },
+      "example.boundary.PostResponseOnly#\u003cinit\u003e()V": {
+        "coveredInstructions": 0,
+        "missedInstructions": 3,
+        "coveredMethod": 0
+      },
+      "example.boundary.PostResponseOnly#distinctiveAfterResponse()I": {
+        "coveredInstructions": 0,
+        "missedInstructions": 2,
+        "coveredMethod": 0
+      }
+    }
+  },
+  "session_BoundaryTests#b~Following_7535c05.exec": {
+    "coveredMethods": [
+      "example.boundary.BoundaryController#late(Ljakarta/servlet/http/HttpServletResponse;)V",
+      "example.boundary.PostResponseOnly#distinctiveAfterResponse()I"
+    ],
+    "embeddedSessionIds": [
+      "BoundaryTests#bFollowing_7535c05"
+    ],
+    "identity": "format\u003d1\nclassName\u003dexample.boundary.BoundaryTests\nmethodName\u003dbFollowing\nmethodParameterTypes\u003d\noutcome\u003dPASS\n",
+    "methodCounters": {
+      "example.boundary.BoundaryApplication#\u003cinit\u003e()V": {
+        "coveredInstructions": 0,
+        "missedInstructions": 3,
+        "coveredMethod": 0
+      },
+      "example.boundary.BoundaryController#\u003cinit\u003e()V": {
+        "coveredInstructions": 0,
+        "missedInstructions": 3,
+        "coveredMethod": 0
+      },
+      "example.boundary.BoundaryController#late(Ljakarta/servlet/http/HttpServletResponse;)V": {
+        "coveredInstructions": 5,
+        "missedInstructions": 21,
+        "coveredMethod": 1
+      },
+      "example.boundary.PostResponseOnly#\u003cinit\u003e()V": {
+        "coveredInstructions": 0,
+        "missedInstructions": 3,
+        "coveredMethod": 0
+      },
+      "example.boundary.PostResponseOnly#distinctiveAfterResponse()I": {
+        "coveredInstructions": 2,
+        "missedInstructions": 0,
+        "coveredMethod": 1
+      }
+    }
+  },
+  "session_setup_2a954237.exec": {
+    "coveredMethods": [
+      "example.boundary.BoundaryApplication#\u003cinit\u003e()V",
+      "example.boundary.BoundaryController#\u003cinit\u003e()V"
+    ],
+    "embeddedSessionIds": [
+      "setup:example.boundary.BoundaryTests"
+    ],
+    "methodCounters": {
+      "example.boundary.BoundaryApplication#\u003cinit\u003e()V": {
+        "coveredInstructions": 3,
+        "missedInstructions": 0,
+        "coveredMethod": 1
+      },
+      "example.boundary.BoundaryController#\u003cinit\u003e()V": {
+        "coveredInstructions": 3,
+        "missedInstructions": 0,
+        "coveredMethod": 1
+      },
+      "example.boundary.BoundaryController#late(Ljakarta/servlet/http/HttpServletResponse;)V": {
+        "coveredInstructions": 0,
+        "missedInstructions": 26,
+        "coveredMethod": 0
+      },
+      "example.boundary.PostResponseOnly#\u003cinit\u003e()V": {
+        "coveredInstructions": 0,
+        "missedInstructions": 3,
+        "coveredMethod": 0
+      },
+      "example.boundary.PostResponseOnly#distinctiveAfterResponse()I": {
+        "coveredInstructions": 0,
+        "missedInstructions": 2,
+        "coveredMethod": 0
+      }
+    },
+    "setup": "format\u003d1\ncontainer\u003dexample.boundary.BoundaryTests\n"
+  }
+}

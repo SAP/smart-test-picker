@@ -1,0 +1,24 @@
+{
+  "executed": [
+    "maven:.::example.boundary.BoundaryTests#aRequest",
+    "maven:.::example.boundary.BoundaryTests#bFollowing"
+  ],
+  "assignment": [
+    "maven:.::example.boundary.BoundaryTests#aRequest",
+    "maven:.::example.boundary.BoundaryTests#bFollowing"
+  ],
+  "positivelyNonExecuted": [],
+  "outcomes": {
+    "maven:.::example.boundary.BoundaryTests#aRequest": "PASS/COLLECTED_WITH_COVERAGE",
+    "maven:.::example.boundary.BoundaryTests#bFollowing": "PASS/COLLECTED_WITH_COVERAGE"
+  },
+  "statistics": {
+    "expectedTests": 2,
+    "mappedTests": 2,
+    "unmappedTests": 0,
+    "setupScopes": 1,
+    "classEdges": 3,
+    "methodEdges": 3
+  },
+  "complete": true
+}

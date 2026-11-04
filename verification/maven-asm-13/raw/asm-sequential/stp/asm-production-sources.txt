@@ -1,0 +1,2 @@
+/private/tmp/stp-asm13.mW1XcT/asm-sequential/target/classes
+/private/tmp/stp-asm13.mW1XcT/asm-sequential/target/http-reset-boundary-1.jar

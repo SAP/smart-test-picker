@@ -1,0 +1,1 @@
+PASS measurement: sequential JaCoCo bleed and parallel loss accepted complete; ASM sequential setup ownership retained; ASM parallel rejected with ASYNC_SETUP_UNSUPPORTED and NO_ACTIVE_TEST=2

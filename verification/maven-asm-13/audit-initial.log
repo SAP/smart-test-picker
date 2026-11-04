@@ -1,0 +1,3 @@
+Exception in thread "main" java.lang.AssertionError: Incomplete run: asm-parallel
+	at Audit.check(Audit.java:11)
+	at Audit.main(Audit.java:47)

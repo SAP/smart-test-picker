@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "revision": "98405df1227b03d7c61d6e37de1c9d4a2f329be7",
+  "shardId": "local",
+  "testTarget": "test",
+  "buildTool": "maven",
+  "EXECUTED": [
+    "maven:.::example.boundary.BoundaryTests#aRequest",
+    "maven:.::example.boundary.BoundaryTests#bFollowing"
+  ],
+  "NON_EXECUTED": []
+}

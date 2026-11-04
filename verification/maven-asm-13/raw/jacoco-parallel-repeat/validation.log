@@ -1,0 +1,13 @@
+{
+  "assignmentValidation": "ACCEPTED",
+  "completed": true,
+  "fragmentExists": true,
+  "join": "ACCEPTED_CANDIDATE",
+  "mapped": [
+    "maven:.::example.boundary.BoundaryTests#aRequest",
+    "maven:.::example.boundary.BoundaryTests#bFollowing"
+  ],
+  "publication": "NOT RUN: no Jenkins/storage operation; local candidate join only",
+  "setupScopes": [],
+  "unmapped": []
+}
