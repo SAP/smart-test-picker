@@ -4,6 +4,7 @@ package com.sap.oss.smarttestpicker.maven;
 
 import java.io.File;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -146,9 +147,7 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 			if (collector == StpCollectorSelection.ASM) pinSingleFork(configured);
 			execution.setConfiguration(configured);
 		}
-		boolean qualified = executionType != null && !executionType.isBlank();
-		String scope = target.targetId().replaceAll("[^A-Za-z0-9_.-]", "_");
-		String suffix = qualified ? "-" + scope : "";
+		String suffix = MavenExecutionTargetResolver.outputSuffix(target);
 		File output = new File(module.getBuild().getDirectory(),
 				"stp/selected-tests-" + provider + "-v3" + suffix + ".txt");
 		Files.createDirectories(output.getParentFile().toPath());
@@ -171,6 +170,13 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 				new File(module.getBuild().getDirectory(), "stp/coverage-fragment-v3" + suffix + ".json").getAbsolutePath());
 		module.getProperties().setProperty("smartTestPicker.moduleEvidenceOutput",
 				new File(module.getBuild().getDirectory(), "stp/execution-evidence-v2" + suffix + ".json").getAbsolutePath());
+		module.getProperties().setProperty("smartTestPicker.moduleDiagnosticOutput",
+				new File(module.getBuild().getDirectory(), "stp/asm-agent-diagnostic" + suffix + ".json").getAbsolutePath());
+		if (collector == StpCollectorSelection.ASM) {
+			// Scope cleanup to this prepared target; other provider outputs must survive.
+			for (String name : List.of("moduleFragmentOutput", "moduleEvidenceOutput", "moduleDiagnosticOutput"))
+				Files.deleteIfExists(Path.of(module.getProperties().getProperty("smartTestPicker." + name)));
+		}
 	}
 
 	private static void pinSingleFork(Xpp3Dom configuration) {

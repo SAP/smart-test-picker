@@ -51,10 +51,12 @@ import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableShardAssignm
 import com.sap.oss.smarttestpicker.coverage.validation.CoverageMapValidator;
 import com.sap.oss.smarttestpicker.mapper.CoverageMapperJaxb;
 
-/** Produces an authoritative schema-v2 fragment from Maven's per-test JaCoCo artifacts. */
+/** Generates JaCoCo fragments or finalizes evidence for immutable schema-v3 ASM fragments. */
 @Mojo(name = "generate-coverage-fragment", defaultPhase = LifecyclePhase.VERIFY)
 public class GenerateCoverageFragmentMojo extends AbstractMojo
 {
+	@Parameter(property = "smartTestPicker.coverageCollector")
+	private String coverageCollector;
 	@Parameter(defaultValue = "${project.build.directory}/jacoco", required = true)
 	private File execDir;
 
@@ -106,6 +108,11 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 		if (shardId == null || shardId.isBlank()) throw new MojoExecutionException("smartTestPicker.shardId must not be blank");
 		ExecutionTarget target = validateRuntimeContext();
 		selectOutputs();
+		if (com.sap.oss.smarttestpicker.StpCollectorSelection.parse(coverageCollector)
+				== com.sap.oss.smarttestpicker.StpCollectorSelection.ASM) {
+			finalizeAsm(target);
+			return;
+		}
 		if (evidenceOutput == null) evidenceOutput = new File(fragmentOutput.getAbsoluteFile().getParentFile(), "execution-evidence-v1.json");
 		if (testTarget == null || testTarget.isBlank()) testTarget = "test";
 		try { Files.deleteIfExists(fragmentOutput.toPath()); }
@@ -135,6 +142,52 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 		getLog().info("[SmartTestPicker] Generated schema-v" + schemaVersion + " coverage fragment: " + fragmentOutput
 				+ " (" + fragment.tests().size() + " mapped, " + fragment.unmapped().size()
 				+ " unmapped, completed=" + fragment.collectionCompleted() + ")");
+	}
+
+	private void finalizeAsm(ExecutionTarget target) throws MojoExecutionException {
+		try {
+			if (schemaVersion != CoverageMapContract.SCHEMA_V3 || moduleFragmentOutput == null || moduleEvidenceOutput == null)
+				throw new IllegalArgumentException("ASM finalization requires prepared schema-v3 module outputs");
+			if (fragmentOutput.toPath().toAbsolutePath().normalize().equals(evidenceOutput.toPath().toAbsolutePath().normalize()))
+				throw new IllegalArgumentException("ASM fragment and evidence outputs must be distinct");
+			Files.deleteIfExists(evidenceOutput.toPath());
+			if (assignmentFile == null || !assignmentFile.isFile()) throw new IllegalArgumentException("ASM finalization requires the shard assignment");
+			var assignment = new ExecutableShardAssignmentCodec().deserialize(Files.readAllBytes(assignmentFile.toPath()));
+			if (!revision.equals(assignment.revision().value()) || !shardId.equals(assignment.shardId().value()))
+				throw new IllegalArgumentException("ASM assignment revision/shard mismatch");
+			Set<ExecutableTestIdentity> assigned = new TreeSet<>();
+			assignment.tests().stream().filter(i -> i.target().equals(target)).forEach(assigned::add);
+			if (assigned.isEmpty()) {
+				if (fragmentOutput.exists()) throw new IllegalArgumentException("Unexpected ASM fragment for unassigned target " + target);
+				getLog().info("[SmartTestPicker] No ASM assignment for " + target + "; no fragment/evidence produced");
+				return;
+			}
+			if (!fragmentOutput.isFile()) throw new IllegalArgumentException("Missing ASM coverage fragment for " + target);
+			// Read immutable agent bytes. Never regenerate them from reports or remove SKIPPED entries.
+			var fragment = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(fragmentOutput.toPath()));
+			new ExecutableCoverageFragmentQualifier().requireTarget(fragment, target);
+			Set<ExecutableTestIdentity> nonExecuted = new TreeSet<>();
+			for (var entry : fragment.unmapped()) {
+				if (entry.reason() == UnmappedReason.SKIPPED) nonExecuted.add(entry.test());
+				else if (entry.reason() != UnmappedReason.FAILED)
+					throw new IllegalArgumentException("Unsafe ASM collection outcome: " + entry);
+			}
+			var local = new com.sap.oss.smarttestpicker.coverage.model.ExecutableShardAssignment(
+					assignment.version(), assignment.revision(), assignment.shardId(), assigned);
+			com.sap.oss.smarttestpicker.coverage.validation.ExecutableFragmentAssignmentValidator.validate(fragment, local, nonExecuted);
+			var evidence = new MavenMappingEvidence(revision, shardId, target,
+					MavenMappingEvidence.coverageOwners(fragment), nonExecuted);
+			Path output = evidenceOutput.toPath().toAbsolutePath(); Files.createDirectories(output.getParent());
+			Path temporary = Files.createTempFile(output.getParent(), ".asm-evidence-", ".tmp");
+			try {
+				Files.writeString(temporary, evidence.moduleJson());
+				try { Files.move(temporary, output, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING); }
+				catch (AtomicMoveNotSupportedException unsupported) { Files.move(temporary, output, StandardCopyOption.REPLACE_EXISTING); }
+			} finally { Files.deleteIfExists(temporary); }
+			getLog().info("[SmartTestPicker] Finalized ASM evidence v2 for " + target + ": " + evidenceOutput);
+		} catch (Exception failure) {
+			throw new MojoExecutionException("Cannot finalize ASM mapping evidence: " + failure.getMessage(), failure);
+		}
 	}
 
 	private void reconcileSkippedReports(ExecutionTarget target) throws MojoExecutionException

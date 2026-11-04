@@ -29,6 +29,8 @@ import com.sap.oss.smarttestpicker.engine.ExecToXmlEngine;
 @Mojo(name = "generate-reports", defaultPhase = LifecyclePhase.VERIFY)
 public class GenerateReportsMojo extends AbstractMojo
 {
+	@Parameter(property = "smartTestPicker.coverageCollector")
+	private String coverageCollector;
 
 	/** Directory containing per-test {@code session_*.exec} files. */
 	@Parameter(defaultValue = "${project.build.directory}/jacoco", required = true)
@@ -57,6 +59,11 @@ public class GenerateReportsMojo extends AbstractMojo
 	@Override
 	public void execute() throws MojoExecutionException
 	{
+		if (com.sap.oss.smarttestpicker.StpCollectorSelection.parse(coverageCollector)
+				== com.sap.oss.smarttestpicker.StpCollectorSelection.ASM) {
+			getLog().info("[SmartTestPicker] ASM mapping does not require JaCoCo XML reports");
+			return;
+		}
 		if (!execDir.exists())
 		{
 			getLog().warn("[SmartTestPicker] Exec directory not found: " + execDir.getAbsolutePath()

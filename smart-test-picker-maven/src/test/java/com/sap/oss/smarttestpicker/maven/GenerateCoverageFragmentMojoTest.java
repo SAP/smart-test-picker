@@ -106,6 +106,8 @@ class GenerateCoverageFragmentMojoTest
 		var evidence = JsonParser.parseString(Files.readString(temp.resolve("execution-evidence-v1.json"))).getAsJsonObject();
 		assertEquals("maven:module-a::example.DisabledTests#disabled(java.lang.String)",
 				evidence.getAsJsonArray("NON_EXECUTED").get(0).getAsString());
+		var fragment = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(temp.resolve("fragment-v3.json")));
+		assertTrue(fragment.tests().isEmpty()); assertTrue(fragment.unmapped().isEmpty(), "JaCoCo skipped identities live only in positive non-execution evidence");
 	}
 
 	@Test
