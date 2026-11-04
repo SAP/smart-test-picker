@@ -5,7 +5,10 @@ package com.sap.oss.smarttestpicker.selector;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.net.URL;
+import java.net.URLClassLoader;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -77,6 +80,75 @@ class JUnitHeadTestInventoryGeneratorTest {
 		assertEquals("legacy", JUnitHeadTestInventoryGenerator.vintageMethodName("legacy").orElseThrow());
 		assertTrue(JUnitHeadTestInventoryGenerator.vintageMethodName("  ").isEmpty());
 		assertTrue(JUnitHeadTestInventoryGenerator.vintageMethodName("initializationError").isEmpty());
+	}
+
+	@Test void isolatedClassSourceOnlyVintageDiscoveryMatchesNonIsolatedIdentity() throws Exception {
+		Path classes = Files.createDirectories(temporary.resolve("classes"));
+		Path source = temporary.resolve("ClassSourceOnlyTest.java");
+		Files.writeString(source, """
+				package vintagefixture;
+				@org.junit.runner.RunWith(ClassSourceOnlyTest.RuleRunner.class)
+				public class ClassSourceOnlyTest {
+				    public static final String architecture_rule = "a field, not a Java method";
+				    public static class RuleRunner extends org.junit.runner.Runner {
+				        private final org.junit.runner.Description root;
+				        public RuleRunner(Class<?> type) {
+				            root = org.junit.runner.Description.createSuiteDescription(type);
+				            root.addChild(org.junit.runner.Description.createTestDescription(type, "architecture_rule"));
+				        }
+				        public org.junit.runner.Description getDescription() { return root; }
+				        public void run(org.junit.runner.notification.RunNotifier notifier) {
+				            throw new AssertionError("Inventory must not execute the runner");
+				        }
+				    }
+				}
+				""");
+		assertEquals(0, javax.tools.ToolProvider.getSystemJavaCompiler().run(null, null, null,
+				"-classpath", System.getProperty("java.class.path"), "-d", classes.toString(), source.toString()));
+		List<Path> runtime = new ArrayList<>(Arrays.stream(System.getProperty("java.class.path")
+				.split(System.getProperty("path.separator"))).map(Path::of).toList());
+		runtime.add(classes);
+		URL[] urls = runtime.stream().map(path -> {
+			try { return path.toUri().toURL(); }
+			catch (java.net.MalformedURLException failure) { throw new IllegalArgumentException(failure); }
+		}).toArray(URL[]::new);
+		ClassLoader parent = JUnitHeadTestInventoryGenerator.class.getClassLoader();
+		try (var loader = new JUnitHeadTestInventoryGenerator.TargetJUnitClassLoader(urls, parent)) {
+			assertSame(loader, loader.loadClass(JUnitInventoryDiscoveryWorker.class.getName()).getClassLoader());
+			assertSame(parent, loader.loadClass(JUnitHeadTestInventoryGenerator.class.getName()).getClassLoader());
+		}
+		// Verify the descriptor really needs the Vintage fallback, not a MethodSource ancestor.
+		try (var loader = new URLClassLoader(new URL[] { classes.toUri().toURL() }, parent)) {
+			Class<?> fixture = loader.loadClass("vintagefixture.ClassSourceOnlyTest");
+			var request = org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder.request()
+					.selectors(org.junit.platform.engine.discovery.DiscoverySelectors.selectClass(fixture)).build();
+			var plan = org.junit.platform.launcher.core.LauncherFactory.create().discover(request);
+			var tests = plan.getRoots().stream().flatMap(root -> plan.getDescendants(root).stream())
+					.filter(org.junit.platform.launcher.TestIdentifier::isTest).toList();
+			assertEquals(1, tests.size());
+			var descriptor = tests.get(0);
+			assertInstanceOf(org.junit.platform.engine.support.descriptor.ClassSource.class,
+					descriptor.getSource().orElseThrow());
+			while (descriptor != null) {
+				assertFalse(descriptor.getSource().orElse(null)
+						instanceof org.junit.platform.engine.support.descriptor.MethodSource);
+				descriptor = plan.getParent(descriptor).orElse(null);
+			}
+		}
+		var generator = new JUnitHeadTestInventoryGenerator();
+		List<String> isolatedOrigins = new ArrayList<>();
+		var isolated = generator.generate("revision", runtime, List.of(classes), isolatedOrigins::add);
+		assertTrue(isolatedOrigins.stream().allMatch(origin -> origin.contains("TargetJUnitClassLoader")),
+				isolatedOrigins.toString());
+		assertFalse(isolatedOrigins.isEmpty());
+		List<String> sharedOrigins = new ArrayList<>();
+		var shared = generator.generate("revision", runtime.stream()
+				.filter(path -> !path.getFileName().toString().startsWith("junit-platform-launcher-")).toList(),
+				List.of(classes), sharedOrigins::add);
+		assertTrue(sharedOrigins.stream().noneMatch(origin -> origin.contains("TargetJUnitClassLoader")));
+		assertEquals(Set.of(new TestIdentity("vintagefixture.ClassSourceOnlyTest", "architecture_rule")),
+				isolated.runnableTests());
+		assertEquals(shared.runnableTests(), isolated.runnableTests());
 	}
 
 	@Test void ignoresVintageClassDescriptorsReportedAsTests() {
