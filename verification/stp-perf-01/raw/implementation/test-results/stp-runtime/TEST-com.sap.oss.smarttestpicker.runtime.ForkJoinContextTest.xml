@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.runtime.ForkJoinContextTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-10T08:23:16.638Z" hostname="WDVJD22XQC" time="0.053">
+  <properties/>
+  <testcase name="restoresCapturedContainerSharedSetupAndFinishedMarker()" classname="com.sap.oss.smarttestpicker.runtime.ForkJoinContextTest" time="0.037"/>
+  <testcase name="noOwnerSuppressesAmbientTestAndRestoresAfterError()" classname="com.sap.oss.smarttestpicker.runtime.ForkJoinContextTest" time="0.0"/>
+  <testcase name="setupDescendantsInheritContainerAndClosedContainerIsLate()" classname="com.sap.oss.smarttestpicker.runtime.ForkJoinContextTest" time="0.001"/>
+  <testcase name="weakKeysUseObjectIdentityNotUserEquals()" classname="com.sap.oss.smarttestpicker.runtime.ForkJoinContextTest" time="0.001"/>
+  <testcase name="ambiguousParentDoesNotGiveChildrenAFalseOwner()" classname="com.sap.oss.smarttestpicker.runtime.ForkJoinContextTest" time="0.008"/>
+  <testcase name="cancelledTaskDoesNotExecuteAndCanBeReinitialized()" classname="com.sap.oss.smarttestpicker.runtime.ForkJoinContextTest" time="0.0"/>
+  <testcase name="captureAtSubmissionAndReuseAfterReinitializeRestoresAmbientOwner()" classname="com.sap.oss.smarttestpicker.runtime.ForkJoinContextTest" time="0.0"/>
+  <testcase name="duplicateSubmissionQuarantinesFollowingHitsWithoutOverwritingOwner()" classname="com.sap.oss.smarttestpicker.runtime.ForkJoinContextTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

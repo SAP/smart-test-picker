@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" tests="38" skipped="0" failures="0" errors="0" timestamp="2026-11-10T08:09:37.178Z" hostname="WDVJD22XQC" time="0.069">
+  <properties/>
+  <testcase name="chunkModeHasExpandCollapseButtons()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.006"/>
+  <testcase name="fullSuiteShowsWarningBanner()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.0"/>
+  <testcase name="coverageMapShowsClassesAndMethods()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.0"/>
+  <testcase name="nonClassLevelDonutHasNoAddedSegment()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.0"/>
+  <testcase name="chunkModeRendersContainerWithLoadingJs()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.001"/>
+  <testcase name="noneShowsSuccessBanner()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.001"/>
+  <testcase name="coverageMetricsTabRendersWhenDataPresent()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.004"/>
+  <testcase name="coverageBarColorZones()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.0"/>
+  <testcase name="containsFooter()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.001"/>
+  <testcase name="handlesAllTestsSelected()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.0"/>
+  <testcase name="classLevelExpansionHiddenWhenDisabled()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.001"/>
+  <testcase name="classLevelExpansionShowsPerClassBreakdown()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.002"/>
+  <testcase name="containsChangedCodeSection()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.0"/>
+  <testcase name="containsSelectedTestBadge()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.001"/>
+  <testcase name="showsClassLevelSelectionIndicator()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.001"/>
+  <testcase name="classLevelExpansionShowsSummary()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.001"/>
+  <testcase name="containsDonutChart()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.0"/>
+  <testcase name="containsFullCoverageMap()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.001"/>
+  <testcase name="containsCoverageMatrix()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.0"/>
+  <testcase name="coverageMatrixShowsBadges()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.001"/>
+  <testcase name="containsSelectionReasons()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.0"/>
+  <testcase name="escapesHtmlCharacters()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.001"/>
+  <testcase name="containsStatCards()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.005"/>
+  <testcase name="containsMetadataSection()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.001"/>
+  <testcase name="inlineModeHasExpandCollapseButtons()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.0"/>
+  <testcase name="classLevelDonutShowsThreeSegments()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.0"/>
+  <testcase name="hidesClassLevelIndicatorWhenDisabled()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.0"/>
+  <testcase name="generatesValidHtmlDocument()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.0"/>
+  <testcase name="classLevelStatCardShowsAddedTests()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.001"/>
+  <testcase name="changedClassesShowCoverageColumn()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.0"/>
+  <testcase name="classLevelExpansionMarksTags()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.002"/>
+  <testcase name="coverageBarShowsNaWhenNoCoverageData()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.001"/>
+  <testcase name="noUnmappedSectionWhenAllTestsInMap()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.0"/>
+  <testcase name="coverageMapSearchInputExists()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.001"/>
+  <testcase name="handlesUnmappedTests()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.001"/>
+  <testcase name="classLevelExpansionMultipleClasses()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.001"/>
+  <testcase name="inlineModeShowsCollapsedByDefault()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.001"/>
+  <testcase name="noNullLiteralsInOutput()" classname="com.sap.oss.smarttestpicker.report.HtmlReportGeneratorTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

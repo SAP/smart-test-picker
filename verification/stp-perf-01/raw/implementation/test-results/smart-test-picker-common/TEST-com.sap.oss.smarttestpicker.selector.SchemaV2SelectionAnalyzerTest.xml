@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.selector.SchemaV2SelectionAnalyzerTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-10T08:09:51.909Z" hostname="WDVJD22XQC" time="7.501">
+  <properties/>
+  <testcase name="movingHeadRunsAll()" classname="com.sap.oss.smarttestpicker.selector.SchemaV2SelectionAnalyzerTest" time="0.575"/>
+  <testcase name="acceptsPublishedCompleteSchemaV2AndClassifiesExactInventory()" classname="com.sap.oss.smarttestpicker.selector.SchemaV2SelectionAnalyzerTest" time="0.513"/>
+  <testcase name="classifiesChangedTestContainerWithoutGuessingMethods()" classname="com.sap.oss.smarttestpicker.selector.SchemaV2SelectionAnalyzerTest" time="0.53"/>
+  <testcase name="triggersAndInventoryFailuresRunAll()" classname="com.sap.oss.smarttestpicker.selector.SchemaV2SelectionAnalyzerTest" time="1.307"/>
+  <testcase name="unsafeIngressAlwaysRunsAll()" classname="com.sap.oss.smarttestpicker.selector.SchemaV2SelectionAnalyzerTest" time="0.384"/>
+  <testcase name="includesCommittedStagedUnstagedAndUntrackedChanges()" classname="com.sap.oss.smarttestpicker.selector.SchemaV2SelectionAnalyzerTest" time="0.715"/>
+  <testcase name="handlesStructuralProductionChangesConservatively()" classname="com.sap.oss.smarttestpicker.selector.SchemaV2SelectionAnalyzerTest" time="1.32"/>
+  <testcase name="everyCompletenessDiscrepancyRunsAll()" classname="com.sap.oss.smarttestpicker.selector.SchemaV2SelectionAnalyzerTest" time="0.596"/>
+  <testcase name="enforcesRevisionCommitAncestryAndStaleness()" classname="com.sap.oss.smarttestpicker.selector.SchemaV2SelectionAnalyzerTest" time="1.081"/>
+  <testcase name="authoritativeLogicalInventoryIncludesIntentionallyNonExecutableDeclarations()" classname="com.sap.oss.smarttestpicker.selector.SchemaV2SelectionAnalyzerTest" time="0.48"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

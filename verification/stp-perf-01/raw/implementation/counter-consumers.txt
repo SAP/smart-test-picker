@@ -1,0 +1,13 @@
+stp-agent/src/test/java/com/sap/oss/smarttestpicker/agent/MethodEntryTransformationTest.java:540:				.replaceAll("\"runtimeRecordingNanos\": [0-9]+", "\"runtimeRecordingNanos\": X")
+stp-runtime/src/test/java/com/sap/oss/smarttestpicker/runtime/RuntimeEventAggregatorTest.java:32:		assertTrue(json.contains("\"rawMethodHits\": 2"));
+verification/maven-asm-11/Audit.java:63:        check(eventCounts.get("HIT")==observed.getAsJsonObject("metrics").get("rawMethodHits").getAsInt(),"Missing observed runtime hits");
+verification/maven-asm-11/Audit.java:64:        long leafHits=0;for(JsonElement t:observed.getAsJsonObject("runtimeEvents").getAsJsonArray("tests"))leafHits+=t.getAsJsonObject().getAsJsonObject("metrics").get("rawMethodHits").getAsLong();
+verification/maven-asm-11/REPORT.md:54:| rawMethodHits / uniqueMethodHits | 3,816 / 102 |
+verification/maven-asm-11/REPORT.md:55:| runtimeRecordingNanos | 52,217,220 |
+verification/maven-asm-11/REPORT.md:57:| sum of leaf rawMethodHits / uniqueMethodHits | 3,079 / 1,343 |
+verification/stp-perf-01/REPORT.md:138:| Occurrence-counter contract change | NONE — `rawMethodHits` still counts occurrences |
+verification/stp-perf-01/run.py:90:                assert diagnostic['metrics']['rawMethodHits'] == calls + 1_000_000, name
+verification/stp-perf-01/run.py:95:                assert len(tests) == 1 and tests[0]['metrics']['rawMethodHits'] == calls + 1_000_000, name
+verification/stp-perf-01/IMPLEMENTATION.md:34:Choose occurrence-counter preservation (option A): rawMethodHits continues to
+verification/stp-perf-01/IMPLEMENTATION.md:38:evidence is not rewritten. `runtimeRecordingNanos` now measures first-hit and
+verification/stp-petclinic-parity-01/REPORT.md:201:| rawMethodHits | 3,816 | 3,816 |

@@ -1,0 +1,21 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------< fixture:http-reset-boundary >---------------------
+[INFO] Building http-reset-boundary 1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:aggregate-reactor-coverage-fragment (default-cli) @ http-reset-boundary ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.076 s
+[INFO] Finished at: 2026-11-10T09:10:06+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal com.sap.oss.smart-test-picker:smart-test-picker-maven:0.3.0-SNAPSHOT:aggregate-reactor-coverage-fragment (default-cli) on project http-reset-boundary: Maven reactor coverage aggregation failed: Missing module execution evidence for maven:. -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

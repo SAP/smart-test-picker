@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.JacocoPerTestListenerTest$VintageCustomRunnerFixture" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-10T08:10:05.134Z" hostname="WDVJD22XQC" time="0.88">
+  <properties/>
+  <testcase name="EACH_IGNORED_TEST_HAS_REASON_TO_IGNORE" classname="com.sap.oss.smarttestpicker.JacocoPerTestListenerTest$VintageCustomRunnerFixture" time="0.877"/>
+  <testcase name="EACH_IGNORED_TEST_METHOD_HAS_REASON_TO_IGNORE" classname="com.sap.oss.smarttestpicker.JacocoPerTestListenerTest$VintageCustomRunnerFixture" time="0.0"/>
+  <testcase name="EACH_REST_API_TEST_HAS_CODE_OWNER" classname="com.sap.oss.smarttestpicker.JacocoPerTestListenerTest$VintageCustomRunnerFixture" time="0.0"/>
+  <testcase name="EACH_TEST_CONTEXT_HAS_CODE_OWNER" classname="com.sap.oss.smarttestpicker.JacocoPerTestListenerTest$VintageCustomRunnerFixture" time="0.0"/>
+  <testcase name="EACH_TEST_HAS_JUNIT_RULE_TO_VALIDATE_AE_LIVENESS" classname="com.sap.oss.smarttestpicker.JacocoPerTestListenerTest$VintageCustomRunnerFixture" time="0.001"/>
+  <testcase name="TEST_EXECUTION_ORDER_SET_CORRECTLY_FOR_EACH_TEST" classname="com.sap.oss.smarttestpicker.JacocoPerTestListenerTest$VintageCustomRunnerFixture" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

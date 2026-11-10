@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "agent-shell-1",
+  "collector": "ASM",
+  "runId": "contention-10000000-16-r2-agent",
+  "jvmId": "pid-28492",
+  "configuration": {
+    "output": "/Users/D061177/work/moje/smart-test-picker/verification/stp-perf-01/raw/before/contention-10000000-16-r2-agent/diagnostic.json",
+    "fragmentOutput": "/Users/D061177/work/moje/smart-test-picker/verification/stp-perf-01/raw/before/contention-10000000-16-r2-agent/fragment.json",
+    "revision": "498ada8831db49ea654af136a72329706a3cb0a0",
+    "shardId": "bench",
+    "includes": ["perf.subject."],
+    "excludes": ["com.sap.oss.smarttestpicker.", "jakarta.", "java.", "javax.", "jdk.", "net.bytebuddy.", "org.hibernate.", "org.jacoco.", "org.junit.", "org.mockito.", "org.springframework.", "sun."],
+    "productionSources": [],
+    "requireInstrumentation": false,
+    "debug": false,
+    "instrumentation": "on"
+  },
+  "metrics": {
+    "classesSeen": 1305,
+    "classesIncluded": 1,
+    "classesExcluded": 1159,
+    "classesIgnored": 145,
+    "transformationErrors": 0,
+    "transformerTotalNanos": 5066225,
+    "agentStartNanos": 1029339408238916,
+    "classLoaderPresent": 630,
+    "classLoaderMissing": 675,
+    "protectionDomainPresent": 626,
+    "protectionDomainMissing": 679,
+    "classesTransformed": 1,
+    "methodsConsidered": 2,
+    "methodsInstrumented": 2,
+    "methodsSkipped": 0,
+    "alreadyInstrumentedClasses": 0,
+    "methodIdCollisions": 0,
+    "rawMethodHits": 11000000,
+    "uniqueMethodHits": 1,
+    "runtimeRecordingNanos": 36200322757
+  },
+  "methodIdAlgorithm": "fnv1a64-v1",
+  "methodCatalog": [
+    {"methodId":"91297029089929916","canonicalKeys":["perf.subject.HotMethod#<init>()V"]},
+    {"methodId":"5204294746400576857","canonicalKeys":["perf.subject.HotMethod#touch(J)J"]}
+  ],
+  "methodHits": [
+    {"methodId":"5204294746400576857","count":11000000,"canonicalKeys":["perf.subject.HotMethod#touch(J)J"]}
+  ],
+  "agentErrors": [],
+  "bytecodeModified": true,
+  "runtimeEvents": {
+  "schemaVersion": "spike-2",
+  "runId": "contention-10000000-16-r2-agent",
+  "jvmId": "pid-28492",
+  "tests": [
+    {
+      "testId": "[engine:junit-jupiter]/[class:perf.BenchTest]/[method:measure()]",
+      "displayName": "measure()",
+      "testClass": "perf.BenchTest",
+      "testMethod": "measure",
+      "testMethodParameterTypes": "",
+      "engineId": "junit-jupiter",
+      "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+      "methods": [
+        {"methodId":"5204294746400576857","method":"perf.subject.HotMethod#touch(J)J","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":11000000}
+      ],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 11000000,
+        "uniqueMethodHits": 1
+      }
+    }
+  ],
+  "unattributedEvents": []
+}
+}

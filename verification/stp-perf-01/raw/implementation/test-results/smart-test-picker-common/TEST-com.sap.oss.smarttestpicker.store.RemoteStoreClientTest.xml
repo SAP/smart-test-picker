@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.store.RemoteStoreClientTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-10T08:10:00.997Z" hostname="WDVJD22XQC" time="0.229">
+  <properties/>
+  <testcase name="trailingSlashInUrlIsHandled()" classname="com.sap.oss.smarttestpicker.store.RemoteStoreClientTest" time="0.183"/>
+  <testcase name="noAuthHeaderWhenNoCredentials()" classname="com.sap.oss.smarttestpicker.store.RemoteStoreClientTest" time="0.009"/>
+  <testcase name="pullReturnsDataOn200()" classname="com.sap.oss.smarttestpicker.store.RemoteStoreClientTest" time="0.005"/>
+  <testcase name="pushSendsDataWithPut()" classname="com.sap.oss.smarttestpicker.store.RemoteStoreClientTest" time="0.01"/>
+  <testcase name="pushThrowsOnServerError()" classname="com.sap.oss.smarttestpicker.store.RemoteStoreClientTest" time="0.005"/>
+  <testcase name="pullReturnsNullOn404()" classname="com.sap.oss.smarttestpicker.store.RemoteStoreClientTest" time="0.005"/>
+  <testcase name="pullThrowsOnServerError()" classname="com.sap.oss.smarttestpicker.store.RemoteStoreClientTest" time="0.005"/>
+  <testcase name="authHeaderSentWhenCredentialsProvided()" classname="com.sap.oss.smarttestpicker.store.RemoteStoreClientTest" time="0.006"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

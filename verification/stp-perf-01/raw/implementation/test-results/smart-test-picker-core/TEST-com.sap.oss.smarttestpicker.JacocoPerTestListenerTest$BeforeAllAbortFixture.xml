@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.JacocoPerTestListenerTest$BeforeAllAbortFixture" tests="2" skipped="2" failures="0" errors="0" timestamp="2026-11-10T08:10:06.082Z" hostname="WDVJD22XQC" time="0.0">
+  <properties/>
+  <testcase name="testOne()" classname="com.sap.oss.smarttestpicker.JacocoPerTestListenerTest$BeforeAllAbortFixture" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="testTwo()" classname="com.sap.oss.smarttestpicker.JacocoPerTestListenerTest$BeforeAllAbortFixture" time="0.0">
+    <skipped/>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

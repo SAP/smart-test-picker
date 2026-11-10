@@ -18,6 +18,9 @@ final class MethodCatalog {
 	private final AgentMetrics metrics;
 	private final Consumer<String> errorSink;
 	private final Map<Long, TreeSet<MethodIdentity>> methods = new ConcurrentHashMap<>();
+	private final Map<MethodIdentity, Integer> ordinals = new java.util.HashMap<>();
+	private volatile com.sap.oss.smarttestpicker.runtime.MethodProbe[] probes = new com.sap.oss.smarttestpicker.runtime.MethodProbe[64];
+	private volatile int probeCount;
 
 	public MethodCatalog(MethodIdHasher hasher, AgentMetrics metrics, Consumer<String> errorSink) {
 		this.hasher = hasher;
@@ -42,6 +45,36 @@ final class MethodCatalog {
 	public List<MethodIdentity> resolve(long id) {
 		TreeSet<MethodIdentity> values = methods.get(id);
 		return values == null ? List.of() : List.copyOf(values);
+	}
+
+	/** Transformation-only registration; one ordinal per identity even when hashes collide. */
+	public synchronized int registerProbe(MethodIdentity method) {
+		Integer existing = ordinals.get(method);
+		if (existing != null) return existing;
+		long hash = register(method);
+		int ordinal = probeCount;
+		if (ordinal == probes.length) probes = java.util.Arrays.copyOf(probes, ordinal * 2);
+		probes[ordinal] = new com.sap.oss.smarttestpicker.runtime.MethodProbe(ordinal, hash, method);
+		ordinals.put(method, ordinal);
+		probeCount = ordinal + 1; // Release publication of the initialized slot.
+		return ordinal;
+	}
+
+	public com.sap.oss.smarttestpicker.runtime.MethodProbe probe(long ordinal) {
+		if (ordinal < 0 || ordinal >= probeCount) throw new IllegalArgumentException("unknown probe ordinal");
+		return probes[(int) ordinal];
+	}
+
+	public Map<Long, Long> hitSnapshot() {
+		Map<Long, Long> result = new TreeMap<>(Long::compareUnsigned);
+		int size = probeCount;
+		var current = probes;
+		for (int index = 0; index < size; index++) {
+			var probe = current[index];
+			long count = probe.occurrences();
+			if (count != 0) result.merge(probe.hash(), count, Long::sum);
+		}
+		return result;
 	}
 
 	public Map<Long, List<MethodIdentity>> snapshot() {

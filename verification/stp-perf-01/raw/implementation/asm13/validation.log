@@ -1,0 +1,31 @@
+{
+  "assignmentValidation": "IllegalArgumentException: Fragment collection is not completed",
+  "completed": false,
+  "fragmentExists": true,
+  "join": "IllegalArgumentException: Fragment collection is not completed",
+  "mapped": [
+    "maven:.::example.boundary.BoundaryTests#bFollowing",
+    "maven:.::example.boundary.BoundaryTests#aRequest"
+  ],
+  "publication": "NOT RUN: no Jenkins/storage operation; local candidate join only",
+  "setupScopes": [
+    {
+      "id": "junit-container:example.boundary.BoundaryTests",
+      "type": "CONTAINER",
+      "coveredClasses": [
+        "example.boundary.BoundaryApplication",
+        "example.boundary.BoundaryController"
+      ],
+      "affectedContainers": [
+        {
+          "binaryName": "example.boundary.BoundaryTests"
+        }
+      ],
+      "owner": {
+        "buildTool": "MAVEN",
+        "targetId": "."
+      }
+    }
+  ],
+  "unmapped": []
+}

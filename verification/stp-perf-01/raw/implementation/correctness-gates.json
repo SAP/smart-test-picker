@@ -1,0 +1,106 @@
+{
+  "petclinic-before": {
+    "fragmentSha256": "0ecdbed9d086835971a9c69e3a49b6977ca24c42058ce2bf3618d8fc1820b8b9",
+    "rawMethodHits": 3816,
+    "leafRawMethodHits": 3079,
+    "agentErrors": []
+  },
+  "petclinic-after": {
+    "fragmentSha256": "0ecdbed9d086835971a9c69e3a49b6977ca24c42058ce2bf3618d8fc1820b8b9",
+    "rawMethodHits": 3816,
+    "leafRawMethodHits": 3079,
+    "agentErrors": []
+  },
+  "asm12": {
+    "validation": {
+      "assignmentValidation": "IllegalArgumentException: Fragment collection is not completed",
+      "completed": false,
+      "fragmentExists": true,
+      "join": "IllegalArgumentException: Fragment collection is not completed",
+      "mapped": [
+        "maven:.::example.shared.AFirstTests#realRequest",
+        "maven:.::example.shared.BSecondTests#realRequest"
+      ],
+      "publication": "NOT RUN: no Jenkins/storage operation; local candidate join only",
+      "setupScopes": [
+        {
+          "id": "junit-container:example.shared.AFirstTests",
+          "type": "CONTAINER",
+          "coveredClasses": [
+            "example.shared.SharedApplication",
+            "example.shared.PingController"
+          ],
+          "affectedContainers": [
+            {
+              "binaryName": "example.shared.AFirstTests"
+            }
+          ],
+          "owner": {
+            "buildTool": "MAVEN",
+            "targetId": "."
+          }
+        }
+      ],
+      "unmapped": []
+    },
+    "exitCodes": {
+      "mapping": "1",
+      "aggregation": "1"
+    },
+    "reasons": {
+      "NO_ACTIVE_TEST": 0,
+      "LATE_EVENT": 1,
+      "UNKNOWN_CONTEXT": 0,
+      "TEST_ALREADY_FINISHED": 0
+    },
+    "errors": [
+      "setup:ASYNC_SETUP_UNSUPPORTED:ERROR:example.shared.PingController#ping()Ljava/lang/String;:work captured by closed JUnit container [engine:junit-jupiter]/[class:example.shared.AFirstTests]"
+    ]
+  },
+  "asm13": {
+    "validation": {
+      "assignmentValidation": "IllegalArgumentException: Fragment collection is not completed",
+      "completed": false,
+      "fragmentExists": true,
+      "join": "IllegalArgumentException: Fragment collection is not completed",
+      "mapped": [
+        "maven:.::example.boundary.BoundaryTests#bFollowing",
+        "maven:.::example.boundary.BoundaryTests#aRequest"
+      ],
+      "publication": "NOT RUN: no Jenkins/storage operation; local candidate join only",
+      "setupScopes": [
+        {
+          "id": "junit-container:example.boundary.BoundaryTests",
+          "type": "CONTAINER",
+          "coveredClasses": [
+            "example.boundary.BoundaryApplication",
+            "example.boundary.BoundaryController"
+          ],
+          "affectedContainers": [
+            {
+              "binaryName": "example.boundary.BoundaryTests"
+            }
+          ],
+          "owner": {
+            "buildTool": "MAVEN",
+            "targetId": "."
+          }
+        }
+      ],
+      "unmapped": []
+    },
+    "exitCodes": {
+      "mapping": "1",
+      "aggregation": "1"
+    },
+    "reasons": {
+      "NO_ACTIVE_TEST": 2,
+      "LATE_EVENT": 0,
+      "UNKNOWN_CONTEXT": 0,
+      "TEST_ALREADY_FINISHED": 0
+    },
+    "errors": [
+      "setup:ASYNC_SETUP_UNSUPPORTED:ERROR:unknown:ForkJoinTask: execution without observed submission: org.junit.platform.engine.support.hierarchical.ForkJoinPoolHierarchicalTestExecutorService$ExclusiveTask"
+    ]
+  }
+}

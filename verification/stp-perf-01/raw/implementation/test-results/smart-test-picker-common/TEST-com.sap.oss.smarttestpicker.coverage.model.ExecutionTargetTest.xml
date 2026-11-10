@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.coverage.model.ExecutionTargetTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-10T08:09:23.868Z" hostname="WDVJD22XQC" time="0.003">
+  <properties/>
+  <testcase name="canonicalFormRoundTrips()" classname="com.sap.oss.smarttestpicker.coverage.model.ExecutionTargetTest" time="0.0"/>
+  <testcase name="acceptsCanonicalGradleTasks()" classname="com.sap.oss.smarttestpicker.coverage.model.ExecutionTargetTest" time="0.0"/>
+  <testcase name="acceptsCanonicalMavenTargets()" classname="com.sap.oss.smarttestpicker.coverage.model.ExecutionTargetTest" time="0.0"/>
+  <testcase name="naturalOrderingUsesBuildToolThenTargetId()" classname="com.sap.oss.smarttestpicker.coverage.model.ExecutionTargetTest" time="0.0"/>
+  <testcase name="rejectsNullBlankControlAndAmbiguousInput()" classname="com.sap.oss.smarttestpicker.coverage.model.ExecutionTargetTest" time="0.001"/>
+  <testcase name="rejectsMalformedGradleTargets()" classname="com.sap.oss.smarttestpicker.coverage.model.ExecutionTargetTest" time="0.001"/>
+  <testcase name="rejectsMalformedMavenTargets()" classname="com.sap.oss.smarttestpicker.coverage.model.ExecutionTargetTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

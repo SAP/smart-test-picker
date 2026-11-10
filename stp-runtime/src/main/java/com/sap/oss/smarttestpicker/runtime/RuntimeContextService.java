@@ -29,8 +29,10 @@ public final class RuntimeContextService {
 	private final ThreadLocal<ContainerIdentity> capturedContainer = new ThreadLocal<>();
 	private final ThreadLocal<String> unboundedSharedSetup = new ThreadLocal<>();
 	private final java.util.Set<String> activeContainers = java.util.concurrent.ConcurrentHashMap.newKeySet();
+	private final java.util.Map<String, ContainerIdentity> containerOwners = new java.util.concurrent.ConcurrentHashMap<>();
 	private final AtomicLong logicalContexts = new AtomicLong();
 	private final boolean debug;
+	private final java.util.concurrent.atomic.LongAdder methodSlowPathNanos = new java.util.concurrent.atomic.LongAdder();
 	private final ForkJoinContexts forkJoin = new ForkJoinContexts(this);
 	private final ThreadLocal<Deque<Runnable>> forkJoinScopes = ThreadLocal.withInitial(ArrayDeque::new);
 	private final ThreadLocal<ForkJoinContexts.Execution> forkJoinExecution = new ThreadLocal<>();
@@ -112,6 +114,7 @@ public final class RuntimeContextService {
 			throw new IllegalStateException("test is not active on this thread: " + identity.platformUniqueId());
 		}
 		try {
+			active.methodHits().close();
 			aggregator.endTest(identity, result);
 		} finally {
 			current.remove();
@@ -260,6 +263,39 @@ public final class RuntimeContextService {
 		debug("restore/cleanup", task, previous);
 	}
 
+	/** Resolve and validate ownership before deduplication or allocating a method event. */
+	public void recordMethod(MethodProbe probe) {
+		ForkJoinContexts.Execution execution = forkJoinExecution.get();
+		TestExecutionContext test = current.get();
+		ContainerIdentity container = null;
+		MethodHitOwner owner = null;
+		if ((execution == null || !execution.ambiguous) && unboundedSharedSetup.get() == null) {
+			if (test != null) owner = test.methodHits();
+			else if (lastFinished.get() == null) {
+				container = capturedContainer.get();
+				if (container == null) container = currentContainer();
+				if (container != null) owner = container.methodHits();
+			}
+		}
+		probe.hit(); // Occurrence counts stay exact even when no valid owner exists.
+		if (owner != null && !owner.closed()) {
+			var first = owner.firstHit(probe.ordinal());
+			if (first == null) return;
+			long started = System.nanoTime();
+			try {
+				if (test != null) aggregator.recordCounted(test.testIdentity(), probe.event(), first.occurrences);
+				else aggregator.recordSetup(container.binaryName(), container.nested(), probe.event());
+			} finally { methodSlowPathNanos.add(System.nanoTime() - started); }
+		} else {
+			// Never deduplicate invalid ownership: repeated closed-container hits must still diagnose.
+			long started = System.nanoTime();
+			try { record(probe.event()); }
+			finally { methodSlowPathNanos.add(System.nanoTime() - started); }
+		}
+	}
+
+	public long methodSlowPathNanos() { return methodSlowPathNanos.sum(); }
+
 	public void record(RuntimeEvent event) {
 		Objects.requireNonNull(event, "event");
 		ForkJoinContexts.Execution execution = forkJoinExecution.get();
@@ -285,7 +321,7 @@ public final class RuntimeContextService {
 		} else if (event instanceof com.sap.oss.smarttestpicker.runtime.model.MethodHitEvent method
 				&& capturedContainer.get() != null) {
 			ContainerIdentity container = capturedContainer.get();
-			if (activeContainers.contains(container.uniqueId())) {
+			if (!container.methodHits().closed()) {
 				aggregator.recordSetup(container.binaryName(), container.nested(), method);
 			} else {
 				recordUnsupportedSetup(SetupDiagnostic.Kind.ASYNC_SETUP_UNSUPPORTED, method.method(),
@@ -295,14 +331,22 @@ public final class RuntimeContextService {
 		} else if (event instanceof com.sap.oss.smarttestpicker.runtime.model.MethodHitEvent method
 				&& !currentContainers.get().isEmpty()) {
 			ContainerIdentity container = currentContainers.get().peek();
-			aggregator.recordSetup(container.binaryName(), container.nested(), method);
+			if (!container.methodHits().closed()) aggregator.recordSetup(container.binaryName(), container.nested(), method);
+			else {
+				recordUnsupportedSetup(SetupDiagnostic.Kind.ASYNC_SETUP_UNSUPPORTED, method.method(),
+						"work captured by closed JUnit container " + container.uniqueId());
+				aggregator.recordUnattributed(UnattributedReason.LATE_EVENT, event);
+			}
 		} else {
 			aggregator.recordUnattributed(UnattributedReason.NO_ACTIVE_TEST, event);
 		}
 	}
 
 	public void beginContainer(String uniqueId, String binaryName, boolean nested) {
-		currentContainers.get().push(new ContainerIdentity(uniqueId, binaryName, nested));
+		ContainerIdentity container = new ContainerIdentity(uniqueId, binaryName, nested);
+		ContainerIdentity previous = containerOwners.put(uniqueId, container);
+		if (previous != null) previous.methodHits().close();
+		currentContainers.get().push(container);
 		activeContainers.add(uniqueId);
 		lastFinished.remove();
 	}
@@ -337,8 +381,11 @@ public final class RuntimeContextService {
 	}
 
 	public void endContainer(String uniqueId) {
+		ContainerIdentity owner = containerOwners.remove(uniqueId);
+		if (owner != null) owner.methodHits().close();
 		activeContainers.remove(uniqueId);
 		Deque<ContainerIdentity> values = currentContainers.get();
+		values.stream().filter(value -> value.uniqueId().equals(uniqueId)).forEach(value -> value.methodHits().close());
 		if (!values.isEmpty() && values.peek().uniqueId().equals(uniqueId)) values.pop();
 		else values.removeIf(value -> value.uniqueId().equals(uniqueId));
 		if (values.isEmpty()) currentContainers.remove();
@@ -360,7 +407,11 @@ public final class RuntimeContextService {
 	}
 
 	public record TaskIdentity(String className, int identityHash) {}
-	private record ContainerIdentity(String uniqueId, String binaryName, boolean nested) {}
+	private record ContainerIdentity(String uniqueId, String binaryName, boolean nested, MethodHitOwner methodHits) {
+		ContainerIdentity(String uniqueId, String binaryName, boolean nested) {
+			this(uniqueId, binaryName, nested, new MethodHitOwner());
+		}
+	}
 	public record DiagnosticContext(TestIdentity testIdentity, Long logicalContextId, TaskIdentity task,
 			boolean ownerFinished) {}
 

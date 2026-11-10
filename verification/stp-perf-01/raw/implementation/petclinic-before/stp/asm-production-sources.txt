@@ -1,0 +1,2 @@
+/Users/D061177/work/moje/smart-test-picker/verification/stp-perf-01/.work/petclinic-before/maven/target/classes
+/Users/D061177/work/moje/smart-test-picker/verification/stp-perf-01/.work/petclinic-before/maven/target/spring-petclinic-4.0.0-SNAPSHOT.jar

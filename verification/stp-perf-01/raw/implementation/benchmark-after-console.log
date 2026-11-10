@@ -1,0 +1,194 @@
+hot-1000000-1-r1-control: loop=0.002549s process=0.347s
+hot-1000000-1-r1-agent: loop=0.021079s process=0.665s
+hot-1000000-1-r2-agent: loop=0.020896s process=0.674s
+hot-1000000-1-r2-control: loop=0.002546s process=0.295s
+hot-1000000-1-r3-control: loop=0.002583s process=0.347s
+hot-1000000-1-r3-agent: loop=0.022709s process=0.818s
+hot-10000000-1-r1-control: loop=0.023092s process=0.394s
+hot-10000000-1-r1-agent: loop=0.208711s process=0.926s
+hot-10000000-1-r2-agent: loop=0.208892s process=0.936s
+hot-10000000-1-r2-control: loop=0.022737s process=0.403s
+hot-10000000-1-r3-control: loop=0.022670s process=0.342s
+hot-10000000-1-r3-agent: loop=0.198988s process=0.938s
+hot-100000000-1-r1-control: loop=0.225448s process=0.555s
+hot-100000000-1-r1-agent: loop=2.052557s process=2.812s
+hot-100000000-1-r2-agent: loop=2.050899s process=2.765s
+hot-100000000-1-r2-control: loop=0.225598s process=0.559s
+hot-100000000-1-r3-control: loop=0.225043s process=0.554s
+hot-100000000-1-r3-agent: loop=2.059334s process=2.649s
+contention-10000000-1-r1-control: loop=0.022875s process=0.349s
+contention-10000000-1-r1-agent: loop=0.197949s process=0.776s
+contention-10000000-1-r2-agent: loop=0.198082s process=0.776s
+contention-10000000-1-r2-control: loop=0.022596s process=0.341s
+contention-10000000-1-r3-control: loop=0.022682s process=0.341s
+contention-10000000-1-r3-agent: loop=0.205887s process=0.931s
+contention-10000000-2-r1-control: loop=0.012580s process=0.293s
+contention-10000000-2-r1-agent: loop=0.137461s process=0.829s
+contention-10000000-2-r2-agent: loop=0.134638s process=0.775s
+contention-10000000-2-r2-control: loop=0.012597s process=0.341s
+contention-10000000-2-r3-control: loop=0.012734s process=0.343s
+contention-10000000-2-r3-agent: loop=0.138520s process=0.828s
+contention-10000000-4-r1-control: loop=0.007145s process=0.343s
+contention-10000000-4-r1-agent: loop=0.094853s process=0.839s
+contention-10000000-4-r2-agent: loop=0.081984s process=0.830s
+contention-10000000-4-r2-control: loop=0.007118s process=0.346s
+contention-10000000-4-r3-control: loop=0.006742s process=0.343s
+contention-10000000-4-r3-agent: loop=0.086010s process=0.786s
+contention-10000000-8-r1-control: loop=0.004416s process=0.351s
+contention-10000000-8-r1-agent: loop=0.056114s process=0.675s
+contention-10000000-8-r2-agent: loop=0.074527s process=0.778s
+contention-10000000-8-r2-control: loop=0.005837s process=0.345s
+contention-10000000-8-r3-control: loop=0.004696s process=0.345s
+contention-10000000-8-r3-agent: loop=0.056132s process=0.664s
+contention-10000000-16-r1-control: loop=0.006464s process=0.342s
+contention-10000000-16-r1-agent: loop=0.096318s process=0.780s
+contention-10000000-16-r2-agent: loop=0.078964s process=0.677s
+contention-10000000-16-r2-control: loop=0.005779s process=0.343s
+contention-10000000-16-r3-control: loop=0.013770s process=0.342s
+contention-10000000-16-r3-agent: loop=0.067912s process=0.664s
+[
+  {
+    "kind": "hot",
+    "calls": 1000000,
+    "threads": 1,
+    "control": {
+      "medianSeconds": 0.002548834,
+      "minSeconds": 0.002545625,
+      "maxSeconds": 0.002583417,
+      "medianNsPerCall": 2.548834
+    },
+    "agent": {
+      "medianSeconds": 0.02107875,
+      "minSeconds": 0.020895542,
+      "maxSeconds": 0.022709083,
+      "medianNsPerCall": 21.07875
+    },
+    "ratio": 8.26995794939961
+  },
+  {
+    "kind": "hot",
+    "calls": 10000000,
+    "threads": 1,
+    "control": {
+      "medianSeconds": 0.022736916,
+      "minSeconds": 0.022670291,
+      "maxSeconds": 0.023092125,
+      "medianNsPerCall": 2.2736916
+    },
+    "agent": {
+      "medianSeconds": 0.208711042,
+      "minSeconds": 0.198987833,
+      "maxSeconds": 0.208892417,
+      "medianNsPerCall": 20.8711042
+    },
+    "ratio": 9.179390995682969
+  },
+  {
+    "kind": "hot",
+    "calls": 100000000,
+    "threads": 1,
+    "control": {
+      "medianSeconds": 0.225448292,
+      "minSeconds": 0.225043375,
+      "maxSeconds": 0.225598333,
+      "medianNsPerCall": 2.25448292
+    },
+    "agent": {
+      "medianSeconds": 2.052557125,
+      "minSeconds": 2.050898875,
+      "maxSeconds": 2.059334417,
+      "medianNsPerCall": 20.52557125
+    },
+    "ratio": 9.104336550041372
+  },
+  {
+    "kind": "contention",
+    "calls": 10000000,
+    "threads": 1,
+    "control": {
+      "medianSeconds": 0.022681625,
+      "minSeconds": 0.022596458,
+      "maxSeconds": 0.022875458,
+      "medianNsPerCall": 2.2681625
+    },
+    "agent": {
+      "medianSeconds": 0.19808225,
+      "minSeconds": 0.197949042,
+      "maxSeconds": 0.205887042,
+      "medianNsPerCall": 19.808225
+    },
+    "ratio": 8.7331595509581
+  },
+  {
+    "kind": "contention",
+    "calls": 10000000,
+    "threads": 2,
+    "control": {
+      "medianSeconds": 0.012597416,
+      "minSeconds": 0.0125805,
+      "maxSeconds": 0.012733958,
+      "medianNsPerCall": 1.2597416
+    },
+    "agent": {
+      "medianSeconds": 0.137461083,
+      "minSeconds": 0.134638459,
+      "maxSeconds": 0.138520292,
+      "medianNsPerCall": 13.7461083
+    },
+    "ratio": 10.911847556673528
+  },
+  {
+    "kind": "contention",
+    "calls": 10000000,
+    "threads": 4,
+    "control": {
+      "medianSeconds": 0.00711825,
+      "minSeconds": 0.006741833,
+      "maxSeconds": 0.007145417,
+      "medianNsPerCall": 0.711825
+    },
+    "agent": {
+      "medianSeconds": 0.08601025,
+      "minSeconds": 0.081984167,
+      "maxSeconds": 0.094852958,
+      "medianNsPerCall": 8.601025
+    },
+    "ratio": 12.083061145646754
+  },
+  {
+    "kind": "contention",
+    "calls": 10000000,
+    "threads": 8,
+    "control": {
+      "medianSeconds": 0.004696125,
+      "minSeconds": 0.004416125,
+      "maxSeconds": 0.005836584,
+      "medianNsPerCall": 0.4696125
+    },
+    "agent": {
+      "medianSeconds": 0.056131833,
+      "minSeconds": 0.056113667,
+      "maxSeconds": 0.074527,
+      "medianNsPerCall": 5.6131833
+    },
+    "ratio": 11.952797891878943
+  },
+  {
+    "kind": "contention",
+    "calls": 10000000,
+    "threads": 16,
+    "control": {
+      "medianSeconds": 0.006464292,
+      "minSeconds": 0.005778708,
+      "maxSeconds": 0.013769708,
+      "medianNsPerCall": 0.6464292
+    },
+    "agent": {
+      "medianSeconds": 0.078963875,
+      "minSeconds": 0.067912167,
+      "maxSeconds": 0.096317875,
+      "medianNsPerCall": 7.8963875
+    },
+    "ratio": 12.215394199395696
+  }
+]

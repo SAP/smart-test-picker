@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.HeadInventoryFunctionalTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-10T08:23:08.672Z" hostname="WDVJD22XQC" time="0.514">
+  <properties/>
+  <testcase name="generatesExactInventoryWithoutExecutingTests()" classname="com.sap.oss.smarttestpicker.HeadInventoryFunctionalTest" time="0.514"/>
+  <system-out><![CDATA[The client will now receive all logging from the daemon (pid: 60455). The daemon log file: /Users/D061177/work/moje/smart-test-picker/smart-test-picker/build/tmp/test/work/.gradle-test-kit/test-kit-daemon/8.14/daemon-60455.out.log
+Starting 33rd build in daemon [uptime: 1 mins 1.886 secs, performance: 100%, GC rate: 0.00/s, heap usage: 2% of 512 MiB, non-heap usage: 27% of 384 MiB]
+Using 10 worker leases.
+Now considering [/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit5870972115495742844, /private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit12659758207321881886/jacoco-v3] as hierarchies to watch
+Watching the file system is configured to be enabled if available
+File system watching is active
+Starting Build
+Settings evaluated using settings file '/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit5870972115495742844/settings.gradle'.
+Projects loaded. Root project using build file '/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit5870972115495742844/build.gradle'.
+Included projects: [root project 'inventory-fixture']
+
+> Configure project :
+Evaluating root project 'inventory-fixture' using build file '/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit5870972115495742844/build.gradle'.
+Resolved plugin [id: 'java']
+Resolved plugin [id: 'com.sap.oss.smart-test-picker']
+[SmartTestPickerPlugin] Plugin applied.
+Caching disabled for Groovy DSL script compilation (proj) because:
+  Build cache is disabled
+  Not worth caching.
+Compiling build file '/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit5870972115495742844/build.gradle' using BuildScriptTransformer.
+Smart Test Picker coverage collector: ASM
+All projects evaluated.
+Task name matched 'generateHeadTestInventory'
+Selected primary task 'generateHeadTestInventory' from project :
+Tasks to be executed: [task ':compileJava', task ':processResources', task ':classes', task ':compileTestJava', task ':processTestResources', task ':testClasses', task ':generateHeadTestInventory']
+Tasks that were excluded: []
+Resolve mutations for :compileJava (Thread[#1808,Execution worker,5,main]) started.
+:compileJava (Thread[#1815,Execution worker Thread 8,5,main]) started.
+
+> Task :compileJava NO-SOURCE
+Skipping task ':compileJava' as it has no source files and no previous output files.
+Resolve mutations for :processResources (Thread[#1815,Execution worker Thread 8,5,main]) started.
+:processResources (Thread[#1815,Execution worker Thread 8,5,main]) started.
+
+> Task :processResources NO-SOURCE
+Skipping task ':processResources' as it has no source files and no previous output files.
+Resolve mutations for :classes (Thread[#1815,Execution worker Thread 8,5,main]) started.
+:classes (Thread[#1815,Execution worker Thread 8,5,main]) started.
+
+> Task :classes UP-TO-DATE
+Skipping task ':classes' as it has no actions.
+Resolve mutations for :compileTestJava (Thread[#1815,Execution worker Thread 8,5,main]) started.
+:compileTestJava (Thread[#1815,Execution worker Thread 8,5,main]) started.
+
+> Task :compileTestJava
+Caching disabled for task ':compileTestJava' because:
+  Build cache is disabled
+Task ':compileTestJava' is not up-to-date because:
+  No history is available.
+The input changes require a full rebuild for incremental task ':compileTestJava'.
+Compilation mode: in-process compilation
+Full recompilation is required because no incremental change information is available. This is usually caused by clean builds or changing compiler arguments.
+Compiling with toolchain '/Library/Java/JavaVirtualMachines/sapmachine-21.jdk/Contents/Home'.
+Compiling with JDK Java compiler API.
+Class dependency analysis for incremental compilation took 0.01 secs.
+Created classpath snapshot for incremental compilation in 0.0 secs.
+Resolve mutations for :processTestResources (Thread[#1815,Execution worker Thread 8,5,main]) started.
+:processTestResources (Thread[#1815,Execution worker Thread 8,5,main]) started.
+
+> Task :processTestResources NO-SOURCE
+Skipping task ':processTestResources' as it has no source files and no previous output files.
+Resolve mutations for :testClasses (Thread[#1815,Execution worker Thread 8,5,main]) started.
+:testClasses (Thread[#1815,Execution worker Thread 8,5,main]) started.
+
+> Task :testClasses
+Skipping task ':testClasses' as it has no actions.
+Resolve mutations for :generateHeadTestInventory (Thread[#1815,Execution worker Thread 8,5,main]) started.
+:generateHeadTestInventory (Thread[#1815,Execution worker Thread 8,5,main]) started.
+
+> Task :generateHeadTestInventory
+Caching disabled for task ':generateHeadTestInventory' because:
+  Build cache is disabled
+  Caching has not been enabled for the task
+Task ':generateHeadTestInventory' is not up-to-date because:
+  No history is available.
+[SmartTestPicker] Discovering JUnit tests in [/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit5870972115495742844/build/classes/java/test]
+Discovered TestEngines:
+- junit-jupiter (group ID: org.junit.jupiter, artifact ID: junit-jupiter-engine, version: 5.9.3, location: jar:file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker/build/tmp/test/work/.gradle-test-kit/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-engine/5.9.3/355322b03bf39306a183162cd06626c206f0286b/junit-jupiter-engine-5.9.3.jar!/org/junit/jupiter/engine/JupiterTestEngine.class)
+Loaded PostDiscoveryFilter instances: []
+Loaded LauncherDiscoveryListener instances: []
+[SmartTestPicker] Discovered 6 logical JUnit tests
+
+BUILD SUCCESSFUL in 447ms
+2 actionable tasks: 2 executed
+Watched directory hierarchies: [/private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit5870972115495742844]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

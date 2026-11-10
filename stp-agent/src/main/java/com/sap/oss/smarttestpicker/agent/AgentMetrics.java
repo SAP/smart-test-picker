@@ -56,12 +56,15 @@ final class AgentMetrics {
 	void addRuntimeRecordingNanos(long nanos) { runtimeRecordingNanos.add(nanos); }
 
 	public Snapshot snapshot() {
+		return snapshot(rawMethodHits.sum(), uniqueMethodHits.size(), runtimeRecordingNanos.sum());
+	}
+
+	Snapshot snapshot(long rawHits, long uniqueHits, long slowPathNanos) {
 		return new Snapshot(classesSeen.sum(), classesIncluded.sum(), classesExcluded.sum(), classesIgnored.sum(),
 				transformationErrors.sum(), transformerTotalNanos.sum(), agentStartNanos, classLoaderPresent.sum(),
 				classLoaderMissing.sum(), protectionDomainPresent.sum(), protectionDomainMissing.sum(),
 				classesTransformed.sum(), methodsConsidered.sum(), methodsInstrumented.sum(), methodsSkipped.sum(),
-				alreadyInstrumentedClasses.sum(), methodIdCollisions.sum(), rawMethodHits.sum(), uniqueMethodHits.size(),
-				runtimeRecordingNanos.sum());
+				alreadyInstrumentedClasses.sum(), methodIdCollisions.sum(), rawHits, uniqueHits, slowPathNanos);
 	}
 
 	public record Snapshot(long classesSeen, long classesIncluded, long classesExcluded, long classesIgnored,

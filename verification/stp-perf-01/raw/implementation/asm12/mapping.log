@@ -1,0 +1,103 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------< fixture:shared-spring-web-context >------------------
+[INFO] Building shared-spring-web-context 1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:prepare-reactor-executable-mapping (default-cli) @ shared-spring-web-context ---
+[INFO] ASM mapping scope includes=example.shared.; excludes=; productionSources=[/Users/D061177/work/moje/smart-test-picker/verification/stp-perf-01/.work/asm12/asm-observed/target/classes, /Users/D061177/work/moje/smart-test-picker/verification/stp-perf-01/.work/asm12/asm-observed/target/shared-spring-web-context-1.jar]
+[INFO] ASM mapping agent com.sap.oss.smart-test-picker:stp-agent:jar:0.3.0-SNAPSHOT resolved to /Users/D061177/work/moje/smart-test-picker/verification/stp-perf-01/.work/asm12/m2/com/sap/oss/smart-test-picker/stp-agent/0.3.0-SNAPSHOT/stp-agent-0.3.0-SNAPSHOT.jar
+[INFO] 
+[INFO] -----------------< fixture:shared-spring-web-context >------------------
+[INFO] Building shared-spring-web-context 1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.15:prepare-agent (project-agent) @ shared-spring-web-context ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ shared-spring-web-context ---
+[INFO] skip non existing resourceDirectory /Users/D061177/work/moje/smart-test-picker/verification/stp-perf-01/.work/asm12/asm-observed/src/main/resources
+[INFO] skip non existing resourceDirectory /Users/D061177/work/moje/smart-test-picker/verification/stp-perf-01/.work/asm12/asm-observed/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ shared-spring-web-context ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ shared-spring-web-context ---
+[INFO] skip non existing resourceDirectory /Users/D061177/work/moje/smart-test-picker/verification/stp-perf-01/.work/asm12/asm-observed/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ shared-spring-web-context ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ shared-spring-web-context ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[WARNING] System property [smartTestPicker.coverageCollector] overwritten by user properties from Maven session
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running example.shared.AFirstTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.0)
+
+2026-11-10T09:09:55.049+01:00  INFO 40278 --- [           main] example.shared.AFirstTests               : Starting AFirstTests using Java 21.0.13.0.3 with PID 40278 (started by D061177 in /Users/D061177/work/moje/smart-test-picker/verification/stp-perf-01/.work/asm12/asm-observed)
+2026-11-10T09:09:55.052+01:00  INFO 40278 --- [           main] example.shared.AFirstTests               : No active profile set, falling back to 1 default profile: "default"
+2026-11-10T09:09:55.738+01:00  INFO 40278 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 0 (http)
+2026-11-10T09:09:55.753+01:00  INFO 40278 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-10T09:09:55.754+01:00  INFO 40278 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-11-10T09:09:55.806+01:00  INFO 40278 --- [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 724 ms
+2026-11-10T09:09:56.287+01:00  INFO 40278 --- [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 55441 (http) with context path '/'
+2026-11-10T09:09:56.291+01:00  INFO 40278 --- [           main] example.shared.AFirstTests               : Started AFirstTests in 1.532 seconds (process running for 2.76)
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (/Users/D061177/work/moje/smart-test-picker/verification/stp-perf-01/.work/asm12/m2/net/bytebuddy/byte-buddy-agent/1.18.10/byte-buddy-agent-1.18.10.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+2026-11-10T09:09:57.491+01:00  INFO 40278 --- [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-10T09:09:57.491+01:00  INFO 40278 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-11-10T09:09:57.492+01:00  INFO 40278 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+CONTEXT_REUSE	example.shared.AFirstTests	application	1374785073	1794298195082	55441	http-nio-auto-1-exec-1	example.shared.AFirstTests	true	main
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.199 s -- in example.shared.AFirstTests
+[INFO] Running example.shared.BSecondTests
+CONTEXT_REUSE	example.shared.BSecondTests	application	1374785073	1794298195082	55441	http-nio-auto-1-exec-2	example.shared.AFirstTests	true	main
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.069 s -- in example.shared.BSecondTests
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.5.0:jar (default-jar) @ shared-spring-web-context ---
+[INFO] Building jar: /Users/D061177/work/moje/smart-test-picker/verification/stp-perf-01/.work/asm12/asm-observed/target/shared-spring-web-context-1.jar
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:generate-reports (reports) @ shared-spring-web-context ---
+[INFO] [SmartTestPicker] ASM mapping does not require JaCoCo XML reports
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:generate-coverage-fragment (fragment) @ shared-spring-web-context ---
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Skipping shared-spring-web-context
+[INFO] This project has been banned from the build due to previous failures.
+[INFO] ------------------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  7.334 s
+[INFO] Finished at: 2026-11-10T09:09:59+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal com.sap.oss.smart-test-picker:smart-test-picker-maven:0.3.0-SNAPSHOT:generate-coverage-fragment (fragment) on project shared-spring-web-context: Cannot finalize ASM mapping evidence: Fragment collection is not completed -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

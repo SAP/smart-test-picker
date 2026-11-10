@@ -1,0 +1,20 @@
+git rev-parse HEAD
+498ada8831db49ea654af136a72329706a3cb0a0
+java -version
+openjdk version "21.0.13.0.3" 2026-10-24 LTS
+OpenJDK Runtime Environment SapMachine (build 21.0.13.0.3+1-LTS)
+OpenJDK 64-Bit Server VM SapMachine (build 21.0.13.0.3+1-LTS, mixed mode, sharing)
+uname -a
+Darwin WDVJD22XQC 25.6.0 Darwin Kernel Version 25.6.0: Tue Aug 18 17:49:13 PDT 2026; root:xnu-12377.161.15.700.19~2/RELEASE_ARM64_T6000 arm64
+sysctl -n hw.model hw.ncpu hw.memsize
+MacBookPro18,2
+10
+34359738368
+d655d7e6f0c7ae07f10a2f3bbaaebb6d30e9b26204a068ad9e9b3950aa28792c  /Users/D061177/.m2/repository/org/junit/jupiter/junit-jupiter-api/6.0.3/junit-jupiter-api-6.0.3.jar
+1e2fab61ad27ea08fc7c70dd9677cf8c6d1ae5434d42dcfdd633b12c7e7c04d0  /Users/D061177/.m2/repository/org/junit/jupiter/junit-jupiter-engine/6.0.3/junit-jupiter-engine-6.0.3.jar
+39f262d09c3d52719fe0b77f080e90a3695e285d779a41b232e17963ae5da200  /Users/D061177/.m2/repository/org/junit/platform/junit-platform-commons/6.0.3/junit-platform-commons-6.0.3.jar
+491e9e4f745f161b8a8e4186a1a7c6a450ea12c70930c9aedae427215301d947  /Users/D061177/.m2/repository/org/junit/platform/junit-platform-engine/6.0.3/junit-platform-engine-6.0.3.jar
+315608372e4dc44bca0ccb3ae8a07ecc206b3367033fa05748a03ccd563f1301  /Users/D061177/.m2/repository/org/junit/platform/junit-platform-launcher/6.0.3/junit-platform-launcher-6.0.3.jar
+48e2df636cab6563ced64dcdff8abb2355627cb236ef0bf37598682ddf742f1b  /Users/D061177/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar
+b509448ac506d607319f182537f0b35d71007582ec741832a1f111e5b5b70b38  /Users/D061177/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar
+dfa69a8afe2689b13e8ccecd9ee26817f252aa354485e4ffa37279e7ded981cc  /Users/D061177/work/moje/smart-test-picker/stp-agent/build/libs/stp-agent.jar

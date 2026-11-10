@@ -1,0 +1,54 @@
+
+Welcome to Gradle 8.14!
+
+Here are the highlights of this release:
+ - Java 24 support
+ - GraalVM Native Image toolchain selection
+ - Enhancements to test reporting
+ - Build Authoring improvements
+
+For more details see https://docs.gradle.org/8.14/release-notes.html
+
+Starting a Gradle Daemon (subsequent builds will be faster)
+> Task :smart-test-picker-common:compileJava UP-TO-DATE
+> Task :smart-test-picker-common:processResources NO-SOURCE
+> Task :smart-test-picker-common:classes UP-TO-DATE
+> Task :smart-test-picker-common:jar UP-TO-DATE
+> Task :stp-runtime:compileJava
+> Task :stp-runtime:processResources NO-SOURCE
+> Task :stp-runtime:classes
+> Task :stp-runtime:jar
+> Task :stp-runtime:compileTestJava
+> Task :stp-runtime:processTestResources NO-SOURCE
+> Task :stp-runtime:testClasses
+> Task :stp-runtime:test
+> Task :stp-junit-adapter:compileJava
+> Task :stp-agent:compileJava
+> Task :stp-agent:processResources NO-SOURCE
+> Task :stp-agent:classes
+> Task :stp-junit-adapter:processResources UP-TO-DATE
+> Task :stp-junit-adapter:classes
+> Task :stp-runtime:jacocoTestReport
+> Task :stp-agent:shadowJar
+> Task :stp-agent:agentJar
+
+> Task :stp-agent:compileTestJava
+Note: /Users/D061177/work/moje/smart-test-picker/stp-agent/src/test/java/com/sap/oss/smarttestpicker/agent/MethodEntryTransformationTest.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :stp-agent:processTestResources UP-TO-DATE
+> Task :stp-agent:testClasses
+> Task :stp-junit-adapter:jar UP-TO-DATE
+> Task :stp-agent:test
+> Task :stp-agent:jacocoTestReport
+
+[Incubating] Problems report is available at: file:///Users/D061177/work/moje/smart-test-picker/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 48s
+16 actionable tasks: 11 executed, 5 up-to-date

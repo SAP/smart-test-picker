@@ -1,0 +1,1 @@
+{"version":1,"revision":"2dc3cfb4c4f17d522034c6c0af635751039c1a62","shardId":"local","tests":["maven:.::example.boundary.BoundaryTests#aRequest","maven:.::example.boundary.BoundaryTests#bFollowing"]}

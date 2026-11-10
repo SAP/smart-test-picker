@@ -1,0 +1,146 @@
+[
+  {
+    "kind": "hot",
+    "calls": 1000000,
+    "threads": 1,
+    "control": {
+      "medianSeconds": 0.0024985,
+      "minSeconds": 0.002440041,
+      "maxSeconds": 0.002537042,
+      "medianNsPerCall": 2.4985
+    },
+    "agent": {
+      "medianSeconds": 0.13886375,
+      "minSeconds": 0.13230125,
+      "maxSeconds": 0.140890167,
+      "medianNsPerCall": 138.86375
+    },
+    "ratio": 55.578847308385036
+  },
+  {
+    "kind": "hot",
+    "calls": 10000000,
+    "threads": 1,
+    "control": {
+      "medianSeconds": 0.0230705,
+      "minSeconds": 0.02272475,
+      "maxSeconds": 0.02312075,
+      "medianNsPerCall": 2.30705
+    },
+    "agent": {
+      "medianSeconds": 1.557101208,
+      "minSeconds": 1.439365333,
+      "maxSeconds": 1.61316425,
+      "medianNsPerCall": 155.7101208
+    },
+    "ratio": 67.4931712793394
+  },
+  {
+    "kind": "hot",
+    "calls": 100000000,
+    "threads": 1,
+    "control": {
+      "medianSeconds": 0.226378417,
+      "minSeconds": 0.22553175,
+      "maxSeconds": 0.227102333,
+      "medianNsPerCall": 2.26378417
+    },
+    "agent": {
+      "medianSeconds": 14.039496459,
+      "minSeconds": 13.9347495,
+      "maxSeconds": 14.449222458,
+      "medianNsPerCall": 140.39496459
+    },
+    "ratio": 62.017822392494246
+  },
+  {
+    "kind": "contention",
+    "calls": 10000000,
+    "threads": 1,
+    "control": {
+      "medianSeconds": 0.023154708,
+      "minSeconds": 0.022954542,
+      "maxSeconds": 0.023815292,
+      "medianNsPerCall": 2.3154708
+    },
+    "agent": {
+      "medianSeconds": 1.389219708,
+      "minSeconds": 1.314790416,
+      "maxSeconds": 1.393741541,
+      "medianNsPerCall": 138.9219708
+    },
+    "ratio": 59.9972890178533
+  },
+  {
+    "kind": "contention",
+    "calls": 10000000,
+    "threads": 2,
+    "control": {
+      "medianSeconds": 0.012640792,
+      "minSeconds": 0.012521375,
+      "maxSeconds": 0.022427958,
+      "medianNsPerCall": 1.2640792
+    },
+    "agent": {
+      "medianSeconds": 2.699448125,
+      "minSeconds": 2.593742667,
+      "maxSeconds": 3.082785958,
+      "medianNsPerCall": 269.9448125
+    },
+    "ratio": 213.55055324065137
+  },
+  {
+    "kind": "contention",
+    "calls": 10000000,
+    "threads": 4,
+    "control": {
+      "medianSeconds": 0.007077125,
+      "minSeconds": 0.007065209,
+      "maxSeconds": 0.007210166,
+      "medianNsPerCall": 0.7077125
+    },
+    "agent": {
+      "medianSeconds": 2.291540209,
+      "minSeconds": 2.143067625,
+      "maxSeconds": 2.41900425,
+      "medianNsPerCall": 229.1540209
+    },
+    "ratio": 323.79535602380906
+  },
+  {
+    "kind": "contention",
+    "calls": 10000000,
+    "threads": 8,
+    "control": {
+      "medianSeconds": 0.005754834,
+      "minSeconds": 0.005490375,
+      "maxSeconds": 0.007733959,
+      "medianNsPerCall": 0.5754834
+    },
+    "agent": {
+      "medianSeconds": 2.26979475,
+      "minSeconds": 2.253234834,
+      "maxSeconds": 2.358011541,
+      "medianNsPerCall": 226.979475
+    },
+    "ratio": 394.41532979057257
+  },
+  {
+    "kind": "contention",
+    "calls": 10000000,
+    "threads": 16,
+    "control": {
+      "medianSeconds": 0.013060125,
+      "minSeconds": 0.008659375,
+      "maxSeconds": 0.013216334,
+      "medianNsPerCall": 1.3060125
+    },
+    "agent": {
+      "medianSeconds": 2.259855625,
+      "minSeconds": 2.111529959,
+      "maxSeconds": 2.343133,
+      "medianNsPerCall": 225.9855625
+    },
+    "ratio": 173.03476230127967
+  }
+]

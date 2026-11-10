@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.maven.MergeExecutableHeadTestInventoriesMojoTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-10T08:14:29.453Z" hostname="WDVJD22XQC" time="0.024">
+  <properties/>
+  <testcase name="mergesDistinctExecutionTargetsAndRejectsRevisionAndIdentityCollisions(Path)" classname="com.sap.oss.smarttestpicker.maven.MergeExecutableHeadTestInventoriesMojoTest" time="0.024"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

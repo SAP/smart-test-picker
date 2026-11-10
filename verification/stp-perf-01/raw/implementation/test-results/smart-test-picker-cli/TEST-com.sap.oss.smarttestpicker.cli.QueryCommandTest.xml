@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.cli.QueryCommandTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-10T08:23:34.188Z" hostname="WDVJD22XQC" time="0.077">
+  <properties/>
+  <testcase name="queryByClassSuggestsPartialMatch()" classname="com.sap.oss.smarttestpicker.cli.QueryCommandTest" time="0.016"/>
+  <testcase name="queryByClassFindsTests()" classname="com.sap.oss.smarttestpicker.cli.QueryCommandTest" time="0.013"/>
+  <testcase name="queryByTestSuggestsPartialMatch()" classname="com.sap.oss.smarttestpicker.cli.QueryCommandTest" time="0.007"/>
+  <testcase name="queryByTestFindsExactMatch()" classname="com.sap.oss.smarttestpicker.cli.QueryCommandTest" time="0.007"/>
+  <testcase name="queryByMethodFindsTests()" classname="com.sap.oss.smarttestpicker.cli.QueryCommandTest" time="0.009"/>
+  <testcase name="statsShowsTestCount()" classname="com.sap.oss.smarttestpicker.cli.QueryCommandTest" time="0.008"/>
+  <testcase name="returnsErrorForNonexistentMap()" classname="com.sap.oss.smarttestpicker.cli.QueryCommandTest" time="0.007"/>
+  <testcase name="grepMatchesAcrossCategories()" classname="com.sap.oss.smarttestpicker.cli.QueryCommandTest" time="0.008"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

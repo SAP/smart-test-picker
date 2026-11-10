@@ -1,0 +1,89 @@
+{
+  "contention": [
+    {
+      "workers": 1,
+      "seconds": [
+        0.023154708,
+        1.389219708,
+        0.022681625,
+        0.19808225
+      ],
+      "efficiencyBefore": 1.0,
+      "efficiencyAfter": 1.0
+    },
+    {
+      "workers": 2,
+      "seconds": [
+        0.012640792,
+        2.699448125,
+        0.012597416,
+        0.137461083
+      ],
+      "efficiencyBefore": 0.25731550370133527,
+      "efficiencyAfter": 0.7205030168429561
+    },
+    {
+      "workers": 4,
+      "seconds": [
+        0.007077125,
+        2.291540209,
+        0.00711825,
+        0.08601025
+      ],
+      "efficiencyBefore": 0.15155960416315784,
+      "efficiencyAfter": 0.57575187259658
+    },
+    {
+      "workers": 8,
+      "seconds": [
+        0.005754834,
+        2.26979475,
+        0.004696125,
+        0.056131833
+      ],
+      "efficiencyBefore": 0.07650580013897733,
+      "efficiencyAfter": 0.4411094369571006
+    },
+    {
+      "workers": 16,
+      "seconds": [
+        0.013060125,
+        2.259855625,
+        0.006464292,
+        0.078963875
+      ],
+      "efficiencyBefore": 0.03842114106293847,
+      "efficiencyAfter": 0.15678233401033065
+    }
+  ],
+  "residualNs": {
+    "before": 138.13118042000002,
+    "after": 18.271088329999998
+  },
+  "predictions": [
+    {
+      "assumedN": 2,
+      "predictedSlowdown": 1.1304347826086956,
+      "shardSeconds": 14684.347826086956,
+      "classSeconds": 12853.043478260868
+    },
+    {
+      "assumedN": 3,
+      "predictedSlowdown": 1.2608695652173914,
+      "shardSeconds": 10919.13043478261,
+      "classSeconds": 9557.391304347826
+    },
+    {
+      "assumedN": 4,
+      "predictedSlowdown": 1.391304347826087,
+      "shardSeconds": 9036.521739130434,
+      "classSeconds": 7909.565217391304
+    },
+    {
+      "assumedN": 20,
+      "predictedSlowdown": 3.4782608695652173,
+      "shardSeconds": 4518.260869565218,
+      "classSeconds": 3954.782608695652
+    }
+  ]
+}

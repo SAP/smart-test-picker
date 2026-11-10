@@ -1,0 +1,16 @@
+BENCH {"calls":10000000,"threads":16,"contention":true,"nanos":13060125,"checksum":-7121827192011742357}
+
+Test run finished after 68 ms
+[         2 containers found      ]
+[         0 containers skipped    ]
+[         2 containers started    ]
+[         0 containers aborted    ]
+[         2 containers successful ]
+[         0 containers failed     ]
+[         1 tests found           ]
+[         0 tests skipped         ]
+[         1 tests started         ]
+[         0 tests aborted         ]
+[         1 tests successful      ]
+[         0 tests failed          ]
+

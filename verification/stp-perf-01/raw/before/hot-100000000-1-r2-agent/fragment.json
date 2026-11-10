@@ -1,0 +1,1 @@
+{"schemaVersion":3,"revision":"498ada8831db49ea654af136a72329706a3cb0a0","shardId":"bench","tests":{"maven:.::perf.BenchTest#measure":{"classes":["perf.subject.HotMethod"],"methods":["perf.subject.HotMethod#touch(J)J"],"outcome":"PASS","collectionStatus":"COLLECTED_WITH_COVERAGE"}},"unmapped":[],"setupScopes":[],"collection":{"completed":true}}

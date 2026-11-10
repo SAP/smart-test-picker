@@ -32,3 +32,16 @@ Unknown code sources and test artifacts cannot pass it. The guard refuses to wri
 a fragment when `classesTransformed` is zero, retaining scope/count diagnostics.
 Absent options preserve the existing Gradle/raw-agent behavior. See
 [Maven scope validation](../verification/maven-asm-08/REPORT.md).
+
+Method-entry probes carry JVM-local dense ordinals, each resolving to exactly one
+method identity. Diagnostic method IDs remain `fnv1a64-v1` hashes, including collision
+reporting; they are not array indices. Valid repeat hits are deduplicated per resolved
+test/container owner before event allocation and synchronized aggregation. Closed or
+unsupported owners still produce the existing diagnostics rather than using that cache.
+
+`rawMethodHits` remains an occurrence count, not a first-hit count. The diagnostic
+`injectedProbeId` distinguishes the ordinal carried by bytecode from the reported hash.
+`runtimeRecordingNanos` now measures first-hit and diagnostic slow paths only, as
+labelled by `runtimeRecordingTiming`; it is not total method-hook CPU time and is not
+directly comparable with the older all-hit timer. See the
+[local performance and correctness record](../verification/stp-perf-01/IMPLEMENTATION.md).

@@ -13,26 +13,15 @@ import com.sap.oss.smarttestpicker.runtime.FragmentProjectionConfig;
 import com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec;
 import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableCoverageFragmentCodec;
 import com.sap.oss.smarttestpicker.coverage.ExecutableCoverageFragmentQualifier;
-import com.sap.oss.smarttestpicker.runtime.model.Certainty;
-import com.sap.oss.smarttestpicker.runtime.model.Evidence;
-import com.sap.oss.smarttestpicker.runtime.model.EvidenceSource;
-import com.sap.oss.smarttestpicker.runtime.model.MethodHitEvent;
-import com.sap.oss.smarttestpicker.runtime.model.MethodIdentity;
-import com.sap.oss.smarttestpicker.runtime.model.UnattributedEvent;
-import com.sap.oss.smarttestpicker.runtime.model.UnattributedReason;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.LongAdder;
 import java.util.concurrent.atomic.AtomicReference;
 
 final class AgentRuntime {
 	private static final AtomicReference<AgentRuntime> INSTALLED = new AtomicReference<>();
-	private static final Evidence METHOD_ENTRY_EVIDENCE =
-			new Evidence(EvidenceSource.ASM_METHOD_ENTRY, Certainty.OBSERVED);
 
 	private final AgentConfiguration configuration;
 	private final AgentMetrics metrics;
@@ -40,7 +29,6 @@ final class AgentRuntime {
 	private final List<String> errors = new CopyOnWriteArrayList<>();
 	private final MethodCatalog catalog;
 	private final RuntimeContextService runtimeContext;
-	private final Map<Long, LongAdder> hits = new ConcurrentHashMap<>();
 	@SuppressWarnings("unused")
 	private final RuntimeHooks.Registration hookRegistration;
 	private final RuntimeContextRegistry.Registration contextRegistration;
@@ -88,26 +76,12 @@ final class AgentRuntime {
 		errors.add(error);
 	}
 
-	private void methodHit(long methodId) {
-		long started = System.nanoTime();
-		try {
-			metrics.methodHit(methodId);
-			hits.computeIfAbsent(methodId, ignored -> new LongAdder()).increment();
-			List<MethodIdentity> methods = catalog.resolve(methodId);
-			if (methods.size() == 1) {
-				runtimeContext.record(new MethodHitEvent(methodId, methods.get(0), METHOD_ENTRY_EVIDENCE));
-			} else {
-				runtimeContext.aggregator().recordUnattributed(new UnattributedEvent(UnattributedReason.UNKNOWN_CONTEXT,
-						"METHOD_ID_COLLISION", Long.toUnsignedString(methodId), METHOD_ENTRY_EVIDENCE));
-			}
-		} finally {
-			metrics.addRuntimeRecordingNanos(System.nanoTime() - started);
-		}
+	private void methodHit(long ordinal) {
+		runtimeContext.recordMethod(catalog.probe(ordinal));
 	}
 
 	void writeOutput() {
-		Map<Long, Long> hitSnapshot = new java.util.TreeMap<>(Long::compareUnsigned);
-		hits.forEach((id, count) -> hitSnapshot.put(id, count.sum()));
+		Map<Long, Long> hitSnapshot = catalog.hitSnapshot();
 		String runtimeJson;
 		try {
 			runtimeJson = new RuntimeJsonSerializer().serialize(runtimeContext.aggregator());
@@ -118,7 +92,8 @@ final class AgentRuntime {
 		writeFragmentIfConfigured();
 		try {
 			AgentOutputWriter.write(configuration.output(), configuration.runId(), jvmId, configuration,
-					metrics.snapshot(), errors, catalog.snapshot(), hitSnapshot, runtimeJson);
+					metrics.snapshot(hitSnapshot.values().stream().mapToLong(Long::longValue).sum(), hitSnapshot.size(),
+							runtimeContext.methodSlowPathNanos()), errors, catalog.snapshot(), hitSnapshot, runtimeJson);
 		} catch (IOException failure) {
 			errors.add(failure.getClass().getName() + ": " + String.valueOf(failure.getMessage()));
 			System.err.println("[stp-agent] failed to write output: " + failure.getClass().getSimpleName());

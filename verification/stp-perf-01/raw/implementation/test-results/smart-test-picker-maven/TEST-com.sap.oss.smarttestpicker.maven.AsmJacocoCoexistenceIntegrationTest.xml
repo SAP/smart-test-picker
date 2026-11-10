@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.maven.AsmJacocoCoexistenceIntegrationTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-10T08:10:11.209Z" hostname="WDVJD22XQC" time="86.056">
+  <properties/>
+  <testcase name="[1] &quot;literal&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmJacocoCoexistenceIntegrationTest" time="52.787"/>
+  <testcase name="[2] &quot;prepare-agent&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmJacocoCoexistenceIntegrationTest" time="26.917"/>
+  <testcase name="observerDetectsActualResetDumpAndSnapshotCalls(Path)" classname="com.sap.oss.smarttestpicker.maven.AsmJacocoCoexistenceIntegrationTest" time="6.35"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Note: Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+Note: Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+Note: Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+]]></system-err>
+</testsuite>

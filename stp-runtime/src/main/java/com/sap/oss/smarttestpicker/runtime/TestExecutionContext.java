@@ -6,10 +6,15 @@ import com.sap.oss.smarttestpicker.runtime.model.TestIdentity;
 
 import java.util.Objects;
 
-/** Immutable logical test context captured at an asynchronous submission boundary. */
-public record TestExecutionContext(TestIdentity testIdentity, long logicalContextId) {
+/** Logical test identity and shared owner state captured at an asynchronous submission boundary. */
+public record TestExecutionContext(TestIdentity testIdentity, long logicalContextId, MethodHitOwner methodHits) {
 	public TestExecutionContext {
 		Objects.requireNonNull(testIdentity, "testIdentity");
+		Objects.requireNonNull(methodHits, "methodHits");
+	}
+
+	public TestExecutionContext(TestIdentity testIdentity, long logicalContextId) {
+		this(testIdentity, logicalContextId, new MethodHitOwner());
 	}
 
 	public TestExecutionContext(TestIdentity testIdentity) {

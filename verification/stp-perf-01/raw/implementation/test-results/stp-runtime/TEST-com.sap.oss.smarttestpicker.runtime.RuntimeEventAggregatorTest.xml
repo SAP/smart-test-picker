@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.runtime.RuntimeEventAggregatorTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-10T08:23:16.752Z" hostname="WDVJD22XQC" time="0.003">
+  <properties/>
+  <testcase name="outputOrderingDoesNotDependOnInsertionOrder()" classname="com.sap.oss.smarttestpicker.runtime.RuntimeEventAggregatorTest" time="0.0"/>
+  <testcase name="deduplicatesAndCountsMethodHits()" classname="com.sap.oss.smarttestpicker.runtime.RuntimeEventAggregatorTest" time="0.0"/>
+  <testcase name="preservesExplicitNoActiveTestAccounting()" classname="com.sap.oss.smarttestpicker.runtime.RuntimeEventAggregatorTest" time="0.001"/>
+  <testcase name="keepsTwoTestsFreeFromCrossContamination()" classname="com.sap.oss.smarttestpicker.runtime.RuntimeEventAggregatorTest" time="0.0"/>
+  <testcase name="recordsUnknownContextInTheGlobalUnattributedBucket()" classname="com.sap.oss.smarttestpicker.runtime.RuntimeEventAggregatorTest" time="0.001"/>
+  <testcase name="convertsAnEventAfterFinishToLateEvent()" classname="com.sap.oss.smarttestpicker.runtime.RuntimeEventAggregatorTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

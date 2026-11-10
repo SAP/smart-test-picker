@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.selector.TestSelectorTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-11-10T08:09:59.415Z" hostname="WDVJD22XQC" time="0.015">
+  <properties/>
+  <testcase name="returnsFullSuiteWhenMapFileMissing()" classname="com.sap.oss.smarttestpicker.selector.TestSelectorTest" time="0.0"/>
+  <testcase name="selectsTestByMethodMatch()" classname="com.sap.oss.smarttestpicker.selector.TestSelectorTest" time="0.002"/>
+  <testcase name="methodMatchDoesNotSelectUnrelatedTests()" classname="com.sap.oss.smarttestpicker.selector.TestSelectorTest" time="0.001"/>
+  <testcase name="returnsFullSuiteWhenMapHasNoMetadata(Path)" classname="com.sap.oss.smarttestpicker.selector.TestSelectorTest" time="0.006"/>
+  <testcase name="methodLevelPartialHitsDoesNotEscalate()" classname="com.sap.oss.smarttestpicker.selector.TestSelectorTest" time="0.001"/>
+  <testcase name="selectsMultipleTestsForSharedClass()" classname="com.sap.oss.smarttestpicker.selector.TestSelectorTest" time="0.0"/>
+  <testcase name="returnsEmptySetWhenChangedClassNotInMapping()" classname="com.sap.oss.smarttestpicker.selector.TestSelectorTest" time="0.0"/>
+  <testcase name="methodLevelZeroHitsEscalatesToClassLevel()" classname="com.sap.oss.smarttestpicker.selector.TestSelectorTest" time="0.001"/>
+  <testcase name="methodLevelZeroHitsForUnknownClassDoesNotEscalate()" classname="com.sap.oss.smarttestpicker.selector.TestSelectorTest" time="0.0"/>
+  <testcase name="selectsTestsThatCoverChangedClass()" classname="com.sap.oss.smarttestpicker.selector.TestSelectorTest" time="0.001"/>
+  <testcase name="combinesClassAndMethodMatches()" classname="com.sap.oss.smarttestpicker.selector.TestSelectorTest" time="0.0"/>
+  <testcase name="returnsEmptySetWhenNoClassesChanged()" classname="com.sap.oss.smarttestpicker.selector.TestSelectorTest" time="0.001"/>
+  <testcase name="methodLevelPreventsClassLevelFallbackForSameClass()" classname="com.sap.oss.smarttestpicker.selector.TestSelectorTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.change.GitChangeDetectorTest" tests="21" skipped="0" failures="0" errors="0" timestamp="2026-11-10T08:09:14.284Z" hostname="WDVJD22XQC" time="6.052">
+  <properties/>
+  <testcase name="getChangedFilesDetectsUncommittedFiles()" classname="com.sap.oss.smarttestpicker.change.GitChangeDetectorTest" time="0.335"/>
+  <testcase name="getChangedClassesReturnsEmptyForNoChanges()" classname="com.sap.oss.smarttestpicker.change.GitChangeDetectorTest" time="0.247"/>
+  <testcase name="getChangedFilesReturnsAllFileTypes()" classname="com.sap.oss.smarttestpicker.change.GitChangeDetectorTest" time="0.323"/>
+  <testcase name="getChangedClassesIgnoresNonJavaFiles()" classname="com.sap.oss.smarttestpicker.change.GitChangeDetectorTest" time="0.318"/>
+  <testcase name="isValidCommitReturnsTrueForHead()" classname="com.sap.oss.smarttestpicker.change.GitChangeDetectorTest" time="0.223"/>
+  <testcase name="extractMethodNameFromSignature()" classname="com.sap.oss.smarttestpicker.change.GitChangeDetectorTest" time="0.176"/>
+  <testcase name="isValidCommitReturnsFalseForInvalidSha()" classname="com.sap.oss.smarttestpicker.change.GitChangeDetectorTest" time="0.194"/>
+  <testcase name="getCommitDistanceReturnsCorrectCount()" classname="com.sap.oss.smarttestpicker.change.GitChangeDetectorTest" time="0.411"/>
+  <testcase name="pathToFqnSupportsNonStandardSourceRoots()" classname="com.sap.oss.smarttestpicker.change.GitChangeDetectorTest" time="0.171"/>
+  <testcase name="getChangedClassesDetectsModifiedFile()" classname="com.sap.oss.smarttestpicker.change.GitChangeDetectorTest" time="0.317"/>
+  <testcase name="pathToFqnConvertsCorrectly()" classname="com.sap.oss.smarttestpicker.change.GitChangeDetectorTest" time="0.172"/>
+  <testcase name="getChangedClassesDetectsStagedChanges()" classname="com.sap.oss.smarttestpicker.change.GitChangeDetectorTest" time="0.283"/>
+  <testcase name="getChangedClassesDetectsNonStandardSourceRoot()" classname="com.sap.oss.smarttestpicker.change.GitChangeDetectorTest" time="0.349"/>
+  <testcase name="getCurrentBranchReturnsBranchName()" classname="com.sap.oss.smarttestpicker.change.GitChangeDetectorTest" time="0.226"/>
+  <testcase name="getChangedMethodsReturnsEmptyForNoChanges()" classname="com.sap.oss.smarttestpicker.change.GitChangeDetectorTest" time="0.285"/>
+  <testcase name="getChangedFilesReturnsEmptyForNoChanges()" classname="com.sap.oss.smarttestpicker.change.GitChangeDetectorTest" time="0.261"/>
+  <testcase name="getChangedClassesIgnoresTestFiles()" classname="com.sap.oss.smarttestpicker.change.GitChangeDetectorTest" time="0.378"/>
+  <testcase name="getChangedClassesDetectsUncommittedChanges()" classname="com.sap.oss.smarttestpicker.change.GitChangeDetectorTest" time="0.28"/>
+  <testcase name="getChangedMethodsDetectsUncommittedMethodChanges()" classname="com.sap.oss.smarttestpicker.change.GitChangeDetectorTest" time="0.341"/>
+  <testcase name="getChangedMethodsDetectsModifiedMethods()" classname="com.sap.oss.smarttestpicker.change.GitChangeDetectorTest" time="0.508"/>
+  <testcase name="getHeadCommitIdReturnsValidSha()" classname="com.sap.oss.smarttestpicker.change.GitChangeDetectorTest" time="0.244"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

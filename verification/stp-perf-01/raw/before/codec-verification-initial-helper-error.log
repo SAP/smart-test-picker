@@ -1,0 +1,2 @@
+Exception in thread "main" java.lang.AssertionError: Wrong coverage: verification/stp-perf-01/raw/before/contention-10000000-1-r1-agent/fragment.json maven:.::perf.BenchTest#measure=TestCoverage[coveredClasses=[perf.subject.HotMethod], coveredMethods=[perf.subject.HotMethod#touch(J)J], outcome=PASS, collectionStatus=COLLECTED_WITH_COVERAGE]
+	at VerifyFragments.main(VerifyFragments.java:18)
