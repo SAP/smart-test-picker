@@ -1,0 +1,3 @@
+maven:.::probe.InMemoryTest#recordsDynamicAndControl -> TestCoverage[coveredClasses=[generatedprobe.DynamicValue, generatedprobe.ControlValue], coveredMethods=[generatedprobe.ControlValue#value()I, generatedprobe.DynamicValue#value()I], outcome=PASS, collectionStatus=COLLECTED_WITH_COVERAGE]
+PASS: runtime-defined and disk-loaded methods both reach the schema-v3 fragment
+PASS: no DynamicValue class file in either compiler output directory

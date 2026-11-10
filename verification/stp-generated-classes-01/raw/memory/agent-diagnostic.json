@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "agent-shell-1",
+  "collector": "ASM",
+  "runId": "generated-class-probe",
+  "jvmId": "pid-99112",
+  "configuration": {
+    "output": "/Users/D061177/work/moje/smart-test-picker/verification/stp-generated-classes-01/raw/memory/agent-diagnostic.json",
+    "fragmentOutput": "/Users/D061177/work/moje/smart-test-picker/verification/stp-generated-classes-01/raw/memory/fragment.json",
+    "revision": "498ada8831db49ea654af136a72329706a3cb0a0",
+    "shardId": "memory",
+    "includes": ["generatedprobe."],
+    "excludes": ["com.sap.oss.smarttestpicker.", "jakarta.", "java.", "javax.", "jdk.", "net.bytebuddy.", "org.hibernate.", "org.jacoco.", "org.junit.", "org.mockito.", "org.springframework.", "sun."],
+    "productionSources": [],
+    "requireInstrumentation": false,
+    "debug": false,
+    "instrumentation": "on"
+  },
+  "metrics": {
+    "classesSeen": 2695,
+    "classesIncluded": 2,
+    "classesExcluded": 1402,
+    "classesIgnored": 1291,
+    "transformationErrors": 0,
+    "transformerTotalNanos": 7580387,
+    "agentStartNanos": 815581221064916,
+    "classLoaderPresent": 1858,
+    "classLoaderMissing": 837,
+    "protectionDomainPresent": 1854,
+    "protectionDomainMissing": 841,
+    "classesTransformed": 2,
+    "methodsConsidered": 4,
+    "methodsInstrumented": 4,
+    "methodsSkipped": 0,
+    "alreadyInstrumentedClasses": 0,
+    "methodIdCollisions": 0,
+    "rawMethodHits": 2,
+    "uniqueMethodHits": 2,
+    "runtimeRecordingNanos": 1521166
+  },
+  "methodIdAlgorithm": "fnv1a64-v1",
+  "methodCatalog": [
+    {"methodId":"5122064509821508896","canonicalKeys":["generatedprobe.DynamicValue#value()I"]},
+    {"methodId":"6403119867618904648","canonicalKeys":["generatedprobe.ControlValue#value()I"]},
+    {"methodId":"12440778584251112412","canonicalKeys":["generatedprobe.ControlValue#<init>()V"]},
+    {"methodId":"12741631553581339636","canonicalKeys":["generatedprobe.DynamicValue#<init>()V"]}
+  ],
+  "methodHits": [
+    {"methodId":"5122064509821508896","count":1,"canonicalKeys":["generatedprobe.DynamicValue#value()I"]},
+    {"methodId":"6403119867618904648","count":1,"canonicalKeys":["generatedprobe.ControlValue#value()I"]}
+  ],
+  "agentErrors": [],
+  "bytecodeModified": true,
+  "runtimeEvents": {
+  "schemaVersion": "spike-2",
+  "runId": "generated-class-probe",
+  "jvmId": "pid-99112",
+  "tests": [
+    {
+      "testId": "[engine:junit-jupiter]/[class:probe.InMemoryTest]/[method:recordsDynamicAndControl()]",
+      "displayName": "recordsDynamicAndControl()",
+      "testClass": "probe.InMemoryTest",
+      "testMethod": "recordsDynamicAndControl",
+      "testMethodParameterTypes": "",
+      "engineId": "junit-jupiter",
+      "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+      "methods": [
+        {"methodId":"6403119867618904648","method":"generatedprobe.ControlValue#value()I","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+        {"methodId":"5122064509821508896","method":"generatedprobe.DynamicValue#value()I","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+      ],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 2,
+        "uniqueMethodHits": 2
+      }
+    }
+  ],
+  "unattributedEvents": []
+}
+}

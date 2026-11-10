@@ -1,5 +1,11 @@
 # STP-PETCLINIC-PARITY-01
 
+> Follow-up correction: [STP-GENERATED-CLASSES-01](../stp-generated-classes-01/REPORT.md)
+> established that the six extra Gradle catalog classes are Spring Data AOT build
+> outputs, not evidence that Maven rejected the same six runtime definitions.
+> The diagnostics interpretation below is corrected; retained counters, fragments,
+> attribution comparisons and historical commands are unchanged.
+
 ## Result and the baseline qualification
 
 **Verdict A for the measured coverage contract:** the two ASM fragments have identical
@@ -215,15 +221,25 @@ org.springframework.samples.petclinic.vet.Vet__Accessor_mvphe1
 All 30 exact descriptor-qualified methods are listed as Gradle-only catalog entries
 in `diagnostics.json` and `scope-intersection.json`. **None has a hit record**; even
 the complete global `methodHits` arrays are equal. The catalog delta accounts exactly
-for the +6 transformed classes / +30 instrumented methods. It is consistent with the
-documented code-source restriction versus prefix-only integration boundary. The
-experiment did not trace each rejected class's protection domain, so it does not claim
-a counterfactual replay proving the rejection reason for every generated class.
+for the +6 transformed classes / +30 instrumented methods.
+
+**Corrected by STP-GENERATED-CLASSES-01:** Gradle's measured task graph executes
+`processTestAot`; all six accessor class files exist in `build/generated/aotTestClasses`,
+which is on its test fork classpath. The measured Maven build does not run test AOT
+and has no corresponding generated outputs. The generator is Spring Data's AOT
+accessor machinery, not Hibernate entity enhancement. Gradle includes 25 main
+classes plus six accessors (31); Maven includes 30 main classes, including five
+additional `package-info` files. Those five have no instrumentable methods, explaining
+why the included delta is only one while the transformed delta is six. See the
+[follow-up evidence and exact class sets](../stp-generated-classes-01/REPORT.md).
+The scope policies do differ, but this unequal-build comparison does **not** establish
+scope rejection as the cause of these six classes being absent from Maven's catalog.
 Overall `classesSeen` also includes Gradle workers, different build classpaths and
 different test JVM versions; it is not a pure application-scope count.
 
-Consequently, the evidence supports identical **observed attribution** and a documented
-scope-policy difference, not identical instrumentation universes. No integration defect
+Consequently, the evidence supports identical **observed attribution**, different AOT
+build outputs, and a separately documented scope-policy difference, not identical
+instrumentation universes or an isolated scope-policy experiment. No integration defect
 requiring production changes was demonstrated.
 
 ## Commands, attempts and validation

@@ -1,0 +1,500 @@
+FILE maven/target/classes/org/springframework/samples/petclinic/model/BaseEntity.class
+Compiled from "BaseEntity.java"
+public class org.springframework.samples.petclinic.model.BaseEntity implements java.io.Serializable {
+  private java.lang.Integer id;
+
+  public org.springframework.samples.petclinic.model.BaseEntity();
+    Code:
+       0: aload_0
+       1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+       4: return
+
+  public java.lang.Integer getId();
+    Code:
+       0: aload_0
+       1: getfield      #7                  // Field id:Ljava/lang/Integer;
+       4: areturn
+
+  public void setId(java.lang.Integer);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #7                  // Field id:Ljava/lang/Integer;
+       5: return
+
+  public boolean isNew();
+    Code:
+       0: aload_0
+       1: getfield      #7                  // Field id:Ljava/lang/Integer;
+       4: ifnonnull     11
+       7: iconst_1
+       8: goto          12
+      11: iconst_0
+      12: ireturn
+}
+
+FILE maven/target/classes/org/springframework/samples/petclinic/model/NamedEntity.class
+Compiled from "NamedEntity.java"
+public class org.springframework.samples.petclinic.model.NamedEntity extends org.springframework.samples.petclinic.model.BaseEntity {
+  private java.lang.String name;
+
+  public org.springframework.samples.petclinic.model.NamedEntity();
+    Code:
+       0: aload_0
+       1: invokespecial #1                  // Method org/springframework/samples/petclinic/model/BaseEntity."<init>":()V
+       4: return
+
+  public java.lang.String getName();
+    Code:
+       0: aload_0
+       1: getfield      #7                  // Field name:Ljava/lang/String;
+       4: areturn
+
+  public void setName(java.lang.String);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #7                  // Field name:Ljava/lang/String;
+       5: return
+
+  public java.lang.String toString();
+    Code:
+       0: aload_0
+       1: invokevirtual #13                 // Method getName:()Ljava/lang/String;
+       4: astore_1
+       5: aload_1
+       6: ifnull        13
+       9: aload_1
+      10: goto          15
+      13: ldc           #17                 // String <null>
+      15: areturn
+}
+
+FILE maven/target/classes/org/springframework/samples/petclinic/model/Person.class
+Compiled from "Person.java"
+public class org.springframework.samples.petclinic.model.Person extends org.springframework.samples.petclinic.model.BaseEntity {
+  private java.lang.String firstName;
+
+  private java.lang.String lastName;
+
+  public org.springframework.samples.petclinic.model.Person();
+    Code:
+       0: aload_0
+       1: invokespecial #1                  // Method org/springframework/samples/petclinic/model/BaseEntity."<init>":()V
+       4: return
+
+  public java.lang.String getFirstName();
+    Code:
+       0: aload_0
+       1: getfield      #7                  // Field firstName:Ljava/lang/String;
+       4: areturn
+
+  public void setFirstName(java.lang.String);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #7                  // Field firstName:Ljava/lang/String;
+       5: return
+
+  public java.lang.String getLastName();
+    Code:
+       0: aload_0
+       1: getfield      #13                 // Field lastName:Ljava/lang/String;
+       4: areturn
+
+  public void setLastName(java.lang.String);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #13                 // Field lastName:Ljava/lang/String;
+       5: return
+}
+
+FILE maven/target/classes/org/springframework/samples/petclinic/owner/Owner.class
+Compiled from "Owner.java"
+public class org.springframework.samples.petclinic.owner.Owner extends org.springframework.samples.petclinic.model.Person {
+  private java.lang.String address;
+
+  private java.lang.String city;
+
+  private java.lang.String telephone;
+
+  private final java.util.List<org.springframework.samples.petclinic.owner.Pet> pets;
+
+  public org.springframework.samples.petclinic.owner.Owner();
+    Code:
+       0: aload_0
+       1: invokespecial #1                  // Method org/springframework/samples/petclinic/model/Person."<init>":()V
+       4: aload_0
+       5: new           #7                  // class java/util/ArrayList
+       8: dup
+       9: invokespecial #9                  // Method java/util/ArrayList."<init>":()V
+      12: putfield      #10                 // Field pets:Ljava/util/List;
+      15: return
+
+  public java.lang.String getAddress();
+    Code:
+       0: aload_0
+       1: getfield      #16                 // Field address:Ljava/lang/String;
+       4: areturn
+
+  public void setAddress(java.lang.String);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #16                 // Field address:Ljava/lang/String;
+       5: return
+
+  public java.lang.String getCity();
+    Code:
+       0: aload_0
+       1: getfield      #20                 // Field city:Ljava/lang/String;
+       4: areturn
+
+  public void setCity(java.lang.String);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #20                 // Field city:Ljava/lang/String;
+       5: return
+
+  public java.lang.String getTelephone();
+    Code:
+       0: aload_0
+       1: getfield      #23                 // Field telephone:Ljava/lang/String;
+       4: areturn
+
+  public void setTelephone(java.lang.String);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #23                 // Field telephone:Ljava/lang/String;
+       5: return
+
+  public java.util.List<org.springframework.samples.petclinic.owner.Pet> getPets();
+    Code:
+       0: aload_0
+       1: getfield      #10                 // Field pets:Ljava/util/List;
+       4: areturn
+
+  public void addPet(org.springframework.samples.petclinic.owner.Pet);
+    Code:
+       0: aload_1
+       1: invokevirtual #26                 // Method org/springframework/samples/petclinic/owner/Pet.isNew:()Z
+       4: ifeq          18
+       7: aload_0
+       8: invokevirtual #32                 // Method getPets:()Ljava/util/List;
+      11: aload_1
+      12: invokeinterface #36,  2           // InterfaceMethod java/util/List.add:(Ljava/lang/Object;)Z
+      17: pop
+      18: return
+
+  public org.springframework.samples.petclinic.owner.Pet getPet(java.lang.String);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: iconst_0
+       3: invokevirtual #42                 // Method getPet:(Ljava/lang/String;Z)Lorg/springframework/samples/petclinic/owner/Pet;
+       6: areturn
+
+  public org.springframework.samples.petclinic.owner.Pet getPet(java.lang.Integer);
+    Code:
+       0: aload_0
+       1: invokevirtual #32                 // Method getPets:()Ljava/util/List;
+       4: invokeinterface #46,  1           // InterfaceMethod java/util/List.iterator:()Ljava/util/Iterator;
+       9: astore_2
+      10: aload_2
+      11: invokeinterface #50,  1           // InterfaceMethod java/util/Iterator.hasNext:()Z
+      16: ifeq          56
+      19: aload_2
+      20: invokeinterface #55,  1           // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;
+      25: checkcast     #27                 // class org/springframework/samples/petclinic/owner/Pet
+      28: astore_3
+      29: aload_3
+      30: invokevirtual #26                 // Method org/springframework/samples/petclinic/owner/Pet.isNew:()Z
+      33: ifne          53
+      36: aload_3
+      37: invokevirtual #59                 // Method org/springframework/samples/petclinic/owner/Pet.getId:()Ljava/lang/Integer;
+      40: astore        4
+      42: aload         4
+      44: aload_1
+      45: invokestatic  #63                 // Method java/util/Objects.equals:(Ljava/lang/Object;Ljava/lang/Object;)Z
+      48: ifeq          53
+      51: aload_3
+      52: areturn
+      53: goto          10
+      56: aconst_null
+      57: areturn
+
+  public org.springframework.samples.petclinic.owner.Pet getPet(java.lang.String, boolean);
+    Code:
+       0: aload_0
+       1: invokevirtual #32                 // Method getPets:()Ljava/util/List;
+       4: invokeinterface #46,  1           // InterfaceMethod java/util/List.iterator:()Ljava/util/Iterator;
+       9: astore_3
+      10: aload_3
+      11: invokeinterface #50,  1           // InterfaceMethod java/util/Iterator.hasNext:()Z
+      16: ifeq          69
+      19: aload_3
+      20: invokeinterface #55,  1           // InterfaceMethod java/util/Iterator.next:()Ljava/lang/Object;
+      25: checkcast     #27                 // class org/springframework/samples/petclinic/owner/Pet
+      28: astore        4
+      30: aload         4
+      32: invokevirtual #69                 // Method org/springframework/samples/petclinic/owner/Pet.getName:()Ljava/lang/String;
+      35: astore        5
+      37: aload         5
+      39: ifnull        66
+      42: aload         5
+      44: aload_1
+      45: invokevirtual #73                 // Method java/lang/String.equalsIgnoreCase:(Ljava/lang/String;)Z
+      48: ifeq          66
+      51: iload_2
+      52: ifeq          63
+      55: aload         4
+      57: invokevirtual #26                 // Method org/springframework/samples/petclinic/owner/Pet.isNew:()Z
+      60: ifne          66
+      63: aload         4
+      65: areturn
+      66: goto          10
+      69: aconst_null
+      70: areturn
+
+  public java.lang.String toString();
+    Code:
+       0: new           #79                 // class org/springframework/core/style/ToStringCreator
+       3: dup
+       4: aload_0
+       5: invokespecial #81                 // Method org/springframework/core/style/ToStringCreator."<init>":(Ljava/lang/Object;)V
+       8: ldc           #84                 // String id
+      10: aload_0
+      11: invokevirtual #86                 // Method getId:()Ljava/lang/Integer;
+      14: invokevirtual #87                 // Method org/springframework/core/style/ToStringCreator.append:(Ljava/lang/String;Ljava/lang/Object;)Lorg/springframework/core/style/ToStringCreator;
+      17: ldc           #91                 // String new
+      19: aload_0
+      20: invokevirtual #93                 // Method isNew:()Z
+      23: invokevirtual #94                 // Method org/springframework/core/style/ToStringCreator.append:(Ljava/lang/String;Z)Lorg/springframework/core/style/ToStringCreator;
+      26: ldc           #97                 // String lastName
+      28: aload_0
+      29: invokevirtual #99                 // Method getLastName:()Ljava/lang/String;
+      32: invokevirtual #87                 // Method org/springframework/core/style/ToStringCreator.append:(Ljava/lang/String;Ljava/lang/Object;)Lorg/springframework/core/style/ToStringCreator;
+      35: ldc           #102                // String firstName
+      37: aload_0
+      38: invokevirtual #104                // Method getFirstName:()Ljava/lang/String;
+      41: invokevirtual #87                 // Method org/springframework/core/style/ToStringCreator.append:(Ljava/lang/String;Ljava/lang/Object;)Lorg/springframework/core/style/ToStringCreator;
+      44: ldc           #107                // String address
+      46: aload_0
+      47: getfield      #16                 // Field address:Ljava/lang/String;
+      50: invokevirtual #87                 // Method org/springframework/core/style/ToStringCreator.append:(Ljava/lang/String;Ljava/lang/Object;)Lorg/springframework/core/style/ToStringCreator;
+      53: ldc           #108                // String city
+      55: aload_0
+      56: getfield      #20                 // Field city:Ljava/lang/String;
+      59: invokevirtual #87                 // Method org/springframework/core/style/ToStringCreator.append:(Ljava/lang/String;Ljava/lang/Object;)Lorg/springframework/core/style/ToStringCreator;
+      62: ldc           #109                // String telephone
+      64: aload_0
+      65: getfield      #23                 // Field telephone:Ljava/lang/String;
+      68: invokevirtual #87                 // Method org/springframework/core/style/ToStringCreator.append:(Ljava/lang/String;Ljava/lang/Object;)Lorg/springframework/core/style/ToStringCreator;
+      71: invokevirtual #110                // Method org/springframework/core/style/ToStringCreator.toString:()Ljava/lang/String;
+      74: areturn
+
+  public void addVisit(java.lang.Integer, org.springframework.samples.petclinic.owner.Visit);
+    Code:
+       0: aload_1
+       1: ldc           #113                // String Pet identifier must not be null!
+       3: invokestatic  #115                // Method org/springframework/util/Assert.notNull:(Ljava/lang/Object;Ljava/lang/String;)V
+       6: aload_2
+       7: ldc           #121                // String Visit must not be null!
+       9: invokestatic  #115                // Method org/springframework/util/Assert.notNull:(Ljava/lang/Object;Ljava/lang/String;)V
+      12: aload_0
+      13: aload_1
+      14: invokevirtual #123                // Method getPet:(Ljava/lang/Integer;)Lorg/springframework/samples/petclinic/owner/Pet;
+      17: astore_3
+      18: aload_3
+      19: ldc           #126                // String Invalid Pet identifier!
+      21: invokestatic  #115                // Method org/springframework/util/Assert.notNull:(Ljava/lang/Object;Ljava/lang/String;)V
+      24: aload_3
+      25: aload_2
+      26: invokevirtual #128                // Method org/springframework/samples/petclinic/owner/Pet.addVisit:(Lorg/springframework/samples/petclinic/owner/Visit;)V
+      29: return
+}
+
+FILE maven/target/classes/org/springframework/samples/petclinic/owner/Pet.class
+Compiled from "Pet.java"
+public class org.springframework.samples.petclinic.owner.Pet extends org.springframework.samples.petclinic.model.NamedEntity {
+  private java.time.LocalDate birthDate;
+
+  private org.springframework.samples.petclinic.owner.PetType type;
+
+  private final java.util.Set<org.springframework.samples.petclinic.owner.Visit> visits;
+
+  public org.springframework.samples.petclinic.owner.Pet();
+    Code:
+       0: aload_0
+       1: invokespecial #1                  // Method org/springframework/samples/petclinic/model/NamedEntity."<init>":()V
+       4: aload_0
+       5: new           #7                  // class java/util/LinkedHashSet
+       8: dup
+       9: invokespecial #9                  // Method java/util/LinkedHashSet."<init>":()V
+      12: putfield      #10                 // Field visits:Ljava/util/Set;
+      15: return
+
+  public void setBirthDate(java.time.LocalDate);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #16                 // Field birthDate:Ljava/time/LocalDate;
+       5: return
+
+  public java.time.LocalDate getBirthDate();
+    Code:
+       0: aload_0
+       1: getfield      #16                 // Field birthDate:Ljava/time/LocalDate;
+       4: areturn
+
+  public org.springframework.samples.petclinic.owner.PetType getType();
+    Code:
+       0: aload_0
+       1: getfield      #20                 // Field type:Lorg/springframework/samples/petclinic/owner/PetType;
+       4: areturn
+
+  public void setType(org.springframework.samples.petclinic.owner.PetType);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #20                 // Field type:Lorg/springframework/samples/petclinic/owner/PetType;
+       5: return
+
+  public java.util.Collection<org.springframework.samples.petclinic.owner.Visit> getVisits();
+    Code:
+       0: aload_0
+       1: getfield      #10                 // Field visits:Ljava/util/Set;
+       4: areturn
+
+  public void addVisit(org.springframework.samples.petclinic.owner.Visit);
+    Code:
+       0: aload_0
+       1: invokevirtual #24                 // Method getVisits:()Ljava/util/Collection;
+       4: aload_1
+       5: invokeinterface #28,  2           // InterfaceMethod java/util/Collection.add:(Ljava/lang/Object;)Z
+      10: pop
+      11: return
+}
+
+FILE maven/target/classes/org/springframework/samples/petclinic/owner/PetType.class
+Compiled from "PetType.java"
+public class org.springframework.samples.petclinic.owner.PetType extends org.springframework.samples.petclinic.model.NamedEntity {
+  public org.springframework.samples.petclinic.owner.PetType();
+    Code:
+       0: aload_0
+       1: invokespecial #1                  // Method org/springframework/samples/petclinic/model/NamedEntity."<init>":()V
+       4: return
+}
+
+FILE maven/target/classes/org/springframework/samples/petclinic/owner/Visit.class
+Compiled from "Visit.java"
+public class org.springframework.samples.petclinic.owner.Visit extends org.springframework.samples.petclinic.model.BaseEntity {
+  private java.time.LocalDate date;
+
+  private java.lang.String description;
+
+  public org.springframework.samples.petclinic.owner.Visit();
+    Code:
+       0: aload_0
+       1: invokespecial #1                  // Method org/springframework/samples/petclinic/model/BaseEntity."<init>":()V
+       4: aload_0
+       5: invokestatic  #7                  // Method java/time/LocalDate.now:()Ljava/time/LocalDate;
+       8: lconst_1
+       9: invokevirtual #13                 // Method java/time/LocalDate.plusDays:(J)Ljava/time/LocalDate;
+      12: putfield      #17                 // Field date:Ljava/time/LocalDate;
+      15: return
+
+  public java.time.LocalDate getDate();
+    Code:
+       0: aload_0
+       1: getfield      #17                 // Field date:Ljava/time/LocalDate;
+       4: areturn
+
+  public void setDate(java.time.LocalDate);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #17                 // Field date:Ljava/time/LocalDate;
+       5: return
+
+  public java.lang.String getDescription();
+    Code:
+       0: aload_0
+       1: getfield      #23                 // Field description:Ljava/lang/String;
+       4: areturn
+
+  public void setDescription(java.lang.String);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #23                 // Field description:Ljava/lang/String;
+       5: return
+}
+
+FILE maven/target/classes/org/springframework/samples/petclinic/vet/Specialty.class
+Compiled from "Specialty.java"
+public class org.springframework.samples.petclinic.vet.Specialty extends org.springframework.samples.petclinic.model.NamedEntity {
+  public org.springframework.samples.petclinic.vet.Specialty();
+    Code:
+       0: aload_0
+       1: invokespecial #1                  // Method org/springframework/samples/petclinic/model/NamedEntity."<init>":()V
+       4: return
+}
+
+FILE maven/target/classes/org/springframework/samples/petclinic/vet/Vet.class
+Compiled from "Vet.java"
+public class org.springframework.samples.petclinic.vet.Vet extends org.springframework.samples.petclinic.model.Person {
+  private java.util.Set<org.springframework.samples.petclinic.vet.Specialty> specialties;
+
+  public org.springframework.samples.petclinic.vet.Vet();
+    Code:
+       0: aload_0
+       1: invokespecial #1                  // Method org/springframework/samples/petclinic/model/Person."<init>":()V
+       4: return
+
+  protected java.util.Set<org.springframework.samples.petclinic.vet.Specialty> getSpecialtiesInternal();
+    Code:
+       0: aload_0
+       1: getfield      #7                  // Field specialties:Ljava/util/Set;
+       4: ifnonnull     18
+       7: aload_0
+       8: new           #13                 // class java/util/HashSet
+      11: dup
+      12: invokespecial #15                 // Method java/util/HashSet."<init>":()V
+      15: putfield      #7                  // Field specialties:Ljava/util/Set;
+      18: aload_0
+      19: getfield      #7                  // Field specialties:Ljava/util/Set;
+      22: areturn
+
+  public java.util.List<org.springframework.samples.petclinic.vet.Specialty> getSpecialties();
+    Code:
+       0: aload_0
+       1: invokevirtual #16                 // Method getSpecialtiesInternal:()Ljava/util/Set;
+       4: invokeinterface #20,  1           // InterfaceMethod java/util/Set.stream:()Ljava/util/stream/Stream;
+       9: invokedynamic #26,  0             // InvokeDynamic #0:apply:()Ljava/util/function/Function;
+      14: invokestatic  #30                 // InterfaceMethod java/util/Comparator.comparing:(Ljava/util/function/Function;)Ljava/util/Comparator;
+      17: invokeinterface #36,  2           // InterfaceMethod java/util/stream/Stream.sorted:(Ljava/util/Comparator;)Ljava/util/stream/Stream;
+      22: invokestatic  #42                 // Method java/util/stream/Collectors.toList:()Ljava/util/stream/Collector;
+      25: invokeinterface #48,  2           // InterfaceMethod java/util/stream/Stream.collect:(Ljava/util/stream/Collector;)Ljava/lang/Object;
+      30: checkcast     #52                 // class java/util/List
+      33: areturn
+
+  public int getNrOfSpecialties();
+    Code:
+       0: aload_0
+       1: invokevirtual #16                 // Method getSpecialtiesInternal:()Ljava/util/Set;
+       4: invokeinterface #54,  1           // InterfaceMethod java/util/Set.size:()I
+       9: ireturn
+
+  public void addSpecialty(org.springframework.samples.petclinic.vet.Specialty);
+    Code:
+       0: aload_0
+       1: invokevirtual #16                 // Method getSpecialtiesInternal:()Ljava/util/Set;
+       4: aload_1
+       5: invokeinterface #58,  2           // InterfaceMethod java/util/Set.add:(Ljava/lang/Object;)Z
+      10: pop
+      11: return
+}

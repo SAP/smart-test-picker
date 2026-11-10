@@ -1,0 +1,1175 @@
+FILE gradle/build/generated/aotTestClasses/org/springframework/samples/petclinic/owner/Owner__Accessor_cj2ue3.class
+public class org.springframework.samples.petclinic.owner.Owner__Accessor_cj2ue3 implements org.springframework.data.mapping.PersistentPropertyAccessor<org.springframework.samples.petclinic.owner.Owner> {
+  private org.springframework.samples.petclinic.owner.Owner bean;
+
+  private static final java.lang.invoke.MethodHandle $address_fieldSetter;
+
+  private static final java.lang.invoke.MethodHandle $address_fieldGetter;
+
+  private static final java.lang.invoke.MethodHandle $city_fieldSetter;
+
+  private static final java.lang.invoke.MethodHandle $city_fieldGetter;
+
+  private static final java.lang.invoke.MethodHandle $telephone_fieldSetter;
+
+  private static final java.lang.invoke.MethodHandle $telephone_fieldGetter;
+
+  private static final java.lang.invoke.MethodHandle $pets_fieldGetter;
+
+  private static final java.lang.invoke.MethodHandle $firstName_fieldSetter;
+
+  private static final java.lang.invoke.MethodHandle $firstName_fieldGetter;
+
+  private static final java.lang.invoke.MethodHandle $lastName_fieldSetter;
+
+  private static final java.lang.invoke.MethodHandle $lastName_fieldGetter;
+
+  private static final java.lang.invoke.MethodHandle $id_fieldSetter;
+
+  private static final java.lang.invoke.MethodHandle $id_fieldGetter;
+
+  public org.springframework.samples.petclinic.owner.Owner__Accessor_cj2ue3(org.springframework.samples.petclinic.owner.Owner);
+    Code:
+       0: aload_0
+       1: invokespecial #33                 // Method java/lang/Object."<init>":()V
+       4: aload_1
+       5: ldc           #35                 // String Bean must not be null
+       7: invokestatic  #41                 // Method org/springframework/util/Assert.notNull:(Ljava/lang/Object;Ljava/lang/String;)V
+      10: aload_0
+      11: aload_1
+      12: putfield      #43                 // Field bean:Lorg/springframework/samples/petclinic/owner/Owner;
+      15: return
+
+  static {};
+    Code:
+       0: invokestatic  #50                 // Method java/lang/invoke/MethodHandles.lookup:()Ljava/lang/invoke/MethodHandles$Lookup;
+       3: astore_0
+       4: ldc           #52                 // class org/springframework/samples/petclinic/owner/Owner
+       6: ldc           #54                 // String address
+       8: invokevirtual #60                 // Method java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+      11: astore_1
+      12: aload_1
+      13: iconst_1
+      14: invokevirtual #66                 // Method java/lang/reflect/Field.setAccessible:(Z)V
+      17: aload_0
+      18: aload_1
+      19: invokevirtual #70                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectGetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      22: putstatic     #72                 // Field $address_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      25: aload_0
+      26: aload_1
+      27: invokevirtual #75                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectSetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      30: putstatic     #77                 // Field $address_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      33: ldc           #52                 // class org/springframework/samples/petclinic/owner/Owner
+      35: ldc           #79                 // String city
+      37: invokevirtual #60                 // Method java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+      40: astore_1
+      41: aload_1
+      42: iconst_1
+      43: invokevirtual #66                 // Method java/lang/reflect/Field.setAccessible:(Z)V
+      46: aload_0
+      47: aload_1
+      48: invokevirtual #70                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectGetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      51: putstatic     #81                 // Field $city_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      54: aload_0
+      55: aload_1
+      56: invokevirtual #75                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectSetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      59: putstatic     #83                 // Field $city_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      62: ldc           #52                 // class org/springframework/samples/petclinic/owner/Owner
+      64: ldc           #85                 // String telephone
+      66: invokevirtual #60                 // Method java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+      69: astore_1
+      70: aload_1
+      71: iconst_1
+      72: invokevirtual #66                 // Method java/lang/reflect/Field.setAccessible:(Z)V
+      75: aload_0
+      76: aload_1
+      77: invokevirtual #70                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectGetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      80: putstatic     #87                 // Field $telephone_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      83: aload_0
+      84: aload_1
+      85: invokevirtual #75                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectSetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      88: putstatic     #89                 // Field $telephone_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      91: ldc           #52                 // class org/springframework/samples/petclinic/owner/Owner
+      93: ldc           #91                 // String pets
+      95: invokevirtual #60                 // Method java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+      98: astore_1
+      99: aload_1
+     100: iconst_1
+     101: invokevirtual #66                 // Method java/lang/reflect/Field.setAccessible:(Z)V
+     104: aload_0
+     105: aload_1
+     106: invokevirtual #70                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectGetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+     109: putstatic     #93                 // Field $pets_fieldGetter:Ljava/lang/invoke/MethodHandle;
+     112: ldc           #95                 // class org/springframework/samples/petclinic/model/Person
+     114: ldc           #97                 // String firstName
+     116: invokevirtual #60                 // Method java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+     119: astore_1
+     120: aload_1
+     121: iconst_1
+     122: invokevirtual #66                 // Method java/lang/reflect/Field.setAccessible:(Z)V
+     125: aload_0
+     126: aload_1
+     127: invokevirtual #70                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectGetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+     130: putstatic     #99                 // Field $firstName_fieldGetter:Ljava/lang/invoke/MethodHandle;
+     133: aload_0
+     134: aload_1
+     135: invokevirtual #75                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectSetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+     138: putstatic     #101                // Field $firstName_fieldSetter:Ljava/lang/invoke/MethodHandle;
+     141: ldc           #95                 // class org/springframework/samples/petclinic/model/Person
+     143: ldc           #103                // String lastName
+     145: invokevirtual #60                 // Method java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+     148: astore_1
+     149: aload_1
+     150: iconst_1
+     151: invokevirtual #66                 // Method java/lang/reflect/Field.setAccessible:(Z)V
+     154: aload_0
+     155: aload_1
+     156: invokevirtual #70                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectGetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+     159: putstatic     #105                // Field $lastName_fieldGetter:Ljava/lang/invoke/MethodHandle;
+     162: aload_0
+     163: aload_1
+     164: invokevirtual #75                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectSetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+     167: putstatic     #107                // Field $lastName_fieldSetter:Ljava/lang/invoke/MethodHandle;
+     170: ldc           #109                // class org/springframework/samples/petclinic/model/BaseEntity
+     172: ldc           #111                // String id
+     174: invokevirtual #60                 // Method java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+     177: astore_1
+     178: aload_1
+     179: iconst_1
+     180: invokevirtual #66                 // Method java/lang/reflect/Field.setAccessible:(Z)V
+     183: aload_0
+     184: aload_1
+     185: invokevirtual #70                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectGetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+     188: putstatic     #113                // Field $id_fieldGetter:Ljava/lang/invoke/MethodHandle;
+     191: aload_0
+     192: aload_1
+     193: invokevirtual #75                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectSetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+     196: putstatic     #115                // Field $id_fieldSetter:Ljava/lang/invoke/MethodHandle;
+     199: return
+
+  public java.lang.Object getBean();
+    Code:
+       0: aload_0
+       1: getfield      #43                 // Field bean:Lorg/springframework/samples/petclinic/owner/Owner;
+       4: areturn
+
+  public void setProperty(org.springframework.data.mapping.PersistentProperty<?>, java.lang.Object);
+    Code:
+       0: aload_1
+       1: ldc           #129                // String Property must not be null
+       3: invokestatic  #41                 // Method org/springframework/util/Assert.notNull:(Ljava/lang/Object;Ljava/lang/String;)V
+       6: aload_1
+       7: invokeinterface #135,  1          // InterfaceMethod org/springframework/data/mapping/PersistentProperty.getName:()Ljava/lang/String;
+      12: invokevirtual #141                // Method java/lang/String.hashCode:()I
+      15: lookupswitch  { // 7
+           -1459599807: 131
+           -1147692044: 80
+                  3355: 143
+               3053931: 92
+               3437364: 116
+             132835675: 119
+             783201284: 104
+               default: 155
+          }
+      80: getstatic     #77                 // Field $address_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      83: aload_0
+      84: getfield      #43                 // Field bean:Lorg/springframework/samples/petclinic/owner/Owner;
+      87: aload_2
+      88: invokevirtual #147                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;Ljava/lang/Object;)V
+      91: return
+      92: getstatic     #83                 // Field $city_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      95: aload_0
+      96: getfield      #43                 // Field bean:Lorg/springframework/samples/petclinic/owner/Owner;
+      99: aload_2
+     100: invokevirtual #147                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;Ljava/lang/Object;)V
+     103: return
+     104: getstatic     #89                 // Field $telephone_fieldSetter:Ljava/lang/invoke/MethodHandle;
+     107: aload_0
+     108: getfield      #43                 // Field bean:Lorg/springframework/samples/petclinic/owner/Owner;
+     111: aload_2
+     112: invokevirtual #147                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;Ljava/lang/Object;)V
+     115: return
+     116: goto          155
+     119: getstatic     #101                // Field $firstName_fieldSetter:Ljava/lang/invoke/MethodHandle;
+     122: aload_0
+     123: getfield      #43                 // Field bean:Lorg/springframework/samples/petclinic/owner/Owner;
+     126: aload_2
+     127: invokevirtual #147                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;Ljava/lang/Object;)V
+     130: return
+     131: getstatic     #107                // Field $lastName_fieldSetter:Ljava/lang/invoke/MethodHandle;
+     134: aload_0
+     135: getfield      #43                 // Field bean:Lorg/springframework/samples/petclinic/owner/Owner;
+     138: aload_2
+     139: invokevirtual #147                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;Ljava/lang/Object;)V
+     142: return
+     143: getstatic     #115                // Field $id_fieldSetter:Ljava/lang/invoke/MethodHandle;
+     146: aload_0
+     147: getfield      #43                 // Field bean:Lorg/springframework/samples/petclinic/owner/Owner;
+     150: aload_2
+     151: invokevirtual #147                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;Ljava/lang/Object;)V
+     154: return
+     155: new           #149                // class java/lang/UnsupportedOperationException
+     158: dup
+     159: ldc           #151                // String No accessor to set property %s
+     161: iconst_1
+     162: anewarray     #5                  // class java/lang/Object
+     165: dup
+     166: iconst_0
+     167: aload_1
+     168: aastore
+     169: invokestatic  #155                // Method java/lang/String.format:(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+     172: invokespecial #158                // Method java/lang/UnsupportedOperationException."<init>":(Ljava/lang/String;)V
+     175: athrow
+
+  public java.lang.Object getProperty(org.springframework.data.mapping.PersistentProperty<?>);
+    Code:
+       0: aload_1
+       1: ldc           #129                // String Property must not be null
+       3: invokestatic  #41                 // Method org/springframework/util/Assert.notNull:(Ljava/lang/Object;Ljava/lang/String;)V
+       6: aload_1
+       7: invokeinterface #135,  1          // InterfaceMethod org/springframework/data/mapping/PersistentProperty.getName:()Ljava/lang/String;
+      12: invokevirtual #141                // Method java/lang/String.hashCode:()I
+      15: lookupswitch  { // 7
+           -1459599807: 135
+           -1147692044: 80
+                  3355: 146
+               3053931: 91
+               3437364: 113
+             132835675: 124
+             783201284: 102
+               default: 157
+          }
+      80: getstatic     #72                 // Field $address_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      83: aload_0
+      84: getfield      #43                 // Field bean:Lorg/springframework/samples/petclinic/owner/Owner;
+      87: invokevirtual #169                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;)Ljava/lang/Object;
+      90: areturn
+      91: getstatic     #81                 // Field $city_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      94: aload_0
+      95: getfield      #43                 // Field bean:Lorg/springframework/samples/petclinic/owner/Owner;
+      98: invokevirtual #169                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;)Ljava/lang/Object;
+     101: areturn
+     102: getstatic     #87                 // Field $telephone_fieldGetter:Ljava/lang/invoke/MethodHandle;
+     105: aload_0
+     106: getfield      #43                 // Field bean:Lorg/springframework/samples/petclinic/owner/Owner;
+     109: invokevirtual #169                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;)Ljava/lang/Object;
+     112: areturn
+     113: getstatic     #93                 // Field $pets_fieldGetter:Ljava/lang/invoke/MethodHandle;
+     116: aload_0
+     117: getfield      #43                 // Field bean:Lorg/springframework/samples/petclinic/owner/Owner;
+     120: invokevirtual #169                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;)Ljava/lang/Object;
+     123: areturn
+     124: getstatic     #99                 // Field $firstName_fieldGetter:Ljava/lang/invoke/MethodHandle;
+     127: aload_0
+     128: getfield      #43                 // Field bean:Lorg/springframework/samples/petclinic/owner/Owner;
+     131: invokevirtual #169                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;)Ljava/lang/Object;
+     134: areturn
+     135: getstatic     #105                // Field $lastName_fieldGetter:Ljava/lang/invoke/MethodHandle;
+     138: aload_0
+     139: getfield      #43                 // Field bean:Lorg/springframework/samples/petclinic/owner/Owner;
+     142: invokevirtual #169                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;)Ljava/lang/Object;
+     145: areturn
+     146: getstatic     #113                // Field $id_fieldGetter:Ljava/lang/invoke/MethodHandle;
+     149: aload_0
+     150: getfield      #43                 // Field bean:Lorg/springframework/samples/petclinic/owner/Owner;
+     153: invokevirtual #169                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;)Ljava/lang/Object;
+     156: areturn
+     157: new           #149                // class java/lang/UnsupportedOperationException
+     160: dup
+     161: ldc           #171                // String No accessor to get property %s
+     163: iconst_1
+     164: anewarray     #5                  // class java/lang/Object
+     167: dup
+     168: iconst_0
+     169: aload_1
+     170: aastore
+     171: invokestatic  #155                // Method java/lang/String.format:(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+     174: invokespecial #158                // Method java/lang/UnsupportedOperationException."<init>":(Ljava/lang/String;)V
+     177: athrow
+}
+
+FILE gradle/build/generated/aotTestClasses/org/springframework/samples/petclinic/owner/PetType__Accessor_uuas9h.class
+public class org.springframework.samples.petclinic.owner.PetType__Accessor_uuas9h implements org.springframework.data.mapping.PersistentPropertyAccessor<org.springframework.samples.petclinic.owner.PetType> {
+  private org.springframework.samples.petclinic.owner.PetType bean;
+
+  private static final java.lang.invoke.MethodHandle $name_fieldSetter;
+
+  private static final java.lang.invoke.MethodHandle $name_fieldGetter;
+
+  private static final java.lang.invoke.MethodHandle $id_fieldSetter;
+
+  private static final java.lang.invoke.MethodHandle $id_fieldGetter;
+
+  public org.springframework.samples.petclinic.owner.PetType__Accessor_uuas9h(org.springframework.samples.petclinic.owner.PetType);
+    Code:
+       0: aload_0
+       1: invokespecial #24                 // Method java/lang/Object."<init>":()V
+       4: aload_1
+       5: ldc           #26                 // String Bean must not be null
+       7: invokestatic  #32                 // Method org/springframework/util/Assert.notNull:(Ljava/lang/Object;Ljava/lang/String;)V
+      10: aload_0
+      11: aload_1
+      12: putfield      #34                 // Field bean:Lorg/springframework/samples/petclinic/owner/PetType;
+      15: return
+
+  static {};
+    Code:
+       0: invokestatic  #41                 // Method java/lang/invoke/MethodHandles.lookup:()Ljava/lang/invoke/MethodHandles$Lookup;
+       3: astore_0
+       4: ldc           #43                 // class org/springframework/samples/petclinic/model/NamedEntity
+       6: ldc           #45                 // String name
+       8: invokevirtual #51                 // Method java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+      11: astore_1
+      12: aload_1
+      13: iconst_1
+      14: invokevirtual #57                 // Method java/lang/reflect/Field.setAccessible:(Z)V
+      17: aload_0
+      18: aload_1
+      19: invokevirtual #61                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectGetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      22: putstatic     #63                 // Field $name_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      25: aload_0
+      26: aload_1
+      27: invokevirtual #66                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectSetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      30: putstatic     #68                 // Field $name_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      33: ldc           #70                 // class org/springframework/samples/petclinic/model/BaseEntity
+      35: ldc           #72                 // String id
+      37: invokevirtual #51                 // Method java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+      40: astore_1
+      41: aload_1
+      42: iconst_1
+      43: invokevirtual #57                 // Method java/lang/reflect/Field.setAccessible:(Z)V
+      46: aload_0
+      47: aload_1
+      48: invokevirtual #61                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectGetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      51: putstatic     #74                 // Field $id_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      54: aload_0
+      55: aload_1
+      56: invokevirtual #66                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectSetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      59: putstatic     #76                 // Field $id_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      62: return
+
+  public java.lang.Object getBean();
+    Code:
+       0: aload_0
+       1: getfield      #34                 // Field bean:Lorg/springframework/samples/petclinic/owner/PetType;
+       4: areturn
+
+  public void setProperty(org.springframework.data.mapping.PersistentProperty<?>, java.lang.Object);
+    Code:
+       0: aload_1
+       1: ldc           #90                 // String Property must not be null
+       3: invokestatic  #32                 // Method org/springframework/util/Assert.notNull:(Ljava/lang/Object;Ljava/lang/String;)V
+       6: aload_1
+       7: invokeinterface #96,  1           // InterfaceMethod org/springframework/data/mapping/PersistentProperty.getName:()Ljava/lang/String;
+      12: invokevirtual #102                // Method java/lang/String.hashCode:()I
+      15: lookupswitch  { // 2
+                  3355: 52
+               3373707: 40
+               default: 64
+          }
+      40: getstatic     #68                 // Field $name_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      43: aload_0
+      44: getfield      #34                 // Field bean:Lorg/springframework/samples/petclinic/owner/PetType;
+      47: aload_2
+      48: invokevirtual #108                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;Ljava/lang/Object;)V
+      51: return
+      52: getstatic     #76                 // Field $id_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      55: aload_0
+      56: getfield      #34                 // Field bean:Lorg/springframework/samples/petclinic/owner/PetType;
+      59: aload_2
+      60: invokevirtual #108                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;Ljava/lang/Object;)V
+      63: return
+      64: new           #110                // class java/lang/UnsupportedOperationException
+      67: dup
+      68: ldc           #112                // String No accessor to set property %s
+      70: iconst_1
+      71: anewarray     #5                  // class java/lang/Object
+      74: dup
+      75: iconst_0
+      76: aload_1
+      77: aastore
+      78: invokestatic  #116                // Method java/lang/String.format:(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+      81: invokespecial #119                // Method java/lang/UnsupportedOperationException."<init>":(Ljava/lang/String;)V
+      84: athrow
+
+  public java.lang.Object getProperty(org.springframework.data.mapping.PersistentProperty<?>);
+    Code:
+       0: aload_1
+       1: ldc           #90                 // String Property must not be null
+       3: invokestatic  #32                 // Method org/springframework/util/Assert.notNull:(Ljava/lang/Object;Ljava/lang/String;)V
+       6: aload_1
+       7: invokeinterface #96,  1           // InterfaceMethod org/springframework/data/mapping/PersistentProperty.getName:()Ljava/lang/String;
+      12: invokevirtual #102                // Method java/lang/String.hashCode:()I
+      15: lookupswitch  { // 2
+                  3355: 51
+               3373707: 40
+               default: 62
+          }
+      40: getstatic     #63                 // Field $name_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      43: aload_0
+      44: getfield      #34                 // Field bean:Lorg/springframework/samples/petclinic/owner/PetType;
+      47: invokevirtual #130                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;)Ljava/lang/Object;
+      50: areturn
+      51: getstatic     #74                 // Field $id_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      54: aload_0
+      55: getfield      #34                 // Field bean:Lorg/springframework/samples/petclinic/owner/PetType;
+      58: invokevirtual #130                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;)Ljava/lang/Object;
+      61: areturn
+      62: new           #110                // class java/lang/UnsupportedOperationException
+      65: dup
+      66: ldc           #132                // String No accessor to get property %s
+      68: iconst_1
+      69: anewarray     #5                  // class java/lang/Object
+      72: dup
+      73: iconst_0
+      74: aload_1
+      75: aastore
+      76: invokestatic  #116                // Method java/lang/String.format:(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+      79: invokespecial #119                // Method java/lang/UnsupportedOperationException."<init>":(Ljava/lang/String;)V
+      82: athrow
+}
+
+FILE gradle/build/generated/aotTestClasses/org/springframework/samples/petclinic/owner/Pet__Accessor_405njj.class
+public class org.springframework.samples.petclinic.owner.Pet__Accessor_405njj implements org.springframework.data.mapping.PersistentPropertyAccessor<org.springframework.samples.petclinic.owner.Pet> {
+  private org.springframework.samples.petclinic.owner.Pet bean;
+
+  private static final java.lang.invoke.MethodHandle $birthDate_fieldSetter;
+
+  private static final java.lang.invoke.MethodHandle $birthDate_fieldGetter;
+
+  private static final java.lang.invoke.MethodHandle $type_fieldSetter;
+
+  private static final java.lang.invoke.MethodHandle $type_fieldGetter;
+
+  private static final java.lang.invoke.MethodHandle $visits_fieldGetter;
+
+  private static final java.lang.invoke.MethodHandle $name_fieldSetter;
+
+  private static final java.lang.invoke.MethodHandle $name_fieldGetter;
+
+  private static final java.lang.invoke.MethodHandle $id_fieldSetter;
+
+  private static final java.lang.invoke.MethodHandle $id_fieldGetter;
+
+  public org.springframework.samples.petclinic.owner.Pet__Accessor_405njj(org.springframework.samples.petclinic.owner.Pet);
+    Code:
+       0: aload_0
+       1: invokespecial #29                 // Method java/lang/Object."<init>":()V
+       4: aload_1
+       5: ldc           #31                 // String Bean must not be null
+       7: invokestatic  #37                 // Method org/springframework/util/Assert.notNull:(Ljava/lang/Object;Ljava/lang/String;)V
+      10: aload_0
+      11: aload_1
+      12: putfield      #39                 // Field bean:Lorg/springframework/samples/petclinic/owner/Pet;
+      15: return
+
+  static {};
+    Code:
+       0: invokestatic  #46                 // Method java/lang/invoke/MethodHandles.lookup:()Ljava/lang/invoke/MethodHandles$Lookup;
+       3: astore_0
+       4: ldc           #48                 // class org/springframework/samples/petclinic/owner/Pet
+       6: ldc           #50                 // String birthDate
+       8: invokevirtual #56                 // Method java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+      11: astore_1
+      12: aload_1
+      13: iconst_1
+      14: invokevirtual #62                 // Method java/lang/reflect/Field.setAccessible:(Z)V
+      17: aload_0
+      18: aload_1
+      19: invokevirtual #66                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectGetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      22: putstatic     #68                 // Field $birthDate_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      25: aload_0
+      26: aload_1
+      27: invokevirtual #71                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectSetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      30: putstatic     #73                 // Field $birthDate_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      33: ldc           #48                 // class org/springframework/samples/petclinic/owner/Pet
+      35: ldc           #75                 // String type
+      37: invokevirtual #56                 // Method java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+      40: astore_1
+      41: aload_1
+      42: iconst_1
+      43: invokevirtual #62                 // Method java/lang/reflect/Field.setAccessible:(Z)V
+      46: aload_0
+      47: aload_1
+      48: invokevirtual #66                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectGetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      51: putstatic     #77                 // Field $type_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      54: aload_0
+      55: aload_1
+      56: invokevirtual #71                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectSetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      59: putstatic     #79                 // Field $type_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      62: ldc           #48                 // class org/springframework/samples/petclinic/owner/Pet
+      64: ldc           #81                 // String visits
+      66: invokevirtual #56                 // Method java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+      69: astore_1
+      70: aload_1
+      71: iconst_1
+      72: invokevirtual #62                 // Method java/lang/reflect/Field.setAccessible:(Z)V
+      75: aload_0
+      76: aload_1
+      77: invokevirtual #66                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectGetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      80: putstatic     #83                 // Field $visits_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      83: ldc           #85                 // class org/springframework/samples/petclinic/model/NamedEntity
+      85: ldc           #87                 // String name
+      87: invokevirtual #56                 // Method java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+      90: astore_1
+      91: aload_1
+      92: iconst_1
+      93: invokevirtual #62                 // Method java/lang/reflect/Field.setAccessible:(Z)V
+      96: aload_0
+      97: aload_1
+      98: invokevirtual #66                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectGetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+     101: putstatic     #89                 // Field $name_fieldGetter:Ljava/lang/invoke/MethodHandle;
+     104: aload_0
+     105: aload_1
+     106: invokevirtual #71                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectSetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+     109: putstatic     #91                 // Field $name_fieldSetter:Ljava/lang/invoke/MethodHandle;
+     112: ldc           #93                 // class org/springframework/samples/petclinic/model/BaseEntity
+     114: ldc           #95                 // String id
+     116: invokevirtual #56                 // Method java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+     119: astore_1
+     120: aload_1
+     121: iconst_1
+     122: invokevirtual #62                 // Method java/lang/reflect/Field.setAccessible:(Z)V
+     125: aload_0
+     126: aload_1
+     127: invokevirtual #66                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectGetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+     130: putstatic     #97                 // Field $id_fieldGetter:Ljava/lang/invoke/MethodHandle;
+     133: aload_0
+     134: aload_1
+     135: invokevirtual #71                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectSetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+     138: putstatic     #99                 // Field $id_fieldSetter:Ljava/lang/invoke/MethodHandle;
+     141: return
+
+  public java.lang.Object getBean();
+    Code:
+       0: aload_0
+       1: getfield      #39                 // Field bean:Lorg/springframework/samples/petclinic/owner/Pet;
+       4: areturn
+
+  public void setProperty(org.springframework.data.mapping.PersistentProperty<?>, java.lang.Object);
+    Code:
+       0: aload_1
+       1: ldc           #113                // String Property must not be null
+       3: invokestatic  #37                 // Method org/springframework/util/Assert.notNull:(Ljava/lang/Object;Ljava/lang/String;)V
+       6: aload_1
+       7: invokeinterface #119,  1          // InterfaceMethod org/springframework/data/mapping/PersistentProperty.getName:()Ljava/lang/String;
+      12: invokevirtual #125                // Method java/lang/String.hashCode:()I
+      15: lookupswitch  { // 5
+           -1210031859: 64
+            -816227192: 88
+                  3355: 103
+               3373707: 91
+               3575610: 76
+               default: 115
+          }
+      64: getstatic     #73                 // Field $birthDate_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      67: aload_0
+      68: getfield      #39                 // Field bean:Lorg/springframework/samples/petclinic/owner/Pet;
+      71: aload_2
+      72: invokevirtual #131                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;Ljava/lang/Object;)V
+      75: return
+      76: getstatic     #79                 // Field $type_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      79: aload_0
+      80: getfield      #39                 // Field bean:Lorg/springframework/samples/petclinic/owner/Pet;
+      83: aload_2
+      84: invokevirtual #131                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;Ljava/lang/Object;)V
+      87: return
+      88: goto          115
+      91: getstatic     #91                 // Field $name_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      94: aload_0
+      95: getfield      #39                 // Field bean:Lorg/springframework/samples/petclinic/owner/Pet;
+      98: aload_2
+      99: invokevirtual #131                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;Ljava/lang/Object;)V
+     102: return
+     103: getstatic     #99                 // Field $id_fieldSetter:Ljava/lang/invoke/MethodHandle;
+     106: aload_0
+     107: getfield      #39                 // Field bean:Lorg/springframework/samples/petclinic/owner/Pet;
+     110: aload_2
+     111: invokevirtual #131                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;Ljava/lang/Object;)V
+     114: return
+     115: new           #133                // class java/lang/UnsupportedOperationException
+     118: dup
+     119: ldc           #135                // String No accessor to set property %s
+     121: iconst_1
+     122: anewarray     #5                  // class java/lang/Object
+     125: dup
+     126: iconst_0
+     127: aload_1
+     128: aastore
+     129: invokestatic  #139                // Method java/lang/String.format:(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+     132: invokespecial #142                // Method java/lang/UnsupportedOperationException."<init>":(Ljava/lang/String;)V
+     135: athrow
+
+  public java.lang.Object getProperty(org.springframework.data.mapping.PersistentProperty<?>);
+    Code:
+       0: aload_1
+       1: ldc           #113                // String Property must not be null
+       3: invokestatic  #37                 // Method org/springframework/util/Assert.notNull:(Ljava/lang/Object;Ljava/lang/String;)V
+       6: aload_1
+       7: invokeinterface #119,  1          // InterfaceMethod org/springframework/data/mapping/PersistentProperty.getName:()Ljava/lang/String;
+      12: invokevirtual #125                // Method java/lang/String.hashCode:()I
+      15: lookupswitch  { // 5
+           -1210031859: 64
+            -816227192: 86
+                  3355: 108
+               3373707: 97
+               3575610: 75
+               default: 119
+          }
+      64: getstatic     #68                 // Field $birthDate_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      67: aload_0
+      68: getfield      #39                 // Field bean:Lorg/springframework/samples/petclinic/owner/Pet;
+      71: invokevirtual #153                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;)Ljava/lang/Object;
+      74: areturn
+      75: getstatic     #77                 // Field $type_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      78: aload_0
+      79: getfield      #39                 // Field bean:Lorg/springframework/samples/petclinic/owner/Pet;
+      82: invokevirtual #153                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;)Ljava/lang/Object;
+      85: areturn
+      86: getstatic     #83                 // Field $visits_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      89: aload_0
+      90: getfield      #39                 // Field bean:Lorg/springframework/samples/petclinic/owner/Pet;
+      93: invokevirtual #153                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;)Ljava/lang/Object;
+      96: areturn
+      97: getstatic     #89                 // Field $name_fieldGetter:Ljava/lang/invoke/MethodHandle;
+     100: aload_0
+     101: getfield      #39                 // Field bean:Lorg/springframework/samples/petclinic/owner/Pet;
+     104: invokevirtual #153                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;)Ljava/lang/Object;
+     107: areturn
+     108: getstatic     #97                 // Field $id_fieldGetter:Ljava/lang/invoke/MethodHandle;
+     111: aload_0
+     112: getfield      #39                 // Field bean:Lorg/springframework/samples/petclinic/owner/Pet;
+     115: invokevirtual #153                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;)Ljava/lang/Object;
+     118: areturn
+     119: new           #133                // class java/lang/UnsupportedOperationException
+     122: dup
+     123: ldc           #155                // String No accessor to get property %s
+     125: iconst_1
+     126: anewarray     #5                  // class java/lang/Object
+     129: dup
+     130: iconst_0
+     131: aload_1
+     132: aastore
+     133: invokestatic  #139                // Method java/lang/String.format:(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+     136: invokespecial #142                // Method java/lang/UnsupportedOperationException."<init>":(Ljava/lang/String;)V
+     139: athrow
+}
+
+FILE gradle/build/generated/aotTestClasses/org/springframework/samples/petclinic/owner/Visit__Accessor_cfh48z.class
+public class org.springframework.samples.petclinic.owner.Visit__Accessor_cfh48z implements org.springframework.data.mapping.PersistentPropertyAccessor<org.springframework.samples.petclinic.owner.Visit> {
+  private org.springframework.samples.petclinic.owner.Visit bean;
+
+  private static final java.lang.invoke.MethodHandle $date_fieldSetter;
+
+  private static final java.lang.invoke.MethodHandle $date_fieldGetter;
+
+  private static final java.lang.invoke.MethodHandle $description_fieldSetter;
+
+  private static final java.lang.invoke.MethodHandle $description_fieldGetter;
+
+  private static final java.lang.invoke.MethodHandle $id_fieldSetter;
+
+  private static final java.lang.invoke.MethodHandle $id_fieldGetter;
+
+  public org.springframework.samples.petclinic.owner.Visit__Accessor_cfh48z(org.springframework.samples.petclinic.owner.Visit);
+    Code:
+       0: aload_0
+       1: invokespecial #26                 // Method java/lang/Object."<init>":()V
+       4: aload_1
+       5: ldc           #28                 // String Bean must not be null
+       7: invokestatic  #34                 // Method org/springframework/util/Assert.notNull:(Ljava/lang/Object;Ljava/lang/String;)V
+      10: aload_0
+      11: aload_1
+      12: putfield      #36                 // Field bean:Lorg/springframework/samples/petclinic/owner/Visit;
+      15: return
+
+  static {};
+    Code:
+       0: invokestatic  #43                 // Method java/lang/invoke/MethodHandles.lookup:()Ljava/lang/invoke/MethodHandles$Lookup;
+       3: astore_0
+       4: ldc           #45                 // class org/springframework/samples/petclinic/owner/Visit
+       6: ldc           #47                 // String date
+       8: invokevirtual #53                 // Method java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+      11: astore_1
+      12: aload_1
+      13: iconst_1
+      14: invokevirtual #59                 // Method java/lang/reflect/Field.setAccessible:(Z)V
+      17: aload_0
+      18: aload_1
+      19: invokevirtual #63                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectGetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      22: putstatic     #65                 // Field $date_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      25: aload_0
+      26: aload_1
+      27: invokevirtual #68                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectSetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      30: putstatic     #70                 // Field $date_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      33: ldc           #45                 // class org/springframework/samples/petclinic/owner/Visit
+      35: ldc           #72                 // String description
+      37: invokevirtual #53                 // Method java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+      40: astore_1
+      41: aload_1
+      42: iconst_1
+      43: invokevirtual #59                 // Method java/lang/reflect/Field.setAccessible:(Z)V
+      46: aload_0
+      47: aload_1
+      48: invokevirtual #63                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectGetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      51: putstatic     #74                 // Field $description_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      54: aload_0
+      55: aload_1
+      56: invokevirtual #68                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectSetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      59: putstatic     #76                 // Field $description_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      62: ldc           #78                 // class org/springframework/samples/petclinic/model/BaseEntity
+      64: ldc           #80                 // String id
+      66: invokevirtual #53                 // Method java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+      69: astore_1
+      70: aload_1
+      71: iconst_1
+      72: invokevirtual #59                 // Method java/lang/reflect/Field.setAccessible:(Z)V
+      75: aload_0
+      76: aload_1
+      77: invokevirtual #63                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectGetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      80: putstatic     #82                 // Field $id_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      83: aload_0
+      84: aload_1
+      85: invokevirtual #68                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectSetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      88: putstatic     #84                 // Field $id_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      91: return
+
+  public java.lang.Object getBean();
+    Code:
+       0: aload_0
+       1: getfield      #36                 // Field bean:Lorg/springframework/samples/petclinic/owner/Visit;
+       4: areturn
+
+  public void setProperty(org.springframework.data.mapping.PersistentProperty<?>, java.lang.Object);
+    Code:
+       0: aload_1
+       1: ldc           #98                 // String Property must not be null
+       3: invokestatic  #34                 // Method org/springframework/util/Assert.notNull:(Ljava/lang/Object;Ljava/lang/String;)V
+       6: aload_1
+       7: invokeinterface #104,  1          // InterfaceMethod org/springframework/data/mapping/PersistentProperty.getName:()Ljava/lang/String;
+      12: invokevirtual #110                // Method java/lang/String.hashCode:()I
+      15: lookupswitch  { // 3
+           -1724546052: 60
+                  3355: 72
+               3076014: 48
+               default: 84
+          }
+      48: getstatic     #70                 // Field $date_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      51: aload_0
+      52: getfield      #36                 // Field bean:Lorg/springframework/samples/petclinic/owner/Visit;
+      55: aload_2
+      56: invokevirtual #116                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;Ljava/lang/Object;)V
+      59: return
+      60: getstatic     #76                 // Field $description_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      63: aload_0
+      64: getfield      #36                 // Field bean:Lorg/springframework/samples/petclinic/owner/Visit;
+      67: aload_2
+      68: invokevirtual #116                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;Ljava/lang/Object;)V
+      71: return
+      72: getstatic     #84                 // Field $id_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      75: aload_0
+      76: getfield      #36                 // Field bean:Lorg/springframework/samples/petclinic/owner/Visit;
+      79: aload_2
+      80: invokevirtual #116                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;Ljava/lang/Object;)V
+      83: return
+      84: new           #118                // class java/lang/UnsupportedOperationException
+      87: dup
+      88: ldc           #120                // String No accessor to set property %s
+      90: iconst_1
+      91: anewarray     #5                  // class java/lang/Object
+      94: dup
+      95: iconst_0
+      96: aload_1
+      97: aastore
+      98: invokestatic  #124                // Method java/lang/String.format:(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+     101: invokespecial #127                // Method java/lang/UnsupportedOperationException."<init>":(Ljava/lang/String;)V
+     104: athrow
+
+  public java.lang.Object getProperty(org.springframework.data.mapping.PersistentProperty<?>);
+    Code:
+       0: aload_1
+       1: ldc           #98                 // String Property must not be null
+       3: invokestatic  #34                 // Method org/springframework/util/Assert.notNull:(Ljava/lang/Object;Ljava/lang/String;)V
+       6: aload_1
+       7: invokeinterface #104,  1          // InterfaceMethod org/springframework/data/mapping/PersistentProperty.getName:()Ljava/lang/String;
+      12: invokevirtual #110                // Method java/lang/String.hashCode:()I
+      15: lookupswitch  { // 3
+           -1724546052: 59
+                  3355: 70
+               3076014: 48
+               default: 81
+          }
+      48: getstatic     #65                 // Field $date_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      51: aload_0
+      52: getfield      #36                 // Field bean:Lorg/springframework/samples/petclinic/owner/Visit;
+      55: invokevirtual #138                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;)Ljava/lang/Object;
+      58: areturn
+      59: getstatic     #74                 // Field $description_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      62: aload_0
+      63: getfield      #36                 // Field bean:Lorg/springframework/samples/petclinic/owner/Visit;
+      66: invokevirtual #138                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;)Ljava/lang/Object;
+      69: areturn
+      70: getstatic     #82                 // Field $id_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      73: aload_0
+      74: getfield      #36                 // Field bean:Lorg/springframework/samples/petclinic/owner/Visit;
+      77: invokevirtual #138                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;)Ljava/lang/Object;
+      80: areturn
+      81: new           #118                // class java/lang/UnsupportedOperationException
+      84: dup
+      85: ldc           #140                // String No accessor to get property %s
+      87: iconst_1
+      88: anewarray     #5                  // class java/lang/Object
+      91: dup
+      92: iconst_0
+      93: aload_1
+      94: aastore
+      95: invokestatic  #124                // Method java/lang/String.format:(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+      98: invokespecial #127                // Method java/lang/UnsupportedOperationException."<init>":(Ljava/lang/String;)V
+     101: athrow
+}
+
+FILE gradle/build/generated/aotTestClasses/org/springframework/samples/petclinic/vet/Specialty__Accessor_l1edsu.class
+public class org.springframework.samples.petclinic.vet.Specialty__Accessor_l1edsu implements org.springframework.data.mapping.PersistentPropertyAccessor<org.springframework.samples.petclinic.vet.Specialty> {
+  private org.springframework.samples.petclinic.vet.Specialty bean;
+
+  private static final java.lang.invoke.MethodHandle $name_fieldSetter;
+
+  private static final java.lang.invoke.MethodHandle $name_fieldGetter;
+
+  private static final java.lang.invoke.MethodHandle $id_fieldSetter;
+
+  private static final java.lang.invoke.MethodHandle $id_fieldGetter;
+
+  public org.springframework.samples.petclinic.vet.Specialty__Accessor_l1edsu(org.springframework.samples.petclinic.vet.Specialty);
+    Code:
+       0: aload_0
+       1: invokespecial #24                 // Method java/lang/Object."<init>":()V
+       4: aload_1
+       5: ldc           #26                 // String Bean must not be null
+       7: invokestatic  #32                 // Method org/springframework/util/Assert.notNull:(Ljava/lang/Object;Ljava/lang/String;)V
+      10: aload_0
+      11: aload_1
+      12: putfield      #34                 // Field bean:Lorg/springframework/samples/petclinic/vet/Specialty;
+      15: return
+
+  static {};
+    Code:
+       0: invokestatic  #41                 // Method java/lang/invoke/MethodHandles.lookup:()Ljava/lang/invoke/MethodHandles$Lookup;
+       3: astore_0
+       4: ldc           #43                 // class org/springframework/samples/petclinic/model/NamedEntity
+       6: ldc           #45                 // String name
+       8: invokevirtual #51                 // Method java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+      11: astore_1
+      12: aload_1
+      13: iconst_1
+      14: invokevirtual #57                 // Method java/lang/reflect/Field.setAccessible:(Z)V
+      17: aload_0
+      18: aload_1
+      19: invokevirtual #61                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectGetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      22: putstatic     #63                 // Field $name_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      25: aload_0
+      26: aload_1
+      27: invokevirtual #66                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectSetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      30: putstatic     #68                 // Field $name_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      33: ldc           #70                 // class org/springframework/samples/petclinic/model/BaseEntity
+      35: ldc           #72                 // String id
+      37: invokevirtual #51                 // Method java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+      40: astore_1
+      41: aload_1
+      42: iconst_1
+      43: invokevirtual #57                 // Method java/lang/reflect/Field.setAccessible:(Z)V
+      46: aload_0
+      47: aload_1
+      48: invokevirtual #61                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectGetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      51: putstatic     #74                 // Field $id_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      54: aload_0
+      55: aload_1
+      56: invokevirtual #66                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectSetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      59: putstatic     #76                 // Field $id_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      62: return
+
+  public java.lang.Object getBean();
+    Code:
+       0: aload_0
+       1: getfield      #34                 // Field bean:Lorg/springframework/samples/petclinic/vet/Specialty;
+       4: areturn
+
+  public void setProperty(org.springframework.data.mapping.PersistentProperty<?>, java.lang.Object);
+    Code:
+       0: aload_1
+       1: ldc           #90                 // String Property must not be null
+       3: invokestatic  #32                 // Method org/springframework/util/Assert.notNull:(Ljava/lang/Object;Ljava/lang/String;)V
+       6: aload_1
+       7: invokeinterface #96,  1           // InterfaceMethod org/springframework/data/mapping/PersistentProperty.getName:()Ljava/lang/String;
+      12: invokevirtual #102                // Method java/lang/String.hashCode:()I
+      15: lookupswitch  { // 2
+                  3355: 52
+               3373707: 40
+               default: 64
+          }
+      40: getstatic     #68                 // Field $name_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      43: aload_0
+      44: getfield      #34                 // Field bean:Lorg/springframework/samples/petclinic/vet/Specialty;
+      47: aload_2
+      48: invokevirtual #108                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;Ljava/lang/Object;)V
+      51: return
+      52: getstatic     #76                 // Field $id_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      55: aload_0
+      56: getfield      #34                 // Field bean:Lorg/springframework/samples/petclinic/vet/Specialty;
+      59: aload_2
+      60: invokevirtual #108                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;Ljava/lang/Object;)V
+      63: return
+      64: new           #110                // class java/lang/UnsupportedOperationException
+      67: dup
+      68: ldc           #112                // String No accessor to set property %s
+      70: iconst_1
+      71: anewarray     #5                  // class java/lang/Object
+      74: dup
+      75: iconst_0
+      76: aload_1
+      77: aastore
+      78: invokestatic  #116                // Method java/lang/String.format:(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+      81: invokespecial #119                // Method java/lang/UnsupportedOperationException."<init>":(Ljava/lang/String;)V
+      84: athrow
+
+  public java.lang.Object getProperty(org.springframework.data.mapping.PersistentProperty<?>);
+    Code:
+       0: aload_1
+       1: ldc           #90                 // String Property must not be null
+       3: invokestatic  #32                 // Method org/springframework/util/Assert.notNull:(Ljava/lang/Object;Ljava/lang/String;)V
+       6: aload_1
+       7: invokeinterface #96,  1           // InterfaceMethod org/springframework/data/mapping/PersistentProperty.getName:()Ljava/lang/String;
+      12: invokevirtual #102                // Method java/lang/String.hashCode:()I
+      15: lookupswitch  { // 2
+                  3355: 51
+               3373707: 40
+               default: 62
+          }
+      40: getstatic     #63                 // Field $name_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      43: aload_0
+      44: getfield      #34                 // Field bean:Lorg/springframework/samples/petclinic/vet/Specialty;
+      47: invokevirtual #130                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;)Ljava/lang/Object;
+      50: areturn
+      51: getstatic     #74                 // Field $id_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      54: aload_0
+      55: getfield      #34                 // Field bean:Lorg/springframework/samples/petclinic/vet/Specialty;
+      58: invokevirtual #130                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;)Ljava/lang/Object;
+      61: areturn
+      62: new           #110                // class java/lang/UnsupportedOperationException
+      65: dup
+      66: ldc           #132                // String No accessor to get property %s
+      68: iconst_1
+      69: anewarray     #5                  // class java/lang/Object
+      72: dup
+      73: iconst_0
+      74: aload_1
+      75: aastore
+      76: invokestatic  #116                // Method java/lang/String.format:(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+      79: invokespecial #119                // Method java/lang/UnsupportedOperationException."<init>":(Ljava/lang/String;)V
+      82: athrow
+}
+
+FILE gradle/build/generated/aotTestClasses/org/springframework/samples/petclinic/vet/Vet__Accessor_mvphe1.class
+public class org.springframework.samples.petclinic.vet.Vet__Accessor_mvphe1 implements org.springframework.data.mapping.PersistentPropertyAccessor<org.springframework.samples.petclinic.vet.Vet> {
+  private org.springframework.samples.petclinic.vet.Vet bean;
+
+  private static final java.lang.invoke.MethodHandle $specialties_fieldSetter;
+
+  private static final java.lang.invoke.MethodHandle $specialties_fieldGetter;
+
+  private static final java.lang.invoke.MethodHandle $firstName_fieldSetter;
+
+  private static final java.lang.invoke.MethodHandle $firstName_fieldGetter;
+
+  private static final java.lang.invoke.MethodHandle $lastName_fieldSetter;
+
+  private static final java.lang.invoke.MethodHandle $lastName_fieldGetter;
+
+  private static final java.lang.invoke.MethodHandle $id_fieldSetter;
+
+  private static final java.lang.invoke.MethodHandle $id_fieldGetter;
+
+  public org.springframework.samples.petclinic.vet.Vet__Accessor_mvphe1(org.springframework.samples.petclinic.vet.Vet);
+    Code:
+       0: aload_0
+       1: invokespecial #28                 // Method java/lang/Object."<init>":()V
+       4: aload_1
+       5: ldc           #30                 // String Bean must not be null
+       7: invokestatic  #36                 // Method org/springframework/util/Assert.notNull:(Ljava/lang/Object;Ljava/lang/String;)V
+      10: aload_0
+      11: aload_1
+      12: putfield      #38                 // Field bean:Lorg/springframework/samples/petclinic/vet/Vet;
+      15: return
+
+  static {};
+    Code:
+       0: invokestatic  #45                 // Method java/lang/invoke/MethodHandles.lookup:()Ljava/lang/invoke/MethodHandles$Lookup;
+       3: astore_0
+       4: ldc           #47                 // class org/springframework/samples/petclinic/vet/Vet
+       6: ldc           #49                 // String specialties
+       8: invokevirtual #55                 // Method java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+      11: astore_1
+      12: aload_1
+      13: iconst_1
+      14: invokevirtual #61                 // Method java/lang/reflect/Field.setAccessible:(Z)V
+      17: aload_0
+      18: aload_1
+      19: invokevirtual #65                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectGetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      22: putstatic     #67                 // Field $specialties_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      25: aload_0
+      26: aload_1
+      27: invokevirtual #70                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectSetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      30: putstatic     #72                 // Field $specialties_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      33: ldc           #74                 // class org/springframework/samples/petclinic/model/Person
+      35: ldc           #76                 // String firstName
+      37: invokevirtual #55                 // Method java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+      40: astore_1
+      41: aload_1
+      42: iconst_1
+      43: invokevirtual #61                 // Method java/lang/reflect/Field.setAccessible:(Z)V
+      46: aload_0
+      47: aload_1
+      48: invokevirtual #65                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectGetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      51: putstatic     #78                 // Field $firstName_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      54: aload_0
+      55: aload_1
+      56: invokevirtual #70                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectSetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      59: putstatic     #80                 // Field $firstName_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      62: ldc           #74                 // class org/springframework/samples/petclinic/model/Person
+      64: ldc           #82                 // String lastName
+      66: invokevirtual #55                 // Method java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+      69: astore_1
+      70: aload_1
+      71: iconst_1
+      72: invokevirtual #61                 // Method java/lang/reflect/Field.setAccessible:(Z)V
+      75: aload_0
+      76: aload_1
+      77: invokevirtual #65                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectGetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      80: putstatic     #84                 // Field $lastName_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      83: aload_0
+      84: aload_1
+      85: invokevirtual #70                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectSetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+      88: putstatic     #86                 // Field $lastName_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      91: ldc           #88                 // class org/springframework/samples/petclinic/model/BaseEntity
+      93: ldc           #90                 // String id
+      95: invokevirtual #55                 // Method java/lang/Class.getDeclaredField:(Ljava/lang/String;)Ljava/lang/reflect/Field;
+      98: astore_1
+      99: aload_1
+     100: iconst_1
+     101: invokevirtual #61                 // Method java/lang/reflect/Field.setAccessible:(Z)V
+     104: aload_0
+     105: aload_1
+     106: invokevirtual #65                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectGetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+     109: putstatic     #92                 // Field $id_fieldGetter:Ljava/lang/invoke/MethodHandle;
+     112: aload_0
+     113: aload_1
+     114: invokevirtual #70                 // Method java/lang/invoke/MethodHandles$Lookup.unreflectSetter:(Ljava/lang/reflect/Field;)Ljava/lang/invoke/MethodHandle;
+     117: putstatic     #94                 // Field $id_fieldSetter:Ljava/lang/invoke/MethodHandle;
+     120: return
+
+  public java.lang.Object getBean();
+    Code:
+       0: aload_0
+       1: getfield      #38                 // Field bean:Lorg/springframework/samples/petclinic/vet/Vet;
+       4: areturn
+
+  public void setProperty(org.springframework.data.mapping.PersistentProperty<?>, java.lang.Object);
+    Code:
+       0: aload_1
+       1: ldc           #108                // String Property must not be null
+       3: invokestatic  #36                 // Method org/springframework/util/Assert.notNull:(Ljava/lang/Object;Ljava/lang/String;)V
+       6: aload_1
+       7: invokeinterface #114,  1          // InterfaceMethod org/springframework/data/mapping/PersistentProperty.getName:()Ljava/lang/String;
+      12: invokevirtual #120                // Method java/lang/String.hashCode:()I
+      15: lookupswitch  { // 4
+           -1459599807: 80
+            -871461348: 56
+                  3355: 92
+             132835675: 68
+               default: 104
+          }
+      56: getstatic     #72                 // Field $specialties_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      59: aload_0
+      60: getfield      #38                 // Field bean:Lorg/springframework/samples/petclinic/vet/Vet;
+      63: aload_2
+      64: invokevirtual #126                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;Ljava/lang/Object;)V
+      67: return
+      68: getstatic     #80                 // Field $firstName_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      71: aload_0
+      72: getfield      #38                 // Field bean:Lorg/springframework/samples/petclinic/vet/Vet;
+      75: aload_2
+      76: invokevirtual #126                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;Ljava/lang/Object;)V
+      79: return
+      80: getstatic     #86                 // Field $lastName_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      83: aload_0
+      84: getfield      #38                 // Field bean:Lorg/springframework/samples/petclinic/vet/Vet;
+      87: aload_2
+      88: invokevirtual #126                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;Ljava/lang/Object;)V
+      91: return
+      92: getstatic     #94                 // Field $id_fieldSetter:Ljava/lang/invoke/MethodHandle;
+      95: aload_0
+      96: getfield      #38                 // Field bean:Lorg/springframework/samples/petclinic/vet/Vet;
+      99: aload_2
+     100: invokevirtual #126                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;Ljava/lang/Object;)V
+     103: return
+     104: new           #128                // class java/lang/UnsupportedOperationException
+     107: dup
+     108: ldc           #130                // String No accessor to set property %s
+     110: iconst_1
+     111: anewarray     #5                  // class java/lang/Object
+     114: dup
+     115: iconst_0
+     116: aload_1
+     117: aastore
+     118: invokestatic  #134                // Method java/lang/String.format:(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+     121: invokespecial #137                // Method java/lang/UnsupportedOperationException."<init>":(Ljava/lang/String;)V
+     124: athrow
+
+  public java.lang.Object getProperty(org.springframework.data.mapping.PersistentProperty<?>);
+    Code:
+       0: aload_1
+       1: ldc           #108                // String Property must not be null
+       3: invokestatic  #36                 // Method org/springframework/util/Assert.notNull:(Ljava/lang/Object;Ljava/lang/String;)V
+       6: aload_1
+       7: invokeinterface #114,  1          // InterfaceMethod org/springframework/data/mapping/PersistentProperty.getName:()Ljava/lang/String;
+      12: invokevirtual #120                // Method java/lang/String.hashCode:()I
+      15: lookupswitch  { // 4
+           -1459599807: 78
+            -871461348: 56
+                  3355: 89
+             132835675: 67
+               default: 100
+          }
+      56: getstatic     #67                 // Field $specialties_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      59: aload_0
+      60: getfield      #38                 // Field bean:Lorg/springframework/samples/petclinic/vet/Vet;
+      63: invokevirtual #148                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;)Ljava/lang/Object;
+      66: areturn
+      67: getstatic     #78                 // Field $firstName_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      70: aload_0
+      71: getfield      #38                 // Field bean:Lorg/springframework/samples/petclinic/vet/Vet;
+      74: invokevirtual #148                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;)Ljava/lang/Object;
+      77: areturn
+      78: getstatic     #84                 // Field $lastName_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      81: aload_0
+      82: getfield      #38                 // Field bean:Lorg/springframework/samples/petclinic/vet/Vet;
+      85: invokevirtual #148                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;)Ljava/lang/Object;
+      88: areturn
+      89: getstatic     #92                 // Field $id_fieldGetter:Ljava/lang/invoke/MethodHandle;
+      92: aload_0
+      93: getfield      #38                 // Field bean:Lorg/springframework/samples/petclinic/vet/Vet;
+      96: invokevirtual #148                // Method java/lang/invoke/MethodHandle.invoke:(Ljava/lang/Object;)Ljava/lang/Object;
+      99: areturn
+     100: new           #128                // class java/lang/UnsupportedOperationException
+     103: dup
+     104: ldc           #150                // String No accessor to get property %s
+     106: iconst_1
+     107: anewarray     #5                  // class java/lang/Object
+     110: dup
+     111: iconst_0
+     112: aload_1
+     113: aastore
+     114: invokestatic  #134                // Method java/lang/String.format:(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+     117: invokespecial #137                // Method java/lang/UnsupportedOperationException."<init>":(Ljava/lang/String;)V
+     120: athrow
+}
