@@ -120,9 +120,9 @@ final class MethodEntryClassFileTransformer implements ClassFileTransformer {
 				continue;
 			}
 			MethodIdentity identity = new MethodIdentity(binaryClassName, method.name, method.desc);
-			long methodId = catalog.register(identity);
+			long probeOrdinal = catalog.registerProbe(identity);
 			InsnList hook = new InsnList();
-			hook.add(new LdcInsnNode(methodId));
+			hook.add(new LdcInsnNode(probeOrdinal));
 			hook.add(new MethodInsnNode(Opcodes.INVOKESTATIC, HOOK_OWNER, "methodHit", "(J)V", false));
 			AbstractInsnNode first = method.instructions.getFirst();
 			if (first == null) {

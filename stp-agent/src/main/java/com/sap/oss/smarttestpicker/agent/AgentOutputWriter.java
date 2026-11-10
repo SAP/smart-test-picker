@@ -128,6 +128,8 @@ final class AgentOutputWriter {
 		number(json, 2, "runtimeRecordingNanos", metrics.runtimeRecordingNanos(), false);
 		json.append("  },\n");
 		field(json, 1, "methodIdAlgorithm", Fnv1a64MethodIdHasher.ALGORITHM, true);
+		field(json, 1, "injectedProbeId", "jvm-local-dense-ordinal", true);
+		field(json, 1, "runtimeRecordingTiming", "first-hit-and-diagnostic-slow-path-only", true);
 		writeCatalog(json, catalog);
 		json.append(",\n");
 		writeHits(json, hits, catalog);

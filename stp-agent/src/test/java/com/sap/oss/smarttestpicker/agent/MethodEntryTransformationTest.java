@@ -35,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -106,6 +107,20 @@ class MethodEntryTransformationTest {
 	}
 
 	@Test
+	void probeOrdinalsStayDistinctOnHashCollisionAndStableOnReregistration() {
+		MethodCatalog catalog = new MethodCatalog(ignored -> 7L, new AgentMetrics(1), ignored -> {});
+		var first = new MethodIdentity("example.A", "one", "()V");
+		var second = new MethodIdentity("example.B", "two", "()V");
+		assertEquals(0, catalog.registerProbe(first));
+		assertEquals(1, catalog.registerProbe(second));
+		assertEquals(0, catalog.registerProbe(first));
+		assertEquals(7L, catalog.probe(0).hash());
+		assertEquals(7L, catalog.probe(1).hash());
+		assertNotSame(catalog.probe(0), catalog.probe(1));
+		assertEquals(2, catalog.resolve(7L).size());
+	}
+
+	@Test
 	void transformsOrdinaryStaticPrivateAndOverloadedMethodsAndExecutesHooks() throws Exception {
 		Transformation transformation = transformCalculator();
 		assertTrue(transformation.bytes.length > 0);
@@ -121,6 +136,29 @@ class MethodEntryTransformationTest {
 		assertEquals(5, hits.sum());
 		assertTrue(transformation.catalog.snapshot().values().stream().flatMap(List::stream)
 				.anyMatch(method -> method.methodName().equals("adjust")));
+	}
+
+	@Test
+	void injectedOrdinalsDispatchDistinctMethodsEvenWhenEveryHashCollides() throws Exception {
+		var metrics = new AgentMetrics(1);
+		var errors = new java.util.ArrayList<String>();
+		var catalog = new MethodCatalog(ignored -> 7L, metrics, errors::add);
+		var transformer = new MethodEntryClassFileTransformer(
+				AgentConfiguration.parse("includes=example.instrumented."), metrics, catalog, errors::add);
+		byte[] bytes = transformer.transform(getClass().getClassLoader(), "example/instrumented/Calculator",
+				null, null, classBytes(Calculator.class));
+		var observed = new java.util.HashSet<MethodIdentity>();
+		try (var ignored = RuntimeHooks.install(ordinal -> observed.add(catalog.probe(ordinal).method()))) {
+			Class<?> type = new DefiningLoader().define(Calculator.class.getName(), bytes);
+			Object instance = type.getConstructor().newInstance();
+			type.getMethod("add", int.class, int.class).invoke(instance, 2, 3);
+			type.getMethod("add", long.class, long.class).invoke(instance, 4L, 7L);
+		}
+		assertTrue(observed.contains(new MethodIdentity(Calculator.class.getName(), "add", "(II)I")));
+		assertTrue(observed.contains(new MethodIdentity(Calculator.class.getName(), "add", "(JJ)J")));
+		assertFalse(observed.contains(new MethodIdentity(Calculator.class.getName(), "scale", "(II)I")));
+		assertEquals(1, metrics.snapshot().methodIdCollisions(), "collision integrity rejection remains enabled");
+		assertEquals(List.of("method-id-collision:7"), errors);
 	}
 
 	@Test

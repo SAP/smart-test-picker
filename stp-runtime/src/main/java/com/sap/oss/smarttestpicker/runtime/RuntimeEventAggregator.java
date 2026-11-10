@@ -60,6 +60,16 @@ public final class RuntimeEventAggregator {
 		endTest(test, null);
 	}
 
+	/** Register once; subsequent occurrence increments do not acquire this monitor. */
+	public synchronized void recordCounted(TestIdentity test, MethodHitEvent event,
+			java.util.concurrent.atomic.LongAdder occurrences) {
+		validateScope(test);
+		TestBucket bucket = tests.get(test);
+		if (bucket == null || bucket.finished) { record(test, event); return; }
+		bucket.countedMethods.put(event, occurrences);
+		bucket.methods.putIfAbsent(event, 0);
+	}
+
 	public synchronized void endTest(TestIdentity test, TestResult result) {
 		validateScope(test);
 		TestBucket bucket = tests.get(test);
@@ -155,7 +165,9 @@ public final class RuntimeEventAggregator {
 		TestBucketSnapshot(TestBucket bucket) {
 			identity = bucket.identity;
 			result = bucket.result;
-			methods = copy(bucket.methods);
+			Map<MethodHitEvent, Integer> counted = new LinkedHashMap<>(bucket.methods);
+			bucket.countedMethods.forEach((event, count) -> counted.merge(event, count.intValue(), Integer::sum));
+			methods = Collections.unmodifiableMap(counted);
 			unattributed = copy(bucket.unattributed);
 		}
 
@@ -167,6 +179,7 @@ public final class RuntimeEventAggregator {
 	private static final class TestBucket {
 		private final TestIdentity identity;
 		private final Map<MethodHitEvent, Integer> methods = new LinkedHashMap<>();
+		private final Map<MethodHitEvent, java.util.concurrent.atomic.LongAdder> countedMethods = new LinkedHashMap<>();
 		private final Map<UnattributedEvent, Integer> unattributed = new LinkedHashMap<>();
 		private boolean finished;
 		private TestResult result;
