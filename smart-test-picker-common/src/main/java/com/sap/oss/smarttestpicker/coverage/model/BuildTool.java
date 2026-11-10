@@ -6,7 +6,8 @@ package com.sap.oss.smarttestpicker.coverage.model;
 public enum BuildTool
 {
 	MAVEN("maven"),
-	GRADLE("gradle");
+	GRADLE("gradle"),
+	ANT("ant");
 
 	private final String canonicalName;
 

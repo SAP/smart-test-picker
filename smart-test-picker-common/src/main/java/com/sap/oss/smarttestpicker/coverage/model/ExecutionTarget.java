@@ -18,6 +18,7 @@ public record ExecutionTarget(BuildTool buildTool, String targetId) implements C
 		{
 			case MAVEN -> validateMavenTarget(targetId);
 			case GRADLE -> validateGradleTarget(targetId);
+			case ANT -> validateAntTarget(targetId);
 		}
 	}
 
@@ -49,6 +50,13 @@ public record ExecutionTarget(BuildTool buildTool, String targetId) implements C
 		for (String segment : targetId.substring(1).split(":", -1))
 			if (segment.isBlank() || !segment.equals(segment.trim()))
 				throw new IllegalArgumentException("Malformed Gradle target ID: " + targetId);
+	}
+
+	private static void validateAntTarget(String targetId)
+	{
+		if (targetId.contains("/") || targetId.contains("\\") || targetId.contains(":")
+				|| targetId.equals(".") || targetId.equals(".."))
+			throw new IllegalArgumentException("Malformed Ant target ID: " + targetId);
 	}
 
 	@Override public String toString() { return buildTool + ":" + targetId; }
