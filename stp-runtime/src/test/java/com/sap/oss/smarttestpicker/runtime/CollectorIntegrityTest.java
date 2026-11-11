@@ -41,13 +41,11 @@ class CollectorIntegrityTest {
         return new CollectorIntegrity(true, 0, 0, List.of(error));
     }
 
-    @Test void fatalErrorDiscardsBothPassingTests() {
+    @Test void unownedErrorPreservesBothPassingTestsAndDiagnostic() {
         var result = project(integrity(CollectorError.fatal("anything at all")));
-        assertFalse(result.fragment().collectionCompleted());
-        assertTrue(result.fragment().tests().isEmpty());
-        assertEquals(Set.of(BAD.test(), GOOD.test()), result.fragment().unmapped().stream()
-                .map(UnmappedTest::test).collect(java.util.stream.Collectors.toSet()));
-        assertTrue(result.fragment().unmapped().stream().allMatch(u -> u.reason() == UnmappedReason.COLLECTION_FAILED));
+        assertTrue(result.fragment().collectionCompleted());
+        assertEquals(Set.of(BAD.test(), GOOD.test()), result.fragment().tests().keySet());
+        assertTrue(result.fragment().unmapped().isEmpty());
         assertEquals(List.of("anything at all"), result.diagnostics());
     }
 
@@ -64,14 +62,15 @@ class CollectorIntegrityTest {
     @Test void classificationNeverDependsOnMessagePrefix() {
         String text = "transformation-error:looks-fatal-but-is-explicitly-owned";
         assertTrue(project(integrity(CollectorError.local(text, BAD))).fragment().collectionCompleted());
-        assertFalse(project(integrity(CollectorError.fatal(text))).fragment().collectionCompleted());
+        assertEquals(2, project(integrity(CollectorError.fatal(text))).fragment().tests().size());
         assertTrue(project(integrity(CollectorError.local("unrecognized future message", BAD))).fragment().collectionCompleted());
     }
 
-    @Test void siteWithoutProvenOwnersRemainsFatalEvenWhenItsMethodWasObserved() {
+    @Test void siteWithoutProvenOwnersDoesNotChangeObservedTests() {
         var error = CollectorError.site("unresolved site", SITE);
-        assertTrue(integrity(error).shardFatal());
-        assertFalse(project(integrity(error)).fragment().collectionCompleted());
+        assertTrue(project(integrity(error)).fragment().collectionCompleted());
+        assertEquals(2, project(integrity(error)).fragment().tests().size());
+        assertEquals(List.of("unresolved site"), project(integrity(error)).diagnostics());
     }
 
     @Test void siteWithExplicitProvenOwnersIsLocal() {
@@ -86,39 +85,47 @@ class CollectorIntegrityTest {
         for (var identity : List.of(ExecutableTestIdentity.parse("maven:other::example.Tests#affected"),
                 ExecutableTestIdentity.parse("maven:.::example.Tests#absent"))) {
             var result = project(integrity(CollectorError.local("owned elsewhere", identity)));
-            assertFalse(result.fragment().collectionCompleted());
-            assertTrue(result.fragment().tests().isEmpty());
+            assertTrue(result.fragment().collectionCompleted());
+            assertEquals(2, result.fragment().tests().size());
             assertTrue(result.diagnostics().contains("owned elsewhere"));
             assertTrue(result.diagnostics().contains("unresolved-error-ownership:" + identity));
         }
     }
 
-    @Test void localErrorCannotMaskFatalCountersOrMissingRuntime() {
+    @Test void healthCountersAndRuntimeStateDoNotChangeCoverageOrCompletion() {
         for (var integrity : List.of(new CollectorIntegrity(false, 0, 0, List.of()),
-                new CollectorIntegrity(true, 1, 0, List.of(CollectorError.local("local", BAD))),
-                new CollectorIntegrity(true, 0, 1, List.of(CollectorError.local("local", BAD))))) {
-            assertFalse(project(integrity).fragment().collectionCompleted());
-            assertTrue(project(integrity).fragment().tests().isEmpty());
+                new CollectorIntegrity(true, 1, 0, List.of()),
+                new CollectorIntegrity(true, 0, 1, List.of()),
+                new CollectorIntegrity(false, 1, 1, List.of()))) {
+            assertEquals(project(CollectorIntegrity.healthy()).fragment(), project(integrity).fragment());
         }
     }
 
-    @Test void unsupportedIdentityRemainsFatalWithoutInventingOwnership() {
+    @Test void explicitOwnerStillBecomesUnmappedWhenAllHealthSignalsAreUnhealthy() {
+        var result = project(new CollectorIntegrity(false, 7, 3, List.of(CollectorError.local("local", BAD),
+                CollectorError.fatal("unowned"))));
+        assertEquals(project(integrity(CollectorError.local("local", BAD))).fragment(), result.fragment());
+        assertEquals(List.of("local", "unowned"), result.diagnostics());
+    }
+
+    @Test void unsupportedIdentityPreservesSiblingCoverageWithoutInventingOwnership() {
         var runtime = observation();
         var unknown = new com.sap.oss.smarttestpicker.runtime.model.TestIdentity("unsupported", "display",
                 null, null, null, "vintage", "run", "jvm");
         runtime.beginTest(unknown); runtime.endTest(unknown, TestResult.successful());
         var result = new AsmCoverageFragmentProjector().project(runtime.snapshot(),
                 FragmentProjectionConfig.v3("revision", "one", "maven:."), CollectorIntegrity.healthy());
-        assertFalse(result.fragment().collectionCompleted());
-        assertTrue(result.fragment().tests().isEmpty());
-        assertEquals(2, result.fragment().unmapped().size());
+        assertTrue(result.fragment().collectionCompleted());
+        assertEquals(2, result.fragment().tests().size());
+        assertTrue(result.fragment().unmapped().isEmpty());
         assertTrue(result.diagnostics().contains("unsupported-identity:unsupported"));
     }
 
     @Test void noExecutableOwnerIsGuessedForLogicalSchema() {
         var result = new AsmCoverageFragmentProjector().project(observation().snapshot(),
                 FragmentProjectionConfig.v2("revision", "one"), integrity(CollectorError.local("local", BAD)));
-        assertFalse(result.fragment().collectionCompleted());
+        assertTrue(result.fragment().collectionCompleted());
+        assertEquals(2, result.fragment().tests().size());
     }
 
     @Test void localErrorRequiresAnExplicitIdentity() {

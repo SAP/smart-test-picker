@@ -1,0 +1,20 @@
+{
+  "testedAgentSha256": "581a0d0a038c79a02bdc1d53e07e12c9de37d030aeb538cc286a70de73315296",
+  "gates": {
+    "petclinic-after": {
+      "agentSha256": "581a0d0a038c79a02bdc1d53e07e12c9de37d030aeb538cc286a70de73315296",
+      "entryCount": 2013,
+      "differentEntryContents": []
+    },
+    "asm12": {
+      "agentSha256": "581a0d0a038c79a02bdc1d53e07e12c9de37d030aeb538cc286a70de73315296",
+      "entryCount": 2013,
+      "differentEntryContents": []
+    },
+    "asm13": {
+      "agentSha256": "581a0d0a038c79a02bdc1d53e07e12c9de37d030aeb538cc286a70de73315296",
+      "entryCount": 2013,
+      "differentEntryContents": []
+    }
+  }
+}

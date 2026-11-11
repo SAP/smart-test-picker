@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.runtime.CollectorIntegrityTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-11-11T16:14:51.701Z" hostname="WDVJD22XQC" time="0.578">
+  <properties/>
+  <testcase name="classificationNeverDependsOnMessagePrefix()" classname="com.sap.oss.smarttestpicker.runtime.CollectorIntegrityTest" time="0.002"/>
+  <testcase name="unmappedSurvivesCodecValidatorCompletenessJoinAndRealSelector(Path)" classname="com.sap.oss.smarttestpicker.runtime.CollectorIntegrityTest" time="0.563"/>
+  <testcase name="healthCountersAndRuntimeStateDoNotChangeCoverageOrCompletion()" classname="com.sap.oss.smarttestpicker.runtime.CollectorIntegrityTest" time="0.003"/>
+  <testcase name="wrongTargetOrUnobservedIdentityCannotSilentlyDisappear()" classname="com.sap.oss.smarttestpicker.runtime.CollectorIntegrityTest" time="0.001"/>
+  <testcase name="localErrorPreservesPassingSiblingAndCompletion()" classname="com.sap.oss.smarttestpicker.runtime.CollectorIntegrityTest" time="0.001"/>
+  <testcase name="unsupportedIdentityPreservesSiblingCoverageWithoutInventingOwnership()" classname="com.sap.oss.smarttestpicker.runtime.CollectorIntegrityTest" time="0.001"/>
+  <testcase name="localErrorRequiresAnExplicitIdentity()" classname="com.sap.oss.smarttestpicker.runtime.CollectorIntegrityTest" time="0.001"/>
+  <testcase name="unownedErrorPreservesBothPassingTestsAndDiagnostic()" classname="com.sap.oss.smarttestpicker.runtime.CollectorIntegrityTest" time="0.001"/>
+  <testcase name="explicitOwnerStillBecomesUnmappedWhenAllHealthSignalsAreUnhealthy()" classname="com.sap.oss.smarttestpicker.runtime.CollectorIntegrityTest" time="0.0"/>
+  <testcase name="siteWithoutProvenOwnersDoesNotChangeObservedTests()" classname="com.sap.oss.smarttestpicker.runtime.CollectorIntegrityTest" time="0.0"/>
+  <testcase name="siteWithExplicitProvenOwnersIsLocal()" classname="com.sap.oss.smarttestpicker.runtime.CollectorIntegrityTest" time="0.0"/>
+  <testcase name="noExecutableOwnerIsGuessedForLogicalSchema()" classname="com.sap.oss.smarttestpicker.runtime.CollectorIntegrityTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

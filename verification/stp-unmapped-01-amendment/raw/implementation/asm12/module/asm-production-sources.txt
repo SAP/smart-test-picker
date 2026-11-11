@@ -1,0 +1,2 @@
+/Users/D061177/work/moje/smart-test-picker/verification/stp-unmapped-01-amendment/.work/asm12/asm-observed/target/classes
+/Users/D061177/work/moje/smart-test-picker/verification/stp-unmapped-01-amendment/.work/asm12/asm-observed/target/shared-spring-web-context-1.jar

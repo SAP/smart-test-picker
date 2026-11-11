@@ -115,14 +115,14 @@ class AsmCoverageFragmentProjectorTest {
 	}
 
 	@Test
-	void criticalCollectorFailureMakesIdentifiableTestsUnmappedAndFragmentIncomplete() {
+	void transformationFailureRetainsMeasuredCoverageCompletionAndDiagnostic() {
 		RuntimeEventAggregator aggregator = new RuntimeEventAggregator("run", "jvm");
 		run(aggregator, test("broken", "com.foo.BrokenTest", "broken", ""), TestExecutionStatus.SUCCESSFUL,
 				method("com.foo.Service", "run", "()V"));
 		var result = project(aggregator, new CollectorIntegrity(true, 1, 0, List.of(CollectorError.fatal("transformation-error"))));
-		assertTrue(result.fragment().tests().isEmpty());
-		assertEquals(UnmappedReason.COLLECTION_FAILED, result.fragment().unmapped().get(0).reason());
-		assertFalse(result.fragment().collectionCompleted());
+		assertEquals(project(aggregator, CollectorIntegrity.healthy()).fragment(), result.fragment());
+		assertTrue(result.fragment().collectionCompleted());
+		assertEquals(List.of("transformation-error"), result.diagnostics());
 	}
 
 	@Test
@@ -160,7 +160,7 @@ class AsmCoverageFragmentProjectorTest {
 		var result = project(aggregator, CollectorIntegrity.healthy());
 		assertTrue(result.fragment().tests().isEmpty());
 		assertTrue(result.fragment().unmapped().isEmpty());
-		assertFalse(result.fragment().collectionCompleted());
+		assertTrue(result.fragment().collectionCompleted());
 		assertTrue(result.diagnostics().get(0).startsWith("unsupported-identity:"));
 	}
 

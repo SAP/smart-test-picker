@@ -1,0 +1,117 @@
+| Module | Tests | Passed | Skipped | Failures/errors |
+|---|---:|---:|---:|---:|
+| smart-test-picker-common | 334 | 323 | 11 | 0 |
+| smart-test-picker-core | 29 | 24 | 5 | 0 |
+| smart-test-picker-maven | 157 | 157 | 0 | 0 |
+| smart-test-picker | 58 | 58 | 0 | 0 |
+| stp-runtime | 66 | 66 | 0 | 0 |
+| stp-junit-adapter | 21 | 21 | 0 | 0 |
+| stp-agent | 49 | 48 | 1 | 0 |
+| smart-test-picker-cli | 36 | 36 | 0 | 0 |
+{
+  "testedAgentSha256": "581a0d0a038c79a02bdc1d53e07e12c9de37d030aeb538cc286a70de73315296",
+  "gates": {
+    "petclinic-after": {
+      "agentSha256": "581a0d0a038c79a02bdc1d53e07e12c9de37d030aeb538cc286a70de73315296",
+      "entryCount": 2013,
+      "differentEntryContents": []
+    },
+    "asm12": {
+      "agentSha256": "581a0d0a038c79a02bdc1d53e07e12c9de37d030aeb538cc286a70de73315296",
+      "entryCount": 2013,
+      "differentEntryContents": []
+    },
+    "asm13": {
+      "agentSha256": "581a0d0a038c79a02bdc1d53e07e12c9de37d030aeb538cc286a70de73315296",
+      "entryCount": 2013,
+      "differentEntryContents": []
+    }
+  }
+}
+{
+  "failed": {
+    "mapped": 2998,
+    "unmapped": [
+      {
+        "test": "maven:module::fixture.Tests#test0000",
+        "reason": "FAILED"
+      },
+      {
+        "test": "maven:module::fixture.Tests#test0001",
+        "reason": "FAILED"
+      }
+    ],
+    "complete": true,
+    "selected": [
+      "fixture.Tests#test0000",
+      "fixture.Tests#test0001"
+    ],
+    "assignmentAbsorption": null
+  },
+  "unfinished": {
+    "mapped": 2998,
+    "unmapped": [
+      {
+        "test": "maven:module::fixture.Tests#test0000",
+        "reason": "COLLECTION_FAILED"
+      },
+      {
+        "test": "maven:module::fixture.Tests#test0001",
+        "reason": "COLLECTION_FAILED"
+      }
+    ],
+    "complete": true,
+    "selected": [
+      "fixture.Tests#test0000",
+      "fixture.Tests#test0001"
+    ],
+    "assignmentAbsorption": null
+  },
+  "missing-result": {
+    "mapped": 2998,
+    "unmapped": [
+      {
+        "test": "maven:module::fixture.Tests#test0000",
+        "reason": "COLLECTION_FAILED"
+      },
+      {
+        "test": "maven:module::fixture.Tests#test0001",
+        "reason": "COLLECTION_FAILED"
+      }
+    ],
+    "complete": true,
+    "selected": [
+      "fixture.Tests#test0000",
+      "fixture.Tests#test0001"
+    ],
+    "assignmentAbsorption": null
+  },
+  "unsupported": {
+    "mapped": 2999,
+    "unmapped": [
+      {
+        "test": "maven:module::fixture.Tests#test0000",
+        "reason": "COLLECTION_FAILED"
+      }
+    ],
+    "complete": true,
+    "selected": [
+      "fixture.Tests#test0000"
+    ],
+    "assignmentAbsorption": {
+      "reason": "ASSIGNED_TEST_NOT_REPORTED",
+      "executionObserved": false,
+      "count": 1,
+      "tests": [
+        "maven:module::fixture.Tests#test0000"
+      ]
+    }
+  },
+  "unowned-error": {
+    "mapped": 3000,
+    "unmapped": [],
+    "complete": true,
+    "selected": [],
+    "assignmentAbsorption": null
+  }
+}

@@ -1,0 +1,2 @@
+/Users/D061177/work/moje/smart-test-picker/verification/stp-unmapped-01/.work/asm13/asm-parallel/target/classes
+/Users/D061177/work/moje/smart-test-picker/verification/stp-unmapped-01/.work/asm13/asm-parallel/target/http-reset-boundary-1.jar

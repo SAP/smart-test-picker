@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "agent-shell-1",
+  "collector": "ASM",
+  "runId": "9bea16df-a2a8-3114-97bd-d60e7a50fad3",
+  "jvmId": "pid-1307",
+  "configuration": {
+    "output": "/Users/D061177/work/moje/smart-test-picker/verification/stp-unmapped-01-amendment/.work/asm12/asm-observed/target/stp/asm-agent-diagnostic.json",
+    "fragmentOutput": "/Users/D061177/work/moje/smart-test-picker/verification/stp-unmapped-01-amendment/.work/asm12/asm-observed/target/stp/coverage-fragment-v3.json",
+    "revision": "10c2bbb0d7b263dc12f28db4e8f1be3932947325",
+    "shardId": "local",
+    "includes": ["example.shared."],
+    "excludes": ["com.sap.oss.smarttestpicker.", "jakarta.", "java.", "javax.", "jdk.", "net.bytebuddy.", "org.hibernate.", "org.jacoco.", "org.junit.", "org.mockito.", "org.springframework.", "sun."],
+    "productionSources": ["/Users/D061177/work/moje/smart-test-picker/verification/stp-unmapped-01-amendment/.work/asm12/asm-observed/target/classes", "/Users/D061177/work/moje/smart-test-picker/verification/stp-unmapped-01-amendment/.work/asm12/asm-observed/target/shared-spring-web-context-1.jar"],
+    "requireInstrumentation": true,
+    "debug": false,
+    "instrumentation": "on"
+  },
+  "metrics": {
+    "classesSeen": 7072,
+    "classesIncluded": 2,
+    "classesExcluded": 5496,
+    "classesIgnored": 1574,
+    "transformationErrors": 0,
+    "transformerTotalNanos": 22288387,
+    "agentStartNanos": 20568878126458,
+    "classLoaderPresent": 5653,
+    "classLoaderMissing": 1419,
+    "protectionDomainPresent": 5550,
+    "protectionDomainMissing": 1522,
+    "classesTransformed": 2,
+    "methodsConsidered": 3,
+    "methodsInstrumented": 3,
+    "methodsSkipped": 0,
+    "alreadyInstrumentedClasses": 0,
+    "methodIdCollisions": 0,
+    "rawMethodHits": 6,
+    "uniqueMethodHits": 3,
+    "runtimeRecordingNanos": 19336667
+  },
+  "methodIdAlgorithm": "fnv1a64-v1",
+  "injectedProbeId": "jvm-local-dense-ordinal",
+  "runtimeRecordingTiming": "first-hit-and-diagnostic-slow-path-only",
+  "methodCatalog": [
+    {"methodId":"346313216880536890","canonicalKeys":["example.shared.PingController#<init>()V"]},
+    {"methodId":"4458947154257063000","canonicalKeys":["example.shared.PingController#ping()Ljava/lang/String;"]},
+    {"methodId":"5883247844634089279","canonicalKeys":["example.shared.SharedApplication#<init>()V"]}
+  ],
+  "methodHits": [
+    {"methodId":"346313216880536890","count":1,"canonicalKeys":["example.shared.PingController#<init>()V"]},
+    {"methodId":"4458947154257063000","count":4,"canonicalKeys":["example.shared.PingController#ping()Ljava/lang/String;"]},
+    {"methodId":"5883247844634089279","count":1,"canonicalKeys":["example.shared.SharedApplication#<init>()V"]}
+  ],
+  "agentErrors": ["setup:ASYNC_SETUP_UNSUPPORTED:ERROR:example.shared.PingController#ping()Ljava/lang/String;:work captured by closed JUnit container [engine:junit-jupiter]/[class:example.shared.AFirstTests]"],
+  "bytecodeModified": true,
+  "runtimeEvents": {
+  "schemaVersion": "spike-2",
+  "runId": "9bea16df-a2a8-3114-97bd-d60e7a50fad3",
+  "jvmId": "pid-1307",
+  "tests": [
+    {
+      "testId": "[engine:junit-jupiter]/[class:example.shared.AFirstTests]/[method:realRequest()]",
+      "displayName": "realRequest()",
+      "testClass": "example.shared.AFirstTests",
+      "testMethod": "realRequest",
+      "testMethodParameterTypes": "",
+      "engineId": "junit-jupiter",
+      "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+      "methods": [
+        {"methodId":"4458947154257063000","method":"example.shared.PingController#ping()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+      ],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 1,
+        "uniqueMethodHits": 1
+      }
+    },
+    {
+      "testId": "[engine:junit-jupiter]/[class:example.shared.BSecondTests]/[method:realRequest()]",
+      "displayName": "realRequest()",
+      "testClass": "example.shared.BSecondTests",
+      "testMethod": "realRequest",
+      "testMethodParameterTypes": "",
+      "engineId": "junit-jupiter",
+      "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+      "methods": [
+        {"methodId":"4458947154257063000","method":"example.shared.PingController#ping()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+      ],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 1,
+        "uniqueMethodHits": 1
+      }
+    }
+  ],
+  "unattributedEvents": [
+    {"reason":"LATE_EVENT","eventType":"METHOD","eventIdentity":"example.shared.PingController#ping()Ljava/lang/String;","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+  ]
+}
+}

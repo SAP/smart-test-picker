@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.runtime.MethodProbeTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-11T15:52:36.680Z" hostname="WDVJD22XQC" time="0.037">
+  <properties/>
+  <testcase name="cachedContainerHitAfterCloseStillDiagnosesEvenIfIdIsReopened()" classname="com.sap.oss.smarttestpicker.runtime.MethodProbeTest" time="0.016"/>
+  <testcase name="cachedLeafHitAfterCloseIsStillLate()" classname="com.sap.oss.smarttestpicker.runtime.MethodProbeTest" time="0.001"/>
+  <testcase name="unboundedSetupAndUnownedRepeatedHitsAreNeverDeduplicated()" classname="com.sap.oss.smarttestpicker.runtime.MethodProbeTest" time="0.0"/>
+  <testcase name="nextTestAndContainerGetIndependentFirstHits()" classname="com.sap.oss.smarttestpicker.runtime.MethodProbeTest" time="0.001"/>
+  <testcase name="containerClosedOnAnotherThreadInvalidatesCapturedAndSynchronousCaches()" classname="com.sap.oss.smarttestpicker.runtime.MethodProbeTest" time="0.002"/>
+  <testcase name="distinctOrdinalsWithTheSameHashKeepBothMethodsAndCounts()" classname="com.sap.oss.smarttestpicker.runtime.MethodProbeTest" time="0.001"/>
+  <testcase name="concurrentFirstHitsAndPageGrowthRetainEveryOccurrence()" classname="com.sap.oss.smarttestpicker.runtime.MethodProbeTest" time="0.013"/>
+  <testcase name="repeatedHitDoesNotAcquireAggregatorMonitor()" classname="com.sap.oss.smarttestpicker.runtime.MethodProbeTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

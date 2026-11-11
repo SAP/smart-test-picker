@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.mapper.CoverageMapReaderTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-11T15:44:27.972Z" hostname="WDVJD22XQC" time="0.032">
+  <properties/>
+  <testcase name="resolvesIndexedReferencesCorrectly(Path)" classname="com.sap.oss.smarttestpicker.mapper.CoverageMapReaderTest" time="0.006"/>
+  <testcase name="loadsPlainJsonMap()" classname="com.sap.oss.smarttestpicker.mapper.CoverageMapReaderTest" time="0.001"/>
+  <testcase name="throwsOnMissingFile()" classname="com.sap.oss.smarttestpicker.mapper.CoverageMapReaderTest" time="0.001"/>
+  <testcase name="loadsIndexedGzipMap(Path)" classname="com.sap.oss.smarttestpicker.mapper.CoverageMapReaderTest" time="0.004"/>
+  <testcase name="throwsOnInvalidJson(Path)" classname="com.sap.oss.smarttestpicker.mapper.CoverageMapReaderTest" time="0.005"/>
+  <testcase name="rejectsVersionedSchemaInsteadOfSilentlyReadingItAsAnEmptyLegacyMap(Path)" classname="com.sap.oss.smarttestpicker.mapper.CoverageMapReaderTest" time="0.007"/>
+  <testcase name="loadsIndexedJsonMap(Path)" classname="com.sap.oss.smarttestpicker.mapper.CoverageMapReaderTest" time="0.003"/>
+  <testcase name="loadsGzipMap(Path)" classname="com.sap.oss.smarttestpicker.mapper.CoverageMapReaderTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

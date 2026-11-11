@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGeneratorTest$ConcreteFixture" tests="1" skipped="1" failures="0" errors="0" timestamp="2026-11-11T15:44:36.529Z" hostname="WDVJD22XQC" time="0.0">
+  <properties/>
+  <testcase name="inherited()" classname="com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGeneratorTest$ConcreteFixture" time="0.0">
+    <skipped/>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

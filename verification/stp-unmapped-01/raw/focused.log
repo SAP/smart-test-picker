@@ -1,0 +1,145 @@
+> Task :smart-test-picker-common:compileJava UP-TO-DATE
+> Task :smart-test-picker-common:processResources NO-SOURCE
+> Task :smart-test-picker-common:classes UP-TO-DATE
+> Task :smart-test-picker-common:jar UP-TO-DATE
+> Task :smart-test-picker-core:compileJava UP-TO-DATE
+> Task :smart-test-picker-core:processResources UP-TO-DATE
+> Task :smart-test-picker-core:classes UP-TO-DATE
+> Task :smart-test-picker-core:jar UP-TO-DATE
+> Task :smart-test-picker-maven:generateMavenPluginHelpMojoSources UP-TO-DATE
+> Task :smart-test-picker-maven:compileJava
+> Task :smart-test-picker-maven:processResources UP-TO-DATE
+> Task :smart-test-picker-maven:classes
+
+> Task :smart-test-picker-maven:generateMavenPluginDescriptor
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateCoverageMapMojo.java:27
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateCoverageMapMojo.java:27
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/SmartTestMojo.java:65
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/SmartTestMojo.java:65
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/PullCoverageMapMojo.java:29
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateReportMojo.java:27
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateReportMojo.java:27
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/PushCoverageMapMojo.java:27
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateReportsMojo.java:30
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateReportsMojo.java:30
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateReportsMojo.java:30
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateReportsMojo.java:30
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/GenerateReportsMojo.java:37
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/MergeTestMetricsMojo.java:38
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/MergeTestMetricsMojo.java:38
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/MergeTestMetricsMojo.java:38
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/RootSelectTestsMojo.java:39
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/RootSelectTestsMojo.java:39
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/RootSelectTestsMojo.java:39
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/RootSelectTestsMojo.java:39
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/RootGenerateReportMojo.java:39
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/RootGenerateReportMojo.java:39
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/MergeCoverageMapsMojo.java:40
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/MergeCoverageMapsMojo.java:40
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/MergeCoverageMapsMojo.java:40
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/SelectTestsMojo.java:40
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/SelectTestsMojo.java:40
+Found unsupported javadoc inline tag 'code' in file:/Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/src/main/java/com/sap/oss/smarttestpicker/maven/SelectTestsMojo.java:40
+
+Deprecated extractor java-javadoc extracted 1 descriptor. Upgrade your Mojo definitions.
+You should use Mojo Annotations instead of Javadoc tags.
+
+line 1 column 1 - Warning: missing <!DOCTYPE> declaration
+line 1 column 1 - Warning: plain text isn't allowed in <head> elements
+line 2 column 110 - Warning: inserting missing 'title' element
+line 1 column 1 - Warning: missing <!DOCTYPE> declaration
+line 1 column 1 - Warning: plain text isn't allowed in <head> elements
+line 1 column 69 - Warning: inserting missing 'title' element
+line 1 column 1 - Warning: missing <!DOCTYPE> declaration
+line 1 column 1 - Warning: plain text isn't allowed in <head> elements
+line 1 column 90 - Warning: inserting missing 'title' element
+line 1 column 1 - Warning: missing <!DOCTYPE> declaration
+line 1 column 1 - Warning: plain text isn't allowed in <head> elements
+line 1 column 64 - Warning: inserting missing 'title' element
+line 1 column 1 - Warning: missing <!DOCTYPE> declaration
+line 1 column 1 - Warning: plain text isn't allowed in <head> elements
+line 1 column 58 - Warning: inserting missing 'title' element
+line 1 column 1 - Warning: missing <!DOCTYPE> declaration
+line 1 column 1 - Warning: plain text isn't allowed in <head> elements
+line 2 column 110 - Warning: inserting missing 'title' element
+line 1 column 1 - Warning: missing <!DOCTYPE> declaration
+line 1 column 1 - Warning: plain text isn't allowed in <head> elements
+line 1 column 69 - Warning: inserting missing 'title' element
+line 1 column 1 - Warning: missing <!DOCTYPE> declaration
+line 1 column 1 - Warning: plain text isn't allowed in <head> elements
+line 1 column 90 - Warning: inserting missing 'title' element
+line 1 column 1 - Warning: missing <!DOCTYPE> declaration
+line 1 column 1 - Warning: plain text isn't allowed in <head> elements
+line 1 column 64 - Warning: inserting missing 'title' element
+line 1 column 1 - Warning: missing <!DOCTYPE> declaration
+line 1 column 1 - Warning: plain text isn't allowed in <head> elements
+line 1 column 58 - Warning: inserting missing 'title' element
+line 1 column 1 - Warning: missing <!DOCTYPE> declaration
+line 1 column 1 - Warning: plain text isn't allowed in <head> elements
+line 2 column 110 - Warning: inserting missing 'title' element
+line 1 column 1 - Warning: missing <!DOCTYPE> declaration
+line 1 column 1 - Warning: plain text isn't allowed in <head> elements
+line 1 column 69 - Warning: inserting missing 'title' element
+line 1 column 1 - Warning: missing <!DOCTYPE> declaration
+line 1 column 1 - Warning: plain text isn't allowed in <head> elements
+line 1 column 90 - Warning: inserting missing 'title' element
+line 1 column 1 - Warning: missing <!DOCTYPE> declaration
+line 1 column 1 - Warning: plain text isn't allowed in <head> elements
+line 1 column 64 - Warning: inserting missing 'title' element
+line 1 column 1 - Warning: missing <!DOCTYPE> declaration
+line 1 column 1 - Warning: plain text isn't allowed in <head> elements
+line 1 column 58 - Warning: inserting missing 'title' element
+
+> Task :smart-test-picker-maven:jar
+> Task :smart-test-picker-common:generateMetadataFileForMavenJavaPublication
+> Task :smart-test-picker-common:generatePomFileForMavenJavaPublication
+> Task :smart-test-picker-common:publishMavenJavaPublicationToFunctionalTestRepository
+> Task :smart-test-picker-common:publishAllPublicationsToFunctionalTestRepository
+> Task :smart-test-picker-core:generateMetadataFileForMavenJavaPublication
+> Task :smart-test-picker-core:generatePomFileForMavenJavaPublication
+> Task :smart-test-picker-core:publishMavenJavaPublicationToFunctionalTestRepository
+> Task :smart-test-picker-core:publishAllPublicationsToFunctionalTestRepository
+> Task :stp-runtime:compileJava UP-TO-DATE
+> Task :smart-test-picker-maven:compileTestJava
+> Task :smart-test-picker-maven:generateMetadataFileForMavenPluginPublication
+> Task :smart-test-picker-maven:generatePomFileForMavenPluginPublication
+> Task :smart-test-picker-maven:publishMavenPluginPublicationToFunctionalTestRepository
+> Task :smart-test-picker-maven:publishAllPublicationsToFunctionalTestRepository
+> Task :smart-test-picker-maven:processTestResources UP-TO-DATE
+> Task :smart-test-picker-maven:testClasses
+> Task :stp-junit-adapter:compileJava UP-TO-DATE
+> Task :stp-agent:compileJava UP-TO-DATE
+> Task :stp-agent:processResources NO-SOURCE
+> Task :stp-agent:classes UP-TO-DATE
+> Task :stp-junit-adapter:processResources UP-TO-DATE
+> Task :stp-junit-adapter:classes UP-TO-DATE
+> Task :stp-runtime:processResources NO-SOURCE
+> Task :stp-runtime:classes UP-TO-DATE
+> Task :stp-runtime:jar
+> Task :stp-agent:shadowJar
+> Task :stp-agent:agentJar
+> Task :stp-agent:generatePomFileForAgentPublication
+> Task :stp-agent:publishAgentPublicationToFunctionalTestRepository
+> Task :stp-agent:publishAllPublicationsToFunctionalTestRepository
+
+> Task :smart-test-picker-maven:test
+
+AsmUnmappedEndToEndTest > onlyBrokenIdentitiesBecomeMandatory(String, Path) > [5] "unowned-error" FAILED
+    org.opentest4j.AssertionFailedError at AsmUnmappedEndToEndTest.java:110
+
+33 tests completed, 1 failed
+
+> Task :smart-test-picker-maven:test FAILED
+> Task :smart-test-picker-maven:jacocoTestReport
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':smart-test-picker-maven:test'.
+> There were failing tests. See the report at: file:///Users/D061177/work/moje/smart-test-picker/smart-test-picker-maven/build/reports/tests/test/index.html
+
+* Try:
+> Run with --scan to get full insights.
+
+BUILD FAILED in 12s
+31 actionable tasks: 19 executed, 12 up-to-date

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.cli.PlatformScannerTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-11T15:52:51.150Z" hostname="WDVJD22XQC" time="0.072">
+  <properties/>
+  <testcase name="discoverSourceDirs_ignoresNonExistentDirs()" classname="com.sap.oss.smarttestpicker.cli.PlatformScannerTest" time="0.011"/>
+  <testcase name="discoverClassesDirs_emptyPlatform()" classname="com.sap.oss.smarttestpicker.cli.PlatformScannerTest" time="0.002"/>
+  <testcase name="discoverSourceDirs_findsExtensionSrc()" classname="com.sap.oss.smarttestpicker.cli.PlatformScannerTest" time="0.008"/>
+  <testcase name="discoverClassesDirs_parsesExtensionsXml()" classname="com.sap.oss.smarttestpicker.cli.PlatformScannerTest" time="0.023"/>
+  <testcase name="discoverClassesDirs_resolvesPlatformBinDir()" classname="com.sap.oss.smarttestpicker.cli.PlatformScannerTest" time="0.011"/>
+  <testcase name="discoverClassesDirs_findsExtensionClasses()" classname="com.sap.oss.smarttestpicker.cli.PlatformScannerTest" time="0.006"/>
+  <testcase name="discoverClassesDirs_includesBootstrapClasses()" classname="com.sap.oss.smarttestpicker.cli.PlatformScannerTest" time="0.007"/>
+  <system-out><![CDATA[Discovered 1 source directories from platform: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit11871729129429173254/platform
+Discovered 0 classes directories from platform: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit3626587339710455454/empty
+Discovered 2 source directories from platform: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit7215292761706727338/platform
+Discovered 1 classes directories from platform: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit16696481137441329540/bin/platform
+Discovered 1 classes directories from platform: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit11170078392362976849/bin/platform
+Discovered 2 classes directories from platform: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit17280755270840513839/platform
+Discovered 2 classes directories from platform: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit7772809300039863583/platform
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

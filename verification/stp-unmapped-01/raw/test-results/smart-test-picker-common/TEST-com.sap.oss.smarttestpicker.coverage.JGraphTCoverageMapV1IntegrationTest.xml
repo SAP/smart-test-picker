@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.coverage.JGraphTCoverageMapV1IntegrationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-11T15:44:11.877Z" hostname="WDVJD22XQC" time="2.759">
+  <properties/>
+  <testcase name="realJGraphTMapSurvivesSchemaV1RoundTrip()" classname="com.sap.oss.smarttestpicker.coverage.JGraphTCoverageMapV1IntegrationTest" time="2.759"/>
+  <system-out><![CDATA[
+JGraphT schema-v1 validation
+source map: /Users/D061177/work/moje/smart-test-picker-evaluation/jgrapht/results/test-coverage-map.json.gz
+source format: gzip-compressed legacy JSON (classMetrics, metadata, testMappings)
+source revision: 093b0c5ea006ba5b1d8b7a0212676bf8850cac6b
+source tests: 2308
+converted FQN tests: 2298
+unresolved tests: 10
+conversion percentage: 99,57%
+unresolved identities: [IncomingOutgoingEdgesTest#testDirectedGraph_eb557bf, ReversedDoublyLinkedListViewTest#testDescendingIterator_5f78ba7, ReversedDoublyLinkedListViewTest#testEmpty_5a613f9, ReversedDoublyLinkedListViewTest#testGets_76880f4, ReversedDoublyLinkedListViewTest#testHead_7688814, ReversedDoublyLinkedListViewTest#testListNodeIterator_7188feb, ReversedDoublyLinkedListViewTest#testModification_158e370, ReversedDoublyLinkedListViewTest#testNodeIterator_51e15df, ReversedDoublyLinkedListViewTest#testSize_768d936, ReversedDoublyLinkedListViewTest#testTail_768de7b]
+whole source unique classes/methods: 565/3151
+whole source class/method edges: 60556/213049
+converted-source/round-trip unique classes: 561/561
+converted-source/round-trip unique methods: 0/0
+converted-source/round-trip class edges: 60477/60477
+converted-source/round-trip method edges: 0/0
+raw/gzip bytes: 673435/41531
+dictionary bytes (JSON members): 205542
+test payload bytes (JSON member): 467368
+method coverage raw/gzip contribution bytes: 0/0
+SHA-256: sha256:7e2696558a908c9d95edb6b5f650a1c8b02e012579d48965239bf9c64224ac94
+deterministic and round-trip bytes: identical
+construction/serialization/deserialization/validation ms: 2095,39/21,91/45,08/73,86
+corruption rejection: CHECKSUM_MISMATCH
+higher-schema rejection: INCOMPATIBLE_SCHEMA/HIGHER_SCHEMA_VERSION
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

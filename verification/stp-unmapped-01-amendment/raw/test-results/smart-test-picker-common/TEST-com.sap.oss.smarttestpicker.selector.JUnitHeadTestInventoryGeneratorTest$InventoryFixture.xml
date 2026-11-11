@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGeneratorTest$InventoryFixture" tests="5" skipped="5" failures="0" errors="0" timestamp="2026-11-11T16:06:13.250Z" hostname="WDVJD22XQC" time="0.001">
+  <properties/>
+  <testcase name="overloaded(int)" classname="com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGeneratorTest$InventoryFixture" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="overloaded(String)" classname="com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGeneratorTest$InventoryFixture" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="disabled()" classname="com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGeneratorTest$InventoryFixture" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="ordinary()" classname="com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGeneratorTest$InventoryFixture" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="parameterized(String)" classname="com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGeneratorTest$InventoryFixture" time="0.0">
+    <skipped/>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

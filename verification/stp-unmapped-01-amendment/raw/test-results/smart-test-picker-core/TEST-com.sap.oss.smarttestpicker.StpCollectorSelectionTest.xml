@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.StpCollectorSelectionTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-11T16:06:31.479Z" hostname="WDVJD22XQC" time="0.738">
+  <properties/>
+  <testcase name="inactiveInvalidSelectionIsSilentWithoutRuntime(Path)" classname="com.sap.oss.smarttestpicker.StpCollectorSelectionTest" time="0.275"/>
+  <testcase name="spiFailsStartupForSelectedJacocoButIsSilentForAsm(Path)" classname="com.sap.oss.smarttestpicker.StpCollectorSelectionTest" time="0.457"/>
+  <testcase name="inactiveIgnoresSelectionAndConstructionFreezesBothSignals()" classname="com.sap.oss.smarttestpicker.StpCollectorSelectionTest" time="0.003"/>
+  <testcase name="unselectedComponentsIgnoreEveryCallback()" classname="com.sap.oss.smarttestpicker.StpCollectorSelectionTest" time="0.001"/>
+  <testcase name="selectionKeepsLegacyDefaultAndRejectsUnknownCollectors()" classname="com.sap.oss.smarttestpicker.StpCollectorSelectionTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

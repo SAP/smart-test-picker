@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.JacocoSetupSelectionTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-11T16:14:44.980Z" hostname="WDVJD22XQC" time="1.77">
+  <properties/>
+  <testcase name="[1] gradle, NONE" classname="com.sap.oss.smarttestpicker.JacocoSetupSelectionTest" time="0.837"/>
+  <testcase name="[2] maven, SELECTED" classname="com.sap.oss.smarttestpicker.JacocoSetupSelectionTest" time="0.933"/>
+  <system-out><![CDATA[input=../verification/stp-capabilities-01/raw/gradle/jacoco/fragment.json
+changed=[example.SetupOnly]
+status=NONE
+selected=[]
+
+input=../verification/stp-capabilities-01/raw/maven/jacoco/finalized/coverage-fragment-v3.json
+changed=[example.SetupOnly]
+status=SELECTED
+selected=[example.CapabilitiesTest#probes]
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

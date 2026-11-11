@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentityTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-11T16:05:51.580Z" hostname="WDVJD22XQC" time="0.003">
+  <properties/>
+  <testcase name="sameLogicalTestIsDistinctAcrossBuildTools()" classname="com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentityTest" time="0.0"/>
+  <testcase name="canonicalFormRoundTripsIncludingMavenRootAndLogicalPunctuation()" classname="com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentityTest" time="0.001"/>
+  <testcase name="naturalOrderingUsesTargetThenLogicalTest()" classname="com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentityTest" time="0.0"/>
+  <testcase name="rejectsMissingComponents()" classname="com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentityTest" time="0.001"/>
+  <testcase name="sonarJavaDuplicateHasOneLogicalAndTwoExecutableIdentities()" classname="com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentityTest" time="0.0"/>
+  <testcase name="equalityIncludesTargetAndLogicalTest()" classname="com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentityTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

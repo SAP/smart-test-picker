@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.maven.AsmMappingParityIntegrationTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-11T16:07:46.269Z" hostname="WDVJD22XQC" time="35.95">
+  <properties/>
+  <testcase name="[1] &quot;revision&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingParityIntegrationTest" time="8.659"/>
+  <testcase name="[2] &quot;shardId&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingParityIntegrationTest" time="7.735"/>
+  <testcase name="mavenUsesSharedCollectorTypes()" classname="com.sap.oss.smarttestpicker.maven.AsmMappingParityIntegrationTest" time="0.001"/>
+  <testcase name="[1] &quot;coverage-fragment-v3.json&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingParityIntegrationTest" time="4.128"/>
+  <testcase name="[2] &quot;asm-agent-diagnostic.json&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingParityIntegrationTest" time="5.412"/>
+  <testcase name="preparationInvalidatesPreviousOutputsEvenWhenNoForkStarts(Path)" classname="com.sap.oss.smarttestpicker.maven.AsmMappingParityIntegrationTest" time="10.011"/>
+  <system-out><![CDATA[ASM-16 wrong-revision: Fragment revision does not match assignment revision; stale evidence removed; agent fragment was not rewritten.
+
+ASM-16 wrong-shardId: Fragment shard does not match assignment shard; stale evidence removed; agent fragment was not rewritten.
+
+ASM-16 undeletable-coverage-fragment-v3.json: Preparation failed before Surefire; undeletable output retained without recursive cleanup.
+
+ASM-16 undeletable-asm-agent-diagnostic.json: Preparation failed before Surefire; undeletable output retained without recursive cleanup.
+
+ASM-16 stale: Previous valid fragment contained maven:module-b::b.BTests#b2.
+Preparation alone removed fragment, diagnostic and evidence before any test fork.
+Finalization without a new fork rejected missing diagnostics; stale coverage was not consumed.
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

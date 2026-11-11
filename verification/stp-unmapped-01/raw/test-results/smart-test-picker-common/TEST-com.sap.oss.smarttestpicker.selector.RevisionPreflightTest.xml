@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.selector.RevisionPreflightTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-11T15:44:36.873Z" hostname="WDVJD22XQC" time="5.18">
+  <properties/>
+  <testcase name="errorsForEveryUnresolvedOrSymbolicRevision()" classname="com.sap.oss.smarttestpicker.selector.RevisionPreflightTest" time="0.662"/>
+  <testcase name="providerBaseDoesNotDetermineEligibility()" classname="com.sap.oss.smarttestpicker.selector.RevisionPreflightTest" time="0.612"/>
+  <testcase name="runsFullSuiteWhenMapExceedsExistingDistanceWindow()" classname="com.sap.oss.smarttestpicker.selector.RevisionPreflightTest" time="1.378"/>
+  <testcase name="rejectsHeadNotBasedOnIntegrationAsBaseOutOfDate()" classname="com.sap.oss.smarttestpicker.selector.RevisionPreflightTest" time="0.485"/>
+  <testcase name="acceptsStaleMapAndCountsFromMapRatherThanIntegration()" classname="com.sap.oss.smarttestpicker.selector.RevisionPreflightTest" time="0.522"/>
+  <testcase name="acceptsFreshMapAndExposesMapToHeadInterval()" classname="com.sap.oss.smarttestpicker.selector.RevisionPreflightTest" time="0.451"/>
+  <testcase name="acceptsEqualRevisionsAtZeroDistance()" classname="com.sap.oss.smarttestpicker.selector.RevisionPreflightTest" time="0.375"/>
+  <testcase name="runsFullSuiteForDivergentMapHistory()" classname="com.sap.oss.smarttestpicker.selector.RevisionPreflightTest" time="0.693"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

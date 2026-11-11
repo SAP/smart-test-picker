@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.runtime.RuntimeContextServiceTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-11-11T16:14:52.406Z" hostname="WDVJD22XQC" time="0.014">
+  <properties/>
+  <testcase name="beginningNextTestClearsPreviousFinishedMarker()" classname="com.sap.oss.smarttestpicker.runtime.RuntimeContextServiceTest" time="0.001"/>
+  <testcase name="unrelatedThreadWithoutLastFinishedMarkerRecordsGlobalNoActiveTest()" classname="com.sap.oss.smarttestpicker.runtime.RuntimeContextServiceTest" time="0.0"/>
+  <testcase name="sameRunnableAndCallableCanBeCapturedIndependentlyForDifferentTests()" classname="com.sap.oss.smarttestpicker.runtime.RuntimeContextServiceTest" time="0.002"/>
+  <testcase name="wrappedTaskRestoresAnExistingWorkerContext()" classname="com.sap.oss.smarttestpicker.runtime.RuntimeContextServiceTest" time="0.001"/>
+  <testcase name="delayedCallableKeepsSubmittingTestAndPreservesResult()" classname="com.sap.oss.smarttestpicker.runtime.RuntimeContextServiceTest" time="0.001"/>
+  <testcase name="recognizedUnsupportedBoundaryIsFatalOnlyWithActiveOwnershipEvidence()" classname="com.sap.oss.smarttestpicker.runtime.RuntimeContextServiceTest" time="0.0"/>
+  <testcase name="failingTaskRestoresWorkerAndPreservesExceptionIdentity()" classname="com.sap.oss.smarttestpicker.runtime.RuntimeContextServiceTest" time="0.001"/>
+  <testcase name="immediateSameThreadEventAfterCompletionIsLateForFinishedTest()" classname="com.sap.oss.smarttestpicker.runtime.RuntimeContextServiceTest" time="0.0"/>
+  <testcase name="setupTaskUsesConcreteContainerWhileOpenAndFailsClosedAfterItCloses()" classname="com.sap.oss.smarttestpicker.runtime.RuntimeContextServiceTest" time="0.0"/>
+  <testcase name="wrappedTasksCaptureSubmissionContextWithoutLeakingAcrossReusedWorker()" classname="com.sap.oss.smarttestpicker.runtime.RuntimeContextServiceTest" time="0.001"/>
+  <testcase name="nestedSubmissionCapturesThePropagatedParentContext()" classname="com.sap.oss.smarttestpicker.runtime.RuntimeContextServiceTest" time="0.0"/>
+  <testcase name="overlappingLogicalContextsRemainIsolated()" classname="com.sap.oss.smarttestpicker.runtime.RuntimeContextServiceTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

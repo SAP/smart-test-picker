@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.selector.ExecutableHeadTestInventoryCodecTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-11T15:44:28.230Z" hostname="WDVJD22XQC" time="0.011">
+  <properties/>
+  <testcase name="versionedRevisionBoundInventoryIsDeterministicAndRejectsLegacyArray()" classname="com.sap.oss.smarttestpicker.selector.ExecutableHeadTestInventoryCodecTest" time="0.011"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

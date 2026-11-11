@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.coverage.ExecutableAssignmentOrchestratorTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-11T16:05:48.700Z" hostname="WDVJD22XQC" time="0.008">
+  <properties/>
+  <testcase name="sameLogicalTestAtDifferentTasksRemainsDistinct()" classname="com.sap.oss.smarttestpicker.coverage.ExecutableAssignmentOrchestratorTest" time="0.004"/>
+  <testcase name="preservesSelectionThroughSerializedGradleDispatch()" classname="com.sap.oss.smarttestpicker.coverage.ExecutableAssignmentOrchestratorTest" time="0.001"/>
+  <testcase name="zeroSelectionProducesValidEmptyAssignment()" classname="com.sap.oss.smarttestpicker.coverage.ExecutableAssignmentOrchestratorTest" time="0.0"/>
+  <testcase name="preservesSelectionThroughSerializedMavenDispatch()" classname="com.sap.oss.smarttestpicker.coverage.ExecutableAssignmentOrchestratorTest" time="0.001"/>
+  <testcase name="wrongRevisionAndAdapterFailBeforeTransport()" classname="com.sap.oss.smarttestpicker.coverage.ExecutableAssignmentOrchestratorTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

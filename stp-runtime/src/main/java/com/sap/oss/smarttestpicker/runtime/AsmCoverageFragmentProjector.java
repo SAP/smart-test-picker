@@ -32,8 +32,8 @@ public final class AsmCoverageFragmentProjector {
 		List<CollectorError> errors = new ArrayList<>(integrity.agentErrors());
 		Map<com.sap.oss.smarttestpicker.coverage.model.TestIdentity, Accumulator> groups = new TreeMap<>();
 		List<UnmappedTest> unmapped = new ArrayList<>();
-		boolean shardFatal = integrity.shardFatal();
-		boolean complete = !shardFatal;
+		// Collector health is diagnostic only. Setup errors have a separate rejection contract.
+		boolean complete = true;
 		for (SetupDiagnostic diagnostic : observation.setupDiagnostics()) {
 			diagnostics.add("setup:" + diagnostic.canonicalText());
 			if (diagnostic.severity() == SetupDiagnostic.Severity.ERROR) complete = false;
@@ -43,29 +43,24 @@ public final class AsmCoverageFragmentProjector {
 			var logical = logicalIdentity(physical.identity());
 			if (logical == null) {
 				errors.add(CollectorError.fatal("unsupported-identity:" + physical.identity().platformUniqueId()));
-				shardFatal = true;
-				complete = false;
-				continue; // the schema cannot encode an unmapped entry without a logical identity
+				// No invented identity: the orchestrator accounts for absent assignment members.
+				continue;
 			}
 			groups.computeIfAbsent(logical, ignored -> new Accumulator()).add(physical);
 		}
 		Set<com.sap.oss.smarttestpicker.coverage.model.TestIdentity> affected = new HashSet<>();
 		for (var identity : integrity.affectedIdentities()) {
 			if (!identity.target().equals(config.executionTarget()) || !groups.containsKey(identity.test())) {
-				shardFatal = true;
 				errors.add(new CollectorError(CollectorError.Classification.SHARD_FATAL,
 						"unresolved-error-ownership:" + identity, Set.of(identity), null));
 			} else affected.add(identity.test());
 		}
-		complete &= !shardFatal;
 
 		Map<com.sap.oss.smarttestpicker.coverage.model.TestIdentity, TestCoverage> tests = new TreeMap<>();
 		for (Map.Entry<com.sap.oss.smarttestpicker.coverage.model.TestIdentity, Accumulator> entry : groups.entrySet()) {
 			Accumulator group = entry.getValue();
-			if (shardFatal || !group.finished || group.resultMissing
-					) {
+			if (!group.finished || group.resultMissing) {
 				unmapped.add(new UnmappedTest(entry.getKey(), UnmappedReason.COLLECTION_FAILED));
-				complete = false;
 				continue;
 			}
 			if (affected.contains(entry.getKey())) {

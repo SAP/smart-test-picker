@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.SmartTestExecutionFilterTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-11T15:52:31.223Z" hostname="WDVJD22XQC" time="2.21">
+  <properties/>
+  <testcase name="smartTestMirrorsStandardExecutionEnvironment()" classname="com.sap.oss.smarttestpicker.SmartTestExecutionFilterTest" time="2.062"/>
+  <testcase name="noneUsesExplicitNoTestSentinelEvenWithDiagnostics()" classname="com.sap.oss.smarttestpicker.SmartTestExecutionFilterTest" time="0.042"/>
+  <testcase name="selectedUsesSelectedTestsOnlyWithConservativeClassWidening()" classname="com.sap.oss.smarttestpicker.SmartTestExecutionFilterTest" time="0.036"/>
+  <testcase name="fullSuiteMissingCorruptAndUnknownLeaveFilterUnrestricted()" classname="com.sap.oss.smarttestpicker.SmartTestExecutionFilterTest" time="0.042"/>
+  <testcase name="explicitOuterStatusesGateExecutionDistinctly()" classname="com.sap.oss.smarttestpicker.SmartTestExecutionFilterTest" time="0.025"/>
+  <system-out><![CDATA[[SmartTestPicker] No tests to run (NONE)
+[SmartTestPicker] smartTest filter: 1 mandatory identities (conservative class widening)
+[SmartTestPicker] Full suite required — no filter applied
+[SmartTestPicker] Full suite required — no filter applied
+[SmartTestPicker] selected-tests.json not found — running full suite. Run selectTests first.
+[SmartTestPicker] Failed to read selected-tests.json — running full suite
+[SmartTestPicker] Explicit PR base is out of date — smartTest skipped
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

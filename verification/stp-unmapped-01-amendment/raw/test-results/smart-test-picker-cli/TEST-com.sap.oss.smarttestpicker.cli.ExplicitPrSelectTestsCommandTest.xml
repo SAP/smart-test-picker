@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.cli.ExplicitPrSelectTestsCommandTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-11T16:15:00.594Z" hostname="WDVJD22XQC" time="6.075">
+  <properties/>
+  <testcase name="stalePrIsBaseOutOfDateWithoutSelectionOutput()" classname="com.sap.oss.smarttestpicker.cli.ExplicitPrSelectTestsCommandTest" time="0.92"/>
+  <testcase name="divergentHeadIsBaseOutOfDateAndTriggerIsFullSuite()" classname="com.sap.oss.smarttestpicker.cli.ExplicitPrSelectTestsCommandTest" time="0.989"/>
+  <testcase name="inventoryMismatchAndRevisionlessInventoryAreErrors()" classname="com.sap.oss.smarttestpicker.cli.ExplicitPrSelectTestsCommandTest" time="0.797"/>
+  <testcase name="tooOldAndDivergentMapsAreFullSuite()" classname="com.sap.oss.smarttestpicker.cli.ExplicitPrSelectTestsCommandTest" time="1.423"/>
+  <testcase name="schemaThreeInventoryPreservesDistinctMavenModuleOwnership()" classname="com.sap.oss.smarttestpicker.cli.ExplicitPrSelectTestsCommandTest" time="0.756"/>
+  <testcase name="freshAndStaleMapUseCompleteExplicitIntervalIndependentOfWorkspaceHead()" classname="com.sap.oss.smarttestpicker.cli.ExplicitPrSelectTestsCommandTest" time="1.184"/>
+  <system-out><![CDATA[[SmartTestPicker] Using explicit map: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit8251528110589118467/map-21033370881416.json
+Coverage map:      /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit8251528110589118467/map-21033370881416.json
+Head inventory:    /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit8251528110589118467/inventory-21033434543041.json
+Project dir:       /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit8251528110589118467/repo-21032917209000
+Output:            /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit8251528110589118467/output-21033438580000.json
+Format:            json
+Max commit dist:   10
+Status:  BASE_OUT_OF_DATE
+Reason:  BASE_OUT_OF_DATE: integration revision is not an ancestor of PR head revision
+[SmartTestPicker] Using explicit map: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit5751362478665306415/map-21034170477333.json
+Coverage map:      /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit5751362478665306415/map-21034170477333.json
+Head inventory:    /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit5751362478665306415/inventory-21034172637958.json
+Project dir:       /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit5751362478665306415/repo-21033830573708
+Output:            /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit5751362478665306415/output-21034173647375.json
+Format:            json
+Max commit dist:   10
+Status:  FULL_SUITE
+Reason:  Changed path matches full-suite trigger: build.gradle (pattern: build.gradle)
+[SmartTestPicker] Using explicit map: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit5751362478665306415/map-21034591978416.json
+Coverage map:      /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit5751362478665306415/map-21034591978416.json
+Head inventory:    /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit5751362478665306415/inventory-21034593986166.json
+Project dir:       /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit5751362478665306415/repo-21033830573708
+Output:            /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit5751362478665306415/output-21034594952958.json
+Format:            json
+Max commit dist:   10
+Status:  BASE_OUT_OF_DATE
+Reason:  BASE_OUT_OF_DATE: integration revision is not an ancestor of PR head revision
+[SmartTestPicker] Using explicit map: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit6641288617308469010/map-21035065590208.json
+Coverage map:      /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit6641288617308469010/map-21035065590208.json
+Head inventory:    /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit6641288617308469010/inventory-21035067883666.json
+Project dir:       /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit6641288617308469010/repo-21034820441375
+Output:            /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit6641288617308469010/output-21035068797875.json
+Format:            json
+Max commit dist:   10
+Status:  ERROR
+Reason:  HEAD_INVENTORY_REVISION_MISMATCH: inventory revision does not equal prHeadRevision
+[SmartTestPicker] Using explicit map: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit6641288617308469010/map-21035326495708.json
+Coverage map:      /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit6641288617308469010/map-21035326495708.json
+Head inventory:    /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit6641288617308469010/inventory-21035327871333.json
+Project dir:       /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit6641288617308469010/repo-21034820441375
+Output:            /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit6641288617308469010/output-21035329294541.json
+Format:            json
+Max commit dist:   10
+Status:  ERROR
+Reason:  HEAD_INVENTORY_REVISION_MISMATCH: inventory revision is missing
+[SmartTestPicker] Using explicit map: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit18315758325181641118/map-21036109528166.json
+Coverage map:      /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit18315758325181641118/map-21036109528166.json
+Head inventory:    /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit18315758325181641118/inventory-21036111093291.json
+Project dir:       /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit18315758325181641118/repo-21035619557083
+Output:            /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit18315758325181641118/output-21036112104083.json
+Format:            json
+Max commit dist:   1
+Status:  FULL_SUITE
+Reason:  Coverage map revision is stale: 2 commits
+[SmartTestPicker] Using explicit map: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit18315758325181641118/map-21036712111958.json
+Coverage map:      /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit18315758325181641118/map-21036712111958.json
+Head inventory:    /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit18315758325181641118/inventory-21036714018500.json
+Project dir:       /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit18315758325181641118/repo-21035619557083
+Output:            /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit18315758325181641118/output-21036715038375.json
+Format:            json
+Max commit dist:   10
+Status:  FULL_SUITE
+Reason:  Coverage map revision is not an ancestor of integration revision
+[SmartTestPicker] Using explicit map: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit1291711794204853851/executable-map.json
+Coverage map:      /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit1291711794204853851/executable-map.json
+Head inventory:    /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit1291711794204853851/executable-inventory.json
+Project dir:       /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit1291711794204853851/repo-21037042962583
+Output:            /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit1291711794204853851/executable-output.json
+Format:            json
+Max commit dist:   500
+Status:  SELECTED
+Reason:  1 mandatory test(s) selected
+[SmartTestPicker] Using explicit map: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit11503266278959556348/map-21038317926708.json
+Coverage map:      /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit11503266278959556348/map-21038317926708.json
+Head inventory:    /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit11503266278959556348/inventory-21038326036958.json
+Project dir:       /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit11503266278959556348/repo-21037799846291
+Output:            /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit11503266278959556348/output-21038328607333.json
+Format:            json
+Max commit dist:   10
+Status:  NONE
+Reason:  No mandatory tests selected
+[SmartTestPicker] Using explicit map: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit11503266278959556348/map-21038635183875.json
+Coverage map:      /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit11503266278959556348/map-21038635183875.json
+Head inventory:    /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit11503266278959556348/inventory-21038636415458.json
+Project dir:       /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit11503266278959556348/repo-21037799846291
+Output:            /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit11503266278959556348/output-21038637210708.json
+Format:            json
+Max commit dist:   10
+Status:  SELECTED
+Reason:  1 mandatory test(s) selected
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

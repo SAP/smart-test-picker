@@ -1,0 +1,16 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------< fixture:http-reset-boundary >---------------------
+[INFO] Building http-reset-boundary 1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:generate-reactor-head-test-inventory (default-cli) @ http-reset-boundary ---
+[INFO] [SmartTestPicker] Module maven:.: 2 logical JUnit tests
+[INFO] [SmartTestPicker] Discovered 2 executable JUnit tests
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.224 s
+[INFO] Finished at: 2026-11-11T16:34:22+01:00
+[INFO] ------------------------------------------------------------------------

@@ -177,24 +177,65 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 			if (instrumented <= 0) throw new IllegalArgumentException("ASM scope matched zero instrumented classes: classesTransformed="
 					+ instrumented + "; includes=" + configuration.get("includes") + "; excludes=" + configuration.get("excludes"));
 			if (!fragmentOutput.isFile()) throw new IllegalArgumentException("Missing ASM coverage fragment for " + target);
-			// Read immutable agent bytes. Never regenerate them from reports or remove SKIPPED entries.
-			var fragment = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(fragmentOutput.toPath()));
+			byte[] observedBytes = Files.readAllBytes(fragmentOutput.toPath());
+			var fragmentCodec = new ExecutableCoverageFragmentCodec();
+			var fragment = fragmentCodec.deserialize(observedBytes);
 			new ExecutableCoverageFragmentQualifier().requireTarget(fragment, target);
+			// Absorption never repairs an incomplete fragment, including ERROR setup diagnostics.
+			if (!fragment.collectionCompleted()) throw new IllegalArgumentException("Fragment collection is not completed");
+			if (!assignment.revision().equals(fragment.revision()))
+				throw new IllegalArgumentException("Fragment revision does not match assignment revision");
+			if (!assignment.shardId().equals(fragment.shardId()))
+				throw new IllegalArgumentException("Fragment shard does not match assignment shard");
+			Set<ExecutableTestIdentity> reported = new TreeSet<>(fragment.tests().keySet());
+			fragment.unmapped().forEach(u -> reported.add(u.test()));
+			Set<ExecutableTestIdentity> unexpected = new TreeSet<>(reported); unexpected.removeAll(assigned);
+			if (!unexpected.isEmpty()) throw new IllegalArgumentException("Fragment reports identities outside assignment: " + unexpected);
+			Set<ExecutableTestIdentity> absorbed = new TreeSet<>(assigned); absorbed.removeAll(reported);
+			var observedJson = com.google.gson.JsonParser.parseString(new String(observedBytes, StandardCharsets.UTF_8)).getAsJsonObject();
+			JsonObject absorption = absorptionAudit(observedJson, fragment, absorbed);
+			if (!absorbed.isEmpty()) {
+				var unmapped = new ArrayList<>(fragment.unmapped());
+				absorbed.forEach(id -> unmapped.add(new com.sap.oss.smarttestpicker.coverage.model.ExecutableUnmappedTest(
+						id, UnmappedReason.COLLECTION_FAILED)));
+				fragment = new com.sap.oss.smarttestpicker.coverage.model.ExecutableCoverageFragment(fragment.schemaVersion(),
+						fragment.revision(), fragment.shardId(), fragment.tests(), unmapped, fragment.setupScopes(), true);
+			}
 			Set<ExecutableTestIdentity> nonExecuted = new TreeSet<>();
 			for (var entry : fragment.unmapped()) {
 				if (entry.reason() == UnmappedReason.SKIPPED) nonExecuted.add(entry.test());
-				else if (entry.reason() != UnmappedReason.FAILED)
-					throw new IllegalArgumentException("Unsafe ASM collection outcome: " + entry);
 			}
 			var local = new com.sap.oss.smarttestpicker.coverage.model.ExecutableShardAssignment(
 					assignment.version(), assignment.revision(), assignment.shardId(), assigned);
 			com.sap.oss.smarttestpicker.coverage.validation.ExecutableFragmentAssignmentValidator.validate(fragment, local, nonExecuted);
+			// Only a complete, exactly accounted fragment may contain identity-local collection failures.
+			for (var entry : fragment.unmapped()) {
+				if (entry.reason() != UnmappedReason.SKIPPED && entry.reason() != UnmappedReason.FAILED
+						&& entry.reason() != UnmappedReason.COLLECTION_FAILED)
+					throw new IllegalArgumentException("Unsafe ASM collection outcome: " + entry);
+			}
 			var evidence = new MavenMappingEvidence(revision, shardId, target,
 					MavenMappingEvidence.coverageOwners(fragment), nonExecuted);
+			String evidenceJson = evidence.moduleJson();
+			if (absorption != null) {
+				var json = com.google.gson.JsonParser.parseString(evidenceJson).getAsJsonObject();
+				json.add("assignmentAbsorption", absorption);
+				evidenceJson = new GsonBuilder().setPrettyPrinting().create().toJson(json) + "\n";
+			}
+			if (!absorbed.isEmpty()) {
+				// Orchestrator normalization preserves all reported coverage and adds only missing owners.
+				// Keep its audit on the fragment as well as evidence so retries do not erase provenance.
+				var normalized = com.google.gson.JsonParser.parseString(
+						new String(fragmentCodec.serialize(fragment), StandardCharsets.UTF_8)).getAsJsonObject();
+				normalized.add("assignmentAbsorption", absorption);
+				writeAsmFragment(fragmentOutput.toPath(), new GsonBuilder().setPrettyPrinting().create().toJson(normalized) + "\n");
+				getLog().warn("[SmartTestPicker] Absorbed " + absorbed.size()
+						+ " assigned tests as COLLECTION_FAILED: ASSIGNED_TEST_NOT_REPORTED " + absorbed);
+			}
 			Path output = evidenceOutput.toPath().toAbsolutePath(); Files.createDirectories(output.getParent());
 			Path temporary = Files.createTempFile(output.getParent(), ".asm-evidence-", ".tmp");
 			try {
-				Files.writeString(temporary, evidence.moduleJson());
+				Files.writeString(temporary, evidenceJson);
 				try { Files.move(temporary, output, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING); }
 				catch (AtomicMoveNotSupportedException unsupported) { Files.move(temporary, output, StandardCopyOption.REPLACE_EXISTING); }
 			} finally { Files.deleteIfExists(temporary); }
@@ -202,6 +243,42 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 		} catch (Exception failure) {
 			throw new MojoExecutionException("Cannot finalize ASM mapping evidence: " + failure.getMessage(), failure);
 		}
+	}
+
+	/** Maven-owned audit extension distinguishing absorbed owners from observed executions. */
+	private static JsonObject absorptionAudit(JsonObject input,
+			com.sap.oss.smarttestpicker.coverage.model.ExecutableCoverageFragment fragment,
+			Set<ExecutableTestIdentity> newlyAbsorbed) {
+		Set<ExecutableTestIdentity> all = new TreeSet<>();
+		if (input.has("assignmentAbsorption")) {
+			var previous = input.getAsJsonObject("assignmentAbsorption");
+			if (!"ASSIGNED_TEST_NOT_REPORTED".equals(previous.get("reason").getAsString()))
+				throw new IllegalArgumentException("Invalid ASM assignment absorption reason");
+			for (var value : previous.getAsJsonArray("tests")) {
+				var id = ExecutableTestIdentity.parse(value.getAsString());
+				if (!all.add(id) || fragment.unmapped().stream().noneMatch(u -> u.test().equals(id)
+						&& u.reason() == UnmappedReason.COLLECTION_FAILED))
+					throw new IllegalArgumentException("Invalid ASM assignment absorption identity: " + id);
+			}
+			if (previous.get("count").getAsInt() != all.size())
+				throw new IllegalArgumentException("Invalid ASM assignment absorption count");
+		}
+		all.addAll(newlyAbsorbed);
+		if (all.isEmpty()) return null;
+		JsonObject result = new JsonObject(); result.addProperty("reason", "ASSIGNED_TEST_NOT_REPORTED");
+		result.addProperty("executionObserved", false);
+		result.addProperty("count", all.size());
+		JsonArray tests = new JsonArray(); all.forEach(id -> tests.add(id.toString())); result.add("tests", tests);
+		return result;
+	}
+
+	private static void writeAsmFragment(Path output, String content) throws IOException {
+		Path temporary = Files.createTempFile(output.toAbsolutePath().getParent(), ".asm-normalized-", ".tmp");
+		try {
+			Files.writeString(temporary, content);
+			try { Files.move(temporary, output, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING); }
+			catch (AtomicMoveNotSupportedException unsupported) { Files.move(temporary, output, StandardCopyOption.REPLACE_EXISTING); }
+		} finally { Files.deleteIfExists(temporary); }
 	}
 
 	private void reconcileSkippedReports(ExecutionTarget target) throws MojoExecutionException

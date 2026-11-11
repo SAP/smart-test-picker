@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.report.SourceCoverageGeneratorTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-11T15:44:28.151Z" hostname="WDVJD22XQC" time="0.079">
+  <properties/>
+  <testcase name="computesCoveragePercentage()" classname="com.sap.oss.smarttestpicker.report.SourceCoverageGeneratorTest" time="0.022"/>
+  <testcase name="returnsEmptyWhenNoSourceDirs()" classname="com.sap.oss.smarttestpicker.report.SourceCoverageGeneratorTest" time="0.002"/>
+  <testcase name="fallsBackToBareName()" classname="com.sap.oss.smarttestpicker.report.SourceCoverageGeneratorTest" time="0.016"/>
+  <testcase name="mergesLineCoverageAcrossTests()" classname="com.sap.oss.smarttestpicker.report.SourceCoverageGeneratorTest" time="0.016"/>
+  <testcase name="findsSessionPrefixedXmlFile()" classname="com.sap.oss.smarttestpicker.report.SourceCoverageGeneratorTest" time="0.01"/>
+  <testcase name="multiSourceDir_findsFileInSecondDir()" classname="com.sap.oss.smarttestpicker.report.SourceCoverageGeneratorTest" time="0.01"/>
+  <testcase name="returnsEmptyWhenNoReportsDir()" classname="com.sap.oss.smarttestpicker.report.SourceCoverageGeneratorTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

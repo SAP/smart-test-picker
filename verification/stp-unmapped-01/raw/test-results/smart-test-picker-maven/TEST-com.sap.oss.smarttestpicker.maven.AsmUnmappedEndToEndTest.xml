@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.maven.AsmUnmappedEndToEndTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-11T15:47:30.189Z" hostname="WDVJD22XQC" time="4.582">
+  <properties/>
+  <testcase name="[1] &quot;failed&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmUnmappedEndToEndTest" time="1.095"/>
+  <testcase name="[2] &quot;unfinished&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmUnmappedEndToEndTest" time="0.881"/>
+  <testcase name="[3] &quot;missing-result&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmUnmappedEndToEndTest" time="0.839"/>
+  <testcase name="[4] &quot;unsupported&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmUnmappedEndToEndTest" time="0.9"/>
+  <testcase name="[5] &quot;unowned-error&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmUnmappedEndToEndTest" time="0.864"/>
+  <system-out><![CDATA[[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-9352231880986325548/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-5725617875795014572/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-3996453155584679923/module/target/stp/execution-evidence-v2.json
+[warn] [SmartTestPicker] Absorbed 1 assigned tests as COLLECTION_FAILED: ASSIGNED_TEST_NOT_REPORTED [maven:module::fixture.Tests#test0000]
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-8460588932992891257/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-17094114703852317019/module/target/stp/execution-evidence-v2.json
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

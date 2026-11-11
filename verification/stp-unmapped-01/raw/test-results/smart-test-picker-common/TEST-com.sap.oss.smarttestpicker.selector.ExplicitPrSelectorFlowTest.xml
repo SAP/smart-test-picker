@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.selector.ExplicitPrSelectorFlowTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-11-11T15:44:28.241Z" hostname="WDVJD22XQC" time="8.247">
+  <properties/>
+  <testcase name="staleMapDiffIncludesIntegrationAndPrChangesAndIgnoresWorkspace()" classname="com.sap.oss.smarttestpicker.selector.ExplicitPrSelectorFlowTest" time="0.777"/>
+  <testcase name="tooOldMapAndDivergentMapFailOpen()" classname="com.sap.oss.smarttestpicker.selector.ExplicitPrSelectorFlowTest" time="1.009"/>
+  <testcase name="freshExplicitPrBindsMapAndExplicitHead()" classname="com.sap.oss.smarttestpicker.selector.ExplicitPrSelectorFlowTest" time="0.622"/>
+  <testcase name="divergentHeadIsBaseOutOfDate()" classname="com.sap.oss.smarttestpicker.selector.ExplicitPrSelectorFlowTest" time="0.601"/>
+  <testcase name="rejectsInventoryFromIntegrationRevision()" classname="com.sap.oss.smarttestpicker.selector.ExplicitPrSelectorFlowTest" time="0.584"/>
+  <testcase name="schemaV3FailedOccurrenceSelectsLogicalIdentityDespiteMissingUnreachedEdge()" classname="com.sap.oss.smarttestpicker.selector.ExplicitPrSelectorFlowTest" time="0.487"/>
+  <testcase name="rejectsInventoryFromLaterRevision()" classname="com.sap.oss.smarttestpicker.selector.ExplicitPrSelectorFlowTest" time="0.667"/>
+  <testcase name="explicitInventoryCanMatchHeadThatIsNotWorkspaceHead()" classname="com.sap.oss.smarttestpicker.selector.ExplicitPrSelectorFlowTest" time="0.592"/>
+  <testcase name="schemaV3MapProjectsTaskAwareIdentityIntoExplicitSelection()" classname="com.sap.oss.smarttestpicker.selector.ExplicitPrSelectorFlowTest" time="0.712"/>
+  <testcase name="rejectsSymbolicAndUnresolvedInventoryRevisions()" classname="com.sap.oss.smarttestpicker.selector.ExplicitPrSelectorFlowTest" time="0.804"/>
+  <testcase name="triggerBetweenMapAndIntegrationCoversWholeInterval()" classname="com.sap.oss.smarttestpicker.selector.ExplicitPrSelectorFlowTest" time="0.717"/>
+  <testcase name="stalePrIsDistinctAndHasNoSelectionOutput()" classname="com.sap.oss.smarttestpicker.selector.ExplicitPrSelectorFlowTest" time="0.671"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

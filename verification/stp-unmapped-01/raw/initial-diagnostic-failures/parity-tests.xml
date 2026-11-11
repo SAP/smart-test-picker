@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.maven.AsmMappingParityIntegrationTest" tests="6" skipped="0" failures="2" errors="0" timestamp="2026-11-11T15:37:01.424Z" hostname="WDVJD22XQC" time="32.811">
+  <properties/>
+  <testcase name="[1] &quot;revision&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingParityIntegrationTest" time="8.268">
+    <failure message="org.opentest4j.AssertionFailedError: [INFO] Scanning for projects...&#10;[INFO] &#10;[INFO] --------------------------&lt; fixture:module-b &gt;--------------------------&#10;[INFO] Building module-b 1&#10;[INFO]   from pom.xml&#10;[INFO] --------------------------------[ jar ]---------------------------------&#10;[INFO] &#10;[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:generate-coverage-fragment (default-cli) @ module-b ---&#10;[INFO] ------------------------------------------------------------------------&#10;[INFO] BUILD FAILURE&#10;[INFO] ------------------------------------------------------------------------&#10;[INFO] Total time:  0.530 s&#10;[INFO] Finished at: 2026-11-11T16:37:09+01:00&#10;[INFO] ------------------------------------------------------------------------&#10;[ERROR] Failed to execute goal com.sap.oss.smart-test-picker:smart-test-picker-maven:0.3.0-SNAPSHOT:generate-coverage-fragment (default-cli) on project module-b: Cannot finalize ASM mapping evidence: ASM fragment revision/shard does not match assignment -&gt; [Help 1]&#10;[ERROR] &#10;[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.&#10;[ERROR] Re-run Maven using the -X switch to enable full debug logging.&#10;[ERROR] &#10;[ERROR] For more information about the errors and possible solutions, please read the following articles:&#10;[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException&#10; ==&gt; expected: &lt;true&gt; but was: &lt;false&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: [INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------&lt; fixture:module-b &gt;--------------------------
+[INFO] Building module-b 1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:generate-coverage-fragment (default-cli) @ module-b ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.530 s
+[INFO] Finished at: 2026-11-11T16:37:09+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal com.sap.oss.smart-test-picker:smart-test-picker-maven:0.3.0-SNAPSHOT:generate-coverage-fragment (default-cli) on project module-b: Cannot finalize ASM mapping evidence: ASM fragment revision/shard does not match assignment -&gt; [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+ ==&gt; expected: &lt;true&gt; but was: &lt;false&gt;
+	at app//org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:232)
+	at app//com.sap.oss.smarttestpicker.maven.AsmMappingParityIntegrationTest.finalizationRejectsFragmentBindingMismatch(AsmMappingParityIntegrationTest.java:96)
+</failure>
+  </testcase>
+  <testcase name="[2] &quot;shardId&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingParityIntegrationTest" time="8.041">
+    <failure message="org.opentest4j.AssertionFailedError: [INFO] Scanning for projects...&#10;[INFO] &#10;[INFO] --------------------------&lt; fixture:module-b &gt;--------------------------&#10;[INFO] Building module-b 1&#10;[INFO]   from pom.xml&#10;[INFO] --------------------------------[ jar ]---------------------------------&#10;[INFO] &#10;[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:generate-coverage-fragment (default-cli) @ module-b ---&#10;[INFO] ------------------------------------------------------------------------&#10;[INFO] BUILD FAILURE&#10;[INFO] ------------------------------------------------------------------------&#10;[INFO] Total time:  0.439 s&#10;[INFO] Finished at: 2026-11-11T16:37:17+01:00&#10;[INFO] ------------------------------------------------------------------------&#10;[ERROR] Failed to execute goal com.sap.oss.smart-test-picker:smart-test-picker-maven:0.3.0-SNAPSHOT:generate-coverage-fragment (default-cli) on project module-b: Cannot finalize ASM mapping evidence: ASM fragment revision/shard does not match assignment -&gt; [Help 1]&#10;[ERROR] &#10;[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.&#10;[ERROR] Re-run Maven using the -X switch to enable full debug logging.&#10;[ERROR] &#10;[ERROR] For more information about the errors and possible solutions, please read the following articles:&#10;[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException&#10; ==&gt; expected: &lt;true&gt; but was: &lt;false&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: [INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------&lt; fixture:module-b &gt;--------------------------
+[INFO] Building module-b 1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- smart-test-picker:0.3.0-SNAPSHOT:generate-coverage-fragment (default-cli) @ module-b ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  0.439 s
+[INFO] Finished at: 2026-11-11T16:37:17+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal com.sap.oss.smart-test-picker:smart-test-picker-maven:0.3.0-SNAPSHOT:generate-coverage-fragment (default-cli) on project module-b: Cannot finalize ASM mapping evidence: ASM fragment revision/shard does not match assignment -&gt; [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+ ==&gt; expected: &lt;true&gt; but was: &lt;false&gt;
+	at app//org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:232)
+	at app//com.sap.oss.smarttestpicker.maven.AsmMappingParityIntegrationTest.finalizationRejectsFragmentBindingMismatch(AsmMappingParityIntegrationTest.java:96)
+</failure>
+  </testcase>
+  <testcase name="mavenUsesSharedCollectorTypes()" classname="com.sap.oss.smarttestpicker.maven.AsmMappingParityIntegrationTest" time="0.0"/>
+  <testcase name="[1] &quot;coverage-fragment-v3.json&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingParityIntegrationTest" time="4.141"/>
+  <testcase name="[2] &quot;asm-agent-diagnostic.json&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmMappingParityIntegrationTest" time="3.962"/>
+  <testcase name="preparationInvalidatesPreviousOutputsEvenWhenNoForkStarts(Path)" classname="com.sap.oss.smarttestpicker.maven.AsmMappingParityIntegrationTest" time="8.396"/>
+  <system-out><![CDATA[ASM-16 undeletable-coverage-fragment-v3.json: Preparation failed before Surefire; undeletable output retained without recursive cleanup.
+
+ASM-16 undeletable-asm-agent-diagnostic.json: Preparation failed before Surefire; undeletable output retained without recursive cleanup.
+
+ASM-16 stale: Previous valid fragment contained maven:module-b::b.BTests#b2.
+Preparation alone removed fragment, diagnostic and evidence before any test fork.
+Finalization without a new fork rejected missing diagnostics; stale coverage was not consumed.
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

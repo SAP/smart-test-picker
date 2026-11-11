@@ -1,0 +1,87 @@
+{
+  "failed": {
+    "mapped": 2998,
+    "unmapped": [
+      {
+        "test": "maven:module::fixture.Tests#test0000",
+        "reason": "FAILED"
+      },
+      {
+        "test": "maven:module::fixture.Tests#test0001",
+        "reason": "FAILED"
+      }
+    ],
+    "complete": true,
+    "selected": [
+      "fixture.Tests#test0000",
+      "fixture.Tests#test0001"
+    ],
+    "assignmentAbsorption": null
+  },
+  "unfinished": {
+    "mapped": 2998,
+    "unmapped": [
+      {
+        "test": "maven:module::fixture.Tests#test0000",
+        "reason": "COLLECTION_FAILED"
+      },
+      {
+        "test": "maven:module::fixture.Tests#test0001",
+        "reason": "COLLECTION_FAILED"
+      }
+    ],
+    "complete": true,
+    "selected": [
+      "fixture.Tests#test0000",
+      "fixture.Tests#test0001"
+    ],
+    "assignmentAbsorption": null
+  },
+  "missing-result": {
+    "mapped": 2998,
+    "unmapped": [
+      {
+        "test": "maven:module::fixture.Tests#test0000",
+        "reason": "COLLECTION_FAILED"
+      },
+      {
+        "test": "maven:module::fixture.Tests#test0001",
+        "reason": "COLLECTION_FAILED"
+      }
+    ],
+    "complete": true,
+    "selected": [
+      "fixture.Tests#test0000",
+      "fixture.Tests#test0001"
+    ],
+    "assignmentAbsorption": null
+  },
+  "unsupported": {
+    "mapped": 2999,
+    "unmapped": [
+      {
+        "test": "maven:module::fixture.Tests#test0000",
+        "reason": "COLLECTION_FAILED"
+      }
+    ],
+    "complete": true,
+    "selected": [
+      "fixture.Tests#test0000"
+    ],
+    "assignmentAbsorption": {
+      "reason": "ASSIGNED_TEST_NOT_REPORTED",
+      "executionObserved": false,
+      "count": 1,
+      "tests": [
+        "maven:module::fixture.Tests#test0000"
+      ]
+    }
+  },
+  "unowned-error": {
+    "mapped": 3000,
+    "unmapped": [],
+    "complete": true,
+    "selected": [],
+    "assignmentAbsorption": null
+  }
+}

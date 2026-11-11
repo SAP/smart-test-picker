@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.report.ChunkDataWriterTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-11T15:44:28.058Z" hostname="WDVJD22XQC" time="0.066">
+  <properties/>
+  <testcase name="searchIndexHasCorrectChunkReferences()" classname="com.sap.oss.smarttestpicker.report.ChunkDataWriterTest" time="0.02"/>
+  <testcase name="searchIndexContainsShortNames()" classname="com.sap.oss.smarttestpicker.report.ChunkDataWriterTest" time="0.006"/>
+  <testcase name="chunkFilesContainValidJsWithGlobalAssignment()" classname="com.sap.oss.smarttestpicker.report.ChunkDataWriterTest" time="0.007"/>
+  <testcase name="searchIndexContainsAllTests()" classname="com.sap.oss.smarttestpicker.report.ChunkDataWriterTest" time="0.016"/>
+  <testcase name="singleChunkForSmallDataset()" classname="com.sap.oss.smarttestpicker.report.ChunkDataWriterTest" time="0.005"/>
+  <testcase name="selectedFlagIsCorrect()" classname="com.sap.oss.smarttestpicker.report.ChunkDataWriterTest" time="0.006"/>
+  <testcase name="writesCorrectNumberOfChunkFiles()" classname="com.sap.oss.smarttestpicker.report.ChunkDataWriterTest" time="0.006"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

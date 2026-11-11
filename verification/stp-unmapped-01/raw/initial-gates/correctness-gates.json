@@ -1,0 +1,116 @@
+{
+  "petclinic": {
+    "fragmentSha256": "0ecdbed9d086835971a9c69e3a49b6977ca24c42058ce2bf3618d8fc1820b8b9",
+    "rawMethodHits": 3816,
+    "leafRawMethodHits": 3079,
+    "agentErrors": [],
+    "tests": 69
+  },
+  "asm12": {
+    "validation": {
+      "assignmentValidation": "IllegalArgumentException: Fragment collection is not completed",
+      "completed": false,
+      "fragmentExists": true,
+      "join": "IllegalArgumentException: Fragment collection is not completed",
+      "mapped": [
+        "maven:.::example.shared.BSecondTests#realRequest",
+        "maven:.::example.shared.AFirstTests#realRequest"
+      ],
+      "publication": "NOT RUN: no Jenkins/storage operation; local candidate join only",
+      "setupScopes": [
+        {
+          "id": "junit-container:example.shared.AFirstTests",
+          "type": "CONTAINER",
+          "coveredClasses": [
+            "example.shared.PingController",
+            "example.shared.SharedApplication"
+          ],
+          "affectedContainers": [
+            {
+              "binaryName": "example.shared.AFirstTests"
+            }
+          ],
+          "owner": {
+            "buildTool": "MAVEN",
+            "targetId": "."
+          }
+        }
+      ],
+      "unmapped": []
+    },
+    "exitCodes": {
+      "mapping": "1",
+      "aggregation": "1"
+    },
+    "reasons": {
+      "NO_ACTIVE_TEST": 0,
+      "LATE_EVENT": 1,
+      "UNKNOWN_CONTEXT": 0,
+      "TEST_ALREADY_FINISHED": 0
+    },
+    "diagnostics": [
+      "setup:ASYNC_SETUP_UNSUPPORTED:ERROR:example.shared.PingController#ping()Ljava/lang/String;:work captured by closed JUnit container [engine:junit-jupiter]/[class:example.shared.AFirstTests]"
+    ]
+  },
+  "asm13": {
+    "validation": {
+      "assignmentValidation": "IllegalArgumentException: Fragment collection is not completed",
+      "completed": false,
+      "fragmentExists": true,
+      "join": "IllegalArgumentException: Fragment collection is not completed",
+      "mapped": [
+        "maven:.::example.boundary.BoundaryTests#aRequest",
+        "maven:.::example.boundary.BoundaryTests#bFollowing"
+      ],
+      "publication": "NOT RUN: no Jenkins/storage operation; local candidate join only",
+      "setupScopes": [
+        {
+          "id": "junit-container:example.boundary.BoundaryTests",
+          "type": "CONTAINER",
+          "coveredClasses": [
+            "example.boundary.BoundaryApplication",
+            "example.boundary.BoundaryController"
+          ],
+          "affectedContainers": [
+            {
+              "binaryName": "example.boundary.BoundaryTests"
+            }
+          ],
+          "owner": {
+            "buildTool": "MAVEN",
+            "targetId": "."
+          }
+        }
+      ],
+      "unmapped": []
+    },
+    "exitCodes": {
+      "mapping": "1",
+      "aggregation": "1"
+    },
+    "reasons": {
+      "NO_ACTIVE_TEST": 2,
+      "LATE_EVENT": 0,
+      "UNKNOWN_CONTEXT": 0,
+      "TEST_ALREADY_FINISHED": 0
+    },
+    "diagnostics": [
+      "setup:ASYNC_SETUP_UNSUPPORTED:ERROR:unknown:ForkJoinTask: execution without observed submission: org.junit.platform.engine.support.hierarchical.ForkJoinPoolHierarchicalTestExecutorService$ExclusiveTask"
+    ]
+  },
+  "hotPathUnchangedFiles": {
+    "stp-runtime/src/main/java/com/sap/oss/smarttestpicker/runtime/RuntimeHooks.java": "efc74899ebd0efe611cfc9e994349029cf7a1b286dc100995ce2e94f94271542",
+    "stp-runtime/src/main/java/com/sap/oss/smarttestpicker/runtime/RuntimeContextService.java": "38cd71f8ee2deecd0f334374f7c65d605e8d1994b2cd34c383d3583e66f9e67b",
+    "stp-runtime/src/main/java/com/sap/oss/smarttestpicker/runtime/MethodHitOwner.java": "0098b1b8eceff8d1cce17b7b22cd890e6559c3ded40fe38faf629d4e26f85948",
+    "stp-runtime/src/main/java/com/sap/oss/smarttestpicker/runtime/MethodProbe.java": "766643c552e0c3fc8a69243a6a41b39a17ccaca4be5269f2c68c83058b2a9d84",
+    "stp-runtime/src/main/java/com/sap/oss/smarttestpicker/runtime/RuntimeEventAggregator.java": "701ec9986a49421a12c05728f9f0a5d30da8df0f22413b5425b49c3e0220f6c1",
+    "stp-runtime/src/main/java/com/sap/oss/smarttestpicker/runtime/TestExecutionContext.java": "ae91ba9fbdb48feaafbffd21c3009b96f811e556770b44a7af7a51508e0e00da"
+  },
+  "hotPathUnchangedBodies": [
+    "AgentRuntime: private void methodHit(",
+    "MethodCatalog: public synchronized int registerProbe(",
+    "MethodCatalog: public com.sap.oss.smarttestpicker.runtime.MethodProbe probe(",
+    "MethodCatalog: public Map<Long, Long> hitSnapshot(",
+    "MethodEntryClassFileTransformer: private byte[] instrument("
+  ]
+}

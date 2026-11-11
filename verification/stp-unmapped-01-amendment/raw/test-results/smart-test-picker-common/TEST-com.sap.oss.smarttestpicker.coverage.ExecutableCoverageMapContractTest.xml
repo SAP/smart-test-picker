@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.coverage.ExecutableCoverageMapContractTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-11T16:05:48.709Z" hostname="WDVJD22XQC" time="0.021">
+  <properties/>
+  <testcase name="completenessDetectsMissingExecutableOwnerAndAcceptsPositiveNonExecution()" classname="com.sap.oss.smarttestpicker.coverage.ExecutableCoverageMapContractTest" time="0.001"/>
+  <testcase name="v2AndV3ReadersRejectTheOtherVersion()" classname="com.sap.oss.smarttestpicker.coverage.ExecutableCoverageMapContractTest" time="0.009"/>
+  <testcase name="sonarJavaDualOwnerCoverageRoundTripsWithoutUnion()" classname="com.sap.oss.smarttestpicker.coverage.ExecutableCoverageMapContractTest" time="0.003"/>
+  <testcase name="inventoryAllowsSameLogicalAcrossTargetsButRejectsSameExecutableDuplicate()" classname="com.sap.oss.smarttestpicker.coverage.ExecutableCoverageMapContractTest" time="0.001"/>
+  <testcase name="ownerlessSchemaV3SetupScopeIsRejectedInsteadOfGuessed()" classname="com.sap.oss.smarttestpicker.coverage.ExecutableCoverageMapContractTest" time="0.001"/>
+  <testcase name="fragmentKeepsOwnersSeparateAndValidatesDisjointness()" classname="com.sap.oss.smarttestpicker.coverage.ExecutableCoverageMapContractTest" time="0.001"/>
+  <testcase name="publicationRequiresExactExecutableAccounting()" classname="com.sap.oss.smarttestpicker.coverage.ExecutableCoverageMapContractTest" time="0.002"/>
+  <testcase name="duplicateExecutableIdentityOnWireIsRejected()" classname="com.sap.oss.smarttestpicker.coverage.ExecutableCoverageMapContractTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

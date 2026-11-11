@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.maven.AsmReactorScopeIntegrationTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-11T16:08:22.220Z" hostname="WDVJD22XQC" time="41.28">
+  <properties/>
+  <testcase name="productionSourcesExcludeCustomTestOutputAndTestJarAndMeasureInflation(Path)" classname="com.sap.oss.smarttestpicker.maven.AsmReactorScopeIntegrationTest" time="10.365"/>
+  <testcase name="emptyCoverageWithObservedInstrumentationStillSucceeds(Path)" classname="com.sap.oss.smarttestpicker.maven.AsmReactorScopeIntegrationTest" time="6.491"/>
+  <testcase name="[1] false" classname="com.sap.oss.smarttestpicker.maven.AsmReactorScopeIntegrationTest" time="6.455"/>
+  <testcase name="[2] true" classname="com.sap.oss.smarttestpicker.maven.AsmReactorScopeIntegrationTest" time="6.411"/>
+  <testcase name="[1] &quot;wrong.prefix.&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmReactorScopeIntegrationTest" time="5.847"/>
+  <testcase name="[2] &quot;a.,b.&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmReactorScopeIntegrationTest" time="5.709"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.cli.RefreshedReportCommandTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-11T15:52:51.293Z" hostname="WDVJD22XQC" time="0.014">
+  <properties/>
+  <testcase name="formatForAnt_mixedClassAndMethodTests()" classname="com.sap.oss.smarttestpicker.cli.RefreshedReportCommandTest" time="0.002"/>
+  <testcase name="returnsErrorWhenMapFileMissing()" classname="com.sap.oss.smarttestpicker.cli.RefreshedReportCommandTest" time="0.004"/>
+  <testcase name="formatForAnt_classWithoutMethods()" classname="com.sap.oss.smarttestpicker.cli.RefreshedReportCommandTest" time="0.002"/>
+  <testcase name="returnsErrorWhenPlatformHomeInvalid()" classname="com.sap.oss.smarttestpicker.cli.RefreshedReportCommandTest" time="0.004"/>
+  <testcase name="formatForAnt_groupsByClassWithMethods()" classname="com.sap.oss.smarttestpicker.cli.RefreshedReportCommandTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

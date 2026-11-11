@@ -1,0 +1,20 @@
+{
+  "testedMavenPluginSha256": "cd8b65828b579491d166e4d628d4a054c329bb9b6913965774d43f0d8d1379c5",
+  "gates": {
+    "petclinic-after": {
+      "sha256": "cd8b65828b579491d166e4d628d4a054c329bb9b6913965774d43f0d8d1379c5",
+      "entryCount": 55,
+      "differentEntryContents": []
+    },
+    "asm12": {
+      "sha256": "cd8b65828b579491d166e4d628d4a054c329bb9b6913965774d43f0d8d1379c5",
+      "entryCount": 55,
+      "differentEntryContents": []
+    },
+    "asm13": {
+      "sha256": "cd8b65828b579491d166e4d628d4a054c329bb9b6913965774d43f0d8d1379c5",
+      "entryCount": 55,
+      "differentEntryContents": []
+    }
+  }
+}

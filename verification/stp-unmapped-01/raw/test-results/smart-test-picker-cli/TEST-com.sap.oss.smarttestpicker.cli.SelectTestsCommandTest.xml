@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.cli.SelectTestsCommandTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-11T15:52:51.308Z" hostname="WDVJD22XQC" time="2.541">
+  <properties/>
+  <testcase name="jsonSelectedContainsCompleteMandatorySet()" classname="com.sap.oss.smarttestpicker.cli.SelectTestsCommandTest" time="0.584"/>
+  <testcase name="jsonMissingInventoryAndUnsafeMapFailOpen()" classname="com.sap.oss.smarttestpicker.cli.SelectTestsCommandTest" time="0.362"/>
+  <testcase name="txtAndAntSelectedUseSelectedTestsOnly()" classname="com.sap.oss.smarttestpicker.cli.SelectTestsCommandTest" time="0.757"/>
+  <testcase name="jsonNoneIsExactEmpty()" classname="com.sap.oss.smarttestpicker.cli.SelectTestsCommandTest" time="0.559"/>
+  <testcase name="txtIsExplicitAndAntRejectsFullSuite()" classname="com.sap.oss.smarttestpicker.cli.SelectTestsCommandTest" time="0.277"/>
+  <system-out><![CDATA[[SmartTestPicker] Using explicit map: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit17036828945851822502/project/map.json
+Coverage map:      /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit17036828945851822502/project/map.json
+Head inventory:    /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit17036828945851822502/project/inventory.json
+Project dir:       /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit17036828945851822502/project
+Output:            /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit17036828945851822502/selected.json
+Format:            json
+Max commit dist:   500
+Status:  SELECTED
+Reason:  1 mandatory test(s) selected
+Selected tests:  1
+[SmartTestPicker] Using explicit map: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit17993630934321673577/project/map.json
+Coverage map:      /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit17993630934321673577/project/map.json
+Head inventory:    <missing>
+Project dir:       /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit17993630934321673577/project
+Output:            /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit17993630934321673577/missing-inventory.json
+Format:            json
+Max commit dist:   500
+Status:  FULL_SUITE
+Reason:  Head test inventory not found
+Selected tests:  0
+[SmartTestPicker] Using explicit map: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit17993630934321673577/project/corrupt.json
+Coverage map:      /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit17993630934321673577/project/corrupt.json
+Head inventory:    /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit17993630934321673577/project/inventory.json
+Project dir:       /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit17993630934321673577/project
+Output:            /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit17993630934321673577/unsafe.json
+Format:            json
+Max commit dist:   500
+Status:  FULL_SUITE
+Reason:  Unsafe selector analysis: Malformed coverage-map JSON
+Selected tests:  0
+[SmartTestPicker] Using explicit map: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit10349047025922407376/project/map.json
+Coverage map:      /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit10349047025922407376/project/map.json
+Head inventory:    /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit10349047025922407376/project/inventory.json
+Project dir:       /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit10349047025922407376/project
+Output:            /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit10349047025922407376/selected.txt
+Format:            txt
+Max commit dist:   500
+Status:  SELECTED
+Reason:  1 mandatory test(s) selected
+Selected tests:  1
+[SmartTestPicker] Using explicit map: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit10349047025922407376/project/map.json
+Coverage map:      /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit10349047025922407376/project/map.json
+Head inventory:    /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit10349047025922407376/project/inventory.json
+Project dir:       /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit10349047025922407376/project
+Output:            /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit10349047025922407376/selected.ant
+Format:            ant
+Max commit dist:   500
+Status:  SELECTED
+Reason:  1 mandatory test(s) selected
+Selected tests:  1
+[SmartTestPicker] Using explicit map: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit3853956473357418572/project/none.json
+Coverage map:      /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit3853956473357418572/project/none.json
+Head inventory:    /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit3853956473357418572/project/inventory.json
+Project dir:       /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit3853956473357418572/project
+Output:            /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit3853956473357418572/none-output.json
+Format:            json
+Max commit dist:   500
+Status:  NONE
+Reason:  No mandatory tests selected
+Selected tests:  0
+[SmartTestPicker] Using explicit map: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit10756613550938186375/project/map.json
+Coverage map:      /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit10756613550938186375/project/map.json
+Head inventory:    <missing>
+Project dir:       /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit10756613550938186375/project
+Output:            /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit10756613550938186375/all.txt
+Format:            txt
+Max commit dist:   500
+Status:  FULL_SUITE
+Reason:  Head test inventory not found
+Selected tests:  0
+[SmartTestPicker] Using explicit map: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit10756613550938186375/project/map.json
+Coverage map:      /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit10756613550938186375/project/map.json
+Head inventory:    <missing>
+Project dir:       /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit10756613550938186375/project
+Output:            /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit10756613550938186375/all.ant
+Format:            ant
+Max commit dist:   500
+Status:  FULL_SUITE
+Reason:  Head test inventory not found
+Selected tests:  0
+]]></system-out>
+  <system-err><![CDATA[Error writing output: Ant output cannot safely represent FULL_SUITE; use JSON or txt
+]]></system-err>
+</testsuite>

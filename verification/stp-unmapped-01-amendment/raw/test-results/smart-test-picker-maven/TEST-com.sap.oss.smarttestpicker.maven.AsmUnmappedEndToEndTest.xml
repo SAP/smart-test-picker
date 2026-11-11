@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.maven.AsmUnmappedEndToEndTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-11T16:09:03.501Z" hostname="WDVJD22XQC" time="8.491">
+  <properties/>
+  <testcase name="[1] &quot;failed&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmUnmappedEndToEndTest" time="1.226"/>
+  <testcase name="[2] &quot;unfinished&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmUnmappedEndToEndTest" time="0.911"/>
+  <testcase name="[3] &quot;missing-result&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmUnmappedEndToEndTest" time="0.921"/>
+  <testcase name="[4] &quot;unsupported&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmUnmappedEndToEndTest" time="0.938"/>
+  <testcase name="[5] &quot;unowned-error&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmUnmappedEndToEndTest" time="0.83"/>
+  <testcase name="[6] &quot;runtime-uninitialized&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmUnmappedEndToEndTest" time="0.899"/>
+  <testcase name="[7] &quot;transformation-failure&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmUnmappedEndToEndTest" time="0.86"/>
+  <testcase name="[8] &quot;method-id-collision&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmUnmappedEndToEndTest" time="0.811"/>
+  <testcase name="[9] &quot;owned-error-unhealthy&quot;" classname="com.sap.oss.smarttestpicker.maven.AsmUnmappedEndToEndTest" time="1.09"/>
+  <system-out><![CDATA[[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-5359186776411991852/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-15326924738786541763/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-212741004938608814/module/target/stp/execution-evidence-v2.json
+[warn] [SmartTestPicker] Absorbed 1 assigned tests as COLLECTION_FAILED: ASSIGNED_TEST_NOT_REPORTED [maven:module::fixture.Tests#test0000]
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-7069100369484833024/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-12237954430654917709/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-11968124695128573471/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-7778319376193808797/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-12078307675026339166/module/target/stp/execution-evidence-v2.json
+[info] [SmartTestPicker] Finalized ASM evidence v2 for maven:module: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-14774593679016333257/module/target/stp/execution-evidence-v2.json
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

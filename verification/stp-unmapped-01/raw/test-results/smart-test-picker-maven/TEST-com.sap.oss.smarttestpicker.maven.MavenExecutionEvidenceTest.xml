@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.maven.MavenExecutionEvidenceTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-11T15:47:49.588Z" hostname="WDVJD22XQC" time="0.037">
+  <properties/>
+  <testcase name="keepsIdenticalTestsOwnedByDifferentQualifiedExecutionsDistinct(Path)" classname="com.sap.oss.smarttestpicker.maven.MavenExecutionEvidenceTest" time="0.016"/>
+  <testcase name="verifiesLogicalParameterizedIdentityWithoutCountingInvocationsAsDuplicates(Path)" classname="com.sap.oss.smarttestpicker.maven.MavenExecutionEvidenceTest" time="0.006"/>
+  <testcase name="distinguishesMissingUnexpectedDuplicateFailedAndNonExecuted(Path)" classname="com.sap.oss.smarttestpicker.maven.MavenExecutionEvidenceTest" time="0.014"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

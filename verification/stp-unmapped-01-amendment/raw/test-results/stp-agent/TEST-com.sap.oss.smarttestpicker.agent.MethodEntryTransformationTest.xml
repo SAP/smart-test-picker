@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest" tests="23" skipped="1" failures="0" errors="0" timestamp="2026-11-11T16:14:56.276Z" hostname="WDVJD22XQC" time="3.122">
+  <properties/>
+  <testcase name="transformsConstructorsStaticInitializersLambdaBodiesAndCompilerGeneratedRecordMethods()" classname="com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest" time="0.029"/>
+  <testcase name="scheduledExecutorsAndRawThreadsPropagateThroughRealAsmInstrumentation()" classname="com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest" time="0.545"/>
+  <testcase name="executorCallSitesPropagateExactSubmittingTestWithoutPoolLeakage()" classname="com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest" time="0.361"/>
+  <testcase name="ambiguousForkJoinOwnershipAndClosedSetupProduceIncompleteFragment()" classname="com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest" time="0.638"/>
+  <testcase name="methodIdsAreDeterministicAndOverloadSensitive()" classname="com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest" time="0.003"/>
+  <testcase name="forkJoinTaskBoundariesPreserveOwnershipAndCompleteFragment()" classname="com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest" time="0.531"/>
+  <testcase name="optionalProductionSourcesSeparateSamePackageClassesByOrigin(Path)" classname="com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest" time="0.011"/>
+  <testcase name="isolatedJvmPassesFullVerificationAndProducesDeterministicCatalogAndUnattributedHits()" classname="com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest" time="0.634"/>
+  <testcase name="transformsDefaultAndPrivateInterfaceMethods()" classname="com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest" time="0.008"/>
+  <testcase name="agentJarRelocatesAsmAndDoesNotExposeOriginalPackageOrAsmInPublicApi()" classname="com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest" time="0.004"/>
+  <testcase name="catalogRetainsBothCanonicalKeysOnCollision()" classname="com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest" time="0.002"/>
+  <testcase name="transformingMarkedBytesIsIdempotent()" classname="com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest" time="0.003"/>
+  <testcase name="jdk21VirtualThreadApisPropagateThroughRealAsmInstrumentation()" classname="com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest" time="0.007">
+    <skipped message="Assumption failed: JDK 21 not installed" type="org.opentest4j.TestAbortedException">org.opentest4j.TestAbortedException: Assumption failed: JDK 21 not installed
+	at org.junit.jupiter.api.Assumptions.throwAssumptionFailed(Assumptions.java:316)
+	at org.junit.jupiter.api.Assumptions.assumeTrue(Assumptions.java:115)
+	at com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest.jdk21VirtualThreadApisPropagateThroughRealAsmInstrumentation(MethodEntryTransformationTest.java:424)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:727)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:217)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:213)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:138)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:68)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:147)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:127)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:90)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:55)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:102)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:54)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
+	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:124)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:99)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:94)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:63)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:92)
+	at jdk.proxy2/jdk.proxy2.$Proxy6.stop(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:200)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:132)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:103)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:63)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:122)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:72)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+</skipped>
+  </testcase>
+  <testcase name="excludesMavenAndGradleTestOutputLocations()" classname="com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest" time="0.002"/>
+  <testcase name="injectedOrdinalsDispatchDistinctMethodsEvenWhenEveryHashCollides()" classname="com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest" time="0.005"/>
+  <testcase name="runnableExecutorOverloadsOutsideTheSupportedDescriptorsRemainValid()" classname="com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest" time="0.299"/>
+  <testcase name="transformsOrdinaryStaticPrivateAndOverloadedMethodsAndExecutesHooks()" classname="com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest" time="0.004"/>
+  <testcase name="exceptionSynchronizedAndTryCatchBehaviorRemainUnchanged()" classname="com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest" time="0.009"/>
+  <testcase name="probeOrdinalsStayDistinctOnHashCollisionAndStableOnReregistration()" classname="com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest" time="0.004"/>
+  <testcase name="transformedOutputPassesAsmVerification()" classname="com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest" time="0.005"/>
+  <testcase name="generatedFrameworkClassUnderIncludedPrefixRemainsUnchanged()" classname="com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest" time="0.003"/>
+  <testcase name="buildsCanonicalMethodKeyAndDistinguishesOverloads()" classname="com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest" time="0.002"/>
+  <testcase name="excludedClassRemainsUnchanged()" classname="com.sap.oss.smarttestpicker.agent.MethodEntryTransformationTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
