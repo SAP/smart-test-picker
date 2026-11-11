@@ -56,13 +56,17 @@ public abstract class AsmAgentArgumentProvider implements CommandLineArgumentPro
 				.append(";shardId=").append(getShardId().get())
 				.append(";schemaVersion=").append(getSchemaVersion().get())
 				.append(";runId=").append(getRunId().get());
-		if (getExecutionTarget().isPresent()) arguments.append(";executionTarget=").append(getExecutionTarget().get());
+		if (getExecutionTarget().isPresent()) {
+			arguments.append(";executionTarget=").append(getExecutionTarget().get());
+		}
 		appendPrefixes(arguments, "includes", getIncludes().get());
 		appendPrefixes(arguments, "excludes", getExcludes().get());
 		return List.of("-javaagent:" + agent.getAbsolutePath() + "=" + arguments);
 	}
 
 	private static void appendPrefixes(StringBuilder target, String name, List<String> values) {
-		if (!values.isEmpty()) target.append(';').append(name).append('=').append(String.join(",", values));
+		if (!values.isEmpty()) {
+			target.append(';').append(name).append('=').append(String.join(",", values));
+		}
 	}
 }

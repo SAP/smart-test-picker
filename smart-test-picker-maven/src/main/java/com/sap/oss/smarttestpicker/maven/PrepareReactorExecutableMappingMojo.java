@@ -195,7 +195,10 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 		// Freeze the validated settings so later property-producing goals cannot change them.
 		for (String name : List.of("forkCount", "reuseForks")) {
 			Xpp3Dom child = configuration.getChild(name);
-			if (child == null) { child = new Xpp3Dom(name); configuration.addChild(child); }
+			if (child == null) {
+				child = new Xpp3Dom(name);
+				configuration.addChild(child);
+			}
 			child.setValue(name.equals("forkCount") ? "1" : "true");
 		}
 	}

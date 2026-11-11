@@ -128,7 +128,11 @@ public final class MergeExecutableTargetFragmentsMojo extends AbstractMojo {
 			TestCoverage coverage, ExecutableUnmappedTest absent) {
 		if (mapped.containsKey(identity) || unmapped.containsKey(identity))
 			throw new IllegalArgumentException("Duplicate executable identity across target fragments: " + identity);
-		if (coverage != null) mapped.put(identity, coverage); else unmapped.put(identity, absent);
+		if (coverage != null) {
+			mapped.put(identity, coverage);
+		} else {
+			unmapped.put(identity, absent);
+		}
 	}
 
 	private static void add(JsonObject root, String name, Set<ExecutableTestIdentity> destination,

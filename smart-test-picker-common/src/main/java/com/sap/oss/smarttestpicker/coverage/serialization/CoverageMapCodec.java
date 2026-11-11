@@ -99,7 +99,10 @@ public final class CoverageMapCodec
 		TreeSet<String> containers = new TreeSet<>(); TreeSet<TestIdentity> identities = new TreeSet<>();
 		identities.addAll(map.tests().keySet());
 		map.unmapped().forEach(entry -> identities.add(entry.test()));
-		if (map.completeness() != null) { identities.addAll(map.completeness().expectedTests()); identities.addAll(map.completeness().reportedTests()); }
+		if (map.completeness() != null) {
+			identities.addAll(map.completeness().expectedTests());
+			identities.addAll(map.completeness().reportedTests());
+		}
 		map.tests().values().forEach(coverage -> { classes.addAll(coverage.coveredClasses()); methods.addAll(coverage.coveredMethods()); });
 		map.setupScopes().forEach(scope -> { classes.addAll(scope.coveredClasses()); scope.affectedContainers().forEach(c -> containers.add(c.binaryName())); });
 

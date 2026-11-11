@@ -141,7 +141,12 @@ public final class JUnitHeadTestInventoryGenerator {
 				synchronized (getClassLoadingLock(name)) {
 					Class<?> loaded = findLoadedClass(name);
 					if (loaded == null) try { loaded = findClass(name); } catch (ClassNotFoundException ignored) { }
-					if (loaded != null) { if (resolve) resolveClass(loaded); return loaded; }
+				if (loaded != null) {
+					if (resolve) {
+						resolveClass(loaded);
+					}
+					return loaded;
+				}
 			}
 			}
 			return super.loadClass(name, resolve);

@@ -380,8 +380,12 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 			nonExecuted.removeAll(executed);
 			JsonObject root = new JsonObject(); root.addProperty("version", schemaVersion == 3 ? 2 : 1); root.addProperty("revision", revision);
 			root.addProperty("shardId", shardId);
-			if (schemaVersion == 2) { root.addProperty("testTarget", testTarget); root.addProperty("buildTool", "maven"); }
-			else root.addProperty("executionTarget", target.toString());
+			if (schemaVersion == 2) {
+				root.addProperty("testTarget", testTarget);
+				root.addProperty("buildTool", "maven");
+			} else {
+				root.addProperty("executionTarget", target.toString());
+			}
 			JsonArray x = new JsonArray(); executed.forEach(id -> x.add(schemaVersion == 3
 					? new ExecutableTestIdentity(target, id).toString() : id.toString())); root.add("EXECUTED", x);
 			JsonArray n = new JsonArray(); nonExecuted.forEach(id -> n.add(schemaVersion == 3

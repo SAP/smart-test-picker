@@ -81,7 +81,10 @@ final class AsmMappingAttachment {
 	}
 	private static void setArgLine(Xpp3Dom config, String value) {
 		var child = config.getChild("argLine");
-		if (child == null) { child = new Xpp3Dom("argLine"); config.addChild(child); }
+		if (child == null) {
+			child = new Xpp3Dom("argLine");
+			config.addChild(child);
+		}
 		child.setValue(value);
 	}
 	private static String safe(String value) {

@@ -38,7 +38,10 @@ final class ExecutableCoverageJson
 			while (reader.hasNext())
 			{
 				String name = reader.nextName();
-				if (!"tests".equals(name)) { reader.skipValue(); continue; }
+				if (!"tests".equals(name)) {
+					reader.skipValue();
+					continue;
+				}
 				Set<String> identities = new java.util.HashSet<>(); reader.beginObject();
 				while (reader.hasNext())
 				{

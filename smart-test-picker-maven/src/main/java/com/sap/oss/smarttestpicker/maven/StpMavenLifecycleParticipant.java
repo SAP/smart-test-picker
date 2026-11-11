@@ -230,19 +230,29 @@ public final class StpMavenLifecycleParticipant extends AbstractMavenLifecyclePa
 		set(properties, "smartTestPicker.executionTarget", canonicalTarget);
 		enableJunitAutodetection(configuration);
 		Xpp3Dom classpath = configuration.getChild("additionalClasspathElements");
-		if (classpath == null) { classpath = new Xpp3Dom("additionalClasspathElements"); configuration.addChild(classpath); }
+		if (classpath == null) {
+			classpath = new Xpp3Dom("additionalClasspathElements");
+			configuration.addChild(classpath);
+		}
 		for (Path runtime : runtimeClasspath(collector))
 		{
 			boolean present = java.util.Arrays.stream(classpath.getChildren("additionalClasspathElement"))
 					.anyMatch(value -> runtime.toString().equals(value.getValue()));
-			if (!present) { Xpp3Dom element = new Xpp3Dom("additionalClasspathElement"); element.setValue(runtime.toString()); classpath.addChild(element); }
+			if (!present) {
+				Xpp3Dom element = new Xpp3Dom("additionalClasspathElement");
+				element.setValue(runtime.toString());
+				classpath.addChild(element);
+			}
 		}
 	}
 
 	static void configureCollector(Xpp3Dom configuration, StpCollectorSelection collector)
 	{
 		Xpp3Dom properties = configuration.getChild("systemPropertyVariables");
-		if (properties == null) { properties = new Xpp3Dom("systemPropertyVariables"); configuration.addChild(properties); }
+		if (properties == null) {
+			properties = new Xpp3Dom("systemPropertyVariables");
+			configuration.addChild(properties);
+		}
 		set(properties, StpCollectorSelection.ACTIVATION_PROPERTY, "true");
 		set(properties, StpCollectorSelection.PROPERTY, collector.name());
 	}
@@ -250,9 +260,15 @@ public final class StpMavenLifecycleParticipant extends AbstractMavenLifecyclePa
 	private static void enableJunitAutodetection(Xpp3Dom configuration)
 	{
 		Xpp3Dom properties = configuration.getChild("properties");
-		if (properties == null) { properties = new Xpp3Dom("properties"); configuration.addChild(properties); }
+		if (properties == null) {
+			properties = new Xpp3Dom("properties");
+			configuration.addChild(properties);
+		}
 		Xpp3Dom parameters = properties.getChild("configurationParameters");
-		if (parameters == null) { parameters = new Xpp3Dom("configurationParameters"); properties.addChild(parameters); }
+		if (parameters == null) {
+			parameters = new Xpp3Dom("configurationParameters");
+			properties.addChild(parameters);
+		}
 		String existing = parameters.getValue() == null ? "" : parameters.getValue().trim();
 		String required = "junit.platform.listeners.autodetection.enabled=true\n"
 				+ "junit.jupiter.extensions.autodetection.enabled=true";
@@ -320,7 +336,10 @@ public final class StpMavenLifecycleParticipant extends AbstractMavenLifecyclePa
 	private static void set(Xpp3Dom configuration, String name, String value)
 	{
 		Xpp3Dom child = configuration.getChild(name);
-		if (child == null) { child = new Xpp3Dom(name); configuration.addChild(child); }
+		if (child == null) {
+			child = new Xpp3Dom(name);
+			configuration.addChild(child);
+		}
 		child.setValue(value);
 	}
 

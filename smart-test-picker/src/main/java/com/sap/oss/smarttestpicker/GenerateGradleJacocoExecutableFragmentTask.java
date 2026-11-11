@@ -83,7 +83,11 @@ public abstract class GenerateGradleJacocoExecutableFragmentTask extends Default
 				String base = identityFile.getName().substring(0, identityFile.getName().length() - ".identity".length());
 				File status = new File(reportsDir, base + ".status");
 				File exec = new File(execDir, base + ".exec");
-				if (!status.isFile() || !exec.isFile()) { complete = false; unmapped.add(new ExecutableUnmappedTest(executable, UnmappedReason.COLLECTION_FAILED)); continue; }
+				if (!status.isFile() || !exec.isFile()) {
+					complete = false;
+					unmapped.add(new ExecutableUnmappedTest(executable, UnmappedReason.COLLECTION_FAILED));
+					continue;
+				}
 				String state = Files.readString(status.toPath(), StandardCharsets.UTF_8).trim();
 				TestOutcome outcome = TestOutcome.valueOf(read(identityFile).get("outcome"));
 				if (outcome == TestOutcome.FAIL) {
@@ -152,8 +156,13 @@ public abstract class GenerateGradleJacocoExecutableFragmentTask extends Default
 	private Map<TestIdentity, File> identities(String suffix) throws Exception {
 		Map<TestIdentity, File> result = new TreeMap<>(); File[] files = execDir.listFiles((dir, name) -> name.startsWith("session_") && name.endsWith(suffix));
 		if (files == null) return result;
-		for (File file : files) { Map<String,String> values = read(file); TestIdentity id = new TestIdentity(values.get("className"), values.get("methodName"), values.getOrDefault("methodParameterTypes", ""));
-			if (result.putIfAbsent(id, file) != null) throw new GradleException("Duplicate JaCoCo identity artifact: " + id); }
+		for (File file : files) {
+			Map<String,String> values = read(file);
+			TestIdentity id = new TestIdentity(values.get("className"), values.get("methodName"), values.getOrDefault("methodParameterTypes", ""));
+			if (result.putIfAbsent(id, file) != null) {
+				throw new GradleException("Duplicate JaCoCo identity artifact: " + id);
+			}
+		}
 		return result;
 	}
 	private static Map<String,String> read(File file) throws Exception { Map<String,String> values = new HashMap<>(); for (String line : Files.readAllLines(file.toPath())) { int at = line.indexOf('='); if (at > 0) values.put(line.substring(0, at), line.substring(at + 1)); } return values; }

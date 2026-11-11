@@ -101,7 +101,10 @@ public final class CoverageFragmentCodec
 			while (reader.hasNext())
 			{
 				String name = reader.nextName();
-				if (!"tests".equals(name)) { reader.skipValue(); continue; }
+				if (!"tests".equals(name)) {
+					reader.skipValue();
+					continue;
+				}
 				HashSet<String> identities = new HashSet<>(); reader.beginObject();
 				while (reader.hasNext())
 				{

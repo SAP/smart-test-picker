@@ -97,7 +97,9 @@ public final class ExecutableCoverageFragmentJoiner
 		if (!completeness.isComplete()) errors.add("incomplete executable collection: missingTests=" + completeness.missingTests()
 				+ ", unexpectedTests=" + completeness.unexpectedTests() + ", missingShards=" + completeness.missingShards()
 				+ ", duplicateShards=" + completeness.duplicateShards() + ", duplicateTests=" + completeness.duplicateTests());
-		if (!errors.isEmpty()) throw new IllegalArgumentException(String.join("; ", errors));
+		if (!errors.isEmpty()) {
+			throw new IllegalArgumentException(String.join("; ", errors));
+		}
 		long classEdges = mapped.values().stream().mapToLong(value -> value.coveredClasses().size()).sum();
 		long methodEdges = mapped.values().stream().mapToLong(value -> value.coveredMethods().size()).sum();
 		return new ExecutableCoverageMap(CoverageMapContract.SCHEMA_V3, inventory.revision(), generatedAt, generator,

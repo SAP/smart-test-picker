@@ -131,11 +131,34 @@ public final class AggregateReactorCoverageFragmentMojo extends AbstractMojo {
 			if (!fragment.collectionCompleted()) throw new IllegalStateException("Incomplete module coverage fragment for " + target);
 			qualifier.requireTarget(fragment, target);
 			if (!ExecutableCoverageMapValidator.validate(fragment).isValid()) throw new IllegalStateException("Invalid module executable fragment for " + target);
-			for (var entry : fragment.tests().entrySet()) { requireAssigned(entry.getKey(), assignment.tests()); if (mapped.containsKey(entry.getKey()) || unmapped.containsKey(entry.getKey())) duplicate(entry.getKey()); mapped.put(entry.getKey(), entry.getValue()); }
-			for (var entry : fragment.unmapped()) { requireAssigned(entry.test(), assignment.tests()); if (mapped.containsKey(entry.test()) || unmapped.containsKey(entry.test())) duplicate(entry.test()); unmapped.put(entry.test(), entry); }
-			for (SetupScope scope : fragment.setupScopes()) { String key = scope.owner() + "::" + scope.id(); SetupScope old = scopes.putIfAbsent(key, scope); if (old != null && !old.equals(scope)) throw new IllegalStateException("Incompatible duplicate setup scope: " + key); }
+			for (var entry : fragment.tests().entrySet()) {
+				requireAssigned(entry.getKey(), assignment.tests());
+				if (mapped.containsKey(entry.getKey()) || unmapped.containsKey(entry.getKey())) {
+					duplicate(entry.getKey());
+				}
+				mapped.put(entry.getKey(), entry.getValue());
+			}
+			for (var entry : fragment.unmapped()) {
+				requireAssigned(entry.test(), assignment.tests());
+				if (mapped.containsKey(entry.test()) || unmapped.containsKey(entry.test())) {
+					duplicate(entry.test());
+				}
+				unmapped.put(entry.test(), entry);
+			}
+			for (SetupScope scope : fragment.setupScopes()) {
+				String key = scope.owner() + "::" + scope.id();
+				SetupScope old = scopes.putIfAbsent(key, scope);
+				if (old != null && !old.equals(scope)) {
+					throw new IllegalStateException("Incompatible duplicate setup scope: " + key);
+				}
+			}
 			MavenMappingEvidence evidence = readEvidenceV2(evidenceFile, target);
-			for (ExecutableTestIdentity identity : unionExecutable(evidence.executed(), evidence.nonExecuted())) { requireAssigned(identity, assignment.tests()); if (!evidenceOwners.add(identity)) throw new IllegalStateException("Duplicate execution evidence identity: " + identity); }
+			for (ExecutableTestIdentity identity : unionExecutable(evidence.executed(), evidence.nonExecuted())) {
+				requireAssigned(identity, assignment.tests());
+				if (!evidenceOwners.add(identity)) {
+					throw new IllegalStateException("Duplicate execution evidence identity: " + identity);
+				}
+			}
 			executed.addAll(evidence.executed()); nonExecuted.addAll(evidence.nonExecuted());
 		}
 		ExecutableCoverageFragment result = new ExecutableCoverageFragment(CoverageMapContract.SCHEMA_V3,
@@ -295,8 +318,17 @@ public final class AggregateReactorCoverageFragmentMojo extends AbstractMojo {
 		if (!shardId.equals(actualShard)) throw new IllegalStateException("Shard mismatch for " + owner);
 	}
 	private void invalidateFinals() throws MojoExecutionException {
-		try { if (fragmentOutput != null) Files.deleteIfExists(fragmentOutput.toPath()); if (evidenceOutput != null) Files.deleteIfExists(evidenceOutput.toPath()); }
-		catch (IOException failure) { throw new MojoExecutionException("Failed to invalidate final shard outputs", failure); }
+		try {
+			if (fragmentOutput != null) {
+				Files.deleteIfExists(fragmentOutput.toPath());
+			}
+			if (evidenceOutput != null) {
+				Files.deleteIfExists(evidenceOutput.toPath());
+			}
+		}
+		catch (IOException failure) {
+			throw new MojoExecutionException("Failed to invalidate final shard outputs", failure);
+		}
 	}
 	private static Set<TestIdentity> readAssignments(Path file) throws IOException {
 		Set<TestIdentity> result = new TreeSet<>();
@@ -306,7 +338,12 @@ public final class AggregateReactorCoverageFragmentMojo extends AbstractMojo {
 	}
 	private static Set<TestIdentity> identities(JsonObject root, String name) {
 		Set<TestIdentity> result = new TreeSet<>();
-		for (JsonElement value : root.getAsJsonArray(name)) { TestIdentity id = TestIdentity.parse(value.getAsString()); if (!result.add(id)) throw new IllegalStateException("Duplicate evidence identity: " + id); }
+		for (JsonElement value : root.getAsJsonArray(name)) {
+			TestIdentity id = TestIdentity.parse(value.getAsString());
+			if (!result.add(id)) {
+				throw new IllegalStateException("Duplicate evidence identity: " + id);
+			}
+		}
 		return result;
 	}
 	private static Set<TestIdentity> union(Set<TestIdentity> first, Set<TestIdentity> second) { Set<TestIdentity> result = new TreeSet<>(first); result.addAll(second); return result; }

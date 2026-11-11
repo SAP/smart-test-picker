@@ -119,7 +119,11 @@ public final class RuntimeContextService {
 		} finally {
 			current.remove();
 			// Once a leaf ends, a still-active container owns synchronous lifecycle work such as AfterAll.
-			if (currentContainers.get().isEmpty()) lastFinished.set(identity); else lastFinished.remove();
+			if (currentContainers.get().isEmpty()) {
+				lastFinished.set(identity);
+			} else {
+				lastFinished.remove();
+			}
 		}
 	}
 
@@ -199,7 +203,11 @@ public final class RuntimeContextService {
 	}
 
 	private void restoreContainer(ContainerIdentity previous) {
-		if (previous == null) capturedContainer.remove(); else capturedContainer.set(previous);
+		if (previous == null) {
+			capturedContainer.remove();
+		} else {
+			capturedContainer.set(previous);
+		}
 	}
 
 	private void runWith(TestExecutionContext captured, Runnable task) {
@@ -255,8 +263,16 @@ public final class RuntimeContextService {
 	}
 
 	private void restore(TestExecutionContext previous, TestIdentity previousFinished, Object task) {
-		if (previous == null) current.remove(); else current.set(previous);
-		if (previousFinished == null) lastFinished.remove(); else lastFinished.set(previousFinished);
+		if (previous == null) {
+			current.remove();
+		} else {
+			current.set(previous);
+		}
+		if (previousFinished == null) {
+			lastFinished.remove();
+		} else {
+			lastFinished.set(previousFinished);
+		}
 		Deque<TaskIdentity> tasks = currentTasks.get();
 		tasks.pop();
 		if (tasks.isEmpty()) currentTasks.remove();

@@ -140,7 +140,10 @@ public class SelectTestsCommand implements Callable<Integer>
 			CoverageMapResolver resolver = new CoverageMapResolver(projectDir, logger);
 			mapFile = resolver.resolve(mode);
 
-			if (mapFile == null) logger.warn("No coverage map available; selection will fail open.");
+			if (mapFile == null)
+			{
+				logger.warn("No coverage map available; selection will fail open.");
+			}
 		}
 		else
 		{

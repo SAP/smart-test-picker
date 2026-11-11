@@ -106,7 +106,10 @@ public final class SchemaV2SelectionAnalyzer
 			List<PathChange> changes, List<String> fullSuiteTriggers)
 	{
 		Set<String> changedPaths = new TreeSet<>();
-		for (PathChange change : changes) { changedPaths.add(change.oldPath()); changedPaths.add(change.newPath()); }
+		for (PathChange change : changes) {
+			changedPaths.add(change.oldPath());
+			changedPaths.add(change.newPath());
+		}
 		changedPaths.remove("");
 		String trigger = triggerMatch(changedPaths, fullSuiteTriggers == null ? List.of() : fullSuiteTriggers);
 		if (trigger != null) return runAll("Changed path matches full-suite trigger: " + trigger);

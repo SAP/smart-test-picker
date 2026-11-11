@@ -65,7 +65,10 @@ public final class RuntimeEventAggregator {
 			java.util.concurrent.atomic.LongAdder occurrences) {
 		validateScope(test);
 		TestBucket bucket = tests.get(test);
-		if (bucket == null || bucket.finished) { record(test, event); return; }
+		if (bucket == null || bucket.finished) {
+			record(test, event);
+			return;
+		}
 		bucket.countedMethods.put(event, occurrences);
 		bucket.methods.putIfAbsent(event, 0);
 	}
