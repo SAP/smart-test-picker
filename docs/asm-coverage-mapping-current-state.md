@@ -55,9 +55,9 @@ not prove that an unowned propagation error left every passing test's edge set
 complete: the policy preserves observed sibling coverage, but supplies no new
 ownership proof for work that was not attributed. It is not a qualification of
 Hybris or a repair for executor/ForkJoin/scheduled propagation. Missing whole
-shards still block joining. See the [implementation and validation record](../verification/stp-unmapped-01/REPORT.md).
+shards still block joining. See the [implementation and validation record](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/stp-unmapped-01/REPORT.md).
 
-The [health-policy amendment](../verification/stp-unmapped-01-amendment/REPORT.md)
+The [health-policy amendment](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/stp-unmapped-01-amendment/REPORT.md)
 supersedes that record's retained structural-fatal exceptions. Completion means
 accounting, not proof that instrumentation succeeded everywhere: ignoring a
 transformation failure or collision preserves observations but does not prove
@@ -91,7 +91,7 @@ an application method executed, yet disappeared from **every** per-test and setu
 session. Tests passed, the map was complete and accepted, and no attribution
 warning was raised. **There is no JaCoCo parallel-mapping guard.** The ASM
 multiple-fork guard is neither a JaCoCo guard nor an in-JVM concurrency guard.
-See [ASM-13 evidence](../verification/maven-asm-13/REPORT.md).
+See [ASM-13 evidence](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/maven-asm-13/REPORT.md).
 
 The required assumption for interval attribution is that all application work
 caused by a test finishes inside its non-overlapping collection window, with no
@@ -105,8 +105,8 @@ movers. Combined edge-specific changed-successor detection power covered **71 of
 74** suspect edges. Three blind edges remain; stable attribution is not proof
 of temporal isolation, and this finite result does not undo ASM-13's controlled
 counterexamples or qualify historical evaluation numbers. See
-[method orders](../verification/maven-asm-14/REPORT.md) and
-[class orders and detection power](../verification/maven-asm-15/REPORT.md).
+[method orders](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/maven-asm-14/REPORT.md) and
+[class orders and detection power](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/maven-asm-15/REPORT.md).
 
 ### ASM HTTP ownership and cached contexts
 
@@ -121,7 +121,7 @@ intersects the scope; the executable selection bridge preserves these scopes.
 This is coarser than a leaf edge and conservative in the over-selection direction
 for the correctly bounded container. It is not evidence of missing controller
 instrumentation or a promise of arbitrary request-specific propagation.
-See [ASM-11 routing and selector inspection](../verification/maven-asm-11/REPORT.md).
+See [ASM-11 routing and selector inspection](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/maven-asm-11/REPORT.md).
 
 A cached Spring web context reused across test classes has a different outcome.
 MAVEN-ASM-12 demonstrated that prestarted workers retain the first container;
@@ -132,7 +132,7 @@ finalization/join reject it, and no usable candidate map is produced. This is
 observer and with reversed class order. It is an adoption blocker for this
 shared cached-server topology. Its share of real Spring suites is **unknown**;
 it does not establish that all Spring Boot suites fail. See
-[ASM-12](../verification/maven-asm-12/REPORT.md).
+[ASM-12](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/maven-asm-12/REPORT.md).
 
 ASM rejection in ASM-13's in-JVM parallel run is **incidental, not a parallel-test
 guard**. It resulted from JUnit's own ForkJoin submission being unobserved:
@@ -231,7 +231,7 @@ This was the final evidence boundary of the ROUND 17 investigation. Further prog
 
 Method-entry coverage records execution, not selector meaning. It does not make reflection order deterministic, guarantee completion of arbitrary asynchronous descendants, or infer ownership across unsupported boundaries. Wrapper identity can be visible to custom executors. Periodic tasks retain their captured owner and become late after that owner finishes. `LATE_EVENT` preserves historical ownership but is excluded from normal coverage; correlation alone is not proof that timing caused an unstable edge.
 
-The agent currently carries bounded ROUND 10-15 diagnostics for reproducibility. They are disabled by default and are not all production candidates; their dispositions are in `docs/asm-baseline-status.md`. The standalone research fixture demonstrates the proven reflection-order mechanism without STP, and the upstream text remains a draft only.
+The agent currently carries bounded ROUND 10-15 diagnostics for reproducibility. They are disabled by default and are not all production candidates; their dispositions are in [docs/asm-baseline-status.md](https://github.com/SAP/smart-test-picker/blob/5a008fd809cc85ca4782c59126eca98c0db248b3/docs/asm-baseline-status.md). The standalone research fixture demonstrates the proven reflection-order mechanism without STP, and the upstream text remains a draft only.
 
 ### Historical ROUND 17 closure recommendation
 

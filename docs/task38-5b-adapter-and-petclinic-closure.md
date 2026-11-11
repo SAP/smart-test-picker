@@ -19,7 +19,7 @@ The real-project regression used a disposable detached PetClinic worktree at the
 reused the checksum-valid published map with 69 runnable tests, 418 class edges, 1,343 method edges, and
 10 setup scopes. Each scenario ran `selectTests` and `smartTest` separately. Gradle XML identities were
 compared with selector output; compact accounting is in
-`stp-petclinic-validation/task38/selector-regression.json`.
+[stp-petclinic-validation/task38/selector-regression.json](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/stp-petclinic-validation/task38/selector-regression.json).
 
 Direct selection ran 49/49 identities. A `CacheConfiguration` setup change ran 51/51; its three exact
 affected containers were included and no container outside the union of direct edges and bounded scopes

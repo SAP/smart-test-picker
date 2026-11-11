@@ -22,8 +22,21 @@ import com.sap.oss.smarttestpicker.selector.HeadTestInventoryCodec;
 
 class Task40PetClinicFixtureTest
 {
-	private static final Path FIXTURE = Path.of("../stp-petclinic-validation/task40/petclinic-coverage-map-v2.json");
-	private static final Path HEAD_FIXTURE = Path.of("../stp-petclinic-validation/task40/petclinic-head-test-inventory.json");
+	private static final Path FIXTURE = resourcePath("/petclinic-coverage-map-v2.json");
+	private static final Path HEAD_FIXTURE = resourcePath("/petclinic-head-test-inventory.json");
+
+	private static Path resourcePath(String name)
+	{
+		try
+		{
+			return Path.of(java.util.Objects.requireNonNull(
+					Task40PetClinicFixtureTest.class.getResource(name), name).toURI());
+		}
+		catch (java.net.URISyntaxException exception)
+		{
+			throw new IllegalStateException("Invalid fixture resource URI: " + name, exception);
+		}
+	}
 	private static final Set<TestIdentity> NON_EXECUTABLE = Set.of(
 			TestIdentity.parse("org.springframework.samples.petclinic.MySqlIntegrationTests#findAll"),
 			TestIdentity.parse("org.springframework.samples.petclinic.MySqlIntegrationTests#ownerDetails"),

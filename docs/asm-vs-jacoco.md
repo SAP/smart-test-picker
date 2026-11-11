@@ -2,9 +2,9 @@
 
 ## TASK 20 clarification
 
-The TASK 19 count of 57 JaCoCo false negatives survives focused bytecode/probe confirmation. Ten representative exact-descriptor cases were checked with JaCoCo's direct analyzer and class-ID calculation. The observed gap is semantic: JaCoCo deliberately filters some generated shapes, and entry alone does not cover instructions when an implicit exception occurs before a relevant probe. This means JVM `MethodEntry` and JaCoCo covered-method status are not equivalent; it does not mean that JaCoCo is generally broken. Details are in [the TASK 20 report](task20-jacoco-fn-confirmation.md).
+The TASK 19 count of 57 JaCoCo false negatives survives focused bytecode/probe confirmation. Ten representative exact-descriptor cases were checked with JaCoCo's direct analyzer and class-ID calculation. The observed gap is semantic: JaCoCo deliberately filters some generated shapes, and entry alone does not cover instructions when an implicit exception occurs before a relevant probe. This means JVM `MethodEntry` and JaCoCo covered-method status are not equivalent; it does not mean that JaCoCo is generally broken. Details are in [the TASK 20 report](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/docs/task20-jacoco-fn-confirmation.md).
 
-TASK 21 adds the full-population migration layer. The fresh Spring Core maps differ by 25,283 per-test method edges but only 183 global method identities, so redistribution dominates. Replaying all 454 committed mutation cases reduces average selection from 80.6 to 73.4 tests and improves the existing inclusiveness result from 443/454 to 454/454, with no worse safety flip. This strengthens the production-ASM recommendation without classifying every divergent edge as accuracy evidence. See [the TASK 21 report](task21-full-spring-core-asm-vs-evaluation.md).
+TASK 21 adds the full-population migration layer. The fresh Spring Core maps differ by 25,283 per-test method edges but only 183 global method identities, so redistribution dominates. Replaying all 454 committed mutation cases reduces average selection from 80.6 to 73.4 tests and improves the existing inclusiveness result from 443/454 to 454/454, with no worse safety flip. This strengthens the production-ASM recommendation without classifying every divergent edge as accuracy evidence. See [the TASK 21 report](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/docs/task21-full-spring-core-asm-vs-evaluation.md).
 
 ## Technical model
 
@@ -16,7 +16,7 @@ The ASM STP prototype instruments direct production method entry and attributes 
 
 The retained tests prove specific coexistence configurations in which existing JaCoCo project coverage and the STP ASM runtime/instrumentation both operate. This is technical coexistence, not proof that every agent order, build plugin, JVM, or arbitrary simultaneous configuration is supported.
 
-[MAVEN-ASM-07](../verification/maven-asm-07/REPORT.md) adds a bounded Maven report-preservation
+[MAVEN-ASM-07](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/maven-asm-07/REPORT.md) adds a bounded Maven report-preservation
 proof: prepared ASM with JaCoCo first retains every project class/method counter
 for both literal and late-expanded argLine configurations, including filter-sensitive
 shapes. Runtime observation finds no STP reset/dump/snapshot calls. The deliberately
@@ -50,4 +50,4 @@ Selector correctness must be defined against selector semantics and the document
 
 TASK 19 compares both collectors with a JVMTI `MethodEntry` oracle and an independent JUnit lifecycle recorder in the same physical execution, one selected leaf per fresh worker. In 42 sampled Spring tests representing 2,795 historical divergent edges, ASM had 2,955 TP, 0 FP, and 0 FN after 49 cross-thread ownership ambiguities were excluded. JaCoCo had 2,898 TP, 2,373 FP, and 57 FN. The dominant difference was JaCoCo reset-boundary attribution of pre-leaf JVM work; its remaining misses were physical entries not represented as covered by its probe/instruction model.
 
-This establishes `ASM_CLEARLY_BETTER` for the bounded sample and current ownership policy, not for the entire historical population. Late handling remains insufficiently evidenced by the Spring sample, and JVMTI changed a two-method cache path in one of four observer controls. See [the TASK 19 validation](asm-vs-jacoco-accuracy-validation.md) and [oracle design](task19-execution-oracle-design.md).
+This establishes `ASM_CLEARLY_BETTER` for the bounded sample and current ownership policy, not for the entire historical population. Late handling remains insufficiently evidenced by the Spring sample, and JVMTI changed a two-method cache path in one of four observer controls. See [the TASK 19 validation](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/docs/asm-vs-jacoco-accuracy-validation.md) and [oracle design](task19-execution-oracle-design.md).

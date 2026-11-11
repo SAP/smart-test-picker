@@ -62,7 +62,7 @@ working trees before the delivery commits and validated in real Docker Jenkins
 on the existing reactor fixture, including negative cases. It is historical
 validated-package provenance, not a claim that a newly built HPI has that hash.
 No HPI is rebuilt or runtime campaign repeated by consolidation. See the
-[MAVEN-ASM-09 report](../verification/maven-asm-09/REPORT.md) for exact build and
+[MAVEN-ASM-09 report](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/maven-asm-09/REPORT.md) for exact build and
 packaging evidence. Later local PetClinic measurements do not extend that
 Jenkins runtime qualification.
 

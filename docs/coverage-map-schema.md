@@ -1,6 +1,6 @@
 # Coverage map schema v2
 
-> **Historical schema-v2 design record.** Schema v2 remains supported, but executable schema v3 and its explicit selector projection were added later. See the EI-15 [current supported state](../EI-15/current-state.md) for the current producer/consumer contract table. “Provisional” and backlog language below records the state when this document was written.
+> **Historical schema-v2 design record.** Schema v2 remains supported, but executable schema v3 and its explicit selector projection were added later. See the archived EI-15 [supported-state record](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/EI-15/current-state.md) for the producer/consumer contract table at the research safety point. “Provisional” and backlog language below records the state when this document was written.
 
 Schema v1 was the first frozen coverage-map contract. Schema v2 preserves exact JVM descriptors
 for inline method coverage and distinguishes overloaded declared JUnit methods. It otherwise extends

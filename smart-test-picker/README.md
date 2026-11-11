@@ -105,13 +105,13 @@ task-owned `FRAMEWORK_SETUP` scopes; changes to their production classes select 
 container's tests. Unsafe setup evidence rejects conversion. The legacy unversioned map cannot
 represent this ownership and now rejects positive setup coverage rather than publishing pseudo-tests;
 use executable schema 3 with an authoritative task assignment for such suites. Neither JaCoCo
-path directly emits a schema-v2 fragment. See the [setup fix and selection proof](../verification/stp-gradle-setup-01/REPORT.md).
+path directly emits a schema-v2 fragment. See the [setup fix and selection proof](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/stp-gradle-setup-01/REPORT.md).
 The legacy collector runtime and JaCoCo `test.exec` destination are configured only on the dedicated
 mapping task, which then orders per-test exec conversion, XML generation, and legacy JSON generation.
 ASM supplies class coverage, exact descriptor-aware method coverage, bounded supported setup scopes,
 and direct schema-v2 fragments.
 
-The [capability verification](../verification/stp-capabilities-01/REPORT.md) distinguishes
+The [capability verification](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/stp-capabilities-01/REPORT.md) distinguishes
 these output properties from attribution soundness and records probes for all four backends.
 
 The collector is attached only to `generateSmartTestCoverage`, not to normal `test` or `smartTest`.

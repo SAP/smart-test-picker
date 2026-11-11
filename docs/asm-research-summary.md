@@ -1,6 +1,6 @@
 # ASM coverage-mapping research summary
 
-This is the short narrative entry point to the completed ASM attribution research. The precise current contract is in [`asm-coverage-mapping-current-state.md`](asm-coverage-mapping-current-state.md), the chronological evidence trail is in [`asm-research-documentation-index.md`](asm-research-documentation-index.md), and retained implementation/diagnostic dispositions are in [`asm-baseline-status.md`](asm-baseline-status.md).
+This is the short narrative entry point to the completed ASM attribution research. The precise current contract is in [`asm-coverage-mapping-current-state.md`](asm-coverage-mapping-current-state.md), the chronological evidence trail is in [`asm-research-documentation-index.md`](https://github.com/SAP/smart-test-picker/blob/5a008fd809cc85ca4782c59126eca98c0db248b3/docs/asm-research-documentation-index.md), and retained implementation/diagnostic dispositions are in [`asm-baseline-status.md`](https://github.com/SAP/smart-test-picker/blob/5a008fd809cc85ca4782c59126eca98c0db248b3/docs/asm-baseline-status.md).
 
 ## 1. Why ASM was investigated
 
@@ -46,7 +46,7 @@ No collector correctness defect remains known at the final evidence boundary. Th
 
 ## 8. Production candidate and research diagnostics
 
-Production-candidate behavior is the ASM method-entry collector, deterministic catalog/output, logical test ownership, JUnit lifecycle integration, late-event quarantine, supported context-propagation wrappers, filtering, and their regression tests. Round 10–15 tracing transformers, recorders, class ordering/state probes, Spring init scripts, analysis programs, reproducer, and experiment evidence remain research-only. The definitive component table is in [`asm-baseline-status.md`](asm-baseline-status.md).
+Production-candidate behavior is the ASM method-entry collector, deterministic catalog/output, logical test ownership, JUnit lifecycle integration, late-event quarantine, supported context-propagation wrappers, filtering, and their regression tests. Round 10–15 tracing transformers, recorders, class ordering/state probes, Spring init scripts, analysis programs, reproducer, and experiment evidence remain research-only. The definitive component table is in [`asm-baseline-status.md`](https://github.com/SAP/smart-test-picker/blob/5a008fd809cc85ca4782c59126eca98c0db248b3/docs/asm-baseline-status.md).
 
 ## 9. Known limitations
 

@@ -24,7 +24,7 @@ attachment belongs exclusively to mapping preparation, not managed selection.
 ASM fragment finalization and reactor aggregation use the evidence contract below.
 Managed selected execution also explicitly activates its core evidence collection.
 Active JaCoCo without its runtime still fails closed with the existing error
-message. See [the activation correction and validation](../verification/maven-asm-03-fix/REPORT.md).
+message. See [the activation correction and validation](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/maven-asm-03-fix/REPORT.md).
 
 ### ASM mapping fork restriction
 
@@ -43,7 +43,7 @@ All configurations of the chosen provider in assigned modules are checked, even
 if a particular execution will not run. Run preparation before the test lifecycle.
 Attaching the agent manually without this goal bypasses the guard and is not the
 supported prepared path. Per-fork merging remains deferred. See the
-[fork guard evidence and limitations](../verification/maven-asm-04/REPORT.md).
+[fork guard evidence and limitations](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/maven-asm-04/REPORT.md).
 
 ### Prepared ASM attachment
 
@@ -72,7 +72,7 @@ Both paths enforce an exact production code-source allowlist, excluding custom
 test outputs, test JARs and third-party classes even when they share packages.
 The installed artifacts must correspond to the prepared head; this is not artifact
 provenance verification. A module omitted from Maven's collected model cannot be
-identified as reactor-owned. See [scope evidence and boundaries](../verification/maven-asm-08/REPORT.md).
+identified as reactor-owned. See [scope evidence and boundaries](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/maven-asm-08/REPORT.md).
 
 Zero instrumented classes across a mapping fork fails closed with the effective
 scope/count; no fragment/evidence is accepted. An individual test with no edges
@@ -101,9 +101,9 @@ run ID, fragment output and diagnostic output. Unassigned modules receive no age
 The fragment uses `smartTestPicker.moduleFragmentOutput`; diagnostics use
 `smartTestPicker.moduleDiagnosticOutput`. `smartTestPicker.moduleEvidenceOutput`
 is reserved for real execution evidence v2, written by `generate-coverage-fragment`.
-See [attachment validation](../verification/maven-asm-05/REPORT.md) for the earlier
-attachment-only stage and [the current evidence decision](../verification/maven-asm-06/DECISION.md).
-The [Maven ASM fragment/evidence validation](../verification/maven-asm-06/REPORT.md)
+See [attachment validation](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/maven-asm-05/REPORT.md) for the earlier
+attachment-only stage and [the current evidence decision](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/maven-asm-06/DECISION.md).
+The [Maven ASM fragment/evidence validation](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/maven-asm-06/REPORT.md)
 records real Surefire/Failsafe outcomes and aggregation checks.
 
 ### Project JaCoCo report coexistence
@@ -120,7 +120,7 @@ Keep the project JaCoCo agent before STP; do not manually reverse the order.
 ASM-first causes execution-data/class mismatches in the ordinary report and changes
 generated-code filtering when analyzing the transformed bytes. This bounded Maven
 proof does not establish Gradle report preservation or arbitrary agent order/JVM
-compatibility. See [versions, exact counters and inverse-order evidence](../verification/maven-asm-07/REPORT.md).
+compatibility. See [versions, exact counters and inverse-order evidence](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/maven-asm-07/REPORT.md).
 
 ### ASM fragment finalization and aggregation
 
@@ -365,7 +365,7 @@ There are no defaults for revision
 or shard. Maven preserves JVM method descriptors from JaCoCo XML and converts positive
 `setup:<className>` sessions into `FRAMEWORK_SETUP` scopes owned by that test container.
 Descriptor preservation does not guarantee method-entry completeness or temporal attribution
-soundness. See the [capability verification](../verification/stp-capabilities-01/REPORT.md).
+soundness. See the [capability verification](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/stp-capabilities-01/REPORT.md).
 A missing identity, exec, status, XML,
 or a malformed artifact makes the local fragment incomplete. This is collector-local truth only;
 expected-test and expected-shard completeness remain orchestration concerns.

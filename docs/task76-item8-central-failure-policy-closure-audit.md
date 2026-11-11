@@ -56,7 +56,7 @@ Only explicit `InventoryOperationException` values prove a bounded inventory con
 
 Before TASK76, every other failure was relabelled `INVENTORY_UNAVAILABLE` with
 `fullSuitePossible=true`. The pre-fix source is preserved in
-`verification/task76/pre-fix-stp-pr-select-callback-defect.txt`. This was not safe: the body might have
+[verification/task76/pre-fix-stp-pr-select-callback-defect.txt](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/task76/pre-fix-stp-pr-select-callback-defect.txt). This was not safe: the body might have
 failed before producing a trustworthy execution environment. The fix preserves typed inventory facts
 but sends every untyped failure as `INVENTORY/UNKNOWN/PR_SELECTION` with
 `fullSuitePossible=false`. Central policy therefore fails it. A focused test proves known absence still

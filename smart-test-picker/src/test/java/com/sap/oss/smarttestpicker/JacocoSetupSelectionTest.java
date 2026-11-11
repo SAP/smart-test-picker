@@ -21,8 +21,8 @@ class JacocoSetupSelectionTest {
     @ParameterizedTest @CsvSource({"gradle,NONE", "maven,SELECTED"})
     void retainedCapabilityEvidenceDemonstratesSelectionConsequence(String tool, String status,
             @TempDir Path temp) throws Exception {
-        Path raw = Path.of("../verification/stp-capabilities-01/raw", tool, "jacoco");
-        Path fragment = raw.resolve(tool.equals("gradle") ? "fragment.json" : "finalized/coverage-fragment-v3.json");
+        Path fragment = Path.of(java.util.Objects.requireNonNull(JacocoSetupSelectionTest.class.getResource(
+                "/setup-selection/" + tool + "/" + (tool.equals("gradle") ? "fragment.json" : "coverage-fragment-v3.json"))).toURI());
         var result = select(fragment, temp, Path.of("build/stp-gradle-setup-01/before-" + tool));
         assertEquals(status, result.getStatus());
         assertEquals(tool.equals("gradle") ? List.of() : List.of("example.CapabilitiesTest#probes"), result.getSelectedTests());

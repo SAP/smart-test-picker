@@ -35,7 +35,7 @@ names, declared parameter lists/overloads, parameterized logical identities, and
 are present in the inventory.
 
 The five intentional non-executions are recorded in
-`stp-spring-core-validation/task42/intentionally-non-executed.txt`. They are not synthesized from a
+[stp-spring-core-validation/task42/intentionally-non-executed.txt](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/stp-spring-core-validation/task42/intentionally-non-executed.txt). They are not synthesized from a
 set subtraction: each has a positive skipped Gradle XML case and the collector confirms that every
 physical invocation in the corresponding logical group aborted.
 

@@ -106,7 +106,7 @@ decision input or public failure diagnostic.
 ## Tests and focused Docker validation
 
 Focused adapter/realization, common-policy, Jenkins public-flow, mapping-runtime protocol/parity, packaging,
-and small Docker Pipeline results are recorded in `verification/task74/task74-summary.json`.
+and small Docker Pipeline results are recorded in [verification/task74/task74-summary.json](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/task74/task74-summary.json).
 
 ## Remaining TASK75 scope
 

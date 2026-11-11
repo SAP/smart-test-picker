@@ -31,7 +31,7 @@ is an additional code-source restriction, not a replacement for package filters.
 Unknown code sources and test artifacts cannot pass it. The guard refuses to write
 a fragment when `classesTransformed` is zero, retaining scope/count diagnostics.
 Absent options preserve the existing Gradle/raw-agent behavior. See
-[Maven scope validation](../verification/maven-asm-08/REPORT.md).
+[Maven scope validation](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/maven-asm-08/REPORT.md).
 
 Method-entry probes carry JVM-local dense ordinals, each resolving to exactly one
 method identity. Diagnostic method IDs remain `fnv1a64-v1` hashes, including collision
@@ -44,7 +44,7 @@ unsupported owners still produce the existing diagnostics rather than using that
 `runtimeRecordingNanos` now measures first-hit and diagnostic slow paths only, as
 labelled by `runtimeRecordingTiming`; it is not total method-hook CPU time and is not
 directly comparable with the older all-hit timer. See the
-[local performance and correctness record](../verification/stp-perf-01/IMPLEMENTATION.md).
+[local performance and correctness record](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/stp-perf-01/IMPLEMENTATION.md).
 
 Collector errors carry structured severity and ownership, not severity inferred
 from a diagnostic prefix. A proven affected executable identity becomes
@@ -57,4 +57,4 @@ logical key, and propagation sites without a proven affected test set remain
 shard-fatal. A site or class name alone does not identify the tests it affects.
 ERROR setup diagnostics still make collection incomplete. All diagnostic messages
 remain visible in the agent output; no coverage wire schema is changed. See the
-[classification audit and correctness evidence](../verification/stp-integrity-01/REPORT.md).
+[classification audit and correctness evidence](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/stp-integrity-01/REPORT.md).

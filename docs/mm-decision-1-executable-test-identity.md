@@ -14,7 +14,7 @@ Baseline captured on 2026-09-12:
 | Jenkins STP | `9086795d22678d15ada657a6c4b3f3814195f930` | `main` | untracked `.DS_Store`, `examples/.DS_Store`, and `verification/maven-multimodule/mm2-sonar-java.json`; untouched |
 | SonarJava | `9bbe6d04d2db75e5b864f3a424bb78bfa4f36b4c` | `master` | clean |
 
-Existing `verification/maven-multimodule/mm-fix-2-duplicate-test-ownership.json` is the evidence source. The full SonarJava suite was not rerun.
+Existing [verification/maven-multimodule/mm-fix-2-duplicate-test-ownership.json](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/maven-multimodule/mm-fix-2-duplicate-test-ownership.json) is the evidence source. The full SonarJava suite was not rerun.
 
 ## Observed SonarJava case
 

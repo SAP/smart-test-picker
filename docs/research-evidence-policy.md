@@ -17,7 +17,7 @@ Do not commit full raw agent maps, duplicated test-result directories, Gradle bi
 
 Files over 5 MiB are excluded by default. An exception requires an explicit allowlist entry and justification. Files over 20 MiB must not be retained unless they are indispensable and no compact or reproducible substitute exists.
 
-Removed artifact provenance belongs in `docs/removed-research-artifacts.md`. Before adding evidence, run:
+Removed artifact provenance belongs in [docs/removed-research-artifacts.md](https://github.com/SAP/smart-test-picker/blob/5a008fd809cc85ca4782c59126eca98c0db248b3/docs/removed-research-artifacts.md). Before adding evidence, run:
 
 ```sh
 scripts/check-large-files.sh

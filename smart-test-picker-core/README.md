@@ -34,7 +34,7 @@ construction, before callbacks. A missing selected runtime fails closed with
 Selection is fixed for the lifetime of each component; configure it before launcher
 startup, not between test callbacks. This property selects collection components;
 it does not attach an agent. `stp.exec.dir` remains only an output-directory
-override, never an activation signal. See [the correction and evidence](../verification/maven-asm-03-fix/REPORT.md).
+override, never an activation signal. See [the correction and evidence](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/maven-asm-03-fix/REPORT.md).
 
 ## Setup
 
