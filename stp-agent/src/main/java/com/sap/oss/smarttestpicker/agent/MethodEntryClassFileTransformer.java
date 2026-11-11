@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.agent;
 
+import com.sap.oss.smarttestpicker.runtime.CollectorError;
+
 import com.sap.oss.smarttestpicker.runtime.model.MethodIdentity;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
@@ -26,10 +28,10 @@ final class MethodEntryClassFileTransformer implements ClassFileTransformer {
 	private final AgentConfiguration configuration;
 	private final AgentMetrics metrics;
 	private final MethodCatalog catalog;
-	private final Consumer<String> errorSink;
+	private final Consumer<CollectorError> errorSink;
 
 	public MethodEntryClassFileTransformer(AgentConfiguration configuration, AgentMetrics metrics,
-			MethodCatalog catalog, Consumer<String> errorSink) {
+			MethodCatalog catalog, Consumer<CollectorError> errorSink) {
 		this.classifier = new NoOpClassFileTransformer(configuration, metrics);
 		this.configuration = configuration;
 		this.metrics = metrics;
@@ -67,8 +69,8 @@ final class MethodEntryClassFileTransformer implements ClassFileTransformer {
 			// This is an observation boundary: even a collector/ASM JVM error must not
 			// escape into class loading and change the application's behavior.
 			metrics.error();
-			errorSink.accept("transformation-error:" + safeClassName(className) + ":"
-					+ failure.getClass().getName());
+			errorSink.accept(CollectorError.fatal("transformation-error:" + safeClassName(className) + ":"
+					+ failure.getClass().getName()));
 			return null;
 		} finally {
 			metrics.addNanos(System.nanoTime() - started);

@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.agent;
 
+import com.sap.oss.smarttestpicker.runtime.CollectorError;
+
 import com.sap.oss.smarttestpicker.runtime.model.MethodIdentity;
 
 import java.util.ArrayList;
@@ -16,13 +18,13 @@ import java.util.function.Consumer;
 final class MethodCatalog {
 	private final MethodIdHasher hasher;
 	private final AgentMetrics metrics;
-	private final Consumer<String> errorSink;
+	private final Consumer<CollectorError> errorSink;
 	private final Map<Long, TreeSet<MethodIdentity>> methods = new ConcurrentHashMap<>();
 	private final Map<MethodIdentity, Integer> ordinals = new java.util.HashMap<>();
 	private volatile com.sap.oss.smarttestpicker.runtime.MethodProbe[] probes = new com.sap.oss.smarttestpicker.runtime.MethodProbe[64];
 	private volatile int probeCount;
 
-	public MethodCatalog(MethodIdHasher hasher, AgentMetrics metrics, Consumer<String> errorSink) {
+	public MethodCatalog(MethodIdHasher hasher, AgentMetrics metrics, Consumer<CollectorError> errorSink) {
 		this.hasher = hasher;
 		this.metrics = metrics;
 		this.errorSink = errorSink;
@@ -35,7 +37,8 @@ final class MethodCatalog {
 			boolean added = values.add(method);
 			if (added && values.size() == 2) {
 				metrics.methodIdCollision();
-				errorSink.accept("method-id-collision:" + Long.toUnsignedString(id));
+				errorSink.accept(new CollectorError(CollectorError.Classification.SHARD_FATAL,
+						"method-id-collision:" + Long.toUnsignedString(id), java.util.Set.of(), method));
 			}
 			return values;
 		});

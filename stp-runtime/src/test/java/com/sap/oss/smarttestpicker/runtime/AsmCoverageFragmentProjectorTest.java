@@ -119,7 +119,7 @@ class AsmCoverageFragmentProjectorTest {
 		RuntimeEventAggregator aggregator = new RuntimeEventAggregator("run", "jvm");
 		run(aggregator, test("broken", "com.foo.BrokenTest", "broken", ""), TestExecutionStatus.SUCCESSFUL,
 				method("com.foo.Service", "run", "()V"));
-		var result = project(aggregator, new CollectorIntegrity(true, 1, 0, List.of("transformation-error")));
+		var result = project(aggregator, new CollectorIntegrity(true, 1, 0, List.of(CollectorError.fatal("transformation-error"))));
 		assertTrue(result.fragment().tests().isEmpty());
 		assertEquals(UnmappedReason.COLLECTION_FAILED, result.fragment().unmapped().get(0).reason());
 		assertFalse(result.fragment().collectionCompleted());

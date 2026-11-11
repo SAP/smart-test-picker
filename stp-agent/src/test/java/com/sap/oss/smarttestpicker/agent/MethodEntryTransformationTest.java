@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.agent;
 
+import com.sap.oss.smarttestpicker.runtime.CollectorError;
+
 import com.sap.oss.smarttestpicker.runtime.RuntimeHooks;
 import com.sap.oss.smarttestpicker.runtime.model.MethodIdentity;
 import example.instrumented.Calculator;
@@ -50,7 +52,7 @@ class MethodEntryTransformationTest {
 		var configuration = AgentConfiguration.parse("includes=example.instrumented.;productionSourcesFile=" + sources);
 		var metrics = new AgentMetrics(1L);
 		var transformer = new MethodEntryClassFileTransformer(configuration, metrics,
-				new MethodCatalog(new Fnv1a64MethodIdHasher(), metrics, message -> fail(message)), message -> fail(message));
+				new MethodCatalog(new Fnv1a64MethodIdHasher(), metrics, error -> fail(error.message())), error -> fail(error.message()));
 		for (String origin : List.of("checks/", "fixture-1-tests.jar", "third-party.jar")) {
 			var domain = new ProtectionDomain(new CodeSource(temp.resolve(origin).toUri().toURL(), (java.security.cert.Certificate[]) null), null);
 			assertNull(transformer.transform(getClass().getClassLoader(), "example/instrumented/Calculator", null, domain, classBytes(Calculator.class)));
@@ -97,13 +99,15 @@ class MethodEntryTransformationTest {
 	@Test
 	void catalogRetainsBothCanonicalKeysOnCollision() {
 		AgentMetrics metrics = new AgentMetrics(1L);
-		java.util.ArrayList<String> errors = new java.util.ArrayList<>();
+		java.util.ArrayList<CollectorError> errors = new java.util.ArrayList<>();
 		MethodCatalog catalog = new MethodCatalog(ignored -> 7L, metrics, errors::add);
 		catalog.register(new MethodIdentity("example.A", "one", "()V"));
 		catalog.register(new MethodIdentity("example.B", "two", "()V"));
 		assertEquals(2, catalog.resolve(7L).size());
 		assertEquals(1, metrics.snapshot().methodIdCollisions());
-		assertEquals(List.of("method-id-collision:7"), errors);
+		assertEquals(List.of("method-id-collision:7"), errors.stream().map(CollectorError::message).toList());
+		assertTrue(errors.get(0).shardFatal());
+		assertEquals(new MethodIdentity("example.B", "two", "()V"), errors.get(0).site());
 	}
 
 	@Test
@@ -141,7 +145,7 @@ class MethodEntryTransformationTest {
 	@Test
 	void injectedOrdinalsDispatchDistinctMethodsEvenWhenEveryHashCollides() throws Exception {
 		var metrics = new AgentMetrics(1);
-		var errors = new java.util.ArrayList<String>();
+		var errors = new java.util.ArrayList<CollectorError>();
 		var catalog = new MethodCatalog(ignored -> 7L, metrics, errors::add);
 		var transformer = new MethodEntryClassFileTransformer(
 				AgentConfiguration.parse("includes=example.instrumented."), metrics, catalog, errors::add);
@@ -158,7 +162,7 @@ class MethodEntryTransformationTest {
 		assertTrue(observed.contains(new MethodIdentity(Calculator.class.getName(), "add", "(JJ)J")));
 		assertFalse(observed.contains(new MethodIdentity(Calculator.class.getName(), "scale", "(II)I")));
 		assertEquals(1, metrics.snapshot().methodIdCollisions(), "collision integrity rejection remains enabled");
-		assertEquals(List.of("method-id-collision:7"), errors);
+		assertEquals(List.of("method-id-collision:7"), errors.stream().map(CollectorError::message).toList());
 	}
 
 	@Test

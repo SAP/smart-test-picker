@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.agent;
 
+import com.sap.oss.smarttestpicker.runtime.CollectorError;
+
 import java.lang.instrument.ClassFileTransformer;
 import java.security.ProtectionDomain;
 import java.util.function.Consumer;
@@ -12,8 +14,8 @@ import org.objectweb.asm.tree.*;
 final class ForkJoinExecutionTransformer implements ClassFileTransformer {
 	private static final String HOOK = "com/sap/oss/smarttestpicker/runtime/RuntimeHooks";
 	private static final String MARKER = "$stp$forkJoinExecution";
-	private final Consumer<String> errors;
-	ForkJoinExecutionTransformer(Consumer<String> errors) { this.errors = errors; }
+	private final Consumer<CollectorError> errors;
+	ForkJoinExecutionTransformer(Consumer<CollectorError> errors) { this.errors = errors; }
 
 	@Override public byte[] transform(ClassLoader loader, String name, Class<?> redefining,
 			ProtectionDomain domain, byte[] bytes) {
@@ -64,7 +66,7 @@ final class ForkJoinExecutionTransformer implements ClassFileTransformer {
 			node.accept(writer);
 			return writer.toByteArray();
 		} catch (Throwable failure) {
-			errors.accept("forkjoin-execution-incomplete:" + name + ":" + failure.getClass().getName());
+			errors.accept(CollectorError.fatal("forkjoin-execution-incomplete:" + name + ":" + failure.getClass().getName()));
 			return null;
 		}
 	}

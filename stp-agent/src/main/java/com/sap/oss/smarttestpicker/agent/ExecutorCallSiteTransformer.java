@@ -2,6 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.agent;
 
+import com.sap.oss.smarttestpicker.runtime.CollectorError;
+import com.sap.oss.smarttestpicker.runtime.model.MethodIdentity;
+
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
@@ -35,9 +38,9 @@ final class ExecutorCallSiteTransformer implements ClassFileTransformer {
 	private static final String SCHEDULED_EXECUTOR = "Ljava/util/concurrent/ScheduledExecutorService;";
 	private static final String SCHEDULED_FUTURE = "Ljava/util/concurrent/ScheduledFuture;";
 	private static final String TIME_UNIT = "Ljava/util/concurrent/TimeUnit;";
-	private final Consumer<String> errorSink;
+	private final Consumer<CollectorError> errorSink;
 
-	ExecutorCallSiteTransformer(Consumer<String> errorSink) {
+	ExecutorCallSiteTransformer(Consumer<CollectorError> errorSink) {
 		this.errorSink = errorSink;
 	}
 
@@ -55,7 +58,8 @@ final class ExecutorCallSiteTransformer implements ClassFileTransformer {
 				for (AbstractInsnNode instruction = method.instructions.getFirst(); instruction != null;
 						instruction = instruction.getNext()) {
 					if (!(instruction instanceof MethodInsnNode call)) continue;
-					String forkJoinHook = forkJoinHook(call, hierarchy);
+					MethodIdentity site = new MethodIdentity(className.replace('/', '.'), method.name, method.desc);
+					String forkJoinHook = forkJoinHook(call, hierarchy, site);
 					if (forkJoinHook != null) {
 						InsnList capture = new InsnList();
 						capture.add(new InsnNode(Opcodes.DUP));
@@ -71,7 +75,7 @@ final class ExecutorCallSiteTransformer implements ClassFileTransformer {
 						changed = true;
 						continue;
 					}
-					MethodInsnNode scheduled = scheduledBridge(call, hierarchy);
+					MethodInsnNode scheduled = scheduledBridge(call, hierarchy, site);
 					if (scheduled != null) {
 						call.setOpcode(Opcodes.INVOKESTATIC);
 						call.owner = scheduled.owner;
@@ -90,8 +94,8 @@ final class ExecutorCallSiteTransformer implements ClassFileTransformer {
 					if (!executorShape(call)) continue;
 					Resolution resolution = hierarchy.executor(call.owner);
 					if (resolution == Resolution.UNKNOWN) {
-						errorSink.accept("executor-attribution-incomplete:" + className.replace('/', '.') + ":"
-								+ call.owner.replace('/', '.') + "." + call.name + call.desc);
+						errorSink.accept(CollectorError.site("executor-attribution-incomplete:" + className.replace('/', '.') + ":"
+								+ call.owner.replace('/', '.') + "." + call.name + call.desc, site));
 						continue;
 					}
 					if (resolution != Resolution.YES) continue;
@@ -107,13 +111,13 @@ final class ExecutorCallSiteTransformer implements ClassFileTransformer {
 			node.accept(writer);
 			return writer.toByteArray();
 		} catch (Throwable failure) {
-			errorSink.accept("executor-propagation-error:" + className.replace('/', '.') + ":"
-					+ failure.getClass().getName());
+			errorSink.accept(CollectorError.fatal("executor-propagation-error:" + className.replace('/', '.') + ":"
+					+ failure.getClass().getName()));
 			return null;
 		}
 	}
 
-	private String forkJoinHook(MethodInsnNode call, Hierarchy hierarchy) {
+	private String forkJoinHook(MethodInsnNode call, Hierarchy hierarchy, MethodIdentity site) {
 		if (call.getOpcode() == Opcodes.INVOKESTATIC) return null;
 		boolean task = (call.name.equals("fork") && call.desc.equals("()" + FORK_JOIN_TASK))
 				|| (call.name.equals("invoke") && call.desc.equals("()Ljava/lang/Object;"))
@@ -124,13 +128,13 @@ final class ExecutorCallSiteTransformer implements ClassFileTransformer {
 		if (!task && !pool) return null;
 		Resolution resolution = task ? hierarchy.forkJoinTask(call.owner)
 				: hierarchy.subtype(call.owner, "java/util/concurrent/ForkJoinPool", new HashSet<>());
-		if (resolution == Resolution.UNKNOWN) errorSink.accept("forkjoin-attribution-incomplete:"
-				+ call.owner + "." + call.name + call.desc);
+		if (resolution == Resolution.UNKNOWN) errorSink.accept(CollectorError.site("forkjoin-attribution-incomplete:"
+				+ call.owner + "." + call.name + call.desc, site));
 		return resolution == Resolution.YES ? (call.name.equals("reinitialize")
 				? "reinitializeForkJoin" : "captureForkJoin") : null;
 	}
 
-	private MethodInsnNode scheduledBridge(MethodInsnNode call, Hierarchy hierarchy) {
+	private MethodInsnNode scheduledBridge(MethodInsnNode call, Hierarchy hierarchy, MethodIdentity site) {
 		String bridgeDescriptor;
 		if (call.name.equals("schedule") && call.desc.equals("(" + RUNNABLE + "J" + TIME_UNIT + ")" + SCHEDULED_FUTURE)) {
 			bridgeDescriptor = "(" + SCHEDULED_EXECUTOR + RUNNABLE + "J" + TIME_UNIT + ")" + SCHEDULED_FUTURE;
@@ -141,8 +145,8 @@ final class ExecutorCallSiteTransformer implements ClassFileTransformer {
 			bridgeDescriptor = "(" + SCHEDULED_EXECUTOR + RUNNABLE + "JJ" + TIME_UNIT + ")" + SCHEDULED_FUTURE;
 		} else return null;
 		Resolution resolution = hierarchy.scheduledExecutor(call.owner);
-		if (resolution == Resolution.UNKNOWN) errorSink.accept("scheduled-executor-attribution-incomplete:"
-				+ call.owner.replace('/', '.') + "." + call.name + call.desc);
+		if (resolution == Resolution.UNKNOWN) errorSink.accept(CollectorError.site("scheduled-executor-attribution-incomplete:"
+				+ call.owner.replace('/', '.') + "." + call.name + call.desc, site));
 		if (resolution != Resolution.YES) return null;
 		return new MethodInsnNode(Opcodes.INVOKESTATIC, HOOK, call.name, bridgeDescriptor, false);
 	}
