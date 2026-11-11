@@ -161,7 +161,7 @@ class MethodEntryTransformationTest {
 		assertTrue(observed.contains(new MethodIdentity(Calculator.class.getName(), "add", "(II)I")));
 		assertTrue(observed.contains(new MethodIdentity(Calculator.class.getName(), "add", "(JJ)J")));
 		assertFalse(observed.contains(new MethodIdentity(Calculator.class.getName(), "scale", "(II)I")));
-		assertEquals(1, metrics.snapshot().methodIdCollisions(), "collision integrity rejection remains enabled");
+		assertEquals(1, metrics.snapshot().methodIdCollisions(), "collision diagnostic counting remains enabled");
 		assertEquals(List.of("method-id-collision:7"), errors.stream().map(CollectorError::message).toList());
 	}
 

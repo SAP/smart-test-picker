@@ -31,6 +31,7 @@ dependencies {
     testImplementation 'org.apache.maven.plugin-tools:maven-plugin-annotations:3.11.0'
     testImplementation 'org.jacoco:org.jacoco.core:0.8.13'
     testImplementation 'org.jacoco:org.jacoco.report:0.8.13'
+    testImplementation project(':stp-runtime')
 }
 
 test {

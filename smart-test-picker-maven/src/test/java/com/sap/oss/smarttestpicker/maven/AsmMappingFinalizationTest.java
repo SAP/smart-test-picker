@@ -40,7 +40,7 @@ class AsmMappingFinalizationTest {
 	}
 
 	@ParameterizedTest
-	@ValueSource(strings = {"missing-fragment", "incomplete", "missing-observation", "silent-empty", "unexpected", "wrong-target", "wrong-revision", "wrong-shard", "duplicate"})
+	@ValueSource(strings = {"missing-fragment", "incomplete", "timeout", "unexpected", "wrong-target", "wrong-revision", "wrong-shard", "duplicate"})
 	void finalizationRejectsUnsafeFragmentAndInvalidatesOldEvidence(String defect, @TempDir Path temp) throws Exception {
 		var f = fixture(temp); Files.writeString(f.evidence(), "stale evidence");
 		mutateFragment(f.fragment(), defect);
@@ -48,6 +48,26 @@ class AsmMappingFinalizationTest {
 		assertThrows(MojoExecutionException.class, () -> f.finalizer().execute());
 		assertFalse(Files.exists(f.evidence()));
 		if (input != null) assertArrayEquals(input, Files.readAllBytes(f.fragment()));
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = {"missing-observation", "silent-empty"})
+	void missingAssignmentMembersAreAbsorbedAndRetryPreservesAudit(String defect, @TempDir Path temp) throws Exception {
+		var f = fixture(temp); mutateFragment(f.fragment(), defect);
+		f.finalizer().execute();
+		var fragment = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(f.fragment()));
+		int expected = defect.equals("silent-empty") ? 3 : 1;
+		assertEquals(expected, fragment.unmapped().stream().filter(u -> u.reason() == UnmappedReason.COLLECTION_FAILED).count());
+		var audit = JsonParser.parseString(Files.readString(f.evidence())).getAsJsonObject().getAsJsonObject("assignmentAbsorption");
+		assertEquals(expected, audit.get("count").getAsInt());
+		assertEquals("ASSIGNED_TEST_NOT_REPORTED", audit.get("reason").getAsString());
+		assertFalse(audit.get("executionObserved").getAsBoolean());
+		byte[] normalized = Files.readAllBytes(f.fragment()), evidence = Files.readAllBytes(f.evidence());
+		f.finalizer().execute();
+		assertArrayEquals(normalized, Files.readAllBytes(f.fragment()));
+		assertArrayEquals(evidence, Files.readAllBytes(f.evidence()));
+		f.aggregator().execute();
+		assertTrue(new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(f.result())).collectionCompleted());
 	}
 
 	@ParameterizedTest
@@ -82,6 +102,7 @@ class AsmMappingFinalizationTest {
 		var json = JsonParser.parseString(Files.readString(file)).getAsJsonObject();
 		switch (defect) {
 			case "incomplete" -> json.getAsJsonObject("collection").addProperty("completed", false);
+			case "timeout" -> json.getAsJsonArray("unmapped").get(0).getAsJsonObject().addProperty("reason", "TIMEOUT");
 			case "missing-observation" -> json.getAsJsonObject("tests").remove(PASS.toString());
 			case "silent-empty" -> { json.add("tests", new com.google.gson.JsonObject()); json.add("unmapped", new com.google.gson.JsonArray()); }
 			case "duplicate" -> json.getAsJsonArray("unmapped").add(json.getAsJsonArray("unmapped").get(0).deepCopy());
@@ -92,7 +113,7 @@ class AsmMappingFinalizationTest {
 		Files.writeString(file, defect.equals("wrong-target") ? json.toString().replace("maven:module::", "maven:other::") : json.toString());
 	}
 
-	private static Fixture fixture(Path temp) throws Exception {
+	static Fixture fixture(Path temp) throws Exception {
 		Path directory = Files.createDirectories(temp.resolve("module/target/stp"));
 		Path fragment = directory.resolve("coverage-fragment-v3.json"), evidence = directory.resolve("execution-evidence-v2.json");
 		var value = new ExecutableCoverageFragment(3, new CoverageMapRevision("rev"), new ShardId("shard"),
@@ -130,9 +151,9 @@ class AsmMappingFinalizationTest {
 		var project = new MavenProject(); project.setFile(dir.resolve("pom.xml").toFile()); project.setExecutionRoot(root);
 		var build = new Build(); build.setDirectory(dir.resolve("target").toString()); project.setBuild(build); return project;
 	}
-	private static void set(Object target, String field, Object value) throws Exception {
+	static void set(Object target, String field, Object value) throws Exception {
 		var f = target.getClass().getDeclaredField(field); f.setAccessible(true); f.set(target, value);
 	}
-	private record Fixture(GenerateCoverageFragmentMojo finalizer, AggregateReactorCoverageFragmentMojo aggregator,
+	static record Fixture(GenerateCoverageFragmentMojo finalizer, AggregateReactorCoverageFragmentMojo aggregator,
 			Path fragment, Path evidence, Path result, Path resultEvidence) { }
 }

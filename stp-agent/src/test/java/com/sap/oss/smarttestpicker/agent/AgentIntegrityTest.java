@@ -7,19 +7,25 @@ import com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentity;
 import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableCoverageFragmentCodec;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.objectweb.asm.*;
 import java.nio.file.*;
 import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AgentIntegrityTest {
-    @Test void structuredLocalErrorSurvivesAgentShutdownAndKeepsSibling(@TempDir Path dir) throws Exception {
+    @ParameterizedTest
+    @ValueSource(booleans = {false, true})
+    void structuredLocalErrorSurvivesAgentShutdownAndKeepsSibling(boolean unhealthy, @TempDir Path dir) throws Exception {
         var bad = ExecutableTestIdentity.parse("maven:.::example.Tests#affected");
         var good = ExecutableTestIdentity.parse("maven:.::example.Tests#sibling");
         var config = AgentConfiguration.parse("output=" + dir.resolve("diagnostic.json")
                 + ";fragmentOutput=" + dir.resolve("fragment.json")
                 + ";schemaVersion=3;revision=r;shardId=one;executionTarget=maven:.");
-        var runtime = AgentRuntime.install(config, new AgentMetrics(1));
+        var metrics = new AgentMetrics(1);
+        if (unhealthy) { metrics.error(); metrics.methodIdCollision(); }
+        var runtime = AgentRuntime.install(config, metrics);
         try {
             for (var executable : List.of(bad, good)) {
                 var identity = new TestIdentity(executable.toString(), "test", executable.test().className(),
@@ -36,10 +42,16 @@ class AgentIntegrityTest {
             assertEquals(Set.of(good), fragment.tests().keySet());
             assertEquals(bad, fragment.unmapped().get(0).test());
             assertTrue(Files.readString(dir.resolve("diagnostic.json")).contains("arbitrary diagnostic text"));
+            String diagnostic = Files.readString(dir.resolve("diagnostic.json"));
+            for (String counter : List.of("transformationErrors", "methodIdCollisions")) {
+                var value = java.util.regex.Pattern.compile("\"" + counter + "\"\\s*:\\s*(\\d+)").matcher(diagnostic);
+                assertTrue(value.find(), diagnostic);
+                assertEquals(unhealthy ? 1 : 0, Integer.parseInt(value.group(1)));
+            }
         } finally { runtime.abortInitialization(); }
     }
 
-    @Test void unresolvedPropagationSitesCarryMethodAndStayFatalWithoutGuessingTests() {
+    @Test void unresolvedPropagationSitesRetainLegacySeverityWithoutGuessingTests() {
         String[][] calls = {
                 {"execute", "(Ljava/lang/Runnable;)V", "executor-attribution-incomplete:"},
                 {"fork", "()Ljava/util/concurrent/ForkJoinTask;", "forkjoin-attribution-incomplete:"},

@@ -1,7 +1,8 @@
 # ASM coverage mapping: current state
 
 This is the authoritative collector-attribution and adoption-boundary entry point,
-updated through MAVEN-ASM-15 at STP `4f73dc3` on 2026-11-04. Maven's prepared
+with attribution findings through MAVEN-ASM-15 and per-identity completion policy
+updated by STP-UNMAPPED-01 and its diagnostic-only health amendment. Maven's prepared
 schema-v3 path supports ASM; Gradle ASM remains supported. Enabled collection is
 not universal qualification for every test topology. The historical ROUND 17
 research evidence below is preserved separately from the current Maven findings.
@@ -16,6 +17,54 @@ temporal isolation or attribution soundness.** The current fail-closed checks
 reject detected invalid/incomplete evidence; they cannot prove that a
 process-global probe snapshot belongs causally to the named test. Successful
 test bodies and an accepted map must not be presented as that stronger guarantee.
+
+### Broken identities and assignment absorption
+
+ASM projection preserves passing siblings when a known test fails or has no
+finished/result observation. Failed tests are `FAILED`; unfinished or result-less
+tests are `COLLECTION_FAILED`; wholly aborted tests remain `SKIPPED`. An agent
+error affects only its explicitly owned identities. An unowned diagnostic remains
+visible but does not discard other tests' coverage. Uninitialized runtime,
+included-class transformation failures and method-ID collisions are informational:
+their counters and error strings do not change classification or completion.
+There is no agent-error class that invalidates the shard. Legacy `SHARD_FATAL`
+labels in diagnostics are producer metadata only, not a publication decision.
+Explicitly owned attribution failures affect only those identities.
+ERROR setup diagnostics still make collection incomplete,
+including the shared-context and parallel cases described below.
+
+For a complete, correctly bound Maven ASM fragment, finalization adds each
+unreported member of the authoritative target assignment to unmapped as
+`COLLECTION_FAILED`. It does not parse unsupported platform IDs, infer that the
+missing test ran, or invent positive non-execution. Unexpected identities,
+duplicates, wrong bindings, incomplete fragments and absent whole fragments still
+fail. The module fragment and evidence carry an `assignmentAbsorption` audit with
+the cause `ASSIGNED_TEST_NOT_REPORTED`, count, exact identities and
+`executionObserved=false`. Normalization preserves all reported coverage and
+does not rewrite healthy fragments. This Maven audit extension is not retained
+by generic fragment/map serialization; the module artifacts are its provenance.
+
+Absorbed identities enter the existing evidence-v2 `EXECUTED` coverage-owner
+bucket, because that contract accounts for every non-SKIPPED unmapped owner.
+For those identities this bucket is **not proof of physical execution**: consult
+`assignmentAbsorption`. `NON_EXECUTED` remains positive observation only.
+
+Unmapped identities present in head are always mandatory for selection, so known
+broken and assignment-absent tests run until a later map covers them. This does
+not prove that an unowned propagation error left every passing test's edge set
+complete: the policy preserves observed sibling coverage, but supplies no new
+ownership proof for work that was not attributed. It is not a qualification of
+Hybris or a repair for executor/ForkJoin/scheduled propagation. Missing whole
+shards still block joining. See the [implementation and validation record](../verification/stp-unmapped-01/REPORT.md).
+
+The [health-policy amendment](../verification/stp-unmapped-01-amendment/REPORT.md)
+supersedes that record's retained structural-fatal exceptions. Completion means
+accounting, not proof that instrumentation succeeded everywhere: ignoring a
+transformation failure or collision preserves observations but does not prove
+missing edges harmless. This policy deliberately does not force every sibling
+to run on those counters. Artifact, scope, assignment and binding validation
+remain separate; “always complete” applies to agent health, not ERROR setup
+diagnostics or invalid/missing input artifacts.
 
 ### JaCoCo interval attribution and silent loss
 

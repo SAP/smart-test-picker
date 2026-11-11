@@ -6,7 +6,8 @@ import com.sap.oss.smarttestpicker.runtime.model.MethodIdentity;
 import java.util.Objects;
 import java.util.Set;
 
-/** Producer-supplied ownership evidence; diagnostic text never determines severity. */
+/** Producer-supplied ownership evidence; diagnostic text never determines test outcomes.
+ * Legacy severity labels are retained in diagnostics, not used as fragment rejection policy. */
 public record CollectorError(Classification classification, String message,
         Set<ExecutableTestIdentity> affectedIdentities, MethodIdentity site) {
     public enum Classification { SHARD_FATAL, IDENTITY_LOCAL, SITE_LOCAL }
@@ -33,6 +34,7 @@ public record CollectorError(Classification classification, String message,
         return new CollectorError(Classification.SITE_LOCAL, message, Set.of(), site);
     }
 
+    /** Legacy producer classification only; neither this value nor health counters invalidate a fragment. */
     public boolean shardFatal() {
         return classification == Classification.SHARD_FATAL
                 || classification == Classification.SITE_LOCAL && affectedIdentities.isEmpty();
