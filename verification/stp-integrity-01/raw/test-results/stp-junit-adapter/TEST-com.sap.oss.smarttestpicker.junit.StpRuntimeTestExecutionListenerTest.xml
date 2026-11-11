@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.junit.StpRuntimeTestExecutionListenerTest" tests="21" skipped="0" failures="0" errors="0" timestamp="2026-11-11T14:51:47.451Z" hostname="WDVJD22XQC" time="0.185">
+  <properties/>
+  <testcase name="overloadedJunitMethodsRemainDistinctByMethodSourceParameterTypes()" classname="com.sap.oss.smarttestpicker.junit.StpRuntimeTestExecutionListenerTest" time="0.044"/>
+  <testcase name="nestedLeafKeepsItsAuthoritativeUniqueId()" classname="com.sap.oss.smarttestpicker.junit.StpRuntimeTestExecutionListenerTest" time="0.009"/>
+  <testcase name="allAbortedParameterizedInvocationsArePositivelySkipped()" classname="com.sap.oss.smarttestpicker.junit.StpRuntimeTestExecutionListenerTest" time="0.032"/>
+  <testcase name="disabledContainerDescendantsArePositivelySkipped()" classname="com.sap.oss.smarttestpicker.junit.StpRuntimeTestExecutionListenerTest" time="0.005"/>
+  <testcase name="serviceLoaderRegistrationUsesRuntimeOwnedScopedRegistry()" classname="com.sap.oss.smarttestpicker.junit.StpRuntimeTestExecutionListenerTest" time="0.002"/>
+  <testcase name="noArgumentListenerConstructedWithoutAgentRuntimeRemainsNoOp()" classname="com.sap.oss.smarttestpicker.junit.StpRuntimeTestExecutionListenerTest" time="0.001"/>
+  <testcase name="abortedContainerDescendantsArePositivelySkipped()" classname="com.sap.oss.smarttestpicker.junit.StpRuntimeTestExecutionListenerTest" time="0.005"/>
+  <testcase name="parallelJunitLeavesRetainIndependentOwnership()" classname="com.sap.oss.smarttestpicker.junit.StpRuntimeTestExecutionListenerTest" time="0.015"/>
+  <testcase name="containersDoNotOpenContextsAndBeforeEachAndAfterEachAreInsideLeafInterval()" classname="com.sap.oss.smarttestpicker.junit.StpRuntimeTestExecutionListenerTest" time="0.008"/>
+  <testcase name="testTemplateInvocationsCollapseToDeclaredMethod()" classname="com.sap.oss.smarttestpicker.junit.StpRuntimeTestExecutionListenerTest" time="0.005"/>
+  <testcase name="dynamicTestsAreSeparate()" classname="com.sap.oss.smarttestpicker.junit.StpRuntimeTestExecutionListenerTest" time="0.009"/>
+  <testcase name="recordsSuccessfulFailedAndAbortedResultsAndAlwaysCleansUp()" classname="com.sap.oss.smarttestpicker.junit.StpRuntimeTestExecutionListenerTest" time="0.005"/>
+  <testcase name="sequentialTestsDoNotLeakEvents()" classname="com.sap.oss.smarttestpicker.junit.StpRuntimeTestExecutionListenerTest" time="0.004"/>
+  <testcase name="mixedParameterizedInvocationsRemainExecutable()" classname="com.sap.oss.smarttestpicker.junit.StpRuntimeTestExecutionListenerTest" time="0.005"/>
+  <testcase name="inheritedLifecycleIsBoundedToTheConcreteExecutingContainer()" classname="com.sap.oss.smarttestpicker.junit.StpRuntimeTestExecutionListenerTest" time="0.006"/>
+  <testcase name="repeatedInvocationsAreSeparate()" classname="com.sap.oss.smarttestpicker.junit.StpRuntimeTestExecutionListenerTest" time="0.005"/>
+  <testcase name="beforeAllIsRepresentedOnlyForItsActualContainer()" classname="com.sap.oss.smarttestpicker.junit.StpRuntimeTestExecutionListenerTest" time="0.003"/>
+  <testcase name="parameterizedInvocationsAreSeparateAndMatchGoldenOutput()" classname="com.sap.oss.smarttestpicker.junit.StpRuntimeTestExecutionListenerTest" time="0.005"/>
+  <testcase name="recognizedSharedSetupWithoutProvableConsumersFailsClosedWithoutASetupEdge()" classname="com.sap.oss.smarttestpicker.junit.StpRuntimeTestExecutionListenerTest" time="0.007"/>
+  <testcase name="supportsLeafIdentifierWithoutMethodSourceAndDoesNotReactivateFinishedTest()" classname="com.sap.oss.smarttestpicker.junit.StpRuntimeTestExecutionListenerTest" time="0.001"/>
+  <testcase name="eventsDuringTestAreAttributedAndEventsAfterCompletionAreLate()" classname="com.sap.oss.smarttestpicker.junit.StpRuntimeTestExecutionListenerTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

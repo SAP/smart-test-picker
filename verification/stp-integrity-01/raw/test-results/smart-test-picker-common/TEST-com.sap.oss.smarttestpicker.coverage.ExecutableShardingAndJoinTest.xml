@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.coverage.ExecutableShardingAndJoinTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-11T14:43:39.624Z" hostname="WDVJD22XQC" time="0.013">
+  <properties/>
+  <testcase name="assignmentCodecIsVersionedStrictDeterministicAndRoundTrips()" classname="com.sap.oss.smarttestpicker.coverage.ExecutableShardingAndJoinTest" time="0.001"/>
+  <testcase name="sameSetupScopeIdentityInDifferentTargetsRoundTripsAndJoinsWithoutCollision()" classname="com.sap.oss.smarttestpicker.coverage.ExecutableShardingAndJoinTest" time="0.004"/>
+  <testcase name="wrongTargetDuplicateExecutableDuplicateShardAndMissingOwnerFailClosed()" classname="com.sap.oss.smarttestpicker.coverage.ExecutableShardingAndJoinTest" time="0.002"/>
+  <testcase name="sameLogicalOwnersMayCoexistInOneShard()" classname="com.sap.oss.smarttestpicker.coverage.ExecutableShardingAndJoinTest" time="0.001"/>
+  <testcase name="planIsAnExactImmutableDeterministicExecutablePartition()" classname="com.sap.oss.smarttestpicker.coverage.ExecutableShardingAndJoinTest" time="0.001"/>
+  <testcase name="skippedCollectorRecordIsAccountedOnlyByPositiveExecutionEvidence()" classname="com.sap.oss.smarttestpicker.coverage.ExecutableShardingAndJoinTest" time="0.001"/>
+  <testcase name="sonarJavaDualOwnerJoinsAcrossDifferentShardsWithoutCoverageUnion()" classname="com.sap.oss.smarttestpicker.coverage.ExecutableShardingAndJoinTest" time="0.0"/>
+  <testcase name="positiveNonExecutionRequiresExplicitOrchestratorFact()" classname="com.sap.oss.smarttestpicker.coverage.ExecutableShardingAndJoinTest" time="0.0"/>
+  <testcase name="shardingKeepsEnclosingAndNestedTestClassesOnOneShard()" classname="com.sap.oss.smarttestpicker.coverage.ExecutableShardingAndJoinTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

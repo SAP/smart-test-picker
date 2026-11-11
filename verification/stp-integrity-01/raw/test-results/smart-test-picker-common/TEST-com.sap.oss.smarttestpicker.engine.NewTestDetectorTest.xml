@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" tests="25" skipped="0" failures="0" errors="0" timestamp="2026-11-11T14:43:44.837Z" hostname="WDVJD22XQC" time="5.244">
+  <properties/>
+  <testcase name="isAbstractOrInterface_returnsFalseForConcreteClass()" classname="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" time="0.166"/>
+  <testcase name="classifiesAddedTest()" classname="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" time="0.314"/>
+  <testcase name="classifyFromSource_detectsPackagePrivate()" classname="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" time="0.17"/>
+  <testcase name="classifyFromSource_detectsIgnoredTest()" classname="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" time="0.168"/>
+  <testcase name="classifyFromSource_skipsBlockComments()" classname="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" time="0.188"/>
+  <testcase name="classifiesModifiedTest()" classname="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" time="0.365"/>
+  <testcase name="isAbstractOrInterface_detectsInterface()" classname="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" time="0.175"/>
+  <testcase name="skipsInnerClasses()" classname="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" time="0.159"/>
+  <testcase name="classifyFromSource_detectsEnclosedRunner()" classname="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" time="0.155"/>
+  <testcase name="isAbstractOrInterface_detectsAbstract()" classname="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" time="0.187"/>
+  <testcase name="classifyFromSource_detectsNoTestAnnotation()" classname="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" time="0.285"/>
+  <testcase name="returnsEmptyWhenAllTestsInMap()" classname="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" time="0.29"/>
+  <testcase name="classifyFromSource_detectsArchUnit()" classname="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" time="0.206"/>
+  <testcase name="classifyFromSource_returnsNullForNormalTest()" classname="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" time="0.151"/>
+  <testcase name="classifyFromSource_returnsNullWhenFileNotFound()" classname="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" time="0.245"/>
+  <testcase name="returnsEmptyWhenDirNotExists()" classname="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" time="0.232"/>
+  <testcase name="classifyFromSource_detectsConditionalSkip()" classname="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" time="0.254"/>
+  <testcase name="classifiesUnknownTest()" classname="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" time="0.254"/>
+  <testcase name="classifyFromSource_detectsDisabledTest()" classname="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" time="0.197"/>
+  <testcase name="isAbstractOrInterface_handlesBlockComments()" classname="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" time="0.194"/>
+  <testcase name="detect_withTestSourceDirs_filtersAbstractClasses()" classname="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" time="0.208"/>
+  <testcase name="detectsNewTestNotInMap()" classname="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" time="0.194"/>
+  <testcase name="isAbstractOrInterface_detectsAnnotationType()" classname="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" time="0.162"/>
+  <testcase name="isAbstractOrInterface_returnsFalseForMissingSrcDir()" classname="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" time="0.156"/>
+  <testcase name="detect_multiDir_scansAllDirectories()" classname="com.sap.oss.smarttestpicker.engine.NewTestDetectorTest" time="0.16"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

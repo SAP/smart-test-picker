@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.runtime.RuntimeContextRegistryTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-11T14:51:46.592Z" hostname="WDVJD22XQC" time="0.003">
+  <properties/>
+  <testcase name="staleCloseCannotRemoveNewerService()" classname="com.sap.oss.smarttestpicker.runtime.RuntimeContextRegistryTest" time="0.001"/>
+  <testcase name="testScopedInstallationIsReplaceableAfterCleanup()" classname="com.sap.oss.smarttestpicker.runtime.RuntimeContextRegistryTest" time="0.0"/>
+  <testcase name="rejectsDuplicateInstallationClearly()" classname="com.sap.oss.smarttestpicker.runtime.RuntimeContextRegistryTest" time="0.0"/>
+  <testcase name="installsAndClosesOneService()" classname="com.sap.oss.smarttestpicker.runtime.RuntimeContextRegistryTest" time="0.001"/>
+  <testcase name="currentIsEmptyWithoutInstallation()" classname="com.sap.oss.smarttestpicker.runtime.RuntimeContextRegistryTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

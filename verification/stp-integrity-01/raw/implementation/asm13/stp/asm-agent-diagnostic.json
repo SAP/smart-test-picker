@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "agent-shell-1",
+  "collector": "ASM",
+  "runId": "f07c2bec-0b76-36b1-b04b-5ebe36566bd5",
+  "jvmId": "pid-34504",
+  "configuration": {
+    "output": "/Users/D061177/work/moje/smart-test-picker/verification/stp-integrity-01/.work/asm13/asm-parallel/target/stp/asm-agent-diagnostic.json",
+    "fragmentOutput": "/Users/D061177/work/moje/smart-test-picker/verification/stp-integrity-01/.work/asm13/asm-parallel/target/stp/coverage-fragment-v3.json",
+    "revision": "fe4315eb2e8f9538980219f5ec38e757f2af633b",
+    "shardId": "local",
+    "includes": ["example.boundary."],
+    "excludes": ["com.sap.oss.smarttestpicker.", "jakarta.", "java.", "javax.", "jdk.", "net.bytebuddy.", "org.hibernate.", "org.jacoco.", "org.junit.", "org.mockito.", "org.springframework.", "sun."],
+    "productionSources": ["/Users/D061177/work/moje/smart-test-picker/verification/stp-integrity-01/.work/asm13/asm-parallel/target/classes", "/Users/D061177/work/moje/smart-test-picker/verification/stp-integrity-01/.work/asm13/asm-parallel/target/http-reset-boundary-1.jar"],
+    "requireInstrumentation": true,
+    "debug": false,
+    "instrumentation": "on"
+  },
+  "metrics": {
+    "classesSeen": 7097,
+    "classesIncluded": 3,
+    "classesExcluded": 5522,
+    "classesIgnored": 1572,
+    "transformationErrors": 0,
+    "transformerTotalNanos": 20361133,
+    "agentStartNanos": 15781981839333,
+    "classLoaderPresent": 5670,
+    "classLoaderMissing": 1427,
+    "protectionDomainPresent": 5563,
+    "protectionDomainMissing": 1534,
+    "classesTransformed": 3,
+    "methodsConsidered": 5,
+    "methodsInstrumented": 5,
+    "methodsSkipped": 0,
+    "alreadyInstrumentedClasses": 0,
+    "methodIdCollisions": 0,
+    "rawMethodHits": 4,
+    "uniqueMethodHits": 4,
+    "runtimeRecordingNanos": 1723250
+  },
+  "methodIdAlgorithm": "fnv1a64-v1",
+  "injectedProbeId": "jvm-local-dense-ordinal",
+  "runtimeRecordingTiming": "first-hit-and-diagnostic-slow-path-only",
+  "methodCatalog": [
+    {"methodId":"2695104447829871964","canonicalKeys":["example.boundary.BoundaryController#late(Ljakarta/servlet/http/HttpServletResponse;)V"]},
+    {"methodId":"4157661338707135013","canonicalKeys":["example.boundary.BoundaryController#<init>()V"]},
+    {"methodId":"6425806867513602516","canonicalKeys":["example.boundary.PostResponseOnly#distinctiveAfterResponse()I"]},
+    {"methodId":"8833876925531118988","canonicalKeys":["example.boundary.PostResponseOnly#<init>()V"]},
+    {"methodId":"12451220811020085249","canonicalKeys":["example.boundary.BoundaryApplication#<init>()V"]}
+  ],
+  "methodHits": [
+    {"methodId":"2695104447829871964","count":1,"canonicalKeys":["example.boundary.BoundaryController#late(Ljakarta/servlet/http/HttpServletResponse;)V"]},
+    {"methodId":"4157661338707135013","count":1,"canonicalKeys":["example.boundary.BoundaryController#<init>()V"]},
+    {"methodId":"6425806867513602516","count":1,"canonicalKeys":["example.boundary.PostResponseOnly#distinctiveAfterResponse()I"]},
+    {"methodId":"12451220811020085249","count":1,"canonicalKeys":["example.boundary.BoundaryApplication#<init>()V"]}
+  ],
+  "agentErrors": ["setup:ASYNC_SETUP_UNSUPPORTED:ERROR:unknown:ForkJoinTask: execution without observed submission: org.junit.platform.engine.support.hierarchical.ForkJoinPoolHierarchicalTestExecutorService$ExclusiveTask"],
+  "bytecodeModified": true,
+  "runtimeEvents": {
+  "schemaVersion": "spike-2",
+  "runId": "f07c2bec-0b76-36b1-b04b-5ebe36566bd5",
+  "jvmId": "pid-34504",
+  "tests": [
+    {
+      "testId": "[engine:junit-jupiter]/[class:example.boundary.BoundaryTests]/[method:aRequest()]",
+      "displayName": "aRequest()",
+      "testClass": "example.boundary.BoundaryTests",
+      "testMethod": "aRequest",
+      "testMethodParameterTypes": "",
+      "engineId": "junit-jupiter",
+      "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+      "methods": [],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 0,
+        "uniqueMethodHits": 0
+      }
+    },
+    {
+      "testId": "[engine:junit-jupiter]/[class:example.boundary.BoundaryTests]/[method:bFollowing()]",
+      "displayName": "bFollowing()",
+      "testClass": "example.boundary.BoundaryTests",
+      "testMethod": "bFollowing",
+      "testMethodParameterTypes": "",
+      "engineId": "junit-jupiter",
+      "result": {"status":"SUCCESSFUL","failureType":null,"failureMessage":null},
+      "methods": [],
+      "unattributedEvents": [],
+      "metrics": {
+        "rawMethodHits": 0,
+        "uniqueMethodHits": 0
+      }
+    }
+  ],
+  "unattributedEvents": [
+    {"reason":"NO_ACTIVE_TEST","eventType":"METHOD","eventIdentity":"example.boundary.BoundaryController#late(Ljakarta/servlet/http/HttpServletResponse;)V","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1},
+    {"reason":"NO_ACTIVE_TEST","eventType":"METHOD","eventIdentity":"example.boundary.PostResponseOnly#distinctiveAfterResponse()I","evidenceSource":"ASM_METHOD_ENTRY","certainty":"OBSERVED","count":1}
+  ]
+}
+}

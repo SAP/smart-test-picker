@@ -1,0 +1,58 @@
+{
+  "smart-test-picker-common": {
+    "tests": 334,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 11,
+    "passed": 323
+  },
+  "smart-test-picker-core": {
+    "tests": 29,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 5,
+    "passed": 24
+  },
+  "smart-test-picker-maven": {
+    "tests": 151,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 151
+  },
+  "smart-test-picker": {
+    "tests": 58,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 58
+  },
+  "stp-runtime": {
+    "tests": 66,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 66
+  },
+  "stp-junit-adapter": {
+    "tests": 21,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 21
+  },
+  "stp-agent": {
+    "tests": 49,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "passed": 48
+  },
+  "smart-test-picker-cli": {
+    "tests": 36,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 36
+  }
+}

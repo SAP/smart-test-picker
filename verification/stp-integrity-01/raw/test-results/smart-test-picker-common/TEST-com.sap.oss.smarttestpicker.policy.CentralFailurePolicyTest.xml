@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.policy.CentralFailurePolicyTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-11-11T14:43:54.457Z" hostname="WDVJD22XQC" time="0.034">
+  <properties/>
+  <testcase name="knownDomainResultsContinue()" classname="com.sap.oss.smarttestpicker.policy.CentralFailurePolicyTest" time="0.028"/>
+  <testcase name="unknownOutcomesAreConservative()" classname="com.sap.oss.smarttestpicker.policy.CentralFailurePolicyTest" time="0.0"/>
+  <testcase name="normalizedMappingFailuresFailWithoutReinterpretingPerTestFacts()" classname="com.sap.oss.smarttestpicker.policy.CentralFailurePolicyTest" time="0.0"/>
+  <testcase name="aggregationUsesStrongestDecisionAndIsOrderIndependent()" classname="com.sap.oss.smarttestpicker.policy.CentralFailurePolicyTest" time="0.002"/>
+  <testcase name="transientStorageIsContextSensitive()" classname="com.sap.oss.smarttestpicker.policy.CentralFailurePolicyTest" time="0.001"/>
+  <testcase name="inputRejectsUnboundedOrUnsafeShapes()" classname="com.sap.oss.smarttestpicker.policy.CentralFailurePolicyTest" time="0.0"/>
+  <testcase name="baseOutOfDateCannotBeWeakenedByFallbackAvailability()" classname="com.sap.oss.smarttestpicker.policy.CentralFailurePolicyTest" time="0.0"/>
+  <testcase name="integrityConfigurationAndCredentialsAlwaysFail()" classname="com.sap.oss.smarttestpicker.policy.CentralFailurePolicyTest" time="0.0"/>
+  <testcase name="latestLookupProvenanceHasDifferentPolicyFacts()" classname="com.sap.oss.smarttestpicker.policy.CentralFailurePolicyTest" time="0.0"/>
+  <testcase name="automaticScmAndInventoryFactsFallbackOnlyWhenSafe()" classname="com.sap.oss.smarttestpicker.policy.CentralFailurePolicyTest" time="0.0"/>
+  <testcase name="selectorFullSuiteIsAnAcceptedDomainFallback()" classname="com.sap.oss.smarttestpicker.policy.CentralFailurePolicyTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,30 @@
+| Module | Tests | Passed | Skipped | Failures/errors |
+|---|---:|---:|---:|---:|
+| smart-test-picker-common | 334 | 323 | 11 | 0 |
+| smart-test-picker-core | 29 | 24 | 5 | 0 |
+| smart-test-picker-maven | 151 | 151 | 0 | 0 |
+| smart-test-picker | 58 | 58 | 0 | 0 |
+| stp-runtime | 66 | 66 | 0 | 0 |
+| stp-junit-adapter | 21 | 21 | 0 | 0 |
+| stp-agent | 49 | 48 | 1 | 0 |
+| smart-test-picker-cli | 36 | 36 | 0 | 0 |
+{
+  "testedAgentSha256": "ecebd09585ced1e48263d5dbc5e73ca0b85113b40065708d446e353fb6c3337d",
+  "gates": {
+    "petclinic-after": {
+      "agentSha256": "507b36d5ca558bb5ba7bb5f6e6de6676f4ed98db6627dae3b9b44d7c9ea0e440",
+      "entryCount": 2013,
+      "differentEntryContents": []
+    },
+    "asm12": {
+      "agentSha256": "ecebd09585ced1e48263d5dbc5e73ca0b85113b40065708d446e353fb6c3337d",
+      "entryCount": 2013,
+      "differentEntryContents": []
+    },
+    "asm13": {
+      "agentSha256": "ecebd09585ced1e48263d5dbc5e73ca0b85113b40065708d446e353fb6c3337d",
+      "entryCount": 2013,
+      "differentEntryContents": []
+    }
+  }
+}

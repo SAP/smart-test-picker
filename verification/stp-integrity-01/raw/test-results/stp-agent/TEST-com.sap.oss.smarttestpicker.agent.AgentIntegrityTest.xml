@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.agent.AgentIntegrityTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-11T14:51:48.672Z" hostname="WDVJD22XQC" time="0.146">
+  <properties/>
+  <testcase name="structuredLocalErrorSurvivesAgentShutdownAndKeepsSibling(Path)" classname="com.sap.oss.smarttestpicker.agent.AgentIntegrityTest" time="0.112"/>
+  <testcase name="unresolvedPropagationSitesCarryMethodAndStayFatalWithoutGuessingTests()" classname="com.sap.oss.smarttestpicker.agent.AgentIntegrityTest" time="0.033"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

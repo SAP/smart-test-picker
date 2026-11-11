@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.engine.ExecToXmlEngineTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-11T14:43:44.199Z" hostname="WDVJD22XQC" time="0.614">
+  <properties/>
+  <testcase name="sessionFilterRejectsNonSessionFiles()" classname="com.sap.oss.smarttestpicker.engine.ExecToXmlEngineTest" time="0.0"/>
+  <testcase name="multipleClassesDirsAreMerged(Path)" classname="com.sap.oss.smarttestpicker.engine.ExecToXmlEngineTest" time="0.498"/>
+  <testcase name="nonSessionFilesAreSkipped(Path)" classname="com.sap.oss.smarttestpicker.engine.ExecToXmlEngineTest" time="0.005"/>
+  <testcase name="generatesXmlFromRealExecFile(Path)" classname="com.sap.oss.smarttestpicker.engine.ExecToXmlEngineTest" time="0.053"/>
+  <testcase name="allExecFilterAcceptsAllExecFiles()" classname="com.sap.oss.smarttestpicker.engine.ExecToXmlEngineTest" time="0.0"/>
+  <testcase name="skipsExecWithNoCoverage(Path)" classname="com.sap.oss.smarttestpicker.engine.ExecToXmlEngineTest" time="0.052"/>
+  <testcase name="emptyExecDirProducesNoReports(Path)" classname="com.sap.oss.smarttestpicker.engine.ExecToXmlEngineTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

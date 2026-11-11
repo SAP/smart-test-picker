@@ -1,0 +1,31 @@
+{
+  "assignmentValidation": "IllegalArgumentException: Fragment collection is not completed",
+  "completed": false,
+  "fragmentExists": true,
+  "join": "IllegalArgumentException: Fragment collection is not completed",
+  "mapped": [
+    "maven:.::example.shared.AFirstTests#realRequest",
+    "maven:.::example.shared.BSecondTests#realRequest"
+  ],
+  "publication": "NOT RUN: no Jenkins/storage operation; local candidate join only",
+  "setupScopes": [
+    {
+      "id": "junit-container:example.shared.AFirstTests",
+      "type": "CONTAINER",
+      "coveredClasses": [
+        "example.shared.PingController",
+        "example.shared.SharedApplication"
+      ],
+      "affectedContainers": [
+        {
+          "binaryName": "example.shared.AFirstTests"
+        }
+      ],
+      "owner": {
+        "buildTool": "MAVEN",
+        "targetId": "."
+      }
+    }
+  ],
+  "unmapped": []
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.runtime.AsmCoverageFragmentProjectorTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-11-11T14:51:45.863Z" hostname="WDVJD22XQC" time="0.103">
+  <properties/>
+  <testcase name="parameterizedLogicalTestWithRunnableAndSkippedInvocationsRetainsCollectedCoverage()" classname="com.sap.oss.smarttestpicker.runtime.AsmCoverageFragmentProjectorTest" time="0.048"/>
+  <testcase name="unsupportedSetupIsObservableAndPreventsLocalCompletionWithoutInventingEdges()" classname="com.sap.oss.smarttestpicker.runtime.AsmCoverageFragmentProjectorTest" time="0.004"/>
+  <testcase name="preservesBridgeSyntheticRecordEnumNestedAndLambdaJvmMethodsWithoutFiltering()" classname="com.sap.oss.smarttestpicker.runtime.AsmCoverageFragmentProjectorTest" time="0.002"/>
+  <testcase name="absentLogicalOwnershipIsNeverInvented()" classname="com.sap.oss.smarttestpicker.runtime.AsmCoverageFragmentProjectorTest" time="0.001"/>
+  <testcase name="supportedSetupIsSemanticallyEqualAcrossOneAndMultipleCollectorContexts()" classname="com.sap.oss.smarttestpicker.runtime.AsmCoverageFragmentProjectorTest" time="0.004"/>
+  <testcase name="descriptorAwareSchemaPreservesOverloadsAsDistinctEdges()" classname="com.sap.oss.smarttestpicker.runtime.AsmCoverageFragmentProjectorTest" time="0.0"/>
+  <testcase name="criticalCollectorFailureMakesIdentifiableTestsUnmappedAndFragmentIncomplete()" classname="com.sap.oss.smarttestpicker.runtime.AsmCoverageFragmentProjectorTest" time="0.0"/>
+  <testcase name="supportsNestedAndLegalJvmTestNamesAndMultipleLogicalTests()" classname="com.sap.oss.smarttestpicker.runtime.AsmCoverageFragmentProjectorTest" time="0.001"/>
+  <testcase name="serializationIsByteDeterministicAndUsesExplicitRevisionAndShard()" classname="com.sap.oss.smarttestpicker.runtime.AsmCoverageFragmentProjectorTest" time="0.035"/>
+  <testcase name="mixedInvocationFailureIsOrderIndependent()" classname="com.sap.oss.smarttestpicker.runtime.AsmCoverageFragmentProjectorTest" time="0.001"/>
+  <testcase name="overloadedDeclaredTestsRemainDistinctLogicalTests()" classname="com.sap.oss.smarttestpicker.runtime.AsmCoverageFragmentProjectorTest" time="0.001"/>
+  <testcase name="successfulZeroCoverageIsCollectedEmpty()" classname="com.sap.oss.smarttestpicker.runtime.AsmCoverageFragmentProjectorTest" time="0.0"/>
+  <testcase name="mixedInvocationsAreFailureDominantWithoutPublishingPartialCoverage()" classname="com.sap.oss.smarttestpicker.runtime.AsmCoverageFragmentProjectorTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

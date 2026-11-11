@@ -7,9 +7,11 @@ import com.sap.oss.smarttestpicker.coverage.model.CoverageFragment;
 import java.util.List;
 import java.util.Optional;
 
-public record FragmentProjectionResult(CoverageFragment fragment, List<String> diagnostics) {
+public record FragmentProjectionResult(CoverageFragment fragment, List<String> diagnostics,
+		List<CollectorError> collectorErrors) {
 	public FragmentProjectionResult {
 		diagnostics = List.copyOf(diagnostics);
+		collectorErrors = List.copyOf(collectorErrors);
 	}
 
 	public Optional<CoverageFragment> successfulFragment() {

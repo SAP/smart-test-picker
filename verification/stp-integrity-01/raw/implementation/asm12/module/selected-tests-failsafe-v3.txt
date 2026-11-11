@@ -1,0 +1,1 @@
+**/__stp_no_assigned_tests__*.java

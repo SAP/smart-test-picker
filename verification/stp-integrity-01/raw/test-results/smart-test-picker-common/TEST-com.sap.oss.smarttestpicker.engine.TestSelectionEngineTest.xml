@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.engine.TestSelectionEngineTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-11T14:43:51.430Z" hostname="WDVJD22XQC" time="2.902">
+  <properties/>
+  <testcase name="returnsSelectedWhenClassChanged()" classname="com.sap.oss.smarttestpicker.engine.TestSelectionEngineTest" time="0.447"/>
+  <testcase name="returnsFullSuiteWhenInvalidCommitId()" classname="com.sap.oss.smarttestpicker.engine.TestSelectionEngineTest" time="0.188"/>
+  <testcase name="returnsNoneWhenNoChanges()" classname="com.sap.oss.smarttestpicker.engine.TestSelectionEngineTest" time="0.365"/>
+  <testcase name="returnsFullSuiteWhenCommitDistanceExceeded()" classname="com.sap.oss.smarttestpicker.engine.TestSelectionEngineTest" time="0.437"/>
+  <testcase name="returnsFullSuiteWhenTriggerMatches()" classname="com.sap.oss.smarttestpicker.engine.TestSelectionEngineTest" time="0.38"/>
+  <testcase name="returnsFullSuiteWhenNoMetadata()" classname="com.sap.oss.smarttestpicker.engine.TestSelectionEngineTest" time="0.162"/>
+  <testcase name="selectWithMultipleTestClassDirs()" classname="com.sap.oss.smarttestpicker.engine.TestSelectionEngineTest" time="0.386"/>
+  <testcase name="selectWithTestSourceDirs_filtersAbstractTests()" classname="com.sap.oss.smarttestpicker.engine.TestSelectionEngineTest" time="0.368"/>
+  <testcase name="returnsFullSuiteWhenMapNotFound()" classname="com.sap.oss.smarttestpicker.engine.TestSelectionEngineTest" time="0.167"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

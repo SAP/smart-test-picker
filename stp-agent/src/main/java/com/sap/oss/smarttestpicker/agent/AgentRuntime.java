@@ -9,6 +9,7 @@ import com.sap.oss.smarttestpicker.runtime.RuntimeHooks;
 import com.sap.oss.smarttestpicker.runtime.RuntimeJsonSerializer;
 import com.sap.oss.smarttestpicker.runtime.AsmCoverageFragmentProjector;
 import com.sap.oss.smarttestpicker.runtime.CollectorIntegrity;
+import com.sap.oss.smarttestpicker.runtime.CollectorError;
 import com.sap.oss.smarttestpicker.runtime.FragmentProjectionConfig;
 import com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec;
 import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableCoverageFragmentCodec;
@@ -26,7 +27,8 @@ final class AgentRuntime {
 	private final AgentConfiguration configuration;
 	private final AgentMetrics metrics;
 	private final String jvmId;
-	private final List<String> errors = new CopyOnWriteArrayList<>();
+	private final List<CollectorError> errors = new CopyOnWriteArrayList<>();
+	private final List<String> projectionDiagnostics = new CopyOnWriteArrayList<>();
 	private final MethodCatalog catalog;
 	private final RuntimeContextService runtimeContext;
 	@SuppressWarnings("unused")
@@ -72,7 +74,7 @@ final class AgentRuntime {
 		return catalog;
 	}
 
-	void error(String error) {
+	void error(CollectorError error) {
 		errors.add(error);
 	}
 
@@ -87,15 +89,15 @@ final class AgentRuntime {
 			runtimeJson = new RuntimeJsonSerializer().serialize(runtimeContext.aggregator());
 		} catch (Throwable failure) {
 			runtimeJson = null;
-			errors.add("runtime-serialization-failure:" + failure.getClass().getName());
+			errors.add(CollectorError.fatal("runtime-serialization-failure:" + failure.getClass().getName()));
 		}
 		writeFragmentIfConfigured();
 		try {
 			AgentOutputWriter.write(configuration.output(), configuration.runId(), jvmId, configuration,
 					metrics.snapshot(hitSnapshot.values().stream().mapToLong(Long::longValue).sum(), hitSnapshot.size(),
-							runtimeContext.methodSlowPathNanos()), errors, catalog.snapshot(), hitSnapshot, runtimeJson);
+							runtimeContext.methodSlowPathNanos()), diagnosticMessages(), catalog.snapshot(), hitSnapshot, runtimeJson);
 		} catch (IOException failure) {
-			errors.add(failure.getClass().getName() + ": " + String.valueOf(failure.getMessage()));
+			errors.add(CollectorError.fatal(failure.getClass().getName() + ": " + String.valueOf(failure.getMessage())));
 			System.err.println("[stp-agent] failed to write output: " + failure.getClass().getSimpleName());
 		} finally {
 			closeRegistrations();
@@ -108,15 +110,18 @@ final class AgentRuntime {
 		if (configuration.requireInstrumentation() && snapshot.classesTransformed() == 0) {
 			String diagnostic = "ASM scope matched zero instrumented classes: classesTransformed=0; includes="
 					+ configuration.includes() + "; excludes=" + configuration.excludes() + "; productionSources=" + configuration.productionSources();
-			errors.add(diagnostic);
+			errors.add(CollectorError.fatal(diagnostic));
 			System.err.println("[stp-agent] " + diagnostic);
 			return; // premain invalidated any stale fragment; never publish a complete empty map.
 		}
 		try {
 			var projected = new AsmCoverageFragmentProjector().project(runtimeContext.aggregator().snapshot(),
-					FragmentProjectionConfig.of(configuration.revision(), configuration.shardId()),
+					configuration.schemaVersion() == 3
+							? FragmentProjectionConfig.v3(configuration.revision(), configuration.shardId(), configuration.executionTarget().toString())
+							: FragmentProjectionConfig.of(configuration.revision(), configuration.shardId()),
 					new CollectorIntegrity(true, snapshot.transformationErrors(), snapshot.methodIdCollisions(), errors));
-			errors.addAll(projected.diagnostics());
+			projectionDiagnostics.addAll(projected.diagnostics());
+			for (CollectorError error : projected.collectorErrors()) if (!errors.contains(error)) errors.add(error);
 			byte[] bytes;
 			if (configuration.schemaVersion() == 2) {
 				CoverageFragmentCodec codec = new CoverageFragmentCodec();
@@ -134,10 +139,11 @@ final class AgentRuntime {
 			}
 			// Validate exactly the bytes that will be published; the final name is the commit point.
 			if (!AgentOutputWriter.publish(configuration.fragmentOutput(), bytes)) {
-				errors.add("fragment-atomic-move-unsupported:platform-fallback");
+				errors.add(CollectorError.fatal("fragment-atomic-move-unsupported:platform-fallback"));
+				AgentOutputWriter.invalidate(configuration.fragmentOutput());
 			}
 		} catch (Throwable failure) {
-			errors.add("fragment-serialization-failure:" + failure.getClass().getName());
+			errors.add(CollectorError.fatal("fragment-serialization-failure:" + failure.getClass().getName()));
 			System.err.println("[stp-agent] failed to write coverage fragment: " + failure.getClass().getSimpleName()
 					+ ": " + String.valueOf(failure.getMessage()));
 		}
@@ -145,6 +151,11 @@ final class AgentRuntime {
 
 	void abortInitialization() {
 		closeRegistrations();
+	}
+
+	private List<String> diagnosticMessages() {
+		return java.util.stream.Stream.concat(errors.stream().map(CollectorError::message),
+				projectionDiagnostics.stream()).distinct().sorted().toList();
 	}
 
 	private void closeRegistrations() {

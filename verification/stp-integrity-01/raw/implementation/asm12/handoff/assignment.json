@@ -1,0 +1,1 @@
+{"version":1,"revision":"9e8a9c5482f3cab6ba4e0268692674d7e1af6c88","shardId":"local","tests":["maven:.::example.shared.AFirstTests#realRequest","maven:.::example.shared.BSecondTests#realRequest"]}

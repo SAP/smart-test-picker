@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.maven.PreparedAsmMappingTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-11T14:47:06.262Z" hostname="WDVJD22XQC" time="0.062">
+  <properties/>
+  <testcase name="unknownPluginVersionHasNoFallback(Path)" classname="com.sap.oss.smarttestpicker.maven.PreparedAsmMappingTest" time="0.045"/>
+  <testcase name="guardPrecedesResolutionEvenWithUnavailableAgent(Path)" classname="com.sap.oss.smarttestpicker.maven.PreparedAsmMappingTest" time="0.004"/>
+  <testcase name="missingAgentFailsClosedAtAlignedPluginVersion(Path)" classname="com.sap.oss.smarttestpicker.maven.PreparedAsmMappingTest" time="0.005"/>
+  <testcase name="scopeValidationNormalizesPrefixesAndRejectsEmptyEntries()" classname="com.sap.oss.smarttestpicker.maven.PreparedAsmMappingTest" time="0.001"/>
+  <testcase name="frozenCollectorRejectsCliOverridesBeforeResolution(Path)" classname="com.sap.oss.smarttestpicker.maven.PreparedAsmMappingTest" time="0.006"/>
+  <system-out><![CDATA[[info] ASM mapping scope includes=fixture.; excludes=; productionSources=[/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-13816434093983730165/target/classes]
+[info] ASM mapping scope includes=fixture.; excludes=; productionSources=[/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit-16665627847876210060/target/classes]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

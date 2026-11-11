@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.maven.MergeExecutableTargetFragmentsMojoTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-11T14:47:06.210Z" hostname="WDVJD22XQC" time="0.052">
+  <properties/>
+  <testcase name="mergesDifferentExecutionTargetsAndRejectsDuplicateOwners(Path)" classname="com.sap.oss.smarttestpicker.maven.MergeExecutableTargetFragmentsMojoTest" time="0.02"/>
+  <testcase name="ignoresOnlyEmptyNonExecutableTargets(Path)" classname="com.sap.oss.smarttestpicker.maven.MergeExecutableTargetFragmentsMojoTest" time="0.031"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.mapper.IndexedCoverageMapTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-11T14:43:54.404Z" hostname="WDVJD22XQC" time="0.042">
+  <properties/>
+  <testcase name="classMetricsPreservedInRoundTrip()" classname="com.sap.oss.smarttestpicker.mapper.IndexedCoverageMapTest" time="0.01"/>
+  <testcase name="testCoverageRefConstructorAndGetters()" classname="com.sap.oss.smarttestpicker.mapper.IndexedCoverageMapTest" time="0.006"/>
+  <testcase name="defaultConstructorLeavesFieldsNull()" classname="com.sap.oss.smarttestpicker.mapper.IndexedCoverageMapTest" time="0.006"/>
+  <testcase name="indexedFormatLoadedViaCoverageMapReader()" classname="com.sap.oss.smarttestpicker.mapper.IndexedCoverageMapTest" time="0.014"/>
+  <testcase name="roundTripThroughGson()" classname="com.sap.oss.smarttestpicker.mapper.IndexedCoverageMapTest" time="0.002"/>
+  <testcase name="constructorSetsAllFields()" classname="com.sap.oss.smarttestpicker.mapper.IndexedCoverageMapTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

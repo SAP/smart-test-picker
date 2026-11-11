@@ -45,3 +45,16 @@ unsupported owners still produce the existing diagnostics rather than using that
 labelled by `runtimeRecordingTiming`; it is not total method-hook CPU time and is not
 directly comparable with the older all-hit timer. See the
 [local performance and correctness record](../verification/stp-perf-01/IMPLEMENTATION.md).
+
+Collector errors carry structured severity and ownership, not severity inferred
+from a diagnostic prefix. A proven affected executable identity becomes
+`unmapped/COLLECTION_FAILED` and is mandatory for selection; passing siblings can
+retain coverage in a complete fragment.
+Executable ownership must match the configured target and observed identity;
+unbound schema-2 or mismatched owners remain fatal. Runtime initialization failure,
+transformation failures, method-ID collisions, unsupported identities without a
+logical key, and propagation sites without a proven affected test set remain
+shard-fatal. A site or class name alone does not identify the tests it affects.
+ERROR setup diagnostics still make collection incomplete. All diagnostic messages
+remain visible in the agent output; no coverage wire schema is changed. See the
+[classification audit and correctness evidence](../verification/stp-integrity-01/REPORT.md).

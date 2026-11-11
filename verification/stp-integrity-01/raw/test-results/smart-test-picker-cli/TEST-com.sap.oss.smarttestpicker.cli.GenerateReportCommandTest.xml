@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.cli.GenerateReportCommandTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-11T14:51:58.505Z" hostname="WDVJD22XQC" time="1.343">
+  <properties/>
+  <testcase name="generatesReportWithNoneStatus()" classname="com.sap.oss.smarttestpicker.cli.GenerateReportCommandTest" time="0.347"/>
+  <testcase name="generatesHtmlReport()" classname="com.sap.oss.smarttestpicker.cli.GenerateReportCommandTest" time="0.318"/>
+  <testcase name="returnsErrorWhenSelectedTestsNotFound()" classname="com.sap.oss.smarttestpicker.cli.GenerateReportCommandTest" time="0.166"/>
+  <testcase name="returnsErrorWhenMapNotFound()" classname="com.sap.oss.smarttestpicker.cli.GenerateReportCommandTest" time="0.178"/>
+  <testcase name="generatesReportWithFullSuiteStatus()" classname="com.sap.oss.smarttestpicker.cli.GenerateReportCommandTest" time="0.332"/>
+  <system-out><![CDATA[Coverage map:       /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit5224865023129048065/coverage-map.json
+Selected tests:     /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit5224865023129048065/selected-tests.json
+Output:             /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit5224865023129048065/report-none/index.html
+[SmartTestPicker] Report generated: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit5224865023129048065/report-none/index.html
+Report generated:   /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit5224865023129048065/report-none/index.html
+Coverage map:       /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit15456344804713224724/coverage-map.json
+Selected tests:     /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit15456344804713224724/selected-tests.json
+Output:             /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit15456344804713224724/report/index.html
+[SmartTestPicker] Report generated: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit15456344804713224724/report/index.html
+Report generated:   /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit15456344804713224724/report/index.html
+Coverage map:       /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit4236556293870735423/coverage-map.json
+Selected tests:     /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit4236556293870735423/selected-tests.json
+Output:             /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit4236556293870735423/report-full/index.html
+[SmartTestPicker] Report generated: /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit4236556293870735423/report-full/index.html
+Report generated:   /var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit4236556293870735423/report-full/index.html
+]]></system-out>
+  <system-err><![CDATA[Error: selected tests file not found: /nonexistent/selected.json
+Error: coverage map not found: /nonexistent/map.json
+]]></system-err>
+</testsuite>

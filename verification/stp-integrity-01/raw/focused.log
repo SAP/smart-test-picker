@@ -1,0 +1,6 @@
+Exception in thread "main" java.io.FileNotFoundException: /Users/D061177/work/moje/smart-test-picker/verification/stp-perf-01/.work/gradle-home/wrapper/dists/gradle-8.14-bin/38aieal9i53h9rfe7vjup95b9/gradle-8.14-bin.zip.lck (Operation not permitted)
+	at java.base/java.io.RandomAccessFile.open0(Native Method)
+	at java.base/java.io.RandomAccessFile.open(RandomAccessFile.java:356)
+	at java.base/java.io.RandomAccessFile.<init>(RandomAccessFile.java:273)
+	at java.base/java.io.RandomAccessFile.<init>(RandomAccessFile.java:223)
+	at org.gradle.wrapper.GradleWrapperMain.main(SourceFile:67)

@@ -1,0 +1,30 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------< fixture:http-reset-boundary >---------------------
+[INFO] Building http-reset-boundary 1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.15:prepare-agent (default) @ http-reset-boundary ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ http-reset-boundary ---
+[INFO] skip non existing resourceDirectory /Users/D061177/work/moje/smart-test-picker/verification/stp-integrity-01/.work/asm13/asm-parallel/src/main/resources
+[INFO] skip non existing resourceDirectory /Users/D061177/work/moje/smart-test-picker/verification/stp-integrity-01/.work/asm13/asm-parallel/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ http-reset-boundary ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 3 source files with javac [debug parameters release 17] to target/classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ http-reset-boundary ---
+[INFO] skip non existing resourceDirectory /Users/D061177/work/moje/smart-test-picker/verification/stp-integrity-01/.work/asm13/asm-parallel/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ http-reset-boundary ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug parameters release 17] to target/test-classes
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.407 s
+[INFO] Finished at: 2026-11-11T15:44:46+01:00
+[INFO] ------------------------------------------------------------------------

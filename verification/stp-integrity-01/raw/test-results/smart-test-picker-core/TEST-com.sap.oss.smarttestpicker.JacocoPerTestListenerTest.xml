@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.JacocoPerTestListenerTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-11-11T14:44:18.421Z" hostname="WDVJD22XQC" time="0.257">
+  <properties/>
+  <testcase name="vintageCustomRunnerClassSourceWritesAuthoritativeIdentity(Path)" classname="com.sap.oss.smarttestpicker.JacocoPerTestListenerTest" time="0.188"/>
+  <testcase name="disabledParameterizedContainerWritesPositiveNonExecutionForDeclaredMethod(Path)" classname="com.sap.oss.smarttestpicker.JacocoPerTestListenerTest" time="0.01"/>
+  <testcase name="buildSessionId_preservesReadablePart()" classname="com.sap.oss.smarttestpicker.JacocoPerTestListenerTest" time="0.001"/>
+  <testcase name="buildSessionId_declaredOverloads_produceDifferentIds()" classname="com.sap.oss.smarttestpicker.JacocoPerTestListenerTest" time="0.001"/>
+  <testcase name="beforeAllAbortWritesPositiveNonExecutionForDescendantTests(Path)" classname="com.sap.oss.smarttestpicker.JacocoPerTestListenerTest" time="0.02"/>
+  <testcase name="buildSessionId_sameInputs_stableResult()" classname="com.sap.oss.smarttestpicker.JacocoPerTestListenerTest" time="0.0"/>
+  <testcase name="buildSessionId_differentMethods_produceDifferentIds()" classname="com.sap.oss.smarttestpicker.JacocoPerTestListenerTest" time="0.0"/>
+  <testcase name="saveSessionData_appendsOnRepeatedInvocation(Path)" classname="com.sap.oss.smarttestpicker.JacocoPerTestListenerTest" time="0.008"/>
+  <testcase name="abortedTestWritesNonExecutionWithoutExecutedIdentity(Path)" classname="com.sap.oss.smarttestpicker.JacocoPerTestListenerTest" time="0.022"/>
+  <testcase name="buildSessionId_hashIsSevenChars()" classname="com.sap.oss.smarttestpicker.JacocoPerTestListenerTest" time="0.0"/>
+  <testcase name="buildSessionId_includesHashSuffix()" classname="com.sap.oss.smarttestpicker.JacocoPerTestListenerTest" time="0.0"/>
+  <testcase name="buildSessionId_differentPackages_produceDifferentIds()" classname="com.sap.oss.smarttestpicker.JacocoPerTestListenerTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

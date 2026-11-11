@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.GradleExecutableRoutingFunctionalTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-11T14:51:19.222Z" hostname="WDVJD22XQC" time="17.204">
+  <properties/>
+  <testcase name="routesSameLogicalTestSeparatelyAcrossSubprojects()" classname="com.sap.oss.smarttestpicker.GradleExecutableRoutingFunctionalTest" time="10.099"/>
+  <testcase name="discoversScopedTaskAwareInventoryWithoutAssignmentOrCoverage()" classname="com.sap.oss.smarttestpicker.GradleExecutableRoutingFunctionalTest" time="0.655"/>
+  <testcase name="discoveryWaitsForLateConfigurationMutationBeforeResolvingClasspath()" classname="com.sap.oss.smarttestpicker.GradleExecutableRoutingFunctionalTest" time="0.895"/>
+  <testcase name="routesSameLogicalTestSeparatelyAcrossRootTestTasks()" classname="com.sap.oss.smarttestpicker.GradleExecutableRoutingFunctionalTest" time="2.708"/>
+  <testcase name="discoveryPreservesSameLogicalTestUnderTwoTargets()" classname="com.sap.oss.smarttestpicker.GradleExecutableRoutingFunctionalTest" time="0.78"/>
+  <testcase name="discoveryFailsClosedForWrongRevisionAndUnknownOrMalformedScope()" classname="com.sap.oss.smarttestpicker.GradleExecutableRoutingFunctionalTest" time="0.768"/>
+  <testcase name="jacocoFallbackProducesTaskQualifiedSchemaV3Fragment()" classname="com.sap.oss.smarttestpicker.GradleExecutableRoutingFunctionalTest" time="1.297"/>
+  <system-out><![CDATA[
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+Smart Test Picker coverage collector: ASM
+
+> Task :resolveStpAgentArtifact
+> Task :module-a:compileJava
+> Task :module-a:processResources NO-SOURCE
+> Task :module-a:classes
+> Task :module-a:compileTestJava
+> Task :module-a:processTestResources NO-SOURCE
+> Task :module-a:testClasses
+> Task :module-a:test
+> Task :module-b:compileJava
+> Task :module-b:processResources NO-SOURCE
+> Task :module-b:classes
+> Task :module-b:compileTestJava
+> Task :module-b:processTestResources NO-SOURCE
+> Task :module-b:testClasses
+> Task :module-b:test
+> Task :aggregateGradleExecutableCoverage
+> Task :generateSmartTestMapping
+
+BUILD SUCCESSFUL in 1s
+8 actionable tasks: 8 executed
+
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+
+> Task :compileJava NO-SOURCE
+> Task :processResources NO-SOURCE
+> Task :classes UP-TO-DATE
+> Task :compileTestJava
+> Task :generateGradleExecutableProjectInventory
+
+> Task :generateGradleExecutableHeadTestInventory
+[SmartTestPicker] Aggregated 1 Gradle executable JUnit tests from 1 projects
+
+[Incubating] Problems report is available at: file:///private/var/folders/b_/kfwtjnkn3b786hkqn6dxb56m0000gn/T/junit10319434071607374365/discovery/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 443ms
+3 actionable tasks: 3 executed
+
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: ASM
+Smart Test Picker coverage collector: ASM
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+> Task :compileTestJava
+> Task :resolveStpAgentArtifact
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :integrationTest
+> Task :test
+> Task :aggregateGradleExecutableCoverage
+> Task :componentTest
+> Task :generateSmartTestMapping
+
+BUILD SUCCESSFUL in 1s
+7 actionable tasks: 7 executed
+
+> Configure project :
+[SmartTestPickerPlugin] Plugin applied.
+Smart Test Picker coverage collector: JACOCO (schema-v3 task-local)
+
+> Task :compileJava
+> Task :processResources NO-SOURCE
+> Task :classes
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :test
+
+> Task :generateStpJacocoExecutableFragment_test
+[SmartTestPicker] Generating XML reports for 2 exec files using 1 threads across 1 classes directories
+[SmartTestPicker] Preloaded 1 class files (0MB) in 0ms
+[SmartTestPicker] Report generation complete: 1 generated, 1 skipped (no coverage), 0 failed, 25ms elapsed
+
+> Task :aggregateGradleExecutableCoverage
+> Task :generateSmartTestMapping
+
+BUILD SUCCESSFUL in 1s
+5 actionable tasks: 5 executed
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

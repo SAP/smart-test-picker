@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.selector.SchemaV2TestSelectorTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-11T14:44:13.993Z" hostname="WDVJD22XQC" time="0.002">
+  <properties/>
+  <testcase name="zeroEdgeAndCollectedEmptyDirectCoverageYieldNone()" classname="com.sap.oss.smarttestpicker.selector.SchemaV2TestSelectorTest" time="0.0"/>
+  <testcase name="everyUnmappedReasonIsAlwaysSelectedAtHeadAndDeletedOtherwise()" classname="com.sap.oss.smarttestpicker.selector.SchemaV2TestSelectorTest" time="0.0"/>
+  <testcase name="newOnlyAndChangedOnlyAreSelectedAndSafeEmptyIsNone()" classname="com.sap.oss.smarttestpicker.selector.SchemaV2TestSelectorTest" time="0.001"/>
+  <testcase name="setupCanSelectUnmappedNewChangedAndCollectedEmptyHeadTests()" classname="com.sap.oss.smarttestpicker.selector.SchemaV2TestSelectorTest" time="0.0"/>
+  <testcase name="absentAffectedContainerFailsOpenWithoutPartialSelection()" classname="com.sap.oss.smarttestpicker.selector.SchemaV2TestSelectorTest" time="0.0"/>
+  <testcase name="setupExpansionIsExactBoundedSupportsAllTypesAndDeduplicates()" classname="com.sap.oss.smarttestpicker.selector.SchemaV2TestSelectorTest" time="0.0"/>
+  <testcase name="methodCoverageDoesNotCreateAnEdge()" classname="com.sap.oss.smarttestpicker.selector.SchemaV2TestSelectorTest" time="0.001"/>
+  <testcase name="selectsExactClassEdgesForPassAndFailWithDeterministicDeduplication()" classname="com.sap.oss.smarttestpicker.selector.SchemaV2TestSelectorTest" time="0.0"/>
+  <testcase name="unionsNewChangedAndExcludesDeletedIncludingRenameAndMappedHeadIntersection()" classname="com.sap.oss.smarttestpicker.selector.SchemaV2TestSelectorTest" time="0.0"/>
+  <testcase name="analysisRunAllPropagatesAndNullContextFailsOpen()" classname="com.sap.oss.smarttestpicker.selector.SchemaV2TestSelectorTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

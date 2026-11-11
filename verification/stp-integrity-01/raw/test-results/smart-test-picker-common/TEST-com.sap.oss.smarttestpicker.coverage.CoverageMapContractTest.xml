@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" tests="25" skipped="0" failures="0" errors="0" timestamp="2026-11-11T14:43:39.495Z" hostname="WDVJD22XQC" time="0.097">
+  <properties/>
+  <testcase name="provisionalFragmentRoundTripsIncludingIncompleteAndUnmapped()" classname="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" time="0.04"/>
+  <testcase name="collectionStatusesAreDistinct()" classname="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" time="0.001"/>
+  <testcase name="failedTestOutcomeDoesNotDiscardValidCoverageOrChangeCompleteness()" classname="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" time="0.015"/>
+  <testcase name="completenessUsesIdentitiesNotCountsAndUnmappedCountsAsReported()" classname="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" time="0.001"/>
+  <testcase name="validationCategoriesSeparateSchemaStructureAndCompleteness()" classname="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" time="0.002"/>
+  <testcase name="checksumChangesWithSemanticContentAndRejectsCorruption()" classname="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" time="0.005"/>
+  <testcase name="testIdentityUsesFqnAndBinaryNestedName()" classname="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" time="0.001"/>
+  <testcase name="collectionFailureIsUnmappedAndDistinctFromTestFailure()" classname="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" time="0.0"/>
+  <testcase name="extendedTestIdentitiesRoundTripThroughFragmentAndCoverageMap()" classname="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" time="0.006"/>
+  <testcase name="methodIdentityValidatesParsesSortsAndKeepsOverloadsDistinct()" classname="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" time="0.0"/>
+  <testcase name="fragmentValidatorRejectsMissingBindingOverlapDuplicatesAndMalformedMethods()" classname="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" time="0.001"/>
+  <testcase name="higherSchemaFailsBeforePartialParsing()" classname="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" time="0.001"/>
+  <testcase name="collectorCannotHideAnExpectedShard()" classname="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" time="0.0"/>
+  <testcase name="constructedMapIsImmutable()" classname="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" time="0.001"/>
+  <testcase name="candidateWithoutIndependentInventoryRoundTripsButIsNotPublishable()" classname="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" time="0.002"/>
+  <testcase name="contractVersionsHaveOneCoreAuthority()" classname="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" time="0.0"/>
+  <testcase name="duplicateSetupScopeIdIsRejected()" classname="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" time="0.001"/>
+  <testcase name="deterministicSerializationRoundTripAndChecksum()" classname="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" time="0.003"/>
+  <testcase name="fragmentCodecRejectsDuplicateWireTestIdentity()" classname="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" time="0.0"/>
+  <testcase name="setupScopesSupportOneManyAndOverlap()" classname="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" time="0.002"/>
+  <testcase name="mappedAndUnmappedOverlapIsRejectedAndAllReasonsRoundTrip()" classname="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" time="0.004"/>
+  <testcase name="separableMethodCoverageDescriptorRoundTrips()" classname="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" time="0.003"/>
+  <testcase name="missingDuplicateAndUnexpectedShardsAreDistinguished()" classname="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" time="0.001"/>
+  <testcase name="testIdentityLosslesslySupportsJvmAndKotlinMethodNames()" classname="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" time="0.0"/>
+  <testcase name="orchestrationCanAccountForKnownNonExecutableDeclarationsWithoutMakingThemUnmapped()" classname="com.sap.oss.smarttestpicker.coverage.CoverageMapContractTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

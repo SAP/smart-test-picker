@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.coverage.ExecutableFragmentAssignmentValidatorTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-11T14:43:39.620Z" hostname="WDVJD22XQC" time="0.003">
+  <properties/>
+  <testcase name="workerValidationAccountsForSkippedCollectorRecordsBeforeEvidenceIsJoined()" classname="com.sap.oss.smarttestpicker.coverage.ExecutableFragmentAssignmentValidatorTest" time="0.002"/>
+  <testcase name="rejectsMissingOverlapAndUnexpectedPositiveNonExecution()" classname="com.sap.oss.smarttestpicker.coverage.ExecutableFragmentAssignmentValidatorTest" time="0.001"/>
+  <testcase name="acceptsMappedUnmappedPositiveNonExecutionAndMixedAccounting()" classname="com.sap.oss.smarttestpicker.coverage.ExecutableFragmentAssignmentValidatorTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

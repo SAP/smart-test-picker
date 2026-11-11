@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sap.oss.smarttestpicker.engine.CoverageMapEngineTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-11T14:43:42.674Z" hostname="WDVJD22XQC" time="1.524">
+  <properties/>
+  <testcase name="emptyXmlFileSkipped()" classname="com.sap.oss.smarttestpicker.engine.CoverageMapEngineTest" time="0.301"/>
+  <testcase name="emptyReportsDirProducesEmptyMap()" classname="com.sap.oss.smarttestpicker.engine.CoverageMapEngineTest" time="0.189"/>
+  <testcase name="generateIndexedFormat()" classname="com.sap.oss.smarttestpicker.engine.CoverageMapEngineTest" time="0.242"/>
+  <testcase name="generateGzipFormat()" classname="com.sap.oss.smarttestpicker.engine.CoverageMapEngineTest" time="0.206"/>
+  <testcase name="gzipFlagAppendsGzExtension()" classname="com.sap.oss.smarttestpicker.engine.CoverageMapEngineTest" time="0.193"/>
+  <testcase name="generatePlainFormat()" classname="com.sap.oss.smarttestpicker.engine.CoverageMapEngineTest" time="0.192"/>
+  <testcase name="generateIndexedGzipFormat()" classname="com.sap.oss.smarttestpicker.engine.CoverageMapEngineTest" time="0.2"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
