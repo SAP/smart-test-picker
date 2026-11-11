@@ -191,8 +191,11 @@ public class SelectTestsCommand implements Callable<Integer>
 		ExecutableHeadTestInventory executableInventory = null;
 		try
 		{
-			int schema = JsonParser.parseReader(new java.io.FileReader(mapFile)).getAsJsonObject()
-					.get("schemaVersion").getAsInt();
+			int schema;
+			try (java.io.FileReader reader = new java.io.FileReader(mapFile))
+			{
+				schema = JsonParser.parseReader(reader).getAsJsonObject().get("schemaVersion").getAsInt();
+			}
 			HeadTestInventory inventory;
 			if (schema == 3)
 			{
