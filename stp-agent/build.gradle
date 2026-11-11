@@ -1,0 +1,91 @@
+// SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+// SPDX-License-Identifier: Apache-2.0
+plugins {
+    id 'java-library'
+    id 'com.gradleup.shadow' version '8.3.6'
+    id 'maven-publish'
+}
+
+description = 'STP ASM mapping agent'
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+dependencies {
+    implementation project(':stp-runtime')
+    compileOnly project(':stp-junit-adapter')
+    implementation 'org.ow2.asm:asm:9.8'
+    implementation 'org.ow2.asm:asm-tree:9.8'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
+    testImplementation 'org.apiguardian:apiguardian-api:1.1.2'
+    testImplementation project(':stp-junit-adapter')
+    testImplementation 'org.ow2.asm:asm-util:9.8'
+}
+
+tasks.named('shadowJar') {
+    dependsOn project(':stp-junit-adapter').tasks.named('classes')
+    archiveFileName = 'stp-agent.jar'
+    destinationDirectory = layout.buildDirectory.dir('libs')
+    archiveClassifier = ''
+    relocate 'org.objectweb.asm', 'com.sap.oss.smarttestpicker.internal.asm'
+    from(project(':stp-junit-adapter').sourceSets.main.output) {
+        include 'com/sap/oss/smarttestpicker/junit/**'
+        include 'META-INF/services/org.junit.platform.launcher.TestExecutionListener'
+    }
+    exclude 'META-INF/*.SF', 'META-INF/*.RSA', 'META-INF/*.DSA',
+            'META-INF/gradle/**'
+    manifest {
+        attributes(
+                'Premain-Class': 'com.sap.oss.smarttestpicker.agent.StpAgent',
+                'Implementation-Version': project.version,
+                'Can-Redefine-Classes': 'false',
+                'Can-Retransform-Classes': 'false'
+        )
+    }
+}
+
+tasks.register('agentJar') {
+    group = 'build'
+    description = 'Builds the shaded STP ASM mapping agent JAR.'
+    dependsOn tasks.named('shadowJar')
+}
+
+configurations {
+    stpAgentElements {
+        canBeConsumed = true
+        canBeResolved = false
+        attributes {
+            attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage, Usage.JAVA_RUNTIME))
+            attribute(Category.CATEGORY_ATTRIBUTE, objects.named(Category, Category.LIBRARY))
+            attribute(LibraryElements.LIBRARY_ELEMENTS_ATTRIBUTE, objects.named(LibraryElements, LibraryElements.JAR))
+        }
+    }
+}
+
+artifacts {
+    stpAgentElements tasks.named('shadowJar')
+}
+
+publishing {
+    publications {
+        agent(MavenPublication) {
+            artifact tasks.named('shadowJar')
+            artifactId = 'stp-agent'
+            pom.packaging = 'jar'
+        }
+    }
+    repositories { mavenLocal() }
+}
+
+test {
+    useJUnitPlatform()
+    exclude '**/AgentCoverageFragmentFixtureMain$FragmentSuite.class'
+    dependsOn tasks.named('agentJar')
+    doFirst {
+        systemProperty 'stp.agent.jar', tasks.named('shadowJar').get().archiveFile.get().asFile.absolutePath
+    }
+}
+
+// Publication supplies the shaded agent as a standalone file, without runtime dependencies in its POM.

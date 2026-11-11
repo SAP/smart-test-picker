@@ -51,6 +51,24 @@ public abstract class GenerateTestCoverageJsonTask extends DefaultTask
 	@TaskAction
 	public void generate() throws IOException
 	{
+		// This legacy format cannot encode setup ownership. Never publish a pseudo-test in its place.
+		java.nio.file.Files.deleteIfExists(getOutputFile().get().getAsFile().toPath());
+		File reports = getReportsDir().getAsFile().get();
+		File[] setup = reports.listFiles((dir, name) -> name.startsWith("session_setup_")
+				&& (name.endsWith(".status") || name.endsWith(".xml")));
+		if (setup != null) for (File file : setup) {
+			if (file.getName().endsWith(".status")) {
+				String state = java.nio.file.Files.readString(file.toPath(), java.nio.charset.StandardCharsets.UTF_8).trim();
+				if (!state.equals("EMPTY") && !state.equals("COVERED"))
+					throw new org.gradle.api.GradleException("Unsafe JaCoCo setup report: " + file + " (" + state + ")");
+				if (state.equals("COVERED") && !new File(reports, file.getName().replace(".status", ".xml")).isFile())
+					throw new org.gradle.api.GradleException("Missing JaCoCo setup XML: " + file);
+			} else if (!new com.sap.oss.smarttestpicker.mapper.CoverageMapperJaxb(reports)
+					.readSchemaV2Coverage(file).coveredClasses().isEmpty()) {
+				throw new org.gradle.api.GradleException("Legacy Gradle JaCoCo mapping cannot represent positive setup coverage; "
+						+ "use executable schema 3 with an authoritative task assignment");
+			}
+		}
 		new CoverageMapEngine().generate(
 				getReportsDir().getAsFile().get(),
 				getOutputFile().getAsFile().get(),

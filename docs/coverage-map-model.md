@@ -1,5 +1,7 @@
 # Coverage map semantic model
 
+> **Historical schema-design record.** This document was introduced at revision `0039cd7e7ca7838086ae506b0709e9356b0bca2c` on 2026-09-03. Its semantic rationale and schema-2 model remain relevant, but backlog ownership, version recommendations, and implementation status describe that point in time. Current support includes logical schema 2 and executable schema 3; see the [current development state](current-development-state.md) and [compatibility table](compatibility.md).
+
 The semantic model lives under `com.sap.oss.smarttestpicker.coverage.model`; JSON construction and
 parsing live separately under `coverage.serialization`. Model records defensively copy maps, lists,
 and sets, expose no setters, and use value types for revisions, test identities, containers, and
@@ -11,8 +13,9 @@ The main types are `CoverageMap`, `CoverageMapRevision`, `TestIdentity`, `TestCo
 `CollectionSummary`, `Completeness`, `TestOutcome`,
 `GeneratorProvenance`, `MapStatistics`, `CoverageFragment`, and `MethodCoverageReference`.
 
-`TestIdentity` is the structured pair of a fully-qualified JVM binary class name and the exact
-declared runtime method name. Method names are not restricted to Java source identifiers: legal
+`MethodIdentity` is the descriptor-aware structured triple used by schema v2. `TestIdentity` contains
+a fully-qualified JVM binary class name, exact declared runtime method name, and JUnit parameter-type
+signature so overloaded runnable methods remain distinct. Method names are not restricted to Java source identifiers: legal
 JUnit/JVM-language names such as Kotlin backtick names containing spaces are preserved verbatim.
 The textual form separates the class from the method at the first `#`; `#` remains legal inside
 the method suffix because it is not legal in the class-name portion. Empty names, ISO control
@@ -39,7 +42,9 @@ production coverage. `COLLECTION_FAILED` belongs in `unmapped`, never in a succe
 
 `Completeness.from` requires both an independent `CollectionExpectation` and a collector-side
 `CollectionSummary`. The expectation combines `TestInventory` with expected shard identities;
-neither expected tests nor expected shards can be inferred from collector output. Inventory discovery belongs to 5c/5d. Completeness uses identity
+neither expected tests nor expected shards can be inferred from collector output. An orchestration-owned
+exact set may account for expected declarations intentionally excluded from execution; it cannot be
+inferred from missing collector output. Completeness uses identity
 set differences and separately records missing, unexpected and duplicate tests and missing or
 duplicate shards. Equal counts with different identities are incomplete.
 
@@ -64,7 +69,7 @@ Implementation findings and POC-proven boundaries for 5c and 5d are tracked in
 
 ## Version impact
 
-Schema v1 is not compatible with legacy maps. Legacy test keys use `SimpleClass#method_7hexHash`,
+Schema v2 is not compatible with legacy maps or schema v1. Legacy test keys use `SimpleClass#method_7hexHash`,
 from which the FQN cannot be reconstructed, so maps must be regenerated. The semantic selector API
 need not change in Task 5a and the existing CLI output schema remains unchanged; future v1 reader
 adoption will be an explicit integration step. Because Core and CLI artifact content changes, the

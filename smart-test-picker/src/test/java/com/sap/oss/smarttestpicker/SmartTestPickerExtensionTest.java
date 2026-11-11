@@ -20,7 +20,12 @@ class SmartTestPickerExtensionTest
 	void setUp()
 	{
 		project = ProjectBuilder.builder().build();
+		project.getPluginManager().apply("java");
 		project.getPluginManager().apply("com.sap.oss.smart-test-picker");
+		assertNotNull(project.getTasks().findByName("generateHeadTestInventory"));
+		assertTrue(project.getTasks().getByName("selectTests").getTaskDependencies()
+				.getDependencies(project.getTasks().getByName("selectTests")).stream()
+				.anyMatch(task -> task.getName().equals("generateHeadTestInventory")));
 		extension = project.getExtensions().getByType(SmartTestPickerExtension.class);
 	}
 
@@ -28,6 +33,28 @@ class SmartTestPickerExtensionTest
 	void defaultBaseBranch()
 	{
 		assertEquals("main", extension.getBaseBranch().get());
+	}
+
+	@Test
+	void asmIsDefaultCollector()
+	{
+		assertEquals("ASM", extension.getCoverageCollector().get());
+	}
+
+	@Test
+	void collectorAcceptsCaseInsensitiveDslString()
+	{
+		extension.getCoverageCollector().set("jacoco");
+		assertEquals(CoverageCollectorType.JACOCO,
+				CoverageCollectorType.parse(extension.getCoverageCollector().get()));
+	}
+
+	@Test
+	void unknownCollectorIsRejectedClearly()
+	{
+		IllegalArgumentException failure = assertThrows(IllegalArgumentException.class,
+				() -> CoverageCollectorType.parse("both"));
+		assertTrue(failure.getMessage().contains("Supported values are ASM and JACOCO"));
 	}
 
 	@Test

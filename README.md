@@ -5,7 +5,7 @@
 
 # Smart Test Picker
 
-A build plugin for **regression test selection** in Java projects. It selects and runs only the tests affected by code changes, instead of the entire test suite. Selection is based on **per-test runtime coverage data** captured via JaCoCo, not static analysis, so it correctly handles reflection, dynamic proxies, and dependency injection.
+A build-tool-independent core plus Gradle, Maven, CLI and Jenkins-facing components for **regression test selection** in Java projects. Selection uses per-test runtime coverage captured by the Gradle ASM collector or the supported JaCoCo paths, rather than static call-graph analysis.
 
 ## How It Works
 
@@ -19,7 +19,7 @@ Developer changes code
   -> Generates HTML report showing what was selected and why
 ```
 
-**Safety invariant:** worst case = full suite = same as without the plugin.
+**Safety invariant:** uncertain optimization data never produces a smaller unproven test set. Availability-only cases may run the full suite; revision, integrity, security, configuration and completeness failures fail closed.
 
 ## Key Features
 
@@ -45,13 +45,18 @@ Developer changes code
 ```groovy
 // build.gradle
 plugins {
-    id 'com.sap.oss.smart-test-picker' version '0.1.0'
+    id 'com.sap.oss.smart-test-picker' version '0.3.0-SNAPSHOT'
 }
 
 // Optional configuration
 smartTestPicker {
     baseBranch = 'main'          // default: 'main'
     maxCommitDistance = 500       // default: 500
+
+    // Optional explicit PR mode; supply all three frozen full commit IDs.
+    integrationRevision = '...'
+    prBaseRevision = '...'
+    prHeadRevision = '...'
 }
 ```
 
@@ -73,7 +78,7 @@ open build/reports/smart-test-picker/index.html
 <plugin>
     <groupId>com.sap.oss.smart-test-picker</groupId>
     <artifactId>smart-test-picker-maven</artifactId>
-    <version>0.1.0</version>
+    <version>0.3.0-SNAPSHOT</version>
 </plugin>
 ```
 
@@ -82,7 +87,13 @@ open build/reports/smart-test-picker/index.html
 mvn verify -Psmart-test-picker
 
 # Phase 2 (on feature branch): one-command smart test run
-mvn com.sap.oss.smart-test-picker:smart-test-picker-maven:0.1.0:smart-test
+mvn com.sap.oss.smart-test-picker:smart-test-picker-maven:0.3.0-SNAPSHOT:smart-test
+
+# Explicit PR mode (all three properties are required together)
+mvn process-test-classes com.sap.oss.smart-test-picker:smart-test-picker-maven:0.3.0-SNAPSHOT:select-tests \
+  -DsmartTestPicker.integrationRevision=<full-sha> \
+  -DsmartTestPicker.prBaseRevision=<full-sha> \
+  -DsmartTestPicker.prHeadRevision=<full-sha>
 
 # View report
 open target/reports/smart-test-picker/index.html
@@ -97,6 +108,18 @@ smart-test-picker select-tests --map coverage-map.json --output selected.json
 smart-test-picker generate-report --map coverage-map.json --selected selected.json --output report/
 ```
 
+Explicit PR selection accepts caller-owned frozen integration/base/head commits while the map and
+inventory retain their own revision provenance:
+
+```bash
+smart-test-picker select-tests --map coverage-map.json --head-inventory head-inventory.json \
+  --integration-revision <full-sha> --pr-base-revision <full-sha> \
+  --pr-head-revision <full-sha> --output explicit-result.json
+```
+
+Explicit results distinguish normal `SELECTED`/`NONE`/`FULL_SUITE` selection from
+`BASE_OUT_OF_DATE` and `ERROR`.
+
 ## Project Structure
 
 ```
@@ -105,6 +128,9 @@ smart-test-picker-common/     Shared engine (no build-tool dependency)
 smart-test-picker/            Gradle plugin
 smart-test-picker-maven/      Maven plugin
 smart-test-picker-cli/        Standalone CLI (picocli + shadowJar)
+stp-agent/                    STP ASM mapping agent
+stp-runtime/                  Internal framework-neutral ASM runtime
+stp-junit-adapter/            Internal JUnit lifecycle listener
 ```
 
 | Module | Description | README |
@@ -114,6 +140,7 @@ smart-test-picker-cli/        Standalone CLI (picocli + shadowJar)
 | [smart-test-picker](smart-test-picker/) | Gradle plugin with tasks for the full pipeline | [README](smart-test-picker/README.md) |
 | [smart-test-picker-maven](smart-test-picker-maven/) | Maven plugin with mojos for multi-module projects | [README](smart-test-picker-maven/README.md) |
 | [smart-test-picker-cli](smart-test-picker-cli/) | Standalone CLI for non-Gradle/Maven environments | [README](smart-test-picker-cli/README.md) |
+| [stp-agent](stp-agent/) | Production ASM mapping agent bundled with its runtime and JUnit lifecycle adapter | [README](stp-agent/README.md) |
 
 ## Selection Algorithm
 
@@ -144,6 +171,18 @@ This avoids over-selection (running every test that touches a class) while maint
 # Publish to local Maven repository (for testing)
 ./gradlew publishToMavenLocal
 ```
+
+Wire and component compatibility is summarized in [docs/compatibility.md](docs/compatibility.md).
+
+## Documentation status
+
+- [Current development state](docs/current-development-state.md) is the concise current-state entry point.
+- [Compatibility](docs/compatibility.md) separates artifact versions from wire-format versions.
+- Module README files document the current Gradle, Maven, CLI, runtime, and agent surfaces.
+- `docs/task*.md`, `docs/ei-*.md`, `EI-*`, and the superseded
+  [architecture chronology](docs/current-architecture.md) are historical design or validation records;
+  they retain the versions and results that applied when written.
+- [Changelog](CHANGELOG.md) summarizes implemented but unreleased changes.
 
 ## Support, Feedback, Contributing
 

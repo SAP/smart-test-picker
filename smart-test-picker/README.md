@@ -6,7 +6,7 @@ Gradle plugin for regression test selection. Registers tasks that automate the f
 
 ```groovy
 plugins {
-    id 'com.sap.oss.smart-test-picker' version '0.1.0'
+    id 'com.sap.oss.smart-test-picker' version '0.3.0-SNAPSHOT'
 }
 ```
 
@@ -16,6 +16,11 @@ Implementation class: `com.sap.oss.smarttestpicker.SmartTestPickerPlugin`
 
 ```groovy
 smartTestPicker {
+    coverageCollector = 'ASM'       // ASM (default) or JACOCO
+    revision = providers.environmentVariable('GIT_COMMIT') // fragment revision
+    shardId = 'ci-shard-1'          // optional; default: gradle:<mapping task path>
+    coverageIncludes = ['com.acme.'] // optional instrumentation package prefixes
+    coverageExcludes = ['com.acme.generated.']
     baseBranch = 'main'              // Git branch used as diff baseline (default: 'main')
     maxCommitDistance = 500           // Max commits before map is considered stale (default: 500)
     classLevelSelection = false      // Enable class-level expansion in report (default: false)
@@ -24,6 +29,11 @@ smartTestPicker {
         'gradle.properties',
         'src/main/resources/**'
     ]
+
+    // Optional explicit PR mode; all three must be frozen full commit IDs.
+    integrationRevision = '...'
+    prBaseRevision = '...'
+    prHeadRevision = '...'
 }
 ```
 
@@ -35,18 +45,21 @@ The plugin registers the following tasks:
 |------|------|-------------|
 | `generateSmartReports` | inline doLast | Converts `session_*.exec` to `session_*.xml` via JaCoCo |
 | `generateTestCoverageJson` | `GenerateTestCoverageJsonTask` | Parses XML reports into `build/test-coverage-map.json` |
+| `generateHeadTestInventory` | `GenerateHeadTestInventoryTask` | Discovers exact JUnit identities into `build/head-test-inventory.json` without executing tests |
 | `selectTests` | `SelectTestsTask` | Reads map + git diff, writes `build/selected-tests.json` |
 | `smartTest` | Gradle `Test` | Runs only selected + unmapped tests via Gradle filter |
 | `generateTestReport` | `GenerateTestReportTask` | Produces HTML dashboard + source coverage pages |
-| `generateSmartTestMapping` | lifecycle | Chains: `test` -> `generateSmartReports` -> `generateTestCoverageJson` |
+| `generateSmartTestCoverage` | Gradle `Test` | Dedicated STP mapping execution; receives exactly one selected collector |
+| `generateSmartTestMapping` | lifecycle | Runs `generateSmartTestCoverage`; in JACOCO mode also runs the legacy report/map stages |
+| `generateGradleExecutableHeadTestInventory` | `GenerateGradleExecutableHeadTestInventoryTask` | Aggregates schema-3 identities owned by concrete Gradle test tasks |
+| `generateGradleExecutableProjectInventory` | `GenerateGradleExecutableProjectInventoryTask` | Produces one project-local executable inventory part |
+| `aggregateGradleExecutableCoverage` | `AggregateGradleExecutableCoverageTask` | Validates and joins target-owned schema-3 fragments for one assignment |
 
 ## Typical Workflow
 
 ### Phase 1: Generate coverage map (on base branch, CI after merge)
 
 ```bash
-./gradlew test generateSmartReports generateTestCoverageJson
-# Or all-in-one:
 ./gradlew generateSmartTestMapping
 ```
 
@@ -66,6 +79,45 @@ open build/reports/smart-test-picker/index.html
 
 ## Task Details
 
+### Coverage collectors
+
+Executable Jenkins mapping sets `stp.schemaVersion=3`, supplies an executable assignment and concrete
+test-task scope, and uses the executable inventory/aggregation tasks above. Ordinary standalone plugin
+usage remains on the logical schema-2 path unless those invocation inputs are supplied.
+
+`ASM` is the production default and emits a schema-v2 fragment directly at
+`build/stp/coverage/_generateSmartTestCoverage/<sanitized-shardId>/fragment.json`. The plugin resolves
+the version-aligned `com.sap.oss.smart-test-picker:stp-agent` artifact through its internal resolvable
+`stpAgent` configuration and supplies `-javaagent`; users do not locate the JAR or add JVM arguments.
+In a source multi-project build this selects `:stp-agent`'s consumable shaded variant. Published usage
+resolves the agent coordinate at exactly the Gradle plugin version. The publication contains the
+runtime, JUnit adapter, and relocated ASM; consumers do not assemble those internals.
+The default revision is `-Dstp.revision`, then `GIT_COMMIT`, then the explicit diagnostic value
+`UNKNOWN`; CI should set `revision` or one of those inputs. `-Dstp.shardId` can override the normal
+`gradle::generateSmartTestCoverage` identity.
+
+Set `coverageCollector = 'JACOCO'` to restore the pre-TASK-27 per-test exec/XML/legacy-map flow. There
+is deliberately no `BOTH`, `AUTO`, or union mode. That legacy map uses legacy method strings;
+the executable schema-v3 JaCoCo path preserves JVM method descriptors. Descriptor preservation
+does not imply method-entry completeness: an implicit exception before a JaCoCo probe can leave
+an entered method absent. The executable schema-v3 converter retains validated setup sessions as
+task-owned `FRAMEWORK_SETUP` scopes; changes to their production classes select the affected
+container's tests. Unsafe setup evidence rejects conversion. The legacy unversioned map cannot
+represent this ownership and now rejects positive setup coverage rather than publishing pseudo-tests;
+use executable schema 3 with an authoritative task assignment for such suites. Neither JaCoCo
+path directly emits a schema-v2 fragment. See the [setup fix and selection proof](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/stp-gradle-setup-01/REPORT.md).
+The legacy collector runtime and JaCoCo `test.exec` destination are configured only on the dedicated
+mapping task, which then orders per-test exec conversion, XML generation, and legacy JSON generation.
+ASM supplies class coverage, exact descriptor-aware method coverage, bounded supported setup scopes,
+and direct schema-v2 fragments.
+
+The [capability verification](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/stp-capabilities-01/REPORT.md) distinguishes
+these output properties from attribution soundness and records probes for all four backends.
+
+The collector is attached only to `generateSmartTestCoverage`, not to normal `test` or `smartTest`.
+An independently applied project JaCoCo plugin may still attach its own agent to that mapping JVM;
+this preserves the ordinary JaCoCo exec/report while ASM emits the STP fragment.
+
 ### generateSmartReports
 
 Converts per-test `.exec` files (produced by the JUnit 5 extension in `smart-test-picker-core`) into JaCoCo XML reports. Each test method gets its own XML file.
@@ -82,6 +134,9 @@ Output: `build/test-coverage-map.json`
 
 ### selectTests
 
+`selectTests` automatically depends on `generateHeadTestInventory`; users do not create the inventory
+file. Discovery mirrors the standard `test` task's test class directories and runtime classpath.
+
 Runs the 8-step selection flow:
 1. Load coverage map
 2. Validate metadata and commitId
@@ -94,6 +149,13 @@ Runs the 8-step selection flow:
 
 Input: `build/test-coverage-map.json`
 Output: `build/selected-tests.json`
+
+When any explicit revision is configured, all three are required. The generated inventory is stamped
+with `prHeadRevision` only after workspace HEAD is verified, then the task delegates eligibility and
+the committed `mapRevision..prHeadRevision` analysis to common core. `BASE_OUT_OF_DATE` skips
+`smartTest`, `ERROR` fails visibly, `FULL_SUITE` leaves filtering unrestricted, `NONE` runs no tests,
+and `SELECTED` preserves the existing mandatory class-widened filter. Without these inputs the existing
+HEAD/worktree-aware local flow is unchanged.
 
 ### smartTest
 

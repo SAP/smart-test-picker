@@ -5,7 +5,11 @@ package com.sap.oss.smarttestpicker.coverage;
 /** Authoritative wire-contract versions owned by STP Core. */
 public final class CoverageMapContract
 {
-	public static final int SCHEMA_VERSION = 1;
+	public static final int SCHEMA_VERSION = 2;
+	public static final int SCHEMA_V2 = 2;
+	public static final int SCHEMA_V3 = 3;
+	public static final int LATEST_SCHEMA = SCHEMA_V3;
+	public static final int PREVIOUS_SCHEMA_VERSION = 1;
 
 	private CoverageMapContract() {}
 }

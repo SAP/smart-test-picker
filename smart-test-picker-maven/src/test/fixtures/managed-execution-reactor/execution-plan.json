@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "mode": "SELECT",
+  "revision": "managed-evidence-fixture",
+  "tests": [
+    {
+      "target": "maven:module-a",
+      "class": "fixture.ManagedEvidenceTest",
+      "method": "selected"
+    }
+  ]
+}

@@ -1,0 +1,449 @@
+// SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+// SPDX-License-Identifier: Apache-2.0
+package com.sap.oss.smarttestpicker.runtime;
+
+import com.sap.oss.smarttestpicker.runtime.model.RuntimeEvent;
+import com.sap.oss.smarttestpicker.runtime.model.TestIdentity;
+import com.sap.oss.smarttestpicker.runtime.model.TestResult;
+import com.sap.oss.smarttestpicker.runtime.model.UnattributedReason;
+
+import java.util.Objects;
+import java.util.Optional;
+import java.util.concurrent.Callable;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+/**
+ * Explicit attribution scope. Cross-thread use is limited to snapshots installed
+ * around wrapped executor tasks; reactive and request propagation are not implied.
+ */
+public final class RuntimeContextService {
+	private final RuntimeEventAggregator aggregator;
+	private final ThreadLocal<TestExecutionContext> current = new ThreadLocal<>();
+	private final ThreadLocal<TestIdentity> lastFinished = new ThreadLocal<>();
+	private final ThreadLocal<Deque<TaskIdentity>> currentTasks = ThreadLocal.withInitial(ArrayDeque::new);
+	private final ThreadLocal<Deque<ContainerIdentity>> currentContainers = ThreadLocal.withInitial(ArrayDeque::new);
+	private final ThreadLocal<ContainerIdentity> capturedContainer = new ThreadLocal<>();
+	private final ThreadLocal<String> unboundedSharedSetup = new ThreadLocal<>();
+	private final java.util.Set<String> activeContainers = java.util.concurrent.ConcurrentHashMap.newKeySet();
+	private final java.util.Map<String, ContainerIdentity> containerOwners = new java.util.concurrent.ConcurrentHashMap<>();
+	private final AtomicLong logicalContexts = new AtomicLong();
+	private final boolean debug;
+	private final java.util.concurrent.atomic.LongAdder methodSlowPathNanos = new java.util.concurrent.atomic.LongAdder();
+	private final ForkJoinContexts forkJoin = new ForkJoinContexts(this);
+	private final ThreadLocal<Deque<Runnable>> forkJoinScopes = ThreadLocal.withInitial(ArrayDeque::new);
+	private final ThreadLocal<ForkJoinContexts.Execution> forkJoinExecution = new ThreadLocal<>();
+
+	public void captureForkJoin(java.util.concurrent.ForkJoinTask<?> task) { forkJoin.capture(task); }
+	public void reinitializeForkJoin(java.util.concurrent.ForkJoinTask<?> task) { forkJoin.reinitialize(task); }
+	public void enterForkJoin(java.util.concurrent.ForkJoinTask<?> task) {
+		forkJoinScopes.get().push(forkJoin.enter(task));
+	}
+	public void exitForkJoin() {
+		Deque<Runnable> scopes = forkJoinScopes.get();
+		if (!scopes.isEmpty()) scopes.pop().run();
+		if (scopes.isEmpty()) forkJoinScopes.remove();
+	}
+
+	record ForkJoinOwner(TestExecutionContext test, ContainerIdentity container, String sharedSetup) {}
+	ForkJoinOwner captureForkJoinOwner() {
+		if (forkJoinExecution.get() != null && forkJoinExecution.get().ambiguous)
+			return new ForkJoinOwner(null, null, null);
+		return new ForkJoinOwner(current.get(), capturedContainer.get() != null
+				? capturedContainer.get() : currentContainer(), unboundedSharedSetup.get());
+	}
+	Runnable attachForkJoin(ForkJoinOwner owner, ForkJoinContexts.Execution execution, Object task) {
+		TestExecutionContext previous = current.get();
+		TestIdentity finished = lastFinished.get();
+		ContainerIdentity container = capturedContainer.get();
+		Deque<ContainerIdentity> containers = currentContainers.get();
+		String shared = unboundedSharedSetup.get();
+		ForkJoinContexts.Execution previousExecution = forkJoinExecution.get();
+		current.set(owner.test());
+		lastFinished.remove();
+		capturedContainer.set(owner.container());
+		currentContainers.remove();
+		unboundedSharedSetup.set(owner.sharedSetup());
+		forkJoinExecution.set(execution);
+		currentTasks.get().push(new TaskIdentity(task.getClass().getName(), System.identityHashCode(task)));
+		return () -> {
+			current.set(previous);
+			lastFinished.set(finished);
+			capturedContainer.set(container);
+			currentContainers.set(containers);
+			unboundedSharedSetup.set(shared);
+			forkJoinExecution.set(previousExecution);
+			Deque<TaskIdentity> tasks = currentTasks.get();
+			tasks.pop();
+			if (tasks.isEmpty()) currentTasks.remove();
+		};
+	}
+
+	void forkJoinIncomplete(String detail) {
+		recordUnsupportedSetup(SetupDiagnostic.Kind.ASYNC_SETUP_UNSUPPORTED, null, "ForkJoinTask: " + detail);
+	}
+
+	public RuntimeContextService(RuntimeEventAggregator aggregator) {
+		this(aggregator, false);
+	}
+
+	public RuntimeContextService(RuntimeEventAggregator aggregator, boolean debug) {
+		this.aggregator = Objects.requireNonNull(aggregator, "aggregator");
+		this.debug = debug;
+	}
+
+	public void beginTest(TestIdentity identity) {
+		Objects.requireNonNull(identity, "identity");
+		TestExecutionContext active = current.get();
+		if (active != null) {
+			throw new IllegalStateException("conflicting active test: " + active.testIdentity().platformUniqueId());
+		}
+		aggregator.beginTest(identity);
+		lastFinished.remove();
+		current.set(new TestExecutionContext(identity, logicalContexts.incrementAndGet()));
+	}
+
+	public void endTest(TestIdentity identity, TestResult result) {
+		Objects.requireNonNull(identity, "identity");
+		Objects.requireNonNull(result, "result");
+		TestExecutionContext active = current.get();
+		if (active == null || !identity.equals(active.testIdentity())) {
+			throw new IllegalStateException("test is not active on this thread: " + identity.platformUniqueId());
+		}
+		try {
+			active.methodHits().close();
+			aggregator.endTest(identity, result);
+		} finally {
+			current.remove();
+			// Once a leaf ends, a still-active container owns synchronous lifecycle work such as AfterAll.
+			if (currentContainers.get().isEmpty()) {
+				lastFinished.set(identity);
+			} else {
+				lastFinished.remove();
+			}
+		}
+	}
+
+	public Optional<TestIdentity> currentTest() {
+		return currentContext().map(TestExecutionContext::testIdentity);
+	}
+
+	public Optional<TestExecutionContext> currentContext() {
+		return Optional.ofNullable(current.get());
+	}
+
+	/** Captures the active test at submission and restores the worker's state after execution. */
+	public Runnable wrap(Runnable task) {
+		Objects.requireNonNull(task, "task");
+		TestExecutionContext captured = current.get();
+		debug("capture", task, captured);
+		ContainerIdentity container = currentContainer();
+		return captured != null ? () -> runWith(captured, task)
+				: container != null ? () -> runWith(container, task) : task;
+	}
+
+	/** Captures the active test at submission and restores the worker's state after execution. */
+	public <V> Callable<V> wrap(Callable<V> task) {
+		Objects.requireNonNull(task, "task");
+		TestExecutionContext captured = current.get();
+		debug("capture", task, captured);
+		ContainerIdentity container = currentContainer();
+		return captured != null ? () -> callWith(captured, task)
+				: container != null ? () -> callWith(container, task) : task;
+	}
+
+	public <V> Supplier<V> wrapSupplier(Supplier<V> task) {
+		Objects.requireNonNull(task, "task");
+		TestExecutionContext captured = current.get();
+		debug("capture", task, captured);
+		ContainerIdentity container = currentContainer();
+		return captured != null ? () -> supplyWith(captured, task)
+				: container != null ? () -> supplyWith(container, task) : task;
+	}
+
+	public <T, R> Function<T, R> wrapFunction(Function<T, R> task) {
+		Objects.requireNonNull(task, "task");
+		TestExecutionContext captured = current.get();
+		debug("capture", task, captured);
+		ContainerIdentity container = currentContainer();
+		return captured != null ? value -> applyWith(captured, task, value)
+				: container != null ? value -> applyWith(container, task, value) : task;
+	}
+
+	private ContainerIdentity currentContainer() {
+		Deque<ContainerIdentity> values = currentContainers.get();
+		return values.isEmpty() ? null : values.peek();
+	}
+
+	private void runWith(ContainerIdentity container, Runnable task) {
+		ContainerIdentity previous = capturedContainer.get();
+		capturedContainer.set(container);
+		try { task.run(); } finally { restoreContainer(previous); }
+	}
+
+	private <V> V callWith(ContainerIdentity container, Callable<V> task) throws Exception {
+		ContainerIdentity previous = capturedContainer.get();
+		capturedContainer.set(container);
+		try { return task.call(); } finally { restoreContainer(previous); }
+	}
+
+	private <V> V supplyWith(ContainerIdentity container, Supplier<V> task) {
+		ContainerIdentity previous = capturedContainer.get();
+		capturedContainer.set(container);
+		try { return task.get(); } finally { restoreContainer(previous); }
+	}
+
+	private <T, R> R applyWith(ContainerIdentity container, Function<T, R> task, T value) {
+		ContainerIdentity previous = capturedContainer.get();
+		capturedContainer.set(container);
+		try { return task.apply(value); } finally { restoreContainer(previous); }
+	}
+
+	private void restoreContainer(ContainerIdentity previous) {
+		if (previous == null) {
+			capturedContainer.remove();
+		} else {
+			capturedContainer.set(previous);
+		}
+	}
+
+	private void runWith(TestExecutionContext captured, Runnable task) {
+		TestExecutionContext previous = installCaptured(captured, task);
+		TestIdentity previousFinished = lastFinished.get();
+		lastFinished.remove();
+		try {
+			task.run();
+		} finally {
+			restore(previous, previousFinished, task);
+		}
+	}
+
+	private <V> V callWith(TestExecutionContext captured, Callable<V> task) throws Exception {
+		TestExecutionContext previous = installCaptured(captured, task);
+		TestIdentity previousFinished = lastFinished.get();
+		lastFinished.remove();
+		try {
+			return task.call();
+		} finally {
+			restore(previous, previousFinished, task);
+		}
+	}
+
+	private <V> V supplyWith(TestExecutionContext captured, Supplier<V> task) {
+		TestExecutionContext previous = installCaptured(captured, task);
+		TestIdentity previousFinished = lastFinished.get();
+		lastFinished.remove();
+		try {
+			return task.get();
+		} finally {
+			restore(previous, previousFinished, task);
+		}
+	}
+
+	private <T, R> R applyWith(TestExecutionContext captured, Function<T, R> task, T value) {
+		TestExecutionContext previous = installCaptured(captured, task);
+		TestIdentity previousFinished = lastFinished.get();
+		lastFinished.remove();
+		try {
+			return task.apply(value);
+		} finally {
+			restore(previous, previousFinished, task);
+		}
+	}
+
+	private TestExecutionContext installCaptured(TestExecutionContext captured, Object task) {
+		TestExecutionContext previous = current.get();
+		current.set(captured);
+		currentTasks.get().push(new TaskIdentity(task.getClass().getName(), System.identityHashCode(task)));
+		debug("attach", task, captured);
+		return previous;
+	}
+
+	private void restore(TestExecutionContext previous, TestIdentity previousFinished, Object task) {
+		if (previous == null) {
+			current.remove();
+		} else {
+			current.set(previous);
+		}
+		if (previousFinished == null) {
+			lastFinished.remove();
+		} else {
+			lastFinished.set(previousFinished);
+		}
+		Deque<TaskIdentity> tasks = currentTasks.get();
+		tasks.pop();
+		if (tasks.isEmpty()) currentTasks.remove();
+		debug("restore/cleanup", task, previous);
+	}
+
+	/** Resolve and validate ownership before deduplication or allocating a method event. */
+	public void recordMethod(MethodProbe probe) {
+		ForkJoinContexts.Execution execution = forkJoinExecution.get();
+		TestExecutionContext test = current.get();
+		ContainerIdentity container = null;
+		MethodHitOwner owner = null;
+		if ((execution == null || !execution.ambiguous) && unboundedSharedSetup.get() == null) {
+			if (test != null) owner = test.methodHits();
+			else if (lastFinished.get() == null) {
+				container = capturedContainer.get();
+				if (container == null) container = currentContainer();
+				if (container != null) owner = container.methodHits();
+			}
+		}
+		probe.hit(); // Occurrence counts stay exact even when no valid owner exists.
+		if (owner != null && !owner.closed()) {
+			var first = owner.firstHit(probe.ordinal());
+			if (first == null) return;
+			long started = System.nanoTime();
+			try {
+				if (test != null) aggregator.recordCounted(test.testIdentity(), probe.event(), first.occurrences);
+				else aggregator.recordSetup(container.binaryName(), container.nested(), probe.event());
+			} finally { methodSlowPathNanos.add(System.nanoTime() - started); }
+		} else {
+			// Never deduplicate invalid ownership: repeated closed-container hits must still diagnose.
+			long started = System.nanoTime();
+			try { record(probe.event()); }
+			finally { methodSlowPathNanos.add(System.nanoTime() - started); }
+		}
+	}
+
+	public long methodSlowPathNanos() { return methodSlowPathNanos.sum(); }
+
+	public void record(RuntimeEvent event) {
+		Objects.requireNonNull(event, "event");
+		ForkJoinContexts.Execution execution = forkJoinExecution.get();
+		if (execution != null && execution.ambiguous) {
+			aggregator.recordUnattributed(UnattributedReason.UNKNOWN_CONTEXT, event);
+			return;
+		}
+		if (event instanceof com.sap.oss.smarttestpicker.runtime.model.MethodHitEvent method
+				&& unboundedSharedSetup.get() != null) {
+			recordUnsupportedSetup(SetupDiagnostic.Kind.SHARED_CONTEXT_SETUP_UNSUPPORTED, method.method(),
+					"affected containers are unknown for shared context " + unboundedSharedSetup.get());
+			aggregator.recordUnattributed(UnattributedReason.NO_ACTIVE_TEST, event);
+			return;
+		}
+		TestExecutionContext active = current.get();
+		if (active != null) {
+			aggregator.record(active.testIdentity(), event);
+			return;
+		}
+		TestIdentity finished = lastFinished.get();
+		if (finished != null) {
+			aggregator.record(finished, event);
+		} else if (event instanceof com.sap.oss.smarttestpicker.runtime.model.MethodHitEvent method
+				&& capturedContainer.get() != null) {
+			ContainerIdentity container = capturedContainer.get();
+			if (!container.methodHits().closed()) {
+				aggregator.recordSetup(container.binaryName(), container.nested(), method);
+			} else {
+				recordUnsupportedSetup(SetupDiagnostic.Kind.ASYNC_SETUP_UNSUPPORTED, method.method(),
+						"work captured by closed JUnit container " + container.uniqueId());
+				aggregator.recordUnattributed(UnattributedReason.LATE_EVENT, event);
+			}
+		} else if (event instanceof com.sap.oss.smarttestpicker.runtime.model.MethodHitEvent method
+				&& !currentContainers.get().isEmpty()) {
+			ContainerIdentity container = currentContainers.get().peek();
+			if (!container.methodHits().closed()) aggregator.recordSetup(container.binaryName(), container.nested(), method);
+			else {
+				recordUnsupportedSetup(SetupDiagnostic.Kind.ASYNC_SETUP_UNSUPPORTED, method.method(),
+						"work captured by closed JUnit container " + container.uniqueId());
+				aggregator.recordUnattributed(UnattributedReason.LATE_EVENT, event);
+			}
+		} else {
+			aggregator.recordUnattributed(UnattributedReason.NO_ACTIVE_TEST, event);
+		}
+	}
+
+	public void beginContainer(String uniqueId, String binaryName, boolean nested) {
+		ContainerIdentity container = new ContainerIdentity(uniqueId, binaryName, nested);
+		ContainerIdentity previous = containerOwners.put(uniqueId, container);
+		if (previous != null) previous.methodHits().close();
+		currentContainers.get().push(container);
+		activeContainers.add(uniqueId);
+		lastFinished.remove();
+	}
+
+	/** Narrow integration boundary for a shared initializer whose complete consumer set is unavailable. */
+	public void beginUnboundedSharedContextSetup(String contextId) {
+		if (contextId == null || contextId.isBlank()) throw new IllegalArgumentException("contextId must not be blank");
+		if (unboundedSharedSetup.get() != null) throw new IllegalStateException("shared setup is already active");
+		unboundedSharedSetup.set(contextId);
+	}
+
+	public void endUnboundedSharedContextSetup(String contextId) {
+		if (!Objects.equals(contextId, unboundedSharedSetup.get())) {
+			throw new IllegalStateException("shared setup is not active: " + contextId);
+		}
+		unboundedSharedSetup.remove();
+	}
+
+	public void recordUnsupportedSetup(SetupDiagnostic.Kind kind,
+			com.sap.oss.smarttestpicker.runtime.model.MethodIdentity method, String detail) {
+		aggregator.recordSetupDiagnostic(new SetupDiagnostic(kind, SetupDiagnostic.Severity.ERROR, method, detail));
+	}
+
+	/** Called only at a recognized submission boundary which cannot preserve the active owner. */
+	public void recordUnsupportedAsyncBoundary(String boundary) {
+		TestExecutionContext test = current.get();
+		ContainerIdentity container = currentContainer();
+		if (test == null && container == null) return; // ordinary runtime use is not ownership evidence
+		aggregator.recordSetupDiagnostic(new SetupDiagnostic(SetupDiagnostic.Kind.ASYNC_SETUP_UNSUPPORTED,
+				SetupDiagnostic.Severity.ERROR, null, boundary + "; owner="
+						+ (test != null ? test.testIdentity().platformUniqueId() : container.uniqueId())));
+	}
+
+	public void endContainer(String uniqueId) {
+		ContainerIdentity owner = containerOwners.remove(uniqueId);
+		if (owner != null) owner.methodHits().close();
+		activeContainers.remove(uniqueId);
+		Deque<ContainerIdentity> values = currentContainers.get();
+		values.stream().filter(value -> value.uniqueId().equals(uniqueId)).forEach(value -> value.methodHits().close());
+		if (!values.isEmpty() && values.peek().uniqueId().equals(uniqueId)) values.pop();
+		else values.removeIf(value -> value.uniqueId().equals(uniqueId));
+		if (values.isEmpty()) currentContainers.remove();
+	}
+
+	public RuntimeEventAggregator aggregator() {
+		return aggregator;
+	}
+
+	/** ROUND-10-only read-only state used by the bounded causal trace. */
+	public DiagnosticContext diagnosticContext() {
+		TestExecutionContext active = current.get();
+		TestIdentity owner = active == null ? lastFinished.get() : active.testIdentity();
+		Deque<TaskIdentity> tasks = currentTasks.get();
+		TaskIdentity task = tasks.peek();
+		if (tasks.isEmpty()) currentTasks.remove();
+		return new DiagnosticContext(owner, active == null ? null : active.logicalContextId(), task,
+				owner != null && aggregator.isFinished(owner));
+	}
+
+	public record TaskIdentity(String className, int identityHash) {}
+	private record ContainerIdentity(String uniqueId, String binaryName, boolean nested, MethodHitOwner methodHits) {
+		ContainerIdentity(String uniqueId, String binaryName, boolean nested) {
+			this(uniqueId, binaryName, nested, new MethodHitOwner());
+		}
+	}
+	public record DiagnosticContext(TestIdentity testIdentity, Long logicalContextId, TaskIdentity task,
+			boolean ownerFinished) {}
+
+	public String runId() {
+		return aggregator.runId();
+	}
+
+	public String jvmId() {
+		return aggregator.jvmId();
+	}
+
+	private void debug(String operation, Object task, TestExecutionContext context) {
+		if (!debug) return;
+		String owner = context == null ? "none" : context.testIdentity().platformUniqueId();
+		System.err.println("[stp-context] " + operation + " task=" + task.getClass().getName() + "@"
+				+ Integer.toHexString(System.identityHashCode(task)) + " test=" + owner + " thread="
+				+ Thread.currentThread().getName());
+	}
+}

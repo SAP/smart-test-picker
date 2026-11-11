@@ -1,0 +1,471 @@
+# Current architecture
+
+> **Historical design and implementation snapshot.** This record began at revision `0149437fcc4d336920c95696e4dec15a5d110114` on 2026-09-06 and was extended chronologically by later tasks. Its statuses, versions, paths, and limitations describe the sections' respective implementation stages. EI-15 is also dated evidence. Use the [current development state](current-development-state.md), [compatibility contracts](compatibility.md), and root README for current guidance. The architectural rationale remains useful; chronological status claims are superseded.
+
+## TASK76 item-8 central failure-policy closure
+
+Item 8 Central failure policy is **DONE**.
+
+The final architecture has one Jenkins-neutral deterministic central policy engine, one Jenkins
+fact-normalization boundary, and one Jenkins action-realization boundary. Covered producer facts from
+SCM/PR resolution, revision preflight, selector outcomes, inventory, mapping, storage and credentials
+are normalized before CI action is chosen.
+
+Safe optimization-only failures may execute the unrestricted full test target only when full-suite
+safety is positively established. Revision eligibility, integrity, security/configuration and mapping
+correctness fail closed. Unknown failures never enable selective execution.
+
+TASK74/TASK75 public Jenkins evidence and the TASK76 closure audit, including focused corrections for
+unclassified callback and RAW_HTTP bridge failures, found no remaining correctness blocker for the
+supported single-controller topology.
+
+## TASK75 central failure-policy E2E validation
+
+TASK75 validates the central failure-policy chain end-to-end through public Jenkins execution across
+selector, revision, inventory, SCM, storage, credentials, mapping, lookup and publication scenarios.
+
+Safe optimization failures execute the unrestricted full test target; hard integrity, revision,
+security, configuration and mapping failures fail Jenkins visibly. FILE and RAW_HTTP normalize
+equivalent storage facts identically, unknown behavior remains conservative, and no duplicate
+Jenkins-side policy decision path exists.
+
+Item 8 remains **IN PROGRESS** only for TASK76 final closure audit.
+
+## TASK66 item 6 closure
+
+Item 6 SCM/PR resolution is **DONE**. The Jenkins plugin has a provider-neutral typed resolver and
+provider-adapter seam, with GitHub Branch Source implemented against `PullRequestSCMHead` and
+`PullRequestSCMRevision`. Frozen semantics are: integration is the provider PR snapshot's target
+commit, PR base is validated target/base provenance retained for compatibility, PR head is the true
+source-head commit, and workspace revision is the actual Jenkins checkout. The public automatic
+`stpPrSelect` step resolves and hands these values to the existing 5e flow; `SOURCE_HEAD` is supported
+end-to-end and proven by both Docker and real GitHub Multibranch indexing. `SYNTHETIC_MERGE` metadata
+is resolved but automatic selection safely returns `PR_HEAD_INVENTORY_UNAVAILABLE` until a separate
+immutable source-head workspace exists. Missing, shallow, unsupported, ambiguous, and non-PR states
+remain typed failures with no fetch, workspace mutation, or centralized fallback policy. Items 7 and
+8 remain **NOT STARTED**.
+
+## TASK63 automatic Jenkins PR selection wiring
+
+The Jenkins plugin now exposes `stpPrSelect`, a block step that resolves the current typed PR with
+`ScmPrContextResolver`, binds head inventory generation to the resolved source-head revision, and
+passes `ResolvedPrContext.toFiveERevisions()` unchanged into the existing explicit 5e flow. Callers
+do not provide integration, PR-base, PR-head, or workspace revisions. Resolver failures remain typed
+and do not select or create a plan; no item-8 fallback policy is implied. The `SOURCE_HEAD` automatic
+public flow is fully Docker validated end-to-end through real Gradle head-inventory generation and
+common-core explicit selection.
+`SYNTHETIC_MERGE` is safely reported as `PR_HEAD_INVENTORY_UNAVAILABLE` until a separate immutable
+source-head workspace exists; the merge workspace is never relabeled or mutated. The manual
+`stpExplicitPrSelect` API and all TASK62 common-core semantics remain unchanged. Backlog item 6 is
+still in progress pending real external PR E2E and closure audit; items 7 and 8 are not started.
+
+This is the authoritative architecture snapshot through TASK 54, with later clarification notes.
+
+## TASK62 PR base semantics clarification
+
+GitHub Branch Source provider evidence proved that `PullRequestSCMRevision.baseHash` is the frozen
+target/base commit associated with the indexed PR revision (and, for a validated merge revision, the
+non-head merge parent), not the historical point at which the feature branch diverged. The old
+`prBaseRevision == integrationRevision` eligibility comparison therefore duplicated provider target
+metadata for GitHub and could not reliably express stale-PR policy across providers.
+
+The canonical eligibility rule is now that the frozen `integrationRevision` must be an
+ancestor-or-equal of the frozen source `prHeadRevision`. Failure produces `BASE_OUT_OF_DATE`; Git can
+prove that the head is not based on the required integration commit but cannot distinguish an ordinary
+out-of-date branch from force-pushed or otherwise divergent history. `prBaseRevision` remains required,
+resolved as a full commit, and retained as provider provenance for compatibility, but does not decide
+eligibility. Map ancestry/distance rules, missing/shallow protections, committed `map..head` selection,
+and the separation of synthetic workspace revision from source head are unchanged. Historical TASK48–54
+sections below describe the contract as it existed when those tasks closed.
+
+## Modules
+
+- `smart-test-picker-common`: schema v2 authority, semantic coverage/test/method model, map and
+  fragment codecs, validation, and retained legacy JaCoCo/common support.
+- `smart-test-picker-core`: existing JaCoCo per-test collection and selector-support path.
+- `stp-agent`: ASM javaagent with method-entry instrumentation, deterministic method catalog,
+  context propagation, integrity metrics, and schema-v2 fragment emission.
+- `stp-runtime`: runtime ownership/context, event aggregation, ASM-to-schema projection, and typed
+  setup/integrity state.
+- `stp-junit-adapter`: internal listener-only JUnit Platform lifecycle bridge, bundled with the agent.
+- `smart-test-picker`: the Gradle plugin with one `CoverageCollectorBackend` selection boundary. ASM
+  is the default and JaCoCo is the explicit legacy fallback.
+- `smart-test-picker-maven`: the Maven plugin, retaining its legacy JaCoCo map path and adding direct
+  schema-v2 fragment projection from authoritative JUnit identity sidecars and per-test JaCoCo reports.
+- `smart-test-picker-cli`: the user-facing CLI for local/worktree selection and explicit PR selection;
+  explicit mode delegates frozen integration/base/head eligibility and committed schema-v2 analysis to
+  the common core.
+
+Gradle production mapping now attaches the version-aligned ASM agent automatically to the dedicated
+`generateSmartTestCoverage` task and emits a deterministic workspace-relative schema-v2 fragment.
+The existing JaCoCo exec/XML/map path remains intact behind the fallback backend. Maven's additive
+`generate-coverage-fragment` goal emits exact descriptor-aware class/method observations but no setup
+scopes, because the Maven JaCoCo path does not own setup attribution. Fragment publication,
+joining, global completeness, and Jenkins orchestration remain outside the Gradle backend.
+
+## Intended release-artifact surface
+
+User-facing artifacts are the Gradle plugin, Maven plugin, STP CLI, and STP agent. `stp-runtime`, the
+JUnit listener, and relocated ASM are internal/bundled. Common/core schema and selector libraries are
+shared internal dependencies. Publishing/configuration work needed to realize this target remains a
+follow-up. TASK 27 adds the agent's consumable/published artifact direction needed by the Gradle
+plugin; the runtime and JUnit adapter remain bundled inside that shaded agent artifact.
+
+## TASK 28 real-project validation
+
+At Spring PetClinic `88e37c15cf6fc8490b01bc3e8e2c800cec1ac272`, the production Gradle ASM task
+mapped all 69 runnable logical tests with exact single-versus-three-shard equality across test identities,
+418 class edges, 1,343 descriptor-aware method edges, and 68 bounded setup edges. Repeat fragments were
+byte-identical; normal project JaCoCo coexistence, the default ASM selection, and configuration-cache
+reuse passed. No critical collector integrity failure or historical Cartesian setup relation appeared.
+
+TASK 29 closes both Gradle limitations: an external published consumer resolves the version-aligned
+shaded agent without an override, and the dedicated JACOCO task restores the legacy listener runtime,
+destination, per-test exec, XML, and map pipeline. Version selection comes from a Gradle-generated
+resource and fails closed rather than assuming a fallback version.
+
+Task 30 updated the Docker Jenkins POC to transport and join schema-v2 Gradle ASM fragments on three
+physical agents. That is validation evidence, not production orchestration: storage, retention,
+lookup, scheduling, failure recovery, and publication policy remain Task 5d. Task 5d remains
+**NOT STARTED — POC proven**.
+
+## Jenkins physical multi-agent mapping POC (Task 30)
+
+The Gradle ASM mapping path is validated through Jenkins on three distinct Docker agents. Jenkins orchestrates the production `generateSmartTestCoverage` task; schema-v2 fragments and diagnostics move by stash/unstash and are decoded/joined with the shared common model. The 69-runnable-test PetClinic baseline and 32/12/25 physical shard join are semantically identical (418 class edges, 1,343 method edges, ten setup scopes). This is POC evidence, not production storage or retention.
+
+## Task 32 runtime safety
+
+Ownership-sensitive runtime work now follows exact bounded attribution or explicit safe degradation.
+Inherited lifecycle setup remains bounded to the concrete JUnit container. Recognized unbounded shared
+setup and unsupported async submission emit typed errors, create no guessed edge, and make the local
+fragment incomplete; generic `NO_ACTIVE_TEST` and `LATE_EVENT` remain nonfatal. Fragment publication
+invalidates stale output, validates serialized schema-v2 bytes, and replaces through a sibling temporary
+file. The Gradle mapping task then decodes and verifies completion, revision, and shard.
+
+The one-agent Jenkins Spring Core regression at
+`99a366baf6640b275d08dde60f05da719139bb6a` passes through `stpCoverageMap` and production
+`:spring-core:generateSmartTestCoverage` on JDK 21/Gradle 8.14.2. The completed fragment contains 3,632
+mapped and six skipped/unmapped logical tests with clean critical integrity. Task 32 completed the
+Gradle/runtime portion of 5c; Task 33 subsequently completed Maven schema-v2 fragment production.
+Task 5c is complete, and Task 5d remains **NOT STARTED — POC proven**.
+
+## Task 33 Maven schema-v2 adapter
+
+The Maven listener writes structured declared-method identity beside each per-test exec artifact;
+parameterized/template invocations collapse by declared signature and declared overloads remain
+distinct. `generate-reports` records `COVERED`, `EMPTY`, or `FAILED` for each session. The new fragment
+goal requires explicit revision and shard, validates through the shared codec/validator, and writes
+deterministically through a temporary file. Missing or malformed local artifacts yield an incomplete
+fragment and known identities become `COLLECTION_FAILED` unmapped entries. It neither discovers the
+revision nor asserts expected inventory/global completeness.
+
+The Maven capability is class coverage YES, exact descriptor-aware method coverage YES, setup scopes
+NO, direct schema-v2 fragments YES, unmapped reporting YES, and local integrity gating YES. Gradle ASM
+additionally has bounded setup ownership. The schema semantics are shared. Task 5c is **DONE**; Tasks
+5b and 5d remain unchanged.
+
+## Task 35 selector contract
+
+Task 35 reconstructs 5b without implementing it. The current production selector still consumes the
+parallel legacy `mapper.CoverageMap`; it is not safe for schema-v2 production. The authoritative 5b
+boundary must decode and validate a complete `PUBLISHED` schema-v2 map, use its exact revision `R` as
+the Git base for `R -> HEAD`, and fail open to the wire status `FULL_SUITE` (semantic RUN_ALL) whenever
+map, revision, diff, identity, or structural-change safety cannot be proved. Minimum safe selection is
+class-level: descriptor-aware method precision is deferred until change analysis can produce exact JVM
+identities. Direct class edges, bounded setup-scope containers, every schema-v2 unmapped test, and
+new/changed head tests form one union. `NONE` is valid only when that effective union is empty.
+
+The detailed decision and minimal Tasks 36–38 plan are in
+[`task35-5b-selector-semantics-audit.md`](task35-5b-selector-semantics-audit.md). Completing this audit
+does not change 5b from **NOT STARTED**, reopen 5c, or start 5d/5e.
+
+## Task 36 schema-v2 selector safety boundary
+
+Task 36 starts 5b by adding an authoritative schema-v2 ingress and change-analysis API in common.
+It decodes once through `CoverageMapCodec`, requires a validated complete `PUBLISHED` map, fixes one
+selection head, verifies the map revision is its ancestor, and computes committed, staged, unstaged,
+and untracked changes without method-level parsing or Git mutation. Unsafe input or analysis returns
+semantic RUN_ALL with public status `FULL_SUITE`.
+
+The build-tool-neutral `HeadTestInventory` supplies exact logical JUnit `TestIdentity` values. A Test
+Inventory is the authoritative complete logical test set for one concrete test target at one concrete
+revision; it is neither execution evidence nor an arbitrary list of names. The resulting
+`SelectionContext` classifies new, deleted, and changed-container tests but deliberately performs no
+direct/setup/unmapped selection union. Inventory provisioning and adapter execution remain TASK 38;
+CI-wide inventory and orchestration remain 5d. Task 5b is **IN PROGRESS**.
+
+## Task 37 schema-v2 selector core policy
+
+Task 37 adds `SchemaV2TestSelector`, a pure consumer of TASK 36's analysis result and context. It
+selects exact class-coverage dependencies, expands matching setup scopes only to their explicitly
+named head containers, always selects published unmapped identities still runnable at head, and adds
+new and changed head tests. The sorted union is intersected with authoritative head inventory.
+
+Safe empty unions become `NONE`; nonempty unions become `SELECTED`; TASK 36 RUN_ALL and internal
+selector identity inconsistencies become public `FULL_SUITE`. `selectedTests` is authoritative while
+`unmappedTests` is diagnostic. Gradle, Maven, CLI, and PetClinic execution integration remain TASK 38,
+so Task 5b remains **IN PROGRESS**.
+
+## Task 38 adapter closure
+
+Gradle, Maven, and CLI now call the common schema-v2 analyzer and selector through an exact structured
+head-inventory file. `selectedTests` is the sole mandatory execution set; unmapped data is diagnostic.
+Adapters conservatively widen to complete test classes, represent `NONE` explicitly, and remove
+restrictive filtering for `FULL_SUITE` or unknown states. Pinned PetClinic execution proves SELECTED,
+NONE, missing-map, trigger, nonancestor, unmapped, new-test, and bounded setup behavior. Details are in
+[`task38-5b-adapter-and-petclinic-closure.md`](task38-5b-adapter-and-petclinic-closure.md).
+
+TASK 39 implements production provisioning. Gradle and Maven now generate the exact
+inventory themselves through shared JUnit Platform discovery; the CLI retains explicit input.
+See [`task39-head-inventory-generation.md`](task39-head-inventory-generation.md).
+
+TASK 40 aligns published logical inventory with authoritative discovery. Orchestration explicitly
+accounts for intentionally non-executable declarations in completeness without representing them as
+unsafe `UnmappedTest`; mapped/unmapped executable tests retain their existing selection semantics.
+Pinned PetClinic now has exact 73-of-73 logical equality while preserving 69 mappings, 418 class
+edges, 1,343 method edges, and ten setup scopes. No-change selection is `NONE` and executes zero tests.
+The real Maven lifecycle and TASK 33 identity equality are also validated. See
+[`task40-logical-vs-executable-inventory-contract.md`](task40-logical-vs-executable-inventory-contract.md).
+
+Canonical state: 5a **DONE**, 5b **DONE**, 5c **DONE**, 5d **NOT STARTED — POC proven**, and 5e
+**NOT STARTED / independent**. The dependency remains `5a -> {5b, 5c} -> 5d`.
+
+## Task 42 Spring Core end-to-end validation
+
+Pinned Spring Core now validates the whole local schema-v2 chain at large-project scale: 3,643
+authoritative logical target identities, 3,638 mapped executions, five positively evidenced
+intentional non-executions, zero missing/unexpected/duplicate identities, 45,694 class edges, 171,917
+method edges, and 112 bounded setup scopes. The published map passes no-change, selected-change,
+new/changed-test, missing/corrupt/nonancestor/trigger fail-open, setup-scope, unsafe-unmapped, and actual
+Gradle execution scenarios. See
+[`task42-spring-core-full-e2e-validation.md`](task42-spring-core-full-e2e-validation.md).
+
+Spring exposed and TASK 42 fixed two narrow regressions: mixed runnable/skipped parameterized
+invocations now retain collected logical-test coverage, and `smartTest` mirrors the standard target's
+JVM/system-property/candidate environment. The validated fixes close the temporary 5c reopening. The
+canonical backlog remains 5a/5b/5c **DONE**, 5d **NOT STARTED — POC proven**, and 5e **NOT STARTED /
+independent**.
+
+## Task 43 Jenkins map orchestration
+
+TASK 43 officially starts 5d. The companion Jenkins plugin now has an orchestration plan v2 that freezes
+project, branch, revision, build tool, target, collector, exact inventory, deterministic assignments and
+bounded artifact identities. Its mapping runtime adds a storage interface, immutable revision-keyed map
+writes, validated latest-map lookup, branch pointers and locked Git-ancestry stale-publication protection.
+The file backend is a local/reference implementation, not a claimed remote production service.
+
+The orchestrator/collector ownership boundary and mapping/selection separation are unchanged. Production
+positive non-execution evidence, automatic stash/unstash, prepare-owned discovery, remote storage, the full
+failure matrix and fresh physical validations remain open. Canonical state is therefore 5a/5b/5c **DONE**,
+5d **IN PROGRESS**, and 5e **NOT STARTED / independent**. See
+[`task43-5d-map-orchestration-productization.md`](task43-5d-map-orchestration-productization.md).
+
+## Task 44 positive execution accounting and Jenkins transport
+
+The companion Jenkins plugin now freezes and captures authoritative Gradle/Maven inventory during preparation, produces exact revision/shard/target/tool-bound execution evidence, and aggregates physical invocation outcomes to logical `TestIdentity`. Plan v2 owns successful shard stash and publisher unstash. Join publication requires exact disjoint accounting from mapped, executable-unmapped, and positively non-executed identities; subtraction never proves non-execution. See [`task44-5d-execution-accounting-and-transport.md`](task44-5d-execution-accounting-and-transport.md). Item 5d remains **IN PROGRESS** and 5e is unchanged.
+
+## Task 45 Spring Core Jenkins validation
+
+The existing Docker Jenkins plan-v2 workflow now validates pinned Spring Core through the public prepare,
+map, and publish steps. One collector shard accounts exactly for all 3,643 logical identities as 3,638
+mapped plus five positively non-executed, publishes 45,704 class edges, 171,910 method edges, and the same
+112 bounded setup scopes as TASK42, and preserves the 4,705-case physical result. Spring required focused
+Gradle adapter fixes for typed filters, late task configuration of the runtime/evidence properties, and
+exact `@Disabled` parameterized evidence. The local/reference publication is valid and immutable. Item 5d
+remains **IN PROGRESS**, but is ready for a separate closure audit; 5e remains independent and untouched.
+
+## Task 46 5d closure audit
+
+The final audit reconstructs the 5d contract from the architecture, backlog, implementation, tests, and
+TASK44/45 evidence. Revision and authoritative inventory remain orchestrator-owned; execution, coverage,
+executable-unmapped results, setup scopes, diagnostics, and runtime integrity remain collector-owned. The
+join requires exact disjoint accounting from mapped, executable-unmapped, and positively non-executed
+identities, and publication remains complete-schema-v2-only, immutable, read-back verified, and protected
+against stale pointer updates. The public plan-v2 lifecycle owns fragment/evidence transport and safe latest
+lookup returns no map rather than synthesizing an empty map.
+
+No correctness blocker remains. The file store is still the **LOCAL / REFERENCE IMPLEMENTATION**. Future
+remote backends share one storage contract; planned families are RAW (generic artifact/raw HTTP, not
+Nexus-specific), GCS, S3, and AZURE_BLOB. Their implementations, retention operations, deployment
+scheduling/cadence, retry scheduling, and CI-wide rollout are intentionally deferred extension or adoption
+work and do not block base orchestration closure. Canonical state is now 5a/5b/5c/5d **DONE**, with 5e
+**NOT STARTED / independent**. See [`task46-5d-closure-audit.md`](task46-5d-closure-audit.md).
+
+## Task 48 5e revision contract audit
+
+TASK48 initially defined, without implementation, the strict eligibility equality
+`prBaseRevision == mapRevision == integrationRevision`. TASK49 refines that decision for production:
+`prBaseRevision == integrationRevision` remains mandatory, while `mapRevision` may be an
+ancestor-or-equal of integration and integration must be an ancestor-or-equal of the PR head. All
+inputs resolve as frozen commits. Selection uses `diff(mapRevision, prHeadRevision)`, and the existing
+`maxCommitDistance` applies to that complete interval. A stale PR is still rejected before selector
+invocation as `BASE_OUT_OF_DATE`; an incompatible or too-old map produces `FULL_SUITE`; invalid input
+or head ancestry produces a preflight error. PR CI remains commit-to-commit and 5b selector policy is
+unchanged. TASK49 implements the common core model and preflight, but adapter wiring and real-project
+validation remain open. Canonical state is 5a/5b/5c/5d **DONE** and 5e **IN PROGRESS**. See
+[`task48-5e-revision-contract-audit.md`](task48-5e-revision-contract-audit.md).
+
+## Task 50 5e explicit selector flow
+
+TASK50 integrates the TASK49 revision preflight into a build-tool-neutral explicit PR selector flow in
+the common core. Eligible analysis uses only the committed `mapRevision..prHeadRevision` diff with
+rename detection, binds `SelectionContext.headRevision` to the explicit PR head, and compares the
+published map inventory with the supplied PR-head inventory. It does not inspect current HEAD, staged,
+unstaged, or untracked state. The existing local/worktree analyzer remains unchanged and separate.
+
+The explicit result distinguishes `SELECTION_RESULT`, `BASE_OUT_OF_DATE`, and `ERROR` without changing
+`SelectionOutput`; preflight `FULL_SUITE` becomes the existing selector fail-open output. TASK51 closes
+TASK50's remaining common-core provenance gap: revision-bound inventories persist their
+frozen full commit ID, and explicit PR selection requires that ID to resolve exactly to
+`prHeadRevision` before committed analysis or 5b policy runs. Revisionless legacy inventories remain a
+local/worktree-only compatibility format and are rejected by explicit PR mode. Adapter wiring and
+real-project proof remain open, so 5e stays **IN PROGRESS**. Canonical state remains 5a/5b/5c/5d
+**DONE**, 5e **IN PROGRESS**.
+
+## Task 52 CLI explicit PR selection
+
+TASK52 exposes the common-core `ExplicitPrSelectorFlow` through the existing `select-tests` command.
+The caller supplies the coverage map, revision-bound head inventory, project directory, and frozen full
+integration, PR-base, and PR-head commit IDs. Map and inventory revisions remain artifact-owned. The
+CLI adds no revision policy and does not stamp legacy inventories; it emits a JSON envelope that keeps
+`BASE_OUT_OF_DATE` and `ERROR` separate from unchanged normal `SelectionOutput` statuses. Existing
+local/worktree selection remains separate and unchanged. Gradle/Maven adapter exposure, real-project
+validation, and the final 5e closure audit remain open, so 5e stays **IN PROGRESS**.
+
+## Task 53 Gradle/Maven explicit PR adapters
+
+Gradle and Maven now expose frozen `integrationRevision`, `prBaseRevision`, and `prHeadRevision`
+inputs as an additive mode. Both decode artifact-owned map and inventory revisions and delegate
+eligibility plus the `mapRevision..prHeadRevision` interval to `ExplicitPrSelectorFlow`.
+`BASE_OUT_OF_DATE` and `ERROR` remain outside `SelectionOutput` and stop selective execution.
+Ordinary HEAD/worktree-aware local selection is unchanged.
+
+New explicit inventories are bound to `prHeadRevision` only after proving workspace HEAD is that exact
+full commit. No checkout, reset, merge, or rebase occurs. Maven inventory-generating goals request
+test-scope dependency resolution so discovery uses the configured target runtime. Pinned PetClinic
+dual-build evidence is in
+[`task53-5e-gradle-maven-petclinic.md`](task53-5e-gradle-maven-petclinic.md). Task 5e remains
+**IN PROGRESS** pending its closure audit.
+
+## Task 54 5e closure audit
+
+The final audit verifies the complete implementation chain: TASK49 revision preflight, TASK50 explicit
+selector flow, TASK51 revision-bound inventory provenance, TASK52 CLI exposure, and TASK53 Gradle/Maven
+exposure plus pinned PetClinic equivalence. Explicit PR selection requires frozen full commits,
+`prBaseRevision == integrationRevision`, map ancestry of integration, integration ancestry of PR head,
+and exact inventory/head equality. Both distance and selection use `mapRevision..prHeadRevision`.
+Stale PRs remain `BASE_OUT_OF_DATE`; divergent or too-old maps produce normal `FULL_SUITE`; invalid
+head ancestry and provenance failures remain `ERROR`.
+
+No correctness blocker remains. Local/worktree selection, the 5b selector union, 5c mapping, and 5d
+orchestration/publication are unchanged. Historical-map discovery, remote registry lookup,
+CI-provider revision extraction, further Jenkins deployment/adoption configuration, and distance-policy
+tuning are deferred extensions or adoption work. The companion Jenkins repository now exposes and has
+validated the explicit three-revision selector flow; Jenkins still does not derive SCM/PR revisions.
+Canonical state is 5a/5b/5c/5d/5e **DONE**. See
+[`task54-5e-closure-audit.md`](task54-5e-closure-audit.md).
+
+## Task 65 real GitHub PR E2E
+
+GitHub Branch Source PR resolution and automatic SOURCE_HEAD selection are proven not only through
+provider-native local fixtures but also through a real externally indexed GitHub Multibranch PR
+build. The public `stpPrSelect` step resolved the typed provider action without caller-supplied
+revisions, bound workspace and inventory to the true pull hash, and completed common-core explicit
+selection with `SELECTION_RESULT/SELECTED`. No provider contradiction or production-code change was
+required. Item 6 remains **IN PROGRESS** only for its final closure audit; items 7 and 8 remain
+**NOT STARTED**. See [`task65-real-github-pr-e2e.md`](task65-real-github-pr-e2e.md).
+
+## Task 67 item-7 remote storage and credential contract
+
+Item 7 has started and remains **IN PROGRESS**; TASK67 completes its 7a architecture/contract slice.
+The first production remote-storage family is vendor-neutral `RAW_HTTP`, retaining and minimally
+evolving the existing `CoverageMapStore` rather than introducing a vendor interface. Nexus Repository
+OSS RAW is the controlled Docker validation environment, not the product abstraction. Immutable
+revision maps remain application-protected and read-back verified; mutable checksummed branch pointers
+preserve item-5d stale-publication rules under an explicit writer-coordination boundary.
+
+Persistent configuration references only Jenkins credential IDs. Jenkins resolves Username/Password
+credentials at execution time, and resolved secrets are never serialized, persisted in artifacts, put
+in URLs, or logged. GCS, S3, Azure Blob, and Artifactory-specific backends remain deferred. No Docker,
+production backend, credential integration, SCM/PR semantic, or item-8 fallback-policy code is added by
+TASK67. See
+[`task67-item7-remote-storage-credential-contract.md`](task67-item7-remote-storage-credential-contract.md).
+
+## Task 68 RAW HTTP storage and Docker Nexus
+
+Item 7 remains **IN PROGRESS**. TASK68 implements vendor-neutral RAW_HTTP storage and validates it
+against Docker Nexus RAW. CoverageMapStore now supports remote-safe typed outcomes, structured
+checksummed latest pointers, immutable remote maps, exact/latest lookup, explicit pointer/map revision
+binding, and sole-writer coordinated stale-pointer protection. FileCoverageMapStore remains the local
+reference with legacy-read/new-write migration. Multi-controller writers require future remote CAS.
+
+Nexus-specific behavior exists only in validation infrastructure. Jenkins Credentials integration and
+public authenticated backend selection remain TASK69; item 8 remains not started. See
+[`task68-raw-http-nexus-storage.md`](task68-raw-http-nexus-storage.md).
+
+## Task 69 Jenkins credential integration and authenticated storage
+
+Item 7 remains **IN PROGRESS**. TASK69 adds centralized FILE/RAW_HTTP Jenkins storage configuration,
+execution-time Jenkins Username/Password credential resolution, authenticated RAW HTTP publish/lookup,
+and public Pipeline validation against Nexus. Secrets are not persisted in STP configuration or logs.
+
+RAW HTTP operations and keyed sole-writer coordination execute in the Jenkins controller/plugin process,
+so one controller spans concurrent builds; multi-controller writers remain unsupported without remote
+CAS. TASK70 remains for cross-build/cross-agent and wider remote correctness E2E. Item 8 remains not
+started. See [`task69-jenkins-credential-authenticated-storage.md`](task69-jenkins-credential-authenticated-storage.md).
+
+## Task 70 cross-build and concurrent remote-storage E2E
+
+TASK70 proves authenticated RAW_HTTP storage across independent Jenkins builds, agents, and workspaces, including real concurrent publication races. Controller-owned coordination prevents stale pointer regression and same-revision corruption for the supported single-controller topology. A discovered ancestry defect was corrected so pointer ordering is evaluated against the publishing agent's Git workspace while the controller lock is held.
+
+Remote maps are independent of producer workspaces and remain safely consumable by later builds. Multi-controller writers still require remote CAS and remain unsupported. Item 7 remains **IN PROGRESS** only for its final TASK71 closure audit. Item 8 remains **NOT STARTED**. See [`task70-cross-build-cross-agent-remote-storage-e2e.md`](task70-cross-build-cross-agent-remote-storage-e2e.md).
+
+## Task 71 item-7 storage and credentials closure
+
+Item 7 **Storage + credentials is DONE**. The production storage boundary supports FILE and
+vendor-neutral RAW_HTTP. RAW_HTTP uses immutable revision-bound maps, validated checksummed latest
+pointers, typed storage outcomes, Jenkins execution-time Username/Password credential resolution, and
+authenticated public publish/lookup.
+
+Cross-build, cross-agent, workspace-independent use and concurrent publication safety are validated for
+the supported single-Jenkins-controller writer topology. Git ancestry is evaluated in the publishing
+workspace while controller-owned storage coordination is held. Multiple independent controllers or
+external writers require future remote CAS and are explicitly unsupported/deferred. Cloud-specific
+backends remain optional extensions. Item 8 **Central failure policy remains NOT STARTED**. Historical
+task sections above retain the status that was current when each was written. See
+[`task71-item7-storage-credentials-closure-audit.md`](task71-item7-storage-credentials-closure-audit.md).
+
+## Task 72 item-8 failure-policy contract
+
+Item 8 **Central failure policy is IN PROGRESS**. TASK72 defines the authoritative fact taxonomy,
+policy contexts, default decisions, fail-open/fail-closed safety rules, deterministic precedence,
+retryability metadata, aggregation and the separation between producer facts, central policy decisions,
+and Jenkins execution actions. Selector `FULL_SUITE` remains a safe domain result; `BASE_OUT_OF_DATE`
+remains a strict PR-update failure; genuine map absence differs from a broken pointer target.
+
+No production policy engine, retry scheduler, producer fallback, or Jenkins behavior is implemented yet.
+The intended sequence remains TASK73 engine, TASK74 Jenkins integration, TASK75 E2E validation, and
+TASK76 closure audit. See
+[`task72-item8-failure-policy-contract.md`](task72-item8-failure-policy-contract.md).
+
+## Task 73 central failure-policy engine
+
+TASK73 implements the Jenkins-neutral central failure-policy engine in `smart-test-picker-common`. The
+TASK72 blocking latest-lookup ambiguity is closed: `NO_POINTER` is ordinary optimization absence while
+`TARGET_MISSING` is a broken pointer integrity condition. Exact-object `NOT_FOUND` remains unchanged.
+
+The pure engine deterministically produces `CONTINUE`, `RUN_FULL_SUITE`, or `FAIL_BUILD` from bounded
+facts and context, with retryability metadata, hard safety rules, and order-independent precedence.
+Public Jenkins steps do not yet realize policy decisions. TASK74 owns Jenkins integration plus remaining
+inventory/mapping producer normalization and FILE/RAW public error parity. Item 8 remains **IN PROGRESS**.
+See [`task73-central-failure-policy-engine.md`](task73-central-failure-policy-engine.md).
+# TASK74 Jenkins central failure-policy integration
+
+TASK74 integrates the TASK73 central failure-policy engine into public Jenkins execution. Jenkins-specific
+SCM, inventory, mapping, and storage outcomes are normalized to bounded `PolicyInput` facts; the common
+engine remains the sole owner of `CONTINUE`, `RUN_FULL_SUITE`, and `FAIL_BUILD` decisions.
+
+Public realization makes safe full-suite fallback explicit, fails strict decisions visibly, preserves
+`SELECTED`, `NONE`, and successful domain values, and exposes bounded policy diagnostics. Inventory and
+mapping typing and FILE/RAW public parity are closed. Item 8 remains **IN PROGRESS**; TASK75 owns the broad
+failure-policy E2E matrix.

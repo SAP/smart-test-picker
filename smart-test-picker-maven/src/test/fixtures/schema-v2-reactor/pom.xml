@@ -1,0 +1,16 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+  <modelVersion>4.0.0</modelVersion><groupId>fixture</groupId><artifactId>reactor</artifactId><version>1</version><packaging>pom</packaging>
+  <modules><module>module-a</module><module>module-b</module></modules>
+  <profiles><profile><id>collision</id><modules><module>module-collision</module></modules></profile></profiles>
+  <properties><maven.compiler.release>17</maven.compiler.release><maven.compiler.source>17</maven.compiler.source><maven.compiler.target>17</maven.compiler.target><smartTestPicker.revision>reactor-revision</smartTestPicker.revision><smartTestPicker.shardId>reactor-shard</smartTestPicker.shardId></properties>
+  <dependencyManagement><dependencies><dependency><groupId>org.junit.jupiter</groupId><artifactId>junit-jupiter</artifactId><version>5.9.3</version></dependency></dependencies></dependencyManagement>
+  <dependencies><dependency><groupId>com.sap.oss.smart-test-picker</groupId><artifactId>smart-test-picker-core</artifactId><version>0.3.0-SNAPSHOT</version><scope>test</scope></dependency></dependencies>
+  <build><pluginManagement><plugins><plugin><groupId>com.sap.oss.smart-test-picker</groupId><artifactId>smart-test-picker-maven</artifactId><version>0.3.0-SNAPSHOT</version></plugin></plugins></pluginManagement><plugins>
+    <plugin><groupId>org.jacoco</groupId><artifactId>jacoco-maven-plugin</artifactId><version>0.8.13</version><executions><execution><goals><goal>prepare-agent</goal></goals></execution></executions><configuration><destFile>${project.build.directory}/jacoco/test.exec</destFile><append>false</append></configuration></plugin>
+    <plugin><artifactId>maven-surefire-plugin</artifactId><version>3.5.3</version><configuration><properties><configurationParameters>junit.jupiter.extensions.autodetection.enabled = true</configurationParameters></properties><systemPropertyVariables><smartTestPicker.collectionEnabled>true</smartTestPicker.collectionEnabled><stp.exec.dir>${project.build.directory}/jacoco</stp.exec.dir></systemPropertyVariables></configuration></plugin>
+    <plugin><groupId>com.sap.oss.smart-test-picker</groupId><artifactId>smart-test-picker-maven</artifactId><version>0.3.0-SNAPSHOT</version><dependencies><dependency><groupId>com.sap.oss.smart-test-picker</groupId><artifactId>smart-test-picker-core</artifactId><version>0.3.0-SNAPSHOT</version></dependency></dependencies><configuration><moduleFragmentOutput>${project.build.directory}/stp/coverage-fragment-v2.json</moduleFragmentOutput><moduleEvidenceOutput>${project.build.directory}/stp/execution-evidence-v1.json</moduleEvidenceOutput></configuration><executions>
+      <execution><id>reports</id><phase>verify</phase><goals><goal>generate-reports</goal></goals></execution>
+      <execution><id>fragment</id><phase>verify</phase><goals><goal>generate-coverage-fragment</goal></goals></execution>
+    </executions></plugin>
+  </plugins></build>
+</project>

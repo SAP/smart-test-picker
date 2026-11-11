@@ -14,11 +14,13 @@ public record Completeness(Set<TestIdentity> expectedTests, Set<TestIdentity> re
 	public static Completeness from(CollectionExpectation expectation, CollectionSummary collection)
 	{
 		TestInventory inventory = expectation.testInventory();
-		Set<TestIdentity> missingTests = difference(inventory.expectedTests(), collection.reportedTests());
-		Set<TestIdentity> unexpectedTests = difference(collection.reportedTests(), inventory.expectedTests());
+		Set<TestIdentity> accountedTests = new TreeSet<>(collection.reportedTests());
+		accountedTests.addAll(expectation.intentionallyNonExecutableTests());
+		Set<TestIdentity> missingTests = difference(inventory.expectedTests(), accountedTests);
+		Set<TestIdentity> unexpectedTests = difference(accountedTests, inventory.expectedTests());
 		Set<ShardId> completed = new TreeSet<>(collection.completedShardReports());
 		Set<ShardId> duplicateShards = duplicates(collection.completedShardReports());
-		return new Completeness(inventory.expectedTests(), collection.reportedTests(), expectation.expectedShards(),
+		return new Completeness(inventory.expectedTests(), accountedTests, expectation.expectedShards(),
 				completed, missingTests, unexpectedTests, difference(expectation.expectedShards(), completed),
 				duplicateShards, collection.duplicateTests());
 	}

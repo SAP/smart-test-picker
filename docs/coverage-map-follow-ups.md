@@ -1,12 +1,44 @@
 # Coverage-map follow-up backlog
 
-This document records implementation requirements established after coverage-map schema v1. Detailed
+This document records current implementation requirements established after the original coverage-map contract. Detailed
 experimental evidence remains with the POC that produced it; this file contains only the consequences
 for the corresponding backlog items.
 
+## Task 5b — Selector semantics
+
+Status: **DONE — authoritative logical inventory aligned and selector safety preserved**
+
+TASK 35 establishes that 5b must consume only a validated, globally complete `PUBLISHED` schema-v2
+map and must anchor the normal comparison at the map revision. Minimum safe selection is class-level;
+the current descriptor-less Git method detector cannot safely drive schema-v2 `MethodIdentity`.
+Selection is the union of direct class edges, bounded `SetupScope.affectedContainers`, every unmapped
+logical test regardless of reason, and new/changed head tests. `NONE` means that final union is empty.
+Unsafe map, revision, Git, identity, or structural-change state means semantic RUN_ALL, represented by
+the existing public `FULL_SUITE` spelling. Implementation is intentionally deferred to Tasks 36–38;
+see [`task35-5b-selector-semantics-audit.md`](task35-5b-selector-semantics-audit.md).
+
+TASK 36 adds the shared decode-once schema-v2 ingress, exact revision-to-fixed-head Git analysis,
+conservative structural class detection, configured full-suite triggers, and an authoritative exact
+`TestIdentity` head-inventory boundary. It yields safe semantic context or `FULL_SUITE`; it does not
+apply direct, setup-scope, or unmapped unions.
+
+TASK 37 adds the pure shared policy over that context. It unions exact class coverage, exact bounded
+setup containers, all published unmapped tests still at head, and new/changed head identities; then
+intersects with head inventory, deduplicates, sorts, and normalizes to `SELECTED`, `NONE`, or
+`FULL_SUITE`. Missing affected containers fail open. Method edges and outcomes are not selection
+filters. Adapter inventory provisioning, execution consistency, and real-project regression remain
+TASK 38. No 5d orchestration or 5e base/head behavior is introduced.
+
 ## Task 5c — Coverage runtime and fragment production
 
-Status: **NOT STARTED — blocking collector finding recorded**
+Status: **DONE — Gradle runtime/ASM and Maven schema-v2 adapters implemented**
+
+TASK 24 established direct ASM observation projection and TASK 25 made schema v2 authoritative.
+The current foundation proves ASM direct collection, descriptor-aware production method identity,
+distinct overloaded test identity, JUnit invocation collapsing, explicit revision/shard binding,
+deterministic fragment production, collector integrity gating, bounded setup ownership,
+single-versus-multi collector setup equivalence, parallel container ownership, and a real
+javaagent-to-schema-v2-fragment end-to-end path.
 
 The three-agent Spring PetClinic POC exposed an unsafe behavior in the current experimental collector.
 Run-wide setup attribution can create false setup-to-test relations because it combines every setup
@@ -18,9 +50,9 @@ The PetClinic baseline produced three false setup edges that were absent from th
 - `CrashController -> ValidatorTests`
 - `WelcomeController -> ValidatorTests`
 
-Task 5c must attribute setup coverage to the actual JUnit lifecycle/container scope. It must not derive
-affected tests from a run-wide Cartesian product. The existing schema-v1 `SetupScope` model appears able
-to represent the required narrower attribution; the POC did not establish a need for another schema.
+Task 5c attributes setup coverage to the actual JUnit lifecycle/container scope and does not derive
+affected tests from a run-wide Cartesian product. Schema-v2 `CONTAINER` and `NESTED_CONTAINER` scopes
+represent this bounded attribution. `AfterAll` cannot leak to the last leaf.
 
 Additional acceptance criterion:
 
@@ -29,9 +61,35 @@ single-shard and multi-shard collection must produce
 semantically identical setup coverage
 ```
 
+TASK 27 adds production Gradle collector selection through one backend abstraction, makes ASM the
+default, retains JaCoCo as an explicit fallback, resolves the agent automatically, and verifies
+ordinary project-JaCoCo coexistence. It does not make Task 5c DONE.
+
+Task 31 narrows the remaining 5c work to two closure tasks: safe production handling for
+ownership-sensitive inherited/shared/async setup or execution that the collector cannot attribute,
+including fail-closed fragment replacement/write behavior; and schema-v2 fragment production through
+the supported Maven adapter. The first need not add broad framework support: correct attribution or
+explicit incomplete-fragment degradation is sufficient.
+Maven need not copy Gradle's collector design, but it must emit the authoritative fragment contract
+without guessing descriptor or setup data. Inventory discovery is not a remaining collector concern:
+the collector reports what ran, while the orchestrator owns what should run. Fragment merge,
+publication, and global completeness remain 5d; selector fallback policy remains 5b. Task 5c remains
+**IN PROGRESS**.
+
+TASK 28 validates the production Gradle ASM execution on pinned Spring PetClinic: 69/69 runnable logical
+tests mapped, byte-identical repeat output, and exact single-versus-three-shard equality for test, class,
+method, outcome, unmapped, and bounded setup semantics. Project JaCoCo coexistence, default ASM selection,
+and configuration-cache reuse also pass. External automatic agent resolution and the real-project
+JACOCO fallback remain follow-ups, so Task 5c stays **IN PROGRESS**.
+
+TASK 29 closes those two Gradle follow-ups. Published consumers automatically resolve the aligned
+shaded agent, and the dedicated JACOCO mapping lifecycle again produces per-test exec, XML, and the
+legacy map. The existing Jenkins POC was audited and remains schema-v1-only, so no schema-v2 physical
+multi-agent validation is claimed and Task 5c remains **IN PROGRESS**.
+
 ## Task 5d — Fragment merge, publication, and Jenkins orchestration
 
-Status: **NOT STARTED — POC proven**
+Status: **DONE**
 
 The three-agent Spring PetClinic POC proved the mechanism for:
 
@@ -49,6 +107,52 @@ The three-agent Spring PetClinic POC proved the mechanism for:
 This evidence does not complete Task 5d. Production storage, retention, lookup, scheduling, publication
 policy, failure recovery, and CI-wide configuration remain unimplemented.
 
+TASK 43 officially starts 5d. It adds a versioned orchestration plan, immutable revision-keyed storage,
+validated latest-map lookup, idempotent/conflict-safe writes, branch pointers and ancestry-based stale-build
+protection in the Jenkins companion repository. Positive non-execution evidence, automatic Pipeline
+stash/unstash, direct discovery from preparation, a remote backend, the full failure matrix and fresh
+physical validation remain open, so 5d is **IN PROGRESS**.
+
+TASK 44 closes the next 5d production gap: authoritative prepare-owned inventory, positive exact logical execution/non-execution evidence for Gradle and Maven, exact fail-closed join accounting, and plan-owned Jenkins stash/unstash. The existing Docker Jenkins topology validates pinned PetClinic across three physical agents. Durable remote storage, its failure injection, full Spring Core publication, and the final 5d audit remain; 5d therefore stays **IN PROGRESS** and 5e stays independent and untouched.
+
+TASK 46 completes the separate closure audit after TASK45. Base 5d orchestration is **DONE**: plan-v2
+expectation ownership, runtime evidence, transport, exact join accounting, immutable revision publication,
+safe latest lookup, stale-build protection, and failure safety all have implementation, test, and physical
+validation evidence. The file store remains the local/reference implementation. Remote RAW/GCS/S3/
+AZURE_BLOB implementations, retention operations, Jenkins scheduling/cadence, retry scheduling, and
+CI-wide rollout are deferred extension/deployment work and do not block base 5d closure. 5e remains
+**NOT STARTED / independent**. See `task46-5d-closure-audit.md`.
+
+## Task 5e — Arbitrary base/head revisions
+
+Status: **DONE**
+
+TASK48 initially defined the strict equality
+`prBaseRevision == mapRevision == integrationRevision`. TASK49 records and implements the production
+refinement: `prBaseRevision == integrationRevision`, `mapRevision` ancestor-or-equal integration, and
+integration ancestor-or-equal `prHeadRevision`. All values are frozen, resolvable commits. An eligible
+evaluation exposes only the effective interval `mapRevision..prHeadRevision`, and applies the existing
+`maxCommitDistance` to that interval. A stale PR is rejected before selector invocation as
+`BASE_OUT_OF_DATE`; no override is supported. A divergent or too-old map retains the safe
+`FULL_SUITE` fallback, while invalid revisions or head ancestry produce an explicit preflight error.
+PR CI is commit-to-commit, while existing local worktree-aware 5b behavior remains separate. The
+TASK50 integrates this preflight with the common-core explicit PR selector. Eligible selection analyzes
+the complete committed `mapRevision..prHeadRevision` interval, uses the supplied PR-head inventory, and
+never mixes in workspace HEAD, staged, unstaged, or untracked changes. Its wrapper keeps
+`BASE_OUT_OF_DATE` and `ERROR` separate from `SelectionOutput`, while preflight `FULL_SUITE` uses the
+existing selector fallback. TASK51 defines Test Inventory as the authoritative complete logical test
+set for one concrete test target at one concrete revision—not tests that happened to execute and not
+an arbitrary list of names. `HeadTestInventory` now carries that revision provenance, and explicit PR
+mode fails with an error unless its frozen full commit resolves exactly to `prHeadRevision`. This closes
+TASK50's common-core provenance gap without changing local worktree semantics. TASK52 exposes this
+exact common-core flow through the existing CLI `select-tests` command using caller-supplied frozen
+integration/base/head commits, artifact-owned map and inventory revisions, and structured JSON that
+distinguishes normal selection, `BASE_OUT_OF_DATE`, and `ERROR`. It leaves local/worktree selection
+intact. TASK53 adds the thin Gradle/Maven adapters, safe workspace-head inventory stamping, and pinned
+PetClinic equivalence. TASK54 finds no correctness blocker and closes 5e. Neither TASK48 through TASK54
+changes 5b selection policy. See
+[`task48-5e-revision-contract-audit.md`](task48-5e-revision-contract-audit.md).
+
 ## Canonical POC conclusion
 
 > Distributed mapping itself did not introduce coverage loss. The only semantic difference was caused
@@ -58,3 +162,84 @@ The evidence is documented in `stp-jenkins-plugin-poc/docs/coverage-mapping-poc.
 contained the same 58-test inventory, 54 mapped tests, four explicitly skipped tests, 338 test-to-class
 edges, and 1,045 test-to-method edges. Setup comparison alone differed: 304 baseline edges versus 301
 distributed edges.
+Task 30 adds physical Jenkins evidence to 5c/5d: the schema-v2 Gradle ASM path, stash transport, model-aware join, completeness rejection, and single-vs-three-agent semantics are proven in the Docker POC. Statuses remain 5c IN PROGRESS and 5d NOT STARTED — POC proven; 5b is unchanged.
+
+Task 32 closes the Gradle/runtime side of 5c. Inherited lifecycle setup retains concrete-container
+ownership; recognized unbounded shared setup and unsupported async ownership fail incomplete without
+fabricated edges; generic unattributed/late noise remains nonfatal. Fragment production invalidates old
+targets, validates temporary serialized bytes, uses atomic replacement where supported, and is verified
+after the Gradle mapping JVM exits. PetClinic retains its 69-test/418-class-edge/1,343-method-edge result
+without historical false setup relations. A one-agent Jenkins Spring Core run passes through
+`stpCoverageMap` and production `:spring-core:generateSmartTestCoverage` with a fresh completed schema-v2
+fragment and clean critical integrity. The sole remaining 5c blocker is Task 33, the Maven schema-v2
+fragment adapter; 5c remains **IN PROGRESS**.
+
+Task 33 closes the final adapter blocker. Maven retains its legacy goals and adds
+`generate-coverage-fragment`, using authoritative JUnit `MethodSource` identity sidecars plus per-test
+JaCoCo report status/XML. JaCoCo XML supplies exact JVM descriptors, so Maven emits descriptor-aware
+method edges without converting legacy `Class#method` strings. Setup scopes are deliberately empty:
+the Maven source has no honest affected-container ownership. Explicit revision/shard configuration,
+shared schema-v2 codec validation, deterministic output, known-test unmapped reporting, and local
+artifact integrity gating are proven by the real Maven fixture. Task 5c is **DONE**. Task 5b remains
+**NOT STARTED** and Task 5d remains **NOT STARTED — POC proven**.
+
+Canonical post-Task-33 state:
+
+- 5a: **DONE**
+- 5b: **IN PROGRESS** — TASK 38 integrated the shared schema-v2 decision across adapters; TASK 39
+  implements production inventory but leaves the disabled-test publication transition open.
+- 5c: **DONE**
+- 5d: **NOT STARTED — POC proven**
+- 5e: **NOT STARTED / independent**
+
+The dependency remains `5a -> {5b, 5c} -> 5d`; the next dependent backlog item is 5d.
+
+TASK 39 supplies the production mechanism left after TASK 38: shared discovery-only JUnit inventory generation and
+automatic Gradle/Maven provisioning. Exact `MethodSource` identities are deterministic and unsafe
+unsupported leaves fail open. The CLI remains explicit-input. See
+[`task39-head-inventory-generation.md`](task39-head-inventory-generation.md).
+
+TASK 40 distinguishes logical declarations from executable and runtime-reported populations. An exact,
+orchestration-owned signal accounts for intentionally non-executable declarations without turning them
+into unsafe executable `UnmappedTest`. Silent missing tests remain incomplete; `ALWAYS_SELECT`, new-test,
+setup, and fallback rules are unchanged. PetClinic reconciles 73 logical declarations with 69 mappings
+and four intentionally non-executable DB-profile declarations, and no-change returns `NONE` with zero
+executions. Maven lifecycle/reactor discovery and TASK 33 sidecar identity equality are validated. See
+[`task40-logical-vs-executable-inventory-contract.md`](task40-logical-vs-executable-inventory-contract.md).
+
+TASK 42 validates the complete current workflow on pinned Spring Core. The authoritative 3,643-entry
+target inventory publishes completely as 3,638 mapped plus five positively known non-executions;
+schema-v2 selection and actual Gradle execution pass every required selected and fail-open scenario.
+Two Spring-exposed 5c/adapter regressions were fixed with focused coverage: partial parameterized skips
+no longer discard runnable sibling coverage, and `smartTest` inherits the configured target execution
+environment. The core is ready for 5d, whose remote store, registry, retention, lookup, scheduling,
+and production orchestration remain intentionally unimplemented.
+
+TASK 45 validates the productionized 5d Jenkins orchestration on the same pinned Spring Core revision.
+The public plan-v2 steps produce exact `3643 = 3638 mapped + 0 executable-unmapped + 5 positive
+non-executed` accounting, automatic fragment/evidence transport, 112 bounded setup scopes, and a
+read-back-verified immutable local/reference publication. Edge totals are 45,704 class and 171,910 method
+edges, a runtime-sensitive delta of +10/-7 from TASK42 with no logical, setup, transformation-error, or
+collision difference. Focused Gradle lifecycle fixes were required. No remote storage, retention, selector,
+Maven, or 5e work was added. 5d remains **IN PROGRESS** pending its separate closure audit.
+
+TASK 46 performs that closure audit without repeating either real-project run. No correctness blocker is
+open, so the canonical backlog is now 5a/5b/5c/5d **DONE** and 5e **NOT STARTED / independent**. Remote
+storage implementations remain a deferred extension point rather than production storage claimed by the
+file-backed reference implementation.
+
+TASK 53 exposes the common 5e `ExplicitPrSelectorFlow` through the existing Gradle and Maven paths
+with frozen integration/base/head inputs and revision-bound inventory generation. Both adapters verify
+workspace HEAD before stamping, retain artifact ownership of map/inventory revisions, and preserve local
+worktree mode. Pinned PetClinic produces equal 73-identity inventories and safety-equivalent decisions.
+See [`task53-5e-gradle-maven-petclinic.md`](task53-5e-gradle-maven-petclinic.md). 5e remains
+**IN PROGRESS**; the remaining expected work is its closure audit.
+
+TASK 54 completes that closure audit without repeating PetClinic. The common preflight, explicit
+selector flow, revision-bound inventory, and CLI/Gradle/Maven adapters satisfy the frozen revision,
+ancestry, bounded `mapRevision..prHeadRevision`, provenance, and outcome contracts. The 5b selector,
+5c mapping, and 5d orchestration/publication boundaries are unchanged. Automatic historical-map
+discovery, remote registry lookup, CI-provider extraction, later Jenkins adoption, deployment, and
+distance-policy tuning remain deferred extensions/adoption work rather than correctness blockers.
+The canonical backlog is now 5a/5b/5c/5d/5e **DONE**. See
+[`task54-5e-closure-audit.md`](task54-5e-closure-audit.md).

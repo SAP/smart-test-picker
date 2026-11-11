@@ -5,15 +5,50 @@ package com.sap.oss.smarttestpicker;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.io.TempDir;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.platform.launcher.Launcher;
+import org.junit.platform.launcher.TestExecutionListener;
+import org.junit.platform.launcher.TestIdentifier;
+import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
+import org.junit.platform.launcher.core.LauncherFactory;
+import org.junit.platform.engine.support.descriptor.ClassSource;
+import org.junit.runner.RunWith;
+
+import com.tngtech.archunit.junit.AnalyzeClasses;
+import com.tngtech.archunit.junit.ArchTest;
+import com.tngtech.archunit.junit.ArchUnitRunner;
+import com.tngtech.archunit.lang.ArchRule;
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
+
+import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
 class JacocoPerTestListenerTest
 {
+	private String previousActivation;
+
+	@org.junit.jupiter.api.BeforeEach void enableCollection()
+	{
+		previousActivation = System.getProperty(StpCollectorSelection.ACTIVATION_PROPERTY);
+		System.setProperty(StpCollectorSelection.ACTIVATION_PROPERTY, "true");
+	}
+
+	@org.junit.jupiter.api.AfterEach void restoreCollection()
+	{
+		if (previousActivation == null) System.clearProperty(StpCollectorSelection.ACTIVATION_PROPERTY);
+		else System.setProperty(StpCollectorSelection.ACTIVATION_PROPERTY, previousActivation);
+	}
 
 	@Test
 	void buildSessionId_includesHashSuffix()
@@ -60,6 +95,17 @@ class JacocoPerTestListenerTest
 	}
 
 	@Test
+	void buildSessionId_declaredOverloads_produceDifferentIds()
+	{
+		String id1 = JacocoPerTestListener.buildSessionId(
+				"FooTest", "overloaded", "com.example.FooTest", "org.junit.jupiter.api.TestInfo");
+		String id2 = JacocoPerTestListener.buildSessionId(
+				"FooTest", "overloaded", "com.example.FooTest", "org.junit.jupiter.api.TestReporter");
+
+		assertNotEquals(id1, id2, "Declared overloads must not share a JaCoCo session");
+	}
+
+	@Test
 	void buildSessionId_preservesReadablePart()
 	{
 		String sessionId = JacocoPerTestListener.buildSessionId(
@@ -84,8 +130,8 @@ class JacocoPerTestListenerTest
 	@Test
 	void saveSessionData_appendsOnRepeatedInvocation(@TempDir Path tempDir) throws Exception
 	{
-		// Simulate parameterized test: two invocations produce two test.exec files
-		// that should be appended into one session file (not overwritten).
+		// Simulate two in-memory snapshots for parameterized invocations. They are
+		// appended into one session file without consulting an agent destfile.
 		System.setProperty("stp.exec.dir", tempDir.toString());
 		try
 		{
@@ -94,25 +140,18 @@ class JacocoPerTestListenerTest
 			Path sessionFile = tempDir.resolve(
 					"session_" + SessionFileNames.sanitize(sessionId) + ".exec");
 
-			// First invocation: create test.exec with some bytes
 			byte[] invocation1 = new byte[]{1, 2, 3, 4, 5};
-			Files.write(tempDir.resolve("test.exec"), invocation1);
 
 			// Call saveJaCoCoSessionData via reflection (private method)
 			var method = JacocoPerTestListener.class.getDeclaredMethod(
-					"saveJaCoCoSessionData", String.class);
+					"saveJaCoCoSessionData", String.class, byte[].class);
 			method.setAccessible(true);
-			method.invoke(listener, sessionId);
+			method.invoke(listener, sessionId, invocation1);
 
 			assertTrue(Files.exists(sessionFile), "Session file should be created");
 			assertEquals(5, Files.size(sessionFile), "Should contain first invocation data");
-			assertFalse(Files.exists(tempDir.resolve("test.exec")), "test.exec should be deleted");
-
-			// Second invocation: create another test.exec with different bytes
 			byte[] invocation2 = new byte[]{6, 7, 8};
-			Files.write(tempDir.resolve("test.exec"), invocation2);
-
-			method.invoke(listener, sessionId);
+			method.invoke(listener, sessionId, invocation2);
 
 			// Session file should now contain BOTH invocations appended
 			assertEquals(8, Files.size(sessionFile),
@@ -126,5 +165,163 @@ class JacocoPerTestListenerTest
 		{
 			System.clearProperty("stp.exec.dir");
 		}
+	}
+
+	@Test
+	void beforeAllAbortWritesPositiveNonExecutionForDescendantTests(@TempDir Path tempDir) throws Exception
+	{
+		System.setProperty("stp.exec.dir", tempDir.toString());
+		try
+		{
+			JacocoPerTestListener listener = new JacocoPerTestListener();
+			Launcher launcher = LauncherFactory.create();
+			launcher.registerTestExecutionListeners(listener);
+			launcher.execute(LauncherDiscoveryRequestBuilder.request().selectors(selectClass(BeforeAllAbortFixture.class)).build());
+
+			var markers = Files.list(tempDir)
+					.filter(path -> path.getFileName().toString().endsWith(".non-executed"))
+					.map(path -> {
+						try { return Files.readString(path); }
+						catch (IOException failure) { throw new java.io.UncheckedIOException(failure); }
+					})
+					.toList();
+			assertEquals(2, markers.size());
+			assertTrue(markers.stream().anyMatch(value -> value.contains("methodName=testOne\n")));
+			assertTrue(markers.stream().anyMatch(value -> value.contains("methodName=testTwo\n")));
+		}
+		finally
+		{
+			System.clearProperty("stp.exec.dir");
+		}
+	}
+
+	@Test
+	void disabledParameterizedContainerWritesPositiveNonExecutionForDeclaredMethod(@TempDir Path tempDir) throws Exception
+	{
+		System.setProperty("stp.exec.dir", tempDir.toString());
+		try
+		{
+			JacocoPerTestListener listener = new JacocoPerTestListener();
+			Launcher launcher = LauncherFactory.create();
+			launcher.registerTestExecutionListeners(listener);
+			launcher.execute(LauncherDiscoveryRequestBuilder.request()
+					.selectors(selectClass(DisabledParameterizedFixture.class)).build());
+
+			var markers = Files.list(tempDir)
+					.filter(path -> path.getFileName().toString().endsWith(".non-executed"))
+					.toList();
+			assertEquals(1, markers.size());
+			String marker = Files.readString(markers.get(0));
+			assertTrue(marker.contains("methodName=disabled\n"));
+			assertTrue(marker.contains("methodParameterTypes=java.lang.String\n"));
+		}
+		finally
+		{
+			System.clearProperty("stp.exec.dir");
+		}
+	}
+
+	@Test
+	void abortedTestWritesNonExecutionWithoutExecutedIdentity(@TempDir Path tempDir) throws Exception
+	{
+		System.setProperty("stp.exec.dir", tempDir.toString());
+		try
+		{
+			JacocoPerTestListener listener = new JacocoPerTestListener();
+			Launcher launcher = LauncherFactory.create();
+			launcher.registerTestExecutionListeners(listener);
+			launcher.execute(LauncherDiscoveryRequestBuilder.request()
+					.selectors(selectClass(AbortedTestFixture.class)).build());
+
+			var files = Files.list(tempDir).map(path -> path.getFileName().toString()).toList();
+			assertTrue(files.stream().anyMatch(name -> name.endsWith(".non-executed")));
+			assertFalse(files.stream().anyMatch(name -> name.endsWith(".identity")),
+					"an assumption-aborted test must not be reported as executed");
+			assertFalse(files.stream().anyMatch(name -> name.endsWith(".exec") && !name.startsWith("session_setup_")),
+					"an assumption-aborted test must not leave orphan coverage data");
+		}
+		finally
+		{
+			System.clearProperty("stp.exec.dir");
+		}
+	}
+
+	@Test
+	void vintageCustomRunnerClassSourceWritesAuthoritativeIdentity(@TempDir Path tempDir) throws Exception
+	{
+		System.setProperty("stp.exec.dir", tempDir.toString());
+		try
+		{
+			JacocoPerTestListener listener = new JacocoPerTestListener();
+			AtomicReference<Object> observedSource = new AtomicReference<>();
+			Launcher launcher = LauncherFactory.create();
+			launcher.registerTestExecutionListeners(listener, new TestExecutionListener()
+			{
+				@Override public void executionStarted(TestIdentifier identifier)
+				{
+					if (identifier.isTest()) observedSource.set(identifier.getSource().orElse(null));
+				}
+			});
+			launcher.execute(LauncherDiscoveryRequestBuilder.request()
+					.selectors(selectClass(VintageCustomRunnerFixture.class)).build());
+
+			assertInstanceOf(ClassSource.class, observedSource.get(),
+					"fixture must exercise the Vintage ClassSource fallback rather than MethodSource");
+			var identities = Files.list(tempDir)
+					.filter(path -> path.getFileName().toString().endsWith(".identity"))
+					.map(path -> {
+						try { return Files.readString(path); }
+						catch (IOException failure) { throw new java.io.UncheckedIOException(failure); }
+					})
+					.toList();
+			assertEquals(6, identities.size());
+			assertEquals(Set.of("EACH_IGNORED_TEST_HAS_REASON_TO_IGNORE",
+					"EACH_IGNORED_TEST_METHOD_HAS_REASON_TO_IGNORE", "EACH_REST_API_TEST_HAS_CODE_OWNER",
+					"EACH_TEST_CONTEXT_HAS_CODE_OWNER", "EACH_TEST_HAS_JUNIT_RULE_TO_VALIDATE_AE_LIVENESS",
+					"TEST_EXECUTION_ORDER_SET_CORRECTLY_FOR_EACH_TEST"), identities.stream().map(value -> value.lines()
+					.filter(line -> line.startsWith("methodName=")).findFirst().orElseThrow().substring("methodName=".length()))
+					.collect(java.util.stream.Collectors.toSet()));
+			assertTrue(identities.stream().allMatch(value ->
+					value.contains("className=" + VintageCustomRunnerFixture.class.getName() + "\n")
+							&& value.contains("methodParameterTypes=\n") && value.contains("outcome=PASS\n")));
+		}
+		finally
+		{
+			System.clearProperty("stp.exec.dir");
+		}
+	}
+
+	static class BeforeAllAbortFixture
+	{
+		@BeforeAll static void setup() { Assumptions.assumeTrue(false); }
+		@Test void testOne() { }
+		@Test void testTwo() { }
+	}
+
+	static class DisabledParameterizedFixture
+	{
+		@Disabled
+		@ParameterizedTest
+		@ValueSource(strings = "value")
+		void disabled(String value) { }
+	}
+
+	static class AbortedTestFixture
+	{
+		@Test void aborted() { Assumptions.assumeTrue(false); }
+	}
+
+	@RunWith(ArchUnitRunner.class)
+	@AnalyzeClasses(packagesOf = VintageCustomRunnerFixture.class)
+	public static class VintageCustomRunnerFixture
+	{
+		private static ArchRule passingRule() { return classes().should().haveSimpleNameNotStartingWith("DefinitelyNoClass"); }
+
+		@ArchTest public static final ArchRule EACH_IGNORED_TEST_HAS_REASON_TO_IGNORE = passingRule();
+		@ArchTest public static final ArchRule EACH_IGNORED_TEST_METHOD_HAS_REASON_TO_IGNORE = passingRule();
+		@ArchTest public static final ArchRule EACH_REST_API_TEST_HAS_CODE_OWNER = passingRule();
+		@ArchTest public static final ArchRule EACH_TEST_CONTEXT_HAS_CODE_OWNER = passingRule();
+		@ArchTest public static final ArchRule EACH_TEST_HAS_JUNIT_RULE_TO_VALIDATE_AE_LIVENESS = passingRule();
+		@ArchTest public static final ArchRule TEST_EXECUTION_ORDER_SET_CORRECTLY_FOR_EACH_TEST = passingRule();
 	}
 }

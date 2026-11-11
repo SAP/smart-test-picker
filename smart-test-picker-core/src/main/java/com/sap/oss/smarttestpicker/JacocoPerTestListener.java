@@ -6,13 +6,16 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.engine.TestSource;
 import org.junit.platform.engine.support.descriptor.MethodSource;
+import org.junit.platform.engine.support.descriptor.ClassSource;
 import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestIdentifier;
+import org.junit.platform.launcher.TestPlan;
 
 
 /**
@@ -21,6 +24,8 @@ import org.junit.platform.launcher.TestIdentifier;
  * and any other engine.
  *
  * <p>Registered via SPI: {@code META-INF/services/org.junit.platform.launcher.TestExecutionListener}</p>
+ * <p>SPI discovery alone does not enable collection. Activation and collector
+ * selection are evaluated once, during construction.</p>
  */
 public class JacocoPerTestListener implements TestExecutionListener
 {
@@ -39,20 +44,60 @@ public class JacocoPerTestListener implements TestExecutionListener
 	private static volatile boolean shutdownHookRegistered = false;
 
 	private final ThreadLocal<String> currentSessionId = new ThreadLocal<>();
+	private final ThreadLocal<DeclaredTestIdentity> currentTestIdentity = new ThreadLocal<>();
 	private final ThreadLocal<Long> startTime = new ThreadLocal<>();
+	private final ThreadLocal<String> setupContainer = new ThreadLocal<>();
+	private volatile TestPlan testPlan;
+	private JacocoExecutionDataSource executionData;
+	private final boolean enabled;
+
+	public JacocoPerTestListener()
+	{
+		enabled = StpCollectorSelection.jacocoEnabled();
+		// ServiceLoader construction failures stop launcher startup. Callback exceptions
+		// are only logged by JUnit and cannot enforce the selected collector's preconditions.
+		if (enabled) {
+			try { executionData = JacocoExecutionDataSource.active(); }
+			catch (IllegalStateException failure) {
+				// Surefire may report only ServiceConfigurationError's outer message.
+				System.err.println("[SmartTestPicker] " + failure.getMessage());
+				throw failure;
+			}
+		}
+	}
+
+	@Override
+	public void testPlanExecutionStarted(TestPlan plan) { if (enabled) testPlan = plan; }
 
 	@Override
 	public void executionStarted(TestIdentifier id)
 	{
+		if (!enabled) return;
 		if (!id.isTest())
 		{
+			id.getSource().filter(ClassSource.class::isInstance).map(ClassSource.class::cast).ifPresent(source -> {
+				executionData = JacocoExecutionDataSource.active();
+				setupContainer.set(source.getClassName());
+				executionData.startSession("setup:" + source.getClassName());
+			});
 			return;
 		}
 
-		active = true;
-		String sessionId = extractSessionId(id);
+		if (executionData != null && setupContainer.get() != null)
+		{
+			writeSetupCoverage(setupContainer.get(), executionData.snapshotAndReset());
+			setupContainer.remove();
+		}
+
+		DeclaredTestIdentity identity = extractTestIdentity(id);
+		String sessionId = identity != null
+				? buildSessionId(identity.simpleClassName(), identity.methodName(), identity.className(), identity.methodParameterTypes())
+				: id.getDisplayName();
 		currentSessionId.set(sessionId);
-		setJaCoCoSession(sessionId);
+		currentTestIdentity.set(identity);
+		executionData = JacocoExecutionDataSource.active();
+		executionData.startSession(sessionId);
+		active = true;
 
 		if (isMetricsEnabled())
 		{
@@ -64,19 +109,48 @@ public class JacocoPerTestListener implements TestExecutionListener
 	@Override
 	public void executionFinished(TestIdentifier id, TestExecutionResult result)
 	{
+		if (!enabled) return;
 		if (!id.isTest())
 		{
+			if (result.getStatus() == TestExecutionResult.Status.ABORTED)
+			{
+				markNonExecuted(id);
+			}
 			return;
 		}
 
 		String sessionId = currentSessionId.get();
 		if (sessionId == null)
 		{
-			sessionId = extractSessionId(id);
+			DeclaredTestIdentity fallbackIdentity = extractTestIdentity(id);
+			sessionId = fallbackIdentity != null
+					? buildSessionId(fallbackIdentity.simpleClassName(), fallbackIdentity.methodName(),
+							fallbackIdentity.className(), fallbackIdentity.methodParameterTypes())
+					: id.getDisplayName();
+			currentTestIdentity.set(fallbackIdentity);
 		}
 
-		dumpJaCoCoData();
-		saveJaCoCoSessionData(sessionId);
+		if (executionData != null)
+		{
+			byte[] snapshot = executionData.snapshotAndReset();
+			if (result.getStatus() != TestExecutionResult.Status.ABORTED)
+			{
+				saveJaCoCoSessionData(sessionId, snapshot);
+			}
+		}
+		DeclaredTestIdentity identity = currentTestIdentity.get();
+		if (identity != null)
+		{
+			if (result.getStatus() == TestExecutionResult.Status.ABORTED)
+			{
+				markNonExecuted(id);
+			}
+			else
+			{
+				writeTestIdentity(sessionId, identity,
+						result.getStatus() == TestExecutionResult.Status.SUCCESSFUL ? "PASS" : "FAIL");
+			}
+		}
 
 		if (isMetricsEnabled())
 		{
@@ -84,18 +158,94 @@ public class JacocoPerTestListener implements TestExecutionListener
 		}
 
 		currentSessionId.remove();
+		currentTestIdentity.remove();
 		startTime.remove();
 	}
 
-	private String extractSessionId(TestIdentifier id)
+	@Override
+	public void executionSkipped(TestIdentifier id, String reason)
+	{
+		if (!enabled) return;
+		markNonExecuted(id);
+	}
+
+	private void markNonExecuted(TestIdentifier id)
+	{
+		List<TestIdentifier> skipped;
+		if (id.isTest() || extractTestIdentity(id) != null)
+			skipped = List.of(id);
+		else
+			skipped = testPlan == null ? List.of()
+					: testPlan.getDescendants(id).stream().filter(TestIdentifier::isTest).toList();
+		for (TestIdentifier skippedId : skipped)
+		try
+		{
+			DeclaredTestIdentity identity = extractTestIdentity(skippedId);
+			if (identity == null) continue;
+			String sessionId = buildSessionId(identity.simpleClassName(), identity.methodName(),
+					identity.className(), identity.methodParameterTypes());
+			Path file = Path.of(resolveExecDir()).resolve("session_" + SessionFileNames.sanitize(sessionId) + ".non-executed");
+			Files.createDirectories(file.getParent());
+			Files.writeString(file, "format=1\nclassName=" + identity.className() + "\nmethodName="
+					+ identity.methodName() + "\nmethodParameterTypes=" + identity.methodParameterTypes() + "\n");
+		}
+		catch (Exception e) { System.err.println("Failed to save authoritative non-execution identity: " + e.getMessage()); }
+	}
+
+	private DeclaredTestIdentity extractTestIdentity(TestIdentifier id)
 	{
 		TestSource source = id.getSource().orElse(null);
 		if (source instanceof MethodSource)
 		{
 			MethodSource ms = (MethodSource) source;
-			return buildSessionId(ms.getJavaClass().getSimpleName(), ms.getMethodName(), ms.getClassName());
+			return new DeclaredTestIdentity(ms.getJavaClass().getSimpleName(), ms.getClassName(),
+					ms.getMethodName(), ms.getMethodParameterTypes());
 		}
-		return id.getDisplayName();
+
+		// JUnit Vintage custom runners, including ArchUnitRunner, may expose an
+		// executable test with a ClassSource instead of a MethodSource. Inventory
+		// discovery uses the same Vintage contract: the declaring class comes from
+		// ClassSource and the declared logical test name from legacyReportingName.
+		// Do not apply this fallback to other engines, where a display name is not
+		// an authoritative declared test identity.
+		if (!id.getUniqueId().contains("[engine:junit-vintage]")) return null;
+		ClassSource testClass = classSource(id).orElse(null);
+		if (testClass == null) return null;
+		String methodName = vintageMethodName(id.getLegacyReportingName()).orElse(null);
+		if (methodName == null || isClassName(methodName, testClass.getClassName())) return null;
+		Class<?> javaClass = testClass.getJavaClass();
+		return new DeclaredTestIdentity(javaClass.getSimpleName(), testClass.getClassName(), methodName, "");
+	}
+
+	private Optional<ClassSource> classSource(TestIdentifier id)
+	{
+		TestIdentifier current = id;
+		while (current != null)
+		{
+			Optional<ClassSource> source = current.getSource().filter(ClassSource.class::isInstance)
+					.map(ClassSource.class::cast);
+			if (source.isPresent()) return source;
+			current = testPlan == null ? null : testPlan.getParent(current).orElse(null);
+		}
+		return Optional.empty();
+	}
+
+	private static Optional<String> vintageMethodName(String legacyReportingName)
+	{
+		if (legacyReportingName == null) return Optional.empty();
+		String methodName = legacyReportingName;
+		int classSuffix = methodName.indexOf('(');
+		if (classSuffix >= 0) methodName = methodName.substring(0, classSuffix);
+		methodName = methodName.trim();
+		return methodName.isEmpty() || "initializationError".equals(methodName)
+				? Optional.empty() : Optional.of(methodName);
+	}
+
+	private static boolean isClassName(String candidate, String className)
+	{
+		int separator = Math.max(className.lastIndexOf('.'), className.lastIndexOf('$'));
+		String simpleName = className.substring(separator + 1);
+		return candidate.equals(className) || candidate.equals(simpleName);
 	}
 
 	/**
@@ -110,7 +260,13 @@ public class JacocoPerTestListener implements TestExecutionListener
 	 */
 	static String buildSessionId(String simpleClassName, String methodName, String fullClassName)
 	{
-		String fqn = fullClassName + "#" + methodName;
+		return buildSessionId(simpleClassName, methodName, fullClassName, "");
+	}
+
+	static String buildSessionId(String simpleClassName, String methodName, String fullClassName,
+			String methodParameterTypes)
+	{
+		String fqn = fullClassName + "#" + methodName + "(" + methodParameterTypes + ")";
 		String hash = Integer.toHexString(fqn.hashCode() & 0x7fffffff);
 		while (hash.length() < 7)
 		{
@@ -119,35 +275,48 @@ public class JacocoPerTestListener implements TestExecutionListener
 		return simpleClassName + "#" + methodName + "_" + hash.substring(0, 7);
 	}
 
-	private void setJaCoCoSession(String sessionId)
+	private synchronized void writeTestIdentity(String sessionId, DeclaredTestIdentity identity, String outcome)
 	{
 		try
 		{
-			Class<?> rtClass = Class.forName("org.jacoco.agent.rt.RT");
-			Object agent = rtClass.getMethod("getAgent").invoke(null);
-			agent.getClass().getMethod("setSessionId", String.class).invoke(agent, sessionId);
+			Path file = Path.of(resolveExecDir()).resolve("session_" + SessionFileNames.sanitize(sessionId) + ".identity");
+			Files.createDirectories(file.getParent());
+			String previous = Files.exists(file) ? Files.readString(file) : "";
+			String mergedOutcome = previous.contains("outcome=FAIL\n") ? "FAIL" : outcome;
+			String content = "format=1\n"
+					+ "className=" + identity.className() + "\n"
+					+ "methodName=" + identity.methodName() + "\n"
+					+ "methodParameterTypes=" + identity.methodParameterTypes() + "\n"
+					+ "outcome=" + mergedOutcome + "\n";
+			Files.writeString(file, content);
 		}
 		catch (Exception e)
 		{
-			System.err.println("Failed to set JaCoCo session: " + e.getMessage());
+			System.err.println("Failed to save authoritative test identity: " + e.getMessage());
 		}
 	}
 
-	private void dumpJaCoCoData()
+	private synchronized void writeSetupCoverage(String container, byte[] snapshot)
 	{
 		try
 		{
-			Class<?> rtClass = Class.forName("org.jacoco.agent.rt.RT");
-			Object agent = rtClass.getMethod("getAgent").invoke(null);
-			agent.getClass().getMethod("dump", boolean.class).invoke(agent, true);
+			String base = "session_setup_" + Integer.toHexString(container.hashCode() & 0x7fffffff);
+			Path directory = Path.of(resolveExecDir());
+			Files.createDirectories(directory);
+			Files.writeString(directory.resolve(base + ".setup"), "format=1\ncontainer=" + container + "\n");
+			if (snapshot.length > 0) Files.write(directory.resolve(base + ".exec"), snapshot,
+					java.nio.file.StandardOpenOption.CREATE, java.nio.file.StandardOpenOption.APPEND);
 		}
 		catch (Exception e)
 		{
-			System.err.println("Failed to dump JaCoCo execution data: " + e.getMessage());
+			System.err.println("Failed to save bounded setup coverage: " + e.getMessage());
 		}
 	}
 
-	private void saveJaCoCoSessionData(String sessionId)
+	private record DeclaredTestIdentity(String simpleClassName, String className, String methodName,
+			String methodParameterTypes) {}
+
+	private void saveJaCoCoSessionData(String sessionId, byte[] snapshot)
 	{
 		try
 		{
@@ -155,23 +324,20 @@ public class JacocoPerTestListener implements TestExecutionListener
 			Path dir = Path.of(execDir);
 			Files.createDirectories(dir);
 
-			Path execFile = dir.resolve("test.exec");
 			Path sessionFile = dir.resolve("session_" + SessionFileNames.sanitize(sessionId) + ".exec");
 
-			if (Files.exists(execFile))
+			if (snapshot.length > 0)
 			{
 				// Append to existing session file to merge coverage from multiple
 				// invocations of the same test (e.g. parameterized test invocations).
 				// JaCoCo exec format supports concatenation — ExecFileLoader merges
 				// all blocks via OR on probes when reading.
-				try (var in = Files.newInputStream(execFile);
-					 var out = Files.newOutputStream(sessionFile,
+				try (var out = Files.newOutputStream(sessionFile,
 							 java.nio.file.StandardOpenOption.CREATE,
 							 java.nio.file.StandardOpenOption.APPEND))
 				{
-					in.transferTo(out);
+					out.write(snapshot);
 				}
-				Files.deleteIfExists(execFile);
 			}
 		}
 		catch (Exception e)

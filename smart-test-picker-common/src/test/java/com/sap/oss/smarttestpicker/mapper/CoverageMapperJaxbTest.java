@@ -9,6 +9,8 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
+import com.sap.oss.smarttestpicker.coverage.model.MethodIdentity;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -49,6 +51,18 @@ class CoverageMapperJaxbTest
 
 		// Uncovered method should NOT be in the map
 		assertFalse(methods.contains("org.example.service.UserService#deleteUser"));
+	}
+
+	@Test
+	void schemaV2MappingPreservesExactJacocoDescriptors() throws Exception
+	{
+		File report = new File(getClass().getClassLoader().getResource("session_MyTest#testSomething.xml").toURI());
+		var coverage = new CoverageMapperJaxb(report.getParentFile()).readSchemaV2Coverage(report);
+
+		assertTrue(coverage.coveredMethods().contains(new MethodIdentity(
+				"org.example.service.UserService", "updateAddress", "(Ljava/lang/String;)V")));
+		assertTrue(coverage.coveredMethods().contains(new MethodIdentity(
+				"org.example.repository.UserRepository", "findById", "(J)Ljava/lang/Object;")));
 	}
 
 	@Test

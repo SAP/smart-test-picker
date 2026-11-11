@@ -16,6 +16,9 @@ import org.gradle.api.provider.Property;
  * <p>Usage in {@code build.gradle}:</p>
  * <pre>{@code
  * smartTestPicker {
+ *     coverageCollector = 'ASM'    // ASM (default) or JACOCO
+ *     revision = providers.environmentVariable('GIT_COMMIT')
+ *     shardId = 'ci-shard-1'       // optional; defaults to the mapping task path
  *     baseBranch = 'develop'       // default: 'main'
  *     maxCommitDistance = 500       // default: 500
  *     fullSuiteTriggers = [        // default: empty (disabled)
@@ -40,12 +43,43 @@ public abstract class SmartTestPickerExtension
 {
 
 	private final RemoteStoreExtension remoteStore;
+	private final Property<String> coverageCollector;
 
 	@Inject
 	public SmartTestPickerExtension(ObjectFactory objects)
 	{
 		this.remoteStore = objects.newInstance(RemoteStoreExtension.class);
+		this.coverageCollector = objects.property(String.class);
+		this.coverageCollector.convention(CoverageCollectorType.ASM.name());
 	}
+
+	/** Accepts {@code ASM} or {@code JACOCO}, case-insensitively. */
+	public Property<String> getCoverageCollector() { return coverageCollector; }
+
+	/** Revision persisted in ASM fragments. No Git discovery is performed by the agent. */
+	public abstract Property<String> getRevision();
+
+	/** Optional externally orchestrated shard ID; defaults to the mapping task path. */
+	public abstract Property<String> getShardId();
+
+	/** Runtime fragment schema. Version 2 remains the compatibility default. */
+	public abstract Property<Integer> getRuntimeSchemaVersion();
+
+	/** Canonical adapter-supplied execution target; required for schema-v3 collection. */
+	public abstract Property<String> getExecutionTarget();
+
+	/** Schema-v3 executable shard assignment produced by the shared orchestrator. */
+	public abstract Property<String> getExecutableAssignmentFile();
+
+	/** Assignment-free schema-v3 executable inventory discovery mode. */
+	public abstract Property<Boolean> getExecutableInventoryDiscovery();
+
+	/** Optional fully-qualified Test-task paths defining this mapping invocation's scope. */
+	public abstract ListProperty<String> getMappingTestTasks();
+
+	public abstract ListProperty<String> getCoverageIncludes();
+
+	public abstract ListProperty<String> getCoverageExcludes();
 
 	/**
 	 * The base branch used for change detection (e.g. "main", "develop").
@@ -63,6 +97,15 @@ public abstract class SmartTestPickerExtension
 	 * @return the max commit distance property (default: 500)
 	 */
 	public abstract Property<Integer> getMaxCommitDistance();
+
+	/** Frozen integration commit; setting any explicit revision requires all three. */
+	public abstract Property<String> getIntegrationRevision();
+
+	/** Frozen PR base commit. */
+	public abstract Property<String> getPrBaseRevision();
+
+	/** Frozen PR head commit and provenance for newly generated head inventory. */
+	public abstract Property<String> getPrHeadRevision();
 
 	/**
 	 * When enabled, the smartTest task includes entire test classes instead of

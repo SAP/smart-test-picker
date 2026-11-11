@@ -6,8 +6,14 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public record SetupScope(String id, SetupScopeType type, Set<String> coveredClasses,
-		Set<TestContainer> affectedContainers)
+		Set<TestContainer> affectedContainers, ExecutionTarget owner)
 {
+	public SetupScope(String id, SetupScopeType type, Set<String> coveredClasses,
+			Set<TestContainer> affectedContainers)
+	{
+		this(id, type, coveredClasses, affectedContainers, null);
+	}
+
 	public SetupScope
 	{
 		if (id == null || id.isBlank()) throw new IllegalArgumentException("scope id must not be blank");
@@ -15,5 +21,12 @@ public record SetupScope(String id, SetupScopeType type, Set<String> coveredClas
 		coveredClasses = Set.copyOf(new TreeSet<>(coveredClasses));
 		affectedContainers = Set.copyOf(new TreeSet<>(affectedContainers));
 		if (affectedContainers.isEmpty()) throw new IllegalArgumentException("setup scope must affect at least one container");
+	}
+
+	public SetupScope ownedBy(ExecutionTarget target)
+	{
+		if (target == null) throw new IllegalArgumentException("setup scope owner must not be null");
+		if (owner != null && !owner.equals(target)) throw new IllegalArgumentException("setup scope owner mismatch");
+		return new SetupScope(id, type, coveredClasses, affectedContainers, target);
 	}
 }
