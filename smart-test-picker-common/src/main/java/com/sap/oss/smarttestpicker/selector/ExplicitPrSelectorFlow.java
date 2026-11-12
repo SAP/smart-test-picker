@@ -75,8 +75,11 @@ public final class ExplicitPrSelectorFlow
 		}
 	}
 
-	/** Project task-aware schema-v3 occurrences onto the selector's logical test identity boundary. */
-	private static CoverageMap selectionMap(byte[] bytes)
+	/**
+	 * Load selector input, projecting schema-v3 occurrences onto the logical identity boundary.
+	 * Publication tools can use this same loading path without executing revision preflight or selection.
+	 */
+	public static CoverageMap selectionMap(byte[] bytes)
 	{
 		int schema = JsonParser.parseString(new String(bytes, java.nio.charset.StandardCharsets.UTF_8))
 				.getAsJsonObject().get("schemaVersion").getAsInt();

@@ -4,6 +4,25 @@ Standalone command-line tool for the coverage pipeline, built with [picocli](htt
 
 ## Subcommands
 
+### join-fragments
+
+Joins schema-v3 shard fragments into one verified, published map for a single execution target.
+Assignments and the executable head inventory must describe the same revision and exact test partition.
+Missing, duplicate or incomplete shards fail without replacing an existing map.
+
+```bash
+smart-test-picker join-fragments \
+    --fragments-dir /path/to/fragments \
+    --assignments-dir /path/to/assignments \
+    --head-inventory /path/to/head-inventory.json \
+    --output /path/to/published-map.json
+```
+
+All four options are required. The command prints a JSON summary and verifies the staged file through
+the production codec and selector loader before atomically replacing the destination. See
+[the contract and validation report](../docs/join-fragments-cli.md) for input rules, provenance,
+failure handling and measured results. This command does not change `select-tests` behavior.
+
 ### exec-to-xml
 
 Converts per-test JaCoCo `.exec` files into XML reports.
