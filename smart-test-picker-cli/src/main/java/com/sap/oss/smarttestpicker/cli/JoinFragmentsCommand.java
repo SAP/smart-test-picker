@@ -29,6 +29,7 @@ import com.sap.oss.smarttestpicker.coverage.model.ExecutableShardAssignment;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutableShardPlan;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentity;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutableTestInventory;
+import com.sap.oss.smarttestpicker.coverage.model.ExecutableUnmappedTest;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget;
 import com.sap.oss.smarttestpicker.coverage.model.GeneratorProvenance;
 import com.sap.oss.smarttestpicker.coverage.model.MethodIdentity;
@@ -50,13 +51,18 @@ import picocli.CommandLine.Spec;
 		description = "Join complete schema-v3 shard fragments into one verified, published coverage map")
 public final class JoinFragmentsCommand implements Callable<Integer>
 {
-	@Option(names = "--fragments-dir", required = true,
+	private static final java.util.regex.Pattern PAIR_FILE = java.util.regex.Pattern.compile("(fragment|tests)-(.+)\\.json");
+	@Option(names = "--dir", description = "Directory of paired fragment-<name>.json and tests-<name>.json files")
+	private Path pairedDir;
+	@Option(names = "--expected-shards", description = "Positive number of shard pairs required with --dir")
+	private Integer expectedShards;
+	@Option(names = "--fragments-dir",
 			description = "Directory of fragment files; every direct file is decoded, without extension filtering")
 	private Path fragmentsDir;
-	@Option(names = "--assignments-dir", required = true,
+	@Option(names = "--assignments-dir",
 			description = "Directory containing one executable assignment file per shard")
 	private Path assignmentsDir;
-	@Option(names = "--head-inventory", required = true, description = "Versioned executable head inventory file")
+	@Option(names = "--head-inventory", description = "Versioned executable head inventory file")
 	private Path headInventory;
 	@Option(names = "--output", required = true, description = "Published schema-v3 map; replaced only after verification")
 	private Path output;
@@ -111,6 +117,127 @@ public final class JoinFragmentsCommand implements Callable<Integer>
 	}
 
 	private Inputs readInputs() throws IOException
+	{
+		if (pairedDir != null)
+		{
+			if (fragmentsDir != null || assignmentsDir != null || headInventory != null)
+			{
+				throw new IllegalArgumentException("--dir cannot be combined with --fragments-dir, --assignments-dir or --head-inventory");
+			}
+			if (expectedShards == null || expectedShards <= 0)
+			{
+				throw new IllegalArgumentException("--dir requires a positive --expected-shards");
+			}
+			return readPairedInputs();
+		}
+		if (expectedShards != null)
+		{
+			throw new IllegalArgumentException("--expected-shards requires --dir");
+		}
+		if (fragmentsDir == null || assignmentsDir == null || headInventory == null)
+		{
+			throw new IllegalArgumentException("Provide --dir and --expected-shards, or all of --fragments-dir, --assignments-dir and --head-inventory");
+		}
+		return readLegacyInputs();
+	}
+
+	private Inputs readPairedInputs() throws IOException
+	{
+		Map<String, Path> fragmentFiles = new TreeMap<>();
+		Map<String, Path> testFiles = new TreeMap<>();
+		for (Path file : inputFiles(pairedDir))
+		{
+			var match = PAIR_FILE.matcher(file.getFileName().toString());
+			if (!match.matches())
+			{
+				throw new IllegalArgumentException("Unexpected shard-directory file: " + file);
+			}
+			(match.group(1).equals("fragment") ? fragmentFiles : testFiles).put(match.group(2), file);
+		}
+		Set<String> names = new TreeSet<>(fragmentFiles.keySet());
+		names.addAll(testFiles.keySet());
+		for (String name : names)
+		{
+			if (!fragmentFiles.containsKey(name) || !testFiles.containsKey(name))
+			{
+				Path present = fragmentFiles.containsKey(name) ? fragmentFiles.get(name) : testFiles.get(name);
+				Path missing = pairedDir.resolve((fragmentFiles.containsKey(name) ? "tests-" : "fragment-") + name + ".json");
+				throw new IllegalArgumentException("Missing partner for " + present + ": expected " + missing);
+			}
+		}
+		if (names.size() != expectedShards)
+		{
+			throw new IllegalArgumentException("Shard pair count mismatch: found " + names.size() + ", expected " + expectedShards);
+		}
+		Map<ShardId, Set<ExecutableTestIdentity>> assignments = new TreeMap<>();
+		Map<ShardId, Path> assignmentSources = new TreeMap<>();
+		Set<ExecutableTestIdentity> expectedTests = new TreeSet<>();
+		Set<ExecutableTestIdentity> nonExecutable = new TreeSet<>();
+		List<ExecutableCoverageFragment> fragments = new ArrayList<>();
+		TargetBinding target = new TargetBinding();
+		CoverageMapRevision revision = null;
+		Path revisionSource = null;
+		for (String name : names)
+		{
+			Path fragmentFile = fragmentFiles.get(name);
+			Path testFile = testFiles.get(name);
+			ExecutableShardAssignment assignment = read(testFile, bytes -> new ExecutableShardAssignmentCodec().deserialize(bytes));
+			ExecutableCoverageFragment fragment = read(fragmentFile, bytes -> new ExecutableCoverageFragmentCodec().deserialize(bytes));
+			if (!fragment.shardId().equals(assignment.shardId()) || !fragment.revision().equals(assignment.revision()))
+			{
+				throw new IllegalArgumentException("Pair shardId/revision mismatch: " + fragmentFile + " ("
+						+ fragment.shardId().value() + ", " + fragment.revision().value() + ") and " + testFile
+						+ " (" + assignment.shardId().value() + ", " + assignment.revision().value() + ")");
+			}
+			if (revision == null)
+			{
+				revision = assignment.revision();
+				revisionSource = testFile;
+			}
+			else if (!revision.equals(assignment.revision()))
+			{
+				throw new IllegalArgumentException("Revision mismatch: " + revisionSource + " has " + revision.value()
+						+ "; " + testFile + " has " + assignment.revision().value());
+			}
+			Path previous = assignmentSources.putIfAbsent(assignment.shardId(), testFile);
+			if (previous != null)
+			{
+				throw new IllegalArgumentException("Duplicate shard assignment " + assignment.shardId().value()
+						+ " in " + previous + " and " + testFile);
+			}
+			assignment.tests().forEach(test -> target.accept(test.target(), testFile));
+			fragment.tests().keySet().forEach(test -> target.accept(test.target(), fragmentFile));
+			fragment.unmapped().forEach(entry -> target.accept(entry.test().target(), fragmentFile));
+			fragment.setupScopes().forEach(scope -> target.accept(scope.owner(), fragmentFile));
+			Set<ExecutableTestIdentity> reported = new TreeSet<>(fragment.tests().keySet());
+			fragment.unmapped().forEach(entry -> reported.add(entry.test()));
+			Set<ExecutableTestIdentity> unexpected = new TreeSet<>(reported);
+			unexpected.removeAll(assignment.tests());
+			if (!unexpected.isEmpty())
+			{
+				throw new IllegalArgumentException("Unexpected tests in " + fragmentFile + " outside " + testFile + ": " + unexpected);
+			}
+			fragment.unmapped().stream().filter(entry -> entry.reason() == UnmappedReason.SKIPPED)
+					.forEach(entry -> nonExecutable.add(entry.test()));
+			Set<ExecutableTestIdentity> absent = new TreeSet<>(assignment.tests());
+			absent.removeAll(reported);
+			List<ExecutableUnmappedTest> unmapped = new ArrayList<>(fragment.unmapped());
+			absent.forEach(test -> unmapped.add(new ExecutableUnmappedTest(test, UnmappedReason.ASSIGNED_NOT_REPORTED)));
+			// Adapt only the in-memory fragment. Preserve its completion flag and every observed outcome.
+			fragments.add(new ExecutableCoverageFragment(fragment.schemaVersion(), fragment.revision(), fragment.shardId(),
+					fragment.tests(), unmapped, fragment.setupScopes(), fragment.collectionCompleted()));
+			assignments.put(assignment.shardId(), assignment.tests());
+			expectedTests.addAll(assignment.tests());
+		}
+		if (target.value == null)
+		{
+			throw new IllegalArgumentException("Cannot determine execution target from empty test lists in " + pairedDir);
+		}
+		return new Inputs(ExecutableTestInventory.from(revision, expectedTests), new ExecutableShardPlan(revision, assignments),
+				fragments, target.value, Set.copyOf(nonExecutable));
+	}
+
+	private Inputs readLegacyInputs() throws IOException
 	{
 		List<Path> assignmentFiles = inputFiles(assignmentsDir);
 		List<Path> fragmentFiles = inputFiles(fragmentsDir);

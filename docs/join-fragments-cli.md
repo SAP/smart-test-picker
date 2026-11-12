@@ -4,6 +4,10 @@ STP-JOIN-CLI-01 adds `join-fragments` on branch `feature/join-executable-fragmen
 based on main at `05d5c3b`. It reuses the existing strict join and publication contracts.
 It does not implement degraded joining, assignment generation, compression or selection policy changes.
 
+STP-JOIN-CLI-02 adds an alternative [paired-directory input mode](join-fragments-paired-directory.md).
+The separate-input contract and its historical validation results below remain unchanged; the
+paired mode additionally accounts assigned-but-unreported tests as unmapped without changing the joiner.
+
 ## Usage and input contract
 
 ```bash

@@ -7,6 +7,22 @@ Standalone command-line tool for the coverage pipeline, built with [picocli](htt
 ### join-fragments
 
 Joins schema-v3 shard fragments into one verified, published map for a single execution target.
+The paired-directory mode needs only the shard directory, its expected pair count, and an output path:
+
+```bash
+smart-test-picker join-fragments \
+    --dir /path/to/shards \
+    --expected-shards 36 \
+    --output /path/to/published-map.json
+```
+
+Each `fragment-<name>.json` must have a `tests-<name>.json` partner containing an
+`ExecutableShardAssignment` v1 test list. Missing partners and stray files fail. Only in this mode,
+assigned tests absent from an existing fragment become `ASSIGNED_NOT_REPORTED` unmapped entries and
+are mandatory for selection. See [paired-mode rules and validation](../docs/join-fragments-paired-directory.md).
+
+The existing separate-input mode remains available and cannot be combined with `--dir`:
+
 Assignments and the executable head inventory must describe the same revision and exact test partition.
 Missing, duplicate or incomplete shards fail without replacing an existing map.
 Explicit `SKIPPED` fragment entries supply positive non-execution evidence only for identities in the
@@ -20,7 +36,7 @@ smart-test-picker join-fragments \
     --output /path/to/published-map.json
 ```
 
-All four options are required. The command prints a JSON summary and verifies the staged file through
+All four options in the separate-input example are required. The command prints a JSON summary and verifies the staged file through
 the production codec and selector loader before atomically replacing the destination. See
 [the contract and validation report](../docs/join-fragments-cli.md) for input rules, provenance,
 failure handling and measured results. This command does not change `select-tests` behavior.

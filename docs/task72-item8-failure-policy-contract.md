@@ -219,9 +219,15 @@ collection/runtime integrity failure, invalid joined map and publication revisio
 mapping/publication operation. No incomplete map is published. A PR flow looking up an older valid map is
 independent and may continue/select or full-suite according to that lookup.
 
-Per-test `FAILED`, `SKIPPED`, `TIMEOUT` and `COLLECTION_FAILED` are evidence, not automatic mapping-job
-failure, when represented according to schema and the complete-map contract; selector unions preserve
+Per-test `FAILED`, `SKIPPED`, `TIMEOUT`, `COLLECTION_FAILED` and `ASSIGNED_NOT_REPORTED` are evidence,
+not automatic mapping-job failure, when represented according to schema and the complete-map contract; selector unions preserve
 their safety semantics. They become `MAPPING_INCOMPLETE` only when accounting or completeness fails.
+
+The [paired-directory CLI join adapter](join-fragments-paired-directory.md) is a scoped exception to
+rejecting an absent test report: when its fragment exists, it records the assigned-but-unreported
+identity as `ASSIGNED_NOT_REPORTED` before invoking the unchanged joiner. Missing or incomplete
+fragments still fail. Other mapping entry points retain their existing policies; agents do not emit
+this new reason.
 
 ## Storage outcomes and default policy matrix
 

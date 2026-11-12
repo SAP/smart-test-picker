@@ -11,7 +11,8 @@ The **execution target inventory** is the subset that the mapping run intends to
 collectors. Collectors own only these runtime facts and coverage; they do not manufacture expectation.
 
 An **unmapped executable test** was an execution target but has no safe dependency mapping. It remains
-`UnmappedTest` for every existing reason (`FAILED`, `SKIPPED`, `TIMEOUT`, or `COLLECTION_FAILED`) and is
+`UnmappedTest` for every existing reason (`FAILED`, `SKIPPED`, `TIMEOUT`, `COLLECTION_FAILED`, or
+`ASSIGNED_NOT_REPORTED`) and is
 always selected when still at head.
 
 An **intentionally non-executable declaration** is in authoritative discovery but, based on an
