@@ -102,6 +102,18 @@ public final class RuntimeEventAggregator {
 		return bucket != null && bucket.finished;
 	}
 
+	/** Lifecycle-only check; never registers a bucket or runs on the method-hit path. */
+	synchronized void requireUnfinishedTest(TestIdentity test) {
+		validateScope(test);
+		TestBucket bucket = tests.get(test);
+		if (bucket == null) {
+			throw new IllegalStateException("test was not begun: " + test.platformUniqueId());
+		}
+		if (bucket.finished) {
+			throw new IllegalStateException("test already finished: " + test.platformUniqueId());
+		}
+	}
+
 	String runId() {
 		return runId;
 	}

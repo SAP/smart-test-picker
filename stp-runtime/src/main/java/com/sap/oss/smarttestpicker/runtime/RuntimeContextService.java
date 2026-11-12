@@ -15,6 +15,8 @@ import java.util.function.Supplier;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Explicit attribution scope. Cross-thread use is limited to snapshots installed
@@ -23,6 +25,7 @@ import java.util.Deque;
 public final class RuntimeContextService {
 	private final RuntimeEventAggregator aggregator;
 	private final ThreadLocal<TestExecutionContext> current = new ThreadLocal<>();
+	private final ThreadLocal<Map<TestIdentity, TestExecutionContext>> suspended = new ThreadLocal<>();
 	private final ThreadLocal<TestIdentity> lastFinished = new ThreadLocal<>();
 	private final ThreadLocal<Deque<TaskIdentity>> currentTasks = ThreadLocal.withInitial(ArrayDeque::new);
 	private final ThreadLocal<Deque<ContainerIdentity>> currentContainers = ThreadLocal.withInitial(ArrayDeque::new);
@@ -125,6 +128,79 @@ public final class RuntimeContextService {
 				lastFinished.remove();
 			}
 		}
+	}
+
+	/**
+	 * Detaches the current test without finishing its bucket or closing its first-hit owner.
+	 * Suspended contexts are per thread; resuming on another thread fails.
+	 * Work submitted through RuntimeHooks.wrap or ForkJoin before suspension retains its
+	 * captured context and can still record into this bucket after suspension. This API
+	 * does not prevent that: callers must suspend only when no such work is outstanding.
+	 * Work submitted after suspension captures no test.
+	 */
+	public void suspendTest(TestIdentity identity) {
+		Objects.requireNonNull(identity, "identity");
+		TestExecutionContext active = current.get();
+		if (active == null || !identity.equals(active.testIdentity())) {
+			throw new IllegalStateException("test is not active on this thread: " + identity.platformUniqueId());
+		}
+		Map<TestIdentity, TestExecutionContext> contexts = suspended.get();
+		if (contexts == null) {
+			contexts = new HashMap<>();
+			suspended.set(contexts);
+		}
+		contexts.put(identity, active);
+		current.remove();
+	}
+
+	/**
+	 * Restores the same unfinished context and first-hit owner without registering a bucket.
+	 * Suspended contexts are per thread; resuming on another thread fails.
+	 * Work submitted through RuntimeHooks.wrap or ForkJoin before suspension retains its
+	 * captured context and can still record into the suspended bucket. This API does not
+	 * prevent that: callers must suspend only when no such work is outstanding.
+	 * Work submitted after suspension captures no test; resume does not retroactively own it.
+	 */
+	public void resumeTest(TestIdentity identity) {
+		Objects.requireNonNull(identity, "identity");
+		TestExecutionContext active = current.get();
+		if (active != null) {
+			throw new IllegalStateException("conflicting active test: " + active.testIdentity().platformUniqueId());
+		}
+		TestExecutionContext context = requireSuspended(identity);
+		removeSuspended(identity);
+		lastFinished.remove();
+		current.set(context);
+	}
+
+	/** Finishes a thread-owned suspended bucket without changing this thread's active test. */
+	public void finishSuspended(TestIdentity identity, TestResult result) {
+		Objects.requireNonNull(identity, "identity");
+		Objects.requireNonNull(result, "result");
+		TestExecutionContext active = current.get();
+		if (active != null && identity.equals(active.testIdentity())) {
+			throw new IllegalStateException("test is not suspended on this thread: " + identity.platformUniqueId());
+		}
+		TestExecutionContext context = requireSuspended(identity);
+		context.methodHits().close();
+		aggregator.endTest(identity, result);
+		removeSuspended(identity);
+	}
+
+	private TestExecutionContext requireSuspended(TestIdentity identity) {
+		aggregator.requireUnfinishedTest(identity);
+		Map<TestIdentity, TestExecutionContext> contexts = suspended.get();
+		TestExecutionContext context = contexts == null ? null : contexts.get(identity);
+		if (context == null) {
+			throw new IllegalStateException("test was not begun: " + identity.platformUniqueId());
+		}
+		return context;
+	}
+
+	private void removeSuspended(TestIdentity identity) {
+		Map<TestIdentity, TestExecutionContext> contexts = suspended.get();
+		contexts.remove(identity);
+		if (contexts.isEmpty()) suspended.remove();
 	}
 
 	public Optional<TestIdentity> currentTest() {
