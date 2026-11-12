@@ -16,6 +16,57 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AgentIntegrityTest {
     @ParameterizedTest
+    @ValueSource(ints = {2, 3})
+    void spockPlaceholderNamesSurviveFragmentPublication(int schemaVersion, @TempDir Path dir) throws Exception {
+        String className = "de.hybris.platform.extensibilityservices.client.HttpResponseStatusUnitTest";
+        String methodName = "is5xxError is #expected for valueOf(#code, #desc)";
+        var logical = new com.sap.oss.smarttestpicker.coverage.model.TestIdentity(className, methodName);
+        var sibling = new com.sap.oss.smarttestpicker.coverage.model.TestIdentity(className, "ordinaryTest");
+        var failed = new com.sap.oss.smarttestpicker.coverage.model.TestIdentity(className, "failed feature(#value)");
+        var config = AgentConfiguration.parse("output=" + dir.resolve("diagnostic.json")
+                + ";fragmentOutput=" + dir.resolve("fragment.json")
+                + ";schemaVersion=" + schemaVersion + ";revision=r;shardId=7"
+                + (schemaVersion == 3 ? ";executionTarget=ant:cxmc" : ""));
+        var runtime = AgentRuntime.install(config, new AgentMetrics(1));
+        try {
+            for (var test : List.of(logical, sibling, failed)) {
+                var identity = new TestIdentity(test.toString(), test.toString(), test.className(),
+                        test.methodName(), "", "ant-yunit", config.runId(), "pid-" + ProcessHandle.current().pid());
+                runtime.runtimeContext().beginTest(identity);
+                runtime.runtimeContext().record(new MethodHitEvent(new MethodIdentity("example.Service", "work", "()V"),
+                        new Evidence(EvidenceSource.ASM_METHOD_ENTRY, Certainty.OBSERVED)));
+                runtime.runtimeContext().endTest(identity, test.equals(failed)
+                        ? new TestResult(TestExecutionStatus.FAILED, "AssertionError", "expected failure") : TestResult.successful());
+            }
+            runtime.writeOutput();
+            assertTrue(Files.isRegularFile(dir.resolve("fragment.json")), Files.readString(dir.resolve("diagnostic.json")));
+            var bytes = Files.readAllBytes(dir.resolve("fragment.json"));
+            var covered = new com.sap.oss.smarttestpicker.coverage.model.MethodIdentity("example.Service", "work", "()V");
+            if (schemaVersion == 3) {
+                var fragment = new ExecutableCoverageFragmentCodec().deserialize(bytes);
+                var target = com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget.parse("ant:cxmc");
+                assertTrue(fragment.collectionCompleted());
+                assertEquals(Set.of(new ExecutableTestIdentity(target, logical), new ExecutableTestIdentity(target, sibling)),
+                        fragment.tests().keySet());
+                assertEquals(Set.of(covered), fragment.tests().get(new ExecutableTestIdentity(target, logical)).coveredMethods());
+                assertEquals(List.of(new com.sap.oss.smarttestpicker.coverage.model.ExecutableUnmappedTest(
+                        new ExecutableTestIdentity(target, failed), com.sap.oss.smarttestpicker.coverage.model.UnmappedReason.FAILED)),
+                        fragment.unmapped());
+                assertArrayEquals(bytes, new ExecutableCoverageFragmentCodec().serialize(fragment));
+            } else {
+                var codec = new com.sap.oss.smarttestpicker.coverage.serialization.CoverageFragmentCodec();
+                var fragment = codec.deserialize(bytes);
+                assertTrue(fragment.collectionCompleted());
+                assertEquals(Set.of(logical, sibling), fragment.tests().keySet());
+                assertEquals(Set.of(covered), fragment.tests().get(logical).coveredMethods());
+                assertEquals(List.of(new com.sap.oss.smarttestpicker.coverage.model.UnmappedTest(
+                        failed, com.sap.oss.smarttestpicker.coverage.model.UnmappedReason.FAILED)), fragment.unmapped());
+                assertArrayEquals(bytes, codec.serialize(fragment));
+            }
+        } finally { runtime.abortInitialization(); }
+    }
+
+    @ParameterizedTest
     @ValueSource(booleans = {false, true})
     void structuredLocalErrorSurvivesAgentShutdownAndKeepsSibling(boolean unhealthy, @TempDir Path dir) throws Exception {
         var bad = ExecutableTestIdentity.parse("maven:.::example.Tests#affected");

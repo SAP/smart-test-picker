@@ -9,6 +9,12 @@ import java.util.regex.Pattern;
 public record TestIdentity(String className, String methodName, String methodParameterTypes) implements Comparable<TestIdentity>
 {
 	private static final Pattern CLASS_NAME = Pattern.compile("[\\p{javaJavaIdentifierStart}][\\p{javaJavaIdentifierPart}]*(?:[.$][\\p{javaJavaIdentifierStart}][\\p{javaJavaIdentifierPart}]*)+");
+	private static final String TYPE_IDENTIFIER = "[\\p{javaJavaIdentifierStart}][\\p{javaJavaIdentifierPart}]*";
+	private static final String BINARY_TYPE = TYPE_IDENTIFIER + "(?:\\." + TYPE_IDENTIFIER + ")*";
+	private static final String QUALIFIED_TYPE = TYPE_IDENTIFIER + "(?:\\." + TYPE_IDENTIFIER + ")+";
+	private static final Pattern PARAMETER_TYPE = Pattern.compile(
+			"(?:(?:boolean|byte|char|short|int|long|float|double|" + QUALIFIED_TYPE + ")(?:\\[\\])*"
+					+ "|\\[+(?:[ZBCSIJFD]|L" + BINARY_TYPE + ";))");
 
 	public TestIdentity
 	{
@@ -31,10 +37,22 @@ public record TestIdentity(String className, String methodName, String methodPar
 			throw new IllegalArgumentException("Malformed test identity: " + value);
 		String suffix = value.substring(separator + 1);
 		int parameters = suffix.lastIndexOf('(');
-		if (parameters > 0 && suffix.endsWith(")"))
+		// Recognize declared types, not arbitrary parenthesized feature-name suffixes.
+		// Validation trims elements, but the stored spelling is never normalized.
+		if (parameters > 0 && suffix.endsWith(")")
+				&& isParameterList(suffix.substring(parameters + 1, suffix.length() - 1)))
 			return new TestIdentity(value.substring(0, separator), suffix.substring(0, parameters),
 					suffix.substring(parameters + 1, suffix.length() - 1));
 		return new TestIdentity(value.substring(0, separator), suffix, "");
+	}
+
+	private static boolean isParameterList(String value)
+	{
+		for (String element : value.split(",", -1))
+		{
+			if (!PARAMETER_TYPE.matcher(element.trim()).matches()) return false;
+		}
+		return true;
 	}
 
 	private static boolean invalidMethodCharacter(int character)

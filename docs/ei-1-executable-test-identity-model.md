@@ -48,6 +48,44 @@ gradle::module-a:test::com.example.Test#works
 
 Both forms round-trip through `parse(toString())`. Natural ordering is build tool then target ID for targets, and target then logical identity for executable identities.
 
+A trailing parenthesized suffix is a declared parameter list only when every
+comma-separated element, trimmed for validation, matches one of these forms:
+
+- A primitive: `boolean`, `byte`, `char`, `short`, `int`, `long`, `float`, `double`.
+- A fully qualified binary class name containing at least one `.`, with `$`
+  allowed in identifiers. Primitives and qualified names may have repeated `[]`
+  suffixes, including the existing `com.example.Outer$Inner[][], long` form.
+- A JVM array descriptor: one or more `[` followed by exactly one primitive
+  descriptor letter (`Z B C S I J F D`) or `L<binary class name>;`. An object-array
+  descriptor is unambiguous even for a default-package component (`[LFoo;`).
+
+An empty `()` is never a parameter list: serialization emits a parameter suffix
+only for nonempty parameters. Empty elements, including a trailing comma, do not
+form a parameter list. All other suffixes remain part of the method name, subject
+to its existing validation. This preserves `should work (happy path)`,
+`returns empty list()`, `is #expected for valueOf(code)`,
+`handles #input (edge case)`, and `()` itself. A suffix containing `#` cannot
+match the type grammar, preserving Spock placeholders such as `valueOf(#code)`.
+
+JUnit's `MethodSource` formats reflected parameter types using `Class::getName`
+(JUnit r5.9.3: `MethodSource.java:137` delegates to `ClassUtils.nullSafeToString`,
+`ClassUtils.java:67-68`). It emits `, ` separators and array descriptors, for
+example `java.lang.String, [I, [[Ljava.lang.String;`. Per-element trimming is
+therefore necessary, but the original parameter string, including spacing and
+array spelling, is preserved exactly. There is no normalization or wire-format
+change. Qualified names and descriptors contain `.`, `[` or `;`, all rejected
+by the method-name validator, so those forms cannot collide with valid method
+names. This applies to logical and executable identities, including unmapped
+entries.
+
+Accepted residual ambiguities (no escape format is introduced):
+
+- A default-package parameter type has a simple `Class.getName()` result such as
+  `Foo`. `works(Foo)` is read as the method name with empty parameters, not as
+  method `works` with parameter `Foo`.
+- A method name ending in a valid primitive list, such as `foo(int)` with empty
+  parameters, is read as method `foo` with parameter `int`.
+
 ## Non-goals
 
 EI-1 does not change schema v2, coverage maps or fragments, completeness, head inventory, selection, collectors, Maven or Gradle routing, Jenkins, or MM-2. The new types are intentionally not integrated into production flows yet.
