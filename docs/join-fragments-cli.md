@@ -33,10 +33,20 @@ and shard plan, not through invented target metadata.
 `ExecutableCoverageFragmentJoiner.join` and
 `ExecutableCoverageMapPublication.alignExpectedInventory` are unchanged. Missing, unexpected or
 duplicate shards, incomplete fragments, duplicate ownership and a nonpartitioning assignment still
-fail. `FAILED` and `COLLECTION_FAILED` unmapped entries remain valid accounted identities. These
-inputs contain no separate positive non-execution evidence, so `intentionallyNonExecutable` is empty.
-The command never infers it by subtraction; a `SKIPPED` entry that requires such evidence still fails
-the existing join contract.
+fail. `FAILED` and `COLLECTION_FAILED` unmapped entries remain valid accounted identities.
+`intentionallyNonExecutable` is the union of identities explicitly reported as `SKIPPED` in fragment
+unmapped entries. These are positive runtime observations, not inference from absence. Each must
+belong to the assignment of the reporting fragment's shard; otherwise the CLI fails and names that
+fragment file. An unknown shard cannot supply positive non-execution evidence.
+
+The same set is passed to both the unchanged joiner and publication alignment. A `SKIPPED` identity
+reported again as mapped or unmapped by another shard still fails: with an exact shard partition,
+that other report violates its assignment, and duplicate assignment ownership is also rejected.
+Tests absent from every report are never added to the non-executable set and still fail as missing.
+
+In the existing schema, positive non-execution is accounted in `completeness.reportedTests` without
+appearing in either the map's mapped coverage or its unmapped entries. There is no separately
+serialized `intentionallyNonExecutable` field. This change does not alter the schema or joiner.
 
 ## Publication and read-back verification
 
@@ -86,12 +96,16 @@ including its checksum field.
 
 ## Permanent regressions
 
-`JoinFragmentsCommandTest`, in the CLI module's production test source set, contains 29 cases:
+`JoinFragmentsCommandTest`, in the CLI module's production test source set, contains 35 cases:
 
 - Three complete shards, exact summary and full read-back equality; root-command registration and a
   Maven target.
 - Missing and duplicate fragments; unexpected shards; duplicate assignment files; duplicate ownership
   and a nonpartitioning plan; incomplete collection; no inferred non-execution evidence.
+- Observed `SKIPPED` identities are accepted and accounted, including their union across fragments.
+  Wrong-shard and unknown-shard `SKIPPED` entries fail with the source filename. A missing identity
+  remains missing even alongside valid skipped evidence. Cross-shard skipped/mapped and
+  skipped/unmapped overlaps still fail through the unchanged assignment validation.
 - Target conflicts in fragments, assignments, inventory, unmapped identities and scope ownership;
   fragment/inventory and assignment/inventory revision conflicts.
 - Malformed fragment, assignment and inventory files; directory entries; empty inventory; permitted
@@ -101,7 +115,8 @@ including its checksum field.
   replacement. Failed publication leaves prior output intact and cleans staging files.
 - Accepted `FAILED`/`COLLECTION_FAILED` unmapped entries and successful production selector loading.
 
-The focused suite passed all 29 cases. Fresh full-suite results are recorded below.
+The original focused suite passed all 29 cases. STP-JOIN-CLI-01a replaces the former skipped-entry
+rejection test with an acceptance regression and adds six cases; fresh amendment results follow below.
 
 ## Reference Maven join gate
 
@@ -158,7 +173,7 @@ javac -cp smart-test-picker-cli/build/libs/smart-test-picker-cli-0.3.0-SNAPSHOT-
   --output verification/stp-join-cli-01/raw/map.json
 ```
 
-## Eight-module gate
+## Original STP-JOIN-CLI-01 eight-module gate
 
 Fresh command: `./gradlew test --rerun-tasks --offline --continue`.
 Result: **BUILD SUCCESSFUL in 9m 3s**, 69 actionable tasks, all 69 executed.
@@ -183,3 +198,69 @@ merge with that later change. Local console output is retained at
 also passed.
 
 No CI test workflow or external platform run is part of this validation.
+
+## STP-JOIN-CLI-01a verification
+
+This amendment treats observed `SKIPPED` entries as positive non-execution. The CLI constructs the
+union while reading fragments, verifies each entry against that fragment's shard assignment (with
+the source filename in rejection messages), and passes the same union to join and publication.
+No absent identity is added. Joiner, publication, codecs and Maven code are unchanged.
+
+The replaced regression is `skippedEntrySuppliesPositiveNonExecution`. It reads the published map,
+asserts that the skipped test has neither mapped nor unmapped coverage, and verifies that completeness
+accounts for it with no missing test. The existing schema represents that state in `reportedTests`,
+not in a new non-execution field. Six additional permanent CLI tests prove:
+
+- Positive evidence is the union across reporting fragments.
+- A skipped identity assigned to another shard fails and names the source file.
+- A skipped identity reported without a shard assignment fails and names the source file.
+- A genuinely absent identity still fails, even when another identity has valid skipped evidence.
+- A skipped identity also mapped by another shard fails the existing assignment validation.
+- A skipped identity also unmapped by another shard fails the existing assignment validation.
+
+All 35 focused CLI tests passed. The first focused attempt had one diagnostic assertion failure:
+the message printed `ShardId[value=2]` rather than the shard's value `2`. The message was corrected
+to use `value()`; the unchanged assertion and the full focused set then passed. Both logs are retained
+locally as `verification/stp-join-cli-01a/raw/focused-initial.log` and `raw/focused.log`.
+
+The fresh packaged-CLI reference join used the original retained inputs and these arguments:
+
+```bash
+java -jar smart-test-picker-cli/build/libs/smart-test-picker-cli-0.3.0-SNAPSHOT-all.jar \
+  join-fragments \
+  --fragments-dir verification/stp-join-cli-01/inputs/fragments \
+  --assignments-dir verification/stp-join-cli-01/inputs/assignments \
+  --head-inventory verification/stp-join-cli-01/inputs/head-inventory.json \
+  --output verification/stp-join-cli-01a/raw/map.json
+```
+
+It exited zero with **69 mapped, 0 unmapped, 10 setup scopes**, 21 distinct classes, 89 distinct methods
+and 186,853 bytes. A full decoded-JSON comparison against the original task's map found exactly two
+changed fields: `generatedAt` and its dependent `checksum`. All coverage, unmapped entries, setup
+scopes, completeness, statistics, lifecycle and provenance were identical. This is a fresh join of
+retained evidence, not a new collection run or a new performance measurement.
+
+New embedded map checksum:
+`sha256:6bcb5e682d74a8b3c8b8c87e52cf1ad8b06a1297b9c2488846be2e57aee4c2ec`.
+Input fragment SHA-256 remains
+`0ecdbed9d086835971a9c69e3a49b6977ca24c42058ce2bf3618d8fc1820b8b9`.
+
+Fresh amendment command: `./gradlew test --rerun-tasks --offline --continue`.
+**BUILD SUCCESSFUL in 10m 23s**, all 69 actionable tasks executed. Counts read from the fresh JUnit XML:
+
+| Module | Tests | Passed | Skipped | Failures/errors |
+|---|---:|---:|---:|---:|
+| smart-test-picker-common | 342 | 331 | 11 | 0 |
+| smart-test-picker-core | 29 | 24 | 5 | 0 |
+| smart-test-picker | 58 | 58 | 0 | 0 |
+| smart-test-picker-maven | 161 | 161 | 0 | 0 |
+| smart-test-picker-cli | 71 | 71 | 0 | 0 |
+| stp-runtime | 67 | 67 | 0 | 0 |
+| stp-junit-adapter | 21 | 21 | 0 | 0 |
+| stp-agent | 52 | 51 | 1 | 0 |
+| **Total** | **801** | **784** | **17** | **0** |
+
+The new total adds six tests to the original task's 795; none were removed. Console evidence is
+retained locally at `verification/stp-join-cli-01a/raw/full-suites.log`. `git diff --check` and the
+tracked-file 5 MiB check also passed. No CI or external platform run was performed. This amendment
+is a new commit above `3714702`, not a history rewrite.

@@ -9,6 +9,8 @@ Standalone command-line tool for the coverage pipeline, built with [picocli](htt
 Joins schema-v3 shard fragments into one verified, published map for a single execution target.
 Assignments and the executable head inventory must describe the same revision and exact test partition.
 Missing, duplicate or incomplete shards fail without replacing an existing map.
+Explicit `SKIPPED` fragment entries supply positive non-execution evidence only for identities in the
+reporting shard's assignment; identities missing from every fragment still fail the join.
 
 ```bash
 smart-test-picker join-fragments \

@@ -33,6 +33,7 @@ import com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget;
 import com.sap.oss.smarttestpicker.coverage.model.GeneratorProvenance;
 import com.sap.oss.smarttestpicker.coverage.model.MethodIdentity;
 import com.sap.oss.smarttestpicker.coverage.model.ShardId;
+import com.sap.oss.smarttestpicker.coverage.model.UnmappedReason;
 import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableCoverageFragmentCodec;
 import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableCoverageMapCodec;
 import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableShardAssignmentCodec;
@@ -87,8 +88,7 @@ public final class JoinFragmentsCommand implements Callable<Integer>
 		try
 		{
 			Inputs inputs = readInputs();
-			// These inputs contain no positive non-execution evidence. Never infer it by subtraction.
-			Set<ExecutableTestIdentity> nonExecutable = Set.of();
+			Set<ExecutableTestIdentity> nonExecutable = inputs.intentionallyNonExecutable();
 			GeneratorProvenance generator = new GeneratorProvenance(new StpVersionProvider().getVersion()[0],
 					null, null, System.getProperty("java.runtime.version"));
 			ExecutableCoverageMap joined = new ExecutableCoverageFragmentJoiner().join(inputs.inventory(),
@@ -145,6 +145,7 @@ public final class JoinFragmentsCommand implements Callable<Integer>
 			assignments.put(assignment.shardId(), assignment.tests());
 		}
 		List<ExecutableCoverageFragment> fragments = new ArrayList<>();
+		Set<ExecutableTestIdentity> nonExecutable = new TreeSet<>();
 		for (Path file : fragmentFiles)
 		{
 			ExecutableCoverageFragment fragment = read(file, bytes -> new ExecutableCoverageFragmentCodec().deserialize(bytes));
@@ -152,9 +153,23 @@ public final class JoinFragmentsCommand implements Callable<Integer>
 			fragment.tests().keySet().forEach(test -> target.accept(test.target(), file));
 			fragment.unmapped().forEach(test -> target.accept(test.test().target(), file));
 			fragment.setupScopes().forEach(scope -> target.accept(scope.owner(), file));
+			for (var entry : fragment.unmapped())
+			{
+				if (entry.reason() == UnmappedReason.SKIPPED)
+				{
+					if (!assignments.getOrDefault(fragment.shardId(), Set.of()).contains(entry.test()))
+					{
+						throw new IllegalArgumentException("SKIPPED identity " + entry.test() + " in " + file
+								+ " does not belong to assignment for shard " + fragment.shardId().value());
+					}
+					// Positive runtime evidence only; absence from a fragment is not evidence of non-execution.
+					nonExecutable.add(entry.test());
+				}
+			}
 			fragments.add(fragment);
 		}
-		return new Inputs(inventory, new ExecutableShardPlan(inventory.revision(), assignments), fragments, target.value);
+		return new Inputs(inventory, new ExecutableShardPlan(inventory.revision(), assignments), fragments,
+				target.value, Set.copyOf(nonExecutable));
 	}
 
 	private List<Path> inputFiles(Path directory) throws IOException
@@ -291,7 +306,8 @@ public final class JoinFragmentsCommand implements Callable<Integer>
 		T decode(byte[] bytes) throws IOException;
 	}
 	private record Inputs(ExecutableTestInventory inventory, ExecutableShardPlan plan,
-			List<ExecutableCoverageFragment> fragments, ExecutionTarget target) { }
+			List<ExecutableCoverageFragment> fragments, ExecutionTarget target,
+			Set<ExecutableTestIdentity> intentionallyNonExecutable) { }
 
 	private static final class TargetBinding
 	{

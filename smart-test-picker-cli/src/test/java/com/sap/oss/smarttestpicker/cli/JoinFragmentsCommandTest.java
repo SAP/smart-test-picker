@@ -269,10 +269,80 @@ class JoinFragmentsCommandTest
 		assertFalse(Files.exists(output));
 	}
 
-	@Test void skippedEntryDoesNotInventPositiveNonExecution() throws Exception
+	@Test void skippedEntrySuppliesPositiveNonExecution() throws Exception
 	{
 		writeFragment(2, unmapped(2, UnmappedReason.SKIPPED, TARGET));
-		assertFailure(run(command()), "missing");
+		Result result = run(command());
+		assertEquals(0, result.code(), result.err());
+		ExecutableCoverageMap map = readMap();
+		assertEquals(Set.of(test(1), test(3)), map.tests().keySet());
+		assertTrue(map.unmapped().isEmpty());
+		assertEquals(Set.of(test(1), test(2), test(3)), map.completeness().reportedTests());
+		assertTrue(map.completeness().missingTests().isEmpty());
+		assertTrue(map.completeness().isComplete());
+		// The existing schema accounts positive non-execution without a separate serialized field.
+		var nonExecuted = new java.util.TreeSet<>(map.completeness().reportedTests());
+		nonExecuted.removeAll(map.tests().keySet());
+		map.unmapped().forEach(entry -> nonExecuted.remove(entry.test()));
+		assertEquals(Set.of(test(2)), nonExecuted);
+		assertEquals(2, result.summary().get("mappedTests").getAsInt());
+		assertEquals(0, result.summary().get("unmappedTests").getAsInt());
+	}
+
+	@Test void skippedEntryMustBelongToReportingShardAssignment() throws Exception
+	{
+		writeFragment(2, new ExecutableCoverageFragment(3, REVISION, shard(2), Map.of(),
+				List.of(new ExecutableUnmappedTest(test(1), UnmappedReason.SKIPPED)), List.of(), true));
+		assertFailure(run(command()), "SKIPPED identity", test(1).toString(), fragmentPath(2).toString(),
+				"does not belong to assignment for shard 2");
+		assertFalse(Files.exists(output));
+	}
+
+	@Test void positiveNonExecutionIsUnionOfSkippedEntriesAcrossFragments() throws Exception
+	{
+		writeFragment(1, unmapped(1, UnmappedReason.SKIPPED, TARGET));
+		writeFragment(3, unmapped(3, UnmappedReason.SKIPPED, TARGET));
+		Result result = run(command());
+		assertEquals(0, result.code(), result.err());
+		ExecutableCoverageMap map = readMap();
+		assertEquals(Set.of(test(2)), map.tests().keySet());
+		assertTrue(map.unmapped().isEmpty());
+		assertEquals(Set.of(test(1), test(2), test(3)), map.completeness().reportedTests());
+		assertTrue(map.completeness().isComplete());
+	}
+
+	@Test void skippedEntryWithoutShardAssignmentNamesFragment() throws Exception
+	{
+		writeFragment(4, new ExecutableCoverageFragment(3, REVISION, shard(4), Map.of(),
+				List.of(new ExecutableUnmappedTest(test(1), UnmappedReason.SKIPPED)), List.of(), true));
+		assertFailure(run(command()), "SKIPPED identity", fragmentPath(4).toString(),
+				"does not belong to assignment for shard 4");
+		assertFalse(Files.exists(output));
+	}
+
+	@Test void missingIdentityIsNotAbsorbedAsNonExecutable() throws Exception
+	{
+		writeFragment(1, unmapped(1, UnmappedReason.SKIPPED, TARGET));
+		writeFragment(2, new ExecutableCoverageFragment(3, REVISION, shard(2), Map.of(), List.of(), List.of(), true));
+		assertFailure(run(command()), "missing", test(2).toString());
+		assertFalse(Files.exists(output));
+	}
+
+	@Test void skippedIdentityAlsoMappedByAnotherShardIsRejected() throws Exception
+	{
+		writeFragment(1, unmapped(1, UnmappedReason.SKIPPED, TARGET));
+		writeFragment(2, new ExecutableCoverageFragment(3, REVISION, shard(2),
+				Map.of(test(1), coverage(1), test(2), coverage(2)), List.of(), List.of(), true));
+		assertFailure(run(command()), "unexpected", test(1).toString());
+		assertFalse(Files.exists(output));
+	}
+
+	@Test void skippedIdentityAlsoUnmappedByAnotherShardIsRejected() throws Exception
+	{
+		writeFragment(1, unmapped(1, UnmappedReason.SKIPPED, TARGET));
+		writeFragment(2, new ExecutableCoverageFragment(3, REVISION, shard(2), Map.of(test(2), coverage(2)),
+				List.of(new ExecutableUnmappedTest(test(1), UnmappedReason.FAILED)), List.of(), true));
+		assertFailure(run(command()), "unexpected", test(1).toString());
 		assertFalse(Files.exists(output));
 	}
 
