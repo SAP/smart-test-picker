@@ -22,9 +22,9 @@ Pipeline orchestration. Application builds still own their normal Maven/Gradle c
 repositories, exact-head dependency preparation and project-specific profiles.
 
 Historical EI directories and task reports retain the exact commits, versions, checksums and build
-results they validated. They are evidence snapshots, not current setup instructions. The most recent
-external Automation Engine result is documented only in the Jenkins POC evidence note and remains
-scoped to the exact builds and downloaded artifacts named there.
+results they validated. They are evidence snapshots, not current setup instructions. External
+integration results remain scoped to their documented builds and artifacts and are not general
+product qualification.
 
 Current STP contracts and module usage are documented by the [root README](../README.md),
 [artifact versioning](artifact-versioning.md), [compatibility table](compatibility.md), and module

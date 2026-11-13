@@ -7,7 +7,7 @@ The repository guard was run on branch `research/asm-codex`. The starting HEAD w
 discovery`), exactly the expected TASK 40 commit, and the working tree was clean. No unexpected
 TASK 40 changes existed.
 
-A new disposable local clone at `/private/tmp/task41-petclinic.idkfIm/repo` was detached at Spring
+A new disposable local clone at `<temporary-workspace>/petclinic` was detached at Spring
 PetClinic revision `88e37c15cf6fc8490b01bc3e8e2c800cec1ac272`. The clone was clean before the
 audit. The first test invocation was exactly:
 
