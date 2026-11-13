@@ -3,7 +3,7 @@
 Status date: 2026-11-04. Source reviewed through STP `4f73dc3` and Jenkins `ff9c9cd`.
 
 - Main STP repository: [SAP/smart-test-picker](https://github.com/SAP/smart-test-picker)
-- Jenkins integration repository: [stp-jenkins-plugin-poc](https://github.com/ljubisap/stp-jenkins-plugin-poc)
+- Jenkins integration repository: companion Jenkins integration repository (`stp-jenkins-plugin-poc`)
 - Unified STP-owned artifact version: `0.3.0-SNAPSHOT`
 - Jenkins baseline: 2.516.2; tested runtime JDK 21; plugin/STP bytecode target Java 17
 - Coverage-map families: logical schema 2 and executable target-aware schema 3
@@ -88,10 +88,10 @@ The range establishes:
 Source delivery is not a release: component versions remain `0.3.0-SNAPSHOT`.
 Historical validation results remain scoped to their exact revisions/scenarios.
 
-For the Jenkins-facing boundary, use the plugin repository's
-[component ownership reference](https://github.com/ljubisap/stp-jenkins-plugin-poc/blob/main/docs/reference/component-ownership.md),
-[support matrix](https://github.com/ljubisap/stp-jenkins-plugin-poc/blob/main/docs/reference/support-validation-matrix.md),
-and [current runtime evidence](https://github.com/ljubisap/stp-jenkins-plugin-poc/blob/main/docs/validation/petclinic-docker-2026-09-23.md).
+For the Jenkins-facing boundary, use the companion Jenkins integration repository's
+component ownership reference,
+support matrix,
+and current runtime evidence.
 
 ## Verification provenance
 
