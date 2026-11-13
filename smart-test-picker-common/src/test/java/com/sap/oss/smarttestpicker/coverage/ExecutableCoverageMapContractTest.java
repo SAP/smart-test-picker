@@ -42,6 +42,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ExecutableCoverageMapContractTest
 {
+	@org.junit.jupiter.api.io.TempDir java.nio.file.Path directory;
 	private static final CoverageMapRevision REVISION = new CoverageMapRevision("abc123");
 	private static final ShardId SHARD = new ShardId("01");
 	private static final TestIdentity LOGICAL = TestIdentity.parse(
@@ -49,14 +50,17 @@ class ExecutableCoverageMapContractTest
 	private static final ExecutableTestIdentity COMMON = executable("java-checks-common", LOGICAL);
 	private static final ExecutableTestIdentity CHECKS = executable("java-checks", LOGICAL);
 
-	@Test void sonarJavaDualOwnerCoverageRoundTripsWithoutUnion()
+	@Test void sonarJavaDualOwnerCoverageRoundTripsWithoutUnion() throws Exception
 	{
 		ExecutableCoverageMap original = map(Map.of(
 				COMMON, covered("ClassA", "ClassB"), CHECKS, covered("ClassA", "ClassC")), List.of(),
 				complete(Set.of(COMMON, CHECKS)));
 		ExecutableCoverageMapCodec codec = new ExecutableCoverageMapCodec();
-		byte[] bytes = codec.serialize(original); ExecutableCoverageMap decoded = codec.deserialize(bytes);
-		assertArrayEquals(bytes, codec.serialize(decoded));
+		var file = directory.resolve("map.gz");
+		String checksum = codec.write(original, file);
+		ExecutableCoverageMap decoded = codec.read(file);
+		assertEquals(checksum, codec.write(decoded, directory.resolve("roundtrip.gz")));
+		assertArrayEquals(java.nio.file.Files.readAllBytes(file), java.nio.file.Files.readAllBytes(directory.resolve("roundtrip.gz")));
 		assertEquals(2, decoded.tests().size());
 		assertEquals(COMMON.test(), CHECKS.test());
 		assertEquals(Set.of("ClassA", "ClassB"), decoded.tests().get(COMMON).coveredClasses());
@@ -120,13 +124,18 @@ class ExecutableCoverageMapContractTest
 				() -> new ExecutableCoverageFragmentCodec().deserialize(json.getBytes(StandardCharsets.UTF_8)));
 	}
 
-	@Test void v2AndV3ReadersRejectTheOtherVersion()
+	@Test void v2AndV3ReadersRejectTheOtherVersion() throws Exception
 	{
-		byte[] v3Map = new ExecutableCoverageMapCodec().serialize(map(Map.of(COMMON, covered("ClassA")), List.of(), complete(Set.of(COMMON))));
+		var file = directory.resolve("map.gz");
+		new ExecutableCoverageMapCodec().write(map(Map.of(COMMON, covered("ClassA")), List.of(), complete(Set.of(COMMON))), file);
+		byte[] v3Map = java.nio.file.Files.readAllBytes(file);
 		assertThrows(CoverageMapValidationException.class, () -> new CoverageMapCodec().deserialize(v3Map));
-		String v2Map = new String(v3Map, StandardCharsets.UTF_8).replace("\"schemaVersion\":3", "\"schemaVersion\":2");
+		try (var output = new java.util.zip.GZIPOutputStream(java.nio.file.Files.newOutputStream(file)))
+		{
+			output.write("{\"schemaVersion\":2}".getBytes(StandardCharsets.UTF_8));
+		}
 		assertThrows(CoverageMapValidationException.class,
-				() -> new ExecutableCoverageMapCodec().deserialize(v2Map.getBytes(StandardCharsets.UTF_8)));
+				() -> new ExecutableCoverageMapCodec().read(file));
 		ExecutableCoverageFragment fragment = new ExecutableCoverageFragment(CoverageMapContract.SCHEMA_V3,
 				REVISION, SHARD, Map.of(COMMON, covered("ClassA")), List.of(), List.of(), true);
 		byte[] v3Fragment = new ExecutableCoverageFragmentCodec().serialize(fragment);
