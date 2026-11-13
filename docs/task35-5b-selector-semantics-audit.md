@@ -192,8 +192,8 @@ produces the union; duplicates are harmless.
 
 Every schema-v2 `UnmappedTest` is a known logical test with no valid dependency information and cannot
 safely be excluded when selection is active. Select it for all admissible-map outcomes, independent of
-`FAILED`, `SKIPPED`, `TIMEOUT`, or `COLLECTION_FAILED`. Reasons are diagnostics, not different safety
-levels. Individual selection is sufficient because global completeness proves the rest of the
+`FAILED`, `SKIPPED`, `TIMEOUT`, `COLLECTION_FAILED`, or `ASSIGNED_NOT_REPORTED`. Reasons are diagnostics,
+not different safety levels. Individual selection is sufficient because global completeness proves the rest of the
 inventory; unmapped presence therefore does not force RUN_ALL.
 
 This policy replaces adapter-local/module-local suppression. A mapped failed test remains dependency

@@ -108,6 +108,11 @@ collection failure remains `UnmappedReason.COLLECTION_FAILED` and is never synth
 empty coverage. Other unmapped reasons diagnose why a valid mapping is unavailable; `FAILED` does
 not imply that every failed test is unmapped. Selection semantics remain a 5b concern.
 
+`ASSIGNED_NOT_REPORTED` identifies a test on a shard's assignment list that is absent from an existing
+fragment's mapped and unmapped reports. The paired-directory CLI join adapter produces this reason,
+not the agent. It carries no fabricated coverage and remains mandatory for selection. This does not
+relax missing-fragment or incomplete-fragment rejection; see [paired shard joining](join-fragments-paired-directory.md).
+
 ## Completeness and shards
 
 Completeness compares global expected and logically accounted identity sets, never counts. Accounted
