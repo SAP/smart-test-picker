@@ -3,7 +3,6 @@
 package com.sap.oss.smarttestpicker.cli;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -18,7 +17,6 @@ import java.util.concurrent.Callable;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.sap.oss.smarttestpicker.coverage.ExecutableCoverageFragmentJoiner;
 import com.sap.oss.smarttestpicker.coverage.ExecutableCoverageMapPublication;
 import com.sap.oss.smarttestpicker.coverage.model.CoverageMapLifecycleState;
@@ -174,6 +172,7 @@ public final class JoinFragmentsCommand implements Callable<Integer>
 		Set<ExecutableTestIdentity> expectedTests = new TreeSet<>();
 		Set<ExecutableTestIdentity> nonExecutable = new TreeSet<>();
 		List<ExecutableCoverageFragment> fragments = new ArrayList<>();
+		JoinCoveragePool pool = new JoinCoveragePool();
 		TargetBinding target = new TargetBinding();
 		CoverageMapRevision revision = null;
 		Path revisionSource = null;
@@ -182,7 +181,7 @@ public final class JoinFragmentsCommand implements Callable<Integer>
 			Path fragmentFile = fragmentFiles.get(name);
 			Path testFile = testFiles.get(name);
 			ExecutableShardAssignment assignment = read(testFile, bytes -> new ExecutableShardAssignmentCodec().deserialize(bytes));
-			ExecutableCoverageFragment fragment = read(fragmentFile, bytes -> new ExecutableCoverageFragmentCodec().deserialize(bytes));
+			ExecutableCoverageFragment fragment = pool.share(read(fragmentFile, bytes -> new ExecutableCoverageFragmentCodec().deserialize(bytes)));
 			if (!fragment.shardId().equals(assignment.shardId()) || !fragment.revision().equals(assignment.revision()))
 			{
 				throw new IllegalArgumentException("Pair shardId/revision mismatch: " + fragmentFile + " ("
@@ -272,10 +271,11 @@ public final class JoinFragmentsCommand implements Callable<Integer>
 			assignments.put(assignment.shardId(), assignment.tests());
 		}
 		List<ExecutableCoverageFragment> fragments = new ArrayList<>();
+		JoinCoveragePool pool = new JoinCoveragePool();
 		Set<ExecutableTestIdentity> nonExecutable = new TreeSet<>();
 		for (Path file : fragmentFiles)
 		{
-			ExecutableCoverageFragment fragment = read(file, bytes -> new ExecutableCoverageFragmentCodec().deserialize(bytes));
+			ExecutableCoverageFragment fragment = pool.share(read(file, bytes -> new ExecutableCoverageFragmentCodec().deserialize(bytes)));
 			checkRevision(fragment.revision(), inventory.revision(), file);
 			fragment.tests().keySet().forEach(test -> target.accept(test.target(), file));
 			fragment.unmapped().forEach(test -> target.accept(test.test().target(), file));
@@ -360,11 +360,11 @@ public final class JoinFragmentsCommand implements Callable<Integer>
 		try
 		{
 			ExecutableCoverageMapCodec codec = new ExecutableCoverageMapCodec();
-			Files.write(staged, codec.serialize(expected));
+			codec.write(expected, staged);
 			stagedFileHook.afterWrite(staged);
-			// Read the bytes back from disk, not from the serialization buffer.
-			byte[] bytes = Files.readAllBytes(staged);
-			ExecutableCoverageMap actual = codec.deserialize(bytes);
+			// Reopen the staged gzip file and verify the streamed canonical checksum.
+			var decoded = codec.readVerified(staged);
+			ExecutableCoverageMap actual = decoded.map();
 			var validation = codec.validate(actual);
 			if (!validation.isValid())
 			{
@@ -374,8 +374,8 @@ public final class JoinFragmentsCommand implements Callable<Integer>
 			{
 				throw new IllegalArgumentException("Written map differs from joined map (identities, coverage, scopes or metadata)");
 			}
-			ExplicitPrSelectorFlow.selectionMap(bytes);
-			JsonObject summary = summary(actual, target, bytes);
+			ExplicitPrSelectorFlow.selectionMap(staged);
+			JsonObject summary = summary(actual, target, Files.size(staged), decoded.checksum(), decoded.uncompressedBytes());
 			// No non-atomic fallback: a failed publication must preserve an existing map.
 			Files.move(staged, destination, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
 			installed = true;
@@ -394,7 +394,8 @@ public final class JoinFragmentsCommand implements Callable<Integer>
 		}
 	}
 
-	private static JsonObject summary(ExecutableCoverageMap map, ExecutionTarget target, byte[] bytes)
+	private static JsonObject summary(ExecutableCoverageMap map, ExecutionTarget target, long fileSize,
+			String checksum, long uncompressedBytes)
 	{
 		TreeSet<String> classes = new TreeSet<>();
 		TreeSet<MethodIdentity> methods = new TreeSet<>();
@@ -417,9 +418,9 @@ public final class JoinFragmentsCommand implements Callable<Integer>
 		summary.addProperty("setupScopes", map.setupScopes().size());
 		summary.addProperty("distinctClasses", classes.size());
 		summary.addProperty("distinctMethods", methods.size());
-		summary.addProperty("fileSizeBytes", bytes.length);
-		summary.addProperty("checksum", JsonParser.parseString(new String(bytes, StandardCharsets.UTF_8))
-				.getAsJsonObject().get("checksum").getAsString());
+		summary.addProperty("fileSizeBytes", fileSize);
+		summary.addProperty("uncompressedSizeBytes", uncompressedBytes);
+		summary.addProperty("checksum", checksum);
 		return summary;
 	}
 

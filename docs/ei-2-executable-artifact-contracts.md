@@ -38,10 +38,12 @@ containing `version`, `revision`, and sorted executable identity strings; it doe
 `ExecutableCoverageFragment` and `ExecutableCoverageMap` are distinct schema-v3 models. Their mapped keys and
 unmapped entries use `ExecutableTestIdentity`. Their strict codecs reuse `ExecutableTestIdentity.parse()` and
 `toString()`, sort identities deterministically, reject the other schema generation, and reject duplicate wire keys.
-The map checksum remains SHA-256 over canonical JSON without the checksum member.
+The map checksum remains SHA-256 over canonical JSON without the checksum member. Maps now use the
+gzip, dictionary-indexed [v3 map encoding](v3-map-format.md). Fragment and assignment JSON remain unchanged.
 
 The v3 map wire format carries an explicit schema version, revision, lifecycle, completeness, statistics,
 mapped executable-key object, executable unmapped list, setup scopes, and optional method-coverage reference.
+Class and method dictionaries replace repeated strings in map coverage; sorted indices are delta encoded.
 `MapStatistics` is identity-neutral and is reused; in v3 its test counts mean executable occurrences.
 
 ## Completeness and publication

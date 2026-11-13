@@ -16,7 +16,6 @@ import java.util.concurrent.Callable;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import com.sap.oss.smarttestpicker.selector.ExplicitPrSelectionResult;
 import com.sap.oss.smarttestpicker.selector.ExplicitPrSelectionStatus;
@@ -194,11 +193,7 @@ public class SelectTestsCommand implements Callable<Integer>
 		ExecutableHeadTestInventory executableInventory = null;
 		try
 		{
-			int schema;
-			try (java.io.FileReader reader = new java.io.FileReader(mapFile))
-			{
-				schema = JsonParser.parseReader(reader).getAsJsonObject().get("schemaVersion").getAsInt();
-			}
+			int schema = ExplicitPrSelectorFlow.schemaVersion(mapFile.toPath());
 			HeadTestInventory inventory;
 			if (schema == 3)
 			{

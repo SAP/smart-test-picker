@@ -10,7 +10,7 @@ publication behavior is changed.
 smart-test-picker join-fragments \
   --dir run/shards \
   --expected-shards 36 \
-  --output published/map.json
+  --output published/map.json.gz
 ```
 
 Use the packaged CLI equivalently as

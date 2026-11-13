@@ -77,7 +77,7 @@ class JoinFragmentsCommandTest
 		var aligned = ExecutableCoverageMapPublication.alignExpectedInventory(joined, inventoryModel, Set.of());
 		assertEquals(withTests(aligned, aligned.tests(), CoverageMapLifecycleState.PUBLISHED), actual);
 		assertTrue(mapsCodec.validate(actual).isValid());
-		assertEquals(3, ExplicitPrSelectorFlow.selectionMap(Files.readAllBytes(output)).tests().size());
+		assertEquals(3, ExplicitPrSelectorFlow.selectionMap(output).tests().size());
 		JsonObject summary = result.summary();
 		assertEquals(TARGET.toString(), summary.get("executionTarget").getAsString());
 		assertEquals(REVISION.value(), summary.get("revision").getAsString());
@@ -89,7 +89,7 @@ class JoinFragmentsCommandTest
 		assertEquals(5, summary.get("distinctClasses").getAsInt());
 		assertEquals(4, summary.get("distinctMethods").getAsInt());
 		assertEquals(Files.size(output), summary.get("fileSizeBytes").getAsLong());
-		assertEquals(JsonParser.parseString(Files.readString(output)).getAsJsonObject().get("checksum"), summary.get("checksum"));
+		assertEquals(mapsCodec.readVerified(output).checksum(), summary.get("checksum").getAsString());
 		assertNoTemporaryFiles();
 	}
 
@@ -195,10 +195,10 @@ class JoinFragmentsCommandTest
 	@Test void validChecksumButChangedCoverageFailsEqualityCheck() throws Exception
 	{
 		JoinFragmentsCommand command = new JoinFragmentsCommand(CLOCK, path -> {
-			ExecutableCoverageMap map = mapsCodec.deserialize(Files.readAllBytes(path));
+			ExecutableCoverageMap map = mapsCodec.read(path);
 			Map<ExecutableTestIdentity, TestCoverage> changed = new TreeMap<>(map.tests());
 			changed.put(test(1), coverage(2));
-			Files.write(path, mapsCodec.serialize(withTests(map, changed, map.lifecycleState())));
+			mapsCodec.write(withTests(map, changed, map.lifecycleState()), path);
 		});
 		assertFailure(run(command), "Written map differs from joined map");
 		assertFalse(Files.exists(output));
@@ -216,18 +216,18 @@ class JoinFragmentsCommandTest
 				new ExecutableUnmappedTest(test(3), UnmappedReason.COLLECTION_FAILED)), readMap().unmapped());
 		assertEquals(1, result.summary().getAsJsonObject("unmappedByReason").get("FAILED").getAsInt());
 		assertEquals(1, result.summary().getAsJsonObject("unmappedByReason").get("COLLECTION_FAILED").getAsInt());
-		assertEquals(2, ExplicitPrSelectorFlow.selectionMap(Files.readAllBytes(output)).unmapped().size());
+		assertEquals(2, ExplicitPrSelectorFlow.selectionMap(output).unmapped().size());
 	}
 
 	@Test void validChecksumButChangedSetupScopeFailsEqualityCheck() throws Exception
 	{
 		JoinFragmentsCommand command = new JoinFragmentsCommand(CLOCK, path -> {
-			ExecutableCoverageMap map = mapsCodec.deserialize(Files.readAllBytes(path));
+			ExecutableCoverageMap map = mapsCodec.read(path);
 			SetupScope changed = new SetupScope("setup", SetupScopeType.CONTAINER, Set.of("example.OtherSetup"),
 					Set.of(new TestContainer("example.Test1")), TARGET);
 			var altered = new ExecutableCoverageMap(map.schemaVersion(), map.revision(), map.generatedAt(), map.generator(),
 					map.tests(), map.unmapped(), List.of(changed), map.completeness(), map.statistics(), map.lifecycleState(), null);
-			Files.write(path, mapsCodec.serialize(altered));
+			mapsCodec.write(altered, path);
 		});
 		assertFailure(run(command), "Written map differs from joined map");
 		assertFalse(Files.exists(output));
@@ -237,8 +237,8 @@ class JoinFragmentsCommandTest
 	@Test void nonPublishedMapIsRejectedEvenWithValidChecksum() throws Exception
 	{
 		JoinFragmentsCommand command = new JoinFragmentsCommand(CLOCK, path -> {
-			ExecutableCoverageMap map = mapsCodec.deserialize(Files.readAllBytes(path));
-			Files.write(path, mapsCodec.serialize(withTests(map, map.tests(), CoverageMapLifecycleState.CANDIDATE)));
+			ExecutableCoverageMap map = mapsCodec.read(path);
+			mapsCodec.write(withTests(map, map.tests(), CoverageMapLifecycleState.CANDIDATE), path);
 		});
 		assertFailure(run(command), "Only PUBLISHED executable maps may be selector input");
 		assertFalse(Files.exists(output));
@@ -247,10 +247,10 @@ class JoinFragmentsCommandTest
 	@Test void unsupportedOutputSchemaIsRejected() throws Exception
 	{
 		JoinFragmentsCommand command = new JoinFragmentsCommand(CLOCK, path -> {
-			ExecutableCoverageMap map = mapsCodec.deserialize(Files.readAllBytes(path));
+			ExecutableCoverageMap map = mapsCodec.read(path);
 			var altered = new ExecutableCoverageMap(4, map.revision(), map.generatedAt(), map.generator(),
 					map.tests(), map.unmapped(), map.setupScopes(), map.completeness(), map.statistics(), map.lifecycleState(), null);
-			Files.write(path, mapsCodec.serialize(altered));
+			mapsCodec.write(altered, path);
 		});
 		assertFailure(run(command), "Unsupported executable coverage-map schema version: 4");
 		assertFalse(Files.exists(output));
@@ -423,11 +423,18 @@ class JoinFragmentsCommandTest
 	private JoinFragmentsCommand corruptingCommand()
 	{
 		return new JoinFragmentsCommand(CLOCK, path -> {
-			byte[] bytes = Files.readAllBytes(path);
+			byte[] bytes;
+			try (var gzip = new java.util.zip.GZIPInputStream(Files.newInputStream(path)))
+			{
+				bytes = gzip.readAllBytes();
+			}
 			int index = new String(bytes, StandardCharsets.UTF_8).indexOf("example.Shared");
 			assertTrue(index >= 0);
 			bytes[index] = 'x';
-			Files.write(path, bytes);
+			try (var gzip = new java.util.zip.GZIPOutputStream(Files.newOutputStream(path)))
+			{
+				gzip.write(bytes);
+			}
 		});
 	}
 	private Result run(JoinFragmentsCommand command)
@@ -459,7 +466,7 @@ class JoinFragmentsCommandTest
 			assertFalse(files.anyMatch(path -> path.getFileName().toString().startsWith(".stp-join-")));
 		}
 	}
-	private ExecutableCoverageMap readMap() throws Exception { return mapsCodec.deserialize(Files.readAllBytes(output)); }
+	private ExecutableCoverageMap readMap() throws Exception { return mapsCodec.read(output); }
 	private Path fragmentPath(int i) { return fragments.resolve("fragment-" + i + ".json"); }
 	private Path assignmentPath(int i) { return assignments.resolve("assignment-" + i + ".json"); }
 	private void writeFragment(int i, ExecutableCoverageFragment fragment) throws Exception

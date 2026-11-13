@@ -126,7 +126,7 @@ class ExplicitPrSelectTestsCommandTest
 				List.of(), List.of(), complete, new MapStatistics(2, 2, 0, 0, 2, 0),
 				CoverageMapLifecycleState.PUBLISHED, null);
 		Path mapFile = temporary.resolve("executable-map.json");
-		Files.write(mapFile, new ExecutableCoverageMapCodec().serialize(map));
+		new ExecutableCoverageMapCodec().write(map, mapFile);
 		Path inventory = temporary.resolve("executable-inventory.json");
 		new ExecutableHeadTestInventoryCodec().write(inventory.toFile(), ExecutableHeadTestInventory.atRevision(r1, tests));
 		Path output = temporary.resolve("executable-output.json");

@@ -18,6 +18,7 @@ public record ExecutableCoverageMap(int schemaVersion, CoverageMapRevision revis
 	{
 		tests = Map.copyOf(new TreeMap<>(tests));
 		unmapped = unmapped.stream().sorted((a, b) -> a.test().compareTo(b.test())).toList();
-		setupScopes = setupScopes.stream().sorted((a, b) -> a.id().compareTo(b.id())).toList();
+		setupScopes = setupScopes.stream().sorted(java.util.Comparator
+				.comparing((SetupScope scope) -> String.valueOf(scope.owner())).thenComparing(SetupScope::id)).toList();
 	}
 }
