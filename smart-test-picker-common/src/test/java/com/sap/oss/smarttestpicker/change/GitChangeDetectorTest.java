@@ -187,8 +187,8 @@ class GitChangeDetectorTest
 	@Test
 	void pathToFqnSupportsNonStandardSourceRoots()
 	{
-		assertEquals("com.sap.cx.commerce.Foo",
-				detector.pathToFqn("bin/platform/ext/core/src/com/sap/cx/commerce/Foo.java"));
+		assertEquals("org.example.demo.service.Foo",
+				detector.pathToFqn("bin/application/ext/base/src/org/example/demo/service/Foo.java"));
 		assertEquals("com.example.MyService",
 				detector.pathToFqn("modules/myext/src/com/example/MyService.java"));
 		assertNull(detector.pathToFqn("ext/core/testsrc/com/example/FooTest.java"));
@@ -339,7 +339,7 @@ class GitChangeDetectorTest
 		Path resourceDir = tempDir.resolve("src/main/resources");
 		Files.createDirectories(resourceDir);
 		Files.writeString(resourceDir.resolve("items.xml"), "<items/>");
-		Files.writeString(resourceDir.resolve("data.impex"), "INSERT_UPDATE");
+		Files.writeString(resourceDir.resolve("data.csv"), "id,name");
 		Files.writeString(tempDir.resolve("README.md"), "readme");
 
 		run("git", "add", ".");
@@ -347,7 +347,7 @@ class GitChangeDetectorTest
 
 		var changedFiles = detector.getChangedFiles(baseCommit);
 		assertTrue(changedFiles.contains("src/main/resources/items.xml"));
-		assertTrue(changedFiles.contains("src/main/resources/data.impex"));
+		assertTrue(changedFiles.contains("src/main/resources/data.csv"));
 		assertTrue(changedFiles.contains("README.md"));
 	}
 

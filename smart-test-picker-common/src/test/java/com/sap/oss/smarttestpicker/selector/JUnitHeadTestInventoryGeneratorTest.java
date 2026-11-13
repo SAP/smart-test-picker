@@ -74,8 +74,8 @@ class JUnitHeadTestInventoryGeneratorTest {
 	}
 
 	@Test void derivesVintageMethodNameWhenOlderPlatformProvidesOnlyClassSource() {
-		assertEquals("allApiVersionsKnown", JUnitHeadTestInventoryGenerator
-				.vintageMethodName("allApiVersionsKnown(com.hybris.cloud.EndpointApiDeprecationTest)")
+		assertEquals("allFormatVersionsKnown", JUnitHeadTestInventoryGenerator
+				.vintageMethodName("allFormatVersionsKnown(org.example.cloud.EndpointFormatVersionTest)")
 				.orElseThrow());
 		assertEquals("legacy", JUnitHeadTestInventoryGenerator.vintageMethodName("legacy").orElseThrow());
 		assertTrue(JUnitHeadTestInventoryGenerator.vintageMethodName("  ").isEmpty());

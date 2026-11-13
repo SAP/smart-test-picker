@@ -4,7 +4,7 @@
 
 The repository guard passed on `research/asm-codex`: the clean starting HEAD was TASK 41 commit
 `47931297bbc1ecd089deb1a3ce736b9248317d67`. A new disposable local clone at
-`/private/tmp/task42-spring.oOYWCg/repo` was detached at Spring Framework
+`<temporary-workspace>/spring-framework` was detached at Spring Framework
 `99a366baf6640b275d08dde60f05da719139bb6a` and was clean before testing. The host was Darwin
 25.5.0 arm64, the Spring wrapper was Gradle 8.14.2, the test JVM was OpenJDK 21.0.11, and Docker was
 unavailable.

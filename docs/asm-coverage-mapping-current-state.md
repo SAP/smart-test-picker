@@ -53,8 +53,8 @@ Unmapped identities present in head are always mandatory for selection, so known
 broken and assignment-absent tests run until a later map covers them. This does
 not prove that an unowned propagation error left every passing test's edge set
 complete: the policy preserves observed sibling coverage, but supplies no new
-ownership proof for work that was not attributed. It is not a qualification of
-Hybris or a repair for executor/ForkJoin/scheduled propagation. Missing whole
+ownership proof for work that was not attributed. It is not a product qualification
+or a repair for executor/ForkJoin/scheduled propagation. Missing whole
 shards still block joining. See the [implementation and validation record](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/stp-unmapped-01/REPORT.md).
 
 The [health-policy amendment](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/stp-unmapped-01-amendment/REPORT.md)

@@ -18,20 +18,20 @@ class AgentIntegrityTest {
     @ParameterizedTest
     @ValueSource(ints = {2, 3})
     void spockPlaceholderNamesSurviveFragmentPublication(int schemaVersion, @TempDir Path dir) throws Exception {
-        String className = "de.hybris.platform.extensibilityservices.client.HttpResponseStatusUnitTest";
-        String methodName = "is5xxError is #expected for valueOf(#code, #desc)";
+        String className = "example.platform.integrationservices.client.HttpStatusBehaviorUnitTest";
+        String methodName = "hasAlerts is #expected for parseOf(#item, #text)";
         var logical = new com.sap.oss.smarttestpicker.coverage.model.TestIdentity(className, methodName);
         var sibling = new com.sap.oss.smarttestpicker.coverage.model.TestIdentity(className, "ordinaryTest");
         var failed = new com.sap.oss.smarttestpicker.coverage.model.TestIdentity(className, "failed feature(#value)");
         var config = AgentConfiguration.parse("output=" + dir.resolve("diagnostic.json")
                 + ";fragmentOutput=" + dir.resolve("fragment.json")
                 + ";schemaVersion=" + schemaVersion + ";revision=r;shardId=7"
-                + (schemaVersion == 3 ? ";executionTarget=ant:cxmc" : ""));
+                + (schemaVersion == 3 ? ";executionTarget=ant:sample" : ""));
         var runtime = AgentRuntime.install(config, new AgentMetrics(1));
         try {
             for (var test : List.of(logical, sibling, failed)) {
                 var identity = new TestIdentity(test.toString(), test.toString(), test.className(),
-                        test.methodName(), "", "ant-yunit", config.runId(), "pid-" + ProcessHandle.current().pid());
+                        test.methodName(), "", "ant-junit", config.runId(), "pid-" + ProcessHandle.current().pid());
                 runtime.runtimeContext().beginTest(identity);
                 runtime.runtimeContext().record(new MethodHitEvent(new MethodIdentity("example.Service", "work", "()V"),
                         new Evidence(EvidenceSource.ASM_METHOD_ENTRY, Certainty.OBSERVED)));
@@ -44,7 +44,7 @@ class AgentIntegrityTest {
             var covered = new com.sap.oss.smarttestpicker.coverage.model.MethodIdentity("example.Service", "work", "()V");
             if (schemaVersion == 3) {
                 var fragment = new ExecutableCoverageFragmentCodec().deserialize(bytes);
-                var target = com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget.parse("ant:cxmc");
+                var target = com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget.parse("ant:sample");
                 assertTrue(fragment.collectionCompleted());
                 assertEquals(Set.of(new ExecutableTestIdentity(target, logical), new ExecutableTestIdentity(target, sibling)),
                         fragment.tests().keySet());
