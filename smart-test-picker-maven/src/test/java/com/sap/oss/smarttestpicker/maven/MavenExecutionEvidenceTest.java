@@ -26,6 +26,20 @@ import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 
 class MavenExecutionEvidenceTest
 {
+	@Test void discoversEncodedSessionDirectly(@TempDir Path temporary) throws Exception
+	{
+		ExecutionTarget target = new ExecutionTarget(BuildTool.MAVEN, "module-a");
+		var identity = executable(target, "example.Spec", "read/write");
+		Path directory = Files.createDirectories(temporary.resolve("target/jacoco"));
+		Path marker = directory.resolve("session_" + com.sap.oss.smarttestpicker.SessionFileNames.sanitize(
+				"Spec#read/write") + ".identity");
+		assertEquals(directory, marker.getParent());
+		Files.writeString(marker, "format=1\nclassName=example.Spec\nmethodName=read/write\nmethodParameterTypes=\noutcome=PASS\n");
+		var result = MavenExecutionEvidence.verify(plan(identity), Map.of(target, project(temporary)), true);
+		assertTrue(result.valid());
+		assertEquals(Set.of(identity), result.executed());
+	}
+
 	@Test void verifiesLogicalParameterizedIdentityWithoutCountingInvocationsAsDuplicates(@TempDir Path temporary)
 			throws Exception
 	{

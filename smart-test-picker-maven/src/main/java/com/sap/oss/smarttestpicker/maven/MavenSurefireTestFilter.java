@@ -56,7 +56,8 @@ final class MavenSurefireTestFilter {
 			boolean excluded = token.startsWith("!");
 			if (excluded) token = token.substring(1).trim();
 			if (token.isEmpty()) throw new IllegalArgumentException("Malformed Maven Surefire test expression: " + expression);
-			Pattern pattern = Pattern.compile(glob(token.contains("#") ? token : token + "#*"));
+			// Non-control Unicode line separators are legal feature text too.
+			Pattern pattern = Pattern.compile(identityGlob(token.contains("#") ? token : token + "#*"), Pattern.DOTALL);
 			Predicate<TestIdentity> predicate = test -> pattern.matcher(projection(test)).matches();
 			(excluded ? excludes : includes).add(predicate);
 		}
@@ -69,10 +70,21 @@ final class MavenSurefireTestFilter {
 	}
 
 	private static String glob(String value) {
+		return glob(value, true);
+	}
+
+	static String identityGlob(String value) {
+		int separator = value.indexOf('#');
+		String classPattern = glob(value.substring(0, separator), true);
+		String methodPattern = glob(value.substring(separator + 1), false);
+		return classPattern.substring(0, classPattern.length() - 1) + "#" + methodPattern.substring(1);
+	}
+
+	private static String glob(String value, boolean path) {
 		StringBuilder result = new StringBuilder("^");
 		for (int index = 0; index < value.length(); index++) {
 			char character = value.charAt(index);
-			if (character == '*' && index + 2 < value.length() && value.charAt(index + 1) == '*'
+			if (path && character == '*' && index + 2 < value.length() && value.charAt(index + 1) == '*'
 					&& value.charAt(index + 2) == '/') {
 				result.append("(?:.*/)?");
 				index += 2;
@@ -81,8 +93,8 @@ final class MavenSurefireTestFilter {
 				result.append(".*");
 				index++;
 			}
-			else if (character == '*') result.append("[^/]*");
-			else if (character == '?') result.append("[^/]");
+			else if (character == '*') result.append(path ? "[^/]*" : ".*");
+			else if (character == '?') result.append(path ? "[^/]" : ".");
 			else result.append(Pattern.quote(String.valueOf(character)));
 		}
 		return result.append('$').toString();

@@ -10,7 +10,6 @@ import com.sap.oss.smarttestpicker.selector.JUnitMethodSourceIdentity;
 import example.audit.ParameterProducerProbe;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TestIdentityRegressionTest
 {
@@ -72,8 +71,8 @@ class TestIdentityRegressionTest
 		for (String parameters : List.of("[V", "[II", "[", "[Ljava.lang.String", "[Ljava.lang.String;;",
 				"[Ljava/lang/String;", "java..lang.String", "java.lang.String,", "java.lang.String[]x"))
 		{
-			assertThrows(IllegalArgumentException.class,
-					() -> TestIdentity.parse("com.example.Test#works(" + parameters + ")"), parameters);
+			assertEquals(new TestIdentity("com.example.Test", "works(" + parameters + ")"),
+					TestIdentity.parse("com.example.Test#works(" + parameters + ")"), parameters);
 		}
 	}
 

@@ -312,7 +312,7 @@ public final class StpMavenLifecycleParticipant extends AbstractMavenLifecyclePa
 	private static Path writeIncludes(Path output, Set<TestIdentity> identities) throws IOException
 	{
 		List<String> lines = identities.isEmpty() ? List.of("**/__stp_no_tests__*.java") : identities.stream()
-				.map(value -> value.className().replace('.', '/') + ".java#" + value.methodName()).toList();
+				.map(value -> MavenMethodIncludes.include(value.className(), value.methodName(), true)).toList();
 		Files.write(output, lines); output.toFile().deleteOnExit(); return output;
 	}
 

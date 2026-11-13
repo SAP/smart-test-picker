@@ -7,6 +7,8 @@ It does not implement degraded joining, assignment generation, compression or se
 STP-JOIN-CLI-02 adds an alternative [paired-directory input mode](join-fragments-paired-directory.md).
 The separate-input contract and its historical validation results below remain unchanged; the
 paired mode additionally accounts assigned-but-unreported tests as unmapped without changing the joiner.
+Only paired `--dir` mode skips dot-prefixed files, logging each to stderr. The
+separate-input options retain their existing strict file handling.
 
 ## Usage and input contract
 

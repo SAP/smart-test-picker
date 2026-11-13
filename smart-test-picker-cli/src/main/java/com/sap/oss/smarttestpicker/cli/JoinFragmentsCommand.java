@@ -145,7 +145,7 @@ public final class JoinFragmentsCommand implements Callable<Integer>
 	{
 		Map<String, Path> fragmentFiles = new TreeMap<>();
 		Map<String, Path> testFiles = new TreeMap<>();
-		for (Path file : inputFiles(pairedDir))
+		for (Path file : inputFiles(pairedDir, true))
 		{
 			var match = PAIR_FILE.matcher(file.getFileName().toString());
 			if (!match.matches())
@@ -301,6 +301,11 @@ public final class JoinFragmentsCommand implements Callable<Integer>
 
 	private List<Path> inputFiles(Path directory) throws IOException
 	{
+		return inputFiles(directory, false);
+	}
+
+	private List<Path> inputFiles(Path directory, boolean skipHiddenFiles) throws IOException
+	{
 		if (!Files.isDirectory(directory))
 		{
 			throw new IOException("Input directory not found: " + directory);
@@ -310,15 +315,22 @@ public final class JoinFragmentsCommand implements Callable<Integer>
 		{
 			files = entries.sorted().toList();
 		}
+		List<Path> inputs = new ArrayList<>();
 		for (Path file : files)
 		{
+			if (skipHiddenFiles && file.getFileName().toString().startsWith(".") && Files.isRegularFile(file))
+			{
+				spec.commandLine().getErr().println("Skipping hidden shard-directory file: " + file);
+				continue;
+			}
 			if (!Files.isRegularFile(file))
 			{
 				throw new IOException("Expected a direct input file, not a directory or special entry: " + file);
 			}
 			ensureNotOutput(file);
+			inputs.add(file);
 		}
-		return files;
+		return inputs;
 	}
 
 	private void ensureNotOutput(Path input) throws IOException

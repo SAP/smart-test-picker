@@ -5,7 +5,7 @@ package com.sap.oss.smarttestpicker.coverage.model;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-/** Logical test identity: fully-qualified JVM binary class name plus declared method name. */
+/** Logical test identity: fully-qualified JVM binary class name plus a method or free-text feature name. */
 public record TestIdentity(String className, String methodName, String methodParameterTypes) implements Comparable<TestIdentity>
 {
 	private static final Pattern CLASS_NAME = Pattern.compile("[\\p{javaJavaIdentifierStart}][\\p{javaJavaIdentifierPart}]*(?:[.$][\\p{javaJavaIdentifierStart}][\\p{javaJavaIdentifierPart}]*)+");
@@ -57,7 +57,7 @@ public record TestIdentity(String className, String methodName, String methodPar
 
 	private static boolean invalidMethodCharacter(int character)
 	{
-		return Character.isISOControl(character) || character == '.' || character == ';' || character == '[' || character == '/';
+		return Character.isISOControl(character);
 	}
 
 	@Override public String toString() { return className + "#" + methodName + (methodParameterTypes.isEmpty() ? "" : "(" + methodParameterTypes + ")"); }
