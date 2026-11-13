@@ -71,7 +71,7 @@ class ExplicitPrSelectorFlowTest
 				List.of(), completeness, new MapStatistics(1, 1, 0, 0, 1, 0),
 				CoverageMapLifecycleState.PUBLISHED, null);
 		Path mapFile = repo.root.resolve("schema-v3-map.json");
-		Files.write(mapFile, new ExecutableCoverageMapCodec().serialize(map));
+		new ExecutableCoverageMapCodec().write(map, mapFile);
 		ExplicitPrSelectionResult result = new ExplicitPrSelectorFlow().select(mapFile.toFile(), repo.root.toFile(),
 				HeadTestInventory.atRevision(r1, List.of(TEST)), r0, r0, r1, 10, List.of());
 		assertEquals(ExplicitPrSelectionStatus.SELECTION_RESULT, result.status());
@@ -98,7 +98,7 @@ class ExplicitPrSelectorFlowTest
 				List.of(new ExecutableUnmappedTest(failed, UnmappedReason.FAILED)), List.of(), completeness,
 				new MapStatistics(2, 1, 1, 0, 1, 0), CoverageMapLifecycleState.PUBLISHED, null);
 		Path mapFile = repo.root.resolve("failed-schema-v3-map.json");
-		Files.write(mapFile, new ExecutableCoverageMapCodec().serialize(map));
+		new ExecutableCoverageMapCodec().write(map, mapFile);
 
 		var result = new ExplicitPrSelectorFlow().select(mapFile.toFile(), repo.root.toFile(),
 				HeadTestInventory.atRevision(r1, List.of(TEST)), r0, r0, r1, 10, List.of());

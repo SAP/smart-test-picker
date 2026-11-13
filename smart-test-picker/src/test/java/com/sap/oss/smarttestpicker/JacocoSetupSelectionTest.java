@@ -51,7 +51,7 @@ class JacocoSetupSelectionTest {
                 joined.statistics(), CoverageMapLifecycleState.PUBLISHED, null);
         Files.createDirectories(evidence);
         Path map = evidence.resolve("map.json").toAbsolutePath();
-        Files.write(map, new ExecutableCoverageMapCodec().serialize(published));
+        new ExecutableCoverageMapCodec().write(published, map);
         Files.writeString(source, Files.readString(source).replace("return 7", "return 8"));
         git(repo, "add", "."); git(repo, "commit", "-qm", "change setup-only production class");
         String head = git(repo, "rev-parse", "HEAD").trim();

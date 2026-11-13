@@ -3,6 +3,13 @@
 package com.sap.oss.smarttestpicker.selector;
 
 import java.io.File;
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.charset.StandardCharsets;
+import java.util.zip.GZIPInputStream;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Map;
@@ -11,7 +18,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.List;
 
-import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
 import com.sap.oss.smarttestpicker.coverage.CoverageMapContract;
 import com.sap.oss.smarttestpicker.coverage.model.CoverageMap;
 import com.sap.oss.smarttestpicker.coverage.model.CollectionStatus;
@@ -36,7 +43,7 @@ public final class ExplicitPrSelectorFlow
 		{
 			if (mapFile == null || !mapFile.isFile()) return error("Coverage map not found");
 			if (prHeadInventory == null) return error("Authoritative PR-head test inventory unavailable");
-			CoverageMap map = selectionMap(Files.readAllBytes(mapFile.toPath()));
+			CoverageMap map = selectionMap(mapFile.toPath());
 			RevisionPreflightResult preflight = new RevisionPreflight().evaluate(projectDir,
 					new RevisionPreflightRequest(map, integrationRevision, prBaseRevision, prHeadRevision,
 							maxCommitDistance));
@@ -79,12 +86,11 @@ public final class ExplicitPrSelectorFlow
 	 * Load selector input, projecting schema-v3 occurrences onto the logical identity boundary.
 	 * Publication tools can use this same loading path without executing revision preflight or selection.
 	 */
-	public static CoverageMap selectionMap(byte[] bytes)
+	public static CoverageMap selectionMap(Path path) throws IOException
 	{
-		int schema = JsonParser.parseString(new String(bytes, java.nio.charset.StandardCharsets.UTF_8))
-				.getAsJsonObject().get("schemaVersion").getAsInt();
-		if (schema != CoverageMapContract.SCHEMA_V3) return new CoverageMapCodec().deserialize(bytes);
-		ExecutableCoverageMap source = new ExecutableCoverageMapCodec().deserialize(bytes);
+		if (schemaVersion(path) != CoverageMapContract.SCHEMA_V3)
+			return new CoverageMapCodec().deserialize(Files.readAllBytes(path));
+		ExecutableCoverageMap source = new ExecutableCoverageMapCodec().read(path);
 		Map<TestIdentity, TestCoverage> tests = new TreeMap<>();
 		source.tests().forEach((identity, coverage) -> tests.merge(identity.test(), coverage,
 				ExplicitPrSelectorFlow::mergeCoverage));
@@ -109,6 +115,28 @@ public final class ExplicitPrSelectorFlow
 				source.generator(), tests, new ArrayList<>(unmapped.values()), scopes, completeness,
 				new MapStatistics(expected.size(), tests.size(), unmapped.size(), source.setupScopes().size(),
 						classEdges, methodEdges), source.lifecycleState(), source.methodCoverageReference());
+	}
+
+	/** Inspect only the schema field, supporting legacy JSON and gzip executable maps. */
+	public static int schemaVersion(Path path) throws IOException
+	{
+		try (BufferedInputStream file = new BufferedInputStream(Files.newInputStream(path)))
+		{
+			file.mark(2);
+			boolean gzip = file.read() == 0x1f && file.read() == 0x8b;
+			file.reset();
+			try (InputStream input = gzip ? new GZIPInputStream(file) : file;
+				 JsonReader reader = new JsonReader(new InputStreamReader(input, StandardCharsets.UTF_8)))
+			{
+				reader.beginObject();
+				while (reader.hasNext())
+				{
+					if (reader.nextName().equals("schemaVersion")) { return reader.nextInt(); }
+					reader.skipValue();
+				}
+				throw new IOException("Coverage map has no schemaVersion");
+			}
+		}
 	}
 
 	private static Set<TestIdentity> logical(Set<com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentity> values)

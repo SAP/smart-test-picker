@@ -111,7 +111,7 @@ class AsmUnmappedEndToEndTest {
         var published = new ExecutableCoverageMap(map.schemaVersion(), map.revision(), map.generatedAt(), map.generator(),
                 map.tests(), map.unmapped(), map.setupScopes(), map.completeness(), map.statistics(), CoverageMapLifecycleState.PUBLISHED, null);
         Path mapFile = repo.resolve("map.json");
-        Files.write(mapFile, new ExecutableCoverageMapCodec().serialize(published));
+        new ExecutableCoverageMapCodec().write(published, mapFile);
         var selection = new ExplicitPrSelectorFlow().select(mapFile.toFile(), repo.toFile(),
                 HeadTestInventory.atRevision(revision, assigned.stream().map(ExecutableTestIdentity::test).toList()),
                 revision, revision, revision, 10, List.of());

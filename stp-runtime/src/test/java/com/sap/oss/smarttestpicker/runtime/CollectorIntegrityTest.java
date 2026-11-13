@@ -157,7 +157,7 @@ class CollectorIntegrityTest {
                 joined.generator(), joined.tests(), joined.unmapped(), joined.setupScopes(), joined.completeness(),
                 joined.statistics(), CoverageMapLifecycleState.PUBLISHED, null);
         Path map = repo.resolve("map.json");
-        Files.write(map, new ExecutableCoverageMapCodec().serialize(published));
+        new ExecutableCoverageMapCodec().write(published, map);
         var selection = new ExplicitPrSelectorFlow().select(map.toFile(), repo.toFile(),
                 HeadTestInventory.atRevision(revision, List.of(BAD.test(), GOOD.test())),
                 revision, revision, revision, 10, List.of());

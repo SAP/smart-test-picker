@@ -283,7 +283,7 @@ class PairedShardJoinCommandTest
 	}
 	private static ExecutableTestIdentity test(int i) { return new ExecutableTestIdentity(TARGET, new TestIdentity("example.Test" + i, "works")); }
 	private static TestCoverage coverage() { return new TestCoverage(Set.of("example.Production"), Set.of(), TestOutcome.PASS, CollectionStatus.COLLECTED_WITH_COVERAGE); }
-	private ExecutableCoverageMap readMap() throws Exception { return maps.deserialize(Files.readAllBytes(output)); }
+	private ExecutableCoverageMap readMap() throws Exception { return maps.read(output); }
 	private Result run() { return run(new CommandLine(new JoinFragmentsCommand()), false); }
 	private Result run(CommandLine command, boolean rootCommand)
 	{
