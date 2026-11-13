@@ -66,7 +66,8 @@ public final class ExecutableCoverageMapCodec
         try (InputStream owned = input;
              CountingInputStream plain = new CountingInputStream(new GZIPInputStream(owned, 65536));
              JsonReader reader = new JsonReader(new InputStreamReader(plain, StandardCharsets.UTF_8));
-             JsonWriter canonical = writer(new DigestOutputStream(OutputStream.nullOutputStream(), digest)))
+             DigestOutputStream canonicalDigest = new DigestOutputStream(OutputStream.nullOutputStream(), digest);
+             JsonWriter canonical = writer(canonicalDigest))
         {
             CanonicalMapInput in = new CanonicalMapInput(reader, canonical);
             in.object(); in.name("schemaVersion"); int version = in.integer();
