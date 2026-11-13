@@ -2,7 +2,9 @@
 
 STP-JOIN-CLI-01 adds `join-fragments` on branch `feature/join-executable-fragments-cli`,
 based on main at `05d5c3b`. It reuses the existing strict join and publication contracts.
-It does not implement degraded joining, assignment generation, compression or selection policy changes.
+It does not implement degraded joining, assignment generation or selection policy changes.
+Output now uses the [compact streaming gzip v3 map format](v3-map-format.md); input fragment and
+assignment formats are unchanged. The validation results below describe their historical revisions.
 
 STP-JOIN-CLI-02 adds an alternative [paired-directory input mode](join-fragments-paired-directory.md).
 The separate-input contract and its historical validation results below remain unchanged; the
@@ -18,7 +20,7 @@ java -jar smart-test-picker-cli/build/libs/smart-test-picker-cli-0.3.0-SNAPSHOT-
   --fragments-dir run/fragments \
   --assignments-dir run/assignments \
   --head-inventory run/head-inventory.json \
-  --output published/map.json
+  --output published/map.json.gz
 ```
 
 All options are required. Each directory must contain only direct input files: every file is decoded,
@@ -64,8 +66,8 @@ It writes a temporary file in the destination directory, reads that file back fr
    identities, per-test class/method sets, unmapped reasons, setup-scope contents and all metadata, not
    merely counts.
 3. Successful loading through `ExplicitPrSelectorFlow.selectionMap`, the same loader used by actual
-   explicit selection. Only this existing method's visibility and javadoc changed; its body and the
-   selector's policy are unchanged. No fabricated repository or revision preflight is needed.
+   explicit selection. Loading now streams the staged gzip map; selector policy is unchanged.
+   No fabricated repository or revision preflight is needed.
 
 Only then does an atomic replacement rename install the verified file. There is no non-atomic
 fallback. A failed run removes the staging file and leaves an existing destination unchanged. If no
