@@ -29,10 +29,10 @@ class MavenSurefireTestFilterTest {
 
 	@org.junit.jupiter.params.ParameterizedTest
 	@org.junit.jupiter.params.provider.ValueSource(strings = {
-			"Core BO class should contain @ReferencedBy with bo.input when only bo-input references it -> CXMC-52873 TC-03.2",
-			"execute uses restTemplate.exchange with the given HTTP method",
-			"Should import allowed type [distributedImpexEnabled: #distributedImpexEnabled, maxThreads: #maxThreads, synchronous: #synchronous] -> TC-03 CXMC-33683",
-			"Should fail to import/modify/remove non-dynamic enum type for ImpEx mode: (#impExOperation) and impex.allowtype.violation: '#violationValue'-> TC-02 CXMC-33298",
+			"Base PO class should contain @ConnectedVia with po.value when only po-value references it -> CASE-12345 TC-03.2",
+			"perform uses httpGateway.dispatch with the given REST action",
+			"Should update allowed kind [distributedBatchEnabled: #distributedBatchEnabled, maxWorkers: #maxWorkers, synchronous: #synchronous] -> TC-03 CASE-23456",
+			"Should fail to create/update/delete non-dynamic item kind for Batch mode: (#batchOperation) and batch.allowed.violation: '#violationValue'-> TC-02 CASE-34567",
 			"literal %regex[x], #value + ! and \\E"
 	})
 	void realProviderResolverKeepsFeatureNamesExact(String name) {

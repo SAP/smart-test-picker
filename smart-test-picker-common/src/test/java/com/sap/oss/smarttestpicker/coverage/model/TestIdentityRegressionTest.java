@@ -53,8 +53,8 @@ class TestIdentityRegressionTest
 		var original = new TestIdentity("com.example.Test", "works", source.getMethodParameterTypes());
 		var expected = new TestIdentity("com.example.Test", "works(Foo)");
 		assertEquals(expected, TestIdentity.parse(original.toString()));
-		assertEquals(new ExecutableTestIdentity(ExecutionTarget.parse("ant:cxmc"), expected),
-				ExecutableTestIdentity.parse("ant:cxmc::" + original));
+		assertEquals(new ExecutableTestIdentity(ExecutionTarget.parse("ant:sample"), expected),
+				ExecutableTestIdentity.parse("ant:sample::" + original));
 		var arraySource = MethodSource.from(fixture.getDeclaredMethod("arrays", Class.forName("[LFoo;")));
 		assertEquals("[LFoo;", arraySource.getMethodParameterTypes());
 		assertRoundTrip(new TestIdentity("com.example.Test", "arrays", arraySource.getMethodParameterTypes()));
@@ -79,21 +79,21 @@ class TestIdentityRegressionTest
 	private static void assertRoundTrip(TestIdentity identity)
 	{
 		assertEquals(identity, TestIdentity.parse(identity.toString()));
-		var executable = new ExecutableTestIdentity(ExecutionTarget.parse("ant:cxmc"), identity);
+		var executable = new ExecutableTestIdentity(ExecutionTarget.parse("ant:sample"), identity);
 		assertEquals(executable, ExecutableTestIdentity.parse(executable.toString()));
 	}
 
 	@Test void spockPlaceholdersInTrailingParenthesesRemainPartOfMethodName()
 	{
 		for (String method : List.of(
-				"is5xxError is #expected for valueOf(#code, #desc)",
+				"hasAlerts is #expected for parseOf(#item, #text)",
 				"feature(#value)",
 				"feature with nested call(valueOf(#code, #desc))"))
 		{
 			TestIdentity identity = new TestIdentity(
-					"de.hybris.platform.extensibilityservices.client.HttpResponseStatusUnitTest", method);
+					"example.platform.integrationservices.client.HttpStatusBehaviorUnitTest", method);
 			assertEquals(identity, TestIdentity.parse(identity.toString()));
-			ExecutableTestIdentity executable = new ExecutableTestIdentity(ExecutionTarget.parse("ant:cxmc"), identity);
+			ExecutableTestIdentity executable = new ExecutableTestIdentity(ExecutionTarget.parse("ant:sample"), identity);
 			assertEquals(executable, ExecutableTestIdentity.parse(executable.toString()));
 		}
 	}
