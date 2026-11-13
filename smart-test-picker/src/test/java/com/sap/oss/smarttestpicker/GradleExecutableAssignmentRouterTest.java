@@ -21,6 +21,38 @@ import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GradleExecutableAssignmentRouterTest {
+	@org.junit.jupiter.params.ParameterizedTest
+	@org.junit.jupiter.params.provider.ValueSource(strings = {
+			"Core BO class should contain @ReferencedBy with bo.input when only bo-input references it -> CXMC-52873 TC-03.2",
+			"execute uses restTemplate.exchange with the given HTTP method",
+			"Should import allowed type [distributedImpexEnabled: #distributedImpexEnabled, maxThreads: #maxThreads, synchronous: #synchronous] -> TC-03 CXMC-33683",
+			"Should fail to import/modify/remove non-dynamic enum type for ImpEx mode: (#impExOperation) and impex.allowtype.violation: '#violationValue'-> TC-02 CXMC-33298"
+	})
+	void realGradleMatcherKeepsFreeTextMethodExact(String name) {
+		var matcher = new org.gradle.api.internal.tasks.testing.filter.TestSelectionMatcher(
+				new org.gradle.api.internal.tasks.testing.filter.TestFilterSpec(
+						Set.of(GradleExecutableAssignmentRouter.gradleFilter("example.Spec", name)), Set.of(), Set.of()));
+		assertTrue(matcher.mayIncludeClass("example.Spec"));
+		assertTrue(matcher.matchesTest("example.Spec", name));
+		assertFalse(matcher.matchesTest("example.Spec", "sibling"));
+		assertFalse(matcher.matchesTest("example.Spec", name + " sibling"));
+	}
+
+	@Test void wildcardClassDiscoveryIsBoundedToTheAssignment(@org.junit.jupiter.api.io.TempDir java.nio.file.Path directory) throws Exception {
+		var project = org.gradle.testfixtures.ProjectBuilder.builder().withProjectDir(directory.toFile()).build();
+		var task = project.getTasks().create("assignedTest", org.gradle.api.tasks.testing.Test.class);
+		var classes = directory.resolve("classes");
+		for (String path : List.of("example/Spec.class", "otherexample/Spec.class")) {
+			java.nio.file.Files.createDirectories(classes.resolve(path).getParent());
+			java.nio.file.Files.write(classes.resolve(path), new byte[0]);
+		}
+		task.setTestClassesDirs(project.files(classes));
+		GradleExecutableAssignmentRouter.configureFilter(task, java.util.Map.of("example.Spec", Set.of("uses api.call")));
+		assertEquals(Set.of(classes.resolve("example/Spec.class").toFile()), task.getCandidateClassFiles().getFiles());
+		assertThrows(IllegalArgumentException.class, () -> GradleExecutableAssignmentRouter.configureFilter(task,
+				java.util.Map.of("example.Spec", Set.of("uses api.call"), "otherexample.Spec", Set.of("sibling"))));
+	}
+
 	@Test void productionSelectionAssignmentTransportAndDispatchPreservesStrictSubset() {
 		ExecutionTarget test = new ExecutionTarget(BuildTool.GRADLE, ":test");
 		ExecutionTarget integration = new ExecutionTarget(BuildTool.GRADLE, ":integrationTest");

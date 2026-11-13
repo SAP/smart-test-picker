@@ -246,7 +246,7 @@ public class CoverageMapperJaxb
 	 */
 	private String extractTestName(String filename)
 	{
-		String name = filename.replace(".xml", "");
+		String name = filename.endsWith(".xml") ? filename.substring(0, filename.length() - 4) : filename;
 		if (name.startsWith("session_"))
 		{
 			name = name.substring("session_".length());
@@ -255,10 +255,29 @@ public class CoverageMapperJaxb
 	}
 
 	/**
-	 * Reverses filename sanitization: {@code ~X} becomes uppercase {@code X}.
+	 * Reverses versioned path-safe encoding or legacy uppercase escaping ({@code ~X}).
+	 * @throws IllegalArgumentException if a versioned escape is truncated or not four ASCII hex digits
 	 */
 	static String unsanitizeSessionFileName(String name)
 	{
+		// The collector is deliberately not a dependency of the common mapping module.
+		if (name.startsWith("~stp1~"))
+		{
+			StringBuilder decoded = new StringBuilder();
+			for (int i = "~stp1~".length(); i < name.length(); i++)
+			{
+				if (name.charAt(i) == '~')
+				{
+					decoded.append(decodeEscape(name, i));
+					i += 4;
+				}
+				else
+				{
+					decoded.append(name.charAt(i));
+				}
+			}
+			return decoded.toString();
+		}
 		int hashIdx = name.indexOf('#');
 		if (hashIdx < 0)
 		{
@@ -282,6 +301,28 @@ public class CoverageMapperJaxb
 			}
 		}
 		return className + "#" + sb.toString();
+	}
+
+	private static char decodeEscape(String name, int offset)
+	{
+		if (name.length() - offset < 5)
+		{
+			throw new IllegalArgumentException("Malformed encoded session filename: " + name
+					+ "; truncated escape at offset " + offset);
+		}
+		int value = 0;
+		for (int index = offset + 1; index < offset + 5; index++)
+		{
+			char character = name.charAt(index);
+			int digit = Character.digit(character, 16);
+			if (character > 127 || digit < 0)
+			{
+				throw new IllegalArgumentException("Malformed encoded session filename: " + name
+						+ "; expected four ASCII hex digits at offset " + offset);
+			}
+			value = (value << 4) | digit;
+		}
+		return (char) value;
 	}
 
 	/**

@@ -26,6 +26,18 @@ class AsmCoverageFragmentProjectorTest {
 	private static final Evidence ASM = new Evidence(EvidenceSource.ASM_METHOD_ENTRY, Certainty.OBSERVED);
 	private final AsmCoverageFragmentProjector projector = new AsmCoverageFragmentProjector();
 
+	@Test void freeTextFeatureIsNotDroppedByProjection() {
+		RuntimeEventAggregator aggregator = new RuntimeEventAggregator("run", "jvm");
+		String name = "reads a.b; [value]/#path";
+		run(aggregator, test("feature", "example.Spec", name, ""), TestExecutionStatus.SUCCESSFUL,
+				method("example.Value", "read", "()V"));
+		var fragment = project(aggregator, CollectorIntegrity.healthy()).fragment();
+		assertEquals(Set.of(new com.sap.oss.smarttestpicker.coverage.model.TestIdentity("example.Spec", name)),
+				fragment.tests().keySet());
+		assertTrue(fragment.unmapped().isEmpty());
+		assertTrue(fragment.collectionCompleted());
+	}
+
 	@Test
 	void mixedInvocationsAreFailureDominantWithoutPublishingPartialCoverage() {
 		RuntimeEventAggregator aggregator = new RuntimeEventAggregator("run", "jvm");

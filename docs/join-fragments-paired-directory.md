@@ -33,7 +33,9 @@ for missing filename partners. A filename name need not equal the internal shard
 
 `--dir` requires a positive integer `--expected-shards`. Every pair counts once, and its count must
 equal that number. Missing partners name the present and expected files; count failures report found
-and expected numbers. Any other file, including metadata files, is an error, as are subdirectories.
+and expected numbers. Direct files whose names start with `.` (such as `.DS_Store`)
+are skipped, with one diagnostic line per file on stderr; they do not affect the
+pair count or JSON summary. Any other non-matching file is an error, as are subdirectories.
 Malformed JSON is rejected through the existing production codecs and names its file.
 
 Within each pair, revision and shard ID must match. Across pairs, all revisions and execution targets

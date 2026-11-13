@@ -154,6 +154,19 @@ class PairedShardJoinCommandTest
 		fails(run(), "Unexpected shard-directory file", stray.toString());
 	}
 
+	@Test void hiddenFilesAreSkippedAndLoggedOnceEach() throws Exception
+	{
+		Path finder = directory.resolve(".DS_Store");
+		Path hidden = directory.resolve(".notes");
+		Files.writeString(finder, "not JSON"); Files.writeString(hidden, "not JSON either");
+		Result result = run();
+		assertEquals(0, result.code(), result.error());
+		assertEquals(Set.of(test(1), test(2), test(3)), readMap().tests().keySet());
+		assertEquals(List.of("Skipping hidden shard-directory file: " + finder,
+				"Skipping hidden shard-directory file: " + hidden), result.error().lines().toList());
+		assertEquals("not JSON", Files.readString(finder));
+	}
+
 	@Test void emptyNameIsNotAPair() throws Exception
 	{
 		Path stray = directory.resolve("tests-.json"); Files.copy(list(1), stray);

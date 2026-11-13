@@ -40,8 +40,36 @@ final class GradleExecutableAssignmentRouter {
 	}
 
 	static String gradleFilter(TestIdentity test) {
-		// Gradle TestFilter selects declared/template methods by class and method name; the
-		// canonical JVM parameter signature remains in the assignment and fragment.
-		return test.className() + "." + test.methodName();
+		return gradleFilter(test.className(), test.methodName());
+	}
+
+	static String gradleFilter(String className, String methodName) {
+		// A leading wildcard bypasses Gradle's dot-segment class prefilter, while
+		// retaining the entire method text. configureFilter bounds class discovery.
+		return (methodName.contains(".") ? "*" : "") + className + "." + methodName;
+	}
+
+	static void configureFilter(org.gradle.api.tasks.testing.Test task, Set<TestIdentity> assigned) {
+		Map<String, Set<String>> methods = new TreeMap<>();
+		assigned.forEach(test -> methods.computeIfAbsent(test.className(), ignored -> new TreeSet<>()).add(test.methodName()));
+		configureFilter(task, methods);
+	}
+
+	static void configureFilter(org.gradle.api.tasks.testing.Test task, Map<String, Set<String>> methods) {
+		boolean needsClassBoundary = methods.values().stream().flatMap(Set::stream).anyMatch(name -> name.contains("."));
+		if (needsClassBoundary) {
+			// The wildcard must not admit an unassigned class with the same name suffix.
+			// Two assigned suffix-colliding classes cannot be disambiguated by this syntax.
+			for (String name : methods.keySet()) {
+				if (methods.keySet().stream().anyMatch(other -> !other.equals(name) && other.endsWith(name)))
+					throw new IllegalArgumentException("Ambiguous Gradle assignment class suffix: " + name);
+			}
+			Set<String> classFiles = methods.keySet().stream().map(name -> name.replace('.', '/') + ".class")
+					.collect(java.util.stream.Collectors.toSet());
+			task.exclude(element -> !element.isDirectory() && !classFiles.contains(element.getPath()));
+		}
+		task.getFilter().setIncludePatterns();
+		if (methods.isEmpty()) task.getFilter().includeTestsMatching("__stp_no_tests_assigned__");
+		methods.forEach((className, names) -> names.forEach(name -> task.getFilter().includeTestsMatching(gradleFilter(className, name))));
 	}
 }

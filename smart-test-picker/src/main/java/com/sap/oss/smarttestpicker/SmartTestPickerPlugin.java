@@ -385,10 +385,7 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 		for (Test task : targets) {
 			ExecutionTarget target = GradleExecutionTargets.forTask(task);
 			Set<com.sap.oss.smarttestpicker.coverage.model.TestIdentity> assigned = partitions.get(target);
-			task.getFilter().setIncludePatterns();
-			if (assigned.isEmpty()) task.getFilter().includeTestsMatching("__stp_no_tests_assigned__");
-			else assigned.stream().map(GradleExecutableAssignmentRouter::gradleFilter)
-					.forEach(task.getFilter()::includeTestsMatching);
+			GradleExecutableAssignmentRouter.configureFilter(task, assigned);
 			task.getFilter().setFailOnNoMatchingTests(false);
 			task.systemProperty("smartTestPicker.executionTarget", target.toString());
 			if (!assigned.isEmpty()) backend.configure(task.getProject(), ext, task, mappingTask, target.toString());

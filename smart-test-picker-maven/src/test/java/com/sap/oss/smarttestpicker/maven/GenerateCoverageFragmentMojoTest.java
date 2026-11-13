@@ -30,6 +30,21 @@ import com.google.gson.JsonParser;
 
 class GenerateCoverageFragmentMojoTest
 {
+	@Test void discoversEncodedSessionDirectly(@TempDir Path temp) throws Exception
+	{
+		Path exec = Files.createDirectories(temp.resolve("jacoco"));
+		Path reports = Files.createDirectories(temp.resolve("reports"));
+		String base = "session_" + com.sap.oss.smarttestpicker.SessionFileNames.sanitize("Spec#read/write");
+		writeIdentity(exec.resolve(base + ".identity"), "example.Spec", "read/write", "", "PASS");
+		Files.write(exec.resolve(base + ".exec"), new byte[] { 1 });
+		Files.writeString(reports.resolve(base + ".status"), "EMPTY\n");
+		Path output = temp.resolve("fragment.json");
+		mojo(exec, reports, output).execute();
+		var fragment = new CoverageFragmentCodec().deserialize(Files.readAllBytes(output));
+		assertTrue(fragment.collectionCompleted());
+		assertEquals(Set.of(new TestIdentity("example.Spec", "read/write")), fragment.tests().keySet());
+	}
+
 	@Test
 	void writesDeterministicDescriptorAwareFragmentWithoutInventedSetup(@TempDir Path temp) throws Exception
 	{

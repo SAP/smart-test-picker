@@ -98,8 +98,8 @@ class CoverageMapContractTest
 				new TestIdentity("com.foo.MyTests", "foo_bar")).size());
 		assertThrows(IllegalArgumentException.class, () -> new TestIdentity("com.foo.MyTests", ""));
 		assertThrows(IllegalArgumentException.class, () -> new TestIdentity("com.foo.MyTests", "line\nbreak"));
-		for (String forbidden : List.of("has.dot", "has;semicolon", "has[bracket", "has/slash"))
-			assertThrows(IllegalArgumentException.class, () -> new TestIdentity("com.foo.MyTests", forbidden));
+		for (String name : List.of("has.dot", "has;semicolon", "has[bracket", "has/slash"))
+			assertEquals(name, TestIdentity.parse(new TestIdentity("com.foo.MyTests", name).toString()).methodName());
 	}
 
 	@Test void extendedTestIdentitiesRoundTripThroughFragmentAndCoverageMap()

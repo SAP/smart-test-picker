@@ -13,6 +13,39 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 
 class MavenSurefireTestFilterTest {
+	@Test void methodWildcardIncludesSlashesWithoutWideningClassPathGlob() {
+		assertTrue(MavenSurefireTestFilter.parse("example.Spec#*").test(
+				new TestIdentity("example.Spec", "import/modify/remove")));
+		assertTrue(MavenSurefireTestFilter.parse("example.Spec#*").test(
+				new TestIdentity("example.Spec", "before\u2028after")),
+				"A Unicode line separator is not an ISO control character");
+		var method = java.util.regex.Pattern.compile(MavenSurefireTestFilter.identityGlob("example.Spec#*"));
+		assertTrue(method.matcher("example.Spec#import/modify/remove").matches());
+		assertFalse(method.matcher("example.Other#import/modify/remove").matches());
+		var path = java.util.regex.Pattern.compile(MavenSurefireTestFilter.identityGlob("example/*#*"));
+		assertTrue(path.matcher("example/Spec#import/modify").matches());
+		assertFalse(path.matcher("example/nested/Spec#import/modify").matches());
+	}
+
+	@org.junit.jupiter.params.ParameterizedTest
+	@org.junit.jupiter.params.provider.ValueSource(strings = {
+			"Core BO class should contain @ReferencedBy with bo.input when only bo-input references it -> CXMC-52873 TC-03.2",
+			"execute uses restTemplate.exchange with the given HTTP method",
+			"Should import allowed type [distributedImpexEnabled: #distributedImpexEnabled, maxThreads: #maxThreads, synchronous: #synchronous] -> TC-03 CXMC-33683",
+			"Should fail to import/modify/remove non-dynamic enum type for ImpEx mode: (#impExOperation) and impex.allowtype.violation: '#violationValue'-> TC-02 CXMC-33298",
+			"literal %regex[x], #value + ! and \\E"
+	})
+	void realProviderResolverKeepsFeatureNamesExact(String name) {
+		for (boolean sourcePath : new boolean[]{false, true}) {
+			var filter = new org.apache.maven.surefire.api.testset.TestListResolver(
+					MavenMethodIncludes.include("example.Spec", name, sourcePath));
+			assertTrue(filter.shouldRun("example/Spec.class", name));
+			assertFalse(filter.shouldRun("example/Spec.class", "sibling"));
+			assertFalse(filter.shouldRun("example/Spec.class", name + " sibling"));
+			assertFalse(filter.shouldRun("example/Other.class", name));
+		}
+	}
+
 	private static final TestIdentity SERVER = TestIdentity.parse("org.sonar.java.it.JavaRulingTest#sonarqube_server");
 	private static final TestIdentity VIBEBOT = TestIdentity.parse("org.sonar.java.it.JavaRulingTest#vibebot");
 	private static final TestIdentity GUAVA = TestIdentity.parse("org.sonar.java.it.JavaRulingTest#guava(java.lang.String)");

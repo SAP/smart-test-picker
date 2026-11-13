@@ -12,7 +12,7 @@ EI-1 implements the semantic foundation of `MODEL_C_EXECUTABLE_IDENTITY`. A decl
 
 ## Logical vs executable identity
 
-`TestIdentity` remains the module-neutral logical identity: fully qualified JVM binary class name, declared method name, and declared parameter types. Module/task is part of `ExecutableTestIdentity`, not `TestIdentity`.
+`TestIdentity` remains the module-neutral logical identity: fully qualified JVM binary class name, method or free-text feature name, and declared parameter types. The nonempty name accepts any character except ISO control characters, including `.`, `;`, `[` and `/`. The first `#` separates class and method; later `#` characters belong to the name. Module/task is part of `ExecutableTestIdentity`, not `TestIdentity`.
 
 `ExecutableTestIdentity` is the pair `(ExecutionTarget, TestIdentity)`. Equality and ordering include both values, and `test()` explicitly projects back to the logical identity.
 
@@ -73,10 +73,10 @@ JUnit's `MethodSource` formats reflected parameter types using `Class::getName`
 example `java.lang.String, [I, [[Ljava.lang.String;`. Per-element trimming is
 therefore necessary, but the original parameter string, including spacing and
 array spelling, is preserved exactly. There is no normalization or wire-format
-change. Qualified names and descriptors contain `.`, `[` or `;`, all rejected
-by the method-name validator, so those forms cannot collide with valid method
-names. This applies to logical and executable identities, including unmapped
-entries.
+change. Qualified names and descriptors contain `.`, `[` or `;`, which are now
+also allowed in free-text names. Consequently these forms can collide with
+feature names, as described below. This applies to logical and executable
+identities, including unmapped entries.
 
 Accepted residual ambiguities (no escape format is introduced):
 
@@ -85,6 +85,29 @@ Accepted residual ambiguities (no escape format is introduced):
   method `works` with parameter `Foo`.
 - A method name ending in a valid primitive list, such as `foo(int)` with empty
   parameters, is read as method `foo` with parameter `int`.
+- A feature literally named `foo(java.lang.String)` or `foo([I)` with empty
+  parameters has the same wire text as a parameter-bearing identity. Parsing
+  still interprets that suffix as parameters; no escaping is introduced.
+
+## Consumer boundaries and existing limitations
+
+Gradle executable assignments can split methods of one class between shards,
+even though the default sharder groups classes. Dotted feature names therefore
+use Gradle's leading-wildcard matcher syntax, bounded by an exact assigned-class
+file filter; they never widen execution to every method of a class. Ambiguous
+assigned class suffixes are rejected instead of risking cross-class matching.
+
+Maven method globs allow `/` while file-path globs retain path boundaries.
+Surefire and Failsafe includes use exact regex patterns for free-text names,
+with code-point escapes shielding their commas, `#` and other pattern delimiters.
+Ordinary Java method names retain their previous include spelling. No class-wide
+fallback is needed. JaCoCo session filenames encode unsafe path characters at
+the filename boundary; identity sidecars remain authoritative.
+
+Two pre-existing restrictions are not changed: ANT output has no escaping for
+`+` and `,`, and `ExecutionPlanCodec` rejects blank or untrimmed fields. A name
+accepted by this model is not automatically representable in every consumer's
+output syntax.
 
 ## Non-goals
 

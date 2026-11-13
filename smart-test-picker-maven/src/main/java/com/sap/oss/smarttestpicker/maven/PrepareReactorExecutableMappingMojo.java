@@ -164,7 +164,7 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 				"stp/selected-tests-" + provider + "-v3" + suffix + ".txt");
 		Files.createDirectories(output.getParentFile().toPath());
 		List<String> patterns = tests.isEmpty() ? List.of("**/__stp_no_assigned_tests__*.java")
-				: tests.stream().map(test -> test.className() + "#" + test.methodName()).distinct().toList();
+				: tests.stream().map(test -> MavenMethodIncludes.include(test.className(), test.methodName(), false)).distinct().toList();
 		Files.write(output.toPath(), patterns);
 		String otherProvider = provider.equals("surefire") ? "failsafe" : "surefire";
 		File suppressed = new File(module.getBuild().getDirectory(),
