@@ -81,6 +81,56 @@ open build/reports/smart-test-picker/index.html
 
 ### Coverage collectors
 
+For schema-v3 ASM mapping, an omitted or explicitly empty `coverageIncludes` list means **derive**.
+Package prefixes are derived at execution time from compiled production classes, after compilation.
+A non-empty list overrides package derivation, but never the production code-source boundary.
+Prefixes use the agent's package-prefix syntax (for example `com.acme.`); malformed prefixes fail.
+
+For each mapped Test task, production sources are its runtime classpath intersected with the `main`
+classes directories and `jar` archive of Java-plugin projects in the same build. Third-party JARs,
+test outputs, test fixtures and custom test source sets are not production sources, even when they
+share production package names. The allowlist is written to `asm-production-sources.txt` beside that
+task's fragment in `build/stp/coverage/<task>/<shard>/`. Identical production/test output directories,
+no production sources, or a default-package production class during derivation fail before tests run.
+Kotlin Multiplatform layouts are unsupported; no production scope is inferred for them.
+
+Both v3 mapping and the standalone v2 ASM task require at least one class to be instrumented in the
+test JVM. A scope that instruments nothing fails with the agent's diagnostic and no accepted fragment.
+This does not prohibit an individual test from having no coverage edges. The v2 task retains explicit
+package configuration; automatic production-scope derivation is specific to v3.
+
+Schema-v3 mapping is a live observation, not a reusable build artifact. Project/head inventory,
+assigned Test tasks, JaCoCo executable conversion and fragment aggregation always execute and never
+restore outputs from the build cache. Their file/value inputs still declare build dependencies.
+JaCoCo mapping sessions are cleared before each assigned Test execution. Ordinary builds without
+v3 mapping retain normal test up-to-date/cache behavior. Inventory generation checks the actual
+workspace HEAD on every invocation, including when the configuration cache is reused.
+
+ASM mapping reads the effective fork settings immediately before test execution. It overrides
+`maxParallelForks` to one with an explicit log message: reducing simultaneous workers preserves a
+single JVM's output. It rejects `forkEvery > 0` because serial JVM replacement would still overwrite
+that output and lose records. This is not a guard against parallel tests inside one JVM.
+
+When non-blank, `STP_MAPPING_COLLECTOR` must match the effective mapping collector; a mismatch fails
+before tests. The environment value is read through Gradle providers for configuration-cache tracking.
+Scope derivation and the production-sources file are prepared by the Test action after compilation;
+configuration-time `getAllJvmArgs()` inspection neither scans classes nor writes the file.
+Kotlin JVM main classes participate through the Java main source-set output, while Kotlin test
+classes remain outside the production boundary. This does not add Kotlin Multiplatform support.
+
+Every assigned schema-v3 ASM Test task validates its own output before aggregation. Its diagnostic
+must decode as `agent-shell-1`, match the prepared revision, shard and fragment path, and report
+positive `classesTransformed`. Zero-instrumentation failures include the effective includes,
+excludes and production sources. The fragment must be complete, match the assignment binding and
+belong exactly to that task's execution target, including setup-scope ownership.
+
+Only `SKIPPED`, `FAILED` and `COLLECTION_FAILED` are accepted unmapped reasons. Unexpected identities,
+duplicates and missing assigned identities reject mapping. Unlike Maven finalization, Gradle does
+not absorb absent assigned identities into unmapped. Rejections identify the Test task and violated
+rule. The previous aggregate is invalidated before assigned ASM Test tasks execute, so a failed
+finalization cannot leave an old accepted aggregate behind. Leftover fragments from tasks without
+assigned tests are not inputs to aggregation. These rules do not change v2 or JaCoCo finalization.
+
 Executable Jenkins mapping sets `stp.schemaVersion=3`, supplies an executable assignment and concrete
 test-task scope, and uses the executable inventory/aggregation tasks above. Ordinary standalone plugin
 usage remains on the logical schema-2 path unless those invocation inputs are supplied.

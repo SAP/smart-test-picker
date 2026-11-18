@@ -4,7 +4,6 @@ package com.sap.oss.smarttestpicker;
 
 import java.io.File;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -12,7 +11,6 @@ import java.util.TreeMap;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.GradleException;
 import org.gradle.api.file.RegularFileProperty;
-import org.gradle.api.tasks.Internal;
 import org.gradle.api.tasks.OutputFile;
 import org.gradle.api.tasks.TaskAction;
 import org.gradle.work.DisableCachingByDefault;
@@ -29,21 +27,22 @@ import com.sap.oss.smarttestpicker.coverage.validation.ExecutableFragmentAssignm
 /** Adapter aggregation: one shard artifact from collision-free per-Test-task fragments. */
 @DisableCachingByDefault(because = "Input fragment topology is configured from concrete Test tasks")
 public abstract class AggregateGradleExecutableCoverageTask extends DefaultTask {
-	private final List<File> fragments = new ArrayList<>();
 	private File assignmentFile;
-	@Internal public List<File> getFragments() { return fragments; }
-	@Internal public File getAssignmentFile() { return assignmentFile; }
+	public AggregateGradleExecutableCoverageTask() { GradleMappingExecution.fresh(this); }
+	@org.gradle.api.tasks.InputFiles public abstract org.gradle.api.file.ConfigurableFileCollection getFragments();
+	@org.gradle.api.tasks.InputFile public File getAssignmentFile() { return assignmentFile; }
 	public void setAssignmentFile(File assignmentFile) { this.assignmentFile = assignmentFile; }
 	@OutputFile public abstract RegularFileProperty getOutputFile();
 
 	@TaskAction public void aggregate() {
 		try {
+			Files.deleteIfExists(getOutputFile().get().getAsFile().toPath());
 			var codec = new ExecutableCoverageFragmentCodec();
 			var assignment = new ExecutableShardAssignmentCodec().deserialize(Files.readAllBytes(assignmentFile.toPath()));
 			Map<ExecutableTestIdentity, TestCoverage> mapped = new TreeMap<>();
 			Map<ExecutableTestIdentity, ExecutableUnmappedTest> unmapped = new TreeMap<>();
 			Map<String, SetupScope> scopes = new TreeMap<>();
-			for (File file : fragments) {
+			for (File file : getFragments()) {
 				ExecutableCoverageFragment fragment = codec.deserialize(Files.readAllBytes(file.toPath()));
 				if (!fragment.revision().equals(assignment.revision()) || !fragment.shardId().equals(assignment.shardId()))
 					throw new GradleException("Gradle Test-task fragment binding mismatch: " + file);

@@ -64,6 +64,8 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 	public void apply(Project project)
 	{
 		project.getLogger().lifecycle("[SmartTestPickerPlugin] Plugin applied.");
+		project.getRootProject().getAllprojects().forEach(owner ->
+				owner.getTasks().withType(Test.class).configureEach(GradleMappingExecution::install));
 
 		SmartTestPickerExtension ext = project.getExtensions()
 				.create("smartTestPicker", SmartTestPickerExtension.class);
@@ -326,6 +328,8 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 
 		if (project == project.getRootProject()) project.getGradle().projectsEvaluated(gradle -> {
 			if (ext.getRuntimeSchemaVersion().get() != 3) return;
+			configureExecutableGradleMapping(project, ext, mappingTask.get(), executableInventory.get(),
+					executableAggregate.get(), resolvedStpAgent, stpJacocoCollector);
 			var targets = GradleExecutionTargets.resolve(project, ext.getMappingTestTasks().get());
 			targets.stream().collect(java.util.stream.Collectors.groupingBy(Test::getProject)).forEach((owner, owned) -> {
 				var existingPart = owner.getTasks().findByName("generateGradleExecutableProjectInventory");
@@ -335,6 +339,7 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 				if (!part.getOutputFile().isPresent()) part.getOutputFile().set(owner.getLayout().getBuildDirectory()
 						.file("stp/executable-project-inventory.json"));
 				part.setRevision(ext.getRevision().get());
+				part.getWorkspace().set(project.getLayout().getProjectDirectory());
 				owned.stream().sorted(java.util.Comparator.comparing(Test::getPath)).forEach(task -> {
 					part.addTarget(task);
 					task.getTestClassesDirs().getBuildDependencies().getDependencies(task).forEach(part::dependsOn);
@@ -342,8 +347,6 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 				executableInventory.get().dependsOn(part);
 				executableInventory.get().getProjectInventories().from(part.getOutputFile());
 			});
-			configureExecutableGradleMapping(project, ext, mappingTask.get(), executableInventory.get(),
-					executableAggregate.get(), resolvedStpAgent, stpJacocoCollector);
 		});
 
 	}
@@ -358,6 +361,7 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 		// to one real Test-task execution target.
 		mappingTask.setDependsOn(java.util.List.of());
 		inventoryTask.setRevision(ext.getRevision().get());
+		inventoryTask.getWorkspace().set(root.getLayout().getProjectDirectory());
 		targets.forEach(task -> task.getTestClassesDirs().getBuildDependencies().getDependencies(task)
 				.forEach(inventoryTask::dependsOn));
 
@@ -389,12 +393,19 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 			task.getFilter().setFailOnNoMatchingTests(false);
 			task.systemProperty("smartTestPicker.executionTarget", target.toString());
 			if (!assigned.isEmpty()) backend.configure(task.getProject(), ext, task, mappingTask, target.toString());
+			if (!assigned.isEmpty()) GradleMappingExecution.configure(task, backend.type().name(),
+					root.getProviders().environmentVariable("STP_MAPPING_COLLECTOR"));
 			if (!assigned.isEmpty() && backend.type() == CoverageCollectorType.ASM) task.dependsOn(resolvedStpAgent);
 			if (!assigned.isEmpty() && backend.type() == CoverageCollectorType.ASM) {
+				File acceptedAggregate = aggregateTask.getOutputFile().get().getAsFile();
+				String taskPath = task.getPath();
+				// Aggregation cannot clean its previous output when a Test dependency fails.
+				task.doFirst(ignored -> AsmCoverageCollectorBackend.deleteStale(acceptedAggregate,
+						"aggregate before " + taskPath));
 				String shard = ext.getShardId().getOrElse("gradle:" + task.getPath());
-				aggregateTask.getFragments().add(new File(task.getProject().getBuildDir(), "stp/coverage/"
+				aggregateTask.getFragments().from(root.files(new File(task.getProject().getBuildDir(), "stp/coverage/"
 						+ AsmCoverageCollectorBackend.safe(task.getPath()) + "/"
-						+ AsmCoverageCollectorBackend.safe(shard) + "/fragment.json"));
+						+ AsmCoverageCollectorBackend.safe(shard) + "/fragment.json")).builtBy(task));
 				aggregateTask.dependsOn(task);
 			}
 			if (!assigned.isEmpty() && backend.type() == CoverageCollectorType.JACOCO) {
@@ -407,11 +418,11 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 				conversion.setExecDir(new File(base, "exec")); conversion.setReportsDir(new File(base, "reports"));
 				conversion.setSourceDir(new File(task.getProject().getProjectDir(), "src/main/java"));
 				var java = task.getProject().getExtensions().getByType(org.gradle.api.plugins.JavaPluginExtension.class);
-				conversion.setClassesDirs(java.getSourceSets().getByName("main").getOutput().getClassesDirs().getFiles().stream().toList());
+				conversion.getClassesDirs().from(java.getSourceSets().getByName("main").getOutput().getClassesDirs());
 				conversion.setRevision(ext.getRevision().get()); conversion.setShardId(shard);
 				conversion.setTarget(target); conversion.setAssigned(assigned);
 				conversion.getOutputFile().set(new File(base, "fragment.json")); conversion.dependsOn(task);
-				aggregateTask.getFragments().add(new File(base, "fragment.json")); aggregateTask.dependsOn(conversion);
+				aggregateTask.getFragments().from(conversion.getOutputFile()); aggregateTask.dependsOn(conversion);
 			}
 			mappingTask.dependsOn(task);
 		}

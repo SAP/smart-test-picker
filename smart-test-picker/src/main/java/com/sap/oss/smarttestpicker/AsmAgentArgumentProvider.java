@@ -11,11 +11,13 @@ import org.gradle.api.provider.ListProperty;
 import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Classpath;
 import org.gradle.api.tasks.Input;
+import org.gradle.api.tasks.Internal;
 import org.gradle.api.tasks.OutputFile;
 import org.gradle.process.CommandLineArgumentProvider;
 
 /** Lazy, configuration-cache-safe ASM javaagent argument. */
 public abstract class AsmAgentArgumentProvider implements CommandLineArgumentProvider {
+	private List<String> preparedIncludes;
 	@Classpath
 	public abstract ConfigurableFileCollection getAgentClasspath();
 
@@ -47,9 +49,32 @@ public abstract class AsmAgentArgumentProvider implements CommandLineArgumentPro
 	@Input
 	public abstract ListProperty<String> getExcludes();
 
+	// Scope is prepared by the Test action, never by argument inspection during configuration.
+	@Internal public abstract ConfigurableFileCollection getRuntimeSources();
+	@Internal public abstract ConfigurableFileCollection getProductionCandidates();
+	@Internal public abstract ConfigurableFileCollection getTestOutputs();
+	@Internal public abstract RegularFileProperty getProductionSourcesFile();
+	@Internal public abstract Property<String> getTestTaskPath();
+
+	void prepareScope() {
+		if (getProductionSourcesFile().isPresent()) {
+			try {
+				var scope = GradleAsmScope.resolve(getTestTaskPath().get(), getRuntimeSources().getFiles(),
+						getProductionCandidates().getFiles(), getTestOutputs().getFiles(), getIncludes().get());
+				preparedIncludes = scope.includes();
+				var sources = getProductionSourcesFile().get().getAsFile().toPath();
+				java.nio.file.Files.createDirectories(sources.getParent());
+				java.nio.file.Files.write(sources, scope.sources().stream().map(Object::toString).toList());
+			} catch (java.io.IOException failure) {
+				throw new org.gradle.api.GradleException("Cannot resolve ASM production scope for " + getTestTaskPath().get(), failure);
+			}
+		}
+	}
+
 	@Override
 	public Iterable<String> asArguments() {
 		File agent = getAgentClasspath().getSingleFile();
+		List<String> includes = preparedIncludes == null ? getIncludes().get() : preparedIncludes;
 		StringBuilder arguments = new StringBuilder("output=").append(getDiagnosticOutput().get().getAsFile())
 				.append(";fragmentOutput=").append(getFragmentOutput().get().getAsFile())
 				.append(";revision=").append(getRevision().get())
@@ -59,8 +84,12 @@ public abstract class AsmAgentArgumentProvider implements CommandLineArgumentPro
 		if (getExecutionTarget().isPresent()) {
 			arguments.append(";executionTarget=").append(getExecutionTarget().get());
 		}
-		appendPrefixes(arguments, "includes", getIncludes().get());
-		appendPrefixes(arguments, "excludes", getExcludes().get());
+		appendPrefixes(arguments, "includes", includes);
+		appendPrefixes(arguments, "excludes", GradleAsmScope.prefixes(getExcludes().get()));
+		arguments.append(";requireInstrumentation=true");
+		if (getProductionSourcesFile().isPresent()) {
+			arguments.append(";productionSourcesFile=").append(getProductionSourcesFile().get().getAsFile());
+		}
 		return List.of("-javaagent:" + agent.getAbsolutePath() + "=" + arguments);
 	}
 
