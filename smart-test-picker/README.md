@@ -99,6 +99,25 @@ test JVM. A scope that instruments nothing fails with the agent's diagnostic and
 This does not prohibit an individual test from having no coverage edges. The v2 task retains explicit
 package configuration; automatic production-scope derivation is specific to v3.
 
+Schema-v3 mapping is a live observation, not a reusable build artifact. Project/head inventory,
+assigned Test tasks, JaCoCo executable conversion and fragment aggregation always execute and never
+restore outputs from the build cache. Their file/value inputs still declare build dependencies.
+JaCoCo mapping sessions are cleared before each assigned Test execution. Ordinary builds without
+v3 mapping retain normal test up-to-date/cache behavior. Inventory generation checks the actual
+workspace HEAD on every invocation, including when the configuration cache is reused.
+
+ASM mapping reads the effective fork settings immediately before test execution. It overrides
+`maxParallelForks` to one with an explicit log message: reducing simultaneous workers preserves a
+single JVM's output. It rejects `forkEvery > 0` because serial JVM replacement would still overwrite
+that output and lose records. This is not a guard against parallel tests inside one JVM.
+
+When non-blank, `STP_MAPPING_COLLECTOR` must match the effective mapping collector; a mismatch fails
+before tests. The environment value is read through Gradle providers for configuration-cache tracking.
+Scope derivation and the production-sources file are prepared by the Test action after compilation;
+configuration-time `getAllJvmArgs()` inspection neither scans classes nor writes the file.
+Kotlin JVM main classes participate through the Java main source-set output, while Kotlin test
+classes remain outside the production boundary. This does not add Kotlin Multiplatform support.
+
 Executable Jenkins mapping sets `stp.schemaVersion=3`, supplies an executable assignment and concrete
 test-task scope, and uses the executable inventory/aggregation tasks above. Ordinary standalone plugin
 usage remains on the logical schema-2 path unless those invocation inputs are supplied.

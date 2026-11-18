@@ -22,16 +22,18 @@ import com.sap.oss.smarttestpicker.selector.WorkspaceRevisionVerifier;
 @DisableCachingByDefault(because = "The inventory is bound to the checked-out Git revision")
 public abstract class GenerateGradleExecutableHeadTestInventoryTask extends DefaultTask {
 	private String revision;
+	public GenerateGradleExecutableHeadTestInventoryTask() { GradleMappingExecution.fresh(this); }
 	@InputFiles public abstract ConfigurableFileCollection getProjectInventories();
-	@org.gradle.api.tasks.Internal public String getRevision() { return revision; }
+	@org.gradle.api.tasks.Input public String getRevision() { return revision; }
 	public void setRevision(String revision) { this.revision = revision; }
+	@org.gradle.api.tasks.Internal public abstract org.gradle.api.file.DirectoryProperty getWorkspace();
 	@OutputFile public abstract RegularFileProperty getOutputFile();
 
 	@TaskAction public void generate() {
 		var output = getOutputFile().get().getAsFile();
 		try {
 			String exactRevision = WorkspaceRevisionVerifier.requireHead(
-					getProject().getRootProject().getProjectDir(), revision);
+					getWorkspace().get().getAsFile(), revision);
 			var executable = new TreeSet<com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentity>();
 			for (var part : getProjectInventories().getFiles()) {
 				var inventory = new ExecutableHeadTestInventoryCodec().read(part);

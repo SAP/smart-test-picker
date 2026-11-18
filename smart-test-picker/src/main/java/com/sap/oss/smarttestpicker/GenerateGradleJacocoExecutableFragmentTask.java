@@ -42,26 +42,43 @@ import com.sap.oss.smarttestpicker.mapper.CoverageMapperJaxb;
 /** Converts one Test task's legacy JaCoCo facts into one target-qualified v3 fragment. */
 @DisableCachingByDefault(because = "Consumes runtime session files from one Test task")
 public abstract class GenerateGradleJacocoExecutableFragmentTask extends DefaultTask {
+	public GenerateGradleJacocoExecutableFragmentTask() { GradleMappingExecution.fresh(this); }
 	private File execDir, reportsDir, sourceDir;
-	private List<File> classesDirs = List.of();
+	private final org.gradle.api.file.ConfigurableFileCollection classesDirs = getProject().files();
 	private String revision, shardId;
-	private ExecutionTarget target;
-	private Set<TestIdentity> assigned = Set.of();
-	@Internal public File getExecDir() { return execDir; } public void setExecDir(File value) { execDir = value; }
-	@Internal public File getReportsDir() { return reportsDir; } public void setReportsDir(File value) { reportsDir = value; }
-	@Internal public File getSourceDir() { return sourceDir; } public void setSourceDir(File value) { sourceDir = value; }
-	@Internal public List<File> getClassesDirs() { return classesDirs; } public void setClassesDirs(List<File> value) { classesDirs = value; }
-	@Internal public String getRevision() { return revision; } public void setRevision(String value) { revision = value; }
-	@Internal public String getShardId() { return shardId; } public void setShardId(String value) { shardId = value; }
-	@Internal public ExecutionTarget getTarget() { return target; } public void setTarget(ExecutionTarget value) { target = value; }
-	@Internal public Set<TestIdentity> getAssigned() { return assigned; } public void setAssigned(Set<TestIdentity> value) { assigned = value; }
+	private String targetIdentity;
+	private List<List<String>> assignedFields = new ArrayList<>();
+	@org.gradle.api.tasks.InputDirectory public File getExecDir() { return execDir; } public void setExecDir(File value) { execDir = value; }
+	// Scratch reports may already contain current-run evidence; Gradle must not clean them before validation.
+	@org.gradle.api.tasks.LocalState public File getReportsDir() { return reportsDir; } public void setReportsDir(File value) { reportsDir = value; }
+	@org.gradle.api.tasks.InputFiles public File getSourceDir() { return sourceDir; } public void setSourceDir(File value) { sourceDir = value; }
+	@org.gradle.api.tasks.Classpath public org.gradle.api.file.ConfigurableFileCollection getClassesDirs() { return classesDirs; }
+	public void setClassesDirs(List<File> value) { getClassesDirs().setFrom(value); }
+	@org.gradle.api.tasks.Input public String getRevision() { return revision; } public void setRevision(String value) { revision = value; }
+	@org.gradle.api.tasks.Input public String getShardId() { return shardId; } public void setShardId(String value) { shardId = value; }
+	@Internal public ExecutionTarget getTarget() { return ExecutionTarget.parse(targetIdentity); }
+	public void setTarget(ExecutionTarget value) { targetIdentity = value.toString(); }
+	@Internal public Set<TestIdentity> getAssigned() {
+		Set<TestIdentity> result = new java.util.TreeSet<>();
+		assignedFields.forEach(fields -> result.add(new TestIdentity(fields.get(0), fields.get(1), fields.get(2))));
+		return result;
+	}
+	public void setAssigned(Set<TestIdentity> value) {
+		assignedFields = new ArrayList<>();
+		value.stream().sorted().forEach(test -> assignedFields.add(new ArrayList<>(List.of(
+				test.className(), test.methodName(), test.methodParameterTypes()))));
+	}
+	@org.gradle.api.tasks.Input public String getTargetIdentity() { return targetIdentity; }
+	@org.gradle.api.tasks.Input public List<List<String>> getAssignedFields() { return assignedFields; }
 	@OutputFile public abstract RegularFileProperty getOutputFile();
 
 	@TaskAction public void generate() {
 		try {
+			Set<TestIdentity> assigned = getAssigned();
+			ExecutionTarget target = getTarget();
 			File output = getOutputFile().get().getAsFile();
 			Files.deleteIfExists(output.toPath());
-			new ExecToXmlEngine().generateReports(execDir, classesDirs, sourceDir, reportsDir,
+			new ExecToXmlEngine().generateReports(execDir, getClassesDirs().getFiles().stream().toList(), sourceDir, reportsDir,
 					new GradleEngineLogger(getLogger()), 1, (dir, name) -> name.startsWith("session_") && name.endsWith(".exec"));
 			Map<TestIdentity, File> executed = identities(".identity");
 			Map<TestIdentity, File> skipped = identities(".non-executed"); skipped.keySet().removeAll(executed.keySet());
@@ -102,7 +119,7 @@ public abstract class GenerateGradleJacocoExecutableFragmentTask extends Default
 				} else { complete = false; unmapped.add(new ExecutableUnmappedTest(executable, UnmappedReason.COLLECTION_FAILED)); }
 			}
 			ExecutableCoverageFragment fragment = new ExecutableCoverageFragment(CoverageMapContract.SCHEMA_V3,
-					new CoverageMapRevision(revision), new ShardId(shardId), mapped, unmapped, setupScopes(mapper), complete);
+					new CoverageMapRevision(revision), new ShardId(shardId), mapped, unmapped, setupScopes(mapper, assigned, target), complete);
 			output.getParentFile().mkdirs();
 			Files.write(output.toPath(), new ExecutableCoverageFragmentCodec().serialize(fragment));
 			if (!complete) throw new GradleException("JaCoCo Gradle executable collection is incomplete");
@@ -111,7 +128,7 @@ public abstract class GenerateGradleJacocoExecutableFragmentTask extends Default
 		}
 	}
 
-	private List<SetupScope> setupScopes(CoverageMapperJaxb mapper) throws Exception {
+	private List<SetupScope> setupScopes(CoverageMapperJaxb mapper, Set<TestIdentity> assigned, ExecutionTarget target) throws Exception {
 		// Include orphan exec files: missing ownership must not silently erase positive coverage.
 		Set<String> bases = new java.util.TreeSet<>();
 		File[] files = execDir.listFiles((dir, name) -> name.startsWith("session_setup_")

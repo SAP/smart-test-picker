@@ -48,6 +48,11 @@ final class JacocoCoverageCollectorBackend implements GradleCoverageCollectorBac
 		}
 		jacoco.setDestinationFile(new java.io.File(execDir, "task.exec"));
 		if (executionTarget != null) {
+			test.getOutputs().dir(execDir);
+			test.doFirst(ignored -> {
+				GradleMappingExecution.clearOutputDirectory(execDir);
+				GradleMappingExecution.clearOutputDirectory(new java.io.File(execDir.getParentFile(), "reports"));
+			});
 			project.getLogger().lifecycle("Smart Test Picker coverage collector: JACOCO (schema-v3 task-local)");
 			return;
 		}

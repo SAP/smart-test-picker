@@ -21,29 +21,44 @@ import com.sap.oss.smarttestpicker.selector.ExecutableHeadTestInventoryCodec;
 import com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGenerator;
 import com.sap.oss.smarttestpicker.selector.WorkspaceRevisionVerifier;
 
-/** Resolves and discovers Test tasks only while Gradle holds their owning project lock. */
-@DisableCachingByDefault(because = "Gradle Test task topology is inspected at execution time")
+/** Discovers configured target data without retaining live Test task objects. */
+@DisableCachingByDefault(because = "Inventory must observe the checked-out revision on every invocation")
 public abstract class GenerateGradleExecutableProjectInventoryTask extends DefaultTask {
-	private final List<org.gradle.api.tasks.testing.Test> targets = new ArrayList<>();
+	private final List<Target> targets = new ArrayList<>();
 	private String revision;
 
-	void addTarget(org.gradle.api.tasks.testing.Test task) { targets.add(task); }
-	@Internal List<org.gradle.api.tasks.testing.Test> getTargets() { return targets; }
-	@Internal public String getRevision() { return revision; }
+	public GenerateGradleExecutableProjectInventoryTask() { GradleMappingExecution.fresh(this); }
+
+	public abstract static class Target {
+		@org.gradle.api.tasks.Input public abstract org.gradle.api.provider.Property<String> getIdentity();
+		@org.gradle.api.tasks.Classpath public abstract org.gradle.api.file.ConfigurableFileCollection getRuntimeClasspath();
+		@org.gradle.api.tasks.Classpath public abstract org.gradle.api.file.ConfigurableFileCollection getTestClasses();
+	}
+
+	void addTarget(org.gradle.api.tasks.testing.Test task) {
+		Target target = getProject().getObjects().newInstance(Target.class);
+		target.getIdentity().set(GradleExecutionTargets.forTask(task).toString());
+		target.getRuntimeClasspath().from(task.getClasspath());
+		target.getTestClasses().from(task.getTestClassesDirs());
+		targets.add(target);
+	}
+	@org.gradle.api.tasks.Nested public List<Target> getTargets() { return targets; }
+	@org.gradle.api.tasks.Input public String getRevision() { return revision; }
 	public void setRevision(String revision) { this.revision = revision; }
+	@Internal public abstract org.gradle.api.file.DirectoryProperty getWorkspace();
 	@OutputFile public abstract RegularFileProperty getOutputFile();
 
 	@TaskAction public void generate() {
 		var output = getOutputFile().get().getAsFile();
 		try {
 			String exactRevision = WorkspaceRevisionVerifier.requireHead(
-					getProject().getRootProject().getProjectDir(), revision);
+					getWorkspace().get().getAsFile(), revision);
 			var executable = new TreeSet<ExecutableTestIdentity>();
 			for (var task : targets) {
 				var logical = new JUnitHeadTestInventoryGenerator().generate(null,
-						task.getClasspath().getFiles().stream().map(java.io.File::toPath).toList(),
-						task.getTestClassesDirs().getFiles().stream().map(java.io.File::toPath).toList());
-				var target = GradleExecutionTargets.forTask(task);
+						task.getRuntimeClasspath().getFiles().stream().map(java.io.File::toPath).toList(),
+						task.getTestClasses().getFiles().stream().map(java.io.File::toPath).toList());
+				var target = com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget.parse(task.getIdentity().get());
 				for (var test : logical.runnableTests())
 					if (!executable.add(new ExecutableTestIdentity(target, test)))
 						throw new GradleException("Duplicate Gradle executable identity: " + target + "::" + test);

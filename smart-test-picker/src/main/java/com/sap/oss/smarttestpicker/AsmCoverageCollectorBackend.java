@@ -39,7 +39,7 @@ final class AsmCoverageCollectorBackend implements GradleCoverageCollectorBacken
 			tracked.getCoverageShardId().set(shard);
 			tracked.getAgentConfigurationVersion().set(project.getVersion().toString());
 		}
-		test.setMaxParallelForks(1);
+		if (executionTarget == null) test.setMaxParallelForks(1);
 		var fragment = outputDir.map(dir -> dir.file("fragment.json"));
 		var diagnostic = outputDir.map(dir -> dir.file("agent-diagnostic.json"));
 		test.doFirst(ignored -> {
@@ -82,6 +82,7 @@ final class AsmCoverageCollectorBackend implements GradleCoverageCollectorBacken
 			}
 		}
 		test.getJvmArgumentProviders().add(arguments);
+		if (executionTarget != null) GradleMappingExecution.preparation(test).scope = arguments;
 		project.getLogger().lifecycle("Smart Test Picker coverage collector: ASM");
 	}
 

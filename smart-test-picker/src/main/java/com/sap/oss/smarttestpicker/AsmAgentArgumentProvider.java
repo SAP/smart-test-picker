@@ -17,6 +17,7 @@ import org.gradle.process.CommandLineArgumentProvider;
 
 /** Lazy, configuration-cache-safe ASM javaagent argument. */
 public abstract class AsmAgentArgumentProvider implements CommandLineArgumentProvider {
+	private List<String> preparedIncludes;
 	@Classpath
 	public abstract ConfigurableFileCollection getAgentClasspath();
 
@@ -48,23 +49,19 @@ public abstract class AsmAgentArgumentProvider implements CommandLineArgumentPro
 	@Input
 	public abstract ListProperty<String> getExcludes();
 
-	// Scope is resolved at fork execution, without retaining Project or Test instances.
-	// Incremental task/cache policy is separate from this production-boundary change.
+	// Scope is prepared by the Test action, never by argument inspection during configuration.
 	@Internal public abstract ConfigurableFileCollection getRuntimeSources();
 	@Internal public abstract ConfigurableFileCollection getProductionCandidates();
 	@Internal public abstract ConfigurableFileCollection getTestOutputs();
 	@Internal public abstract RegularFileProperty getProductionSourcesFile();
 	@Internal public abstract Property<String> getTestTaskPath();
 
-	@Override
-	public Iterable<String> asArguments() {
-		File agent = getAgentClasspath().getSingleFile();
-		List<String> includes = getIncludes().get();
+	void prepareScope() {
 		if (getProductionSourcesFile().isPresent()) {
 			try {
 				var scope = GradleAsmScope.resolve(getTestTaskPath().get(), getRuntimeSources().getFiles(),
-						getProductionCandidates().getFiles(), getTestOutputs().getFiles(), includes);
-				includes = scope.includes();
+						getProductionCandidates().getFiles(), getTestOutputs().getFiles(), getIncludes().get());
+				preparedIncludes = scope.includes();
 				var sources = getProductionSourcesFile().get().getAsFile().toPath();
 				java.nio.file.Files.createDirectories(sources.getParent());
 				java.nio.file.Files.write(sources, scope.sources().stream().map(Object::toString).toList());
@@ -72,6 +69,12 @@ public abstract class AsmAgentArgumentProvider implements CommandLineArgumentPro
 				throw new org.gradle.api.GradleException("Cannot resolve ASM production scope for " + getTestTaskPath().get(), failure);
 			}
 		}
+	}
+
+	@Override
+	public Iterable<String> asArguments() {
+		File agent = getAgentClasspath().getSingleFile();
+		List<String> includes = preparedIncludes == null ? getIncludes().get() : preparedIncludes;
 		StringBuilder arguments = new StringBuilder("output=").append(getDiagnosticOutput().get().getAsFile())
 				.append(";fragmentOutput=").append(getFragmentOutput().get().getAsFile())
 				.append(";revision=").append(getRevision().get())
