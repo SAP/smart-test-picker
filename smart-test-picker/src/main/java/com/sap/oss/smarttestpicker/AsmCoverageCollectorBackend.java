@@ -47,8 +47,12 @@ final class AsmCoverageCollectorBackend implements GradleCoverageCollectorBacken
 			deleteStale(fragment.get().getAsFile(), "fragment");
 			deleteStale(diagnostic.get().getAsFile(), "diagnostic");
 		});
-		test.doLast(ignored -> verifyFragment(fragment.get().getAsFile(), extension.getRuntimeSchemaVersion().get(),
-				extension.getRevision().get(), shard));
+		var schemaVersion = extension.getRuntimeSchemaVersion();
+		var revision = extension.getRevision();
+		test.doLast(ignored -> {
+			if (!fragment.get().getAsFile().isFile()) reportZeroInstrumentation(diagnostic.get().getAsFile());
+			verifyFragment(fragment.get().getAsFile(), schemaVersion.get(), revision.get(), shard);
+		});
 
 		AsmAgentArgumentProvider arguments = project.getObjects().newInstance(AsmAgentArgumentProvider.class);
 		arguments.getAgentClasspath().from(agent);
@@ -62,8 +66,39 @@ final class AsmCoverageCollectorBackend implements GradleCoverageCollectorBacken
 		arguments.getRunId().set("gradle:" + test.getPath() + ":" + shard);
 		arguments.getIncludes().set(extension.getCoverageIncludes());
 		arguments.getExcludes().set(extension.getCoverageExcludes());
+		if (extension.getRuntimeSchemaVersion().get() == 3) {
+			arguments.getProductionSourcesFile().set(outputDir.map(dir -> dir.file("asm-production-sources.txt")));
+			arguments.getTestTaskPath().set(test.getPath());
+			arguments.getRuntimeSources().from(test.getClasspath());
+			arguments.getTestOutputs().from(test.getTestClassesDirs());
+			for (Project owner : project.getRootProject().getAllprojects()) {
+				if (!owner.getPlugins().hasPlugin("java")) continue;
+				var sourceSets = owner.getExtensions().getByType(org.gradle.api.plugins.JavaPluginExtension.class).getSourceSets();
+				arguments.getProductionCandidates().from(sourceSets.getByName("main").getOutput().getClassesDirs());
+				arguments.getProductionCandidates().from(owner.getTasks().named("jar", org.gradle.api.tasks.bundling.Jar.class)
+						.flatMap(org.gradle.api.tasks.bundling.Jar::getArchiveFile));
+				sourceSets.stream().filter(source -> !source.getName().equals("main")).forEach(source ->
+						arguments.getTestOutputs().from(source.getOutput().getClassesDirs()));
+			}
+		}
 		test.getJvmArgumentProviders().add(arguments);
 		project.getLogger().lifecycle("Smart Test Picker coverage collector: ASM");
+	}
+
+	private static void reportZeroInstrumentation(java.io.File diagnostic) {
+		if (!diagnostic.isFile()) return;
+		String zeroInstrumentation = null;
+		try (var reader = java.nio.file.Files.newBufferedReader(diagnostic.toPath())) {
+			var json = com.google.gson.JsonParser.parseReader(reader).getAsJsonObject();
+			var errors = json.getAsJsonArray("agentErrors");
+			if (errors != null) for (var error : errors) {
+				String message = error.getAsString();
+				if (message.startsWith("ASM scope matched zero instrumented classes:")) zeroInstrumentation = message;
+			}
+		} catch (java.io.IOException | RuntimeException failure) {
+			// Preserve the existing missing-fragment failure for unreadable diagnostics.
+		}
+		if (zeroInstrumentation != null) throw new GradleException(zeroInstrumentation);
 	}
 
 	static void deleteStale(java.io.File file, String kind) {

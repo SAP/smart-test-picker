@@ -81,6 +81,24 @@ open build/reports/smart-test-picker/index.html
 
 ### Coverage collectors
 
+For schema-v3 ASM mapping, an omitted or explicitly empty `coverageIncludes` list means **derive**.
+Package prefixes are derived at execution time from compiled production classes, after compilation.
+A non-empty list overrides package derivation, but never the production code-source boundary.
+Prefixes use the agent's package-prefix syntax (for example `com.acme.`); malformed prefixes fail.
+
+For each mapped Test task, production sources are its runtime classpath intersected with the `main`
+classes directories and `jar` archive of Java-plugin projects in the same build. Third-party JARs,
+test outputs, test fixtures and custom test source sets are not production sources, even when they
+share production package names. The allowlist is written to `asm-production-sources.txt` beside that
+task's fragment in `build/stp/coverage/<task>/<shard>/`. Identical production/test output directories,
+no production sources, or a default-package production class during derivation fail before tests run.
+Kotlin Multiplatform layouts are unsupported; no production scope is inferred for them.
+
+Both v3 mapping and the standalone v2 ASM task require at least one class to be instrumented in the
+test JVM. A scope that instruments nothing fails with the agent's diagnostic and no accepted fragment.
+This does not prohibit an individual test from having no coverage edges. The v2 task retains explicit
+package configuration; automatic production-scope derivation is specific to v3.
+
 Executable Jenkins mapping sets `stp.schemaVersion=3`, supplies an executable assignment and concrete
 test-task scope, and uses the executable inventory/aggregation tasks above. Ordinary standalone plugin
 usage remains on the logical schema-2 path unless those invocation inputs are supplied.
