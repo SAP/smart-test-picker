@@ -49,9 +49,17 @@ final class AsmCoverageCollectorBackend implements GradleCoverageCollectorBacken
 		});
 		var schemaVersion = extension.getRuntimeSchemaVersion();
 		var revision = extension.getRevision();
+		String taskPath = test.getPath();
+		java.io.File assignment = executionTarget == null ? null
+				: project.getRootProject().file(extension.getExecutableAssignmentFile().get());
 		test.doLast(ignored -> {
-			if (!fragment.get().getAsFile().isFile()) reportZeroInstrumentation(diagnostic.get().getAsFile());
-			verifyFragment(fragment.get().getAsFile(), schemaVersion.get(), revision.get(), shard);
+			if (executionTarget != null && schemaVersion.get() == 3) {
+				GradleAsmFinalization.verify(taskPath, revision.get(), shard, executionTarget, assignment,
+						fragment.get().getAsFile(), diagnostic.get().getAsFile());
+			} else {
+				if (!fragment.get().getAsFile().isFile()) reportZeroInstrumentation(diagnostic.get().getAsFile());
+				verifyFragment(fragment.get().getAsFile(), schemaVersion.get(), revision.get(), shard);
+			}
 		});
 
 		AsmAgentArgumentProvider arguments = project.getObjects().newInstance(AsmAgentArgumentProvider.class);

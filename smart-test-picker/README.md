@@ -118,6 +118,19 @@ configuration-time `getAllJvmArgs()` inspection neither scans classes nor writes
 Kotlin JVM main classes participate through the Java main source-set output, while Kotlin test
 classes remain outside the production boundary. This does not add Kotlin Multiplatform support.
 
+Every assigned schema-v3 ASM Test task validates its own output before aggregation. Its diagnostic
+must decode as `agent-shell-1`, match the prepared revision, shard and fragment path, and report
+positive `classesTransformed`. Zero-instrumentation failures include the effective includes,
+excludes and production sources. The fragment must be complete, match the assignment binding and
+belong exactly to that task's execution target, including setup-scope ownership.
+
+Only `SKIPPED`, `FAILED` and `COLLECTION_FAILED` are accepted unmapped reasons. Unexpected identities,
+duplicates and missing assigned identities reject mapping. Unlike Maven finalization, Gradle does
+not absorb absent assigned identities into unmapped. Rejections identify the Test task and violated
+rule. The previous aggregate is invalidated before assigned ASM Test tasks execute, so a failed
+finalization cannot leave an old accepted aggregate behind. Leftover fragments from tasks without
+assigned tests are not inputs to aggregation. These rules do not change v2 or JaCoCo finalization.
+
 Executable Jenkins mapping sets `stp.schemaVersion=3`, supplies an executable assignment and concrete
 test-task scope, and uses the executable inventory/aggregation tasks above. Ordinary standalone plugin
 usage remains on the logical schema-2 path unless those invocation inputs are supplied.

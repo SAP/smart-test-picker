@@ -397,6 +397,11 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 					root.getProviders().environmentVariable("STP_MAPPING_COLLECTOR"));
 			if (!assigned.isEmpty() && backend.type() == CoverageCollectorType.ASM) task.dependsOn(resolvedStpAgent);
 			if (!assigned.isEmpty() && backend.type() == CoverageCollectorType.ASM) {
+				File acceptedAggregate = aggregateTask.getOutputFile().get().getAsFile();
+				String taskPath = task.getPath();
+				// Aggregation cannot clean its previous output when a Test dependency fails.
+				task.doFirst(ignored -> AsmCoverageCollectorBackend.deleteStale(acceptedAggregate,
+						"aggregate before " + taskPath));
 				String shard = ext.getShardId().getOrElse("gradle:" + task.getPath());
 				aggregateTask.getFragments().from(root.files(new File(task.getProject().getBuildDir(), "stp/coverage/"
 						+ AsmCoverageCollectorBackend.safe(task.getPath()) + "/"
