@@ -108,7 +108,8 @@ Gradle 8 supplies when framework dependencies are missing. Gradle 9 no longer su
 modules; discovery does not substitute the plugin's own launcher. The running Gradle version decides
 the filter semantics. Missing internal APIs or a missing expected filter resource fail closed with
 the task, running version and tested versions, never with an unfiltered fallback. Existing root-based
-inventory callers retain their previous discovery behavior.
+inventory callers retain their previous discovery behavior. Gradle versions below 8.0 and from
+10.0 are rejected by this inventory compatibility boundary.
 
 For schema-v3 ASM mapping, an omitted or explicitly empty `coverageIncludes` list means **derive**.
 Package prefixes are derived at execution time from compiled production classes, after compilation.
@@ -162,7 +163,8 @@ validated and merged; a warning names the Test task and newly absorbed identitie
 not repair incomplete or invalid output and does not invent execution evidence. These unmapped tests
 are mandatory in selection while present at head, until a later map covers them again.
 
-Rejections identify the Test task and violated rule. The previous aggregate is invalidated before assigned ASM Test tasks execute, so a failed
+Rejections identify the Test task and violated rule. The previous aggregate is invalidated before
+assigned ASM Test tasks execute, so a failed
 finalization cannot leave an old accepted aggregate behind. Leftover fragments from tasks without
 assigned tests are not inputs to aggregation. These rules do not change v2 or JaCoCo finalization.
 

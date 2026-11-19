@@ -231,14 +231,7 @@ If the same invocation then requests `test` or `verify`, plugin executions bound
 early-phase work; plugins with side effects must tolerate that repetition. Tests themselves still
 run once. A direct provider goal after preparation does not repeat the lifecycle on its own.
 
-A local 04B review compared precompiled, warm-cache `prepare ... verify ... aggregate` invocations
-before and after this change (Maven 3.9.15, Java 21, three measured runs per variant after warm-up).
-Median total mapping time increased from 22.987 s to 26.939 s on PetClinic's 69-test H2 scope
-(+3.952 s), and from 3.774 s to 4.231 s on a two-module fixture (+0.457 s). These are whole-invocation
-deltas, including discovery/validation, not an isolated compiler benchmark or a performance guarantee.
-Both runs mapped all assigned tests with no unmapped entries. Resources and compiler goals ran once
-before and twice after; PetClinic also repeated enforcer, Git revision, build-info and BOM generation.
-The compiler found no changed classes, but BOM generation actually wrote its output twice.
+Preparation uses Maven core lifecycle internals and is qualified on Maven 3.9.15. Maven 4 is untested.
 
 Provider method filters cannot distinguish parameter types. Assign all effective overloads of a
 class/method together; a partial overload assignment is rejected with assigned and missing identities.
