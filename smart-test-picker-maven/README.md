@@ -232,6 +232,8 @@ early-phase work; plugins with side effects must tolerate that repetition. Tests
 run once. A direct provider goal after preparation does not repeat the lifecycle on its own.
 
 Preparation uses Maven core lifecycle internals and is qualified on Maven 3.9.15. Maven 4 is untested.
+Schema-v3 inventory generation and mapping preparation reject Maven versions below 3.9 with a
+diagnostic naming the running version and the requirement. Other plugin entry points are unchanged.
 
 Provider method filters cannot distinguish parameter types. Assign all effective overloads of a
 class/method together; a partial overload assignment is rejected with assigned and missing identities.
@@ -317,11 +319,28 @@ Surefire/filter behavior. With no explicit revisions the local/worktree flow is 
 
 ## Per-Test Coverage Collection (JaCoCo)
 
+In prepared schema-v3 mapping, ASM coexists with the project's JaCoCo setup and leaves its
+execution data and report counters intact. The JaCoCo collector shares and resets that agent:
+For attachment managed by `jacoco-maven-plugin`, STP redirects `prepare-agent` and
+`prepare-agent-integration` output to a private STP file, leaving the project's configured
+execution-data file absent or byte-identical regardless of append.
+Project JaCoCo `report`, `report-integration`, `report-aggregate`, `check`, `merge` and `dump`
+executions are skipped with a message naming the execution. Agent attachment remains active;
+run project reports and checks in a separate invocation. Bound offline `instrument` executions
+are unsupported and rejected before compilation or tests. Conversion uses the same production
+source boundary as ASM, including installed JARs of omitted reactor dependencies. Preparation
+invalidates the requested aggregate and evidence before tests, so a failed test cannot leave a
+previously accepted aggregate behind.
+
+STP does not parse or rewrite a literal JaCoCo `-javaagent` in a project's own `argLine`.
+That agent remains the active collector, but its destination may receive partial data during
+mapping because of per-test resets. Project JaCoCo consumers are still skipped. Prefer
+plugin-managed attachment, or run project coverage in a separate invocation.
+
 Collection reuses the JaCoCo agent active inside the Surefire/Failsafe fork. Per-test execution
-data is obtained from the runtime API and written to `session_*.exec` under `stp.exec.dir`; the
-project agent's `destfile` is neither rewritten nor used as scratch storage. A project-owned literal
-`argLine`, JaCoCo `prepare-agent` (including `@{argLine}` late evaluation), and STP's existing
-agent-supplied setup therefore share the same single-agent capture path. If no active runtime is
+data is obtained from the runtime API and written to `session_*.exec` under `stp.exec.dir`.
+Literal `argLine` attachment and JaCoCo `prepare-agent` (including `@{argLine}` late evaluation)
+share the same single-agent capture path. If no active runtime is
 visible in the test fork, mapping fails immediately with a focused diagnostic. Reset/snapshot is
 sequential and does not add support for parallel per-test mapping.
 

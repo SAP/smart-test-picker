@@ -37,6 +37,7 @@ public final class GenerateReactorHeadTestInventoryMojo extends AbstractMojo {
 	@org.apache.maven.plugins.annotations.Component private org.eclipse.aether.RepositorySystem repositorySystem;
 
 	@Override public void execute() throws MojoExecutionException {
+		if (schemaVersion == 3) MavenMappingVersion.requireSupported("generate-reactor-head-test-inventory");
 		MavenProject executionRoot = reactorProjects.stream().filter(MavenProject::isExecutionRoot).findFirst()
 				.orElseGet(() -> project.isExecutionRoot() ? project : null);
 		if (executionRoot == null || executionRoot.getBasedir() == null)

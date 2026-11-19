@@ -43,6 +43,10 @@ public class GenerateReportsMojo extends AbstractMojo
 	/** Projects participating in the active Maven reactor. */
 	@Parameter(defaultValue = "${reactorProjects}", readonly = true, required = true)
 	private List<MavenProject> reactorProjects;
+	@Parameter(defaultValue = "${session}", readonly = true)
+	private org.apache.maven.execution.MavenSession session;
+	@Parameter(defaultValue = "2", property = "smartTestPicker.schemaVersion")
+	private int schemaVersion = 2;
 
 	/** Source directory for source file references in XML reports. */
 	@Parameter(defaultValue = "${project.basedir}/src/main/java")
@@ -71,7 +75,15 @@ public class GenerateReportsMojo extends AbstractMojo
 			return;
 		}
 
-		List<File> reactorClassesDirs = reactorClassesDirectories();
+		List<File> reactorClassesDirs;
+		try {
+			reactorClassesDirs = schemaVersion == 3
+					? MavenAsmScope.productionSources(session, reactorProjects).stream().map(java.nio.file.Path::toFile)
+							.filter(File::exists).toList()
+					: reactorClassesDirectories();
+		} catch (Exception failure) {
+			throw new MojoExecutionException("Cannot resolve JaCoCo reactor production sources", failure);
+		}
 		if (reactorClassesDirs.isEmpty())
 		{
 			getLog().warn("[SmartTestPicker] No compiled production classes directories found in the active Maven reactor");

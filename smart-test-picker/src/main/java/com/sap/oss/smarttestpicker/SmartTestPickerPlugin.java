@@ -388,6 +388,14 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 			case ASM -> new AsmCoverageCollectorBackend(root.files(resolvedStpAgent.get().getOutputFile()));
 			case JACOCO -> new JacocoCoverageCollectorBackend(stpJacocoCollector);
 		};
+		if (backend.type() == CoverageCollectorType.JACOCO) {
+			for (Project owner : root.getAllprojects()) {
+				owner.getTasks().withType(org.gradle.testing.jacoco.tasks.JacocoReport.class)
+						.configureEach(SmartTestPickerPlugin::skipProjectJacocoConsumer);
+				owner.getTasks().withType(org.gradle.testing.jacoco.tasks.JacocoCoverageVerification.class)
+						.configureEach(SmartTestPickerPlugin::skipProjectJacocoConsumer);
+			}
+		}
 		aggregateTask.setAssignmentFile(root.file(ext.getExecutableAssignmentFile().get()));
 		var selectionCheck = root.getTasks().register("validateGradleExecutableSelection", ValidateGradleExecutableSelectionTask.class, check -> {
 			check.getAssignmentFile().set(root.file(ext.getExecutableAssignmentFile().get()));
@@ -436,8 +444,19 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 						"generateStpJacocoExecutableFragment" + segment, GenerateGradleJacocoExecutableFragmentTask.class);
 				conversion.setExecDir(new File(base, "exec")); conversion.setReportsDir(new File(base, "reports"));
 				conversion.setSourceDir(new File(task.getProject().getProjectDir(), "src/main/java"));
-				var java = task.getProject().getExtensions().getByType(org.gradle.api.plugins.JavaPluginExtension.class);
-				conversion.getClassesDirs().from(java.getSourceSets().getByName("main").getOutput().getClassesDirs());
+				var production = root.files();
+				for (Project owner : root.getAllprojects()) {
+					if (!owner.getPlugins().hasPlugin("java")) continue;
+					var java = owner.getExtensions().getByType(org.gradle.api.plugins.JavaPluginExtension.class);
+					production.from(java.getSourceSets().getByName("main").getOutput().getClassesDirs());
+					production.from(owner.getTasks().named("jar", org.gradle.api.tasks.bundling.Jar.class)
+							.flatMap(org.gradle.api.tasks.bundling.Jar::getArchiveFile));
+				}
+				// Resolve only runtime entries, retaining their producer dependencies. The captured
+				// file collection contains paths/providers, never Project or Test task objects.
+				conversion.getClassesDirs().from(task.getClasspath().filter(file -> production.getFiles().stream()
+						.anyMatch(candidate -> candidate.toPath().toAbsolutePath().normalize()
+								.equals(file.toPath().toAbsolutePath().normalize()))));
 				conversion.setRevision(ext.getRevision().get()); conversion.setShardId(shard);
 				conversion.setTarget(target); conversion.setAssigned(assigned);
 				conversion.getOutputFile().set(new File(base, "fragment.json")); conversion.dependsOn(task);
@@ -446,6 +465,13 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 			mappingTask.dependsOn(task);
 		}
 		mappingTask.dependsOn(aggregateTask);
+	}
+
+	private static void skipProjectJacocoConsumer(Task consumer) {
+		consumer.onlyIf("STP JaCoCo mapping owns per-test execution data", task -> {
+			task.getLogger().lifecycle("Skipping {}: STP JaCoCo mapping resets the shared agent; run project reports and checks separately", task.getPath());
+			return false;
+		});
 	}
 
 	static void applyExplicitExecutionGate(Test smartTest, File resultFile,

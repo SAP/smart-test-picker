@@ -50,6 +50,15 @@ final class GradleMappingExecution {
 		Preparation preparation = preparation(test);
 		preparation.collector = collector;
 		preparation.frozenCollector = frozenCollector;
+		test.doLast(current -> {
+			Test executed = (Test) current;
+			if (executed.getForkEvery() != 0 || executed.getMaxParallelForks() != 1) {
+				throw new GradleException("Mapping task " + executed.getPath()
+						+ " changed the validated single-JVM settings: forkEvery=" + executed.getForkEvery()
+						+ ", maxParallelForks=" + executed.getMaxParallelForks()
+						+ "; required forkEvery=0, maxParallelForks=1");
+			}
+		});
 	}
 
 	static final class Preparation implements org.gradle.api.Action<Task> {
@@ -70,16 +79,16 @@ final class GradleMappingExecution {
 				throw new GradleException("STP_MAPPING_COLLECTOR=" + frozen + " conflicts with effective collector="
 						+ collector + " for " + current.getPath());
 			}
+			if (test.getForkEvery() > 0) {
+				throw new GradleException(collector + " mapping task " + test.getPath()
+						+ " requires forkEvery=0; forkEvery=" + test.getForkEvery());
+			}
+			if (test.getMaxParallelForks() != 1) {
+				test.getLogger().lifecycle("{} mapping task {} overrides maxParallelForks={} with 1",
+						collector, test.getPath(), test.getMaxParallelForks());
+				test.setMaxParallelForks(1);
+			}
 			if (collector.equals("ASM")) {
-				if (test.getForkEvery() > 0) {
-					throw new GradleException("ASM mapping task " + test.getPath()
-							+ " requires forkEvery=0; forkEvery=" + test.getForkEvery());
-				}
-				if (test.getMaxParallelForks() != 1) {
-					test.getLogger().lifecycle("ASM mapping task {} overrides maxParallelForks={} with 1",
-							test.getPath(), test.getMaxParallelForks());
-					test.setMaxParallelForks(1);
-				}
 				scope.prepareScope();
 			}
 		}
