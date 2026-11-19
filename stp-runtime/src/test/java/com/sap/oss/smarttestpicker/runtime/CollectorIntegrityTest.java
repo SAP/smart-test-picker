@@ -135,6 +135,8 @@ class CollectorIntegrityTest {
 
     @Test void unmappedSurvivesCodecValidatorCompletenessJoinAndRealSelector(@TempDir Path repo) throws Exception {
         git(repo, "init"); git(repo, "config", "user.name", "STP test");
+        git(repo, "config", "commit.gpgsign", "false");
+        git(repo, "config", "tag.gpgsign", "false");
         git(repo, "config", "user.email", "stp@example.invalid");
         Files.writeString(repo.resolve("README.txt"), "base");
         git(repo, "add", "."); git(repo, "commit", "-m", "base");

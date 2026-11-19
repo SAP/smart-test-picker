@@ -33,9 +33,13 @@ public abstract class ValidateGradleExecutableSelectionTask extends DefaultTask 
             var assigned = new TreeSet<com.sap.oss.smarttestpicker.coverage.model.TestIdentity>();
             assignment.tests().stream().filter(id -> id.target().equals(target)).forEach(id -> assigned.add(id.test()));
             if (assigned.isEmpty()) continue;
-            assigned.removeAll(selection.discover());
-            if (!assigned.isEmpty()) throw new GradleException("Gradle mapping task " + selection.getTaskPath().get()
-                    + " has assigned identities outside its effective test selection: " + assigned);
+            var effective = selection.discover();
+            var outside = new TreeSet<>(assigned);
+            outside.removeAll(effective);
+            if (!outside.isEmpty()) throw new GradleException("Gradle mapping task " + selection.getTaskPath().get()
+                    + " has assigned identities outside its effective test selection: " + outside);
+            com.sap.oss.smarttestpicker.selector.MethodNameAssignment.requireCompleteOverloads(
+                    selection.getTaskPath().get(), assigned, effective);
         }
     }
 }

@@ -76,6 +76,20 @@ public final class JUnitInventoryDiscoveryWorker {
 		return new ArrayList<>(rows.values());
 	}
 
+	/** Discovery with filters supplied by the resolved provider, in this same isolated JUnit runtime. */
+	public static List<String[]> discoverProviderSelection(List<String> classes, List<?> filters,
+			Map<String, String> parameters) {
+		var request = LauncherDiscoveryRequestBuilder.request().configurationParameters(parameters);
+		classes.forEach(name -> request.selectors(org.junit.platform.engine.discovery.DiscoverySelectors.selectClass(name)));
+		request.filters(filters.toArray(org.junit.platform.engine.Filter<?>[]::new));
+		TestPlan plan = LauncherFactory.create(LauncherConfig.builder()
+				.enableTestExecutionListenerAutoRegistration(false)
+				.enableLauncherSessionListenerAutoRegistration(false).build()).discover(request.build());
+		Map<String, String[]> rows = new LinkedHashMap<>();
+		for (TestIdentifier root : plan.getRoots()) visit(plan, root, null, null, rows);
+		return new ArrayList<>(rows.values());
+	}
+
 	private static boolean selected(org.junit.platform.engine.TestDescriptor descriptor,
 			java.util.function.BiPredicate<String, String> names, boolean ancestorMethods) {
 		String method = null;

@@ -96,6 +96,8 @@ class GradleExplicitPrSelectionTest
 	{
 		Path root = temporary.resolve("repo-" + System.nanoTime()); Files.createDirectories(root);
 		run(root, "git", "init", "-q"); run(root, "git", "config", "user.email", "test@example.com"); run(root, "git", "config", "user.name", "Test");
+		run(root, "git", "config", "commit.gpgsign", "false");
+		run(root, "git", "config", "tag.gpgsign", "false");
 		Repo repo = new Repo(root); repo.commit("README.md", "R0", "R0"); return repo;
 	}
 	private static String run(Path dir, String... command) throws Exception

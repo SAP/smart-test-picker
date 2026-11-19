@@ -40,6 +40,14 @@ public abstract class GradleTestSelection {
     public abstract ConfigurableFileCollection getCandidates();
 
     static GradleTestSelection capture(Test task) {
+        try {
+            return captureSelection(task);
+        } catch (LinkageError failure) {
+            throw incompatible(task.getPath(), failure);
+        }
+    }
+
+    private static GradleTestSelection captureSelection(Test task) {
         var selection = task.getProject().getObjects().newInstance(GradleTestSelection.class);
         selection.getTaskPath().set(task.getPath());
         selection.getPlatform().set(task.getOptions() instanceof JUnitPlatformOptions);
@@ -67,6 +75,20 @@ public abstract class GradleTestSelection {
     }
 
     Set<TestIdentity> discover() {
+        try {
+            return discoverSelection();
+        } catch (LinkageError failure) {
+            throw incompatible(getTaskPath().get(), failure);
+        }
+    }
+
+    private static GradleException incompatible(String task, LinkageError failure) {
+        return new GradleException("Gradle inventory " + task + " cannot use the internal test selection/runtime API on Gradle "
+                + org.gradle.util.GradleVersion.current().getVersion()
+                + "; tested versions: 8.14, 9.5.1, 9.7.1, 9.9.1. Discovery cannot continue safely.", failure);
+    }
+
+    private Set<TestIdentity> discoverSelection() {
         if (!getPlatform().get()) throw new GradleException("Gradle inventory task " + getTaskPath().get()
                 + " must use JUnit Platform; other test frameworks are unsupported");
         var matcher = new GradleInventoryMatcher(getIncludes().get(), getExcludes().get());

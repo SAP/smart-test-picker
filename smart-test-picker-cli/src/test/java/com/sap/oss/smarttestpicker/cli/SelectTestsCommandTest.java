@@ -22,6 +22,8 @@ class SelectTestsCommandTest {
 	@BeforeEach void setUp() throws Exception {
 		project = temporary.resolve("project"); Files.createDirectories(project);
 		run("git", "init", "-q"); run("git", "config", "user.email", "test@example.com"); run("git", "config", "user.name", "Test");
+		run("git", "config", "commit.gpgsign", "false");
+		run("git", "config", "tag.gpgsign", "false");
 		write("src/main/java/com/example/Foo.java", "package com.example; class Foo {}"); commit("base");
 		String revision = output("git", "rev-parse", "HEAD");
 		write("src/main/java/com/example/Foo.java", "package com.example; class Foo { int x; }"); commit("change");

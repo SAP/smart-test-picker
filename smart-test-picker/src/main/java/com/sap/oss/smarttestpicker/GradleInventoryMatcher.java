@@ -23,7 +23,7 @@ import org.gradle.util.GradleVersion;
  * but not their matching semantics (notably simple names and class prefiltering).
  * The distribution-module snapshot also mirrors Gradle 8's worker runtime augmentation;
  * Gradle 9 removed that augmentation. Only immutable inputs leave this boundary.
- * Differential execution tests cover this adapter on Gradle 8.14, 9.5.1 and 9.7.1.
+ * Differential execution tests cover this adapter on Gradle 8.14, 9.5.1, 9.7.1 and 9.9.1.
  */
 final class GradleInventoryMatcher {
     private final TestSelectionMatcher matcher;
@@ -36,12 +36,25 @@ final class GradleInventoryMatcher {
     boolean matchesTest(String name, String method) { return matcher.matchesTest(name, method); }
 
     static boolean matchesAncestorMethods() {
-        // Gradle 9's extracted platform filter retains the method while walking enclosing classes.
-        return GradleInventoryMatcher.class.getClassLoader().getResource(
-                "org/gradle/api/internal/tasks/testing/junitplatform/filters/ClassMethodNameFilter.class") != null;
+        var version = GradleVersion.current().getBaseVersion();
+        if (version.compareTo(GradleVersion.version("8.0")) < 0
+                || version.compareTo(GradleVersion.version("10.0")) >= 0) {
+            throw new LinkageError("Unsupported Gradle inventory filter semantics: " + version);
+        }
+        boolean modern = version.compareTo(GradleVersion.version("9.0")) >= 0;
+        // Version decides semantics; a missing resource must never select the older behavior.
+        if (modern && GradleInventoryMatcher.class.getClassLoader().getResource(
+                "org/gradle/api/internal/tasks/testing/junitplatform/filters/ClassMethodNameFilter.class") == null) {
+            throw new LinkageError("Missing Gradle ClassMethodNameFilter resource");
+        }
+        return modern;
     }
 
     static void captureFrameworkRuntime(Test task, GradleTestSelection selection) {
+        var probe = new GradleInventoryMatcher(Set.of(), Set.of());
+        probe.mayIncludeClass("example.CompatibilityProbe");
+        probe.matchesTest("example.CompatibilityProbe", "test");
+        matchesAncestorMethods();
         selection.getDistributionModules().set(java.util.Map.of());
         if (GradleVersion.current().getBaseVersion().compareTo(GradleVersion.version("9.0")) >= 0
                 || !selection.getPlatform().get()) {

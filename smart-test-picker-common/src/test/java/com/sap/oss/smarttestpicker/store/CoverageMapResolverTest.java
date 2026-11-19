@@ -49,6 +49,8 @@ class CoverageMapResolverTest
 
 		// Initialize a git repo so GitChangeDetector works
 		runGit(projectDir, "init");
+		runGit(projectDir, "config", "commit.gpgsign", "false");
+		runGit(projectDir, "config", "tag.gpgsign", "false");
 		runGit(projectDir, "commit", "--allow-empty", "-m", "initial");
 
 		// Manually set up cache dir (normally ~/.gradle/smart-test-picker/myproject/)

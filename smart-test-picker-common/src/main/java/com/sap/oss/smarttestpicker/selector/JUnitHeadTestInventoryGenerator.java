@@ -43,6 +43,11 @@ public final class JUnitHeadTestInventoryGenerator {
 		return generate(null, runtimeClasspath, testClassRoots);
 	}
 
+	/** Opens a target-owned runtime without inheriting build-tool dependencies; the caller must close it. */
+	public static URLClassLoader isolatedTargetRuntime(URL[] urls) {
+		return new TargetJUnitClassLoader(urls, ClassLoader.getPlatformClassLoader());
+	}
+
 	public HeadTestInventory generate(String revision, Collection<Path> runtimeClasspath,
 			Collection<Path> testClassRoots) {
 		return generate(revision, runtimeClasspath, testClassRoots, ignored -> { });

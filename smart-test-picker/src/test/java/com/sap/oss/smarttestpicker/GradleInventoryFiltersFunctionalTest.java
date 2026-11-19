@@ -30,7 +30,7 @@ class GradleInventoryFiltersFunctionalTest {
     private static final String MAPPING = "generateSmartTestMapping";
 
     static Stream<Arguments> selections() {
-        return Stream.of("8.14", "9.5.1", "9.7.1").flatMap(version -> Stream.of(
+        return Stream.of("8.14", "9.5.1", "9.7.1", "9.9.1").flatMap(version -> Stream.of(
                 new String[] {"none", ""},
                 new String[] {"class-files", "include '**/*Fast*'; exclude '**/*IT.class'"},
                 new String[] {"qualified-class", "filter { includeTestsMatching 'example.FastTest' }"},
@@ -145,6 +145,34 @@ class GradleInventoryFiltersFunctionalTest {
         assertEquals(Set.of("gradle::test::example.FastTest#alpha"), reported(root, "test"));
     }
 
+    @ParameterizedTest @org.junit.jupiter.params.provider.ValueSource(strings = {"8.14", "9.5.1", "9.7.1", "9.9.1"})
+    void partialOverloadAssignmentFailsBeforeTests(String version) throws Exception {
+        Path root = fixture("", false, false);
+        assignment(root, Set.of("gradle::test::example.ShapesTest#overloaded(int)"));
+        BuildResult result = run(root, version, true, List.of(MAPPING, "-Dstp.executableInventoryDiscovery=false"));
+        for (String expected : List.of(":test", "overload", "example.ShapesTest#overloaded(int)",
+                "example.ShapesTest#overloaded(java.lang.String)"))
+            assertTrue(result.getOutput().contains(expected), result.getOutput());
+        assertFalse(Files.exists(root.resolve("test-body-ran")));
+        assertFalse(Files.exists(root.resolve("build/test-results/test")));
+        assertFalse(Files.exists(root.resolve("build/stp/executable-fragment.json")));
+    }
+
+    @ParameterizedTest @org.junit.jupiter.params.provider.ValueSource(strings = {"8.14", "9.5.1", "9.7.1", "9.9.1"})
+    void completeOverloadAssignmentRunsWithCoverage(String version) throws Exception {
+        Path root = fixture("", false, false);
+        Set<String> assigned = Set.of("gradle::test::example.ShapesTest#overloaded(int)",
+                "gradle::test::example.ShapesTest#overloaded(java.lang.String)");
+        assignment(root, assigned);
+        run(root, version, false, List.of(MAPPING, "-Dstp.executableInventoryDiscovery=false"));
+        assertEquals(assigned, aggregate(root));
+        var fragment = new ExecutableCoverageFragmentCodec().deserialize(
+                Files.readAllBytes(root.resolve("build/stp/executable-fragment.json")));
+        assertTrue(fragment.collectionCompleted());
+        assertTrue(fragment.unmapped().isEmpty());
+        fragment.tests().values().forEach(coverage -> assertTrue(coverage.coveredClasses().contains("example.Value")));
+    }
+
     @Test void preflightScopeFailureRemovesPreviousAggregate() throws Exception {
         Path root = fixture("filter { includeTestsMatching 'example.FastTest.alpha' }", false, false);
         assignment(root, Set.of("gradle::test::example.FastTest#alpha"));
@@ -250,6 +278,8 @@ class GradleInventoryFiltersFunctionalTest {
                 }
                 """);
         git(root, "init", "-q"); git(root, "config", "user.name", "Fixture");
+        git(root, "config", "commit.gpgsign", "false");
+        git(root, "config", "tag.gpgsign", "false");
         git(root, "config", "user.email", "fixture@example.invalid");
         git(root, "add", "."); git(root, "commit", "-qm", "fixture");
         write(root, "revision.txt", git(root, "rev-parse", "HEAD").trim());

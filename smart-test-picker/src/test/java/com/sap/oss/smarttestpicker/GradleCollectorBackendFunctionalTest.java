@@ -441,6 +441,8 @@ class GradleCollectorBackendFunctionalTest {
 			""");
 		if (jacoco) {
 			git(project, "init", "-q");
+			git(project, "config", "commit.gpgsign", "false");
+			git(project, "config", "tag.gpgsign", "false");
 			git(project, "config", "user.email", "stp-fixture@example.invalid");
 			git(project, "config", "user.name", "STP Fixture");
 			git(project, "add", ".");

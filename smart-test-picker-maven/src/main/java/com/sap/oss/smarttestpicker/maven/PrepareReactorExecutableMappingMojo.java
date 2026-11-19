@@ -48,6 +48,10 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 	@Parameter(property = "smartTestPicker.reactorRoot") private File reactorRoot;
 	@Parameter(defaultValue = "${plugin}", readonly = true, required = true) private PluginDescriptor pluginDescriptor;
 	@Component private RepositorySystem repositorySystem;
+	@Component private org.apache.maven.plugin.MavenPluginManager pluginManager;
+	@Component private org.apache.maven.lifecycle.internal.LifecycleExecutionPlanCalculator executionPlans;
+	@Component private org.apache.maven.lifecycle.internal.LifecycleStarter lifecycleStarter;
+	@Parameter(property = "smartTestPicker.testFilter") private String testFilter;
 	@Parameter(property = "smartTestPicker.asm.includes") private String asmIncludes;
 	@Parameter(property = "smartTestPicker.asm.excludes") private String asmExcludes;
 	@Parameter(defaultValue = "${env.STP_MAPPING_COLLECTOR}", readonly = true) private String expectedCollector;
@@ -101,10 +105,31 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 			if (scope != null) getLog().info("ASM mapping scope includes=" + scope.includes() + "; excludes=" + scope.excludes()
 					+ "; productionSources=" + scope.sources());
 			File agent = needsAgent ? resolveAgent() : null;
+			if (!assignment.tests().isEmpty()) {
+				compileForSelection();
+				var selection = new MavenProviderSelection(session, pluginManager, executionPlans, repositorySystem, getLog()::debug);
+				var violations = new java.util.ArrayList<String>();
+				for (var entry : modules.entrySet()) {
+					var assigned = partitioned.get(entry.getKey());
+					if (assigned.isEmpty()) continue;
+					var effective = selection.discover(entry.getValue(), executionType, executionId, entry.getKey().toString());
+					if (testFilter != null && !testFilter.isBlank()) effective.removeIf(MavenSurefireTestFilter.parse(testFilter).negate());
+					var outside = new java.util.TreeSet<>(assigned);
+					outside.removeAll(effective);
+					if (!outside.isEmpty()) violations.add(entry.getKey() + " assigned identities outside effective provider selection: " + outside);
+					else {
+						try {
+							com.sap.oss.smarttestpicker.selector.MethodNameAssignment.requireCompleteOverloads(
+									entry.getKey().toString(), assigned, effective);
+						} catch (IllegalArgumentException failure) { violations.add(failure.getMessage()); }
+					}
+				}
+				if (!violations.isEmpty()) throw new IllegalArgumentException(String.join("\n", violations));
+			}
 			for (var entry : modules.entrySet()) {
 				var collector = StpMavenLifecycleParticipant.selectedCollector(entry.getValue(), session.getUserProperties());
 				var backend = MavenCoverageCollectorBackend.selected(collector);
-				configure(entry.getValue(), entry.getKey(), partitioned.get(entry.getKey()), executionType, collector);
+				configure(entry.getValue(), entry.getKey(), partitioned.get(entry.getKey()), executionType, executionId, collector);
 				if (backend == MavenCoverageCollectorBackend.ASM && !partitioned.get(entry.getKey()).isEmpty()) {
 					AsmMappingAttachment.attach(entry.getValue(), session, executionType, agent, entry.getKey(),
 							assignment.revision().value(), assignment.shardId().value(), scope);
@@ -113,6 +138,24 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 		} catch (Exception failure) {
 			throw new MojoExecutionException("Cannot prepare schema-v3 Maven mapping: " + failure.getMessage(), failure);
 		}
+	}
+
+	private void compileForSelection() throws Exception {
+		// A CLI preparation goal may precede test-compile. Compile the complete active reactor
+		// before checking any target, so a later module cannot fail validation after earlier tests ran.
+		var request = org.apache.maven.execution.DefaultMavenExecutionRequest.copy(session.getRequest());
+		request.setGoals(List.of("test-compile"));
+		request.setStartTime(session.getStartTime());
+		var result = new org.apache.maven.execution.DefaultMavenExecutionResult();
+		var compilation = new MavenSession(session.getContainer(), session.getRepositorySession(), request, result);
+		compilation.setProjects(session.getProjects());
+		compilation.setAllProjects(session.getAllProjects());
+		compilation.setProjectDependencyGraph(session.getProjectDependencyGraph());
+		compilation.setProjectMap(session.getProjectMap());
+		compilation.setCurrentProject(session.getCurrentProject());
+		getLog().info("Compiling reactor test classes before validating executable assignment selection");
+		lifecycleStarter.execute(compilation);
+		if (result.hasExceptions()) throw new IllegalArgumentException("Cannot compile reactor for assignment selection", result.getExceptions().get(0));
 	}
 
 	private File resolveAgent() throws Exception {
@@ -133,7 +176,7 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 	}
 
 	private static void configure(MavenProject module, ExecutionTarget target, Set<TestIdentity> tests,
-			String executionType, StpCollectorSelection collector) throws Exception {
+			String executionType, String executionId, StpCollectorSelection collector) throws Exception {
 		String provider = executionType == null || executionType.isBlank() ? "surefire" : executionType;
 		if (!provider.equals("surefire") && !provider.equals("failsafe"))
 			throw new IllegalArgumentException("Unsupported Maven test execution type: " + provider);
@@ -166,7 +209,12 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 		List<String> patterns = tests.isEmpty() ? List.of("**/__stp_no_assigned_tests__*.java")
 				: tests.stream().map(test -> MavenMethodIncludes.include(test.className(), test.methodName(), false)).distinct().toList();
 		Files.write(output.toPath(), patterns);
+		String selectedExecution = executionId == null || executionId.isBlank()
+				? (provider.equals("surefire") ? "default-test" : "default-integration-test") : executionId;
+		pinAssignedMethods(plugin, selectedExecution, String.join(",", patterns));
 		String otherProvider = provider.equals("surefire") ? "failsafe" : "surefire";
+		Plugin other = module.getPlugin("org.apache.maven.plugins:maven-" + otherProvider + "-plugin");
+		if (other != null) pinAssignedMethods(other, "", "__stp_no_assigned_tests__");
 		File suppressed = new File(module.getBuild().getDirectory(),
 				"stp/selected-tests-" + otherProvider + "-v3" + suffix + ".txt");
 		Files.write(suppressed.toPath(), List.of("**/__stp_no_assigned_tests__*.java"));
@@ -189,6 +237,26 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 			for (String name : List.of("moduleFragmentOutput", "moduleEvidenceOutput", "moduleDiagnosticOutput"))
 				Files.deleteIfExists(Path.of(module.getProperties().getProperty("smartTestPicker." + name)));
 		}
+	}
+
+	private static void pinAssignedMethods(Plugin plugin, String selectedExecution, String patterns) {
+		// Exact method names take precedence over literal POM includes/test/includesFile.
+		// Original excludes have already participated in the effective-selection validation;
+		// tags and engine filters remain in the provider configuration and still apply.
+		Xpp3Dom base = plugin.getConfiguration() instanceof Xpp3Dom value ? new Xpp3Dom(value) : new Xpp3Dom("configuration");
+		setTestPattern(base, patterns);
+		plugin.setConfiguration(base);
+		for (var execution : plugin.getExecutions()) {
+			Xpp3Dom config = execution.getConfiguration() instanceof Xpp3Dom value ? new Xpp3Dom(value) : new Xpp3Dom("configuration");
+			setTestPattern(config, execution.getId().equals(selectedExecution) ? patterns : "__stp_no_assigned_tests__");
+			execution.setConfiguration(config);
+		}
+	}
+
+	private static void setTestPattern(Xpp3Dom configuration, String pattern) {
+		Xpp3Dom test = configuration.getChild("test");
+		if (test == null) { test = new Xpp3Dom("test"); configuration.addChild(test); }
+		test.setValue(pattern);
 	}
 
 	private static void pinSingleFork(Xpp3Dom configuration) {

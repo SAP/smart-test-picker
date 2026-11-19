@@ -196,6 +196,8 @@ class GradleV3FreshnessFunctionalTest {
 			}
 			""");
 		git(root, "init", "-q"); git(root, "config", "user.name", "Fixture"); git(root, "config", "user.email", "fixture@example.invalid");
+		git(root, "config", "commit.gpgsign", "false");
+		git(root, "config", "tag.gpgsign", "false");
 		git(root, "add", "."); git(root, "commit", "-qm", "fixture");
 		write(root, "revision.txt", git(root, "rev-parse", "HEAD").trim());
 		assignment(root, List.of("first", "second"));

@@ -200,6 +200,8 @@ class SchemaV2SelectionAnalyzerTest
 	{
 		Path root = temporary.resolve("repo-" + System.nanoTime()); Files.createDirectories(root);
 		run(root, "git", "init", "-q"); run(root, "git", "config", "user.email", "test@example.com"); run(root, "git", "config", "user.name", "Test");
+		run(root, "git", "config", "commit.gpgsign", "false");
+		run(root, "git", "config", "tag.gpgsign", "false");
 		Repo repo = new Repo(root); repo.write("README.md", "one"); repo.commit("initial"); return repo;
 	}
 	private static Path writeMap(Path root, CoverageMap map) throws Exception

@@ -25,6 +25,8 @@ class AsmUnmappedEndToEndTest {
             "runtime-uninitialized", "transformation-failure", "method-id-collision", "owned-error-unhealthy"})
     void onlyBrokenIdentitiesBecomeMandatory(String mode, @TempDir Path repo) throws Exception {
         git(repo, "init"); git(repo, "config", "user.name", "STP regression");
+        git(repo, "config", "commit.gpgsign", "false");
+        git(repo, "config", "tag.gpgsign", "false");
         git(repo, "config", "user.email", "stp@example.invalid");
         Files.writeString(repo.resolve("README.txt"), "base");
         git(repo, "add", "README.txt"); git(repo, "commit", "-m", "base");

@@ -34,6 +34,8 @@ class JacocoSetupSelectionTest {
         Files.createDirectories(source.getParent());
         Files.copy(Path.of("../smart-test-picker-maven/src/test/fixtures/capability-probes/main/SetupOnly.java"), source);
         git(repo, "init", "-q"); git(repo, "config", "user.email", "fixture@example.invalid");
+        git(repo, "config", "commit.gpgsign", "false");
+        git(repo, "config", "tag.gpgsign", "false");
         git(repo, "config", "user.name", "STP Fixture"); git(repo, "add", "."); git(repo, "commit", "-qm", "base");
         String base = git(repo, "rev-parse", "HEAD").trim();
         var observed = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(input));
