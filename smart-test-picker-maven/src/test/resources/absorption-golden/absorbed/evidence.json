@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "revision": "rev",
+  "shardId": "shard",
+  "executionTarget": "maven:module",
+  "EXECUTED": [
+    "maven:module::fixture.Tests#failed",
+    "maven:module::fixture.Tests#pass"
+  ],
+  "NON_EXECUTED": [
+    "maven:module::fixture.Tests#skipped"
+  ],
+  "assignmentAbsorption": {
+    "reason": "ASSIGNED_TEST_NOT_REPORTED",
+    "executionObserved": false,
+    "count": 1,
+    "tests": [
+      "maven:module::fixture.Tests#pass"
+    ]
+  }
+}

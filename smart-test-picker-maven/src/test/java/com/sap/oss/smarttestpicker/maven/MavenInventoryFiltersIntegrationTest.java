@@ -480,6 +480,83 @@ class MavenInventoryFiltersIntegrationTest {
         }
     }
 
+    @Test void naturalContainerFailuresKeepHealthyCoverage() throws Exception {
+        Path root = fixture("3.5.6", "surefire", "defaults", "");
+        for (String kind : List.of("Setup", "Initialization")) {
+            String setup = kind.equals("Setup")
+                    ? "@org.junit.jupiter.api.BeforeAll static void setup() { throw new IllegalStateException(\"setup failure\"); }"
+                    : "static { if (Boolean.parseBoolean(\"true\")) throw new IllegalStateException(\"initialization failure\"); }";
+            write(root, "src/test/java/example/" + kind + "FailureTest.java", "package example; public class "
+                    + kind + "FailureTest { " + setup + " @org.junit.jupiter.api.Test void observed() { Service.value(); } }\n");
+        }
+        commit(root);
+        assignment(root, "surefire", Set.of("example.FastTest#alpha", "example.SetupFailureTest#observed",
+                "example.InitializationFailureTest#observed"));
+        Result compiled = invoke(root, "test-compile");
+        assertEquals(0, compiled.exitCode(), compiled.output());
+        Result run = mapping(root, "3.5.6", "surefire", List.of("-Dmaven.test.failure.ignore=true"));
+        assertEquals(0, run.exitCode(), run.output());
+        var value = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(fragment(root, "surefire")));
+        assertTrue(value.collectionCompleted());
+        assertEquals(1, value.tests().size());
+        assertEquals(2, value.unmapped().size());
+        Path retained = Path.of("build/absorption-natural"); Files.createDirectories(retained);
+        Files.copy(fragment(root, "surefire"), retained.resolve("fragment.json"), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+        Files.writeString(retained.resolve("build.log"), run.output());
+    }
+
+
+    @ParameterizedTest @ValueSource(strings = {"second-execution", "other-provider"})
+    void explicitNoSpecifiedTestsFailureDoesNotActivateUnassignedExecutions(String kind) throws Exception {
+        Path root = fixture("3.5.6", "surefire", "defaults", "<failIfNoSpecifiedTests>true</failIfNoSpecifiedTests>");
+        Path pom = root.resolve("pom.xml");
+        String text = Files.readString(pom);
+        if (kind.equals("second-execution")) {
+            text = text.replaceFirst("</executions>", "<execution><id>unassigned</id><configuration>"
+                    + "<failIfNoSpecifiedTests>true</failIfNoSpecifiedTests></configuration></execution></executions>");
+        } else {
+            text = text.replace("<configuration><failIfNoTests>false</failIfNoTests></configuration>",
+                    "<configuration><failIfNoTests>false</failIfNoTests><failIfNoSpecifiedTests>true</failIfNoSpecifiedTests></configuration>");
+        }
+        Files.writeString(pom, text); commit(root);
+        assignment(root, "surefire", Set.of("example.FastTest#alpha"));
+        Result compiled = invoke(root, "test-compile");
+        assertEquals(0, compiled.exitCode(), compiled.output());
+        String suppressedGoal = kind.equals("second-execution")
+                ? goal("3.5.6", "surefire").replace("@fixture-run", "@unassigned")
+                : goal("3.5.6", "failsafe");
+        Result run = mapping(root, "3.5.6", "surefire", List.of(suppressedGoal));
+        assertEquals(0, run.exitCode(), run.output());
+        assertEquals(Set.of("example.FastTest#alpha"), reported(root, "surefire"));
+        assertTrue(reported(root, "failsafe").isEmpty());
+        var fragment = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(fragment(root, "surefire")));
+        assertEquals(Set.of("example.FastTest#alpha"), fragment.tests().keySet().stream()
+                .map(i -> i.test().toString()).collect(Collectors.toSet()));
+    }
+
+    @Test void explicitNoSpecifiedTestsFailureDoesNotActivateUnassignedModule() throws Exception {
+        Path root = copyFixture("schema-v3-reactor", temporary.resolve("reactor"));
+        Path pom = root.resolve("pom.xml");
+        String text = Files.readString(pom);
+        // The copied provider configuration deliberately requests failure on an empty method selection.
+        text = text.replace("<failIfNoSpecifiedTests>${surefire.failIfNoSpecifiedTests}</failIfNoSpecifiedTests>",
+                "<failIfNoSpecifiedTests>true</failIfNoSpecifiedTests>");
+        Files.writeString(pom, text);
+        String revision = commit(root);
+        var assigned = Set.of(ExecutableTestIdentity.parse("maven:module-a::a.ATests#a1"));
+        Files.write(root.resolve("assignment.json"), new ExecutableShardAssignmentCodec().serialize(
+                new ExecutableShardAssignment(1, new CoverageMapRevision(revision), new ShardId("s"), assigned)));
+        Result compiled = maven(root, "test-compile", "-Djacoco.skip=true");
+        assertEquals(0, compiled.exitCode(), compiled.output());
+        Result run = maven(root, PLUGIN + "prepare-reactor-executable-mapping", "test", PLUGIN + "generate-coverage-fragment",
+                "-DsmartTestPicker.testsFile=" + root.resolve("assignment.json"), "-DsmartTestPicker.revision=" + revision,
+                "-DsmartTestPicker.shardId=s", "-DsmartTestPicker.coverageCollector=ASM", "-DsmartTestPicker.schemaVersion=3",
+                "-Djacoco.skip=true");
+        assertEquals(0, run.exitCode(), run.output());
+        assertEquals(Set.of("a.ATests#a1"), reported(root.resolve("module-a"), "surefire"));
+        assertTrue(reported(root.resolve("module-b"), "surefire").isEmpty());
+    }
+
     private Path fixture(String version, String provider, String scenario, String extra) throws Exception {
         Path root = temporary.resolve("project");
         String selection = switch (scenario) {

@@ -108,7 +108,8 @@ Gradle 8 supplies when framework dependencies are missing. Gradle 9 no longer su
 modules; discovery does not substitute the plugin's own launcher. The running Gradle version decides
 the filter semantics. Missing internal APIs or a missing expected filter resource fail closed with
 the task, running version and tested versions, never with an unfiltered fallback. Existing root-based
-inventory callers retain their previous discovery behavior.
+inventory callers retain their previous discovery behavior. Gradle versions below 8.0 and from
+10.0 are rejected by this inventory compatibility boundary.
 
 For schema-v3 ASM mapping, an omitted or explicitly empty `coverageIncludes` list means **derive**.
 Package prefixes are derived at execution time from compiled production classes, after compilation.
@@ -153,10 +154,17 @@ positive `classesTransformed`. Zero-instrumentation failures include the effecti
 excludes and production sources. The fragment must be complete, match the assignment binding and
 belong exactly to that task's execution target, including setup-scope ownership.
 
-Only `SKIPPED`, `FAILED` and `COLLECTION_FAILED` are accepted unmapped reasons. Unexpected identities,
-duplicates and missing assigned identities reject mapping. Unlike Maven finalization, Gradle does
-not absorb absent assigned identities into unmapped. Rejections identify the Test task and violated
-rule. The previous aggregate is invalidated before assigned ASM Test tasks execute, so a failed
+Only `SKIPPED`, `FAILED` and `COLLECTION_FAILED` are accepted unmapped reasons. Unexpected identities
+and duplicates reject mapping. For a completed, otherwise valid fragment, assigned identities absent
+from both mapped and unmapped entries become `COLLECTION_FAILED`, using the same absorption policy as
+Maven. The fragment is rewritten atomically with an `assignmentAbsorption` audit naming those tests,
+the count, reason `ASSIGNED_TEST_NOT_REPORTED`, and `executionObserved=false`. Existing audits are
+validated and merged; a warning names the Test task and newly absorbed identities. Absorption does
+not repair incomplete or invalid output and does not invent execution evidence. These unmapped tests
+are mandatory in selection while present at head, until a later map covers them again.
+
+Rejections identify the Test task and violated rule. The previous aggregate is invalidated before
+assigned ASM Test tasks execute, so a failed
 finalization cannot leave an old accepted aggregate behind. Leftover fragments from tasks without
 assigned tests are not inputs to aggregation. These rules do not change v2 or JaCoCo finalization.
 

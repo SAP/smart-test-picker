@@ -60,7 +60,6 @@ class GradleAsmFinalizationFunctionalTest {
 				Arguments.of("unexpected-identity", "example.MappingTest#unexpected"),
 				Arguments.of("TIMEOUT", "TIMEOUT"),
 				Arguments.of("ASSIGNED_NOT_REPORTED", "ASSIGNED_NOT_REPORTED"),
-				Arguments.of("missing-identity", "example.MappingTest#second"),
 				Arguments.of("fragment-revision", "revision"),
 				Arguments.of("fragment-shard", "shard"),
 				Arguments.of("incomplete", "incomplete"),
@@ -125,6 +124,122 @@ class GradleAsmFinalizationFunctionalTest {
 				.map(i -> i.target().toString()).collect(java.util.stream.Collectors.toSet()));
 	}
 
+	@ParameterizedTest @ValueSource(booleans = {false, true})
+	void missingIdentityIsAbsorbedWithoutChangingSiblingCoverage(boolean twoTasks) throws Exception {
+		Path project = fixture(twoTasks);
+		run(project, false, "none");
+		var original = aggregate(project);
+		Path healthy = project.resolve("build/stp/coverage/_test/finalization-shard/fragment.json");
+		byte[] healthyBytes = Files.readAllBytes(healthy);
+		var result = run(project, false, "missing-identity");
+		var actual = aggregate(project);
+		String task = twoTasks ? ":otherTest" : ":test";
+		var missing = com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentity.parse(
+				"gradle:" + task + "::example.MappingTest#second");
+		assertTrue(actual.collectionCompleted());
+		assertEquals(List.of(new com.sap.oss.smarttestpicker.coverage.model.ExecutableUnmappedTest(missing,
+				com.sap.oss.smarttestpicker.coverage.model.UnmappedReason.COLLECTION_FAILED)), actual.unmapped());
+		var expected = new java.util.TreeMap<>(original.tests()); expected.remove(missing);
+		assertEquals(expected, actual.tests());
+		assertEquals(original.setupScopes(), actual.setupScopes());
+		assertAudit(project, task, List.of(missing.toString()));
+		for (String text : List.of(task, "1", missing.toString(), "ASSIGNED_TEST_NOT_REPORTED"))
+			assertTrue(result.getOutput().contains(text), result.getOutput());
+		if (twoTasks) assertArrayEquals(healthyBytes, Files.readAllBytes(healthy));
+		assertMandatorySelection(actual, missing);
+	}
+
+	@ParameterizedTest(name = "missing identity plus {0}") @MethodSource("rejectedArtifacts")
+	void absorptionCannotRepairRejectedArtifacts(String fault, String rule) throws Exception {
+		Path project = fixture(true);
+		run(project, false, "none");
+		addThirdAssignment(project);
+		var result = run(project, true, fault, "-PremoveThird=true");
+		assertTrue(result.getOutput().contains(":otherTest"), result.getOutput());
+		assertTrue(result.getOutput().contains(rule), result.getOutput());
+		assertFalse(Files.exists(aggregatePath(project)));
+	}
+
+	@ParameterizedTest @ValueSource(strings = {"valid", "reason", "count", "identity"})
+	void existingAbsorptionAuditIsValidatedAndMerged(String kind) throws Exception {
+		Path project = fixture(true);
+		addThirdAssignment(project);
+		boolean fail = !kind.equals("valid");
+		var result = run(project, fail, "audit-" + kind, "-PremoveThird=true");
+		if (fail) {
+			assertTrue(result.getOutput().contains(":otherTest"), result.getOutput());
+			assertTrue(result.getOutput().toLowerCase().contains("absorption"), result.getOutput());
+			assertFalse(Files.exists(aggregatePath(project)));
+		} else {
+			assertEquals(2, aggregate(project).unmapped().size());
+			assertAudit(project, ":otherTest", List.of("gradle::otherTest::example.MappingTest#second",
+					"gradle::otherTest::example.MappingTest#third"));
+		}
+	}
+
+	private void addThirdAssignment(Path project) throws Exception {
+		Path file = project.resolve("assignment.json");
+		var json = com.google.gson.JsonParser.parseString(Files.readString(file)).getAsJsonObject();
+		json.getAsJsonArray("tests").add("gradle::otherTest::example.MappingTest#third");
+		Files.writeString(file, json.toString());
+	}
+
+	@Test void reportsNaturalContainerFailuresWithoutLosingHealthyCoverage() throws Exception {
+		Path project = fixture(false);
+		for (String kind : List.of("Setup", "Initialization")) {
+			String setup = kind.equals("Setup")
+					? "@org.junit.jupiter.api.BeforeAll static void setup() { throw new IllegalStateException(\"setup failure\"); }"
+					: "static { if (Boolean.parseBoolean(\"true\")) throw new IllegalStateException(\"initialization failure\"); }";
+			write(project, "src/test/java/example/" + kind + "FailureTest.java", "package example; public class "
+					+ kind + "FailureTest { " + setup + " @org.junit.jupiter.api.Test void observed() { Service.value(); } }\n");
+		}
+		Path file = project.resolve("assignment.json");
+		var json = com.google.gson.JsonParser.parseString(Files.readString(file)).getAsJsonObject();
+		for (String kind : List.of("Setup", "Initialization")) json.getAsJsonArray("tests").add(
+				"gradle::test::example." + kind + "FailureTest#observed");
+		Files.writeString(file, json.toString());
+		var result = run(project, false, "none");
+		var fragment = aggregate(project);
+		assertTrue(fragment.collectionCompleted());
+		assertEquals(2, fragment.tests().size());
+		assertEquals(2, fragment.unmapped().size());
+		Path retained = Path.of("build/absorption-natural"); Files.createDirectories(retained);
+		Files.copy(project.resolve("build/stp/coverage/_test/finalization-shard/fragment.json"),
+				retained.resolve("fragment.json"), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+		Files.writeString(retained.resolve("build.log"), result.getOutput());
+	}
+
+	private void assertAudit(Path project, String task, List<String> expected) throws Exception {
+		Path file = project.resolve("build/stp/coverage/" + task.replace(':', '_') + "/finalization-shard/fragment.json");
+		var audit = com.google.gson.JsonParser.parseString(Files.readString(file)).getAsJsonObject()
+				.getAsJsonObject("assignmentAbsorption");
+		assertNotNull(audit);
+		assertEquals("ASSIGNED_TEST_NOT_REPORTED", audit.get("reason").getAsString());
+		assertFalse(audit.get("executionObserved").getAsBoolean());
+		assertEquals(expected.size(), audit.get("count").getAsInt());
+		assertEquals(expected, java.util.stream.StreamSupport.stream(audit.getAsJsonArray("tests").spliterator(), false)
+				.map(com.google.gson.JsonElement::getAsString).toList());
+	}
+
+	private void assertMandatorySelection(ExecutableCoverageFragment fragment,
+			com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentity missing) throws Exception {
+		var assigned = new java.util.TreeSet<>(fragment.tests().keySet()); assigned.add(missing);
+		var inventory = new com.sap.oss.smarttestpicker.coverage.model.ExecutableTestInventory(fragment.revision(), assigned);
+		var map = new com.sap.oss.smarttestpicker.coverage.ExecutableCoverageFragmentJoiner().join(inventory,
+				new com.sap.oss.smarttestpicker.coverage.model.ExecutableShardPlan(fragment.revision(),
+						java.util.Map.of(fragment.shardId(), assigned)), List.of(fragment), Set.of(), java.time.Instant.EPOCH,
+				new com.sap.oss.smarttestpicker.coverage.model.GeneratorProvenance("test", "ASM", "none", "17"));
+		Path mapFile = temporary.resolve("selection-map.json.gz");
+		new com.sap.oss.smarttestpicker.coverage.serialization.ExecutableCoverageMapCodec().write(map, mapFile);
+		var logical = com.sap.oss.smarttestpicker.selector.ExplicitPrSelectorFlow.selectionMap(mapFile);
+		var head = assigned.stream().map(com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentity::test)
+				.collect(java.util.stream.Collectors.toSet());
+		var selected = new com.sap.oss.smarttestpicker.selector.SchemaV2TestSelector().select(
+				new com.sap.oss.smarttestpicker.selector.SelectionContext(logical, fragment.revision(), fragment.revision().value(),
+						Set.of("example.Unrelated"), Set.of(), head, Set.of(), Set.of(), Set.of()));
+		assertEquals(List.of(missing.test().toString()), selected.getSelectedTests());
+	}
+
 	private Path fixture(boolean twoTasks) throws Exception {
 		Path project = temporary.resolve("fixture");
 		write(project, "settings.gradle", "rootProject.name='finalization'\n");
@@ -148,6 +263,7 @@ class GradleAsmFinalizationFunctionalTest {
 			}
 			def fault = providers.gradleProperty('fault').getOrElse('none')
 			def faultTask = '%s'
+			def removeThird = providers.gradleProperty('removeThird').getOrElse('false') == 'true'
 			tasks.withType(Test).configureEach {
 			 useJUnitPlatform()
 			 ignoreFailures = true
@@ -186,6 +302,15 @@ class GradleAsmFinalizationFunctionalTest {
 			    if (fault == 'setup-wrong-owner') scope.owner = 'gradle::foreignTest'
 			    fragment.setupScopes.add(scope); break
 			  }
+			  if (fault.startsWith('audit-')) {
+			   fragment.tests.remove(identity)
+			   fragment.unmapped.add([test:identity, reason:'COLLECTION_FAILED'])
+			   fragment.assignmentAbsorption = [reason:'ASSIGNED_TEST_NOT_REPORTED', executionObserved:false, count:1, tests:[identity]]
+			   if (fault == 'audit-reason') fragment.assignmentAbsorption.reason = 'OTHER'
+			   if (fault == 'audit-count') fragment.assignmentAbsorption.count = 2
+			   if (fault == 'audit-identity') fragment.assignmentAbsorption.tests = [identity.replace('#second', '#third')]
+			  }
+			  if (removeThird) fragment.tests.remove(identity.replace('#second', '#third'))
 			  diagnosticFile.text = groovy.json.JsonOutput.toJson(diagnostic)
 			  fragmentFile.text = groovy.json.JsonOutput.toJson(fragment)
 			  if (fault == 'missing-diagnostic') assert diagnosticFile.delete()
@@ -214,6 +339,7 @@ class GradleAsmFinalizationFunctionalTest {
 			 @BeforeAll static void setup() { assertEquals(1, Service.value()); }
 			 @Test void first() { assertEquals(1, Service.value()); }
 			 @Test void second() { assertEquals(1, Service.value()); }
+			 @Test void third() { assertEquals(1, Service.value()); }
 			 @Test @Disabled void disabled() { fail("must never execute"); }
 			 @Test void failure() { assertEquals(2, Service.value()); }
 			}
@@ -229,8 +355,9 @@ class GradleAsmFinalizationFunctionalTest {
 			""".formatted(twoTasks ? "otherTest" : "test", secondMethod));
 	}
 
-	private BuildResult run(Path project, boolean fail, String fault) {
+	private BuildResult run(Path project, boolean fail, String fault, String... extra) {
 		var args = new ArrayList<>(List.of("generateSmartTestMapping", "--stacktrace", "--max-workers=2", "-Pfault=" + fault));
+		args.addAll(List.of(extra));
 		var runner = GradleRunner.create().withProjectDir(project.toFile()).withPluginClasspath().withArguments(args);
 		return fail ? runner.buildAndFail() : runner.build();
 	}

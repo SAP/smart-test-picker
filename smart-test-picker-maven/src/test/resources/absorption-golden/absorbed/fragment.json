@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 3,
+  "revision": "rev",
+  "shardId": "shard",
+  "tests": {},
+  "unmapped": [
+    {
+      "test": "maven:module::fixture.Tests#failed",
+      "reason": "FAILED"
+    },
+    {
+      "test": "maven:module::fixture.Tests#pass",
+      "reason": "COLLECTION_FAILED"
+    },
+    {
+      "test": "maven:module::fixture.Tests#skipped",
+      "reason": "SKIPPED"
+    }
+  ],
+  "setupScopes": [],
+  "collection": {
+    "completed": true
+  },
+  "assignmentAbsorption": {
+    "reason": "ASSIGNED_TEST_NOT_REPORTED",
+    "executionObserved": false,
+    "count": 1,
+    "tests": [
+      "maven:module::fixture.Tests#pass"
+    ]
+  }
+}

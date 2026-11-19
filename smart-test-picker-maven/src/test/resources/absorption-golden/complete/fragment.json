@@ -1,0 +1,1 @@
+{"schemaVersion":3,"revision":"rev","shardId":"shard","tests":{"maven:module::fixture.Tests#pass":{"classes":[],"methods":[],"outcome":"PASS","collectionStatus":"COLLECTED_EMPTY"}},"unmapped":[{"test":"maven:module::fixture.Tests#failed","reason":"FAILED"},{"test":"maven:module::fixture.Tests#skipped","reason":"SKIPPED"}],"setupScopes":[],"collection":{"completed":true}}
