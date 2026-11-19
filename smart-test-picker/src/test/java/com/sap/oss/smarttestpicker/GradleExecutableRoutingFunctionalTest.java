@@ -58,7 +58,7 @@ class GradleExecutableRoutingFunctionalTest {
 		Files.writeString(project.resolve("build.gradle"), """
 
 			configurations { lateParent; lateClasspath { canBeResolved = true; extendsFrom testRuntimeClasspath } }
-			tasks.named('integrationTest') { classpath = configurations.lateClasspath }
+				tasks.named('integrationTest') { classpath = sourceSets.test.output + configurations.lateClasspath }
 			afterEvaluate { configurations.lateClasspath.extendsFrom(configurations.lateParent) }
 			""", java.nio.file.StandardOpenOption.APPEND);
 		git(project, "add", "build.gradle"); git(project, "commit", "-qm", "late configuration");
