@@ -136,10 +136,12 @@ JaCoCo mapping sessions are cleared before each assigned Test execution. Ordinar
 v3 mapping retain normal test up-to-date/cache behavior. Inventory generation checks the actual
 workspace HEAD on every invocation, including when the configuration cache is reused.
 
-ASM mapping reads the effective fork settings immediately before test execution. It overrides
+Schema-v3 mapping with either collector reads the effective fork settings immediately before test execution. It overrides
 `maxParallelForks` to one with an explicit log message: reducing simultaneous workers preserves a
 single JVM's output. It rejects `forkEvery > 0` because serial JVM replacement would still overwrite
-that output and lose records. This is not a guard against parallel tests inside one JVM.
+that output and lose records. Finalization checks these settings again and rejects late changes
+to either value, including changes made by another `doFirst` action. This is not a guard against
+parallel tests inside one JVM.
 
 When non-blank, `STP_MAPPING_COLLECTOR` must match the effective mapping collector; a mismatch fails
 before tests. The environment value is read through Gradle providers for configuration-cache tracking.
@@ -204,6 +206,18 @@ these output properties from attribution soundness and records probes for all fo
 The collector is attached only to `generateSmartTestCoverage`, not to normal `test` or `smartTest`.
 An independently applied project JaCoCo plugin may still attach its own agent to that mapping JVM;
 this preserves the ordinary JaCoCo exec/report while ASM emits the STP fragment.
+
+For schema-v3 mapping, ASM coexists with a project's JaCoCo setup: STP fragments are unchanged,
+and the project's execution data and report counters remain intact. The JaCoCo collector instead
+shares and resets the project's agent for each session. With attachment managed by the Gradle
+`jacoco` extension, agent output is redirected to an STP-owned file; the project's configured
+execution-data file stays absent or byte-identical.
+Project `JacocoReport` and `JacocoCoverageVerification` tasks are skipped with an explanatory log
+message during that mapping invocation. Run project coverage reports and checks separately.
+Manually supplied literal `-javaagent` arguments are not parsed or rewritten; their destination
+may receive partial data. Prefer extension-managed attachment or a separate coverage invocation.
+JaCoCo conversion analyzes build-owned main class directories and JARs on the mapped Test task's
+runtime classpath, including other Java projects, but not test outputs or third-party dependencies.
 
 ### generateSmartReports
 

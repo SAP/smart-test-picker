@@ -15,8 +15,17 @@ import org.eclipse.aether.repository.LocalArtifactRequest;
 record MavenAsmScope(String includes, String excludes, List<Path> sources) {
 
 	static MavenAsmScope resolve(MavenSession session, List<MavenProject> active, String includes, String excludes) throws Exception {
-		boolean derive = includes == null;
-		String normalized = derive ? null : AsmMappingAttachment.prefixes(includes, true);
+		return resolve(session, active, includes, excludes, includes == null);
+	}
+
+	/** The same reactor source boundary, without imposing ASM package-prefix rules on JaCoCo. */
+	static List<Path> productionSources(MavenSession session, List<MavenProject> active) throws Exception {
+		return resolve(session, active, null, null, false).sources();
+	}
+
+	private static MavenAsmScope resolve(MavenSession session, List<MavenProject> active, String includes,
+			String excludes, boolean derive) throws Exception {
+		String normalized = includes == null ? null : AsmMappingAttachment.prefixes(includes, true);
 		String excluded = AsmMappingAttachment.prefixes(excludes, false);
 		List<MavenProject> collected = session.getAllProjects() == null ? active : session.getAllProjects();
 		Map<String, MavenProject> byGav = new HashMap<>();

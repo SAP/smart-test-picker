@@ -191,11 +191,29 @@ public class ExecToXmlEngine
 		Map<String, byte[]> cache = new HashMap<>();
 		for (File classesDir : classesDirs)
 		{
+			if (classesDir.isFile() && classesDir.getName().endsWith(".jar"))
+			{
+				try (var archive = new java.util.jar.JarFile(classesDir))
+				{
+					var entries = archive.entries();
+					while (entries.hasMoreElements())
+					{
+						var entry = entries.nextElement();
+						if (entry.isDirectory() || !entry.getName().endsWith(".class")
+								|| entry.getName().startsWith("META-INF/") || entry.getName().equals("module-info.class")) continue;
+						try (var input = archive.getInputStream(entry))
+						{
+							cache.put(entry.getName(), input.readAllBytes());
+						}
+					}
+				}
+			}
 			if (!classesDir.isDirectory())
 			{
 				continue;
 			}
-			Files.walk(classesDir.toPath())
+			try (var paths = Files.walk(classesDir.toPath())) {
+			paths
 					.filter(p -> p.toString().endsWith(".class"))
 					.forEach(classFilePath -> {
 						try
@@ -208,6 +226,7 @@ public class ExecToXmlEngine
 							// silently skip unreadable classes
 						}
 					});
+			}
 		}
 		return cache;
 	}

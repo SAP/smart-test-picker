@@ -55,9 +55,14 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 	@Parameter(property = "smartTestPicker.asm.includes") private String asmIncludes;
 	@Parameter(property = "smartTestPicker.asm.excludes") private String asmExcludes;
 	@Parameter(defaultValue = "${env.STP_MAPPING_COLLECTOR}", readonly = true) private String expectedCollector;
+	@Parameter(property = "smartTestPicker.fragmentOutput") private File aggregateOutput;
+	@Parameter(property = "smartTestPicker.evidenceOutput") private File aggregateEvidenceOutput;
 
 	@Override public void execute() throws MojoExecutionException {
 		try {
+			// A failed dependency prevents the aggregate goal from running its own invalidation.
+			if (aggregateOutput != null) Files.deleteIfExists(aggregateOutput.toPath());
+			if (aggregateEvidenceOutput != null) Files.deleteIfExists(aggregateEvidenceOutput.toPath());
 			if (assignmentFile == null || !assignmentFile.isFile()) throw new IllegalArgumentException("STP_MAPPING_TESTS_FILE is required and must exist");
 			ExecutableShardAssignment assignment = new ExecutableShardAssignmentCodec().deserialize(Files.readAllBytes(assignmentFile.toPath()));
 			if (!assignment.revision().value().equals(revision)) throw new IllegalArgumentException("Executable assignment revision mismatch");
@@ -105,6 +110,7 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 			if (scope != null) getLog().info("ASM mapping scope includes=" + scope.includes() + "; excludes=" + scope.excludes()
 					+ "; productionSources=" + scope.sources());
 			File agent = needsAgent ? resolveAgent() : null;
+			MavenJacocoMappingIsolation.install(session, reactorProjects, getLog());
 			if (!assignment.tests().isEmpty()) {
 				compileForSelection();
 				var selection = new MavenProviderSelection(session, pluginManager, executionPlans, repositorySystem, getLog()::debug);
