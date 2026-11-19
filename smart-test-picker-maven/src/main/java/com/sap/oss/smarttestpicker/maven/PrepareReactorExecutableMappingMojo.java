@@ -257,6 +257,13 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 		Xpp3Dom test = configuration.getChild("test");
 		if (test == null) { test = new Xpp3Dom("test"); configuration.addChild(test); }
 		test.setValue(pattern);
+		// A literal provider configuration overrides its user property, including for suppressed executions.
+		Xpp3Dom failIfNoSpecifiedTests = configuration.getChild("failIfNoSpecifiedTests");
+		if (failIfNoSpecifiedTests == null) {
+			failIfNoSpecifiedTests = new Xpp3Dom("failIfNoSpecifiedTests");
+			configuration.addChild(failIfNoSpecifiedTests);
+		}
+		failIfNoSpecifiedTests.setValue("false");
 	}
 
 	private static void pinSingleFork(Xpp3Dom configuration) {
