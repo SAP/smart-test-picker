@@ -80,6 +80,18 @@ final class GradleAsmFinalization {
 			if (!unexpected.isEmpty()) throw new IllegalArgumentException("Unexpected identities outside target assignment: " + unexpected);
 			rule = "fragment execution target and setup-scope owner";
 			new ExecutableCoverageFragmentQualifier().requireTarget(fragment, target);
+			rule = "fragment revision/shard binding";
+			if (!assignment.revision().equals(fragment.revision()))
+				throw new IllegalArgumentException("Fragment revision does not match assignment revision");
+			if (!assignment.shardId().equals(fragment.shardId()))
+				throw new IllegalArgumentException("Fragment shard does not match assignment shard");
+			rule = "fragment assignment absorption audit";
+			com.sap.oss.smarttestpicker.coverage.ExecutableAssignmentAbsorption.Result absorption;
+			try (var reader = Files.newBufferedReader(fragmentFile.toPath())) {
+				absorption = com.sap.oss.smarttestpicker.coverage.ExecutableAssignmentAbsorption.apply(
+						fragment, assigned, JsonParser.parseReader(reader).getAsJsonObject());
+			}
+			fragment = absorption.fragment();
 			rule = "fragment unmapped outcome";
 			for (var entry : fragment.unmapped()) {
 				if (entry.reason() != UnmappedReason.SKIPPED && entry.reason() != UnmappedReason.FAILED
@@ -88,9 +100,15 @@ final class GradleAsmFinalization {
 				}
 			}
 			rule = "fragment revision/shard binding and exact assignment accounting";
-			// Missing owners are rejected, never inferred or absorbed into unmapped.
 			ExecutableFragmentAssignmentValidator.validate(fragment, new ExecutableShardAssignment(
 					assignment.version(), assignment.revision(), assignment.shardId(), assigned));
+			rule = "normalized fragment write";
+			absorption.writeIfChanged(fragmentFile.toPath());
+			if (!absorption.absorbed().isEmpty()) {
+				org.gradle.api.logging.Logging.getLogger(GradleAsmFinalization.class).warn(
+						"[SmartTestPicker] " + task + " absorbed " + absorption.absorbed().size()
+						+ " assigned tests as COLLECTION_FAILED: ASSIGNED_TEST_NOT_REPORTED " + absorption.absorbed());
+			}
 		} catch (Exception failure) {
 			throw new GradleException("ASM finalization for " + task + " rejected " + rule + ": " + failure.getMessage(), failure);
 		}

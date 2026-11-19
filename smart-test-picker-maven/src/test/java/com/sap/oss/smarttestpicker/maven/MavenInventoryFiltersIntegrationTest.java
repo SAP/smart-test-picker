@@ -480,6 +480,32 @@ class MavenInventoryFiltersIntegrationTest {
         }
     }
 
+    @Test void naturalContainerFailuresKeepHealthyCoverage() throws Exception {
+        Path root = fixture("3.5.6", "surefire", "defaults", "");
+        for (String kind : List.of("Setup", "Initialization")) {
+            String setup = kind.equals("Setup")
+                    ? "@org.junit.jupiter.api.BeforeAll static void setup() { throw new IllegalStateException(\"setup failure\"); }"
+                    : "static { if (Boolean.parseBoolean(\"true\")) throw new IllegalStateException(\"initialization failure\"); }";
+            write(root, "src/test/java/example/" + kind + "FailureTest.java", "package example; public class "
+                    + kind + "FailureTest { " + setup + " @org.junit.jupiter.api.Test void observed() { Service.value(); } }\n");
+        }
+        commit(root);
+        assignment(root, "surefire", Set.of("example.FastTest#alpha", "example.SetupFailureTest#observed",
+                "example.InitializationFailureTest#observed"));
+        Result compiled = invoke(root, "test-compile");
+        assertEquals(0, compiled.exitCode(), compiled.output());
+        Result run = mapping(root, "3.5.6", "surefire", List.of("-Dmaven.test.failure.ignore=true"));
+        assertEquals(0, run.exitCode(), run.output());
+        var value = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(fragment(root, "surefire")));
+        assertTrue(value.collectionCompleted());
+        assertEquals(1, value.tests().size());
+        assertEquals(2, value.unmapped().size());
+        Path retained = Path.of("build/absorption-natural"); Files.createDirectories(retained);
+        Files.copy(fragment(root, "surefire"), retained.resolve("fragment.json"), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+        Files.writeString(retained.resolve("build.log"), run.output());
+    }
+
+
     private Path fixture(String version, String provider, String scenario, String extra) throws Exception {
         Path root = temporary.resolve("project");
         String selection = switch (scenario) {

@@ -26,6 +26,26 @@ class AsmMappingFinalizationTest {
 	private static final ExecutableTestIdentity FAILED = ExecutableTestIdentity.parse("maven:module::fixture.Tests#failed");
 	private static final ExecutableTestIdentity SKIPPED = ExecutableTestIdentity.parse("maven:module::fixture.Tests#skipped");
 
+	@ParameterizedTest @ValueSource(booleans = {false, true})
+	void finalizationMatchesGoldenOutputs(boolean absorb, @TempDir Path temp) throws Exception {
+		var f = fixture(temp);
+		if (absorb) mutateFragment(f.fragment(), "missing-observation");
+		f.finalizer().execute();
+		String scenario = absorb ? "absorbed" : "complete";
+		Path retained = Path.of("build/absorption-golden", scenario);
+		Files.createDirectories(retained);
+		for (var entry : Map.of("fragment.json", f.fragment(), "evidence.json", f.evidence()).entrySet()) {
+			byte[] actual = Files.readAllBytes(entry.getValue());
+			Files.write(retained.resolve(entry.getKey()), actual);
+		}
+		for (String file : List.of("fragment.json", "evidence.json")) {
+			try (var expected = getClass().getResourceAsStream("/absorption-golden/" + scenario + "/" + file)) {
+				assertNotNull(expected, "Missing captured baseline: " + scenario + "/" + file);
+				assertArrayEquals(expected.readAllBytes(), Files.readAllBytes(retained.resolve(file)), scenario + "/" + file);
+			}
+		}
+	}
+
 	@Test void finalizesPositiveEvidenceWithoutChangingFragmentBytes(@TempDir Path temp) throws Exception {
 		var f = fixture(temp); byte[] original = Files.readAllBytes(f.fragment());
 		f.finalizer().execute(); assertArrayEquals(original, Files.readAllBytes(f.fragment()));
