@@ -328,9 +328,11 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 
 		if (project == project.getRootProject()) project.getGradle().projectsEvaluated(gradle -> {
 			if (ext.getRuntimeSchemaVersion().get() != 3) return;
-			configureExecutableGradleMapping(project, ext, mappingTask.get(), executableInventory.get(),
-					executableAggregate.get(), resolvedStpAgent, stpJacocoCollector);
 			var targets = GradleExecutionTargets.resolve(project, ext.getMappingTestTasks().get());
+			var selections = new java.util.TreeMap<String, GradleTestSelection>();
+			targets.forEach(task -> selections.put(task.getPath(), GradleTestSelection.capture(task)));
+			configureExecutableGradleMapping(project, ext, mappingTask.get(), executableInventory.get(),
+					executableAggregate.get(), resolvedStpAgent, stpJacocoCollector, selections);
 			targets.stream().collect(java.util.stream.Collectors.groupingBy(Test::getProject)).forEach((owner, owned) -> {
 				var existingPart = owner.getTasks().findByName("generateGradleExecutableProjectInventory");
 				var part = existingPart instanceof GenerateGradleExecutableProjectInventoryTask inventoryPart
@@ -341,7 +343,7 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 				part.setRevision(ext.getRevision().get());
 				part.getWorkspace().set(project.getLayout().getProjectDirectory());
 				owned.stream().sorted(java.util.Comparator.comparing(Test::getPath)).forEach(task -> {
-					part.addTarget(task);
+					part.addTarget(task, selections.get(task.getPath()));
 					task.getTestClassesDirs().getBuildDependencies().getDependencies(task).forEach(part::dependsOn);
 				});
 				executableInventory.get().dependsOn(part);
@@ -354,7 +356,8 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 	private static void configureExecutableGradleMapping(Project root, SmartTestPickerExtension ext,
 			Task mappingTask, GenerateGradleExecutableHeadTestInventoryTask inventoryTask,
 			AggregateGradleExecutableCoverageTask aggregateTask,
-			TaskProvider<ResolveStpAgentArtifactTask> resolvedStpAgent, Configuration stpJacocoCollector) {
+			TaskProvider<ResolveStpAgentArtifactTask> resolvedStpAgent, Configuration stpJacocoCollector,
+			java.util.Map<String, GradleTestSelection> selections) {
 		boolean discovery = ext.getExecutableInventoryDiscovery().get();
 		java.util.List<Test> targets = GradleExecutionTargets.resolve(root, ext.getMappingTestTasks().get());
 		// The v2 synthetic task is deliberately absent from v3: every JVM must correspond
@@ -386,15 +389,31 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 			case JACOCO -> new JacocoCoverageCollectorBackend(stpJacocoCollector);
 		};
 		aggregateTask.setAssignmentFile(root.file(ext.getExecutableAssignmentFile().get()));
+		var selectionCheck = root.getTasks().register("validateGradleExecutableSelection", ValidateGradleExecutableSelectionTask.class, check -> {
+			check.getAssignmentFile().set(root.file(ext.getExecutableAssignmentFile().get()));
+			check.getAggregateOutput().set(aggregateTask.getOutputFile());
+			check.getSelections().addAll(selections.values());
+		});
+		for (Test task : targets) selectionCheck.configure(check -> check.dependsOn(task.getTestClassesDirs()));
 		for (Test task : targets) {
 			ExecutionTarget target = GradleExecutionTargets.forTask(task);
 			Set<com.sap.oss.smarttestpicker.coverage.model.TestIdentity> assigned = partitions.get(target);
+			if (!assigned.isEmpty()) task.dependsOn(selectionCheck);
 			GradleExecutableAssignmentRouter.configureFilter(task, assigned);
 			task.getFilter().setFailOnNoMatchingTests(false);
 			task.systemProperty("smartTestPicker.executionTarget", target.toString());
 			if (!assigned.isEmpty()) backend.configure(task.getProject(), ext, task, mappingTask, target.toString());
 			if (!assigned.isEmpty()) GradleMappingExecution.configure(task, backend.type().name(),
 					root.getProviders().environmentVariable("STP_MAPPING_COLLECTOR"));
+			if (!assigned.isEmpty() && backend.type() == CoverageCollectorType.ASM) {
+				var scope = GradleMappingExecution.preparation(task).scope;
+				File acceptedAggregate = aggregateTask.getOutputFile().get().getAsFile();
+				// Preserve scope rejection before discovery when production and test roots overlap.
+				selectionCheck.configure(check -> check.doFirst(ignored -> {
+					AsmCoverageCollectorBackend.deleteStale(acceptedAggregate, "aggregate before scope validation");
+					scope.prepareScope();
+				}));
+			}
 			if (!assigned.isEmpty() && backend.type() == CoverageCollectorType.ASM) task.dependsOn(resolvedStpAgent);
 			if (!assigned.isEmpty() && backend.type() == CoverageCollectorType.ASM) {
 				File acceptedAggregate = aggregateTask.getOutputFile().get().getAsFile();

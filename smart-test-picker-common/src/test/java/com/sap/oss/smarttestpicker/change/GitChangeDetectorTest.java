@@ -34,6 +34,8 @@ class GitChangeDetectorTest
 	{
 		// Initialize a real git repo in tempDir
 		run("git", "init");
+		run("git", "config", "commit.gpgsign", "false");
+		run("git", "config", "tag.gpgsign", "false");
 		run("git", "config", "user.email", "test@test.com");
 		run("git", "config", "user.name", "Test");
 

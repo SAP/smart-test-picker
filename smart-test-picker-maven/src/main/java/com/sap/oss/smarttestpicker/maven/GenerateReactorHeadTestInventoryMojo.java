@@ -31,6 +31,10 @@ public final class GenerateReactorHeadTestInventoryMojo extends AbstractMojo {
 	@Parameter(property = "smartTestPicker.executionProfile") private String executionProfile;
 	@Parameter(property = "smartTestPicker.testFilter") private String testFilter;
 	@Parameter(property = "smartTestPicker.reactorRoot") private File reactorRoot;
+	@Parameter(defaultValue = "${session}", readonly = true, required = true) private org.apache.maven.execution.MavenSession session;
+	@org.apache.maven.plugins.annotations.Component private org.apache.maven.plugin.MavenPluginManager pluginManager;
+	@org.apache.maven.plugins.annotations.Component private org.apache.maven.lifecycle.internal.LifecycleExecutionPlanCalculator executionPlans;
+	@org.apache.maven.plugins.annotations.Component private org.eclipse.aether.RepositorySystem repositorySystem;
 
 	@Override public void execute() throws MojoExecutionException {
 		MavenProject executionRoot = reactorProjects.stream().filter(MavenProject::isExecutionRoot).findFirst()
@@ -43,7 +47,8 @@ public final class GenerateReactorHeadTestInventoryMojo extends AbstractMojo {
 				reactorProjects, outputFile, canonicalRoot, prHeadRevision, getLog());
 		else if (schemaVersion == 3) generated = MavenHeadTestInventory.generateExecutable(
 				reactorProjects, outputFile, canonicalRoot, prHeadRevision,
-				executionType, executionId, executionProfile, testFilter, getLog());
+				executionType, executionId, executionProfile, testFilter,
+				new MavenProviderSelection(session, pluginManager, executionPlans, repositorySystem, getLog()::debug), getLog());
 		else throw new MojoExecutionException("Unsupported Maven inventory schema version: " + schemaVersion);
 		if (!generated)
 			throw new MojoExecutionException("JUnit head inventory discovery failed");

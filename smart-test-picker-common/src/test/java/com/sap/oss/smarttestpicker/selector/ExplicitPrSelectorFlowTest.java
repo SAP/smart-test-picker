@@ -223,6 +223,8 @@ class ExplicitPrSelectorFlowTest
 	{
 		Path root = temporary.resolve("repo-" + System.nanoTime()); Files.createDirectories(root);
 		run(root, "git", "init", "-q"); run(root, "git", "config", "user.email", "test@example.com");
+		run(root, "git", "config", "commit.gpgsign", "false");
+		run(root, "git", "config", "tag.gpgsign", "false");
 		run(root, "git", "config", "user.name", "Test");
 		Repo repo = new Repo(root); repo.write("README.md", "R0"); repo.commit("R0"); return repo;
 	}

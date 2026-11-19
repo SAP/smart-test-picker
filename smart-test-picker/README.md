@@ -81,6 +81,35 @@ open build/reports/smart-test-picker/index.html
 
 ### Coverage collectors
 
+Schema-v3 executable inventory respects each Test task's original selection: class-file
+`include`/`exclude` patterns, `filter.includeTestsMatching`/`excludeTestsMatching` patterns
+(including wildcards and simple class names), and JUnit Platform tags, tag expressions and
+engine filters. Discovery preserves logical method identities, including parameter types;
+parameterized invocations share their method identity, and disabled methods remain inventoried.
+Two Test tasks can therefore expose different inventories over the same compiled test classes.
+
+Before any assigned Test task runs, mapping rediscovers each target's original selection and
+rejects assignments containing identities outside it. Assignment routing may only narrow that
+selection; it must not cancel the build's filters. Both discovery and this check support
+configuration-cache reuse. Gradle's method filters do not distinguish parameter types: an assignment
+must contain all effective overloads of each assigned class/method name. Partial overload assignments
+fail before tests, naming the assigned identities and missing overloads; class-based sharding already
+keeps these identities together. Do not use command-line `--tests` with executable inventory or mapping;
+configure the Test task instead. Tasks not using `useJUnitPlatform()` are unsupported and fail
+inventory generation with the task name, without writing a partial inventory. If a selected
+test class cannot be loaded from the target's runtime classpath, discovery fails with the
+task and class name instead of publishing an empty or partial inventory.
+
+The public Gradle API exposes test patterns but not their matcher. `GradleInventoryMatcher`
+isolates the internal `TestSelectionMatcher` and framework-runtime dependencies; real-execution
+differentials exercise Gradle 8.14, 9.5.1, 9.7.1 and 9.9.1, including their differing nested-class filter
+behavior. Discovery uses the target's JUnit runtime, including the distribution modules that
+Gradle 8 supplies when framework dependencies are missing. Gradle 9 no longer supplies those
+modules; discovery does not substitute the plugin's own launcher. The running Gradle version decides
+the filter semantics. Missing internal APIs or a missing expected filter resource fail closed with
+the task, running version and tested versions, never with an unfiltered fallback. Existing root-based
+inventory callers retain their previous discovery behavior.
+
 For schema-v3 ASM mapping, an omitted or explicitly empty `coverageIncludes` list means **derive**.
 Package prefixes are derived at execution time from compiled production classes, after compilation.
 A non-empty list overrides package derivation, but never the production code-source boundary.

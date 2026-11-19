@@ -89,6 +89,8 @@ class PairedShardJoinCommandTest
 	{
 		Path repo = Files.createDirectory(root.resolve("repo"));
 		git(repo, "init", "-q");
+		git(repo, "config", "commit.gpgsign", "false");
+		git(repo, "config", "tag.gpgsign", "false");
 		Files.writeString(repo.resolve("README.md"), "Fixture\n");
 		git(repo, "add", "README.md");
 		git(repo, "commit", "-qm", "Base");

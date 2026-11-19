@@ -18,7 +18,6 @@ import org.gradle.work.DisableCachingByDefault;
 import com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentity;
 import com.sap.oss.smarttestpicker.selector.ExecutableHeadTestInventory;
 import com.sap.oss.smarttestpicker.selector.ExecutableHeadTestInventoryCodec;
-import com.sap.oss.smarttestpicker.selector.JUnitHeadTestInventoryGenerator;
 import com.sap.oss.smarttestpicker.selector.WorkspaceRevisionVerifier;
 
 /** Discovers configured target data without retaining live Test task objects. */
@@ -31,15 +30,13 @@ public abstract class GenerateGradleExecutableProjectInventoryTask extends Defau
 
 	public abstract static class Target {
 		@org.gradle.api.tasks.Input public abstract org.gradle.api.provider.Property<String> getIdentity();
-		@org.gradle.api.tasks.Classpath public abstract org.gradle.api.file.ConfigurableFileCollection getRuntimeClasspath();
-		@org.gradle.api.tasks.Classpath public abstract org.gradle.api.file.ConfigurableFileCollection getTestClasses();
+		@org.gradle.api.tasks.Nested public abstract org.gradle.api.provider.Property<GradleTestSelection> getSelection();
 	}
 
-	void addTarget(org.gradle.api.tasks.testing.Test task) {
+	void addTarget(org.gradle.api.tasks.testing.Test task, GradleTestSelection selection) {
 		Target target = getProject().getObjects().newInstance(Target.class);
 		target.getIdentity().set(GradleExecutionTargets.forTask(task).toString());
-		target.getRuntimeClasspath().from(task.getClasspath());
-		target.getTestClasses().from(task.getTestClassesDirs());
+		target.getSelection().set(selection);
 		targets.add(target);
 	}
 	@org.gradle.api.tasks.Nested public List<Target> getTargets() { return targets; }
@@ -55,11 +52,9 @@ public abstract class GenerateGradleExecutableProjectInventoryTask extends Defau
 					getWorkspace().get().getAsFile(), revision);
 			var executable = new TreeSet<ExecutableTestIdentity>();
 			for (var task : targets) {
-				var logical = new JUnitHeadTestInventoryGenerator().generate(null,
-						task.getRuntimeClasspath().getFiles().stream().map(java.io.File::toPath).toList(),
-						task.getTestClasses().getFiles().stream().map(java.io.File::toPath).toList());
+				var logical = task.getSelection().get().discover();
 				var target = com.sap.oss.smarttestpicker.coverage.model.ExecutionTarget.parse(task.getIdentity().get());
-				for (var test : logical.runnableTests())
+				for (var test : logical)
 					if (!executable.add(new ExecutableTestIdentity(target, test)))
 						throw new GradleException("Duplicate Gradle executable identity: " + target + "::" + test);
 			}

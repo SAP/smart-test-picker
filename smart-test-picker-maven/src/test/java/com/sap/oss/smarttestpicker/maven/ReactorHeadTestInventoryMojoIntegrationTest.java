@@ -72,6 +72,13 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 	@Test
 	void asmOutcomeShapesAggregateAcrossSurefireAndFailsafeWithoutRewritingFragments(@TempDir Path temp) throws Exception {
 		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor")); initializeGit(fixture);
+		Path modulePom = fixture.resolve("module-b/pom.xml");
+		Files.writeString(modulePom, Files.readString(modulePom).replace("</project>", """
+				<build><plugins><plugin><artifactId>maven-failsafe-plugin</artifactId><configuration><includes>
+				  <include>**/BTests.java</include><include>**/SharedTest.java</include>
+				  <include>**/OutcomeTests.java</include><include>**/DisabledTests.java</include>
+				</includes></configuration></plugin></plugins></build></project>
+				"""));
 		writeAsmOutcomeTests(fixture);
 		var all = new java.util.TreeSet<ExecutableTestIdentity>();
 		var expectedExecuted = new java.util.TreeSet<ExecutableTestIdentity>();
@@ -367,6 +374,12 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 	void asmPreparedAttachmentUsesDistinctCanonicalTargets(String provider, @TempDir Path temp) throws Exception {
 		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor")); initializeGit(fixture);
 		boolean failsafe = provider.equals("failsafe");
+		if (failsafe) {
+			Path pom = fixture.resolve("pom.xml");
+			Files.writeString(pom, Files.readString(pom).replace("<includesFile>${failsafe.includesFile}</includesFile>",
+					"<includes><include>**/ATests.java</include><include>**/BTests.java</include></includes>"
+					+ "<includesFile>${failsafe.includesFile}</includesFile>"));
+		}
 		String qualifier = failsafe ? "@failsafe@fixture-it" : "";
 		Path assignment = fixture.resolve("assignment.json");
 		Files.writeString(assignment, executableAssignment("maven:module-a" + qualifier + "::a.ATests#a1",
@@ -547,6 +560,13 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 	void isolatedClassSourceOnlyVintageInventoryMatchesJacocoMapping(String provider, @TempDir Path temp) throws Exception {
 		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor"));
 		Path pom = fixture.resolve("module-a/pom.xml");
+		if (provider.equals("failsafe")) {
+			Files.writeString(pom, Files.readString(pom).replace("</project>", """
+					<build><plugins><plugin><artifactId>maven-failsafe-plugin</artifactId><configuration><includes>
+					  <include>**/ClassSourceOnlyTest.java</include>
+					</includes></configuration></plugin></plugins></build></project>
+					"""));
+		}
 		Files.writeString(pom, Files.readString(pom).replace("</dependencies>", """
 				<dependency><groupId>org.junit.platform</groupId><artifactId>junit-platform-launcher</artifactId><version>1.9.3</version><scope>test</scope></dependency>
 				<dependency><groupId>org.junit.vintage</groupId><artifactId>junit-vintage-engine</artifactId><version>5.9.3</version><scope>test</scope></dependency>
@@ -654,6 +674,11 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 	@Test
 	void schemaV3InventoryKeepsSameLogicalTestUnderBothModuleTargets(@TempDir Path temp) throws Exception {
 		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor"));
+		Path pom = fixture.resolve("pom.xml");
+		Files.writeString(pom, Files.readString(pom).replace("<includesFile>${surefire.includesFile}</includesFile>", """
+				<includes><include>**/*Test.java</include><include>**/*Tests.java</include><include>**/*IT.java</include></includes>
+				<includesFile>${surefire.includesFile}</includesFile>
+				"""));
 		String revision = initializeGit(fixture);
 		Result result = maven(fixture, "process-test-classes", PLUGIN + "generate-reactor-head-test-inventory",
 				"-DsmartTestPicker.schemaVersion=3", "-DsmartTestPicker.prHeadRevision=" + revision);
@@ -821,7 +846,7 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor")); initializeGit(fixture);
 		Path pom = fixture.resolve("pom.xml");
 		Files.writeString(pom, Files.readString(pom).replace("<includesFile>${surefire.includesFile}</includesFile>",
-				"<includes><include>**/*Test.java</include></includes><includesFile>${surefire.includesFile}</includesFile>"));
+				"<includes><include>**/*Test.java</include><include>**/*Tests.java</include></includes><includesFile>${surefire.includesFile}</includesFile>"));
 		Path assignment = fixture.resolve("assignment.json");
 		Files.writeString(assignment, executableAssignment("maven:module-a::a.ATests#a1"));
 		Path fragment = fixture.resolve("target/final-fragment-v3.json"), evidence = fixture.resolve("target/final-evidence-v2.json");
@@ -1164,6 +1189,8 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 
 	private static String initializeGit(Path directory) throws Exception {
 		run(directory, "git", "init", "--quiet");
+		run(directory, "git", "config", "commit.gpgsign", "false");
+		run(directory, "git", "config", "tag.gpgsign", "false");
 		run(directory, "git", "add", ".");
 		run(directory, "git", "-c", "user.name=STP Test", "-c", "user.email=stp@example.invalid",
 				"commit", "--quiet", "-m", "fixture");

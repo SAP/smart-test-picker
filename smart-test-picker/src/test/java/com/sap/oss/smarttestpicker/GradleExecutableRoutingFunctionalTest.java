@@ -58,7 +58,7 @@ class GradleExecutableRoutingFunctionalTest {
 		Files.writeString(project.resolve("build.gradle"), """
 
 			configurations { lateParent; lateClasspath { canBeResolved = true; extendsFrom testRuntimeClasspath } }
-			tasks.named('integrationTest') { classpath = configurations.lateClasspath }
+				tasks.named('integrationTest') { classpath = sourceSets.test.output + configurations.lateClasspath }
 			afterEvaluate { configurations.lateClasspath.extendsFrom(configurations.lateParent) }
 			""", java.nio.file.StandardOpenOption.APPEND);
 		git(project, "add", "build.gradle"); git(project, "commit", "-qm", "late configuration");
@@ -147,6 +147,8 @@ class GradleExecutableRoutingFunctionalTest {
 			}
 			""".replace("import org.junit.jupiter.api.*;", "import org.junit.jupiter.api.*;\nimport java.nio.file.*;"));
 		git(project, "init", "-q"); git(project, "config", "user.email", "fixture@example.invalid");
+		git(project, "config", "commit.gpgsign", "false");
+		git(project, "config", "tag.gpgsign", "false");
 		git(project, "config", "user.name", "Fixture"); git(project, "add", "."); git(project, "commit", "-qm", "fixture");
 		String revision = command(project, "git", "rev-parse", "HEAD").trim();
 		Files.writeString(project.resolve("assignment.json"), """
@@ -232,6 +234,8 @@ class GradleExecutableRoutingFunctionalTest {
 				""");
 		}
 		git(project, "init", "-q"); git(project, "config", "user.email", "fixture@example.invalid");
+		git(project, "config", "commit.gpgsign", "false");
+		git(project, "config", "tag.gpgsign", "false");
 		git(project, "config", "user.name", "Fixture"); git(project, "add", "."); git(project, "commit", "-qm", "fixture");
 		String revision = command(project, "git", "rev-parse", "HEAD").trim();
 		Files.writeString(project.resolve("assignment.json"), """
@@ -281,6 +285,8 @@ class GradleExecutableRoutingFunctionalTest {
 		Files.writeString(project.resolve("src/test/java/example/SharedTest.java"),
 				"package example; import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.*; class SharedTest { @Test void same(){ assertEquals(1,new Service().value()); } @Test void outside(){ fail(); } }\n");
 		git(project, "init", "-q"); git(project, "config", "user.email", "fixture@example.invalid");
+		git(project, "config", "commit.gpgsign", "false");
+		git(project, "config", "tag.gpgsign", "false");
 		git(project, "config", "user.name", "Fixture"); git(project, "add", "."); git(project, "commit", "-qm", "fixture");
 		String revision = command(project, "git", "rev-parse", "HEAD").trim();
 		Files.writeString(project.resolve("assignment.json"), "{\"version\":1,\"revision\":\"" + revision
@@ -315,6 +321,8 @@ class GradleExecutableRoutingFunctionalTest {
 		Files.writeString(project.resolve("src/test/java/example/SharedTest.java"),
 				"package example; import org.junit.jupiter.api.Test; class SharedTest { @Test void same() {} }\n");
 		git(project, "init", "-q"); git(project, "config", "user.email", "fixture@example.invalid");
+		git(project, "config", "commit.gpgsign", "false");
+		git(project, "config", "tag.gpgsign", "false");
 		git(project, "config", "user.name", "Fixture"); git(project, "add", ".");
 		git(project, "commit", "-qm", "fixture");
 		return project;

@@ -30,8 +30,22 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass
 
 /** Build-tool-neutral, discovery-only producer of exact logical JUnit test identities. */
 public final class JUnitHeadTestInventoryGenerator {
+	/** Identifies the first selected class that the target runtime cannot load, without parsing messages. */
+	public static final class UnloadableTestClassException extends IllegalStateException {
+		private final String className;
+		public UnloadableTestClassException(String className, Throwable cause) {
+			super("Cannot load selected test class " + className, cause);
+			this.className = className;
+		}
+		public String className() { return className; }
+	}
 	public HeadTestInventory generate(Collection<Path> runtimeClasspath, Collection<Path> testClassRoots) {
 		return generate(null, runtimeClasspath, testClassRoots);
+	}
+
+	/** Opens a target-owned runtime without inheriting build-tool dependencies; the caller must close it. */
+	public static URLClassLoader isolatedTargetRuntime(URL[] urls) {
+		return new TargetJUnitClassLoader(urls, ClassLoader.getPlatformClassLoader());
 	}
 
 	public HeadTestInventory generate(String revision, Collection<Path> runtimeClasspath,
@@ -41,6 +55,19 @@ public final class JUnitHeadTestInventoryGenerator {
 
 	public HeadTestInventory generate(String revision, Collection<Path> runtimeClasspath,
 			Collection<Path> testClassRoots, Consumer<String> diagnostics) {
+		return generate(revision, runtimeClasspath, testClassRoots, diagnostics, null, null, null);
+	}
+
+	/** Explicit class selection and launcher filters; existing root-discovery callers are unchanged. */
+	public HeadTestInventory generateSelected(Collection<Path> runtimeClasspath, Collection<Path> testClassRoots,
+			List<String> classes, java.util.Map<String, List<String>> filters,
+			java.util.function.BiPredicate<String, String> names) {
+		return generate(null, runtimeClasspath, testClassRoots, ignored -> { }, classes, filters, names);
+	}
+
+	private HeadTestInventory generate(String revision, Collection<Path> runtimeClasspath,
+			Collection<Path> testClassRoots, Consumer<String> diagnostics, List<String> classes,
+			java.util.Map<String, List<String>> filters, java.util.function.BiPredicate<String, String> names) {
 		if (testClassRoots == null || testClassRoots.isEmpty())
 			return bind(revision, HeadTestInventory.from(List.of()));
 		Set<Path> roots = new LinkedHashSet<>(testClassRoots.stream().filter(java.nio.file.Files::isDirectory).toList());
@@ -49,7 +76,7 @@ public final class JUnitHeadTestInventoryGenerator {
 		try {
 			for (Path path : runtimeClasspath) urls.add(path.toUri().toURL());
 			ClassLoader previous = Thread.currentThread().getContextClassLoader();
-			boolean targetOwnsJUnit = ownsCompleteJUnitRuntime(runtimeClasspath);
+			boolean targetOwnsJUnit = classes != null || ownsCompleteJUnitRuntime(runtimeClasspath);
 			if (targetOwnsJUnit) urls.add(JUnitHeadTestInventoryGenerator.class.getProtectionDomain()
 					.getCodeSource().getLocation());
 			try (URLClassLoader loader = targetOwnsJUnit
@@ -57,6 +84,17 @@ public final class JUnitHeadTestInventoryGenerator {
 					: new StpJUnitClassLoader(urls.toArray(URL[]::new), previous)) {
 				Thread.currentThread().setContextClassLoader(loader);
 				try {
+					if (classes != null) {
+						if (loader.findResource("org/junit/platform/launcher/Launcher.class") == null) {
+							throw new IllegalStateException("Target test runtime does not provide the JUnit Platform launcher");
+						}
+						Class<?> worker = Class.forName(JUnitInventoryDiscoveryWorker.class.getName(), true, loader);
+						@SuppressWarnings("unchecked")
+						List<String[]> rows = (List<String[]>) worker.getMethod("discoverSelected", List.class,
+								java.util.Map.class, java.util.function.BiPredicate.class).invoke(null, classes, filters, names);
+						return bind(revision, concreteOnly(loader, HeadTestInventory.from(rows.stream()
+								.map(row -> JUnitMethodSourceIdentity.fromParts(row[0], row[1], row[2])).toList())));
+					}
 					if (targetOwnsJUnit) return bind(revision, concreteOnly(loader, isolated(loader, roots, diagnostics)));
 					stpJUnitRuntimeOrigins().forEach(diagnostics);
 					LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()

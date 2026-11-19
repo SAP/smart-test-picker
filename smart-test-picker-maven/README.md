@@ -205,6 +205,58 @@ class names. Jenkins executable mapping supplies an assignment, invokes
 `aggregate-reactor-coverage-fragment`. Logical schema-2 goals remain supported for their existing
 contract; they are not a substitute for target-qualified ownership.
 
+### Executable inventory and provider selection
+
+Schema-v3 inventories follow the selected Surefire or Failsafe execution, not every test found on
+the module classpath. Maven merges plugin and execution configuration, active profiles and property
+expressions. STP uses the resolved provider's own pattern implementation and JUnit Platform filters
+for includes/excludes and their defaults, includes/excludes files, POM `test`, groups/excludedGroups
+(including tag expressions), and included/excluded JUnit engines. Ant paths, simple names, regex,
+negation and method patterns retain provider semantics. `smartTestPicker.testFilter` is an additional
+narrowing filter. Provider differentials cover Surefire and Failsafe 3.2.5, 3.5.6 and 3.6.1.
+
+This changes earlier inventories: Surefire no longer inventories tests it would not run, Failsafe
+follows its own selection, and assignments accepted before this validation may now be rejected.
+Preparation compiles reactor test classes before validating all assigned targets, before any test
+execution or assignment-filter installation. Existing ASM scope and fork guards still run first.
+An identity outside the effective selection rejects preparation with its target and identity.
+After validation, preparation pins exact method-name filters, so a literal project `includes`,
+`test` or `includesFile` cannot add unassigned tests. Original exclusion decisions participate in
+preflight; tags and engine filters also remain active in the provider run. Unselected provider
+executions are suppressed. Missing-result absorption at finalization is unchanged.
+
+Preparation runs the active reactor's lifecycle through `test-compile`, not just the compiler goal.
+If the same invocation then requests `test` or `verify`, plugin executions bound through
+`test-compile` run again. This includes resource processing, generators, validators and other
+early-phase work; plugins with side effects must tolerate that repetition. Tests themselves still
+run once. A direct provider goal after preparation does not repeat the lifecycle on its own.
+
+A local 04B review compared precompiled, warm-cache `prepare ... verify ... aggregate` invocations
+before and after this change (Maven 3.9.15, Java 21, three measured runs per variant after warm-up).
+Median total mapping time increased from 22.987 s to 26.939 s on PetClinic's 69-test H2 scope
+(+3.952 s), and from 3.774 s to 4.231 s on a two-module fixture (+0.457 s). These are whole-invocation
+deltas, including discovery/validation, not an isolated compiler benchmark or a performance guarantee.
+Both runs mapped all assigned tests with no unmapped entries. Resources and compiler goals ran once
+before and twice after; PetClinic also repeated enforcer, Git revision, build-info and BOM generation.
+The compiler found no changed classes, but BOM generation actually wrote its output twice.
+
+Provider method filters cannot distinguish parameter types. Assign all effective overloads of a
+class/method together; a partial overload assignment is rejected with assigned and missing identities.
+The standard sharder already assigns whole classes.
+
+Only the JUnit Platform provider is supported for this path. Unsupported configurations, including
+`dependenciesToScan`, `suiteXmlFiles`, legacy Surefire provider dependencies and command-line `-Dtest`
+or `-Dit.test`, fail with module/provider/execution context rather than writing a partial inventory.
+Discovery requires a JUnit Platform engine on the project's resolved test runtime classpath;
+provider-only engine injection is not supported. An omitted launcher is resolved at the project's
+Platform engine version.
+Configure selection in the build instead. Schema-v2 inventory behavior is unchanged.
+Review probes of provider defaults also matched ordinary execution on Surefire/Failsafe 3.0.0 and
+3.1.2; these narrow probes do not extend the fully qualified version matrix. Version 2.22.2 is
+rejected because its discovery API is incompatible. Compatibility failures identify the module,
+provider, execution, resolved version and qualified versions; they never fall back to unfiltered
+discovery.
+
 Use the aggregator inventory goal after test compilation to write exactly one inventory under the
 Maven execution root (by default, `.stp/head-test-inventory.json`):
 
