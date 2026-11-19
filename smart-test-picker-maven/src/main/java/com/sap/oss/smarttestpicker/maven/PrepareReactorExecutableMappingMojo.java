@@ -59,6 +59,7 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 	@Parameter(property = "smartTestPicker.evidenceOutput") private File aggregateEvidenceOutput;
 
 	@Override public void execute() throws MojoExecutionException {
+		MavenMappingVersion.requireSupported("prepare-reactor-executable-mapping");
 		try {
 			// A failed dependency prevents the aggregate goal from running its own invalidation.
 			if (aggregateOutput != null) Files.deleteIfExists(aggregateOutput.toPath());

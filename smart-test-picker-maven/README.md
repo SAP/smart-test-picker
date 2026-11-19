@@ -232,6 +232,8 @@ early-phase work; plugins with side effects must tolerate that repetition. Tests
 run once. A direct provider goal after preparation does not repeat the lifecycle on its own.
 
 Preparation uses Maven core lifecycle internals and is qualified on Maven 3.9.15. Maven 4 is untested.
+Schema-v3 inventory generation and mapping preparation reject Maven versions below 3.9 with a
+diagnostic naming the running version and the requirement. Other plugin entry points are unchanged.
 
 Provider method filters cannot distinguish parameter types. Assign all effective overloads of a
 class/method together; a partial overload assignment is rejected with assigned and missing identities.
