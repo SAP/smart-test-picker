@@ -27,18 +27,23 @@ import com.sap.oss.smarttestpicker.store.RemoteStoreClient;
 public class PushCoverageMapMojo extends AbstractMojo
 {
 
+	/** Remote store base URL; the transport stores coverage-map bytes by base branch. Default: {@code unset}. */
 	@Parameter(required = true, property = "smartTestPicker.remoteUrl")
 	private String remoteUrl;
 
+	/** Git base branch used by the legacy change-detection and storage flow. Default: {@code main}. */
 	@Parameter(defaultValue = "main", property = "smartTestPicker.baseBranch")
 	private String baseBranch;
 
+	/** HTTP Basic Auth username for the remote store. Default: {@code unset}. */
 	@Parameter(property = "smartTestPicker.remoteUser")
 	private String remoteUser;
 
+	/** HTTP Basic Auth password for the remote store; supply credentials externally rather than in source. Default: {@code unset}. */
 	@Parameter(property = "smartTestPicker.remotePassword")
 	private String remotePassword;
 
+	/** Coverage-map bytes to upload to the configured remote store. Default: {@code ${project.build.directory}/test-coverage-map.json}. */
 	@Parameter(defaultValue = "${project.build.directory}/test-coverage-map.json", property = "smartTestPicker.inputFile")
 	private File inputFile;
 

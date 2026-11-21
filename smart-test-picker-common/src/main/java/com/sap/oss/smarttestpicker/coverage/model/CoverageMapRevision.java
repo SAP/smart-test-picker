@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.coverage.model;
 
+/** Nonblank source revision to which coverage observations are bound. */
 public record CoverageMapRevision(String value)
 {
 	public CoverageMapRevision

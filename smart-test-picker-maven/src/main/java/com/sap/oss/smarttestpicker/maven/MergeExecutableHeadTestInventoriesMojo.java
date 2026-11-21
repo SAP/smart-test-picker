@@ -16,9 +16,12 @@ import com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentity;
 import com.sap.oss.smarttestpicker.selector.ExecutableHeadTestInventory;
 import com.sap.oss.smarttestpicker.selector.ExecutableHeadTestInventoryCodec;
 
+/** Combines revision-compatible executable inventories and rejects duplicate target-qualified identities. */
 @Mojo(name = "merge-executable-head-test-inventories", aggregator = true)
 public final class MergeExecutableHeadTestInventoriesMojo extends AbstractMojo {
+	/** Comma-separated executable head inventory files; incompatible revisions or duplicate owners are rejected. Default: {@code unset}. */
 	@Parameter(property = "smartTestPicker.inputFiles", required = true) private String inputFiles;
+	/** Destination of this goal's generated or downloaded artifact. Default: {@code ${session.executionRootDirectory}/target/head-test-inventory.json}. */
 	@Parameter(defaultValue = "${session.executionRootDirectory}/target/head-test-inventory.json",
 			property = "smartTestPicker.outputFile", required = true) private File outputFile;
 

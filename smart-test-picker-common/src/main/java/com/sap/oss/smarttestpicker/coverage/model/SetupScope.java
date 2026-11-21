@@ -5,6 +5,7 @@ package com.sap.oss.smarttestpicker.coverage.model;
 import java.util.Set;
 import java.util.TreeSet;
 
+/** Coverage recorded outside a leaf test, associated with affected containers and an optional execution target. */
 public record SetupScope(String id, SetupScopeType type, Set<String> coveredClasses,
 		Set<TestContainer> affectedContainers, ExecutionTarget owner)
 {

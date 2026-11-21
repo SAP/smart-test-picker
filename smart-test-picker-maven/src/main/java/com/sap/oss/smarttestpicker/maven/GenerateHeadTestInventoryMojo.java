@@ -17,7 +17,9 @@ import org.apache.maven.project.MavenProject;
 		requiresDependencyResolution = ResolutionScope.TEST)
 public final class GenerateHeadTestInventoryMojo extends AbstractMojo {
 	@Parameter(defaultValue = "${project}", readonly = true, required = true) private MavenProject project;
+	/** Destination of this goal's generated or downloaded artifact. Default: {@code ${project.build.directory}/head-test-inventory.json}. */
 	@Parameter(defaultValue = "${project.build.directory}/head-test-inventory.json", required = true) private File outputFile;
+	/** Expected full head revision for inventory or explicit PR selection. Default: {@code unset; inventory uses checked-out HEAD, explicit selection requires a full commit}. */
 	@Parameter(property = "smartTestPicker.prHeadRevision") private String prHeadRevision;
 	@Override public void execute() throws MojoExecutionException {
 		if (!MavenHeadTestInventory.generate(List.of(project), outputFile, project.getBasedir(), prHeadRevision, getLog()))

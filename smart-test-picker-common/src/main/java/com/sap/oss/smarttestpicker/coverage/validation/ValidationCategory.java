@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.coverage.validation;
 
+/** Broad category of schema, integrity, structural or completeness failure. */
 public enum ValidationCategory
 {
 	INCOMPATIBLE_SCHEMA,

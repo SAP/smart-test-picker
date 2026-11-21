@@ -29,14 +29,17 @@ import com.sap.oss.smarttestpicker.engine.ExecToXmlEngine;
 @Mojo(name = "generate-reports", defaultPhase = LifecyclePhase.VERIFY)
 public class GenerateReportsMojo extends AbstractMojo
 {
+	/** Choose ASM or JACOCO for explicitly activated collection; Maven defaults to JACOCO. Default: {@code JACOCO}. */
 	@Parameter(property = "smartTestPicker.coverageCollector")
 	private String coverageCollector;
 
-	/** Directory containing per-test {@code session_*.exec} files. */
+	/** Directory containing per-test {@code session_*.exec} files. <p>Default: {@code ${project.build.directory}/jacoco}.</p>
+	 */
 	@Parameter(defaultValue = "${project.build.directory}/jacoco", required = true)
 	private File execDir;
 
-	/** Compiled production classes directory. */
+	/** Compiled production classes directory. <p>Default: {@code ${project.build.outputDirectory}}.</p>
+	 */
 	@Parameter(defaultValue = "${project.build.outputDirectory}", required = true)
 	private File classesDir;
 
@@ -45,18 +48,22 @@ public class GenerateReportsMojo extends AbstractMojo
 	private List<MavenProject> reactorProjects;
 	@Parameter(defaultValue = "${session}", readonly = true)
 	private org.apache.maven.execution.MavenSession session;
+	/** Select the logical schema 2 or executable schema 3 path supported by this goal. Default: {@code 2}. */
 	@Parameter(defaultValue = "2", property = "smartTestPicker.schemaVersion")
 	private int schemaVersion = 2;
 
-	/** Source directory for source file references in XML reports. */
+	/** Source directory for source file references in XML reports. <p>Default: {@code ${project.basedir}/src/main/java}.</p>
+	 */
 	@Parameter(defaultValue = "${project.basedir}/src/main/java")
 	private File sourceDir;
 
-	/** Output directory for generated XML reports. */
+	/** Output directory for generated XML reports. <p>Default: {@code ${project.build.directory}/jacoco-xml}.</p>
+	 */
 	@Parameter(defaultValue = "${project.build.directory}/jacoco-xml", required = true)
 	private File reportDir;
 
-	/** Number of parallel threads for report generation. */
+	/** Number of parallel threads for report generation. <p>Default: {@code 0}.</p>
+	 */
 	@Parameter(defaultValue = "0", property = "smartTestPicker.threads")
 	private int threads;
 

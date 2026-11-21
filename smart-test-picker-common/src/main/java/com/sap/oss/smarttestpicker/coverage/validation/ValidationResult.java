@@ -4,6 +4,7 @@ package com.sap.oss.smarttestpicker.coverage.validation;
 
 import java.util.List;
 
+/** Immutable validation errors; an empty list denotes a valid artifact. */
 public record ValidationResult(List<ValidationError> errors)
 {
 	public ValidationResult { errors = List.copyOf(errors); }

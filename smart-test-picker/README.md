@@ -50,14 +50,22 @@ The plugin registers the following tasks:
 | `smartTest` | Gradle `Test` | Runs only selected + unmapped tests via Gradle filter |
 | `generateTestReport` | `GenerateTestReportTask` | Produces HTML dashboard + source coverage pages |
 | `generateSmartTestCoverage` | Gradle `Test` | Dedicated STP mapping execution; receives exactly one selected collector |
-| `generateSmartTestMapping` | lifecycle | Runs `generateSmartTestCoverage`; in JACOCO mode also runs the legacy report/map stages |
+| `generateSmartTestMapping` | lifecycle | In schema 3, runs assigned real Test tasks and aggregation; otherwise runs standalone collection and, for JACOCO, the legacy report/map stages |
 | `generateGradleExecutableHeadTestInventory` | `GenerateGradleExecutableHeadTestInventoryTask` | Aggregates schema-3 identities owned by concrete Gradle test tasks |
 | `generateGradleExecutableProjectInventory` | `GenerateGradleExecutableProjectInventoryTask` | Produces one project-local executable inventory part |
 | `aggregateGradleExecutableCoverage` | `AggregateGradleExecutableCoverageTask` | Validates and joins target-owned schema-3 fragments for one assignment |
 
-## Typical Workflow
+## Legacy and schema-v2 standalone workflow
+
+For schema-v3 inventory, assignments, mapping, join and explicit selection, start with the
+[complete quick start](../README.md#quick-start-gradle). Every extension property and task is listed
+with its default and schema applicability in the [configuration reference](../docs/configuration-reference.md).
 
 ### Phase 1: Generate coverage map (on base branch, CI after merge)
+
+This legacy map pipeline requires the `jacoco` plugin and
+`smartTestPicker { coverageCollector = 'JACOCO' }`. The standalone ASM default
+produces a schema-v2 fragment, not a legacy map for the report tasks below.
 
 ```bash
 ./gradlew generateSmartTestMapping
@@ -185,7 +193,7 @@ The default revision is `-Dstp.revision`, then `GIT_COMMIT`, then the explicit d
 `UNKNOWN`; CI should set `revision` or one of those inputs. `-Dstp.shardId` can override the normal
 `gradle::generateSmartTestCoverage` identity.
 
-Set `coverageCollector = 'JACOCO'` to restore the pre-TASK-27 per-test exec/XML/legacy-map flow. There
+Outside schema-v3 mapping, set `coverageCollector = 'JACOCO'` for the per-test exec/XML/legacy-map flow. There
 is deliberately no `BOTH`, `AUTO`, or union mode. That legacy map uses legacy method strings;
 the executable schema-v3 JaCoCo path preserves JVM method descriptors. Descriptor preservation
 does not imply method-entry completeness: an implicit exception before a JaCoCo probe can leave
@@ -203,7 +211,8 @@ and direct schema-v2 fragments.
 The [capability verification](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/stp-capabilities-01/REPORT.md) distinguishes
 these output properties from attribution soundness and records probes for all four backends.
 
-The collector is attached only to `generateSmartTestCoverage`, not to normal `test` or `smartTest`.
+In the standalone schema-v2 path the collector attaches only to `generateSmartTestCoverage`, not
+normal `test` or `smartTest`. Schema-v3 mapping attaches it to the assigned real Test tasks instead.
 An independently applied project JaCoCo plugin may still attach its own agent to that mapping JVM;
 this preserves the ordinary JaCoCo exec/report while ASM emits the STP fragment.
 

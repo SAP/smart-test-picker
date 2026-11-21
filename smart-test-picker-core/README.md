@@ -7,7 +7,8 @@ JUnit 5 extension that enables per-test JaCoCo coverage collection.
 Per-test coverage is collected via two complementary mechanisms:
 
 1. **TestExecutionListener** (`JacocoPerTestListener`) -- registered via JUnit Platform ServiceLoader. Works on Gradle and Maven with JUnit Platform 1.9.x.
-2. **Jupiter Extension** (`TestLifecycleExtension`) -- registered via JUnit Jupiter extension auto-detection. Works on all platforms including Maven Surefire 3.x with JUnit Platform 6.x.
+2. **Jupiter Extension** (`TestLifecycleExtension`) -- registered via JUnit Jupiter extension auto-detection.
+   Use the provider/framework combinations qualified in [compatibility](../docs/compatibility.md).
 
 Both mechanisms do the same thing:
 1. Before each test: reuse the active JaCoCo runtime, set a unique session ID, and reset its probes
@@ -37,6 +38,10 @@ it does not attach an agent. `stp.exec.dir` remains only an output-directory
 override, never an activation signal. See [the correction and evidence](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/maven-asm-03-fix/REPORT.md).
 
 ## Setup
+
+For schema-v3 mapping, use the [build-plugin workflow](../README.md). Build-tool-managed JaCoCo
+attachment is isolated to STP-owned execution data and project reports/checks are skipped in that
+invocation. A literal project-owned agent destination is not isolated; run project coverage separately.
 
 ### Gradle (with Smart Test Picker plugin)
 
@@ -111,7 +116,6 @@ The extension communicates with the JaCoCo runtime agent via reflection:
 - `org.jacoco.agent.rt.RT.getAgent()` -- obtains the single active agent instance
 - `IAgent.getExecutionData(true)` -- snapshots and resets without depending on the agent `destfile`
 - `setSessionId(String)` -- sets the session name for the current test
-- `dump(boolean)` -- writes accumulated coverage data
 - `reset()` -- clears coverage data between tests
 
 This approach works with JaCoCo's on-the-fly instrumentation mode (the default for Gradle and Maven builds).

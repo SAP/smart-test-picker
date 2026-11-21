@@ -2,5 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.coverage.model;
 
+/** Counts of expected, mapped and unmapped tests, setup scopes, and class and method coverage edges. */
 public record MapStatistics(int expectedTests, int mappedTests, int unmappedTests, int setupScopes,
 		long classEdges, long methodEdges) {}

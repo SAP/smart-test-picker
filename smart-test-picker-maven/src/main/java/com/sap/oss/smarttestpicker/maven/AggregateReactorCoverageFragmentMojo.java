@@ -61,12 +61,19 @@ public final class AggregateReactorCoverageFragmentMojo extends AbstractMojo {
 	@Parameter(defaultValue = "${project}", readonly = true, required = true) private MavenProject project;
 	@Parameter(defaultValue = "${reactorProjects}", readonly = true, required = true)
 	private List<MavenProject> reactorProjects;
+	/** Exact source revision to which the assignment and fragment must be bound. Default: {@code unset; required for mapping}. */
 	@Parameter(property = "smartTestPicker.revision", required = true) private String revision;
+	/** Shard identifier that must match the assignment and all collected fragments. Default: {@code unset; required for mapping}. */
 	@Parameter(property = "smartTestPicker.shardId", required = true) private String shardId;
+	/** Legacy test-target label or execution target supplied by orchestration. Default: {@code test}. */
 	@Parameter(defaultValue = "test", property = "smartTestPicker.testTarget") private String testTarget;
+	/** Accepted coverage fragment output path; not a published coverage map. Default: {@code unset}. */
 	@Parameter(property = "smartTestPicker.fragmentOutput", required = true) private File fragmentOutput;
+	/** Execution-evidence output path, separate from the coverage fragment. Default: {@code unset}. */
 	@Parameter(property = "smartTestPicker.evidenceOutput", required = true) private File evidenceOutput;
+	/** Revision-bound executable shard assignment used for aggregation accounting. Default: {@code ${env.STP_MAPPING_TESTS_FILE}}. */
 	@Parameter(defaultValue = "${env.STP_MAPPING_TESTS_FILE}", property = "smartTestPicker.testsFile") private File shardAssignments;
+	/** Select the logical schema 2 or executable schema 3 path supported by this goal. Default: {@code 2}. */
 	@Parameter(defaultValue = "2", property = "smartTestPicker.schemaVersion", required = true) private int schemaVersion;
 
 	@Override public void execute() throws MojoExecutionException {

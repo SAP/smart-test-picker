@@ -9,7 +9,7 @@ Artifact versions and wire versions are independent. All STP-owned modules curre
 | Executable coverage map/fragment | 3 | Canonical build target plus logical identity; multimodule/multitarget Jenkins mapping |
 | Executable head inventory | 1 | Exact revision and target-qualified expected identities |
 | Executable shard assignment | 1 | Exact revision, shard and target-qualified identities |
-| Logical/executable execution evidence | 1 / 2 | Exact observed execution for schema-2/schema-3 mapping |
+| Logical/executable execution evidence | 1 / 2 | Identity accounting for schema-2/schema-3 mapping; absorption audits distinguish unobserved owners |
 | Execution plan | 1 | `SELECT` or `RUN_ALL`, consumed by Gradle/Maven adapters |
 | Jenkins adapter contract | 1 | Exact equality for HPI-bundled adapters |
 
@@ -19,6 +19,18 @@ conservatively project a validated executable map to logical impact analysis and
 logical identities to all exact matches in the executable head inventory; that is selection routing,
 not map conversion.
 
-The supported Java baseline is 17+. The maintained Jenkins POC is tested on Jenkins 2.516.2 with JDK
-21 while its plugin and embedded STP bytecode target Java 17. Maven 3.9+ and the project-supported
-Gradle wrapper are required by their corresponding integrations.
+The supported Java baseline is 17; all modules use the Java 17 API boundary even when built on a newer JDK.
+Gradle inventory/mapping accepts 8.0 to below 10.0, with differentials on 8.14, 9.5.1, 9.7.1 and 9.9.1.
+Maven schema-v3 inventory and preparation require Maven 3.9 or later; qualification uses 3.9.15 and
+Maven 4 remains untested. Surefire/Failsafe 3.2.5, 3.5.6 and 3.6.1 are qualified; 3.0.0 and 3.1.2 have
+defaults-only probes, and 2.22.2 is rejected. A supported version does not remove the topology and
+provider limitations in the module READMEs.
+
+Gradle defaults to ASM and Maven to JACOCO. Both tools apply effective provider/task filters to their
+v3 inventories, reject widening assignments and partial overload assignments, and share completed-ASM
+assignment absorption. JaCoCo mapping isolates build-tool-managed destinations and skips project
+coverage consumers; ASM coexistence leaves qualified project JaCoCo results intact. Schema-v2 paths
+do not inherit all schema-v3 guarantees.
+
+This repository does not qualify a current Jenkins integration runtime. Its separate repository owns
+its installation and compatibility requirements.

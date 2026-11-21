@@ -30,6 +30,7 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
 
+/** Merges legacy coverage maps; schema-v3 shard fragments use {@link JoinFragmentsCommand}. */
 @Command(
 		name = "merge-maps",
 		mixinStandardHelpOptions = true,

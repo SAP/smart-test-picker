@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.coverage.validation;
 
+/** Stable identifier for a specific coverage artifact validation failure. */
 public enum ValidationCode
 {
 	SCHEMA_VERSION_MISMATCH,

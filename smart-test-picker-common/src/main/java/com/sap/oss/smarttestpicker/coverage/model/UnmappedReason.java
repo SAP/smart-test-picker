@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.coverage.model;
 
+/** Reason an identity has no usable mapped coverage; unmapped head identities remain mandatory in selection. */
 public enum UnmappedReason
 {
 	FAILED, SKIPPED, TIMEOUT, COLLECTION_FAILED,

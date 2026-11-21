@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.coverage.model;
 
+/** Binary class name of a test container affected by a setup scope. */
 public record TestContainer(String binaryName) implements Comparable<TestContainer>
 {
 	public TestContainer

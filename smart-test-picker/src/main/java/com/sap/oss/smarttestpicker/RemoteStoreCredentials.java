@@ -23,7 +23,9 @@ import org.gradle.api.provider.Property;
 public abstract class RemoteStoreCredentials
 {
 
+	/** HTTP Basic Auth username. Default: unset. Supply through an external credential provider. */
 	public abstract Property<String> getUsername();
 
+	/** HTTP Basic Auth password. Default: unset. Do not store credentials in project source. */
 	public abstract Property<String> getPassword();
 }

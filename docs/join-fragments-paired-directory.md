@@ -1,8 +1,8 @@
 # Paired shard-directory join
 
-STP-JOIN-CLI-02, branch `feature/paired-shard-join-cli`, based on main `8bd4a69` after PR #35 merged.
-The existing separate-input mode remains supported. No agent, upload integration, joiner or
-publication behavior is changed.
+Paired mode derives the inventory and shard plan from the test lists alongside the fragments.
+The separate-input mode remains available when an authoritative head inventory and assignments
+are supplied independently.
 
 ## Usage
 
@@ -14,7 +14,8 @@ smart-test-picker join-fragments \
 ```
 
 Use the packaged CLI equivalently as
-`java -jar smart-test-picker-cli-0.3.0-SNAPSHOT-all.jar join-fragments ...`.
+`java -jar smart-test-picker-cli-0.3.0-SNAPSHOT.jar join-fragments ...` for the published artifact.
+The source build's shadow JAR retains its `-all` classifier.
 
 The directory contains exactly paired direct files:
 
@@ -72,7 +73,7 @@ This adaptation does not manufacture a missing fragment or clear a fragment's fa
 - Missing fragment: fail, naming its list and missing partner.
 - Existing fragment with `collectionCompleted=false`: still rejected by the unchanged joiner.
 - Unexpected identity, including an unexpected `SKIPPED` entry: fail, naming the pair.
-- Observed `SKIPPED`: retain positive non-execution handling from PR #35, not an absorbed unmapped entry.
+- Observed `SKIPPED`: retain positive non-execution handling, not an absorbed unmapped entry.
 - Other observed outcomes and all setup scopes: retained unchanged.
 
 The unchanged writer validates the staged on-disk file through the production codec, full map
@@ -82,8 +83,8 @@ directory, since every direct file there must be a recognized input and inputs c
 
 ## Permanent regressions
 
-`PairedShardJoinCommandTest` adds 24 tests in the CLI module's production test source set. All 24
-passed alongside all 35 existing `JoinFragmentsCommandTest` cases (59 focused tests total).
+`PairedShardJoinCommandTest` and `JoinFragmentsCommandTest` cover the paired and separate modes
+in the CLI module's test source set.
 
 Coverage includes:
 
@@ -103,12 +104,6 @@ published map, and calls **`ExplicitPrSelectorFlow.select`**, not just its loade
 source-code diff and a head inventory of three tests, exactly the assigned-but-unreported test is
 selected, with `ASSIGNED_NOT_REPORTED` in the selection output. The two healthy tests are not selected.
 The original fragment's bytes are also asserted unchanged.
-
-The first focused attempt had one test-expectation failure: after renaming a list, two filename
-partners were missing, and deterministic lexical order reported `tests-other.json` first rather than
-the test's expected original fragment. The test now checks the actual first unmatched pair. No
-pairing behavior was changed to satisfy it. Both initial and successful logs are retained locally
-under `verification/stp-join-cli-02/raw/`.
 
 Focused command:
 

@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
+/** Immutable accounting of expected, reported, missing and duplicate tests and shards for a logical coverage map. */
 public record Completeness(Set<TestIdentity> expectedTests, Set<TestIdentity> reportedTests,
 		Set<ShardId> expectedShards, Set<ShardId> completedShards, Set<TestIdentity> missingTests,
 		Set<TestIdentity> unexpectedTests, Set<ShardId> missingShards, Set<ShardId> duplicateShards,

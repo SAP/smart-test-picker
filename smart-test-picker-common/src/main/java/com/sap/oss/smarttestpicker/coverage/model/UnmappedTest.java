@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.coverage.model;
 
+/** Logical test whose coverage is unavailable, with an explicit execution or collection reason. */
 public record UnmappedTest(TestIdentity test, UnmappedReason reason)
 {
 	public UnmappedTest

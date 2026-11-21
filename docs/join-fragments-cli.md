@@ -1,13 +1,11 @@
 # Verified executable fragment join CLI
 
-STP-JOIN-CLI-01 adds `join-fragments` on branch `feature/join-executable-fragments-cli`,
-based on main at `05d5c3b`. It reuses the existing strict join and publication contracts.
+`join-fragments` uses the strict executable join and publication contracts.
 It does not implement degraded joining, assignment generation or selection policy changes.
 Output now uses the [compact streaming gzip v3 map format](v3-map-format.md); input fragment and
-assignment formats are unchanged. The validation results below describe their historical revisions.
+assignment formats are unchanged.
 
-STP-JOIN-CLI-02 adds an alternative [paired-directory input mode](join-fragments-paired-directory.md).
-The separate-input contract and its historical validation results below remain unchanged; the
+An alternative [paired-directory input mode](join-fragments-paired-directory.md) is available. The
 paired mode additionally accounts assigned-but-unreported tests as unmapped without changing the joiner.
 Only paired `--dir` mode skips dot-prefixed files, logging each to stderr. The
 separate-input options retain their existing strict file handling.
@@ -104,7 +102,7 @@ including its checksum field.
 
 ## Permanent regressions
 
-`JoinFragmentsCommandTest`, in the CLI module's production test source set, contains 35 cases:
+`JoinFragmentsCommandTest`, in the CLI module's test source set, covers:
 
 - Three complete shards, exact summary and full read-back equality; root-command registration and a
   Maven target.
@@ -122,8 +120,5 @@ including its checksum field.
   scopes with recomputed valid checksums, candidate lifecycle, unsupported schema and failed atomic
   replacement. Failed publication leaves prior output intact and cleans staging files.
 - Accepted `FAILED`/`COLLECTION_FAILED` unmapped entries and successful production selector loading.
-
-The original focused suite passed all 29 cases. STP-JOIN-CLI-01a replaces the former skipped-entry
-rejection test with an acceptance regression and adds six cases; fresh amendment results follow below.
 
 Historical run results are retained in [the history archive](history/join-fragments-cli.md).

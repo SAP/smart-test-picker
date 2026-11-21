@@ -2,8 +2,8 @@
 
 The lifecycle APIs in `RuntimeContextService` support an
 external listener whose events revisit one logical test, such as parameter rows
-ordered `m1[row0], m2[row0], m1[row1], m2[row1]`. No external listener or JUnit
-adapter is changed.
+ordered `m1[row0], m2[row0], m1[row1], m2[row1]`. External listeners must call these
+APIs explicitly; the JUnit adapter does not fold such events automatically.
 
 ## Contract
 
@@ -61,8 +61,7 @@ as `ForkJoinContextTest` does; they do not change propagation behavior.
 
 The agent version remains `0.3.0-SNAPSHOT` (`stp-agent-0.3.0-SNAPSHOT.jar`);
 the Gradle shaded build output is `stp-agent/build/libs/stp-agent.jar`.
-No version bump or distribution-specific packaging is part of this change.
-Consumers of the new API must use the
-newly built snapshot, not an older JAR bearing the same version.
+Consumers must use a snapshot that contains these APIs, not an older JAR bearing
+the same version.
 
 Historical run results are retained in [the history archive](history/runtime-test-suspension.md).

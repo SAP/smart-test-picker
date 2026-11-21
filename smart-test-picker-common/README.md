@@ -56,7 +56,7 @@ The plain JSON format repeats class/method FQN strings for every test that cover
 }
 ```
 
-Typical reduction: 944 MB to 67 MB (indexed) or 12 MB (indexed + gzip) for 5755 tests.
+This is the legacy indexed format, not the [streaming gzip v3 map](../docs/v3-map-format.md).
 
 ### XML Parsing
 

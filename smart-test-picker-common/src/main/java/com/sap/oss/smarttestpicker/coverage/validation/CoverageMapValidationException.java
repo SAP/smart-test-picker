@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.coverage.validation;
 
+/** Rejects a coverage artifact while retaining its structured validation category, code and message. */
 public class CoverageMapValidationException extends IllegalArgumentException
 {
 	private final ValidationError error;
