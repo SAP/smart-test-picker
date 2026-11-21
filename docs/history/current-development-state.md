@@ -26,17 +26,17 @@ results they validated. They are evidence snapshots, not current setup instructi
 integration results remain scoped to their documented builds and artifacts and are not general
 product qualification.
 
-Current STP contracts and module usage are documented by the [root README](../README.md),
-[artifact versioning](artifact-versioning.md), [compatibility table](compatibility.md), and module
+Current STP contracts and module usage are documented by the [root README](../../README.md),
+[artifact versioning](../artifact-versioning.md), [compatibility table](../compatibility.md), and module
 README files. Jenkins installation, Pipeline API, controller-side FILE storage, and canonical examples
 belong to the Jenkins integration repository; the two repositories intentionally do not duplicate
 those operational references.
 
-The authoritative [collector attribution and adoption boundaries](asm-coverage-mapping-current-state.md#current-maven-collector-boundaries)
+The authoritative [collector attribution and adoption boundaries](../asm-coverage-mapping-current-state.md#current-maven-collector-boundaries)
 include interval-based JaCoCo bleed/loss, ASM container-scope HTTP attribution,
 cached shared-web-context rejection, and the limit of structural completeness.
 Maven ASM is implemented in the prepared schema-v3 path; this is not general
-qualification for HTTP-heavy Spring suites. The [open product decisions](asm-coverage-mapping-current-state.md#open-product-decisions)
+qualification for HTTP-heavy Spring suites. The [open product decisions](../asm-coverage-mapping-current-state.md#open-product-decisions)
 remain decisions, not implemented guards or adapters.
 
 ## Coupled Maven ASM delivery

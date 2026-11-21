@@ -223,7 +223,7 @@ Per-test `FAILED`, `SKIPPED`, `TIMEOUT`, `COLLECTION_FAILED` and `ASSIGNED_NOT_R
 not automatic mapping-job failure, when represented according to schema and the complete-map contract; selector unions preserve
 their safety semantics. They become `MAPPING_INCOMPLETE` only when accounting or completeness fails.
 
-The [paired-directory CLI join adapter](join-fragments-paired-directory.md) is a scoped exception to
+The [paired-directory CLI join adapter](../join-fragments-paired-directory.md) is a scoped exception to
 rejecting an absent test report: when its fragment exists, it records the assigned-but-unreported
 identity as `ASSIGNED_NOT_REPORTED` before invoking the unchanged joiner. Missing or incomplete
 fragments still fail. Other mapping entry points retain their existing policies; agents do not emit

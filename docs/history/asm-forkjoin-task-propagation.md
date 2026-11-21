@@ -3,7 +3,7 @@ SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Smart Test P
 SPDX-License-Identifier: Apache-2.0
 -->
 
-# ForkJoinTask ownership in the unit-test ASM agent
+# Historical ForkJoinTask ownership in the unit-test ASM agent
 
 Baseline: `research/asm-codex`, `132a215a3e48d0d5bc6eaf8aa33a87b13ecd2568`.
 This extends the local test/runtime agent, not Remote STP. No OTel dependency,

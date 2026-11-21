@@ -39,7 +39,7 @@ containing `version`, `revision`, and sorted executable identity strings; it doe
 unmapped entries use `ExecutableTestIdentity`. Their strict codecs reuse `ExecutableTestIdentity.parse()` and
 `toString()`, sort identities deterministically, reject the other schema generation, and reject duplicate wire keys.
 The map checksum remains SHA-256 over canonical JSON without the checksum member. Maps now use the
-gzip, dictionary-indexed [v3 map encoding](v3-map-format.md). Fragment and assignment JSON remain unchanged.
+gzip, dictionary-indexed [v3 map encoding](../v3-map-format.md). Fragment and assignment JSON remain unchanged.
 
 The v3 map wire format carries an explicit schema version, revision, lifecycle, completeness, statistics,
 mapped executable-key object, executable unmapped list, setup scopes, and optional method-coverage reference.

@@ -3,7 +3,7 @@ SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Smart Test P
 SPDX-License-Identifier: Apache-2.0
 -->
 
-# ASM logical test context propagation
+# Historical ASM logical test context propagation
 
 ## Baseline inventory
 

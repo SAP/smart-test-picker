@@ -1,6 +1,6 @@
 # Current architecture
 
-> **Historical design and implementation snapshot.** This record began at revision `0149437fcc4d336920c95696e4dec15a5d110114` on 2026-09-06 and was extended chronologically by later tasks. Its statuses, versions, paths, and limitations describe the sections' respective implementation stages. EI-15 is also dated evidence. Use the [current development state](current-development-state.md), [compatibility contracts](compatibility.md), and root README for current guidance. The architectural rationale remains useful; chronological status claims are superseded.
+> **Historical design and implementation snapshot.** This record began at revision `0149437fcc4d336920c95696e4dec15a5d110114` on 2026-09-06 and was extended chronologically by later tasks. Its statuses, versions, paths, and limitations describe the sections' respective implementation stages. EI-15 is also dated evidence. Use the [current development state](current-development-state.md), [compatibility contracts](../compatibility.md), and root README for current guidance. The architectural rationale remains useful; chronological status claims are superseded.
 
 ## TASK76 item-8 central failure-policy closure
 
