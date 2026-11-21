@@ -107,7 +107,7 @@ subprojects {
 
 tasks.register('verifyStpVersionConsistency') {
     group = 'verification'
-    description = 'Verifies STP module, publication POM, and internal dependency version alignment.'
+    description = 'Verifies STP module, publication POM, internal dependency and documented version alignment.'
     dependsOn subprojects.collectMany { project ->
         project.tasks.matching { it.name.startsWith('generatePomFileFor') }.toList()
     }
@@ -156,11 +156,34 @@ tasks.register('verifyStpVersionConsistency') {
                 failures << "${relativePath(source)} references STP version ${version}, expected ${sourceVersion}"
             }
         }
-        if (failures) throw new GradleException('STP version consistency failed:\n' + failures.join('\n'))
-        exec {
-            commandLine providers.environmentVariable('PYTHON').orElse('python3').get(), '-B',
-                    'scripts/readiness/verify.py', 'versions', '--root', rootDir
+        // Keep the normal check/build lifecycle JVM-only; readiness tooling is opt-in.
+        def documentationPatterns = [
+            ~/com\.sap\.oss\.smart-test-picker:[\w.-]+:(?:jar:)?([0-9][\w.-]+)/,
+            ~/(?:version|stpVersion)\s*[=:]?\s*['"](0\.\d+\.\d+(?:-[\w.-]+)?)['"]/,
+            ~/smart-test-picker(?:-[\w-]+)?-(0\.\d+\.\d+(?:-SNAPSHOT)?)\.(?:jar|zip)/,
+            ~/(?<![\w.])(0\.3\.0(?:-SNAPSHOT)?)(?![\w.-])/,
+            ~/(?s)<groupId>com\.sap\.oss\.smart-test-picker<\/groupId>\s*<artifactId>[^<]+<\/artifactId>\s*<version>([0-9][^<]+)<\/version>/
+        ]
+        tracked.split('\u0000').findAll {
+            it.toLowerCase(java.util.Locale.ROOT).endsWith('.md') &&
+                    !it.startsWith('docs/history/') && !it.startsWith('verification/')
+        }.each { path ->
+            def text = file(path).getText('UTF-8')
+            if (file(path).name == 'CHANGELOG.md') {
+                def unreleased = text.indexOf('## [Unreleased]')
+                if (unreleased >= 0) text = text.substring(unreleased + '## [Unreleased]'.length())
+                def nextSection = text.indexOf('\n## [')
+                if (nextSection >= 0) text = text.substring(0, nextSection)
+            }
+            def versions = new LinkedHashSet<String>()
+            documentationPatterns.each { pattern ->
+                (text =~ pattern).each { match -> versions.add(match[1]) }
+            }
+            versions.findAll { it != sourceVersion }.each { documentedVersion ->
+                failures << path + ' documented STP version ' + documentedVersion + '; expected ' + sourceVersion
+            }
         }
+        if (failures) throw new GradleException('STP version consistency failed:\n' + failures.join('\n'))
         logger.lifecycle("STP version consistency PASS: ${expected}")
     }
 }

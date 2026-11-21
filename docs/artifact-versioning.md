@@ -9,6 +9,9 @@ and versioned commands from current tracked Markdown; historical records under
 `docs/history/` keep their original versions. External integrations pin their own
 dependencies and are not changed by this build.
 
+This version check runs entirely in Gradle/Groovy and does not require Python,
+including when invoked through the normal `check` or `build` lifecycle.
+
 Maven ASM mapping preparation reads its running version from Maven's injected
 `PluginDescriptor`, backed by the generated plugin descriptor, and resolves the
 shaded `com.sap.oss.smart-test-picker:stp-agent` JAR at exactly that version.
@@ -37,7 +40,8 @@ version:
 ```
 
 The first command stages publications in `build/readiness/staging`, a file-only
-repository. Checks require Python 3 and a JDK. `readinessConsumerSmoke` additionally
+repository. These opt-in readiness checks require Python 3 and a JDK; they are not
+dependencies of the normal `check` or `build` lifecycle. `readinessConsumerSmoke` additionally
 uses `STP_READINESS_GRADLE`, `STP_READINESS_MAVEN` and `STP_READINESS_JAVA17` to run
 isolated Java 17 consumers against that repository and Maven Central.
 
