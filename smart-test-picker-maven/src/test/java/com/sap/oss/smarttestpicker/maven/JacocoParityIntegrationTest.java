@@ -69,6 +69,23 @@ class JacocoParityIntegrationTest {
     @ParameterizedTest @CsvSource({"false,true", "true,true", "true,false"})
     void mappingNeverCreatesOrChangesProjectExecutionData(boolean present, boolean append) throws Exception {
         Path root = fixture(temporary.resolve("isolation"));
+        Path pom = root.resolve("app/pom.xml");
+        Files.writeString(pom, Files.readString(pom).replace("</project>", """
+            <build><plugins><plugin>
+              <groupId>org.apache.maven.plugins</groupId><artifactId>maven-antrun-plugin</artifactId><version>3.1.0</version>
+              <executions><execution><id>observe-private-agent-output</id><phase>verify</phase>
+                <goals><goal>run</goal></goals><configuration><target>
+                  <resourcecount property="private.agent.outputs">
+                    <fileset dir="${project.build.directory}/stp" includes="jacoco-agent-*/agent.exec">
+                      <size value="0" when="more"/>
+                    </fileset>
+                  </resourcecount>
+                  <echo file="${project.build.directory}/private-agent-output-count.txt">${private.agent.outputs}</echo>
+                </target></configuration>
+              </execution></executions>
+            </plugin></plugins></build>
+            </project>
+            """));
         success(maven(root, "test-compile", "-Djacoco.skip=true"));
         Path projectData = root.resolve("app/target/project.exec");
         byte[] original = "project-owned execution data".getBytes(java.nio.charset.StandardCharsets.UTF_8);
@@ -80,8 +97,12 @@ class JacocoParityIntegrationTest {
         var fragment = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(fragment(root)));
         assertEquals(2, fragment.tests().size());
         assertTrue(fragment.tests().values().stream().allMatch(test -> test.coveredClasses().contains("example.Service")));
-        try (var files = Files.walk(root.resolve("app/target/stp"))) {
-            assertTrue(files.anyMatch(path -> path.toString().endsWith(".exec")), "Agent output must be STP-owned");
+        assertTrue(Integer.parseInt(Files.readString(root.resolve("app/target/private-agent-output-count.txt")).trim()) > 0,
+                "Non-empty STP-owned agent output must exist after tests, before the Maven session ends");
+        try (var files = Files.list(root.resolve("app/target/stp"))) {
+            assertEquals(List.of(), files.filter(path -> path.getFileName().toString().startsWith("jacoco-agent-"))
+                    .map(path -> path.getFileName().toString()).sorted().toList(),
+                    "Invocation-owned agent entries must be removed when the Maven session ends");
         }
     }
 
@@ -98,6 +119,30 @@ class JacocoParityIntegrationTest {
         assertTrue(Files.exists(fragment(root)));
         success(maven(root, "verify"));
         assertTrue(Files.isRegularFile(root.resolve("app/target/site/jacoco/jacoco.xml")));
+    }
+
+    @ParameterizedTest @ValueSource(booleans = {false, true})
+    void privateAgentDirectoriesDoNotAccumulateAfterMapping(boolean failing) throws Exception {
+        Path root = fixture(temporary.resolve("private-agent-cleanup"));
+        success(maven(root, "test-compile", "-Djacoco.skip=true"));
+        Path projectData = root.resolve("app/target/project.exec");
+        byte[] sentinel = "project-owned execution data".getBytes(java.nio.charset.StandardCharsets.UTF_8);
+        Files.write(projectData, sentinel);
+        for (int invocation = 0; invocation < 2; invocation++) {
+            var result = mapping(root, "JACOCO", false, "-Dfixture.failure=" + (failing ? "test" : ""));
+            if (failing) assertNotEquals(0, result.exitCode(), result.output());
+            else success(result);
+            assertArrayEquals(sentinel, Files.readAllBytes(projectData));
+            for (String module : List.of("library", "app")) {
+                Path directory = root.resolve(module + "/target/stp");
+                if (!Files.isDirectory(directory)) continue;
+                try (var files = Files.list(directory)) {
+                    assertEquals(List.of(), files.filter(path -> path.getFileName().toString().startsWith("jacoco-agent-"))
+                            .map(path -> path.getFileName().toString()).sorted().toList(),
+                            "Private agent directories remain after invocation " + invocation + " in " + module);
+                }
+            }
+        }
     }
 
     @ParameterizedTest @ValueSource(strings = {"no-agent", "offline"})
