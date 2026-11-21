@@ -10,6 +10,8 @@ allprojects {
     version = providers.gradleProperty('stpVersion').get()
 }
 
+apply from: 'gradle/readiness-checks.gradle'
+
 subprojects {
     repositories {
         mavenCentral()
@@ -110,7 +112,11 @@ tasks.register('verifyStpVersionConsistency') {
                     }
                 }
             }
-            project.fileTree(project.layout.buildDirectory.dir('publications')).matching { include '**/pom-default.xml' }.files.each { pom ->
+            def publications = project.extensions.findByName('publishing')
+            def activePoms = publications == null ? [] : publications.publications.withType(MavenPublication).collect { publication ->
+                project.layout.buildDirectory.file("publications/${publication.name}/pom-default.xml").get().asFile
+            }
+            activePoms.each { pom ->
                 def parsed = new XmlSlurper().parse(pom)
                 if (parsed.version.text() != expected) {
                     failures << "${pom} publishes ${parsed.version.text()}, expected ${expected}"
@@ -122,19 +128,26 @@ tasks.register('verifyStpVersionConsistency') {
                 }
             }
         }
-        fileTree(rootDir) {
-            include '**/*.gradle', '**/pom.xml'
-            exclude '**/build/**', 'EI-*/**', 'stp-*-validation/**'
-        }.files.each { source ->
+        // Checked-in examples follow the declared version, not a local staging override.
+        def declared = new Properties()
+        file('gradle.properties').withInputStream { declared.load(it) }
+        def sourceVersion = declared.getProperty('stpVersion')
+        def tracked = providers.exec { commandLine 'git', 'ls-files', '-z' }.standardOutput.asText.get()
+        tracked.split('\u0000').findAll { it.endsWith('.gradle') || it.endsWith('/pom.xml') || it == 'pom.xml' }
+                .collect { file(it) }.each { source ->
             def text = source.getText('UTF-8')
             def versions = []
             (text =~ /(?s)<groupId>com\.sap\.oss\.smart-test-picker<\/groupId>.*?<version>([^<]+)<\/version>/).each { versions << it[1] }
             (text =~ /com\.sap\.oss\.smart-test-picker:[^:'"\s]+:([^:'"\s]+)/).each { versions << it[1] }
-            versions.findAll { it != expected }.each { version ->
-                failures << "${source} references STP version ${version}, expected ${expected}"
+            versions.findAll { it != sourceVersion }.each { version ->
+                failures << "${relativePath(source)} references STP version ${version}, expected ${sourceVersion}"
             }
         }
         if (failures) throw new GradleException('STP version consistency failed:\n' + failures.join('\n'))
+        exec {
+            commandLine providers.environmentVariable('PYTHON').orElse('python3').get(), '-B',
+                    'scripts/readiness/verify.py', 'versions', '--root', rootDir
+        }
         logger.lifecycle("STP version consistency PASS: ${expected}")
     }
 }
