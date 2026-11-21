@@ -1,0 +1,57 @@
+// SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+// SPDX-License-Identifier: Apache-2.0
+
+['stp-agent', 'smart-test-picker-cli'].each { module ->
+    project(":${module}") { child ->
+        plugins.withId('com.gradleup.shadow') {
+            def output = layout.buildDirectory.dir('generated/dependency-notices')
+            def prepare = tasks.register('prepareDependencyNotices') {
+                inputs.files(configurations.runtimeClasspath)
+                inputs.files(rootProject.fileTree('gradle/dependency-licenses'))
+                inputs.file(rootProject.file('LICENSES/Apache-2.0.txt'))
+                outputs.dir(output)
+                doLast {
+                    def destination = output.get().asFile
+                    delete destination
+                    destination.mkdirs()
+                    def index = ['Bundled third-party components and their original license notices.',
+                                 'ASM packages are relocated in the agent; no dependency source modifications are made.',
+                                 'JaCoCo source remains available under EPL-2.0 at the exact-version URL listed below.', '']
+                    configurations.runtimeClasspath.resolvedConfiguration.resolvedArtifacts
+                        .findAll { it.moduleVersion.id.group != rootProject.group.toString() }
+                        .sort { it.moduleVersion.id.toString() }.each { dependency ->
+                            def id = dependency.moduleVersion.id
+                            def component = new File(destination, "META-INF/third-party/${id.group}/${dependency.name}")
+                            component.mkdirs()
+                            copy {
+                                from zipTree(dependency.file)
+                                include '**/LICENSE*', '**/license*', '**/NOTICE*', '**/notice*', 'about.html'
+                                into component
+                            }
+                            def texts = fileTree(component).matching { include '**/LICENSE*', '**/license*' }.files
+                            if (texts.empty) {
+                                def fallback = [
+                                    'org.ow2.asm': 'gradle/dependency-licenses/LICENSE-BSD-3-Clause.txt',
+                                    'org.jacoco': 'gradle/dependency-licenses/LICENSE-EPL-2.0.txt',
+                                    'com.google.code.gson': 'LICENSES/Apache-2.0.txt',
+                                    'info.picocli': 'LICENSES/Apache-2.0.txt'
+                                ][id.group]
+                                if (fallback == null) throw new GradleException("No redistribution license for ${id}")
+                                copy { from rootProject.file(fallback); into component; rename { 'LICENSE.txt' } }
+                            }
+                            index << id.toString()
+                            index << "License and notices: ${id.group}/${dependency.name}/"
+                            index << "Source: https://repo.maven.apache.org/maven2/${id.group.replace('.', '/')}/${dependency.name}/${id.version}/${dependency.name}-${id.version}-sources.jar"
+                            index << ''
+                        }
+                    new File(destination, 'META-INF/third-party/NOTICE.txt').text = index.join('\n')
+                }
+            }
+            tasks.named('shadowJar') {
+                dependsOn prepare
+                from output
+                from(rootProject.file('LICENSES/Apache-2.0.txt')) { into 'META-INF'; rename { 'LICENSE-STP.txt' } }
+            }
+        }
+    }
+}

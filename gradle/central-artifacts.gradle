@@ -1,0 +1,106 @@
+// SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+// SPDX-License-Identifier: Apache-2.0
+
+import java.security.MessageDigest
+import org.gradle.plugins.signing.Sign
+
+def moduleDescriptions = [
+    'smart-test-picker': ['Smart Test Picker Gradle Plugin', 'Gradle test inventory, coverage mapping and change-based test selection.'],
+    'smart-test-picker-common': ['Smart Test Picker Common', 'Shared coverage models, codecs, storage and selection engines.'],
+    'smart-test-picker-core': ['Smart Test Picker Core', 'Per-test JaCoCo execution data collection and test listeners.'],
+    'smart-test-picker-maven': ['Smart Test Picker Maven Plugin', 'Maven test inventory, coverage mapping and change-based test selection.'],
+    'stp-agent': ['Smart Test Picker Agent', 'Standalone ASM instrumentation agent for test-attributed coverage collection.'],
+    'smart-test-picker-cli': ['Smart Test Picker CLI', 'Standalone command-line coverage map, join and selection tools.']
+]
+def signingKey = providers.environmentVariable('STP_SIGNING_KEY')
+def signingPassword = providers.environmentVariable('STP_SIGNING_PASSWORD')
+def repository = layout.buildDirectory.dir('readiness/central-repository')
+
+def prerequisites = tasks.register('verifyCentralBundlePrerequisites') {
+    doLast {
+        if (version.toString().endsWith('-SNAPSHOT')) {
+            throw new GradleException('The Central bundle requires a non-SNAPSHOT stpVersion; no upload is performed.')
+        }
+        if (!signingKey.isPresent() || signingKey.get().isBlank()) {
+            throw new GradleException('The Central bundle requires STP_SIGNING_KEY and STP_SIGNING_PASSWORD for a protected key; unsigned bundles are not produced.')
+        }
+    }
+}
+
+subprojects { child ->
+    plugins.withId('java') {
+        if (moduleDescriptions.containsKey(child.name)) {
+            java.withSourcesJar()
+            java.withJavadocJar()
+            tasks.withType(Javadoc).configureEach {
+                options.encoding = 'UTF-8'
+                // Maven's generated HelpMojo uses the standard Maven doclet metadata tags.
+                // Register their meaning; doclint remains enabled for all source and generated documentation.
+                if (child.name == 'smart-test-picker-maven') {
+                    options.tags('goal:a:Maven goal:', 'requiresProject:a:Requires project:',
+                            'threadSafe:a:Thread safe:', 'parameter:a:Maven parameter:')
+                }
+            }
+        }
+    }
+    plugins.withId('maven-publish') {
+        child.pluginManager.apply('signing')
+        publishing.repositories.maven { name = 'centralBundle'; url = repository }
+        publishing.publications.withType(MavenPublication).configureEach { publication ->
+            def description = moduleDescriptions[child.name]
+            pom {
+                name = description[0]
+                delegate.description = description[1]
+                scm { developerConnection = 'scm:git:ssh://git@github.com/SAP/smart-test-picker.git' }
+            }
+        }
+        child.extensions.configure(org.gradle.plugins.signing.SigningExtension) { signing ->
+            signing.required { gradle.taskGraph.hasTask(':centralBundle') }
+            if (signingKey.isPresent()) {
+                signing.useInMemoryPgpKeys(signingKey.get(), signingPassword.orElse('').get())
+            }
+            signing.sign(child.publishing.publications)
+        }
+        tasks.withType(PublishToMavenRepository).configureEach {
+            if (name.endsWith('ToCentralBundleRepository')) dependsOn prerequisites
+        }
+        tasks.withType(Sign).configureEach { mustRunAfter prerequisites }
+    }
+}
+
+tasks.register('centralBundle', Zip) {
+    group = 'distribution'
+    description = 'Builds a signed Maven-layout ZIP locally; never uploads or publishes remotely.'
+    dependsOn prerequisites
+    dependsOn provider { subprojects.collectMany { child ->
+        child.tasks.matching { it.name == 'publishAllPublicationsToCentralBundleRepository' }.toList()
+    } }
+    archiveFileName = provider { "stp-${project.version}-central.zip" }
+    destinationDirectory = layout.buildDirectory.dir('readiness')
+    reproducibleFileOrder = true
+    preserveFileTimestamps = false
+    from(repository) {
+        include "**/${project.version}/*.jar", "**/${project.version}/*.pom", "**/${project.version}/*.module",
+                "**/${project.version}/*.asc", "**/${project.version}/*.md5", "**/${project.version}/*.sha1",
+                "**/${project.version}/*.sha256", "**/${project.version}/*.sha512"
+        exclude '**/*.asc.md5', '**/*.asc.sha1', '**/*.asc.sha256', '**/*.asc.sha512'
+    }
+    doFirst {
+        def payloads = fileTree(repository).matching {
+            include "**/${project.version}/*.jar", "**/${project.version}/*.pom", "**/${project.version}/*.module"
+        }.files
+        if (payloads.empty) throw new GradleException('No publication payloads were built for the Central bundle.')
+        payloads.each { payload ->
+            if (!new File(payload.path + '.asc').isFile()) throw new GradleException("Missing signature: ${payload.name}")
+            ['md5': 'MD5', 'sha1': 'SHA-1', 'sha256': 'SHA-256', 'sha512': 'SHA-512'].each { suffix, algorithm ->
+                def digest = MessageDigest.getInstance(algorithm)
+                payload.withInputStream { stream ->
+                    byte[] bytes = new byte[65536]
+                    int count
+                    while ((count = stream.read(bytes)) != -1) digest.update(bytes, 0, count)
+                }
+                new File(payload.path + '.' + suffix).text = digest.digest().encodeHex().toString()
+            }
+        }
+    }
+}

@@ -11,8 +11,21 @@ allprojects {
 }
 
 apply from: 'gradle/readiness-checks.gradle'
+apply from: 'gradle/central-artifacts.gradle'
+apply from: 'gradle/shaded-notices.gradle'
 
 subprojects {
+    // A Java 17 class-file target alone still permits linking to newer JDK APIs.
+    plugins.withId('java') {
+        java {
+            sourceCompatibility = JavaVersion.VERSION_17
+            targetCompatibility = JavaVersion.VERSION_17
+        }
+        tasks.withType(JavaCompile).configureEach {
+            options.release = 17
+        }
+    }
+
     repositories {
         mavenCentral()
     }

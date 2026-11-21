@@ -62,11 +62,6 @@ tasks.register('writePluginVersion') {
 sourceSets.main.output.dir(generatedVersionResources, builtBy: tasks.named('writePluginVersion'))
 
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
-    }
     repositories {
         mavenLocal()
     }
