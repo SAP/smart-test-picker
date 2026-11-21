@@ -83,6 +83,10 @@ class PreparedAsmMappingTest {
 			{"version":1,"revision":"rev","shardId":"shard","tests":["maven:.::fixture.Test#test"]}
 			""");
 		var mojo = new PrepareReactorExecutableMappingMojo();
+		set(mojo, "runtimeInformation", new org.apache.maven.rtinfo.RuntimeInformation() {
+			@Override public String getMavenVersion() { return "3.9.15"; }
+			@Override public boolean isMavenVersion(String range) { throw new UnsupportedOperationException("Not used by this fixture"); }
+		});
 		set(mojo, "project", project); set(mojo, "session", session); set(mojo, "reactorProjects", List.of(project));
 		set(mojo, "pluginDescriptor", descriptor); set(mojo, "assignmentFile", assignment.toFile());
 		set(mojo, "revision", "rev"); set(mojo, "shardId", "shard"); set(mojo, "asmIncludes", "fixture.");

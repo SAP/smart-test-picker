@@ -18,6 +18,7 @@ import org.apache.maven.project.MavenProject;
 		defaultPhase = LifecyclePhase.PROCESS_TEST_CLASSES,
 		requiresDependencyResolution = ResolutionScope.TEST)
 public final class GenerateReactorHeadTestInventoryMojo extends AbstractMojo {
+    @org.apache.maven.plugins.annotations.Component private org.apache.maven.rtinfo.RuntimeInformation runtimeInformation;
 	@Parameter(defaultValue = "${project}", readonly = true, required = true) private MavenProject project;
 	@Parameter(defaultValue = "${reactorProjects}", readonly = true, required = true)
 	private List<MavenProject> reactorProjects;
@@ -37,7 +38,7 @@ public final class GenerateReactorHeadTestInventoryMojo extends AbstractMojo {
 	@org.apache.maven.plugins.annotations.Component private org.eclipse.aether.RepositorySystem repositorySystem;
 
 	@Override public void execute() throws MojoExecutionException {
-		if (schemaVersion == 3) MavenMappingVersion.requireSupported("generate-reactor-head-test-inventory");
+		if (schemaVersion == 3) MavenMappingVersion.requireSupported("generate-reactor-head-test-inventory", runtimeInformation);
 		MavenProject executionRoot = reactorProjects.stream().filter(MavenProject::isExecutionRoot).findFirst()
 				.orElseGet(() -> project.isExecutionRoot() ? project : null);
 		if (executionRoot == null || executionRoot.getBasedir() == null)

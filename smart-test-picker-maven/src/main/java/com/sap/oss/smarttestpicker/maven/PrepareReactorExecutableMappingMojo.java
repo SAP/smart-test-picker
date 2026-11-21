@@ -35,6 +35,7 @@ import com.sap.oss.smarttestpicker.selector.ExecutableHeadTestInventoryCodec;
 /** Validates and partitions a schema-v3 assignment before Maven test execution. */
 @Mojo(name = "prepare-reactor-executable-mapping", aggregator = true, defaultPhase = LifecyclePhase.INITIALIZE)
 public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
+	@Component private org.apache.maven.rtinfo.RuntimeInformation runtimeInformation;
 	@Parameter(defaultValue = "${project}", readonly = true, required = true) private MavenProject project;
 	@Parameter(defaultValue = "${session}", readonly = true, required = true) private MavenSession session;
 	@Parameter(defaultValue = "${reactorProjects}", readonly = true, required = true) private List<MavenProject> reactorProjects;
@@ -59,7 +60,7 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 	@Parameter(property = "smartTestPicker.evidenceOutput") private File aggregateEvidenceOutput;
 
 	@Override public void execute() throws MojoExecutionException {
-		MavenMappingVersion.requireSupported("prepare-reactor-executable-mapping");
+		MavenMappingVersion.requireSupported("prepare-reactor-executable-mapping", runtimeInformation);
 		try {
 			// A failed dependency prevents the aggregate goal from running its own invalidation.
 			if (aggregateOutput != null) Files.deleteIfExists(aggregateOutput.toPath());

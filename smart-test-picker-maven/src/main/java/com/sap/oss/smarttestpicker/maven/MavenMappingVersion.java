@@ -9,8 +9,8 @@ import org.apache.maven.plugin.MojoExecutionException;
 final class MavenMappingVersion {
     private MavenMappingVersion() { }
 
-    static void requireSupported(String goal) throws MojoExecutionException {
-        String running = org.apache.maven.Maven.class.getPackage().getImplementationVersion();
+    static void requireSupported(String goal, org.apache.maven.rtinfo.RuntimeInformation runtime) throws MojoExecutionException {
+        String running = runtime.getMavenVersion();
         if (running == null) throw new MojoExecutionException("Cannot determine running Maven version for "
                 + goal + "; schema-v3 inventory and preparation require Maven 3.9 or newer");
         var version = new DefaultArtifactVersion(running);
