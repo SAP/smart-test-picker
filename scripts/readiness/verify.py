@@ -200,7 +200,6 @@ def documented_versions(text):
     patterns = [r'com\.sap\.oss\.smart-test-picker:[\w.-]+:(?:jar:)?([0-9][\w.-]+)',
                 r"(?:version|stpVersion)\s*[=:]?\s*['\"](0\.\d+\.\d+(?:-[\w.-]+)?)['\"]",
                 r'smart-test-picker(?:-[\w-]+)?-(0\.\d+\.\d+(?:-SNAPSHOT)?)\.(?:jar|zip)',
-                r'(?<![\w.])(0\.3\.0(?:-SNAPSHOT)?)(?![\w.-])',
                 r'(?s)<groupId>com\.sap\.oss\.smart-test-picker</groupId>\s*<artifactId>[^<]+</artifactId>\s*<version>([0-9][^<]+)</version>']
     return sorted({match.group(1) for pattern in patterns for match in re.finditer(pattern, text)})
 

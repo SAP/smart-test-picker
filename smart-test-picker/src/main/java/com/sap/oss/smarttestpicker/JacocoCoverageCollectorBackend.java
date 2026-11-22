@@ -65,7 +65,7 @@ final class JacocoCoverageCollectorBackend implements GradleCoverageCollectorBac
 	}
 
 	static java.io.File executableExecDir(Project project, Test test, String shard) {
-		return new java.io.File(project.getBuildDir(), "stp/jacoco/" + AsmCoverageCollectorBackend.safe(test.getPath())
+		return new java.io.File(project.getLayout().getBuildDirectory().get().getAsFile(), "stp/jacoco/" + AsmCoverageCollectorBackend.safe(test.getPath())
 				+ "/" + AsmCoverageCollectorBackend.safe(shard) + "/exec");
 	}
 }

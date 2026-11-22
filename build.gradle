@@ -145,8 +145,28 @@ tasks.register('verifyStpVersionConsistency') {
         def declared = new Properties()
         file('gradle.properties').withInputStream { declared.load(it) }
         def sourceVersion = declared.getProperty('stpVersion')
-        def tracked = providers.exec { commandLine 'git', 'ls-files', '-z' }.standardOutput.asText.get()
-        tracked.split('\u0000').findAll { it.endsWith('.gradle') || it.endsWith('/pom.xml') || it == 'pom.xml' }
+        def sourcePaths = null
+        try {
+            def workTree = providers.exec {
+                commandLine 'git', 'rev-parse', '--show-toplevel'
+                ignoreExitValue = true
+            }
+            if (workTree.result.get().exitValue == 0 &&
+                    file(workTree.standardOutput.asText.get().trim()).canonicalFile == rootDir.canonicalFile) {
+                sourcePaths = providers.exec { commandLine 'git', 'ls-files', '-z' }
+                        .standardOutput.asText.get().split('\u0000').toList()
+            }
+        } catch (org.gradle.process.internal.ExecException ignored) {
+            // Source archives also work on machines where Git is not installed.
+        }
+        if (sourcePaths == null) {
+            sourcePaths = fileTree(rootDir) {
+                include '**/*.gradle', '**/pom.xml', '**/*.md'
+                exclude '**/.git/**', '**/.gradle/**', '**/build/**', '**/target/**',
+                        'docs/history/**', 'verification/**'
+            }.files.collect { relativePath(it) }.sort()
+        }
+        sourcePaths.findAll { it.endsWith('.gradle') || it.endsWith('/pom.xml') || it == 'pom.xml' }
                 .collect { file(it) }.each { source ->
             def text = source.getText('UTF-8')
             def versions = []
@@ -161,10 +181,9 @@ tasks.register('verifyStpVersionConsistency') {
             ~/com\.sap\.oss\.smart-test-picker:[\w.-]+:(?:jar:)?([0-9][\w.-]+)/,
             ~/(?:version|stpVersion)\s*[=:]?\s*['"](0\.\d+\.\d+(?:-[\w.-]+)?)['"]/,
             ~/smart-test-picker(?:-[\w-]+)?-(0\.\d+\.\d+(?:-SNAPSHOT)?)\.(?:jar|zip)/,
-            ~/(?<![\w.])(0\.3\.0(?:-SNAPSHOT)?)(?![\w.-])/,
             ~/(?s)<groupId>com\.sap\.oss\.smart-test-picker<\/groupId>\s*<artifactId>[^<]+<\/artifactId>\s*<version>([0-9][^<]+)<\/version>/
         ]
-        tracked.split('\u0000').findAll {
+        sourcePaths.findAll {
             it.toLowerCase(java.util.Locale.ROOT).endsWith('.md') &&
                     !it.startsWith('docs/history/') && !it.startsWith('verification/')
         }.each { path ->

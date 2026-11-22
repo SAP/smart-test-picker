@@ -6,6 +6,7 @@ import importlib.util
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 spec = importlib.util.spec_from_file_location('verify', Path(__file__).with_name('verify.py'))
 verify = importlib.util.module_from_spec(spec)
@@ -13,6 +14,31 @@ spec.loader.exec_module(verify)
 
 
 class CheckTests(unittest.TestCase):
+    def test_version_check_follows_current_version_without_matching_historical_prose(self):
+        directory = Path('build/readiness/checker-tests')
+        directory.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=directory) as temp:
+            root = Path(temp)
+            (root / 'gradle.properties').write_text('stpVersion=0.4.0-SNAPSHOT\n')
+            examples = [
+                'com.sap.oss.smart-test-picker:smart-test-picker-core:0.4.0-SNAPSHOT',
+                "id 'com.sap.oss.smart-test-picker' version '0.4.0-SNAPSHOT'",
+                'java -jar smart-test-picker-cli-0.4.0-SNAPSHOT.jar --help',
+                '<groupId>com.sap.oss.smart-test-picker</groupId>'
+                '<artifactId>stp-agent</artifactId><version>0.4.0-SNAPSHOT</version>',
+            ]
+            for example in examples:
+                with self.subTest(example=example), patch.object(verify, 'tracked', return_value=[Path('README.md')]):
+                    (root / 'README.md').write_text('Available since 0.3.0\n' + example)
+                    current = verify.Checks()
+                    verify.verify_documented_versions(root, current)
+                    self.assertTrue(current.rows)
+                    self.assertTrue(all(row['passed'] for row in current.rows), current.rows)
+                    (root / 'README.md').write_text(example.replace('0.4.0-SNAPSHOT', '0.3.0-SNAPSHOT'))
+                    stale = verify.Checks()
+                    verify.verify_documented_versions(root, stale)
+                    self.assertTrue(any(not row['passed'] for row in stale.rows), stale.rows)
+
     def test_version_scan_does_not_confuse_coordinate_type_or_goal_with_version(self):
         self.assertEqual([], verify.documented_versions(
             'com.sap.oss.smart-test-picker:smart-test-picker-maven:help'))
