@@ -40,6 +40,7 @@ public abstract class RemoteStoreExtension
 	/**
 	 * Base URL of the remote store (e.g. Nexus raw repository URL).
 	 * Maps are stored at {@code {url}/{baseBranch}/test-coverage-map.json}.
+	 * Default: unset; no remote store is configured.
 	 */
 	public abstract Property<String> getUrl();
 
@@ -51,6 +52,7 @@ public abstract class RemoteStoreExtension
 
 	/**
 	 * HTTP Basic Auth credentials for the remote store.
+	 * Default: credentials with username and password unset.
 	 */
 	public RemoteStoreCredentials getCredentials()
 	{

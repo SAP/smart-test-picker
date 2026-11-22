@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 package com.sap.oss.smarttestpicker.coverage.model;
 
+/** Nonblank shard identifier with lexicographic ordering; independent of the execution target. */
 public record ShardId(String value) implements Comparable<ShardId>
 {
 	public ShardId { if (value == null || value.isBlank()) throw new IllegalArgumentException("shard id must not be blank"); }

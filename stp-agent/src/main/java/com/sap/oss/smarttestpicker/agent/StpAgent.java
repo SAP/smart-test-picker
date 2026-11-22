@@ -4,6 +4,7 @@ package com.sap.oss.smarttestpicker.agent;
 
 import java.lang.instrument.Instrumentation;
 
+/** Java-agent entry point that installs collection transformers and shutdown output handling. */
 public final class StpAgent {
 	private StpAgent() {
 	}

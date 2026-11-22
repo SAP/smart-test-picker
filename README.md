@@ -1,201 +1,234 @@
 [![CI](https://github.com/SAP/smart-test-picker/actions/workflows/ci.yml/badge.svg)](https://github.com/SAP/smart-test-picker/actions/workflows/ci.yml)
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP/smart-test-picker)](https://api.reuse.software/info/github.com/SAP/smart-test-picker)
-![Java](https://img.shields.io/badge/Java-17%2B-blue)
-![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)
 
 # Smart Test Picker
 
-A build-tool-independent core plus Gradle, Maven, CLI and Jenkins-facing components for **regression test selection** in Java projects. Selection uses per-test runtime coverage captured by the Gradle ASM collector or the supported JaCoCo paths, rather than static call-graph analysis.
+STP records which production classes and methods each test exercises, then uses that map and a Git
+diff to select relevant tests. New, changed and unmapped tests are included conservatively. Runtime
+coverage describes the observed executions, not every possible path through the application.
 
-## How It Works
+The schema-v3 workflow keeps build execution targets separate: inventory, assignment, mapping,
+aggregation, join and selection. A fragment is one shard's collection result; the published map is
+the validated join of the planned shards. Maps use a compact streaming gzip representation.
 
-```
-Developer changes code
-  -> Plugin detects changed classes/methods (git diff)
-  -> Loads per-test coverage map (JSON)
-  -> Matches changes against map -> list of impacted tests
-  -> Adds unmapped/new tests (safety: always run unknown tests)
-  -> Runs only impacted tests via build tool filter
-  -> Generates HTML report showing what was selected and why
-```
+## Requirements and boundaries
 
-**Safety invariant:** uncertain optimization data never produces a smaller unproven test set. Availability-only cases may run the full suite; revision, integrity, security, configuration and completeness failures fail closed.
+- Java 17 or later. All modules compile against the Java 17 API.
+- Gradle 8.0 to below 10.0; inventory/filter differentials cover 8.14, 9.5.1, 9.7.1 and 9.9.1.
+- Maven 3.9; preparation is qualified on Maven 3.9.15. Maven 4 is untested.
+  Surefire/Failsafe 3.2.5, 3.5.6 and 3.6.1 are qualified; 3.0.0 and 3.1.2 have only a defaults probe.
+  2.22.2 is rejected.
+- JUnit Platform test execution and a Git checkout at the declared full revision. Configure test
+  filters in the build, not Gradle `--tests` or Maven `-Dtest`/`-Dit.test` mapping invocations.
+- Supply dependency repositories and prepare production dependencies at the same revision.
 
-## Key Features
+Gradle defaults to **ASM**. Maven defaults to **JACOCO**, so the examples explicitly choose ASM.
+ASM attaches STP's version-aligned agent automatically and derives scope from production outputs.
+A build that instruments no production class is rejected; an individual test with no edges is valid.
 
-- **Per-test granularity** - each test method gets its own coverage profile
-- **Dual-granularity selection** - method-level match first, class-level fallback when method info is unavailable
-- **Both committed and uncommitted changes** - two git diffs per detection: `commitId..HEAD` + working tree
-- **New/unknown tests always run** - tests not in the coverage map are always included
-- **Fallback to full suite** - if the coverage map is missing or stale, runs all tests
-- **No application code changes required** - everything via test instrumentation and build tooling
-- **HTML report** - dashboard with stat cards, coverage matrix, changed code, and per-class source coverage pages
+JACOCO uses the project's active agent. For v3 mapping, build-tool-managed attachment writes to an
+STP-owned file and project JaCoCo reports/checks are skipped. Run normal coverage separately.
+A literal project-owned `-javaagent` is not rewritten and may receive partial data. ASM can coexist
+with project JaCoCo without its per-test resets. Both collectors retain cross-module production edges.
 
-## Requirements
+## Quick start: Gradle
 
-- **Java** 17 or later
-- **Gradle** 8.x or **Maven** 3.9+ (depending on which plugin you use)
-- **JaCoCo** 0.8.x (included as a dependency)
-- **Git** repository with `*.java diff=java` in `.gitattributes` (for method-level detection)
+These examples use a single Java project with an existing JUnit Platform `test` task. For multiple
+tasks/projects see the [Gradle reference](smart-test-picker/README.md). The current development
+version is `0.3.0-SNAPSHOT`; this is not a claim that it is available from a public release registry.
+For a local source build, run `./gradlew publishToMavenLocal` in this repository and configure
+`mavenLocal()` in the consumer's plugin management and dependency repositories.
 
-## Quick Start
-
-### Gradle
+Consumer `settings.gradle`:
 
 ```groovy
-// build.gradle
+pluginManagement {
+    repositories { mavenLocal(); gradlePluginPortal(); mavenCentral() }
+}
+```
+
+Add to the consumer's `build.gradle` (keep its existing JUnit dependencies):
+
+```groovy
 plugins {
+    id 'java'
     id 'com.sap.oss.smart-test-picker' version '0.3.0-SNAPSHOT'
 }
-
-// Optional configuration
+repositories { mavenLocal(); mavenCentral() }
+test { useJUnitPlatform() }
 smartTestPicker {
-    baseBranch = 'main'          // default: 'main'
-    maxCommitDistance = 500       // default: 500
-
-    // Optional explicit PR mode; supply all three frozen full commit IDs.
-    integrationRevision = '...'
-    prBaseRevision = '...'
-    prHeadRevision = '...'
+    runtimeSchemaVersion = 3
+    mappingTestTasks = [':test']
+    coverageCollector = 'ASM'
 }
 ```
 
-```bash
-# Phase 1 (on base branch): generate coverage map
-./gradlew test generateSmartReports generateTestCoverageJson
+Generate the inventory at the checked-out revision:
 
-# Phase 2 (on feature branch): select and run impacted tests
-./gradlew selectTests smartTest
-
-# Phase 3: view report
-./gradlew generateTestReport
-open build/reports/smart-test-picker/index.html
+```sh
+REVISION="$(git rev-parse HEAD)"
+mkdir -p stp-run/shards
+./gradlew generateGradleExecutableHeadTestInventory \
+  -Dstp.revision="$REVISION" -Dstp.executableInventoryDiscovery=true
+cp build/executable-head-test-inventory.json stp-run/head-inventory.json
 ```
 
-### Maven
+Create the one-shard assignment using the next section, then collect and aggregate:
+
+```sh
+./gradlew generateSmartTestMapping \
+  -Dstp.revision="$REVISION" -Dstp.shardId=local \
+  -Dstp.executableAssignment=stp-run/shards/tests-local.json
+cp build/stp/executable-fragment.json stp-run/shards/fragment-local.json
+```
+
+Inventory and mapped tests always execute in v3 mapping mode, including with the configuration cache.
+Ordinary test builds retain their normal up-to-date/cache behavior.
+
+## Quick start: Maven
+
+Use a single-module JUnit Platform project for this example. Keep its existing test dependencies;
+configure Surefire with a qualified version, such as `3.5.6`. Add the STP plugin and its finalization
+binding to the consumer POM:
 
 ```xml
 <plugin>
-    <groupId>com.sap.oss.smart-test-picker</groupId>
-    <artifactId>smart-test-picker-maven</artifactId>
-    <version>0.3.0-SNAPSHOT</version>
+  <groupId>com.sap.oss.smart-test-picker</groupId>
+  <artifactId>smart-test-picker-maven</artifactId>
+  <version>0.3.0-SNAPSHOT</version>
+  <executions>
+    <execution>
+      <id>stp-fragment</id>
+      <phase>verify</phase>
+      <goals><goal>generate-coverage-fragment</goal></goals>
+    </execution>
+  </executions>
 </plugin>
 ```
 
-```bash
-# Phase 1 (on base branch): generate coverage map
-mvn verify -Psmart-test-picker
+Use this binding in the mapping profile rather than normal verification if you do not want ordinary
+`verify` invocations to collect. The [Maven README](smart-test-picker-maven/README.md) covers reactors,
+execution-qualified targets and Failsafe. With the plugin installed locally as above:
 
-# Phase 2 (on feature branch): one-command smart test run
-mvn com.sap.oss.smart-test-picker:smart-test-picker-maven:0.3.0-SNAPSHOT:smart-test
-
-# Explicit PR mode (all three properties are required together)
-mvn process-test-classes com.sap.oss.smart-test-picker:smart-test-picker-maven:0.3.0-SNAPSHOT:select-tests \
-  -DsmartTestPicker.integrationRevision=<full-sha> \
-  -DsmartTestPicker.prBaseRevision=<full-sha> \
-  -DsmartTestPicker.prHeadRevision=<full-sha>
-
-# View report
-open target/reports/smart-test-picker/index.html
+```sh
+STP_VERSION=0.3.0-SNAPSHOT
+STP_GOAL="com.sap.oss.smart-test-picker:smart-test-picker-maven:$STP_VERSION"
+REVISION="$(git rev-parse HEAD)"
+mkdir -p stp-run/shards
+mvn test-compile "$STP_GOAL:generate-reactor-head-test-inventory" \
+  -DsmartTestPicker.schemaVersion=3 -DsmartTestPicker.prHeadRevision="$REVISION" \
+  -DsmartTestPicker.outputFile=stp-run/head-inventory.json
 ```
 
-### CLI
+Create the assignment below, then map and aggregate at the same revision:
 
-For environments without Gradle or Maven (e.g. custom platforms with Ant builds):
-
-```bash
-smart-test-picker select-tests --map coverage-map.json --output selected.json
-smart-test-picker generate-report --map coverage-map.json --selected selected.json --output report/
+```sh
+mvn "$STP_GOAL:prepare-reactor-executable-mapping" verify \
+  "$STP_GOAL:aggregate-reactor-coverage-fragment" \
+  -DsmartTestPicker.schemaVersion=3 -DsmartTestPicker.coverageCollector=ASM \
+  -DsmartTestPicker.testsFile=stp-run/shards/tests-local.json \
+  -DsmartTestPicker.revision="$REVISION" -DsmartTestPicker.shardId=local \
+  -DsmartTestPicker.fragmentOutput=stp-run/shards/fragment-local.json \
+  -DsmartTestPicker.evidenceOutput=stp-run/evidence.json
 ```
 
-Explicit PR selection accepts caller-owned frozen integration/base/head commits while the map and
-inventory retain their own revision provenance:
+Preparation executes the lifecycle through test-compile. A following test/verify phase runs those
+early phases again; tests run once. Plugins with early-phase side effects must tolerate repetition.
 
-```bash
-smart-test-picker select-tests --map coverage-map.json --head-inventory head-inventory.json \
-  --integration-revision <full-sha> --pr-base-revision <full-sha> \
-  --pr-head-revision <full-sha> --output explicit-result.json
+## One-shard assignment
+
+Run this after either inventory command, before mapping. It copies the authoritative inventory,
+without guessing identities. Python 3 is needed only for this small example, not by the plugins:
+
+```sh
+python3 - <<'PY'
+import json
+from pathlib import Path
+inventory = json.loads(Path("stp-run/head-inventory.json").read_text())
+assert inventory["version"] == 1
+assert len({test.split("::", 1)[0] for test in inventory["tests"]}) == 1
+assignment = dict(version=1, revision=inventory["revision"],
+                  shardId="local", tests=inventory["tests"])
+Path("stp-run/shards/tests-local.json").write_text(json.dumps(assignment) + "\n")
+PY
 ```
 
-Explicit results distinguish normal `SELECTED`/`NONE`/`FULL_SUITE` selection from
-`BASE_OUT_OF_DATE` and `ERROR`.
+For several shards, use a plan that partitions the inventory exactly and keeps a class's overloaded
+methods together. Inventory and assignment formats are distinct from the coverage schema.
 
-## Project Structure
+## Quick start: CLI join and selection
 
-```
-smart-test-picker-core/       JUnit 5 extension for per-test JaCoCo sessions
-smart-test-picker-common/     Shared engine (no build-tool dependency)
-smart-test-picker/            Gradle plugin
-smart-test-picker-maven/      Maven plugin
-smart-test-picker-cli/        Standalone CLI (picocli + shadowJar)
-stp-agent/                    STP ASM mapping agent
-stp-runtime/                  Internal framework-neutral ASM runtime
-stp-junit-adapter/            Internal JUnit lifecycle listener
-```
+The CLI is a shaded executable artifact at
+`com.sap.oss.smart-test-picker:smart-test-picker-cli:0.3.0-SNAPSHOT`.
+Resolve it with your build tool, or build `:smart-test-picker-cli:shadowJar` from source.
+Set `STP_CLI` to that JAR's path. It needs no extra runtime dependency classpath.
 
-| Module | Description | README |
-|--------|-------------|--------|
-| [smart-test-picker-core](smart-test-picker-core/) | JUnit 5 extension that assigns a unique JaCoCo session per test method | [README](smart-test-picker-core/README.md) |
-| [smart-test-picker-common](smart-test-picker-common/) | Shared engines: selection, coverage mapping, report generation, git change detection | [README](smart-test-picker-common/README.md) |
-| [smart-test-picker](smart-test-picker/) | Gradle plugin with tasks for the full pipeline | [README](smart-test-picker/README.md) |
-| [smart-test-picker-maven](smart-test-picker-maven/) | Maven plugin with mojos for multi-module projects | [README](smart-test-picker-maven/README.md) |
-| [smart-test-picker-cli](smart-test-picker-cli/) | Standalone CLI for non-Gradle/Maven environments | [README](smart-test-picker-cli/README.md) |
-| [stp-agent](stp-agent/) | Production ASM mapping agent bundled with its runtime and JUnit lifecycle adapter | [README](stp-agent/README.md) |
+After either mapping example:
 
-## Selection Algorithm
-
-The selector uses a dual-granularity approach:
-
-1. **Method-level match (precise):** if changed methods are known, select only tests whose coverage includes those specific methods
-2. **Class-level fallback:** for classes without method-level info, select all tests touching that class
-
-This avoids over-selection (running every test that touches a class) while maintaining safety (falling back when precise info isn't available).
-
-### Selection Statuses
-
-| Status | Meaning | Behavior |
-|--------|---------|----------|
-| `FULL_SUITE` | Map missing, stale, or invalid | No filter - run everything |
-| `SELECTED` | Specific impacted tests identified | Run selected + unmapped tests |
-| `NONE` | No production code changes | Run only unmapped tests; if none, skip all |
-
-## Building from Source
-
-```bash
-# Build all modules
-./gradlew build
-
-# Run tests
-./gradlew test
-
-# Publish to local Maven repository (for testing)
-./gradlew publishToMavenLocal
+```sh
+java -jar "$STP_CLI" join-fragments --dir stp-run/shards --expected-shards 1 \
+  --output stp-run/coverage-map.json.gz
 ```
 
-Wire and component compatibility is summarized in [docs/compatibility.md](docs/compatibility.md).
+Joining supports **one execution target per invocation**. Different Gradle tasks or Maven
+execution targets must not be mixed in this CLI command. Missing whole fragments, contradictory
+assignments and incomplete fragments reject publication; an existing output is left untouched.
+Paired-directory joining accounts assigned-but-unreported identities as `ASSIGNED_NOT_REPORTED`.
+It skips dot-prefixed files with a log entry, but rejects other stray files.
 
-## Documentation status
+For selection, keep the baseline map, check out the PR head and regenerate the appropriate inventory
+there using the same build selection. Save it as `stp-run/head-inventory.json`. Then:
 
-- [Current development state](docs/current-development-state.md) is the concise current-state entry point.
-- [Compatibility](docs/compatibility.md) separates artifact versions from wire-format versions.
-- Module README files document the current Gradle, Maven, CLI, runtime, and agent surfaces.
-- `docs/task*.md`, `docs/ei-*.md`, `EI-*`, and the superseded
-  [architecture chronology](docs/current-architecture.md) are historical design or validation records;
-  they retain the versions and results that applied when written.
-- [Changelog](CHANGELOG.md) summarizes implemented but unreleased changes.
+```sh
+INTEGRATION_REVISION="$(git rev-parse main)"
+PR_HEAD_REVISION="$(git rev-parse HEAD)"
+PR_BASE_REVISION="$(git merge-base "$INTEGRATION_REVISION" "$PR_HEAD_REVISION")"
+java -jar "$STP_CLI" select-tests --map stp-run/coverage-map.json.gz \
+  --head-inventory stp-run/head-inventory.json --project-dir . \
+  --integration-revision "$INTEGRATION_REVISION" \
+  --pr-base-revision "$PR_BASE_REVISION" --pr-head-revision "$PR_HEAD_REVISION" \
+  --output stp-run/selection.json
+```
 
-## Support, Feedback, Contributing
+This writes a selection decision; it does not execute tests. Honor `FULL_SUITE`, `BASE_OUT_OF_DATE`
+and `ERROR` instead of treating every response as a filtered test list.
 
-This project is open to feature requests/suggestions, bug reports etc. via [GitHub issues](https://github.com/SAP/smart-test-picker/issues). Contribution and feedback are encouraged and always welcome. For more information about how to contribute, the project structure, as well as additional contribution information, see our [Contribution Guidelines](CONTRIBUTING.md).
+## Safety and known limitations
 
-## Security / Disclosure
+Inventory follows the effective provider/Test task selection. An assignment may only narrow it.
+Because provider method filters cannot distinguish parameter types, partial overload assignments
+are rejected before tests. Disabled observations count as positive non-execution; absence alone does not.
 
-If you find any bug that may be a security problem, please follow our instructions at [in our security policy](https://github.com/SAP/smart-test-picker/security/policy) on how to report it. Please do not create GitHub issues for security-related doubts or problems.
+Both ASM finalizers absorb missing assigned identities in an otherwise valid completed fragment as
+`COLLECTION_FAILED`, with an audit and warning. Those identities remain mandatory while present at
+head. Absorption does not repair invalid bindings, unsafe setup evidence or incomplete fragments.
+A complete map proves accounting, not perfect causal attribution of asynchronous work.
 
-## Code of Conduct
+Mapping requires supported single-JVM execution settings. In-JVM parallel tests and shared cached
+web contexts are not generally supported. JaCoCo's process-global resets do not isolate concurrent
+work. Gradle Kotlin JVM main outputs are supported; Kotlin Multiplatform scope is not. Maven provider
+classpath/testClassesDirectory customizations and repeated early lifecycle phases remain limitations.
+See [collector boundaries](docs/asm-coverage-mapping-current-state.md).
 
-We as members, contributors, and leaders pledge to make participation in our community a harassment-free experience for everyone. By participating in this project, you agree to abide by its [Code of Conduct](https://github.com/SAP/.github/blob/main/CODE_OF_CONDUCT.md) at all times.
+## Legacy workflows
 
-## Licensing
+The older `generateSmartReports generateTestCoverageJson`, Maven `generate-reports` /
+`generate-coverage-map`, and CLI `generate-map` / `merge-maps` commands operate on the legacy
+JaCoCo format. Logical schema-2 flows also remain available. They are not substitutes for a v3
+inventory/assignment/join pipeline. See the module READMEs before mixing formats.
 
-Copyright 2026 SAP SE or an SAP affiliate company and smart-test-picker contributors. Please see our [LICENSE](LICENSE) for copyright and license information. Detailed information including third-party components and their licensing/copyright information is available [via the REUSE tool](https://api.reuse.software/info/github.com/SAP/smart-test-picker).
+## Reference and development
+
+- [Configuration reference](docs/configuration-reference.md): every goal, task, property, command and option.
+- [Compatibility](docs/compatibility.md), [current development state](docs/current-development-state.md).
+- [Gradle](smart-test-picker/README.md), [Maven](smart-test-picker-maven/README.md), [CLI](smart-test-picker-cli/README.md).
+- [Core](smart-test-picker-core/README.md), [common](smart-test-picker-common/README.md), [agent](stp-agent/README.md).
+- [Map model](docs/coverage-map-model.md), [v3 encoding](docs/v3-map-format.md), [join contract](docs/join-fragments-cli.md).
+- [Artifact checks](docs/artifact-versioning.md), [historical records](docs/history/README.md), [changelog](CHANGELOG.md).
+
+Build with `./gradlew build`; run suites with `./gradlew test --rerun-tasks`.
+For contribution and security reporting, see [CONTRIBUTING](CONTRIBUTING.md) and the
+[security policy](https://github.com/SAP/smart-test-picker/security/policy).
+
+Copyright 2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors.
+[Apache-2.0 license](LICENSE). Third-party license texts and notices accompany shaded artifacts.

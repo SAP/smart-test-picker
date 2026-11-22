@@ -13,8 +13,8 @@ For active collection, `smartTestPicker.coverageCollector=ASM|JACOCO` selects th
 collector; absent/blank selection defaults to JaCoCo. Schema-v3 mapping preparation
 sets activation and selection in Surefire/Failsafe. Legacy/manual mapping profiles
 must explicitly enable collection; an output directory alone does not activate it.
-For prepared ASM mapping, select `-DsmartTestPicker.coverageCollector=ASM` and
-provide explicit `-DsmartTestPicker.asm.includes=your.package.,another.package.`.
+For prepared ASM mapping, select `-DsmartTestPicker.coverageCollector=ASM`.
+Package prefixes are derived from compiled production outputs unless explicitly overridden.
 Preparation supplies activation and attaches the agent automatically after fork
 validation. Core remains silent in active ASM mode.
 
@@ -119,8 +119,9 @@ against the project's JaCoCo runtime.
 Keep the project JaCoCo agent before STP; do not manually reverse the order.
 ASM-first causes execution-data/class mismatches in the ordinary report and changes
 generated-code filtering when analyzing the transformed bytes. This bounded Maven
-proof does not establish Gradle report preservation or arbitrary agent order/JVM
-compatibility. See [versions, exact counters and inverse-order evidence](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/maven-asm-07/REPORT.md).
+proof does not establish arbitrary agent order/JVM compatibility. Current Gradle
+coexistence also has permanent report-preservation regressions; see its module README.
+See [versions, exact counters and inverse-order evidence](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/maven-asm-07/REPORT.md).
 
 ### ASM fragment finalization and aggregation
 
@@ -154,7 +155,7 @@ assignment and `executionType`/`executionId`, then aggregate their union assignm
 Preparation clears only the current target's prior outputs, preserving other
 provider results. No per-fork merge is supported.
 
-Finalization validates the immutable agent fragment and derives positive evidence:
+Finalization validates the agent fragment and derives positive evidence:
 mapped and FAILED identities are EXECUTED; SKIPPED (disabled or aborted-only)
 identities are NON_EXECUTED. FAILED retains no partial coverage and dominates an
 aborted invocation of the same logical test. SKIPPED remains in the fragment;
@@ -164,8 +165,10 @@ completeness are validated before the final pair is accepted.
 
 Maven test failures still fail the build. STP does not enable test-failure-ignore;
 inspection of failed-test evidence must preserve the original test result. The
-agent fragment is never rewritten by finalization. Missing or unsafe inputs leave
-no successful evidence output. This does not enable ASM in Jenkins or add
+agent fragment is rewritten atomically only when assignment absorption adds or merges its audit.
+Absorbed identities are coverage owners in evidence, not proof of physical execution; consult
+`assignmentAbsorption.executionObserved=false`. Missing or unsafe inputs leave
+no successful evidence output. This does not add
 per-fork merging or ClassSource-only Vintage support.
 
 ## Coordinates
@@ -183,7 +186,7 @@ per-fork merging or ClassSource-only Vintage support.
 | Goal | Mojo Class | Description |
 |------|-----------|-------------|
 | `generate-coverage-map` | `GenerateCoverageMapMojo` | Generates JSON coverage map from per-test XML reports |
-| `generate-coverage-fragment` | `GenerateCoverageFragmentMojo` | Generates JaCoCo schema-v2/v3 fragments or validates immutable ASM schema-v3 fragments and writes execution evidence |
+| `generate-coverage-fragment` | `GenerateCoverageFragmentMojo` | Generates JaCoCo schema-v2/v3 fragments or finalizes ASM schema-v3 fragments with assignment absorption and execution evidence |
 | `generate-head-test-inventory` | `GenerateHeadTestInventoryMojo` | Discovers exact JUnit identities for the current module without running tests |
 | `generate-reactor-head-test-inventory` | `GenerateReactorHeadTestInventoryMojo` | Writes one authoritative inventory for the effective reactor |
 | `prepare-reactor-executable-mapping` | `PrepareReactorExecutableMappingMojo` | Routes a schema-3 executable assignment to exact reactor targets before test execution |
@@ -257,6 +260,7 @@ Maven execution root (by default, `.stp/head-test-inventory.json`):
 
 ```bash
 mvn process-test-classes com.sap.oss.smart-test-picker:smart-test-picker-maven:0.3.0-SNAPSHOT:generate-reactor-head-test-inventory \
+  -DsmartTestPicker.schemaVersion=3 \
   -DsmartTestPicker.prHeadRevision="$GIT_COMMIT"
 ```
 
@@ -267,7 +271,10 @@ Selector goals generate inventory automatically. Root and `smart-test` flows dis
 reactor module using its test output and test runtime classpath; an exact cross-module identity
 collision fails open.
 
-For multi-module Maven projects, each module generates its own coverage map. The `merge-coverage-maps` goal combines them into a single map.
+### Legacy map aggregation
+
+For the legacy map flow, each module generates its own coverage map. The
+`merge-coverage-maps` goal combines them; it is not the schema-v3 fragment joiner.
 
 The merge is typically bound to the last module in the reactor using the `isLastModule()` pattern:
 
@@ -324,6 +331,8 @@ execution data and report counters intact. The JaCoCo collector shares and reset
 For attachment managed by `jacoco-maven-plugin`, STP redirects `prepare-agent` and
 `prepare-agent-integration` output to a private STP file, leaving the project's configured
 execution-data file absent or byte-identical regardless of append.
+The invocation-owned agent file and its directory are removed when the Maven session ends;
+per-test session files remain available to STP conversion and finalization.
 Project JaCoCo `report`, `report-integration`, `report-aggregate`, `check`, `merge` and `dump`
 executions are skipped with a message naming the execution. Agent attachment remains active;
 run project reports and checks in a separate invocation. Bound offline `instrument` executions

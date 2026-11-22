@@ -1,78 +1,57 @@
 # Coverage map semantic model
 
-> **Historical schema-design record.** This document was introduced at revision `0039cd7e7ca7838086ae506b0709e9356b0bca2c` on 2026-09-03. Its semantic rationale and schema-2 model remain relevant, but backlog ownership, version recommendations, and implementation status describe that point in time. Current support includes logical schema 2 and executable schema 3; see the [current development state](current-development-state.md) and [compatibility table](compatibility.md).
+The immutable records in `coverage.model` are separate from codecs in `coverage.serialization`.
+Schema 2 uses logical test identities. Schema 3 uses `ExecutableTestIdentity`: a canonical execution
+target plus logical identity, so the same test in two build targets remains two executable occurrences.
 
-The semantic model lives under `com.sap.oss.smarttestpicker.coverage.model`; JSON construction and
-parsing live separately under `coverage.serialization`. Model records defensively copy maps, lists,
-and sets, expose no setters, and use value types for revisions, test identities, containers, and
-shards. This separation lets selection and future builders depend on meaning rather than dictionary
-indexes or JSON layout.
+## Identity
 
-The main types are `CoverageMap`, `CoverageMapRevision`, `TestIdentity`, `TestCoverage`,
-`TestContainer`, `SetupScope`, `UnmappedTest`, `TestInventory`, `CollectionExpectation`,
-`CollectionSummary`, `Completeness`, `TestOutcome`,
-`GeneratorProvenance`, `MapStatistics`, `CoverageFragment`, and `MethodCoverageReference`.
+`TestIdentity` retains a qualified binary class name, exact method/feature name and declared parameter
+types. The first `#` separates class and method; subsequent `#` belongs to the name. Method names
+are nonempty free text except ISO control characters; punctuation such as '.', ';', '[' and '/' is valid.
 
-`MethodIdentity` is the descriptor-aware structured triple used by schema v2. `TestIdentity` contains
-a fully-qualified JVM binary class name, exact declared runtime method name, and JUnit parameter-type
-signature so overloaded runnable methods remain distinct. Method names are not restricted to Java source identifiers: legal
-JUnit/JVM-language names such as Kotlin backtick names containing spaces are preserved verbatim.
-The textual form separates the class from the method at the first `#`; `#` remains legal inside
-the method suffix because it is not legal in the class-name portion. Empty names, ISO control
-characters, and the JVM-unqualified-name forbidden characters `.`, `;`, `[`, and `/` are rejected.
+A nonempty trailing parenthesized suffix is parsed as parameter types only when every trimmed element
+matches the supported primitive, qualified binary-name/array or JVM array-descriptor grammar. Original
+spelling is retained; `()` is part of a name. This wire format has an accepted ambiguity: a feature
+literally named `foo(java.lang.String)`, `foo([I)` or `foo(int)` with no parameters has the same text as a
+parameter-bearing identity. A simple default-package type name such as `Foo` is read as name text.
+There is no escape format. Production `MethodIdentity` is a distinct class/name/JVM-descriptor triple.
 
-## Setup is first-class
+Build filters cannot select one overload by its parameter types. Assignments must include all effective
+overloads of each assigned class/method name. Inventory identity remains descriptor-distinct.
 
-Static initialization, `@BeforeAll`, inherited setup, nested setup, and cached framework contexts do
-not necessarily belong to one test class. `SetupScope` therefore maps covered classes to a set of
-affected containers. This lets backlog 5b conservatively select every logical test in every affected
-container without schema changes.
+## Coverage, setup and missing observations
 
-## Failed and unmapped tests
+`TestCoverage` stores sets of covered production classes and methods, an outcome and collection status.
+`COLLECTED_EMPTY` is an observed successful empty set; `COLLECTION_FAILED` belongs in unmapped.
+The model can represent a failed outcome separately from collection, but the ASM projector deliberately
+puts failed tests into unmapped `FAILED` rather than retaining their partial coverage.
 
-Test outcome and coverage collection status are independent. A failed test with a valid coverage
-collection remains a mapped test with `outcome = FAIL`; its coverage is not discarded. A test is an
-`UnmappedTest` only when no valid mapping exists, including a collection failure. Backlog 5b owns
-the future selection policy for these states.
+Setup scopes carry class coverage and affected containers; executable scopes also have an execution
+target owner. Selection conservatively includes tests in those containers for relevant changes.
+Not every modeled setup kind is emitted by every collector.
 
-`COLLECTED_EMPTY` is different: the test and collector completed successfully and observed no
-production coverage. `COLLECTION_FAILED` belongs in `unmapped`, never in a successful test mapping.
+Completed, otherwise valid ASM target fragments absorb assigned identities absent from both mapped and
+unmapped as `COLLECTION_FAILED`. Maven and Gradle use the same audit/merge rule. The audit remains on
+the rewritten target fragment (and Maven evidence), not the generic joined map. It records
+`ASSIGNED_TEST_NOT_REPORTED`, identities, count and `executionObserved=false`.
+Paired-directory CLI joining has a separate `ASSIGNED_NOT_REPORTED` reason for its list complement.
 
-## Independent inventory and completeness
+Unmapped tests still present at head are mandatory in selection until a later map covers them.
+`SKIPPED` observations provide positive non-execution evidence; an absent observation cannot do so.
 
-`Completeness.from` requires both an independent `CollectionExpectation` and a collector-side
-`CollectionSummary`. The expectation combines `TestInventory` with expected shard identities;
-neither expected tests nor expected shards can be inferred from collector output. An orchestration-owned
-exact set may account for expected declarations intentionally excluded from execution; it cannot be
-inferred from missing collector output. Completeness uses identity
-set differences and separately records missing, unexpected and duplicate tests and missing or
-duplicate shards. Equal counts with different identities are incomplete.
+## Completeness and publication
 
-Dynamic sharding has a global expected test set and an expected shard set; there is deliberately no
-shard-to-test assignment in the model.
+Expected identities and shard assignments are authoritative inputs, not inferred from successful
+test counts. Accounted identities include mapped, non-SKIPPED unmapped and explicitly declared
+non-execution. Completeness requires empty missing/unexpected/duplicate-test sets and empty
+missing/duplicate-shard sets. The joiner also rejects unexpected shards and invalid partitions.
+There is no degraded-map publication mode.
 
-## Lifecycle
+Only validated published maps are selection inputs. Missing whole shards, incomplete collection,
+bad bindings or contradictory ownership do not become accepted through absorption.
+Complete accounting is not a guarantee of causal attribution or unobserved code-path coverage.
 
-`CoverageMapLifecycleState` represents `FRAGMENT`, `CANDIDATE`, and `PUBLISHED`. Only a validated
-`PUBLISHED` map may be selector input. This task defines the distinction; atomic publication,
-retention, and storage belong to backlog 5d.
-
-## Deliberate boundaries
-
-This contract does not implement fragment merging or a map builder (5c/5d), runtime coverage and
-test discovery (5c), setup-scope or unmapped-test selection policy (5b), storage/publication (5d),
-Jenkins orchestration (5d), or arbitrary base/head revision handling (5e). It also does not alter
-Gradle or Maven adapters.
-
-Implementation findings and POC-proven boundaries for 5c and 5d are tracked in
-[`coverage-map-follow-ups.md`](coverage-map-follow-ups.md).
-
-## Version impact
-
-Schema v2 is not compatible with legacy maps or schema v1. Legacy test keys use `SimpleClass#method_7hexHash`,
-from which the FQN cannot be reconstructed, so maps must be regenerated. The semantic selector API
-need not change in Task 5a and the existing CLI output schema remains unchanged; future v1 reader
-adoption will be an explicit integration step. Because Core and CLI artifact content changes, the
-next release must not reuse `0.1.0`; the recommended next artifact version is `0.2.0`.
-
-The RAD 1 evaluation repository is frozen at commit `a53e5c7` and is not modified or regenerated.
+See [wire schemas](coverage-map-schema.md), [v3 encoding](v3-map-format.md) and
+[collector boundaries](asm-coverage-mapping-current-state.md).
+The [original schema design](history/coverage-map-model.md) is retained as history.

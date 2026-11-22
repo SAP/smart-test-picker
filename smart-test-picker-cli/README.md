@@ -2,6 +2,13 @@
 
 Standalone command-line tool for the coverage pipeline, built with [picocli](https://picocli.info/). Designed for environments where Gradle or Maven are not available (e.g. custom platforms with Ant builds).
 
+For schema 3 use `join-fragments` and explicit-PR `select-tests` with an executable head inventory.
+The shaded artifact is published as `com.sap.oss.smart-test-picker:smart-test-picker-cli:0.3.0-SNAPSHOT`;
+run it with `java -jar`. See the [end-to-end quick start](../README.md#quick-start-cli-join-and-selection)
+and [complete option reference](../docs/configuration-reference.md#cli-commands-and-options).
+`generate-map`, `merge-maps`, `query`, `generate-report` and `refreshed-report` use legacy map/report
+structures, not the streaming schema-v3 map. Remote push/pull transports bytes without converting formats.
+
 ## Subcommands
 
 ### join-fragments
@@ -17,7 +24,8 @@ smart-test-picker join-fragments \
 ```
 
 Each `fragment-<name>.json` must have a `tests-<name>.json` partner containing an
-`ExecutableShardAssignment` v1 test list. Missing partners and stray files fail. Only in this mode,
+`ExecutableShardAssignment` v1 test list. Missing partners and non-hidden stray files fail;
+dot-prefixed files are skipped and logged. Only in this mode,
 assigned tests absent from an existing fragment become `ASSIGNED_NOT_REPORTED` unmapped entries and
 are mandatory for selection. See [paired-mode rules and validation](../docs/join-fragments-paired-directory.md).
 
@@ -95,7 +103,8 @@ smart-test-picker generate-map \
 
 ### select-tests
 
-Selects tests impacted by code changes using the coverage map and git diff. Delegates to the 8-step selection flow in `TestSelectionEngine`.
+Selects tests impacted by code changes using the coverage map and git diff, through the validated
+logical or explicit-PR selector flow.
 
 Schema-v2 CLI selection continues to require `--head-inventory <file>`. Unlike Gradle and Maven, the
 standalone CLI has no authoritative test runtime classpath and does not attempt discovery. Local mode
@@ -107,18 +116,20 @@ The coverage map can be provided explicitly via `--map`, or resolved automatical
 # Using local cache (recommended for developers)
 smart-test-picker select-tests \
     --project-dir /path/to/project \
+    --head-inventory /path/to/head-inventory.json \
     --output /path/to/selected-tests.json
 
 # Explicit map file
 smart-test-picker select-tests \
     --map /path/to/coverage-map.json.gz \
     --project-dir /path/to/project \
+    --head-inventory /path/to/head-inventory.json \
     --output /path/to/selected-tests.json \
     --format json \
     --full-suite-trigger "build.gradle" \
     --full-suite-trigger "gradle.properties"
 
-# Frozen explicit PR selection (schema v2 only)
+# Frozen explicit PR selection (schema 2 or 3, with a matching inventory)
 smart-test-picker select-tests \
     --map /path/to/coverage-map.json \
     --head-inventory /path/to/head-inventory.json \
@@ -140,16 +151,16 @@ smart-test-picker select-tests \
 | `--format` | No | Output format: `json` (default), `txt`, `ant` |
 | `--max-commit-distance` | No | Max commits before map is stale (default: 500) |
 | `--full-suite-trigger` | No | Glob pattern that forces full suite (repeatable) |
-| `--test-classes-dir` | No | Compiled test classes directory for new test detection |
-| `--head-inventory` | Schema v2 | Exact head test inventory JSON |
+| `--test-classes-dir` | No | Deprecated; does not replace the required head inventory |
+| `--head-inventory` | Schema 2 or 3 | Exact logical or executable head test inventory JSON |
 | `--integration-revision` | Explicit PR | Frozen full integration commit ID |
 | `--pr-base-revision` | Explicit PR | Frozen full PR base commit ID |
 | `--pr-head-revision` | Explicit PR | Frozen full PR head commit ID |
 
 Supplying any explicit revision enables explicit PR mode and requires all three revisions, `--map`,
 `--head-inventory`, and JSON output. Map and inventory revisions come only from their artifacts. The
-inventory must be the authoritative complete logical test set for one concrete test target at one
-concrete revision; a legacy revisionless array is rejected in this mode.
+inventory must be the authoritative complete logical or executable test set at the frozen head
+revision; a legacy revisionless array is rejected in this mode.
 
 **Map selection modes (`--prefer-map`):**
 
@@ -239,7 +250,7 @@ smart-test-picker query --map coverage-map.json.gz --grep ItemModel
 | `--grep` | One of these | Substring search (case-insensitive) |
 | `--stats` | One of these | Show aggregate statistics |
 
-The query command reads all three map formats (plain, indexed, gzip) transparently.
+The query command reads the legacy plain, indexed and gzip representations, not schema-v3 maps.
 
 ### pull-map
 
@@ -306,7 +317,7 @@ smart-test-picker refreshed-report \
     --platform-home /path/to/platform \
     --exec-dir /tmp/jacoco-exec/ \
     --output /tmp/smart-report/index.html \
-    --java-home /Library/Java/JavaVirtualMachines/sapmachine-jdk-17/Contents/Home
+    --java-home "$JAVA_HOME"
 ```
 
 **Options:**

@@ -53,32 +53,34 @@ public abstract class SmartTestPickerExtension
 		this.coverageCollector.convention(CoverageCollectorType.ASM.name());
 	}
 
-	/** Accepts {@code ASM} or {@code JACOCO}, case-insensitively. */
+	/** Accepts {@code ASM} or {@code JACOCO}, case-insensitively. Default: {@code ASM}. */
 	public Property<String> getCoverageCollector() { return coverageCollector; }
 
-	/** Revision persisted in ASM fragments. No Git discovery is performed by the agent. */
+	/** Revision persisted in fragments. Default: {@code stp.revision}, then {@code GIT_COMMIT}, then {@code UNKNOWN}. */
 	public abstract Property<String> getRevision();
 
-	/** Optional externally orchestrated shard ID; defaults to the mapping task path. */
+	/** Optional orchestrated shard ID. Default: {@code stp.shardId}, or the mapping task path. */
 	public abstract Property<String> getShardId();
 
-	/** Runtime fragment schema. Version 2 remains the compatibility default. */
+	/** Runtime fragment schema. Default: {@code stp.schemaVersion}, or {@code 2} when unset. */
 	public abstract Property<Integer> getRuntimeSchemaVersion();
 
-	/** Canonical adapter-supplied execution target; required for schema-v3 collection. */
+	/** Canonical adapter-supplied execution target. Default: {@code stp.executionTarget}, otherwise unset. */
 	public abstract Property<String> getExecutionTarget();
 
-	/** Schema-v3 executable shard assignment produced by the shared orchestrator. */
+	/** Schema-v3 executable shard assignment. Default: {@code stp.executableAssignment}, otherwise unset. */
 	public abstract Property<String> getExecutableAssignmentFile();
 
-	/** Assignment-free schema-v3 executable inventory discovery mode. */
+	/** Assignment-free schema-v3 inventory discovery. Default: {@code stp.executableInventoryDiscovery}, or {@code false}. */
 	public abstract Property<Boolean> getExecutableInventoryDiscovery();
 
-	/** Optional fully-qualified Test-task paths defining this mapping invocation's scope. */
+	/** Fully-qualified Test-task paths in the mapping scope. Default: {@code stp.mappingTestTasks}, or an empty list. */
 	public abstract ListProperty<String> getMappingTestTasks();
 
+	/** ASM package-prefix override. Default: empty; schema-v3 mapping derives prefixes from production code sources. */
 	public abstract ListProperty<String> getCoverageIncludes();
 
+	/** Additional ASM package prefixes to exclude. Default: empty. */
 	public abstract ListProperty<String> getCoverageExcludes();
 
 	/**
@@ -98,13 +100,13 @@ public abstract class SmartTestPickerExtension
 	 */
 	public abstract Property<Integer> getMaxCommitDistance();
 
-	/** Frozen integration commit; setting any explicit revision requires all three. */
+	/** Frozen integration commit; setting any explicit revision requires all three. Default: unset. */
 	public abstract Property<String> getIntegrationRevision();
 
-	/** Frozen PR base commit. */
+	/** Frozen PR base commit. Default: unset. */
 	public abstract Property<String> getPrBaseRevision();
 
-	/** Frozen PR head commit and provenance for newly generated head inventory. */
+	/** Frozen PR head commit and provenance for newly generated head inventory. Default: unset. */
 	public abstract Property<String> getPrHeadRevision();
 
 	/**
@@ -132,6 +134,7 @@ public abstract class SmartTestPickerExtension
 	 */
 	public abstract ListProperty<String> getFullSuiteTriggers();
 
+	/** Remote map storage settings. Default: an unconfigured storage extension, with publishing disabled. */
 	public RemoteStoreExtension getRemoteStore()
 	{
 		return remoteStore;

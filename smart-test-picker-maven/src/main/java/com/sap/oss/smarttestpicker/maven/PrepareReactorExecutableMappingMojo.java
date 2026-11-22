@@ -35,31 +35,45 @@ import com.sap.oss.smarttestpicker.selector.ExecutableHeadTestInventoryCodec;
 /** Validates and partitions a schema-v3 assignment before Maven test execution. */
 @Mojo(name = "prepare-reactor-executable-mapping", aggregator = true, defaultPhase = LifecyclePhase.INITIALIZE)
 public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
+	@Component private org.apache.maven.rtinfo.RuntimeInformation runtimeInformation;
 	@Parameter(defaultValue = "${project}", readonly = true, required = true) private MavenProject project;
 	@Parameter(defaultValue = "${session}", readonly = true, required = true) private MavenSession session;
 	@Parameter(defaultValue = "${reactorProjects}", readonly = true, required = true) private List<MavenProject> reactorProjects;
+	/** Revision-bound executable shard assignment; preparation may only narrow each target's effective selection. Default: {@code ${env.STP_MAPPING_TESTS_FILE}}. */
 	@Parameter(defaultValue = "${env.STP_MAPPING_TESTS_FILE}", property = "smartTestPicker.testsFile", required = true) private File assignmentFile;
+	/** Exact source revision to which the assignment and fragment must be bound. Default: {@code unset; required for mapping}. */
 	@Parameter(property = "smartTestPicker.revision", required = true) private String revision;
+	/** Shard identifier that must match the assignment and all collected fragments. Default: {@code unset; required for mapping}. */
 	@Parameter(property = "smartTestPicker.shardId", required = true) private String shardId;
+	/** Provider kind, surefire or failsafe, used for target resolution and effective test selection. Default: {@code unset (unqualified Surefire target)}. */
 	@Parameter(property = "smartTestPicker.executionType") private String executionType;
+	/** Provider execution ID used to distinguish a qualified Maven execution target. Default: {@code unset (provider default execution)}. */
 	@Parameter(property = "smartTestPicker.executionId") private String executionId;
+	/** Profile qualifier in the canonical Maven execution target; does not replace Maven profile activation. Default: {@code unset (no profile qualifier)}. */
 	@Parameter(property = "smartTestPicker.executionProfile") private String executionProfile;
+	/** Complete revision-bound executable inventory used to validate a narrowed reactor invocation. Default: {@code unset (no complete external inventory)}. */
 	@Parameter(property = "smartTestPicker.completeInventoryFile") private File completeInventoryFile;
+	/** Canonical reactor root used to derive stable module-relative execution targets. Default: {@code Maven execution root}. */
 	@Parameter(property = "smartTestPicker.reactorRoot") private File reactorRoot;
 	@Parameter(defaultValue = "${plugin}", readonly = true, required = true) private PluginDescriptor pluginDescriptor;
 	@Component private RepositorySystem repositorySystem;
 	@Component private org.apache.maven.plugin.MavenPluginManager pluginManager;
 	@Component private org.apache.maven.lifecycle.internal.LifecycleExecutionPlanCalculator executionPlans;
 	@Component private org.apache.maven.lifecycle.internal.LifecycleStarter lifecycleStarter;
+	/** Additional narrowing filter applied after the provider's effective test selection. Default: {@code unset (no additional narrowing)}. */
 	@Parameter(property = "smartTestPicker.testFilter") private String testFilter;
+	/** Override for derived ASM package prefixes; explicit blank or malformed values are rejected. Default: {@code unset (derive from compiled production sources)}. */
 	@Parameter(property = "smartTestPicker.asm.includes") private String asmIncludes;
+	/** Comma-separated package prefixes excluded from ASM instrumentation within the production boundary. Default: {@code unset (no additional exclusions)}. */
 	@Parameter(property = "smartTestPicker.asm.excludes") private String asmExcludes;
 	@Parameter(defaultValue = "${env.STP_MAPPING_COLLECTOR}", readonly = true) private String expectedCollector;
+	/** Destination for the accepted reactor shard fragment; stale output is invalidated before preparation. Default: {@code unset}. */
 	@Parameter(property = "smartTestPicker.fragmentOutput") private File aggregateOutput;
+	/** Destination for the combined reactor execution evidence. Default: {@code unset}. */
 	@Parameter(property = "smartTestPicker.evidenceOutput") private File aggregateEvidenceOutput;
 
 	@Override public void execute() throws MojoExecutionException {
-		MavenMappingVersion.requireSupported("prepare-reactor-executable-mapping");
+		MavenMappingVersion.requireSupported("prepare-reactor-executable-mapping", runtimeInformation);
 		try {
 			// A failed dependency prevents the aggregate goal from running its own invalidation.
 			if (aggregateOutput != null) Files.deleteIfExists(aggregateOutput.toPath());

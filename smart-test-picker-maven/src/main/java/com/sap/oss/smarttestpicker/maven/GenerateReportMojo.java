@@ -27,27 +27,34 @@ import com.sap.oss.smarttestpicker.engine.ReportEngine;
 public class GenerateReportMojo extends AbstractMojo
 {
 
+	/** Coverage map input used for selection or report generation. Default: {@code ${project.build.directory}/test-coverage-map.json}. */
 	@Parameter(defaultValue = "${project.build.directory}/test-coverage-map.json")
 	private File coverageMapFile;
 
+	/** Selected-test JSON output or input, according to the selection/report goal. Default: {@code ${project.build.directory}/selected-tests.json}. */
 	@Parameter(defaultValue = "${project.build.directory}/selected-tests.json")
 	private File selectedTestsFile;
 
+	/** Destination of the generated HTML report. Default: {@code ${project.build.directory}/reports/smart-test-picker/index.html}. */
 	@Parameter(defaultValue = "${project.build.directory}/reports/smart-test-picker/index.html")
 	private File reportFile;
 
+	/** Directory containing JaCoCo XML data used by the report. Default: {@code ${project.build.directory}/jacoco-xml}. */
 	@Parameter(defaultValue = "${project.build.directory}/jacoco-xml")
 	private File jacocoXmlDir;
 
+	/** Production source directory used to render source coverage reports. Default: {@code ${project.basedir}/src/main/java}. */
 	@Parameter(defaultValue = "${project.basedir}/src/main/java")
 	private File sourceDir;
 
 	@Parameter(defaultValue = "${project.basedir}", readonly = true)
 	private File projectDir;
 
+	/** Maximum accepted distance from map revision to head before conservative full-suite selection. Default: {@code 500}. */
 	@Parameter(defaultValue = "500", property = "smartTestPicker.maxCommitDistance")
 	private int maxCommitDistance;
 
+	/** Expand selection to whole test classes instead of individual methods. Default: {@code false}. */
 	@Parameter(defaultValue = "false", property = "smartTestPicker.classLevelSelection")
 	private boolean classLevelSelection;
 

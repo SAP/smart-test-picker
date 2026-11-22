@@ -27,12 +27,15 @@ import com.sap.oss.smarttestpicker.engine.CoverageMapEngine;
 public class GenerateCoverageMapMojo extends AbstractMojo
 {
 
+	/** Directory of JaCoCo XML coverage reports consumed by this goal. Default: {@code ${project.build.directory}/jacoco-xml}. */
 	@Parameter(defaultValue = "${project.build.directory}/jacoco-xml", required = true)
 	private File reportsDir;
 
+	/** Destination of this goal's generated or downloaded artifact. Default: {@code ${project.build.directory}/test-coverage-map.json}. */
 	@Parameter(defaultValue = "${project.build.directory}/test-coverage-map.json", required = true)
 	private File outputFile;
 
+	/** Git base branch used by the legacy change-detection and storage flow. Default: {@code main}. */
 	@Parameter(defaultValue = "main", property = "smartTestPicker.baseBranch")
 	private String baseBranch;
 

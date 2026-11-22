@@ -32,7 +32,18 @@ The following rule governs code contributions:
 * Due to legal reasons, contributors will be asked to accept a Developer Certificate of Origin (DCO) when they create the first pull request to this project. This happens in an automated fashion during the submission process. SAP uses [the standard DCO text of the Linux Foundation](https://developercertificate.org/).
 * Contributions must follow our [guidelines on AI-generated code](https://github.com/SAP/.github/blob/main/CONTRIBUTING_USING_GENAI.md) in case you are using such tools.
 
-## Issues and Planning
+## Local verification
+
+Use Java 17 or later and run `./gradlew test --rerun-tasks` for fresh module results.
+Published classes must target Java 17 and compile against its API. Build publications and Javadoc
+locally with `stageReadinessArtifacts verifyReadinessJavadoc`; artifact verification uses an explicit
+non-SNAPSHOT test version as described in [artifact versioning](docs/artifact-versioning.md).
+`verifyReadinessDocumentation` checks the extracted configuration surface, Javadoc coverage and
+Markdown links. New public options need default, meaning and schema entries in the reference.
+Run `reuse lint` and `git diff --check` before requesting review. Do not include local coverage maps,
+credentials, signing keys or machine-specific evidence in product changes.
+
+## Issue reports
 
 * We use GitHub issues to track bugs and enhancement requests.
 

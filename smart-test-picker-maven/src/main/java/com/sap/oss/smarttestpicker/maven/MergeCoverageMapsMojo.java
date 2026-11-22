@@ -46,7 +46,8 @@ public class MergeCoverageMapsMojo extends AbstractMojo
 	@Parameter(defaultValue = "${reactorProjects}", readonly = true, required = true)
 	private List<MavenProject> reactorProjects;
 
-	/** Output file for the merged coverage map. */
+	/** Output file for the merged coverage map. <p>Default: {@code ${project.build.directory}/test-coverage-map.json}.</p>
+	 */
 	@Parameter(defaultValue = "${project.build.directory}/test-coverage-map.json", required = true)
 	private File outputFile;
 

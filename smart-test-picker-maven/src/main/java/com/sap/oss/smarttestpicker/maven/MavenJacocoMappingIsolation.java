@@ -81,7 +81,21 @@ final class MavenJacocoMappingIsolation extends AbstractExecutionListener {
     // Preserve all existing build listeners, including console and event-spy notifications.
     @Override public void projectDiscoveryStarted(ExecutionEvent e) { delegate.projectDiscoveryStarted(e); }
     @Override public void sessionStarted(ExecutionEvent e) { delegate.sessionStarted(e); }
-    @Override public void sessionEnded(ExecutionEvent e) { delegate.sessionEnded(e); }
+    @Override public void sessionEnded(ExecutionEvent e) {
+        try {
+            delegate.sessionEnded(e);
+        } finally {
+            for (File destination : destinations.values()) {
+                try {
+                    // Remove only files and directories created by this invocation, never project data.
+                    Files.deleteIfExists(destination.toPath());
+                    Files.deleteIfExists(destination.toPath().getParent());
+                } catch (java.io.IOException failure) {
+                    log.warn("[STP] Cannot remove private JaCoCo agent output " + destination + ": " + failure.getMessage());
+                }
+            }
+        }
+    }
     @Override public void projectSkipped(ExecutionEvent e) { delegate.projectSkipped(e); }
     @Override public void projectStarted(ExecutionEvent e) { delegate.projectStarted(e); }
     @Override public void projectSucceeded(ExecutionEvent e) { delegate.projectSucceeded(e); }

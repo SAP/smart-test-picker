@@ -13,6 +13,7 @@ import com.sap.oss.smarttestpicker.coverage.model.CoverageMapLifecycleState;
 import com.sap.oss.smarttestpicker.coverage.model.ShardId;
 import com.sap.oss.smarttestpicker.coverage.model.TestIdentity;
 
+/** Validates logical coverage-map and fragment structure, accounting and publication state. */
 public final class CoverageMapValidator
 {
 	private CoverageMapValidator() {}

@@ -1,0 +1,93 @@
+// SPDX-FileCopyrightText: 2026 SAP SE or an SAP affiliate company and Smart Test Picker contributors
+// SPDX-License-Identifier: Apache-2.0
+
+// Verification-only local repository. No remote publication or Portal integration is configured here.
+def staging = layout.buildDirectory.dir('readiness/staging')
+def model = layout.buildDirectory.file('readiness/model.json')
+def python = providers.environmentVariable('PYTHON').orElse('python3')
+
+subprojects {
+    plugins.withId('maven-publish') {
+        publishing.repositories.maven { name = 'readiness'; url = staging }
+    }
+}
+
+tasks.register('writeReadinessModel') {
+    outputs.file(model)
+    outputs.upToDateWhen { false }
+    doLast {
+        def publications = subprojects.collectMany { child ->
+            def publishing = child.extensions.findByName('publishing')
+            publishing == null ? [] : publishing.publications.withType(MavenPublication).collect { pub ->
+                [module: child.name, publication: pub.name, group: pub.groupId, artifact: pub.artifactId, version: pub.version]
+            }
+        }
+        def compilers = subprojects.collectMany { child ->
+            child.tasks.withType(JavaCompile).findAll { it.name == 'compileJava' }.collect { compile ->
+                [module: child.name, release: compile.options.release.orNull,
+                 source: compile.sourceCompatibility, target: compile.targetCompatibility,
+                 compilerVersion: compile.javaCompiler.get().metadata.languageVersion.asInt(),
+                 compiler: compile.javaCompiler.get().executablePath.asFile.absolutePath,
+                 arguments: compile.options.compilerArgs]
+            }
+        }
+        def shaded = ['stp-agent', 'smart-test-picker-cli'].collectEntries { name ->
+            [(name): project(":${name}").configurations.runtimeClasspath.resolvedConfiguration.resolvedArtifacts
+                .findAll { it.moduleVersion.id.group != rootProject.group.toString() }
+                .collect { [group: it.moduleVersion.id.group, artifact: it.name, version: it.moduleVersion.id.version] }]
+        }
+        def destination = model.get().asFile
+        destination.parentFile.mkdirs()
+        destination.text = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(
+                [version: version.toString(), publications: publications, compilers: compilers, shaded: shaded]))
+    }
+}
+
+tasks.register('stageReadinessArtifacts') {
+    group = 'verification'
+    description = 'Stages current publications in a file-only repository for readiness checks.'
+    dependsOn 'writeReadinessModel'
+    dependsOn provider { subprojects.collectMany { child ->
+        child.tasks.matching { it.name == 'publishAllPublicationsToReadinessRepository' }.toList()
+    } }
+}
+
+['Artifacts': 'artifacts', 'Documentation': 'docs', 'Java17': 'java17', 'Bundle': 'bundle'].each { suffix, mode ->
+    tasks.register("verifyReadiness${suffix}", Exec) {
+        group = 'verification'
+        description = "Checks ${mode} readiness without publishing remotely."
+        if (mode in ['artifacts', 'java17']) dependsOn 'stageReadinessArtifacts'
+        commandLine python.get(), 'scripts/readiness/verify.py', mode, '--root', rootDir,
+                '--model', model.get().asFile, '--repository', staging.get().asFile,
+                '--bundle', providers.gradleProperty('readinessBundle').orElse('build/readiness/central-bundle.zip').get()
+    }
+}
+
+tasks.register('readinessConsumerSmoke', Exec) {
+    group = 'verification'
+    description = 'Resolves local publications and runs Gradle and Maven consumers on JDK 17.'
+    dependsOn 'stageReadinessArtifacts'
+    commandLine python.get(), 'scripts/readiness/consumers.py', '--repository', staging.get().asFile,
+            '--version', version.toString(), '--work', layout.buildDirectory.dir('readiness/consumers').get().asFile
+}
+
+tasks.register('verifyReadinessJavadoc') {
+    group = 'verification'
+    description = 'Builds published modules API documentation with their unmodified doclint settings.'
+    dependsOn provider { ['smart-test-picker', 'smart-test-picker-common', 'smart-test-picker-core',
+                          'smart-test-picker-maven', 'smart-test-picker-cli', 'stp-agent'].collect { ":${it}:javadoc" } }
+}
+
+tasks.register('verifyReadinessLicenses', Exec) {
+    group = 'verification'
+    description = 'Runs REUSE lint; use a clean tracked tree for the repository gate.'
+    commandLine providers.environmentVariable('REUSE').orElse('reuse').get(), 'lint'
+}
+
+['Guards': 'guards', 'VersionBinding': 'versions'].each { suffix, mode ->
+    tasks.register("verifyReadiness${suffix}", Exec) {
+        group = 'verification'
+        description = "Checks ${mode} failures through public Gradle tasks in local fixtures."
+        commandLine python.get(), 'scripts/readiness/behavior_checks.py', mode, '--root', rootDir
+    }
+}

@@ -25,12 +25,13 @@ Method-entry instrumentation is enabled by default. `includes` is optional, but 
 
 The agent is wired into the Gradle mapping backend and the prepared Maven ASM mapping path. It projects runtime observations into logical schema-2 or target-qualified executable schema-3 fragments according to the invocation contract. The shaded artifact includes `stp-runtime` and the JUnit adapter.
 
-Maven preparation supplies optional `productionSourcesFile` (one absolute production
+Maven preparation and Gradle schema-v3 mapping supply `productionSourcesFile` (one absolute production
 directory/main-JAR path per line) and `requireInstrumentation=true`. The allowlist
 is an additional code-source restriction, not a replacement for package filters.
 Unknown code sources and test artifacts cannot pass it. The guard refuses to write
 a fragment when `classesTransformed` is zero, retaining scope/count diagnostics.
-Absent options preserve the existing Gradle/raw-agent behavior. See
+Raw-agent callers must provide these options themselves; standalone Gradle schema 2 also enables
+the zero-instrumentation guard but does not derive v3 production scope. See
 [Maven scope validation](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/maven-asm-08/REPORT.md).
 
 Method-entry probes carry JVM-local dense ordinals, each resolving to exactly one
@@ -50,11 +51,11 @@ Collector errors carry structured severity and ownership, not severity inferred
 from a diagnostic prefix. A proven affected executable identity becomes
 `unmapped/COLLECTION_FAILED` and is mandatory for selection; passing siblings can
 retain coverage in a complete fragment.
-Executable ownership must match the configured target and observed identity;
-unbound schema-2 or mismatched owners remain fatal. Runtime initialization failure,
-transformation failures, method-ID collisions, unsupported identities without a
-logical key, and propagation sites without a proven affected test set remain
-shard-fatal. A site or class name alone does not identify the tests it affects.
+Executable ownership must match the configured target and observed identity.
+Unowned errors, initialization/transform failures and collision counters are diagnostic information;
+they no longer clear completion or invalidate passing siblings. They also do not prove that the
+recorded coverage is complete. A site or class name alone does not identify the tests it affects.
+The build-plugin zero-instrumentation, binding and assignment checks are independent of that policy.
 ERROR setup diagnostics still make collection incomplete. All diagnostic messages
 remain visible in the agent output; no coverage wire schema is changed. See the
-[classification audit and correctness evidence](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/stp-integrity-01/REPORT.md).
+[current collector policy](../docs/asm-coverage-mapping-current-state.md).

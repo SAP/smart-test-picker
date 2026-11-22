@@ -5,6 +5,7 @@ package com.sap.oss.smarttestpicker.coverage.model;
 import java.util.Set;
 import java.util.TreeSet;
 
+/** Immutable class and method coverage sets with the observed test outcome and collection status. */
 public record TestCoverage(Set<String> coveredClasses, Set<MethodIdentity> coveredMethods, TestOutcome outcome,
 		CollectionStatus collectionStatus)
 {

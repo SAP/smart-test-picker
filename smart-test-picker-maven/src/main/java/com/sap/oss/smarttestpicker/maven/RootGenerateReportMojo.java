@@ -45,9 +45,11 @@ public class RootGenerateReportMojo extends AbstractMojo
 	@Parameter(defaultValue = "${reactorProjects}", readonly = true, required = true)
 	private List<MavenProject> reactorProjects;
 
+	/** Maximum accepted distance from map revision to head before conservative full-suite selection. Default: {@code 500}. */
 	@Parameter(defaultValue = "500", property = "smartTestPicker.maxCommitDistance")
 	private int maxCommitDistance;
 
+	/** Expand selection to whole test classes instead of individual methods. Default: {@code false}. */
 	@Parameter(defaultValue = "false", property = "smartTestPicker.classLevelSelection")
 	private boolean classLevelSelection;
 

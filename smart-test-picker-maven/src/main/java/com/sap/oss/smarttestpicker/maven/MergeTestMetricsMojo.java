@@ -44,6 +44,7 @@ public class MergeTestMetricsMojo extends AbstractMojo
 	@Parameter(defaultValue = "${reactorProjects}", readonly = true, required = true)
 	private List<MavenProject> reactorProjects;
 
+	/** Git base branch used by the legacy change-detection and storage flow. Default: {@code main}. */
 	@Parameter(defaultValue = "main", property = "smartTestPicker.baseBranch")
 	private String baseBranch;
 

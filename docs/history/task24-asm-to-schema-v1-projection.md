@@ -1,7 +1,7 @@
 # TASK 24 — ASM observations to coverage-map schema v1
 
 > Historical TASK 24 snapshot. This document records the intermediate schema-v1 projection as it
-> existed before TASK 25. Schema v2 and `docs/task25-method-identity-and-setup-contract.md` are the
+> existed before TASK 25. Schema v2 and `docs/history/task25-method-identity-and-setup-contract.md` are the
 > authoritative current contract; statements below about current schema/setup limitations are not
 > current-state guidance.
 

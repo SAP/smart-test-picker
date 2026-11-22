@@ -10,7 +10,22 @@ allprojects {
     version = providers.gradleProperty('stpVersion').get()
 }
 
+apply from: 'gradle/readiness-checks.gradle'
+apply from: 'gradle/central-artifacts.gradle'
+apply from: 'gradle/shaded-notices.gradle'
+
 subprojects {
+    // A Java 17 class-file target alone still permits linking to newer JDK APIs.
+    plugins.withId('java') {
+        java {
+            sourceCompatibility = JavaVersion.VERSION_17
+            targetCompatibility = JavaVersion.VERSION_17
+        }
+        tasks.withType(JavaCompile).configureEach {
+            options.release = 17
+        }
+    }
+
     repositories {
         mavenCentral()
     }
@@ -92,7 +107,7 @@ subprojects {
 
 tasks.register('verifyStpVersionConsistency') {
     group = 'verification'
-    description = 'Verifies STP module, publication POM, and internal dependency version alignment.'
+    description = 'Verifies STP module, publication POM, internal dependency and documented version alignment.'
     dependsOn subprojects.collectMany { project ->
         project.tasks.matching { it.name.startsWith('generatePomFileFor') }.toList()
     }
@@ -110,7 +125,11 @@ tasks.register('verifyStpVersionConsistency') {
                     }
                 }
             }
-            project.fileTree(project.layout.buildDirectory.dir('publications')).matching { include '**/pom-default.xml' }.files.each { pom ->
+            def publications = project.extensions.findByName('publishing')
+            def activePoms = publications == null ? [] : publications.publications.withType(MavenPublication).collect { publication ->
+                project.layout.buildDirectory.file("publications/${publication.name}/pom-default.xml").get().asFile
+            }
+            activePoms.each { pom ->
                 def parsed = new XmlSlurper().parse(pom)
                 if (parsed.version.text() != expected) {
                     failures << "${pom} publishes ${parsed.version.text()}, expected ${expected}"
@@ -122,16 +141,46 @@ tasks.register('verifyStpVersionConsistency') {
                 }
             }
         }
-        fileTree(rootDir) {
-            include '**/*.gradle', '**/pom.xml'
-            exclude '**/build/**', 'EI-*/**', 'stp-*-validation/**'
-        }.files.each { source ->
+        // Checked-in examples follow the declared version, not a local staging override.
+        def declared = new Properties()
+        file('gradle.properties').withInputStream { declared.load(it) }
+        def sourceVersion = declared.getProperty('stpVersion')
+        def tracked = providers.exec { commandLine 'git', 'ls-files', '-z' }.standardOutput.asText.get()
+        tracked.split('\u0000').findAll { it.endsWith('.gradle') || it.endsWith('/pom.xml') || it == 'pom.xml' }
+                .collect { file(it) }.each { source ->
             def text = source.getText('UTF-8')
             def versions = []
             (text =~ /(?s)<groupId>com\.sap\.oss\.smart-test-picker<\/groupId>.*?<version>([^<]+)<\/version>/).each { versions << it[1] }
             (text =~ /com\.sap\.oss\.smart-test-picker:[^:'"\s]+:([^:'"\s]+)/).each { versions << it[1] }
-            versions.findAll { it != expected }.each { version ->
-                failures << "${source} references STP version ${version}, expected ${expected}"
+            versions.findAll { it != sourceVersion }.each { version ->
+                failures << "${relativePath(source)} references STP version ${version}, expected ${sourceVersion}"
+            }
+        }
+        // Keep the normal check/build lifecycle JVM-only; readiness tooling is opt-in.
+        def documentationPatterns = [
+            ~/com\.sap\.oss\.smart-test-picker:[\w.-]+:(?:jar:)?([0-9][\w.-]+)/,
+            ~/(?:version|stpVersion)\s*[=:]?\s*['"](0\.\d+\.\d+(?:-[\w.-]+)?)['"]/,
+            ~/smart-test-picker(?:-[\w-]+)?-(0\.\d+\.\d+(?:-SNAPSHOT)?)\.(?:jar|zip)/,
+            ~/(?<![\w.])(0\.3\.0(?:-SNAPSHOT)?)(?![\w.-])/,
+            ~/(?s)<groupId>com\.sap\.oss\.smart-test-picker<\/groupId>\s*<artifactId>[^<]+<\/artifactId>\s*<version>([0-9][^<]+)<\/version>/
+        ]
+        tracked.split('\u0000').findAll {
+            it.toLowerCase(java.util.Locale.ROOT).endsWith('.md') &&
+                    !it.startsWith('docs/history/') && !it.startsWith('verification/')
+        }.each { path ->
+            def text = file(path).getText('UTF-8')
+            if (file(path).name == 'CHANGELOG.md') {
+                def unreleased = text.indexOf('## [Unreleased]')
+                if (unreleased >= 0) text = text.substring(unreleased + '## [Unreleased]'.length())
+                def nextSection = text.indexOf('\n## [')
+                if (nextSection >= 0) text = text.substring(0, nextSection)
+            }
+            def versions = new LinkedHashSet<String>()
+            documentationPatterns.each { pattern ->
+                (text =~ pattern).each { match -> versions.add(match[1]) }
+            }
+            versions.findAll { it != sourceVersion }.each { documentedVersion ->
+                failures << path + ' documented STP version ' + documentedVersion + '; expected ' + sourceVersion
             }
         }
         if (failures) throw new GradleException('STP version consistency failed:\n' + failures.join('\n'))

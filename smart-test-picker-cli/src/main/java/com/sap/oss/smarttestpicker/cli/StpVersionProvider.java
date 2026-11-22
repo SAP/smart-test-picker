@@ -4,6 +4,7 @@ package com.sap.oss.smarttestpicker.cli;
 
 import picocli.CommandLine.IVersionProvider;
 
+/** Reports the CLI artifact manifest version, or development when run from unpackaged classes. */
 public final class StpVersionProvider implements IVersionProvider {
 	@Override
 	public String[] getVersion() {

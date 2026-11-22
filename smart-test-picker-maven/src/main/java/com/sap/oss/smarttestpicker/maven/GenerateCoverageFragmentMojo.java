@@ -51,55 +51,71 @@ import com.sap.oss.smarttestpicker.coverage.serialization.ExecutableShardAssignm
 import com.sap.oss.smarttestpicker.coverage.validation.CoverageMapValidator;
 import com.sap.oss.smarttestpicker.mapper.CoverageMapperJaxb;
 
-/** Generates JaCoCo fragments or finalizes evidence for immutable schema-v3 ASM fragments. */
+/** Generates JaCoCo fragments or validates and finalizes schema-v3 ASM fragments with assignment absorption. */
 @Mojo(name = "generate-coverage-fragment", defaultPhase = LifecyclePhase.VERIFY)
 public class GenerateCoverageFragmentMojo extends AbstractMojo
 {
+	/** Choose ASM or JACOCO for explicitly activated collection; Maven defaults to JACOCO. Default: {@code JACOCO}. */
 	@Parameter(property = "smartTestPicker.coverageCollector")
 	private String coverageCollector;
+	/** Directory containing per-test JaCoCo session execution data. Default: {@code ${project.build.directory}/jacoco}. */
 	@Parameter(defaultValue = "${project.build.directory}/jacoco", required = true)
 	private File execDir;
 
+	/** Directory of JaCoCo XML coverage reports consumed by this goal. Default: {@code ${project.build.directory}/jacoco-xml}. */
 	@Parameter(defaultValue = "${project.build.directory}/jacoco-xml", required = true)
 	private File reportsDir;
 
+	/** Surefire XML outcome reports used when finalizing collected coverage. Default: {@code ${project.build.directory}/surefire-reports}. */
 	@Parameter(defaultValue = "${project.build.directory}/surefire-reports")
 	private File surefireReportsDir;
 
+	/** Failsafe XML outcome reports used when finalizing collected coverage. Default: {@code ${project.build.directory}/failsafe-reports}. */
 	@Parameter(defaultValue = "${project.build.directory}/failsafe-reports")
 	private File failsafeReportsDir;
 
+	/** Revision-bound executable shard assignment; preparation may only narrow each target's effective selection. Default: {@code ${env.STP_MAPPING_TESTS_FILE}}. */
 	@Parameter(defaultValue = "${env.STP_MAPPING_TESTS_FILE}", property = "smartTestPicker.testsFile")
 	private File assignmentFile;
 
+	/** Exact source revision to which the assignment and fragment must be bound. Default: {@code unset; required for mapping}. */
 	@Parameter(property = "smartTestPicker.revision", required = true)
 	private String revision;
 
+	/** Shard identifier that must match the assignment and all collected fragments. Default: {@code unset; required for mapping}. */
 	@Parameter(property = "smartTestPicker.shardId", required = true)
 	private String shardId;
 
+	/** Select the logical schema 2 or executable schema 3 path supported by this goal. Default: {@code 2}. */
 	@Parameter(defaultValue = "2", property = "smartTestPicker.schemaVersion", required = true)
 	private int schemaVersion = CoverageMapContract.SCHEMA_VERSION;
 
+	/** Canonical build execution target that owns the fragment's test identities. Default: {@code unset}. */
 	@Parameter(property = "smartTestPicker.executionTarget")
 	private String executionTarget;
 
+	/** Accepted coverage fragment output path; not a published coverage map. Default: {@code ${project.build.directory}/coverage-fragment-v2.json}. */
 	@Parameter(defaultValue = "${project.build.directory}/coverage-fragment-v2.json",
 			property = "smartTestPicker.fragmentOutput", required = true)
 	private File fragmentOutput;
 
+	/** Execution-evidence output path, separate from the coverage fragment. Default: {@code ${project.build.directory}/execution-evidence-v1.json}. */
 	@Parameter(defaultValue = "${project.build.directory}/execution-evidence-v1.json",
 			property = "smartTestPicker.evidenceOutput", required = true)
 	private File evidenceOutput;
 
+	/** Prepared coverage fragment path for one module/target. Default: {@code unset}. */
 	@Parameter(property = "smartTestPicker.moduleFragmentOutput")
 	private File moduleFragmentOutput;
 
+	/** Prepared execution-evidence path for one module/target. Default: {@code unset}. */
 	@Parameter(property = "smartTestPicker.moduleEvidenceOutput")
 	private File moduleEvidenceOutput;
+	/** Prepared ASM agent diagnostic path for one module/target. Default: {@code unset}. */
 	@Parameter(property = "smartTestPicker.moduleDiagnosticOutput")
 	private File moduleDiagnosticOutput;
 
+	/** Legacy test-target label or execution target supplied by orchestration. Default: {@code test}. */
 	@Parameter(defaultValue = "test", property = "smartTestPicker.testTarget")
 	private String testTarget;
 

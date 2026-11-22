@@ -45,16 +45,22 @@ public class RootSelectTestsMojo extends AbstractMojo
 	@Parameter(defaultValue = "${reactorProjects}", readonly = true, required = true)
 	private List<MavenProject> reactorProjects;
 
+	/** Maximum accepted distance from map revision to head before conservative full-suite selection. Default: {@code 500}. */
 	@Parameter(defaultValue = "500", property = "smartTestPicker.maxCommitDistance")
 	private int maxCommitDistance;
 
+	/** File glob patterns whose changed paths force a full test suite. Default: {@code unset (no triggers)}. */
 	@Parameter(property = "smartTestPicker.fullSuiteTriggers")
 	private List<String> fullSuiteTriggers;
 
+	/** Expand selection to whole test classes instead of individual methods. Default: {@code false}. */
 	@Parameter(defaultValue = "false", property = "smartTestPicker.classLevelSelection")
 	private boolean classLevelSelection;
+	/** Frozen full integration commit for explicit PR selection; supply all three explicit revisions together. Default: {@code unset; explicit PR mode is disabled unless configured}. */
 	@Parameter(property = "smartTestPicker.integrationRevision") private String integrationRevision;
+	/** Frozen full PR base commit for explicit PR selection. Default: {@code unset; required with explicit PR selection}. */
 	@Parameter(property = "smartTestPicker.prBaseRevision") private String prBaseRevision;
+	/** Expected full head revision for inventory or explicit PR selection. Default: {@code unset; inventory uses checked-out HEAD, explicit selection requires a full commit}. */
 	@Parameter(property = "smartTestPicker.prHeadRevision") private String prHeadRevision;
 
 	@Override

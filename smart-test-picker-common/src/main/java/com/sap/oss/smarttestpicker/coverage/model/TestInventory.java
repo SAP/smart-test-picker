@@ -5,6 +5,7 @@ package com.sap.oss.smarttestpicker.coverage.model;
 import java.util.Set;
 import java.util.TreeSet;
 
+/** Expected logical test identities bound to one source revision. */
 public record TestInventory(CoverageMapRevision revision, Set<TestIdentity> expectedTests)
 {
 	public TestInventory { expectedTests = Set.copyOf(new TreeSet<>(expectedTests)); }
