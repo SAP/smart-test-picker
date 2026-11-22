@@ -147,7 +147,7 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 			task.setGroup("verification");
 			task.setDescription("Generates JaCoCo XML reports for each session_*.exec file");
 
-			File buildDir = project.getBuildDir();
+			File buildDir = project.getLayout().getBuildDirectory().get().getAsFile();
 			File projectDir = project.getProjectDir();
 
 			task.doLast(t -> {
@@ -336,8 +336,8 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 			targets.stream().collect(java.util.stream.Collectors.groupingBy(Test::getProject)).forEach((owner, owned) -> {
 				var existingPart = owner.getTasks().findByName("generateGradleExecutableProjectInventory");
 				var part = existingPart instanceof GenerateGradleExecutableProjectInventoryTask inventoryPart
-						? inventoryPart : owner.getTasks().create("generateGradleExecutableProjectInventory",
-								GenerateGradleExecutableProjectInventoryTask.class);
+						? inventoryPart : owner.getTasks().register("generateGradleExecutableProjectInventory",
+								GenerateGradleExecutableProjectInventoryTask.class).get();
 				if (!part.getOutputFile().isPresent()) part.getOutputFile().set(owner.getLayout().getBuildDirectory()
 						.file("stp/executable-project-inventory.json"));
 				part.setRevision(ext.getRevision().get());
@@ -430,7 +430,7 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 				task.doFirst(ignored -> AsmCoverageCollectorBackend.deleteStale(acceptedAggregate,
 						"aggregate before " + taskPath));
 				String shard = ext.getShardId().getOrElse("gradle:" + task.getPath());
-				aggregateTask.getFragments().from(root.files(new File(task.getProject().getBuildDir(), "stp/coverage/"
+				aggregateTask.getFragments().from(root.files(new File(task.getProject().getLayout().getBuildDirectory().get().getAsFile(), "stp/coverage/"
 						+ AsmCoverageCollectorBackend.safe(task.getPath()) + "/"
 						+ AsmCoverageCollectorBackend.safe(shard) + "/fragment.json")).builtBy(task));
 				aggregateTask.dependsOn(task);
@@ -438,10 +438,10 @@ public class SmartTestPickerPlugin implements Plugin<Project>
 			if (!assigned.isEmpty() && backend.type() == CoverageCollectorType.JACOCO) {
 				String shard = ext.getShardId().getOrElse("gradle:" + task.getPath());
 				String segment = AsmCoverageCollectorBackend.safe(task.getPath());
-				File base = new File(task.getProject().getBuildDir(), "stp/jacoco/" + segment + "/"
+				File base = new File(task.getProject().getLayout().getBuildDirectory().get().getAsFile(), "stp/jacoco/" + segment + "/"
 						+ AsmCoverageCollectorBackend.safe(shard));
-				GenerateGradleJacocoExecutableFragmentTask conversion = root.getTasks().create(
-						"generateStpJacocoExecutableFragment" + segment, GenerateGradleJacocoExecutableFragmentTask.class);
+				GenerateGradleJacocoExecutableFragmentTask conversion = root.getTasks().register(
+						"generateStpJacocoExecutableFragment" + segment, GenerateGradleJacocoExecutableFragmentTask.class).get();
 				conversion.setExecDir(new File(base, "exec")); conversion.setReportsDir(new File(base, "reports"));
 				conversion.setSourceDir(new File(task.getProject().getProjectDir(), "src/main/java"));
 				var production = root.files();

@@ -27,6 +27,11 @@ def prerequisites = tasks.register('verifyCentralBundlePrerequisites') {
     }
 }
 
+def cleanRepository = tasks.register('cleanCentralBundleRepository', Delete) {
+    dependsOn prerequisites
+    delete repository
+}
+
 subprojects { child ->
     plugins.withId('java') {
         if (moduleDescriptions.containsKey(child.name)) {
@@ -62,7 +67,7 @@ subprojects { child ->
             signing.sign(child.publishing.publications)
         }
         tasks.withType(PublishToMavenRepository).configureEach {
-            if (name.endsWith('ToCentralBundleRepository')) dependsOn prerequisites
+            if (name.endsWith('ToCentralBundleRepository')) dependsOn cleanRepository
         }
         tasks.withType(Sign).configureEach { mustRunAfter prerequisites }
     }

@@ -5,6 +5,10 @@ plugins {
     id 'maven-publish'
 }
 
+tasks.named('compileJava', JavaCompile) {
+    options.compilerArgs.addAll(['-Xlint:deprecation', '-Werror'])
+}
+
 repositories {
     mavenCentral()
     mavenLocal()

@@ -449,9 +449,16 @@ class MethodEntryTransformationTest {
 				.contains("VirtualThreadFixtureMain$Application#noContext()V"));
 	}
 
+	@Test
+	void runningJdk21IsAvailableForVirtualThreadFixture() {
+		org.junit.jupiter.api.Assumptions.assumeTrue(Runtime.version().feature() >= 21);
+		org.junit.jupiter.api.Assertions.assertNotNull(jdk21Home(), "The running JDK must be available without JDK21_HOME");
+	}
+
 	private static Path jdk21Home() {
 		String configured = System.getenv("JDK21_HOME");
 		if (configured != null && Files.isExecutable(Path.of(configured, "bin", "java"))) return Path.of(configured);
+		if (Runtime.version().feature() >= 21) return Path.of(System.getProperty("java.home"));
 		Path macHome = Path.of("/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home");
 		return Files.isExecutable(macHome.resolve("bin/java")) ? macHome : null;
 	}

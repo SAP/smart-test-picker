@@ -48,6 +48,7 @@ class StpVersionConsistencyFunctionalTest {
     void historicalVersionsRemainAllowedWithoutPython() throws Exception {
         Path root = fixture();
         Path history = root.resolve("docs/history/version-fixture.md");
+        Files.createDirectories(history.getParent());
         Files.writeString(history, "com.sap.oss.smart-test-picker:smart-test-picker-core:0.0.0-historical\n");
         Files.writeString(root.resolve("CHANGELOG.md"), Files.readString(root.resolve("CHANGELOG.md"))
                 + "\n## [0.0.0] - 2000-01-01\ncom.sap.oss.smart-test-picker:smart-test-picker-core:0.0.0-historical\n");
@@ -64,19 +65,58 @@ class StpVersionConsistencyFunctionalTest {
         assertFalse(Files.exists(root.resolve("python-invoked")));
     }
 
+    @Test
+    void nextVersionAllowsHistoricalProseButStillChecksInstallExamples() throws Exception {
+        Path root = fixture();
+        for (String name : git(root, "ls-files", "-z").split("\u0000")) {
+            if (name.startsWith("docs/history/")) continue;
+            if (name.endsWith(".md") || name.endsWith(".gradle") || name.endsWith(".properties")
+                    || name.endsWith("pom.xml")) {
+                Path file = root.resolve(name);
+                Files.writeString(file, Files.readString(file).replace("0.3.0-SNAPSHOT", "0.4.0-SNAPSHOT"));
+            }
+        }
+        Path readme = root.resolve("README.md");
+        Files.writeString(readme, Files.readString(readme) + "\nThis capability has been available since 0.3.0\n");
+        assertEquals(SUCCESS, runner(root).build().task(":verifyStpVersionConsistency").getOutcome());
+        Files.writeString(readme, Files.readString(readme)
+                + "\ncom.sap.oss.smart-test-picker:smart-test-picker-core:0.3.0-SNAPSHOT\n");
+        var failure = runner(root).buildAndFail();
+        assertTrue(failure.getOutput().contains("README.md documented STP version 0.3.0-SNAPSHOT"), failure.getOutput());
+    }
+
+    @Test
+    void sourceArchiveChecksVersionsWithoutGitMetadata() throws Exception {
+        Path root = fixture(false);
+        for (String excluded : List.of("build/stale.md", "smart-test-picker/build/stale.md",
+                "docs/history/stale.md", "verification/stale.md")) {
+            Path file = root.resolve(excluded);
+            Files.createDirectories(file.getParent());
+            Files.writeString(file, "com.sap.oss.smart-test-picker:smart-test-picker-core:0.0.0-stale\n");
+        }
+        assertFalse(Files.exists(root.resolve(".git")));
+        assertEquals(SUCCESS, runner(root).build().task(":verifyStpVersionConsistency").getOutcome());
+        Path readme = root.resolve("README.md");
+        Files.writeString(readme, Files.readString(readme)
+                + "\ncom.sap.oss.smart-test-picker:smart-test-picker-core:0.0.0-stale\n");
+        var failure = runner(root).buildAndFail();
+        assertTrue(failure.getOutput().contains("README.md documented STP version 0.0.0-stale"), failure.getOutput());
+    }
+
     private Path fixture() throws Exception {
+        return fixture(true);
+    }
+
+    private Path fixture(boolean initializeGit) throws Exception {
         Path source = Path.of(System.getProperty("stp.test.source.root"));
         Path root = Files.createDirectories(temporary.resolve("project"));
-        for (String name : git(source, "ls-files", "-z").split("\u0000")) {
-            if (name.isEmpty()) continue;
-            Path destination = root.resolve(name);
-            Files.createDirectories(destination.getParent());
-            Files.copy(source.resolve(name), destination);
+        SourceTreeFixture.copy(source, root);
+        if (initializeGit) {
+            git(root, "init", "-q");
+            git(root, "config", "commit.gpgsign", "false");
+            git(root, "config", "tag.gpgsign", "false");
+            git(root, "add", ".");
         }
-        git(root, "init", "-q");
-        git(root, "config", "commit.gpgsign", "false");
-        git(root, "config", "tag.gpgsign", "false");
-        git(root, "add", ".");
         Path commands = Files.createDirectories(root.resolve("no-python"));
         for (String name : List.of("python", "python3")) {
             Path command = commands.resolve(name);
@@ -89,6 +129,7 @@ class StpVersionConsistencyFunctionalTest {
 
     private GradleRunner runner(Path root) {
         var environment = new HashMap<>(System.getenv());
+        environment.put("GIT_CEILING_DIRECTORIES", root.getParent().toString());
         environment.put("PYTHON", root.resolve("no-python/python3").toString());
         environment.put("PATH", root.resolve("no-python") + File.pathSeparator + environment.getOrDefault("PATH", ""));
         return GradleRunner.create().withProjectDir(root.toFile()).withEnvironment(environment)

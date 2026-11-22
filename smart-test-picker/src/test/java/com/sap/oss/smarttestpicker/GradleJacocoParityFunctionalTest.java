@@ -24,6 +24,22 @@ class GradleJacocoParityFunctionalTest {
     private static final String MAPPING = "generateSmartTestMapping";
     private static final String CONVERSION = ":generateStpJacocoExecutableFragment_test";
 
+    @ParameterizedTest @ValueSource(strings = {"ASM", "JACOCO"})
+    void mappingKeepsArtifactPathsWithoutDeprecationWarnings(String collector) throws Exception {
+        Path root = fixture("build-locations", collector, false, "");
+        var result = run(root, false, MAPPING, "--warning-mode=all");
+        assertFalse(result.getOutput().contains("has been deprecated"), result.getOutput());
+        assertTrue(Files.isRegularFile(aggregate(root)));
+        assertTrue(Files.isRegularFile(fragment(root, collector)));
+        if (collector.equals("ASM")) {
+            assertTrue(Files.isRegularFile(root.resolve("build/stp/coverage/_test/local/agent-diagnostic.json")));
+        } else {
+            assertTrue(Files.isRegularFile(root.resolve("build/stp/jacoco/_test/local/exec/task.exec")));
+        }
+        assertEquals(2, new ExecutableCoverageFragmentCodec()
+                .deserialize(Files.readAllBytes(aggregate(root))).tests().size());
+    }
+
     @Test void asmPreservesItsFragmentAndProjectJacocoResults() throws Exception {
         Path root = fixture("coexist", "ASM", false, "");
         run(root, false, "test", "jacocoTestReport", "-Dfixture.mapping=false", "--rerun-tasks");
