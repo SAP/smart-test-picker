@@ -27,6 +27,7 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    dependsOn ':smart-test-picker-maven:publishAllPublicationsToFunctionalTestRepository'
     dependsOn ':stp-agent:shadowJar', ':smart-test-picker-core:jar',
             ':smart-test-picker-common:publishMavenJavaPublicationToFunctionalTestRepository',
             ':smart-test-picker-core:publishMavenJavaPublicationToFunctionalTestRepository',

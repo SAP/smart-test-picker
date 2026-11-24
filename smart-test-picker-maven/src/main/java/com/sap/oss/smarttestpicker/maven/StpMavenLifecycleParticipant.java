@@ -277,9 +277,15 @@ public final class StpMavenLifecycleParticipant extends AbstractMavenLifecyclePa
 
 	static StpCollectorSelection selectedCollector(MavenProject project, Properties userProperties)
 	{
-		return StpCollectorSelection.parse(userProperties.getProperty(StpCollectorSelection.PROPERTY,
+		// Managed selection uses the execution-evidence runtime, not mapping agent attachment.
+		return selectedCollector(project, userProperties, 2);
+	}
+
+	static StpCollectorSelection selectedCollector(MavenProject project, Properties userProperties, int schemaVersion)
+	{
+		return MavenCollectorDefaults.resolve(userProperties.getProperty(StpCollectorSelection.PROPERTY,
 				project.getProperties().getProperty(StpCollectorSelection.PROPERTY,
-						System.getProperty(StpCollectorSelection.PROPERTY))));
+						System.getProperty(StpCollectorSelection.PROPERTY))), schemaVersion);
 	}
 
 	static Set<Path> runtimeClasspath(StpCollectorSelection collector) throws URISyntaxException

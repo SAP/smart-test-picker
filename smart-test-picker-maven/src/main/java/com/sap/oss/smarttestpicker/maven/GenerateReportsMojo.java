@@ -29,7 +29,7 @@ import com.sap.oss.smarttestpicker.engine.ExecToXmlEngine;
 @Mojo(name = "generate-reports", defaultPhase = LifecyclePhase.VERIFY)
 public class GenerateReportsMojo extends AbstractMojo
 {
-	/** Choose ASM or JACOCO for explicitly activated collection; Maven defaults to JACOCO. Default: {@code JACOCO}. */
+	/** Choose ASM or JACOCO for explicitly activated collection. Default: {@code ASM} for schema 3, {@code JACOCO} for legacy schemas. */
 	@Parameter(property = "smartTestPicker.coverageCollector")
 	private String coverageCollector;
 
@@ -70,7 +70,7 @@ public class GenerateReportsMojo extends AbstractMojo
 	@Override
 	public void execute() throws MojoExecutionException
 	{
-		if (com.sap.oss.smarttestpicker.StpCollectorSelection.parse(coverageCollector)
+		if (MavenCollectorDefaults.resolve(coverageCollector, schemaVersion)
 				== com.sap.oss.smarttestpicker.StpCollectorSelection.ASM) {
 			getLog().info("[SmartTestPicker] ASM mapping does not require JaCoCo XML reports");
 			return;

@@ -26,7 +26,7 @@ Maven 4 remains untested. Surefire/Failsafe 3.2.5, 3.5.6 and 3.6.1 are qualified
 defaults-only probes, and 2.22.2 is rejected. A supported version does not remove the topology and
 provider limitations in the module READMEs.
 
-Gradle defaults to ASM and Maven to JACOCO. Both tools apply effective provider/task filters to their
+Both tools default to ASM for schema-v3; Maven schema-v1/v2 defaults to JACOCO. Both tools apply effective provider/task filters to their
 v3 inventories, reject widening assignments and partial overload assignments, and share completed-ASM
 assignment absorption. JaCoCo mapping isolates build-tool-managed destinations and skips project
 coverage consumers; ASM coexistence leaves qualified project JaCoCo results intact. Schema-v2 paths

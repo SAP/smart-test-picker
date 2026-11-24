@@ -55,7 +55,7 @@ import com.sap.oss.smarttestpicker.mapper.CoverageMapperJaxb;
 @Mojo(name = "generate-coverage-fragment", defaultPhase = LifecyclePhase.VERIFY)
 public class GenerateCoverageFragmentMojo extends AbstractMojo
 {
-	/** Choose ASM or JACOCO for explicitly activated collection; Maven defaults to JACOCO. Default: {@code JACOCO}. */
+	/** Choose ASM or JACOCO for explicitly activated collection. Default: {@code ASM} for schema 3, {@code JACOCO} for legacy schemas. */
 	@Parameter(property = "smartTestPicker.coverageCollector")
 	private String coverageCollector;
 	/** Directory containing per-test JaCoCo session execution data. Default: {@code ${project.build.directory}/jacoco}. */
@@ -126,7 +126,7 @@ public class GenerateCoverageFragmentMojo extends AbstractMojo
 		if (shardId == null || shardId.isBlank()) throw new MojoExecutionException("smartTestPicker.shardId must not be blank");
 		ExecutionTarget target = validateRuntimeContext();
 		selectOutputs();
-		if (MavenCoverageCollectorBackend.selected(com.sap.oss.smarttestpicker.StpCollectorSelection.parse(coverageCollector))
+		if (MavenCoverageCollectorBackend.selected(MavenCollectorDefaults.resolve(coverageCollector, schemaVersion))
 				== MavenCoverageCollectorBackend.ASM) {
 			finalizeAsm(target);
 			return;

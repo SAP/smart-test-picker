@@ -22,7 +22,9 @@ the validated join of the planned shards. Maps use a compact streaming gzip repr
   filters in the build, not Gradle `--tests` or Maven `-Dtest`/`-Dit.test` mapping invocations.
 - Supply dependency repositories and prepare production dependencies at the same revision.
 
-Gradle defaults to **ASM**. Maven defaults to **JACOCO**, so the examples explicitly choose ASM.
+Both tools default to **ASM** for schema-v3 mapping; the examples also name it explicitly.
+Set `smartTestPicker.coverageCollector=JACOCO` to retain Maven's previous collector.
+Maven's legacy schema-v1/v2 flows still default to JaCoCo.
 ASM attaches STP's version-aligned agent automatically and derives scope from production outputs.
 A build that instruments no production class is rejected; an individual test with no edges is valid.
 

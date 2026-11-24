@@ -15,6 +15,13 @@ All notable changes to this project will be documented in this file.
 - Central failure policy and revision-bound explicit/automatic selection contracts used by the Jenkins integration.
 
 ### Changed
+- Maven schema-v3 mapping now defaults to ASM, like Gradle; set
+  `smartTestPicker.coverageCollector=JACOCO` to keep the previous collector.
+- The Maven default now enforces the ASM fork guard: unsupported configurations such as
+  `forkCount=2` fail instead of using the JaCoCo path.
+- ClassSource-only Vintage tests remain unmapped under ASM on Maven and Gradle and are always
+  selected while present at head.
+- Maven derives the ASM scope after reactor compilation, allowing mapping from a cold checkout.
 - Maven and Gradle schema-v3 inventories follow effective provider/Test task selection. Assignments
   may only narrow it; partial overload assignments are rejected before test execution.
 - Completed valid ASM target fragments on both tools absorb unreported assigned tests as
@@ -31,6 +38,8 @@ All notable changes to this project will be documented in this file.
 - BREAKING: Java package root migrated from `io.github.ljubisap.smarttestpicker` to `com.sap.oss.smarttestpicker`. Consumers extending public APIs must update their imports.
 
 ### Fixed
+- A method-level disabled parameterized test template is recorded as `SKIPPED` on the Maven
+  and Gradle ASM paths through the shared JUnit adapter.
 - Maven version detection uses injected RuntimeInformation rather than the maven-core manifest.
 - Invocation-owned Maven JaCoCo agent directories are cleaned when the session finishes, without
   changing the project's execution-data file.

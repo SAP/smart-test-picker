@@ -6,7 +6,7 @@ generated-code filtering, exceptional control flow and lifecycle boundaries can 
 which edges each collector records. Do not use equality between collectors as a
 correctness requirement.
 
-Gradle defaults to ASM; Maven defaults to JACOCO. Select one collector per mapping
+Both tools default to ASM for schema-v3; Maven schema-v1/v2 defaults to JACOCO. Select one collector per mapping
 invocation. Both use the production sources admitted by their build integration,
 including supported cross-module dependencies. See [compatibility](compatibility.md)
 and the [configuration reference](configuration-reference.md).
