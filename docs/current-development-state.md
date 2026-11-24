@@ -12,7 +12,7 @@ assignments only narrow that selection and rejects a partial set of overloads sh
 The CLI joins complete shards for one execution target and loads the published map for explicit PR
 selection. It does not discover tests or produce shard plans.
 
-ASM is the Gradle default; Maven's collector default is JaCoCo. Both prepared ASM paths derive their
+ASM is the schema-v3 default on both tools; Maven schema-v1/v2 defaults to JaCoCo. Both prepared ASM paths derive their
 production scope, enforce code-source boundaries, and reject zero instrumentation. An otherwise
 valid completed ASM fragment can absorb unreported assigned identities as `COLLECTION_FAILED`
 with an audit. Those tests are mandatory while present at head. Missing whole shards still prevent

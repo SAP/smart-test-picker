@@ -10,10 +10,12 @@ core works without any agent, with extension autodetection on or off. Inactive
 components ignore even an invalid `smartTestPicker.coverageCollector` value.
 
 For active collection, `smartTestPicker.coverageCollector=ASM|JACOCO` selects the
-collector; absent/blank selection defaults to JaCoCo. Schema-v3 mapping preparation
+collector; absent/blank selection defaults to ASM for schema-v3 mapping. Schema-v3 mapping preparation
 sets activation and selection in Surefire/Failsafe. Legacy/manual mapping profiles
 must explicitly enable collection; an output directory alone does not activate it.
-For prepared ASM mapping, select `-DsmartTestPicker.coverageCollector=ASM`.
+Maven schema-v1/v2 flows support only JaCoCo and retain it as their default.
+For schema-v3 JaCoCo mapping, select `-DsmartTestPicker.coverageCollector=JACOCO`;
+`-DsmartTestPicker.coverageCollector=ASM` remains an explicit equivalent of the default.
 Package prefixes are derived from compiled production outputs unless explicitly overridden.
 Preparation supplies activation and attaches the agent automatically after fork
 validation. Core remains silent in active ASM mode.
@@ -22,7 +24,9 @@ Managed Maven bootstrap propagates the selected value (user property, then proje
 property, then JVM property) and injects core only for JaCoCo. Automatic ASM
 attachment belongs exclusively to mapping preparation, not managed selection.
 ASM fragment finalization and reactor aggregation use the evidence contract below.
-Managed selected execution also explicitly activates its core evidence collection.
+Managed selected execution also explicitly activates its core evidence collection and retains
+its JaCoCo default; it is not a mapping invocation. Manually activated core collection likewise
+retains its own JaCoCo default.
 Active JaCoCo without its runtime still fails closed with the existing error
 message. See [the activation correction and validation](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/maven-asm-03-fix/REPORT.md).
 
@@ -47,8 +51,7 @@ supported prepared path. Per-fork merging remains deferred. See the
 
 ### Prepared ASM attachment
 
-With an existing schema-v3 shard assignment, matching revision/shard inputs and
-compiled production outputs from the exact-head preparation build:
+With an existing schema-v3 shard assignment and matching revision/shard inputs:
 
 ```sh
 mvn com.sap.oss.smart-test-picker:smart-test-picker-maven:0.3.0-SNAPSHOT:prepare-reactor-executable-mapping \
@@ -58,7 +61,8 @@ mvn com.sap.oss.smart-test-picker:smart-test-picker-maven:0.3.0-SNAPSHOT:prepare
 ```
 
 Do not add a manual STP `-javaagent` argument. With no includes property, preparation
-derives package prefixes from compiled reactor production classes. Maven's collected
+compiles the active reactor and then derives package prefixes from its production classes.
+An empty assignment does not require compilation or derived scope. Maven's collected
 project model also identifies reactor dependencies omitted by `-pl`: their installed
 main JARs supply packages and allowed code sources. Install the exact head first;
 third-party dependencies and test JARs are not scanned. No scope is inferred from
@@ -171,6 +175,13 @@ Absorbed identities are coverage owners in evidence, not proof of physical execu
 no successful evidence output. This does not add
 per-fork merging or ClassSource-only Vintage support.
 
+Known ASM limitation: a Vintage runner can report a test with only a `ClassSource`, without a
+`MethodSource` identifying its Java method. Such a test may execute successfully but remains
+unmapped as `COLLECTION_FAILED` after assignment absorption, with an `unsupported-identity`
+diagnostic. The same limitation applies to Gradle ASM. Assigned identities still present at head
+remain mandatory in selection. Disabled parameterized method templates with a `MethodSource`,
+even without generated invocations, are instead positively recorded as `SKIPPED`.
+
 ## Coordinates
 
 ```xml
@@ -221,7 +232,11 @@ narrowing filter. Provider differentials cover Surefire and Failsafe 3.2.5, 3.5.
 This changes earlier inventories: Surefire no longer inventories tests it would not run, Failsafe
 follows its own selection, and assignments accepted before this validation may now be rejected.
 Preparation compiles reactor test classes before validating all assigned targets, before any test
-execution or assignment-filter installation. Existing ASM scope and fork guards still run first.
+execution or assignment-filter installation. Fork guards, the collector manifest check and explicit
+ASM include validation run before compilation; compiled-class scope derivation runs afterwards.
+Identical production/test output directories and default-package production classes are rejected
+before tests run. Zero instrumented classes is rejected at finalization from the agent diagnostic,
+after tests ran, and leaves no accepted aggregate.
 An identity outside the effective selection rejects preparation with its target and identity.
 After validation, preparation pins exact method-name filters, so a literal project `includes`,
 `test` or `includesFile` cannot add unassigned tests. Original exclusion decisions participate in

@@ -32,7 +32,7 @@ the Java sources and generated Maven help descriptor by `verifyReadinessDocument
 | `maven:aggregate-reactor-coverage-fragment:testTarget` | test | Legacy test-target label or execution target supplied by orchestration. User property: `smartTestPicker.testTarget`. | 2, 3 |
 | `maven:generate-coverage-fragment` | not applicable | Converts JaCoCo sessions or validates and finalizes ASM fragments, including audited assignment absorption. | 2, 3 (ASM only 3) |
 | `maven:generate-coverage-fragment:assignmentFile` | ${env.STP_MAPPING_TESTS_FILE} | Revision-bound executable shard assignment; preparation may only narrow each target's effective selection. User property: `smartTestPicker.testsFile`. | 2, 3 (ASM only 3) |
-| `maven:generate-coverage-fragment:coverageCollector` | JACOCO | Choose ASM or JACOCO for explicitly activated collection; Maven defaults to JACOCO. User property: `smartTestPicker.coverageCollector`. | 2, 3 (ASM only 3) |
+| `maven:generate-coverage-fragment:coverageCollector` | ASM (schema 3), JACOCO (legacy) | Choose ASM or JACOCO for explicitly activated collection. User property: `smartTestPicker.coverageCollector`. | 2, 3 (ASM only 3) |
 | `maven:generate-coverage-fragment:evidenceOutput` | ${project.build.directory}/execution-evidence-v1.json | Execution-evidence output path, separate from the coverage fragment. User property: `smartTestPicker.evidenceOutput`. | 2, 3 (ASM only 3) |
 | `maven:generate-coverage-fragment:execDir` | ${project.build.directory}/jacoco | Directory containing per-test JaCoCo session execution data. | 2, 3 (ASM only 3) |
 | `maven:generate-coverage-fragment:executionTarget` | unset | Canonical build execution target that owns the fragment's test identities. User property: `smartTestPicker.executionTarget`. | 2, 3 (ASM only 3) |
@@ -79,7 +79,7 @@ the Java sources and generated Maven help descriptor by `verifyReadinessDocument
 | `maven:generate-report:sourceDir` | ${project.basedir}/src/main/java | Production source directory used to render source coverage reports. | legacy |
 | `maven:generate-reports` | not applicable | Maven Mojo that converts per-test JaCoCo .exec files into XML reports. Equivalent of the Gradle generateSmartReports task. Scans for session_*.exec files produced by the per-test JaCoCo instrumentation and generates one XML report per test. Usage: mvn smart-test-picker:generate-reports | legacy, 2, 3 (JACOCO; skips ASM) |
 | `maven:generate-reports:classesDir` | ${project.build.outputDirectory} | Compiled production classes directory. | legacy, 2, 3 (JACOCO; skips ASM) |
-| `maven:generate-reports:coverageCollector` | JACOCO | Choose ASM or JACOCO for explicitly activated collection; Maven defaults to JACOCO. User property: `smartTestPicker.coverageCollector`. | legacy, 2, 3 (JACOCO; skips ASM) |
+| `maven:generate-reports:coverageCollector` | ASM (schema 3), JACOCO (legacy) | Choose ASM or JACOCO for explicitly activated collection. User property: `smartTestPicker.coverageCollector`. | legacy, 2, 3 (JACOCO; skips ASM) |
 | `maven:generate-reports:execDir` | ${project.build.directory}/jacoco | Directory containing per-test session_*.exec files. | legacy, 2, 3 (JACOCO; skips ASM) |
 | `maven:generate-reports:reactorProjects` | ${reactorProjects} | Read-only Maven injection: active reactor projects. | legacy, 2, 3 (JACOCO; skips ASM) |
 | `maven:generate-reports:reportDir` | ${project.build.directory}/jacoco-xml | Output directory for generated XML reports. | legacy, 2, 3 (JACOCO; skips ASM) |

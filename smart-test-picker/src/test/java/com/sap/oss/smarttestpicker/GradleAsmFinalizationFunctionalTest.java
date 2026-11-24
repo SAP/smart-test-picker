@@ -28,6 +28,33 @@ class GradleAsmFinalizationFunctionalTest {
 
 	@TempDir Path temporary;
 
+	@Test
+	void disabledParameterizedTemplateIsPositiveNonExecution() throws Exception {
+		Path project = fixture(false);
+		Path sources = Path.of(System.getProperty("stp.test.source.root"), "smart-test-picker-maven",
+				"src/test/fixtures/schema-v3-reactor/module-a/src");
+		write(project, "src/main/java/a/AValue.java", Files.readString(sources.resolve("main/java/a/AValue.java")));
+		write(project, "src/test/java/a/ATests.java", Files.readString(sources.resolve("test/java/a/ATests.java")));
+		write(project, "assignment.json", """
+			{"version":1,"revision":"finalization-revision","shardId":"finalization-shard","tests":[
+			"gradle::test::a.ATests#parameterized(java.lang.String)",
+			"gradle::test::a.ATests#disabledParameterized(java.lang.String)",
+			"gradle::test::a.ATests#disabledOrdinary"]}
+			""");
+		run(project, false, "none");
+		var fragment = aggregate(project);
+		assertTrue(fragment.collectionCompleted());
+		assertEquals(Set.of("gradle::test::a.ATests#parameterized(java.lang.String)"),
+				fragment.tests().keySet().stream().map(Object::toString).collect(java.util.stream.Collectors.toSet()));
+		assertEquals(java.util.Map.of(
+				"gradle::test::a.ATests#disabledParameterized(java.lang.String)", "SKIPPED",
+				"gradle::test::a.ATests#disabledOrdinary", "SKIPPED"),
+				fragment.unmapped().stream().collect(java.util.stream.Collectors.toMap(
+						u -> u.test().toString(), u -> u.reason().name())));
+		assertFalse(Files.readString(project.resolve("build/stp/coverage/_test/finalization-shard/fragment.json"))
+				.contains("assignmentAbsorption"));
+	}
+
 	@ParameterizedTest
 	@ValueSource(booleans = {false, true})
 	void validMappingsAreAccepted(boolean twoTasks) throws Exception {
@@ -41,6 +68,40 @@ class GradleAsmFinalizationFunctionalTest {
 		assertTrue(fragment.unmapped().isEmpty());
 		assertFalse(fragment.setupScopes().isEmpty());
 		assertTrue(fragment.tests().values().stream().allMatch(c -> c.coveredClasses().equals(Set.of("example.Service"))));
+	}
+
+	@Test
+	void asmClassSourceOnlyVintageIdentityRemainsUnmapped() throws Exception {
+		Path project = fixture(false);
+		Path maven = Path.of(System.getProperty("stp.test.source.root"), "smart-test-picker-maven/src/test");
+		write(project, "src/test/java/a/ClassSourceOnlyTest.java",
+				Files.readString(maven.resolve("resources/asm-identity/ClassSourceOnlyTest.java")));
+		write(project, "src/main/java/a/AValue.java",
+				Files.readString(maven.resolve("fixtures/schema-v3-reactor/module-a/src/main/java/a/AValue.java")));
+		Path build = project.resolve("build.gradle");
+		Files.writeString(build, Files.readString(build) + """
+			dependencies {
+			 testImplementation 'junit:junit:4.13.2'
+			 testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.9.3'
+			}
+			""");
+		write(project, "assignment.json", """
+			{"version":1,"revision":"finalization-revision","shardId":"finalization-shard",
+			"tests":["gradle::test::a.ClassSourceOnlyTest#architecture_rule"]}
+			""");
+		run(project, false, "none");
+		assertTrue(Files.readString(project.resolve("build/test-results/test/TEST-a.ClassSourceOnlyTest.xml"))
+				.contains("name=\"architecture_rule\""));
+		var fragment = aggregate(project);
+		assertTrue(fragment.collectionCompleted());
+		assertTrue(fragment.tests().isEmpty());
+		assertEquals(List.of(new com.sap.oss.smarttestpicker.coverage.model.ExecutableUnmappedTest(
+				com.sap.oss.smarttestpicker.coverage.model.ExecutableTestIdentity.parse(
+						"gradle::test::a.ClassSourceOnlyTest#architecture_rule"),
+				com.sap.oss.smarttestpicker.coverage.model.UnmappedReason.COLLECTION_FAILED)), fragment.unmapped());
+		assertAudit(project, ":test", List.of("gradle::test::a.ClassSourceOnlyTest#architecture_rule"));
+		assertTrue(Files.readString(project.resolve("build/stp/coverage/_test/finalization-shard/agent-diagnostic.json"))
+				.contains("unsupported-identity"));
 	}
 
 	static Stream<Arguments> rejectedArtifacts() {

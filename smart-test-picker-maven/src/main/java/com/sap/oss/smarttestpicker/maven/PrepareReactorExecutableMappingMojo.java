@@ -102,32 +102,36 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 							completeInventory == null ? null : completeInventory.runnableTests());
 			// Validate the entire assignment before mutating configuration or starting tests.
 			for (var entry : modules.entrySet()) {
-				var selected = StpMavenLifecycleParticipant.selectedCollector(entry.getValue(), session.getUserProperties());
+				var selected = StpMavenLifecycleParticipant.selectedCollector(entry.getValue(), session.getUserProperties(), 3);
 				// A project property or CLI override must not bypass the orchestrator's frozen collector.
 				if (expectedCollector != null && !expectedCollector.isBlank()
 						&& selected != StpCollectorSelection.parse(expectedCollector))
 					throw new IllegalArgumentException("Mapping collector mismatch: manifest=" + expectedCollector
 							+ ", effective=" + selected + ", module=" + entry.getValue().getId());
 				if (!partitioned.get(entry.getKey()).isEmpty()
-						&& StpMavenLifecycleParticipant.selectedCollector(entry.getValue(), session.getUserProperties())
+						&& StpMavenLifecycleParticipant.selectedCollector(entry.getValue(), session.getUserProperties(), 3)
 						== StpCollectorSelection.ASM) {
 					AsmMappingForkGuard.validate(entry.getValue(), session, executionType);
 				}
 			}
 			boolean needsAgent = modules.entrySet().stream().anyMatch(entry -> !partitioned.get(entry.getKey()).isEmpty()
-					&& StpMavenLifecycleParticipant.selectedCollector(entry.getValue(), session.getUserProperties()) == StpCollectorSelection.ASM);
+					&& StpMavenLifecycleParticipant.selectedCollector(entry.getValue(), session.getUserProperties(), 3) == StpCollectorSelection.ASM);
 			boolean asmMapping = modules.values().stream().anyMatch(module ->
-					StpMavenLifecycleParticipant.selectedCollector(module, session.getUserProperties()) == StpCollectorSelection.ASM);
+					StpMavenLifecycleParticipant.selectedCollector(module, session.getUserProperties(), 3) == StpCollectorSelection.ASM);
 			// Preserve an explicitly blank CLI value so it cannot silently request derivation.
 			String requestedIncludes = session.getUserProperties().getProperty("smartTestPicker.asm.includes",
 					asmIncludes == null ? project.getProperties().getProperty("smartTestPicker.asm.includes") : asmIncludes);
-			var scope = asmMapping ? MavenAsmScope.resolve(session, reactorProjects, requestedIncludes, asmExcludes) : null;
-			if (scope != null) getLog().info("ASM mapping scope includes=" + scope.includes() + "; excludes=" + scope.excludes()
-					+ "; productionSources=" + scope.sources());
+			// Explicit scope is validated before compilation; derived scope needs compiled classes.
+			if (asmMapping) AsmMappingAttachment.prefixes(asmExcludes, false);
+			var scope = asmMapping && requestedIncludes != null
+					? MavenAsmScope.resolve(session, reactorProjects, requestedIncludes, asmExcludes) : null;
 			File agent = needsAgent ? resolveAgent() : null;
 			MavenJacocoMappingIsolation.install(session, reactorProjects, getLog());
 			if (!assignment.tests().isEmpty()) {
 				compileForSelection();
+				if (needsAgent && requestedIncludes == null) {
+					scope = MavenAsmScope.resolve(session, reactorProjects, null, asmExcludes);
+				}
 				var selection = new MavenProviderSelection(session, pluginManager, executionPlans, repositorySystem, getLog()::debug);
 				var violations = new java.util.ArrayList<String>();
 				for (var entry : modules.entrySet()) {
@@ -147,8 +151,10 @@ public final class PrepareReactorExecutableMappingMojo extends AbstractMojo {
 				}
 				if (!violations.isEmpty()) throw new IllegalArgumentException(String.join("\n", violations));
 			}
+			if (scope != null) getLog().info("ASM mapping scope includes=" + scope.includes() + "; excludes=" + scope.excludes()
+					+ "; productionSources=" + scope.sources());
 			for (var entry : modules.entrySet()) {
-				var collector = StpMavenLifecycleParticipant.selectedCollector(entry.getValue(), session.getUserProperties());
+				var collector = StpMavenLifecycleParticipant.selectedCollector(entry.getValue(), session.getUserProperties(), 3);
 				var backend = MavenCoverageCollectorBackend.selected(collector);
 				configure(entry.getValue(), entry.getKey(), partitioned.get(entry.getKey()), executionType, executionId, collector);
 				if (backend == MavenCoverageCollectorBackend.ASM && !partitioned.get(entry.getKey()).isEmpty()) {

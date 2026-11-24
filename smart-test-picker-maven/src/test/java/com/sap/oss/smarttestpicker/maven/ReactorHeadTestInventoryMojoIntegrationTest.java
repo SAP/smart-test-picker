@@ -3,6 +3,7 @@
 package com.sap.oss.smarttestpicker.maven;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -350,8 +351,27 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		Files.copy(fixture.resolve("module-b/target/stp/asm-agent-diagnostic.json"), saved.resolve("diagnostic.json"), StandardCopyOption.REPLACE_EXISTING);
 	}
 
+	@Test
+	void asmPreparedAttachmentDerivesAbsentScope(@TempDir Path temp) throws Exception {
+		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor")); initializeGit(fixture);
+		Path assignment = fixture.resolve("assignment.json");
+		Files.writeString(assignment, executableAssignment("maven:module-b::b.BTests#b2"));
+		Path output = fixture.resolve("target/derived-fragment.json");
+		Result result = maven(fixture, PLUGIN + "prepare-reactor-executable-mapping", "verify",
+				PLUGIN + "aggregate-reactor-coverage-fragment", "-DsmartTestPicker.schemaVersion=3",
+				"-DsmartTestPicker.testsFile=" + assignment, "-DsmartTestPicker.coverageCollector=ASM",
+				"-DsmartTestPicker.fragmentOutput=" + output,
+				"-DsmartTestPicker.evidenceOutput=" + fixture.resolve("target/derived-evidence.json"));
+		assertEquals(0, result.exitCode(), result.output());
+		var fragment = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(output));
+		assertTrue(fragment.collectionCompleted());
+		assertTrue(fragment.unmapped().isEmpty());
+		assertEquals(Set.of(ExecutableTestIdentity.parse("maven:module-b::b.BTests#b2")), fragment.tests().keySet());
+		assertEquals(Set.of("a.AValue", "b.BValue"), fragment.tests().values().iterator().next().coveredClasses());
+	}
+
 	@ParameterizedTest
-	@ValueSource(strings = { "absent", "", "  ", "," })
+	@ValueSource(strings = { "", "  ", "," })
 	void asmPreparedAttachmentRejectsMissingScope(String includes, @TempDir Path temp) throws Exception {
 		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor")); initializeGit(fixture);
 		Path assignment = fixture.resolve("assignment.json");
@@ -422,7 +442,7 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		Path assignment = fixture.resolve("assignment.json");
 		Files.writeString(assignment, executableAssignment("maven:module-a::a.ATests#a1", "maven:module-a::shared.SharedTest#same"));
 		Result result = maven(fixture, PLUGIN + "prepare-reactor-executable-mapping", "test",
-				"-DsmartTestPicker.testsFile=" + assignment, "-DforkCount=2");
+				"-DsmartTestPicker.testsFile=" + assignment, "-DforkCount=2", "-DsmartTestPicker.coverageCollector=JACOCO");
 		Path saved = Files.createDirectories(Path.of("build/maven-asm-04/jacoco-two-forks"));
 		Files.writeString(saved.resolve("maven.log"), result.output());
 		assertEquals(0, result.exitCode(), result.output());
@@ -516,6 +536,7 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		// Deliberately omit preparation/activation, but retain the real JaCoCo agent and output directories.
 		Files.createDirectories(module.resolve("target/jacoco-xml"));
 		Result collection = maven(fixture, "-pl", "module-a", "verify", "-Dtest=a.ATests#a1",
+				"-DsmartTestPicker.coverageCollector=JACOCO",
 				"-DsmartTestPicker.schemaVersion=3", "-DsmartTestPicker.executionTarget=maven:module-a",
 				"-DsmartTestPicker.moduleFragmentOutput=" + output, "-DsmartTestPicker.moduleEvidenceOutput=" + evidence);
 		assertEquals(0, collection.exitCode(), collection.output());
@@ -625,6 +646,7 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		Path fragment = fixture.resolve("module-a/target/stp/coverage-fragment-v3" + suffix + ".json");
 		Path evidence = fixture.resolve("module-a/target/stp/execution-evidence-v2" + suffix + ".json");
 		Result collection = maven(fixture, "-Pfailsafe", PLUGIN + "prepare-reactor-executable-mapping",
+				"-DsmartTestPicker.coverageCollector=JACOCO",
 				"verify", "-DsmartTestPicker.schemaVersion=3",
 				"-DsmartTestPicker.testsFile=" + assignment, "-DsmartTestPicker.revision=" + revision,
 				"-DsmartTestPicker.completeInventoryFile=" + inventoryFile,
@@ -669,6 +691,47 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		Files.copy(evidence, saved.resolve("evidence.json"), StandardCopyOption.REPLACE_EXISTING);
 		Files.writeString(saved.resolve("inventory.log"), discovery.output());
 		Files.writeString(saved.resolve("collection.log"), collectionLog);
+	}
+
+	@Test
+	void asmClassSourceOnlyVintageIdentityRemainsUnmapped(@TempDir Path temp) throws Exception {
+		Path fixture = copyFixture("schema-v3-reactor", temp.resolve("reactor"));
+		Path pom = fixture.resolve("module-a/pom.xml");
+		Files.writeString(pom, Files.readString(pom).replace("</dependencies>", """
+			<dependency><groupId>org.junit.vintage</groupId><artifactId>junit-vintage-engine</artifactId><version>5.9.3</version><scope>test</scope></dependency>
+			<dependency><groupId>junit</groupId><artifactId>junit</artifactId><version>4.13.2</version><scope>test</scope></dependency>
+			</dependencies>
+			"""));
+		try (var source = getClass().getResourceAsStream("/asm-identity/ClassSourceOnlyTest.java")) {
+			assertNotNull(source);
+			Files.copy(source, fixture.resolve("module-a/src/test/java/a/ClassSourceOnlyTest.java"));
+		}
+		initializeGit(fixture);
+		var identity = ExecutableTestIdentity.parse("maven:module-a::a.ClassSourceOnlyTest#architecture_rule");
+		Path assignment = fixture.resolve("assignment.json");
+		Files.writeString(assignment, executableAssignment(identity.toString()));
+		Path output = fixture.resolve("target/vintage-asm-fragment.json");
+		Result result = maven(fixture, PLUGIN + "prepare-reactor-executable-mapping", "verify",
+				PLUGIN + "aggregate-reactor-coverage-fragment", "-DsmartTestPicker.schemaVersion=3",
+				"-DsmartTestPicker.testsFile=" + assignment, "-DsmartTestPicker.fragmentOutput=" + output,
+				"-DsmartTestPicker.evidenceOutput=" + fixture.resolve("target/vintage-asm-evidence.json"));
+		assertEquals(0, result.exitCode(), result.output());
+		var report = javax.xml.parsers.DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(
+				fixture.resolve("module-a/target/surefire-reports/TEST-a.ClassSourceOnlyTest.xml").toFile());
+		assertEquals("1", report.getDocumentElement().getAttribute("tests"));
+		assertEquals(1, report.getElementsByTagName("testcase").getLength());
+		var reported = (org.w3c.dom.Element) report.getElementsByTagName("testcase").item(0);
+		assertEquals("a.ClassSourceOnlyTest", reported.getAttribute("classname"));
+		assertEquals("", reported.getAttribute("name"));
+		var fragment = new ExecutableCoverageFragmentCodec().deserialize(Files.readAllBytes(output));
+		assertTrue(fragment.collectionCompleted());
+		assertTrue(fragment.tests().isEmpty());
+		assertEquals(List.of(new com.sap.oss.smarttestpicker.coverage.model.ExecutableUnmappedTest(identity,
+				com.sap.oss.smarttestpicker.coverage.model.UnmappedReason.COLLECTION_FAILED)), fragment.unmapped());
+		assertTrue(Files.readString(fixture.resolve("module-a/target/stp/coverage-fragment-v3.json"))
+				.contains("ASSIGNED_TEST_NOT_REPORTED"));
+		assertTrue(Files.readString(fixture.resolve("module-a/target/stp/asm-agent-diagnostic.json"))
+				.contains("unsupported-identity"));
 	}
 
 	@Test
@@ -789,6 +852,7 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		Files.writeString(assignment, executableAssignment("maven:module-a::a.FailedCoverageTest#partial"));
 		Path fragmentPath = fixture.resolve("target/failed-fragment-v3.json");
 		Result result = maven(fixture, PLUGIN + "prepare-reactor-executable-mapping", "verify",
+				"-DsmartTestPicker.coverageCollector=JACOCO",
 				PLUGIN + "aggregate-reactor-coverage-fragment", "-Dmaven.test.failure.ignore=true",
 				"-DsmartTestPicker.schemaVersion=3", "-DsmartTestPicker.testsFile=" + assignment,
 				"-DsmartTestPicker.fragmentOutput=" + fragmentPath,
@@ -897,6 +961,7 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		Path assignment = fixture.resolve("assignment.json");
 		Files.writeString(assignment, executableAssignment("maven:module-a::a.ATests#a1"));
 		Result result = maven(fixture, "-Pliteral-jacoco-argline", PLUGIN + "prepare-reactor-executable-mapping",
+				"-DsmartTestPicker.coverageCollector=JACOCO",
 				"verify", PLUGIN + "aggregate-reactor-coverage-fragment", "-Dliteral.fixture.required=true",
 				"-DsmartTestPicker.schemaVersion=3", "-DsmartTestPicker.testsFile=" + assignment,
 				"-DsmartTestPicker.fragmentOutput=" + fixture.resolve("target/literal-fragment.json"),
@@ -918,6 +983,7 @@ class ReactorHeadTestInventoryMojoIntegrationTest {
 		Path assignment = fixture.resolve("assignment.json");
 		Files.writeString(assignment, executableAssignment("maven:module-a::a.ATests#a1"));
 		Result result = maven(fixture, "-Pno-jacoco-agent", PLUGIN + "prepare-reactor-executable-mapping", "test",
+				"-DsmartTestPicker.coverageCollector=JACOCO",
 				"-DsmartTestPicker.schemaVersion=3", "-DsmartTestPicker.testsFile=" + assignment);
 		assertTrue(result.exitCode() != 0, result.output());
 		assertTrue(result.output().contains("Active JaCoCo runtime is unavailable for STP mapping"), result.output());

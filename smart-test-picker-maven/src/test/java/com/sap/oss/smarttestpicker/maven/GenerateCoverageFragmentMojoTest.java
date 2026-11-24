@@ -113,6 +113,7 @@ class GenerateCoverageFragmentMojoTest
 				ExecutableShardAssignment.CURRENT_VERSION, new CoverageMapRevision("rev-1"), new ShardId("shard-1"),
 				Set.of(new ExecutableTestIdentity(target, identity)))));
 		GenerateCoverageFragmentMojo mojo = mojo(exec, reports, temp.resolve("fragment-v3.json"));
+		set(mojo, "coverageCollector", "JACOCO");
 		set(mojo, "schemaVersion", 3);
 		set(mojo, "executionTarget", target.toString());
 		set(mojo, "assignmentFile", assignment.toFile());
@@ -155,6 +156,7 @@ class GenerateCoverageFragmentMojoTest
 		Files.write(exec.resolve("session_failed.exec"), new byte[] { 1 });
 
 		GenerateCoverageFragmentMojo mojo = mojo(exec, reports, output);
+		set(mojo, "coverageCollector", "JACOCO");
 		set(mojo, "schemaVersion", 3);
 		set(mojo, "executionTarget", "maven:java-checks");
 		mojo.execute();

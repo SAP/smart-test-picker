@@ -34,7 +34,7 @@ final class MavenJacocoMappingIsolation extends AbstractExecutionListener {
     static void install(MavenSession session, List<MavenProject> projects, Log log) throws Exception {
         Map<String, File> destinations = new TreeMap<>();
         for (MavenProject project : projects) {
-            if (StpMavenLifecycleParticipant.selectedCollector(project, session.getUserProperties()) != StpCollectorSelection.JACOCO) continue;
+            if (StpMavenLifecycleParticipant.selectedCollector(project, session.getUserProperties(), 3) != StpCollectorSelection.JACOCO) continue;
             var plugin = project.getPlugin("org.jacoco:jacoco-maven-plugin");
             if (plugin != null) for (var execution : plugin.getExecutions()) {
                 if (execution.getGoals().contains("instrument")) throw new IllegalArgumentException(

@@ -35,6 +35,7 @@ The following rule governs code contributions:
 ## Local verification
 
 Use Java 17 or later and run `./gradlew test --rerun-tasks` for fresh module results.
+The test suites also require Maven 3.9.x on PATH: the Maven plugin integration tests and `PluginDefaultParityTest` call `mvn` and fail without it.
 Published classes must target Java 17 and compile against its API. Build publications and Javadoc
 locally with `stageReadinessArtifacts verifyReadinessJavadoc`; artifact verification uses an explicit
 non-SNAPSHOT test version as described in [artifact versioning](docs/artifact-versioning.md).

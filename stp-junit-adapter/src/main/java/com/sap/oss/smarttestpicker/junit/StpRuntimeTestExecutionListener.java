@@ -86,7 +86,9 @@ public final class StpRuntimeTestExecutionListener implements TestExecutionListe
 	@Override
 	public void executionSkipped(TestIdentifier identifier, String reason) {
 		if (runtime == null) return;
-		var skipped = identifier.isTest() ? java.util.List.of(identifier)
+		// Disabled method templates have no generated invocation children to report as skipped.
+		var skipped = identifier.isTest() || identifier.getSource().filter(MethodSource.class::isInstance).isPresent()
+				? java.util.List.of(identifier)
 				: testPlan == null ? java.util.List.<TestIdentifier>of()
 				: testPlan.getDescendants(identifier).stream().filter(TestIdentifier::isTest).toList();
 		recordNonExecuted(skipped, reason);

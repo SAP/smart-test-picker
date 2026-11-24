@@ -208,6 +208,13 @@ mapping task, which then orders per-test exec conversion, XML generation, and le
 ASM supplies class coverage, exact descriptor-aware method coverage, bounded supported setup scopes,
 and direct schema-v2 fragments.
 
+Known ASM limitation: Vintage tests reported with only a `ClassSource`, without a `MethodSource`,
+cannot be attributed to a logical method. In schema-v3 mapping they remain unmapped as
+`COLLECTION_FAILED` after assignment absorption, with an `unsupported-identity` diagnostic, even
+when the test passed. Maven ASM has the same limitation. These identities remain mandatory in
+selection while present at head. Disabled parameterized method templates with a `MethodSource`
+and no generated invocations are positively recorded as `SKIPPED`, not absorbed.
+
 The [capability verification](https://github.com/SAP/smart-test-picker/blob/2cf74c0466049cbf80fe1bf38ed794e113f9fbef/verification/stp-capabilities-01/REPORT.md) distinguishes
 these output properties from attribution soundness and records probes for all four backends.
 
